@@ -244,7 +244,7 @@ footer.site a:hover{color:var(--txt)}
     <div class="stats">
       <div class="stat"><div class="n" id="st-ch">100+</div><div class="l">LIVE CHANNELS</div></div>
       <div class="stat"><div class="n">10,000+</div><div class="l">MOVIES &amp; SERIES</div></div>
-      <div class="stat"><div class="n">20</div><div class="l">FAST SERVERS</div></div>
+      <div class="stat"><div class="n">7</div><div class="l">FAST SERVERS</div></div>
     </div>
     <div class="marqwrap"><div class="marq" id="marq"></div></div>
     <div class="gcard">
@@ -1115,23 +1115,10 @@ $("d-season").addEventListener("change", function(){ D.episode = 1; loadEpisodes
 function langQ(lang){ return lang && lang !== "auto" ? "?lang=" + lang : ""; }
 var SERVERS = [
   { n: "S1 VidLink", f: function(t, id, s, e, l){ return t === "movie" ? "https://vidlink.pro/movie/" + id + langQ(l) : "https://vidlink.pro/tv/" + id + "/" + s + "/" + e + langQ(l); } },
-  { n: "S2 VidSrc", f: function(t, id, s, e, l){ return t === "movie" ? "https://vidsrc.cc/v2/embed/movie/" + id + langQ(l) : "https://vidsrc.cc/v2/embed/tv/" + id + "/" + s + "/" + e + langQ(l); } },
-  { n: "S3 AutoEmbed", f: function(t, id, s, e, l){ return t === "movie" ? "https://autoembed.co/movie/tmdb/" + id + langQ(l) : "https://autoembed.co/tv/tmdb/" + id + "-" + s + "-" + e + langQ(l); } },
-  { n: "S4 Embed.su", f: function(t, id, s, e){ return t === "movie" ? "https://embed.su/embed/movie/" + id : "https://embed.su/embed/tv/" + id + "/" + s + "/" + e; } },
-  { n: "S5 MultiEmbed", f: function(t, id, s, e){ return t === "movie" ? "https://multiembed.mov/directstream.php?video_id=" + id + "&tmdb=1" : "https://multiembed.mov/directstream.php?video_id=" + id + "&tmdb=1&s=" + s + "&e=" + e; } },
   { n: "S6 2Embed", f: function(t, id, s, e){ return t === "movie" ? "https://www.2embed.cc/embed/" + id : "https://www.2embed.cc/embedtv/" + id + "&s=" + s + "&e=" + e; } },
-  { n: "S7 VidSrc.to", f: function(t, id, s, e){ return t === "movie" ? "https://vidsrc.to/embed/movie/" + id : "https://vidsrc.to/embed/tv/" + id + "/" + s + "/" + e; } },
-  { n: "S8 Videasy", f: function(t, id, s, e){ return t === "movie" ? "https://player.videasy.net/movie/" + id : "https://player.videasy.net/tv/" + id + "/" + s + "/" + e; } },
-  { n: "S9 Vidora", f: function(t, id, s, e){ return t === "movie" ? "https://vidora.su/movie/" + id : "https://vidora.su/tv/" + id + "/" + s + "/" + e; } },
-  { n: "S10 VidSrc XYZ", f: function(t, id, s, e){ return t === "movie" ? "https://vidsrc.xyz/embed/movie/" + id : "https://vidsrc.xyz/embed/tv/" + id + "/" + s + "/" + e; } },
-  { n: "S11 MoviesAPI", f: function(t, id, s, e){ return t === "movie" ? "https://www.moviesapi.vip/movie/" + id : "https://www.moviesapi.vip/tv/" + id + "/" + s + "/" + e; } },
-  { n: "S12 VidSrc Pro", f: function(t, id, s, e){ return t === "movie" ? "https://vidsrc.pro/embed/movie/" + id : "https://vidsrc.pro/embed/tv/" + id + "/" + s + "/" + e; } },
   { n: "S13 EmbedWave", f: function(t, id, s, e){ return t === "movie" ? "https://embedwave.cc/embed/movie/" + id : "https://embedwave.cc/embed/tv/" + id + "/" + s + "/" + e; } },
   { n: "S14 VidSpark", f: function(t, id, s, e){ return t === "movie" ? "https://www.vidspark.to/movie/" + id : "https://www.vidspark.to/tv/" + id + "/" + s + "/" + e; } },
-  { n: "S15 VidLux", f: function(t, id, s, e){ return t === "movie" ? "https://vidlux.xyz/embed/movie/" + id : "https://vidlux.xyz/embed/tv/" + id + "/" + s + "/" + e; } },
   { n: "S16 Vidy", f: function(t, id, s, e){ return t === "movie" ? "https://vidy.st/movie/" + id : "https://vidy.st/tv/" + id + "/" + s + "/" + e; } },
-  { n: "S17 Braflix", f: function(t, id, s, e){ return t === "movie" ? "https://braflix.dev/embed/movie/" + id : "https://braflix.dev/embed/tv/" + id + "/" + s + "/" + e; } },
-  { n: "S18 Vixsrc", f: function(t, id, s, e){ return t === "movie" ? "https://vixsrc.to/movie/" + id : "https://vixsrc.to/tv/" + id + "/" + s + "/" + e; } },
   { n: "S19 VidZee", f: function(t, id, s, e){ return t === "movie" ? "https://player.vidzee.wtf/embed/movie/" + id : "https://player.vidzee.wtf/embed/tv/" + id + "/" + s + "/" + e; } },
   { n: "S20 VidNest", f: function(t, id, s, e){ return t === "movie" ? "https://vidnest.fun/movie/" + id : "https://vidnest.fun/tv/" + id + "/" + s + "/" + e; } }
 ];
