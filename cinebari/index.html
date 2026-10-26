@@ -244,7 +244,7 @@ footer.site a:hover{color:var(--txt)}
     <div class="stats">
       <div class="stat"><div class="n" id="st-ch">100+</div><div class="l">LIVE CHANNELS</div></div>
       <div class="stat"><div class="n">10,000+</div><div class="l">MOVIES &amp; SERIES</div></div>
-      <div class="stat"><div class="n">14</div><div class="l">FAST SERVERS</div></div>
+      <div class="stat"><div class="n">20</div><div class="l">FAST SERVERS</div></div>
     </div>
     <div class="marqwrap"><div class="marq" id="marq"></div></div>
     <div class="gcard">
@@ -793,6 +793,7 @@ function buildHome(){
     });
   })();
   /* Because You Watched */
+  var cw = cwList();
   if(cw.length){
     var first = cw[0];
     api("/" + first.type + "/" + first.id + "/recommendations").then(function(j){
@@ -800,7 +801,7 @@ function buildHome(){
       if(!items.length) return;
       var el = shelfEl({ title: "🍿 Because You Watched “" + first.title + "”" });
       fillShelf(el, items, {});
-      var trend = host.children[cwEl ? 2 : (fl ? 1 : 0)];
+      var trend = host.children[host.querySelectorAll(".shelf.dyn").length];
       if(trend) host.insertBefore(el, trend.nextSibling); else host.appendChild(el);
     }).catch(function(){});
   }
@@ -1126,7 +1127,13 @@ var SERVERS = [
   { n: "S11 MoviesAPI", f: function(t, id, s, e){ return t === "movie" ? "https://www.moviesapi.vip/movie/" + id : "https://www.moviesapi.vip/tv/" + id + "/" + s + "/" + e; } },
   { n: "S12 VidSrc Pro", f: function(t, id, s, e){ return t === "movie" ? "https://vidsrc.pro/embed/movie/" + id : "https://vidsrc.pro/embed/tv/" + id + "/" + s + "/" + e; } },
   { n: "S13 EmbedWave", f: function(t, id, s, e){ return t === "movie" ? "https://embedwave.cc/embed/movie/" + id : "https://embedwave.cc/embed/tv/" + id + "/" + s + "/" + e; } },
-  { n: "S14 VidSpark", f: function(t, id, s, e){ return t === "movie" ? "https://www.vidspark.to/movie/" + id : "https://www.vidspark.to/tv/" + id + "/" + s + "/" + e; } }
+  { n: "S14 VidSpark", f: function(t, id, s, e){ return t === "movie" ? "https://www.vidspark.to/movie/" + id : "https://www.vidspark.to/tv/" + id + "/" + s + "/" + e; } },
+  { n: "S15 VidLux", f: function(t, id, s, e){ return t === "movie" ? "https://vidlux.xyz/embed/movie/" + id : "https://vidlux.xyz/embed/tv/" + id + "/" + s + "/" + e; } },
+  { n: "S16 Vidy", f: function(t, id, s, e){ return t === "movie" ? "https://vidy.st/movie/" + id : "https://vidy.st/tv/" + id + "/" + s + "/" + e; } },
+  { n: "S17 Braflix", f: function(t, id, s, e){ return t === "movie" ? "https://braflix.dev/embed/movie/" + id : "https://braflix.dev/embed/tv/" + id + "/" + s + "/" + e; } },
+  { n: "S18 Vixsrc", f: function(t, id, s, e){ return t === "movie" ? "https://vixsrc.to/movie/" + id : "https://vixsrc.to/tv/" + id + "/" + s + "/" + e; } },
+  { n: "S19 VidZee", f: function(t, id, s, e){ return t === "movie" ? "https://player.vidzee.wtf/embed/movie/" + id : "https://player.vidzee.wtf/embed/tv/" + id + "/" + s + "/" + e; } },
+  { n: "S20 VidNest", f: function(t, id, s, e){ return t === "movie" ? "https://vidnest.fun/movie/" + id : "https://vidnest.fun/tv/" + id + "/" + s + "/" + e; } }
 ];
 var P = null;
 var failedSrv = {};
@@ -1345,6 +1352,130 @@ document.addEventListener("click", function(e){
 function splashOff(){ var s = $("splash"); if(s) s.classList.add("off"); setTimeout(function(){ if(s) s.remove(); }, 700); }
 window.addEventListener("load", function(){ setTimeout(splashOff, 700); });
 setTimeout(splashOff, 2400);
+
+/* ---------------- 1-second ad gate (LOCAL, user-approved 2026-10-26) ---------------- */
+/* Every browsing feature/link click first shows a full-screen overlay clearly
+   labelled "Sponsored" for 1000 ms, then the original action runs. A second
+   click (or a Back/Forward popstate) during the gate replaces the pending
+   action and restarts the 1000 ms timer. No new ad network: the gate ad box
+   reuses the paced-ad script already in this file (massivesalad.com, as in
+   pacedAd()), and the Monetag In-Page Push tag (zone 12110899) already in
+   <head> keeps running globally. No Hilltop tag is added: zone 7546689 is
+   NOT in this website file, so it is not invented here.
+   Deliberately NOT gated, with reasons in the parent report: in-player
+   controls while the player is open (server buttons, Next Server, Try Again,
+   Next Episode, player episode buttons, audio/season selects, Report) because
+   gating them would put an ad over the video player / interrupt playback;
+   dismiss/close controls, inputs/selects, and modified/non-left clicks. */
+var __cbGateTimer = null, __cbGatePending = null, __cbGateBar = null, __cbGateAd = null, __cbGateEl = null;
+(function(){
+  var el = document.createElement("div");
+  el.id = "cb-adgate";
+  el.setAttribute("aria-hidden", "true");
+  el.style.cssText = "position:fixed;inset:0;z-index:5000000;background:rgba(5,9,20,.97);display:none;flex-direction:column;align-items:center;justify-content:center;gap:.7rem;text-align:center;padding:1.2rem;pointer-events:none";
+  var lab = document.createElement("div");
+  lab.textContent = "Sponsored \u2022 \u09ac\u09bf\u099c\u09cd\u099e\u09be\u09aa\u09a8";
+  lab.style.cssText = "font-weight:900;font-size:1.4rem;color:#f1f5f9";
+  var sub = document.createElement("div");
+  sub.textContent = "Opening\u2026 1 second \u2014 \u0996\u09c1\u09b2\u099b\u09c7\u2026 \u09e7 \u09b8\u09c7\u0995\u09c7\u09a8\u09cd\u09a1 \u0985\u09aa\u09c7\u0995\u09cd\u09b7\u09be \u0995\u09b0\u09c1\u09a8";
+  sub.style.cssText = "color:#94a3b8;font-weight:700;font-size:.98rem";
+  var track = document.createElement("div");
+  track.style.cssText = "width:min(320px,80vw);height:10px;background:#1c2a4a;border-radius:2rem;overflow:hidden";
+  var bar = document.createElement("div");
+  bar.style.cssText = "height:100%;width:0%;background:#e11d48";
+  track.appendChild(bar);
+  var ad = document.createElement("div");
+  ad.style.cssText = "width:min(360px,90vw);min-height:90px;margin-top:.4rem;padding:.4rem .6rem;border:1px solid #1c2a4a;border-radius:10px;background:#0e1730;text-align:left";
+  el.appendChild(lab); el.appendChild(sub); el.appendChild(track); el.appendChild(ad);
+  document.body.appendChild(el);
+  __cbGateEl = el; __cbGateBar = bar; __cbGateAd = ad;
+})();
+function __cbShowGate(fn){
+  if (__cbGateTimer) clearTimeout(__cbGateTimer);
+  __cbGatePending = fn;
+  if (__cbGateEl) __cbGateEl.style.display = "flex";
+  if (__cbGateBar){ __cbGateBar.style.transition = "none"; __cbGateBar.style.width = "0%"; void __cbGateBar.offsetWidth; __cbGateBar.style.transition = "width 1s linear"; __cbGateBar.style.width = "100%"; }
+  if (__cbGateAd){
+    __cbGateAd.innerHTML = "";
+    var tag = document.createElement("script");
+    tag.text = "(function(vwpym){\nvar d = document,\n    s = d.createElement('script'),\n    l = d.currentScript || d.scripts[d.scripts.length - 1];\ns.settings = vwpym || {};\ns.src = \"//massivesalad.com/b/XjVDs/d.GblM0RYxW/cI/Zebms9yuJZLULlbkGP/Tmcu1dNUD/YW2CORDLk/tmNwzuU-0zNIjOYh5tMTwC\";\ns.async = true;\ns.referrerPolicy = 'no-referrer-when-downgrade';\nl.parentNode.insertBefore(s, l);\n})({})";
+    __cbGateAd.appendChild(tag);
+  }
+  __cbGateTimer = setTimeout(function(){
+    if (__cbGateEl) __cbGateEl.style.display = "none";
+    __cbGateTimer = null;
+    var f = __cbGatePending; __cbGatePending = null;
+    if (f) f();
+  }, 1000);
+}
+function __cbCurView(){
+  var v = document.querySelector(".view.on");
+  return v ? v.id : "v-gate";
+}
+function __cbClosePlayerNow(){
+  try { if (srvWatch) { clearTimeout(srvWatch); srvWatch = null; } } catch(e){}
+  try { $("p-iframe").src = "about:blank"; } catch(e){}
+  try { $("v-player").classList.remove("on"); document.body.style.overflow = ""; P = null; } catch(e){}
+}
+/* History: wrap showView so browser Back/Forward have in-site states to gate. */
+var __cbOrigShowView = showView;
+showView = function(id){
+  if (window.__cbGatePopstate) { __cbOrigShowView(id); return; }
+  var cur = __cbCurView();
+  __cbOrigShowView(id);
+  if (cur !== id) { try { history.pushState({cb:1, view:id}, ""); } catch(e){} }
+};
+try { if (!history.state || !history.state.cb) history.replaceState({cb:1, view:__cbCurView()}, ""); } catch(e){}
+window.addEventListener("popstate", function(e){
+  var st = e ? e.state : null;
+  if (!st || !st.cb || !st.view) return;
+  var wasPlayer = false;
+  try { wasPlayer = $("v-player").classList.contains("on"); } catch(err){}
+  if (wasPlayer) __cbClosePlayerNow();
+  var target = st.view;
+  __cbShowGate(function(){
+    window.__cbGatePopstate = true;
+    try { __cbOrigShowView(target); } finally { window.__cbGatePopstate = false; }
+    try { refreshDyn(); } catch(err){}
+  });
+});
+/* Capture-phase click gate: runs before the site's own bubble handlers. */
+document.addEventListener("click", function(e){
+  if (window.__cbGateBypass) return;
+  if (e.defaultPrevented) return;
+  if (e.button !== undefined && e.button !== 0) return;
+  if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+  var t = e.target;
+  if (!t || !t.closest) return;
+  if (t.closest("input,select,textarea")) return;
+  if (t.closest('[aria-label="Dismiss sponsored content"]') || t.closest('button[title="Dismiss"]') || t.closest("#m-close")) return;
+  if (t.id === "modal") return;
+  if (t.closest(".mlogo") || t.id === "toast" || t.id === "splash") return;
+  if (t.closest("#cb-paced-ad")) return;
+  var inPlayer = !!t.closest("#v-player");
+  if (inPlayer){
+    var isClose = !!t.closest("#p-close");
+    var isSim = !!t.closest("[data-open]");
+    if (!isClose && !isSim) return;
+    if (isClose){
+      var tgt = D ? "v-details" : "v-movies";
+      __cbClosePlayerNow();
+      e.preventDefault(); e.stopPropagation();
+      __cbShowGate(function(){ showView(tgt); try { refreshDyn(); } catch(err){} });
+      return;
+    }
+    var simEl = t.closest("a,button");
+    if (!simEl) return;
+    __cbClosePlayerNow();
+    e.preventDefault(); e.stopPropagation();
+    __cbShowGate(function(){ window.__cbGateBypass = true; try { simEl.click(); } finally { window.__cbGateBypass = false; } });
+    return;
+  }
+  var el = t.closest("a,button");
+  if (!el) return;
+  e.preventDefault(); e.stopPropagation();
+  __cbShowGate(function(){ window.__cbGateBypass = true; try { el.click(); } finally { window.__cbGateBypass = false; } });
+}, true);
 })();
 </script>
 <style>body.cb-playing [data-cbforeign]{display:none!important}</style>
