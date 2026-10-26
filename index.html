@@ -5362,7 +5362,151 @@ async function fetchRSS(url){
   window.addEventListener('appinstalled',function(){bar.style.display='none';});
 })();
 </script>
+<script>
+/* ToolBari 1-second ad gate — expanded 2026-10-26 (user-approved):
+   EVERY internal link click (#/tool/, #/page/, #/cat/, #/) first shows a
+   clearly labelled Sponsored ad area for exactly 1000 ms, then opens the
+   requested destination. Reuses only the existing waitAdIframe() ad unit
+   already in this file; no new network, no popup/popunder, no fake button,
+   no off-screen/invisible element, no ad during processing.
+   Browser Back/Forward: a true PRE-navigation gate is not safely possible
+   in a hash SPA — reverting the hash after it changed would push/overwrite
+   history entries and trap Back/Forward in a loop (Back would return to
+   the page just left instead of moving further back). So Back/Forward
+   instead shows the same 1-second Sponsored overlay ON ARRIVAL at the new
+   page, with history untouched: every repeated Back/Forward press gets
+   its own fresh 1-second overlay, and navigation always actually happens.
+   The site-wide Monetag In-Page Push tag below is untouched. */
+(function(){
+  var pending=null, timer=null, overlay=null, slot=null, bar=null;
+  var fromGate=false;
+  function ensure(){
+    if(overlay) return;
+    overlay=document.createElement('div');
+    overlay.id='tb-adgate';
+    overlay.setAttribute('role','status');
+    overlay.setAttribute('aria-live','polite');
+    overlay.style.cssText='position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.72);padding:20px;';
+    var box=document.createElement('div');
+    box.style.cssText='background:#fff;border-radius:14px;max-width:360px;width:100%;padding:18px 16px 14px;text-align:center;';
+    var lab=document.createElement('div');
+    lab.style.cssText='font-size:12px;letter-spacing:1px;color:#666;text-transform:uppercase;';
+    lab.textContent='Sponsored \u2022 \u09ac\u09bf\u099c\u09cd\u099e\u09be\u09aa\u09a8';
+    var txt=document.createElement('p');
+    txt.style.cssText='margin:10px 0;font-size:16px;font-weight:700;';
+    txt.textContent='\u099f\u09c1\u09b2 \u0996\u09c1\u09b2\u099b\u09c7\u2026 \u09e7 \u09b8\u09c7\u0995\u09c7\u09a8\u09cd\u09a1 \u0985\u09aa\u09c7\u0995\u09cd\u09b7\u09be \u0995\u09b0\u09c1\u09a8';
+    slot=document.createElement('div');
+    slot.style.cssText='display:flex;justify-content:center;margin:8px 0;min-height:250px;';
+    var barWrap=document.createElement('div');
+    barWrap.style.cssText='background:#e5e7eb;border-radius:99px;height:10px;overflow:hidden;margin-top:8px;';
+    bar=document.createElement('div');
+    bar.style.cssText='height:100%;width:0%;background:#0b7cc0;';
+    barWrap.appendChild(bar);
+    box.appendChild(lab); box.appendChild(txt); box.appendChild(slot); box.appendChild(barWrap);
+    overlay.appendChild(box); document.body.appendChild(overlay);
+  }
+  function showOverlay(){
+    ensure();
+    slot.innerHTML='';
+    try{ if(typeof waitAdIframe==='function'){ slot.appendChild(waitAdIframe()); } }catch(e){}
+    overlay.style.display='flex';
+    if(bar){ bar.style.transition='none'; bar.style.width='0%'; void bar.offsetWidth; bar.style.transition='width 1s linear'; bar.style.width='100%'; }
+  }
+  function hideOverlay(){ if(overlay) overlay.style.display='none'; }
+  function openGate(target){
+    if(timer){ clearTimeout(timer); timer=null; }
+    showOverlay();
+    pending=target;
+    timer=setTimeout(function(){
+      hideOverlay(); timer=null;
+      var t=pending; pending=null;
+      if(t && location.hash!==t){ fromGate=true; location.hash=t; }
+    }, 1000);
+  }
+  function arrivalGate(){
+    if(timer){ clearTimeout(timer); timer=null; pending=null; }
+    showOverlay();
+    timer=setTimeout(function(){ hideOverlay(); timer=null; }, 1000);
+  }
+  document.addEventListener('click', function(e){
+    if(e.defaultPrevented) return;
+    if(e.button!==undefined && e.button!==0) return;
+    if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey) return;
+    if(!e.target || !e.target.closest) return;
+    if(e.target.closest('[data-fav]')) return;
+    var a=e.target.closest('a');
+    if(!a) return;
+    var href=a.getAttribute('href');
+    if(!href) return;
+    if(a.hasAttribute('download')) return;
+    if(href==='#') return;
+    if(href.charAt(0)!=='#' || href.slice(0,2)!=='#/') return;
+    if(a.target==='_blank') return;
+    e.preventDefault();
+    openGate(href);
+  }, false);
+  window.addEventListener('hashchange', function(){
+    if(fromGate){ fromGate=false; return; }
+    arrivalGate();
+  });
+})();
+</script>
 <!-- Monetag In-Page Push (zone 12092266) -->
 <script>(function(s){s.dataset.zone='12092266',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+<script>
+/* ToolBari SOFT ad-block notice — 2026-10-26 (local only, NOT a block):
+   If an ad blocker is clearly detected, show ONE small dismissible banner
+   asking the visitor to consider disabling it. The site stays FULLY usable
+   with the blocker on: no navigation delay, no tool gating, no new ad
+   network, no popup/popunder, no hidden element. Detection is conservative
+   on purpose: a transient bait element (common ad classes) is checked only
+   after window load + 2500 ms, so slow networks do NOT trigger the notice.
+   A domain-only blocker that does not hide the bait will simply not
+   trigger it — a false negative is preferred over a false positive.
+   Dismissal is session-level (sessionStorage) so it does not nag. */
+(function(){
+  try{ if(sessionStorage.getItem('tb_adblock_dismissed')==='1') return; }catch(e){}
+  function showNotice(){
+    if(document.getElementById('tb-adblock-notice')) return;
+    var n=document.createElement('div');
+    n.id='tb-adblock-notice';
+    n.setAttribute('role','note');
+    n.style.cssText='position:fixed;left:12px;right:12px;bottom:12px;z-index:9000;background:#fffbe6;border:1px solid #e5c07b;border-radius:12px;padding:12px 14px;box-shadow:0 4px 18px rgba(0,0,0,.18);font-size:14px;line-height:1.5;color:#222;';
+    var lab=document.createElement('div');
+    lab.style.cssText='font-size:11px;letter-spacing:1px;color:#666;text-transform:uppercase;font-weight:700;';
+    lab.textContent='বিজ্ঞাপন সংক্রান্ত নোটিশ • Ad notice';
+    var txt=document.createElement('p');
+    txt.style.cssText='margin:6px 0 0;';
+    txt.textContent='এই ফ্রি সাইটটি বিজ্ঞাপনে চলে — অ্যাড ব্লকার বন্ধ করলে সাইটটি ফ্রি থাকতে সাহায্য হবে। This free site runs on ads — disabling your ad blocker helps keep it free.';
+    var btn=document.createElement('button');
+    btn.type='button';
+    btn.textContent='✕ বন্ধ করুন';
+    btn.setAttribute('aria-label','নোটিশ বন্ধ করুন');
+    btn.style.cssText='margin-top:8px;background:#0b7cc0;color:#fff;border:0;border-radius:99px;padding:6px 14px;font-size:14px;cursor:pointer;';
+    btn.addEventListener('click',function(){ try{sessionStorage.setItem('tb_adblock_dismissed','1');}catch(e){} if(n.parentNode) n.parentNode.removeChild(n); });
+    n.appendChild(lab); n.appendChild(txt); n.appendChild(btn);
+    document.body.appendChild(n);
+  }
+  function check(){
+    var bait=document.createElement('div');
+    bait.id='tb-ad-probe';
+    bait.className='adsbox ad-banner';
+    bait.style.cssText='position:absolute;left:-9999px;width:1px;height:1px;';
+    document.body.appendChild(bait);
+    /* Only the computed display is trusted: blocker stylesheets hide ad
+       classes with display:none. offsetHeight is deliberately NOT used —
+       it can read 0 for non-blocker reasons in some engines. */
+    var blocked=false;
+    try{
+      var cs=window.getComputedStyle ? window.getComputedStyle(bait) : null;
+      if(cs && cs.display==='none') blocked=true;
+    }catch(e){}
+    if(bait.parentNode) bait.parentNode.removeChild(bait);
+    if(blocked) showNotice();
+  }
+  if(document.readyState==='complete'){ setTimeout(check,2500); }
+  else{ window.addEventListener('load',function(){ setTimeout(check,2500); }); }
+})();
+</script>
 </body>
 </html>
