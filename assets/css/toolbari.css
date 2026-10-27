@@ -906,3 +906,8 @@ body{background:#f4f6f4!important;color:#14231b!important}
 .card p{color:#4b5a51!important}
 .top{background:linear-gradient(135deg,#1e2438,#2aa5a0)!important}
 .top .logo b{color:#ffffff!important}
+
+/* TB-LIVE-LINK-FIX-2026-10-27: live screenshots - New Tools + Recently used links were pale yellow on white */
+.block a.tb-recent-link, .block a.tb-recent-link *, #newBlock a, .block #tbNewLinks a, .tb-recent-link{color:#14231b!important;background:#ffffff!important}
+.block a{color:#0a6e43!important}
+#tb-notice a{color:#0a6e43!important}
