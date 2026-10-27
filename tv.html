@@ -182,7 +182,7 @@ footer a{color:var(--sky);text-decoration:none;font-weight:700}
     <div class="empty" id="empty" style="display:none">No channels found.</div>
   </div>
   <!-- ONE TV Sponsored zone: visible, in normal page flow, OUTSIDE the player.
-       Shown on Home / folder-and-channel list screens only; hidden while playing. -->
+       Shown on Home screen ONLY; hidden on list screens and while playing. -->
   <section id="tv-ad" aria-label="Sponsored">
     <div class="tv-ad-label">Sponsored • বিজ্ঞাপন</div>
     <div id="tv-ad-slot"></div>
@@ -376,6 +376,7 @@ function openFolder(f){
   $("recentwrap").style.display = "none";
   $("resume").style.display = "none";
   $("list").style.display = "block";
+  syncTvAd();
   $("list-t").textContent = f === FAV_FOLDER ? "⭐ Favorites" : f;
   $("search").value = "";
   renderCorner();
@@ -456,7 +457,7 @@ function toast(t){
   clearTimeout(toastT);
   toastT = setTimeout(function(){ el.classList.remove("show"); }, 1700);
 }
-/* ---- TV Sponsored zone (ONE zone, Home/list only, never during playback) ----
+/* ---- TV Sponsored zone (ONE zone, Home ONLY, never during playback, never on list) ----
    Monetag In-Page Push, CineBari zone 12110899 — same dataset.zone + src as the
    CineBari movie site tag, loaded lazily into #tv-ad-slot, once only.
    The zone itself is hidden whenever #player is on; it is never positioned
@@ -478,7 +479,8 @@ function loadTvAd(){
 function syncTvAd(){
   var z = $("tv-ad");
   if(!z) return;
-  if($("player").classList.contains("on")){ z.style.display = "none"; }
+  var homeOn = $("home") && $("home").style.display !== "none";
+  if($("player").classList.contains("on") || !homeOn){ z.style.display = "none"; }
   else { z.style.display = "block"; loadTvAd(); }
 }
 function armHide(){
