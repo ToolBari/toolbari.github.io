@@ -991,3 +991,7 @@ html:not([data-theme="dark"]) .tb-note,html:not([data-theme="dark"]) .tb-example
 
 /* TB-HIDE-EMPTY-TOP-2026-10-28: hide empty top containers (blank bar above Breaking) */
 body>div:empty{display:none!important}
+
+/* TB-ALL-VIEW-FORM-2026-10-28: every tool/post view - ALL form controls, options, outputs and results dark on white (light mode) */
+html:not([data-theme="dark"]) .view input,html:not([data-theme="dark"]) .view textarea,html:not([data-theme="dark"]) .view select,html:not([data-theme="dark"]) .view option,html:not([data-theme="dark"]) .view output,html:not([data-theme="dark"]) .view .result,html:not([data-theme="dark"]) .view .result *,html:not([data-theme="dark"]) .view .tb-out,html:not([data-theme="dark"]) .view .tb-out *{color:#14231b!important;background:#ffffff!important}
+html:not([data-theme="dark"]) .view input::placeholder,html:not([data-theme="dark"]) .view textarea::placeholder{color:#4b5a51!important}
