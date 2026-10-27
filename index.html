@@ -3277,6 +3277,7 @@ Science"></textarea></div><div class="field"><label>Study hours per day</label><
   <h2>Frequently Asked Questions (FAQ)</h2>
   <details class="faqit"><summary>Is ToolBari completely free?</summary><p>Yes. All 429 tools on ToolBari are completely free — no sign-up, login or payment needed.</p></details><details class="faqit"><summary>Are my files safe?</summary><p>Most tools run entirely inside your browser — your images, PDFs or text are not uploaded to any of our servers. Some tools, like the video downloader, use external services; what each tool does is explained in detail in the Privacy Policy.</p></details><details class="faqit"><summary>Do all tools work on mobile?</summary><p>Most tools work on Android, iPhone, tablets and computers. A few tools, like voice typing and screen recording, need a desktop Chrome/Edge browser — this is noted on the relevant tool’s page.</p></details><details class="faqit"><summary>What tools does ToolBari have?</summary><p>Video downloaders and converters, image tools (compress, resize, PDF), QR generator, CV builder, calculators, prayer times, weather, government services, live news and share market prices — 429 tools in total.</p></details><details class="faqit"><summary>Is ToolBari free to use?</summary><p>Yes. All 429 tools on ToolBari are completely free — no sign-up, no login, no payment. Most tools run entirely in your browser, so your files stay private.</p></details>
 </section>
+<section class="view" id="view-browser-info-checker"><div class="tool-head"><a class="backlink" href="#/">← All Tools</a><h1>Browser Info Checker</h1><p>Show your browser user agent, platform, language, cores and online status.</p></div><div class="panel"><div class="btnrow"><button class="btn" id="bi-go">Refresh Info</button></div><div class="result" id="bi-out"></div><p class="note">Your browser info is shown only on your device — nothing is sent anywhere.</p></div></section>
 <footer>
   <div class="wrap foot-in">
     <div class="foot-top">
@@ -4342,6 +4343,8 @@ $('#fb-go').addEventListener('click',()=>{
  const url=`https://graph.facebook.com/${id}/picture`;
  $('#fb-img').src=url;$('#fb-dl').href=url;$('#fb-wrap').classList.add('show');
 });
+
+(function(){function biFill(){var o=document.getElementById('bi-out');if(!o)return;var n=navigator;o.innerHTML='<ul><li><strong>User agent:</strong> '+n.userAgent+'</li><li><strong>Platform:</strong> '+n.platform+'</li><li><strong>Language:</strong> '+n.language+'</li><li><strong>Languages:</strong> '+(n.languages||[]).join(', ')+'</li><li><strong>Online:</strong> '+(n.onLine?'Yes':'No')+'</li><li><strong>Cookies enabled:</strong> '+(n.cookieEnabled?'Yes':'No')+'</li><li><strong>CPU cores:</strong> '+(n.hardwareConcurrency||'unknown')+'</li><li><strong>Touch support:</strong> '+('ontouchstart' in window?'Yes':'No')+'</li></ul>';}window.addEventListener('hashchange',biFill);var b=document.getElementById('bi-go');if(b)b.addEventListener('click',biFill);biFill();})();
 </script>
 
 <script src="assets/js/tb-image-compressor.js"></script>
