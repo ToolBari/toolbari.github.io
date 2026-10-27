@@ -1043,3 +1043,10 @@ html[data-theme="dark"] body,html[data-theme="dark"] .view,html[data-theme="dark
 html[data-theme="dark"] p,html[data-theme="dark"] li,html[data-theme="dark"] span,html[data-theme="dark"] small,html[data-theme="dark"] label,html[data-theme="dark"] h1,html[data-theme="dark"] h2,html[data-theme="dark"] h3,html[data-theme="dark"] summary,html[data-theme="dark"] details{color:#ffffff!important}
 html[data-theme="dark"] input,html[data-theme="dark"] textarea,html[data-theme="dark"] select,html[data-theme="dark"] option{color:#ffffff!important;background:#1e293b!important}
 html[data-theme="dark"] input::placeholder,html[data-theme="dark"] textarea::placeholder{color:#cbd5e1!important}
+
+/* TB-SHB-COLORS-2026-10-28: footer share buttons by brand */
+.shb.shwa{background:#25d366!important;color:#ffffff!important;border-color:#25d366!important}
+.shb.shfb{background:#1877f2!important;color:#ffffff!important;border-color:#1877f2!important}
+.shb.shtg{background:#229ed9!important;color:#ffffff!important;border-color:#229ed9!important}
+.shb.shx{background:#000000!important;color:#ffffff!important;border-color:#000000!important}
+.sharebar a[href*="wa.me"]{background:#25d366!important;color:#ffffff!important;border-color:#25d366!important}
