@@ -1075,3 +1075,6 @@ a.shb.shx span, .shb.shx span{color:#ffffff!important}
 .card .star.on{color:#ff9f2e!important;text-shadow:0 0 8px rgba(255,159,46,.6)!important}
 #favBlock .sec-head h2{color:#14231b!important}
 #favBlock .sec-head span{color:#4b5a51!important}
+
+/* TB-TOAST-ABOVE-NAV-2026-10-28: toast sits above bottom nav, never hidden behind it */
+.toast{bottom:90px!important;z-index:99999!important}
