@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
 Sitemap: https://toolbari.github.io/sitemap.xml

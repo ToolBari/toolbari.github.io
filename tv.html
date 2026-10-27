@@ -11,14 +11,22 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>CineBari Live TV — 173+ Free TV Channels | Bangla, Sports, News, Movies</title>
-<meta name="description" content="Watch 173+ live TV channels free on CineBari — Bangladeshi news, Islamic, Kolkata Bangla, sports, movies, music, documentary, kids and international. Simple, full screen, no sign-up.">
+<title>CineBari Live TV — 173+ Free TV Channels | Bangla, Sports, Movies</title>
+<meta name="description" content="Watch 173+ live TV channels free on CineBari — Bangladeshi news, Islamic, Kolkata Bangla, sports, movies, music, documentary, kids and international.">
 <link rel="canonical" href="https://toolbari.github.io/tv.html">
+<meta name="robots" content="index, follow">
 <meta property="og:title" content="CineBari Live TV — 173+ Free TV Channels">
 <meta property="og:description" content="173+ live TV channels free — Bangla news, sports, movies, music, Islamic, kids and international. No sign-up.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://toolbari.github.io/tv.html">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://toolbari.github.io/cinebari/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CineBari Live TV — 173+ Free TV Channels">
+<meta name="twitter:description" content="173+ live TV channels free — Bangla news, sports, movies, music, Islamic, kids and international. No sign-up.">
+<meta name="twitter:image" content="https://toolbari.github.io/cinebari/og.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"CineBari Live TV","url":"https://toolbari.github.io/tv.html","description":"Watch 173+ live TV channels free on CineBari — Bangladeshi news, Islamic, Kolkata Bangla, sports, movies, music, documentary, kids and international.","inLanguage":"en"}</script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{--bg:#020617;--card:#0f172a;--line:#1e293b;--txt:#f1f5f9;--dim:#94a3b8;--rose:#e11d48;--sky:#0ea5e9;--gold:#f59e0b}
@@ -137,6 +145,11 @@ main{padding:1rem .9rem 3rem;max-width:1100px;margin:0 auto}
 .srow{display:flex;gap:.5rem;flex-wrap:wrap}
 .srow .toolbtn.on{background:var(--sky);border-color:var(--sky);color:#fff}
 footer{border-top:1px solid var(--line);padding:1.1rem .9rem 1.6rem;text-align:center;color:var(--dim);font-size:.9rem;line-height:1.7}
+/* TV Sponsored zone — ONE visible, in-flow zone, outside the player; hidden while playing */
+#tv-ad{background:var(--card);border:1px solid var(--line);border-radius:1.1rem;padding:.8rem 1rem;margin:1rem 0 0}
+#tv-ad .tv-ad-label{font-size:.78rem;font-weight:800;letter-spacing:.06em;color:var(--dim);text-transform:uppercase;margin-bottom:.5rem}
+#tv-ad-slot{min-height:60px}
+#tv-ad-slot:empty{display:none}
 footer a{color:var(--sky);text-decoration:none;font-weight:700}
 </style>
 </head>
@@ -168,6 +181,12 @@ footer a{color:var(--sky);text-decoration:none;font-weight:700}
     <div class="grid" id="grid"></div>
     <div class="empty" id="empty" style="display:none">No channels found.</div>
   </div>
+  <!-- ONE TV Sponsored zone: visible, in normal page flow, OUTSIDE the player.
+       Shown on Home / folder-and-channel list screens only; hidden while playing. -->
+  <section id="tv-ad" aria-label="Sponsored">
+    <div class="tv-ad-label">Sponsored • বিজ্ঞাপন</div>
+    <div id="tv-ad-slot"></div>
+  </section>
 </main>
 <footer>
   🎬 Looking for movies &amp; series? <a href="https://toolbari.github.io/cinebari/">Open CineBari Movies</a><br>
@@ -437,6 +456,31 @@ function toast(t){
   clearTimeout(toastT);
   toastT = setTimeout(function(){ el.classList.remove("show"); }, 1700);
 }
+/* ---- TV Sponsored zone (ONE zone, Home/list only, never during playback) ----
+   Monetag In-Page Push, CineBari zone 12110899 — same dataset.zone + src as the
+   CineBari movie site tag, loaded lazily into #tv-ad-slot, once only.
+   The zone itself is hidden whenever #player is on; it is never positioned
+   off-screen, never 0-size/opacity, never over the video, never a popup. */
+var tvAdLoaded = false;
+function loadTvAd(){
+  if(tvAdLoaded) return;
+  var slot = $("tv-ad-slot");
+  if(!slot) return;
+  tvAdLoaded = true;
+  var s = document.createElement("script");
+  s.dataset.zone = "12110899";
+  s.src = "https://nap5k.com/tag.min.js";
+  s.async = true;
+  /* Graceful failure: ad fails -> hide the zone, page continues normally. */
+  s.onerror = function(){ var z = $("tv-ad"); if(z) z.style.display = "none"; };
+  slot.appendChild(s);
+}
+function syncTvAd(){
+  var z = $("tv-ad");
+  if(!z) return;
+  if($("player").classList.contains("on")){ z.style.display = "none"; }
+  else { z.style.display = "block"; loadTvAd(); }
+}
 function armHide(){
   clearTimeout(hideTimer);
   $("strip").classList.remove("hide");
@@ -567,6 +611,7 @@ function playYt(embedUrl, label){
   $("ytgest").classList.add("on");
   showTapWatch(false);
   $("player").classList.add("on");
+  syncTvAd();
   document.body.style.overflow = "hidden";
   buildStrip();
   markStrip();
@@ -597,6 +642,7 @@ function play(i, fromFailover){
   markStrip();
   armHide();
   showTapWatch(false);
+  syncTvAd();
   osd((i + 1) + ". " + esc(c.name) + '<span class="sm">' + esc(groupEn(c.group)) + "</span>");
   startUrl(c.url, c.name);
 }
@@ -610,6 +656,7 @@ function playCustom(url){
   buildStrip();
   armHide();
   showTapWatch(false);
+  syncTvAd();
   osd("Network Stream");
   startUrl(url, "Network Stream");
 }
@@ -627,6 +674,7 @@ function closePlayer(){
   $("player").classList.remove("on");
   document.body.style.overflow = "";
   renderHome();
+  syncTvAd();
 }
 function zap(d){
   if(!chs.length) return;
@@ -730,6 +778,7 @@ $("btn-back").addEventListener("click", function(){
   $("home").style.display = "block";
   curFolder = null;
   renderHome();
+  syncTvAd();
 });
 $("search").addEventListener("input", function(){ renderGrid(this.value.trim()); });
 $("btn-close").addEventListener("click", closePlayer);
@@ -878,6 +927,8 @@ fetch(LIVE).then(function(r){ return r.json(); }).then(function(j){
   if(start >= 0) play(start);
 }).catch(function(){
   $("folders").innerHTML = '<div class="empty">Could not load the channel list. Check your connection and reopen.</div>';
+  /* No playback will open here, so Home is the visible screen: show the zone. */
+  syncTvAd();
 });
 })();
 </script>
