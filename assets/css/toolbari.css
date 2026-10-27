@@ -1064,3 +1064,14 @@ html[data-theme="dark"] .top .logo small{color:#cbd5e1!important}
 /* TB-X-VISIBLE-2026-10-28: X share button white on black, always visible */
 a.shb.shx, .shb.shx{color:#ffffff!important;background:#000000!important;-webkit-text-fill-color:#ffffff!important}
 a.shb.shx span, .shb.shx span{color:#ffffff!important}
+
+/* TB-DESK-MOB-FIX-2026-10-28: desktop wide, mobile full-width, bottom nav never covers content */
+@media(min-width:601px){.wrap{max-width:1100px!important}.grid{grid-template-columns:repeat(3,1fr)!important}}
+@media(min-width:900px){.grid{grid-template-columns:repeat(4,1fr)!important}}
+@media(max-width:600px){.wrap{max-width:100%!important;padding:0 12px!important}.grid{grid-template-columns:repeat(2,1fr)!important;gap:10px!important}body{padding-bottom:80px!important}footer{padding-bottom:80px!important}.panel{padding:14px!important}}
+
+/* TB-STAR-FIX-2026-10-28: favorite star off=grey, on=bright orange filled */
+.card .star{color:#b9c6bc!important}
+.card .star.on{color:#ff9f2e!important;text-shadow:0 0 8px rgba(255,159,46,.6)!important}
+#favBlock .sec-head h2{color:#14231b!important}
+#favBlock .sec-head span{color:#4b5a51!important}
