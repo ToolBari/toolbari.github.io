@@ -988,3 +988,6 @@ html[data-theme="dark"] a{color:#38bdf8!important}
 /* TB-FINAL-TEXT-2026-10-28: light mode - every text element dark, bars dark, no pale/white text on light backgrounds */
 html:not([data-theme="dark"]) p,html:not([data-theme="dark"]) li,html:not([data-theme="dark"]) span,html:not([data-theme="dark"]) label,html:not([data-theme="dark"]) small,html:not([data-theme="dark"]) h1,html:not([data-theme="dark"]) h2,html:not([data-theme="dark"]) h3,html:not([data-theme="dark"]) h4{color:#14231b!important}
 html:not([data-theme="dark"]) .tb-note,html:not([data-theme="dark"]) .tb-example{color:#14231b!important}
+
+/* TB-HIDE-EMPTY-TOP-2026-10-28: hide empty top containers (blank bar above Breaking) */
+body>div:empty{display:none!important}
