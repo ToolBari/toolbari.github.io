@@ -970,3 +970,10 @@ html[data-theme="dark"] .btn{background:linear-gradient(135deg,#25d366,#128c7e)!
 html[data-theme="dark"] a{color:#38bdf8!important}
 
 
+
+/* TB-VIEW-TEXT-2026-10-27: tool view pages (e.g. Video Downloader) - all text dark and readable */
+.view,.view h1,.view h2,.view h3,.view p,.view label,.view small,.view li,.tool-head h1,.tool-head p,.panel,.panel p,.panel label,.panel small,.result{color:#14231b!important;background:#ffffff!important}
+.view .result{color:#14231b!important}
+.view input,.view textarea,.view select{color:#14231b!important;background:#ffffff!important}
+.view a{color:#0a6e43!important}
+.view .tb-note,.view .tb-example{background:#fff8e1!important;color:#14231b!important}
