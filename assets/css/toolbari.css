@@ -1,7 +1,7 @@
 
 :root{
   --bg:#f4f6f4; --surface:#ffffff; --surface2:#eef2ee; --ink:#14231b; --ink2:#4b5a51;
-  --line:#dbe3dc; --brand:#0b7a4b; --brand-d:#065c38; --accent:#e8a00c; --accent-soft:#fdf3d7;
+  --line:#dbe3dc; --brand:#0b7a4b; --brand-d:#065c38; --accent:#d99a16; --accent-soft:#fdf3d7;
   --danger:#c0392b; --ok:#0b7a4b; --radius:14px; --shadow:0 2px 14px rgba(10,40,25,.08);
   color-scheme:light;
 }
@@ -39,7 +39,7 @@ header.top{position:sticky;top:0;z-index:50;background:var(--surface);border-bot
 .searchbar{max-width:560px;margin:22px auto 0;position:relative}
 .searchbar input{width:100%;padding:20px 18px 20px 48px;font-size:19px;border:2px solid var(--line);border-radius:999px;background:var(--surface);outline:none;box-shadow:var(--shadow)}
 .searchbar input:focus{border-color:var(--brand)}
-.searchbar svg{position:absolute;left:17px;top:50%;transform:translateY(-50%);width:20px;height:20px;fill:var(--ink2)}
+.searchbar svg{position:absolute;left:17px;top:30px;transform:translateY(-50%);width:20px;height:20px;fill:var(--ink2)}
 .hero-stats{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:18px}
 .chip{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 13px;font-size:13.5px;color:var(--ink2);font-weight:600}
 .chip b{color:var(--brand)}
@@ -298,7 +298,7 @@ header.top{background:linear-gradient(90deg,#0f766e,#16a34a,#0ea5e9);border-bott
 header.top .logo,header.top nav a{color:#fff}
 header.top nav a:hover{background:rgba(255,255,255,.2);color:#fff}
 .logo-mark{background:linear-gradient(135deg,#f59e0b,#ec4899,#8b5cf6)!important;width:48px!important;height:48px!important;border-radius:14px!important;box-shadow:0 4px 14px rgba(0,0,0,.25)}
-.card .ic{width:56px!important;height:56px!important;font-size:28px;border-radius:16px!important;background:linear-gradient(135deg,#dbeafe,#fef3c7,#dcfce7)!important;box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.card .ic{width:56px!important;height:56px!important;font-size:28px;border-radius:16px!important;background:#e6f2ea!important;box-shadow:0 4px 12px rgba(0,0,0,.1)}
 h1,h2{border-bottom:2px solid #dbe3dc;padding-bottom:6px}
 .btn{border-radius:999px!important;box-shadow:0 4px 14px rgba(0,0,0,.18)!important}
 .card{background:#ffffff;box-shadow:0 4px 16px rgba(10,40,25,.08)}
@@ -309,7 +309,7 @@ h1,h2{border-bottom:2px solid #dbe3dc;padding-bottom:6px}
 .searchbar{max-width:640px}
 .searchbar input{padding:20px 20px 20px 52px;font-size:19px}
 html[data-theme="dark"]{--bg:#0e1511;--surface:#16211a;--surface2:#1c2a21;--ink:#e8f0ea;--ink2:#a7b8ac;--line:#2a3a30;--brand:#2fbb77;--brand-d:#25a362;--accent:#f0b52a;--accent-soft:#2c2410;--shadow:0 2px 14px rgba(0,0,0,.4);color-scheme:dark}
-html[data-theme="light"]{--bg:#f4f6f4;--surface:#ffffff;--surface2:#eef2ee;--ink:#14231b;--ink2:#4b5a51;--line:#dbe3dc;--brand:#0b7a4b;--brand-d:#065c38;--accent:#e8a00c;--accent-soft:#fdf3d7;color-scheme:light}
+html[data-theme="light"]{--bg:#f4f6f4;--surface:#ffffff;--surface2:#eef2ee;--ink:#14231b;--ink2:#4b5a51;--line:#dbe3dc;--brand:#0b7a4b;--brand-d:#065c38;--accent:#d99a16;--accent-soft:#fdf3d7;color-scheme:light}
 body.tb-fs-small{font-size:14px}
 body.tb-fs-large{font-size:18px}
 .tb-util{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
@@ -365,7 +365,7 @@ input:focus,select:focus,textarea:focus{border-color:#0ea5e9;box-shadow:0 0 0 3p
 :root{--ink2:#3f5146}
 html[data-theme="light"]{--bg:#f4f6f4;--surface:#ffffff;--surface2:#eef2ee;--ink:#14231b;--ink2:#3f5146;--line:#dbe3dc;--brand:#0b7a4b;--brand-d:#065c38;--accent-soft:#fdf3d7;color-scheme:light}
 html[data-theme="dark"]{--bg:#0e1511;--surface:#16211a;--surface2:#1c2a21;--ink:#eef4f0;--ink2:#c8d6cb;--line:#2a3a30;--brand:#2fbb77;--brand-d:#25a362;--accent-soft:#2c2410;--shadow:0 2px 14px rgba(0,0,0,.4);color-scheme:dark}
-header.top{background:#0b7a4b !important}
+header.top{background:#cfe6f5 !important}
 html[data-theme="dark"] header.top{background:#16211a !important;border-bottom-color:#2a3a30}
 .logo-mark{background:#0b7a4b !important}
 .card .ic{background:var(--surface2) !important}
@@ -373,3 +373,536 @@ h1{background:none !important;-webkit-background-clip:initial !important;backgro
 html[data-theme="dark"] h1{color:var(--brand) !important}
 html[data-theme="dark"] .tb-trend-card,html[data-theme="dark"] .tb-trend-card *{background:#16211a !important;color:#eef4f0 !important;border-color:#2a3a30 !important}
 @media (prefers-color-scheme:dark){html:not([data-theme="light"]) .tb-trend-card{background:#16211a !important;color:#eef4f0 !important;border-color:#2a3a30 !important}}
+
+/* TB-PHONE-FIX-2026-10-27: stop overlap + dark-mode white-section ghost text */
+@media (prefers-color-scheme:dark){
+ #tb-notice,.tb-how-site,.tb-small-slide .tb-slide{background:#16211a!important;color:#eef4f0!important;border-color:#2a3a30!important}
+ .tb-small-slide .tb-slide span{color:#2fbb77!important}
+ .tb-small-slide .tb-dots button{background:#2a3a30}
+}
+@media(max-width:600px){
+ .hero h1{line-height:1.25}
+ .hero p{line-height:1.5}
+ .card{overflow:hidden}
+ .card h3{line-height:1.3;overflow-wrap:break-word}
+ .card p{overflow-wrap:break-word}
+ .foot-all{font-size:14px;line-height:1.7;overflow-wrap:break-word}
+ .ticker{font-size:12.5px}
+ .tk-view{white-space:nowrap}
+}
+
+/* TB-BOTH-FIX-2026-10-27: mobile + desktop, no overlap on either */
+.card,.block,section{overflow-wrap:break-word}
+.card h3,.card p{overflow:hidden}
+.ticker{overflow:hidden}
+.tk-view{overflow:hidden}
+@media(min-width:1024px){
+ .hero h1{line-height:1.25}
+ .grid{gap:16px}
+ .card{padding:20px 18px}
+ .foot-all{font-size:15px;line-height:1.7}
+}
+
+/* TB-COLOR-PREMIUM-2026-10-27: one green family, no rainbow, soft premium */
+:root{--brand:#0a6e43;--brand-d:#065c38}
+.card .ic{background:#e6f2ea!important}
+@media (prefers-color-scheme:dark){
+ :root{--brand:#34c07e}
+ .card .ic{background:#1c2a21!important}
+}
+
+/* TB-BUTTON-SYSTEM-2026-10-27: all buttons one system */
+.btn,button.tb-sug,.tb-cat-card{border-radius:12px;font-weight:700}
+.btn{min-height:48px;padding:12px 22px}
+button.tb-sug{min-height:44px;padding:10px 16px;background:var(--surface);border:1.5px solid var(--line);color:var(--ink)}
+button.tb-sug:hover{border-color:var(--brand);color:var(--brand)}
+@media(max-width:600px){
+ .btn,button.tb-sug{min-height:48px}
+ .tb-cat-card{min-height:64px}
+}
+
+/* TB-LAZY-SCROLL-2026-10-27: cards render only when scrolled into view, no overload */
+.card{content-visibility:auto;contain-intrinsic-size:110px}
+
+/* TB-CAT-MOBILE-2026-10-27: categories as clean horizontal scroll on mobile, not a messy wall */
+@media(max-width:600px){
+ .tb-cat-bar{display:flex;overflow-x:auto;gap:10px;padding-bottom:6px;scroll-snap-type:x mandatory}
+ .tb-cat-card{flex:0 0 128px;scroll-snap-align:start;text-align:center}
+ .tb-cat-ic{font-size:24px}
+ .cat-title{font-size:16px;margin:18px 0 8px}
+}
+
+
+/* TB-BIG-CARDS-2026-10-27: big mobile cards + distinct colourful icons per tool */
+@media(max-width:600px){
+ .card{padding:16px 14px}
+ .card h3{font-size:15px}
+ .card p{font-size:13px}
+ .card .ic{width:42px;height:42px;border-radius:11px}
+}
+.card .ic svg{fill:var(--ic,#0a6e43)}
+.card:nth-child(9n+1) .ic{background:#fee2e2;--ic:#e11d48}
+.card:nth-child(9n+2) .ic{background:#e0f2fe;--ic:#0ea5e9}
+.card:nth-child(9n+3) .ic{background:#ede9fe;--ic:#7c3aed}
+.card:nth-child(9n+4) .ic{background:#d1fae5;--ic:#059669}
+.card:nth-child(9n+5) .ic{background:#fef3c7;--ic:#d97706}
+.card:nth-child(9n+6) .ic{background:#e2e8f0;--ic:#334155}
+.card:nth-child(9n+7) .ic{background:#fce7f3;--ic:#db2777}
+.card:nth-child(9n+8) .ic{background:#cffafe;--ic:#0284c7}
+.card:nth-child(9n+9) .ic{background:#ecfccb;--ic:#65a30d}
+
+/* TB-SMALL-CARDS-2026-10-27: feature cards small, 2 per row on mobile, small text */
+@media(max-width:600px){
+ .grid{grid-template-columns:1fr 1fr!important;gap:10px!important}
+ .card{padding:12px 10px}
+ .card h3{font-size:14px}
+ .card p{font-size:12.5px}
+ .card .ic{width:36px;height:36px;border-radius:10px}
+ .card .ic svg{width:20px;height:20px}
+}
+
+/* TB-ALL-CARDS-2026-10-27: every item looks like a feature card */
+.tb-cat-card,button.tb-sug{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)}
+.tb-cat-card{padding:12px 10px}
+
+/* TB-FOOT-CARDS-2026-10-27: footer items also as small feature cards */
+.foot-cat-links a,.foot-pop a,#footPopular a,#footCats a{display:inline-block;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin:4px 4px 4px 0;box-shadow:var(--shadow);text-decoration:none;color:var(--ink);font-size:13.5px}
+
+/* TB-RECENT-CARDS-2026-10-27: Recently used items as small feature cards, no raw ids */
+#tbRecentGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tb-recent-link{display:block;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 10px;box-shadow:var(--shadow);text-decoration:none;color:var(--ink);font-size:14px}
+
+/* TB-HEADING-BEAUTY-2026-10-27: heading + its items look tidy and premium */
+.cat-title,.block h2{border-left:4px solid var(--brand);padding-left:10px;margin:20px 0 12px}
+.cat-title small,.block h2 small{color:var(--ink2);font-weight:600}
+
+/* TB-JOSS-2026-10-27: more premium look */
+.card{border-radius:16px;box-shadow:0 4px 16px rgba(10,40,25,.10);transition:transform .15s ease,box-shadow .15s ease}
+.card:active{transform:scale(.97);box-shadow:0 2px 8px rgba(10,40,25,.12)}
+.cat-title,.block h2{font-size:18px;letter-spacing:.2px}
+.tb-cat-card{border-radius:14px}
+
+/* TB-HEADER-BUTTONS-2026-10-27: header like mobile app buttons */
+.hdr{background:#ffffff;border:1px solid rgba(0,0,0,.04);border-radius:24px;margin:10px 10px 0;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.menu-btn{background:var(--surface2);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:10px 12px}
+.brand{background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:8px 12px}
+
+/* TB-PHONE-FRAME-2026-10-27: site feels like inside an Android phone */
+@media(min-width:601px){
+ body{background:#dbe3dc}
+ .wrap{max-width:430px;margin:0 auto;background:var(--bg);border-left:1px solid var(--line);border-right:1px solid var(--line);box-shadow:0 0 30px rgba(0,0,0,.15);min-height:100vh}
+}
+
+/* TB-ALL-BUTTONS-2026-10-27: header to footer, everything button-shaped; big where needed, small where needed */
+.hdr a,.m-menu a,#tbBottomNav a,.backlink,.sharebar a,.foot-cat-links a{border-radius:12px;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow);padding:10px 12px;text-decoration:none;display:inline-block}
+#tbBottomNav a{padding:12px 10px}
+.btn{min-height:48px;padding:12px 22px;border-radius:12px}
+button.tb-sug,.tb-cat-card{border-radius:12px}
+
+/* TB-CLEAR-LABELS-2026-10-27: customers understand at a glance */
+.card h3{overflow-wrap:break-word}
+.card p{overflow:visible;white-space:normal;font-size:13px;line-height:1.45;color:var(--ink2)}
+
+/* TB-MOBILE-DARK-VISIBLE-2026-10-27: dark button visible on mobile header */
+@media(max-width:860px){.tb-util{display:flex;width:100%;margin-top:8px}}
+
+/* TB-UTIL-GREEN-2026-10-27: header buttons match green header, not cheap white */
+.tb-util button{background:#065c38;color:#ffffff;border:1px solid #065c38;box-shadow:0 2px 8px rgba(0,0,0,.20)}
+.tb-util button:active{background:#0a6e43}
+
+/* TB-AZ-BUTTONS-2026-10-27: A-Z floating links become small buttons */
+#azBlock p a{display:inline-block;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:6px 10px;margin:3px;box-shadow:var(--shadow);text-decoration:none;color:var(--ink);font-size:13.5px}
+#azBlock p b{display:inline-block;background:var(--brand);color:#fff;border-radius:8px;padding:4px 10px;margin:3px}
+
+/* TB-GLASS-2026-10-27: liquid-glass buttons like the reference image */
+.card,.tb-cat-card,button.tb-sug,#azBlock p a,.tb-recent-link,.tb-trend-card{background:linear-gradient(135deg,rgba(255,255,255,.70),rgba(220,240,230,.45));backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1.5px solid rgba(255,255,255,.90);box-shadow:0 12px 32px rgba(10,40,25,.18),inset 0 1px 0 rgba(255,255,255,.85),inset 0 -1px 0 rgba(255,255,255,.40);border-radius:24px}
+.card .ic{background:linear-gradient(135deg,rgba(255,255,255,.85),rgba(200,230,210,.55));border:1px solid rgba(255,255,255,.8);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 2px 8px rgba(10,40,25,.10)}
+
+/* TB-GLASS-ALL-2026-10-27: every button/card in glass style */
+.hdr,.btn,.menu-btn,#tbBottomNav a,.m-menu a,.backlink,.tb-util button,.brand,.tb-spon-view,.panel{background:linear-gradient(135deg,rgba(255,255,255,.70),rgba(220,240,230,.45))!important;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1.5px solid rgba(255,255,255,.90)!important;box-shadow:0 12px 32px rgba(10,40,25,.18),inset 0 1px 0 rgba(255,255,255,.85)!important;border-radius:24px!important}
+.tb-util button{color:#14231b!important}
+
+/* TB-PASTEL-WIDGET-2026-10-27: soft pastel widget style like reference image */
+body{background:#f1f1f1}
+.card,.tb-cat-card,button.tb-sug,#azBlock p a,.tb-recent-link,.tb-trend-card{background:#ffffff;border:1px solid rgba(0,0,0,.04);border-radius:24px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.card:nth-child(4n+1) .ic{background:#fde8e8;--ic:#e57373}
+.card:nth-child(4n+2) .ic{background:#e3ecfd;--ic:#6a8fd6}
+.card:nth-child(4n+3) .ic{background:#e6f4ea;--ic:#5aa469}
+.card:nth-child(4n+4) .ic{background:#fdf0d5;--ic:#d9a441}
+
+/* TB-PASTEL-ALL-2026-10-27: whole site in pastel widget style */
+.hdr,.btn,.menu-btn,#tbBottomNav a,.m-menu a,.backlink,.tb-util button,.brand{background:#ffffff!important;border:1px solid rgba(0,0,0,.04)!important;border-radius:24px!important;box-shadow:0 10px 30px rgba(0,0,0,.08)!important;backdrop-filter:none!important}
+.tb-util button{color:#14231b!important}
+
+/* TB-RAISED-2026-10-27: buttons feel raised/lifted */
+.card,.tb-cat-card,button.tb-sug,#azBlock p a,.tb-recent-link,.tb-trend-card,.btn{box-shadow:0 14px 28px rgba(0,0,0,.16),0 4px 8px rgba(0,0,0,.10),inset 0 1px 0 rgba(255,255,255,.9)!important;transform:translateY(-1px)}
+.card:active,.btn:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(0,0,0,.12)!important}
+
+/* TB-HEADER-GREEN2-2026-10-27: header deep green, white text */
+.hdr{background:#0a6e43!important;color:#ffffff!important}
+.hdr .logo b,.hdr .logo small,.hdr a{color:#ffffff!important}
+.hdr .menu-btn{background:rgba(255,255,255,.15)!important;color:#ffffff!important;border-color:rgba(255,255,255,.35)!important}
+
+/* TB-HEADER-PASTEL2-2026-10-27: header like reference image - light, soft */
+.hdr{background:#f1f1f1!important;color:#14231b!important}
+.top .logo b,.top .logo small,.top a,.hdr .logo b,.hdr .logo small,.hdr a{color:#14231b!important}
+.top .menu-btn,.hdr .menu-btn{background:#ffffff!important;color:#14231b!important;border-color:rgba(0,0,0,.06)!important}
+
+/* TB-HEADER-SKY-2026-10-27: header light sky blue, button system */
+.top,.hdr{background:#cfe6f5!important;color:#14231b!important;border-radius:24px!important;box-shadow:0 10px 30px rgba(100,150,200,.25)!important}
+.top .logo b,.top .logo small,.top a,.hdr .logo b,.hdr .logo small,.hdr a{color:#14231b!important}
+.top .menu-btn,.hdr .menu-btn,.hdr .tb-util button{background:#ffffff!important;color:#14231b!important;border:1px solid rgba(0,0,0,.06)!important;border-radius:12px!important;box-shadow:0 4px 12px rgba(100,150,200,.20)!important}
+
+/* TB-CAT-SERIAL-2026-10-27: category cards in neat serial grid, slightly bigger */
+.tb-cat-bar{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;overflow:visible}
+.tb-cat-card{padding:14px 12px;font-size:15px;min-height:72px}
+.tb-cat-card .tb-cat-ic{font-size:28px}
+.tb-cat-card .tb-cat-name{font-size:15px}
+
+/* TB-SKY-THEME-2026-10-27: green dropped, sky-blue theme */
+:root{--brand:#3a8fd9;--brand-d:#2a6fb3;--accent:#f0a030;--accent-soft:#fff3d6}
+html[data-theme="dark"]{--brand:#6ab0e8;--brand-d:#4a90d9}
+body{background:#eef6fc}
+
+/* TB-PRESS-2026-10-27: button press effect */
+.card,.tb-cat-card,button.tb-sug,#azBlock p a,.tb-recent-link,.tb-trend-card,.btn,.menu-btn,.tb-util button{transition:transform .12s ease,box-shadow .12s ease}
+.card:active,.tb-cat-card:active,button.tb-sug:active,#azBlock p a:active,.tb-recent-link:active,.tb-trend-card:active,.btn:active,.menu-btn:active,.tb-util button:active{transform:scale(.96)!important;box-shadow:0 2px 6px rgba(0,0,0,.15)!important}
+
+/* TB-ALL-FEATURE-CARDS2-2026-10-27: every remaining item as feature card */
+.chip,.foot-cat-links a,.foot-all-body a,.sharebar a,.m-nav a,.tb-spon-view a,.hero .chip{background:#ffffff!important;border:1px solid rgba(0,0,0,.05)!important;border-radius:16px!important;box-shadow:0 10px 24px rgba(0,0,0,.08)!important;padding:8px 12px!important;display:inline-flex!important;align-items:center;gap:6px;text-decoration:none!important}
+
+/* TB-HEADING-SKY-2026-10-27: heading subtext sky, readable in dark mode */
+.hero h1 .hl,.cat-title,h1{color:#2a6fb3!important}
+html[data-theme="dark"] .hero h1 .hl,html[data-theme="dark"] .cat-title,html[data-theme="dark"] h1{color:#9ccdf5!important}
+html[data-theme="dark"] .hero p,html[data-theme="dark"] .sec-head span{color:#c8d6cb!important}
+
+/* TB-GRADIENT-SITE-2026-10-27: whole site gradient+glass like reference style, ToolBari branding only */
+body{background:linear-gradient(135deg,#e8eaff 0%,#dbeafe 45%,#e0d4f7 100%)!important}
+.card,.tb-cat-card,button.tb-sug,#azBlock p a,.tb-recent-link,.tb-trend-card{background:linear-gradient(135deg,rgba(255,255,255,.75),rgba(230,225,255,.45))!important;border:1px solid rgba(255,255,255,.8)!important;border-radius:22px!important;box-shadow:0 14px 30px rgba(90,80,200,.18)!important}
+.hero{background:linear-gradient(135deg,#c7d2fe,#a5b4fc,#e9d5ff);border-radius:24px;padding:20px}
+
+/* TB-CLAY-COLORS-2026-10-27: dashboard image pastel color combination */
+body{background:#fdf6ec!important}
+.card:nth-child(5n+1){background:#ffe9d6!important}
+.card:nth-child(5n+2){background:#d6e8d8!important}
+.card:nth-child(5n+3){background:#d6e4f0!important}
+.card:nth-child(5n+4){background:#ffe9b8!important}
+.card:nth-child(5n+5){background:#ffd6d6!important}
+.tb-cat-card:nth-child(5n+1){background:#ffe9d6!important}
+.tb-cat-card:nth-child(5n+2){background:#d6e8d8!important}
+.tb-cat-card:nth-child(5n+3){background:#d6e4f0!important}
+.tb-cat-card:nth-child(5n+4){background:#ffe9b8!important}
+.tb-cat-card:nth-child(5n+5){background:#ffd6d6!important}
+
+/* TB-CLAY-ALL-2026-10-27: A to Z everything in clay pastel style */
+.top,.hdr,.hero,.block,.panel,.foot,.tb-spon-view,.sharebar,.backlink{background:#fdf6ec!important}
+.btn,.menu-btn,.tb-util button{background:#ffffff!important;color:#14231b!important;border:1px solid rgba(0,0,0,.05)!important;border-radius:20px!important;box-shadow:0 10px 24px rgba(0,0,0,.10)!important}
+.tb-cat-card,.card,button.tb-sug,#azBlock p a,.tb-recent-link,.tb-trend-card,.chip{border-radius:22px!important;box-shadow:0 14px 28px rgba(0,0,0,.12),inset 0 2px 0 rgba(255,255,255,.8)!important}
+
+/* TB-DARK-CLAY-2026-10-27: dark mode readable with clay style */
+html[data-theme="dark"] body{background:#141a22!important}
+html[data-theme="dark"] .card,html[data-theme="dark"] .tb-cat-card,html[data-theme="dark"] button.tb-sug,html[data-theme="dark"] #azBlock p a,html[data-theme="dark"] .tb-recent-link,html[data-theme="dark"] .tb-trend-card{background:#232e3a!important;color:#eef4f0!important}
+html[data-theme="dark"] .card h3,html[data-theme="dark"] .card p,html[data-theme="dark"] .tb-cat-card{color:#eef4f0!important}
+html[data-theme="dark"] .top,html[data-theme="dark"] .hdr{background:#1c2733!important;color:#eef4f0!important}
+
+/* TB-DARK-CLAY2-2026-10-27: dark mode beats clay pastel - no ghost text */
+html[data-theme="dark"] .card:nth-child(5n+1),html[data-theme="dark"] .card:nth-child(5n+2),html[data-theme="dark"] .card:nth-child(5n+3),html[data-theme="dark"] .card:nth-child(5n+4),html[data-theme="dark"] .card:nth-child(5n+5),html[data-theme="dark"] .tb-cat-card,html[data-theme="dark"] button.tb-sug,html[data-theme="dark"] #azBlock p a,html[data-theme="dark"] .tb-trend-card{background:#232e3a!important;color:#eef4f0!important}
+html[data-theme="dark"] button.tb-sug,html[data-theme="dark"] #azBlock p a,html[data-theme="dark"] .tb-cat-card .tb-cat-name,html[data-theme="dark"] .card h3,html[data-theme="dark"] .card p{color:#eef4f0!important}
+html[data-theme="dark"] .chip{color:#eef4f0!important}
+
+/* TB-NO-DARK2-2026-10-27: dark mode removed per user order */
+html[data-theme="dark"]{color-scheme:light}
+html[data-theme="dark"] body,html[data-theme="dark"] .card,html[data-theme="dark"] .top{background:#fdf6ec!important;color:#14231b!important}
+
+/* TB-LIGHT-ALL-SECTIONS-2026-10-27: dark sections to light clay */
+.top,.hdr,.block,.panel,.foot,.notice,.whatsnew,.how{background:#fdf6ec!important;color:#14231b!important}
+.top .logo b,.top .logo small,.block h2,.block h3{color:#14231b!important}
+
+/* TB-CLAY-BANNERS-2026-10-27: banners too in clay combination */
+.hero,.ticker,.breaking,.market,.tb-ticker,.tb-banner,.tb-spon-view{background:#ffe9d6!important;color:#14231b!important;border-radius:22px!important;box-shadow:0 14px 28px rgba(0,0,0,.12)!important}
+.hero h1,.hero p{color:#14231b!important}
+
+/* TB-CAT-COLORS-2026-10-27: category cards in clay colors */
+.tb-cat-card:nth-child(5n+1),.foot-cat-links a:nth-child(5n+1){background:#ffe9d6!important}
+.tb-cat-card:nth-child(5n+2),.foot-cat-links a:nth-child(5n+2){background:#d6e8d8!important}
+.tb-cat-card:nth-child(5n+3),.foot-cat-links a:nth-child(5n+3){background:#d6e4f0!important}
+.tb-cat-card:nth-child(5n+4),.foot-cat-links a:nth-child(5n+4){background:#ffe9b8!important}
+.tb-cat-card:nth-child(5n+5),.foot-cat-links a:nth-child(5n+5){background:#ffd6d6!important}
+
+/* TB-CIRCLED-LIGHT-2026-10-27: circled ticker/whatsnew/how sections light */
+.ticker,.tb-ticker,.breaking,.market,.notice,.whatsnew,.how,.block{background:#fdf6ec!important;color:#14231b!important}
+.ticker *, .notice *, .whatsnew *, .how *{color:#14231b!important}
+.ticker a,.notice a{color:#2a6fb3!important}
+html[data-theme="dark"] .ticker,html[data-theme="dark"] .notice,html[data-theme="dark"] .block{background:#fdf6ec!important;color:#14231b!important}
+html[data-theme="dark"] .ticker *,html[data-theme="dark"] .notice *,html[data-theme="dark"] .block *{color:#14231b!important}
+
+/* TB-CIRCLED-FIX2-2026-10-27: breaking/market text black, whatsnew/how light */
+.ticker,.ticker2,.ticker *,.ticker2 *{color:#000000!important}
+#tb-notice,.tb-how-site{background:#fdf6ec!important;color:#14231b!important;border-color:rgba(0,0,0,.06)!important}
+#tb-notice *, .tb-how-site *{color:#14231b!important}
+#tb-notice a{color:#2a6fb3!important}
+html[data-theme="dark"] .ticker,html[data-theme="dark"] .ticker2,html[data-theme="dark"] #tb-notice,html[data-theme="dark"] .tb-how-site{background:#fdf6ec!important}
+html[data-theme="dark"] .ticker *,html[data-theme="dark"] #tb-notice *,html[data-theme="dark"] .tb-how-site *{color:#14231b!important}
+html[data-theme="dark"] .ticker *,html[data-theme="dark"] .ticker2 *{color:#000000!important}
+
+/* TB-DARKSLATE-STYLE-2026-10-27: new reference - slate blue-gray, every item raised */
+body{background:#3a4a5a!important}
+.card,.tb-cat-card,button.tb-sug,#azBlock p a,.tb-recent-link,.tb-trend-card,.chip,.btn,.menu-btn,.tb-util button{background:linear-gradient(145deg,#5a6d82,#4a5c70)!important;color:#eef4f0!important;border:1px solid rgba(255,255,255,.12)!important;border-radius:22px!important;box-shadow:0 16px 32px rgba(0,0,0,.35),inset 0 2px 0 rgba(255,255,255,.15)!important;transform:translateY(-2px)}
+.card h3,.card p,.tb-cat-card .tb-cat-name{color:#eef4f0!important}
+.top,.hdr,.hero,.ticker,.notice-area,.tb-how-site{background:#2e3d4d!important;color:#eef4f0!important}
+.top .logo b,.top .logo small,.hero h1,.hero p{color:#eef4f0!important}
+
+/* TB-READABLE-ALL-2026-10-27: every text readable on slate theme */
+body,.card,.tb-cat-card,.top,.hero,.ticker,.notice-area,.tb-how-site,.block{color:#eef4f0!important}
+.ticker *,.ticker2 *{color:#ffffff!important}
+a{color:#9ccdf5!important}
+.card p,.card h3,.tb-cat-card .tb-cat-name,.hero p,.notice-area p,.tb-how-site li{color:#eef4f0!important}
+
+/* TB-REVERT-CLAY-2026-10-27: slate style dropped, back to clay light */
+body{background:#fdf6ec!important;color:#14231b!important}
+.card,.tb-cat-card,button.tb-sug,#azBlock p a,.tb-recent-link,.tb-trend-card{background:#ffffff!important;color:#14231b!important}
+.card h3,.card p,.tb-cat-card .tb-cat-name{color:#14231b!important}
+.top,.hdr,.hero,.ticker,.notice-area,.tb-how-site{background:#fdf6ec!important;color:#14231b!important}
+.top .logo b,.top .logo small,.hero h1,.hero p{color:#14231b!important}
+a{color:#2a6fb3!important}
+.ticker *,.ticker2 *{color:#000000!important}
+
+/* TB-CAT-RANDOM-2026-10-27: category cards random various pastel colors like tool cards */
+.tb-cat-card:nth-child(5n+1){background:#ffe9d6!important}
+.tb-cat-card:nth-child(5n+2){background:#d6e8d8!important}
+.tb-cat-card:nth-child(5n+3){background:#d6e4f0!important}
+.tb-cat-card:nth-child(5n+4){background:#ffe9b8!important}
+.tb-cat-card:nth-child(5n+5){background:#ffd6d6!important}
+.tb-cat-card{color:#14231b!important}
+.tb-cat-card .tb-cat-name{color:#14231b!important}
+
+/* TB-ALL-BUTTONS-COLOR-2026-10-27: every button in card pastel colors */
+.btn:nth-of-type(5n+1),button.tb-sug:nth-of-type(5n+1),.menu-btn,.tb-util button:nth-of-type(5n+1){background:#ffe9d6!important}
+.btn:nth-of-type(5n+2),button.tb-sug:nth-of-type(5n+2),.tb-util button:nth-of-type(5n+2){background:#d6e8d8!important}
+.btn:nth-of-type(5n+3),button.tb-sug:nth-of-type(5n+3),.tb-util button:nth-of-type(5n+3){background:#d6e4f0!important}
+.btn:nth-of-type(5n+4),button.tb-sug:nth-of-type(5n+4){background:#ffe9b8!important}
+.btn:nth-of-type(5n+5),button.tb-sug:nth-of-type(5n+5){background:#ffd6d6!important}
+.btn,.menu-btn,.tb-util button,button.tb-sug{color:#14231b!important;border-radius:22px!important;box-shadow:0 14px 28px rgba(0,0,0,.12)!important}
+
+/* TB-AZ-COLOR-2026-10-27: A-Z index links in card pastel colors */
+#azBlock p a:nth-of-type(5n+1){background:#ffe9d6!important}
+#azBlock p a:nth-of-type(5n+2){background:#d6e8d8!important}
+#azBlock p a:nth-of-type(5n+3){background:#d6e4f0!important}
+#azBlock p a:nth-of-type(5n+4){background:#ffe9b8!important}
+#azBlock p a:nth-of-type(5n+5){background:#ffd6d6!important}
+#azBlock p a{color:#14231b!important}
+
+/* TB-CHIP-READABLE-2026-10-27: chip text dark and readable */
+.chip,.chip *{color:#14231b!important}
+.chip b{color:#0b5aa0!important}
+
+/* TB-HOW-READABLE-2026-10-27: How section list dark */
+.tb-how-site ol li,.tb-how-site li,.tb-how-site h2{color:#14231b!important}
+
+/* TB-HOW-CARD-2026-10-27: How section as raised card */
+.tb-how-site,#tb-notice{border-radius:22px!important;box-shadow:0 14px 28px rgba(0,0,0,.12),inset 0 2px 0 rgba(255,255,255,.8)!important;transform:translateY(-1px)}
+
+/* TB-BODY-TEXT-DARK-2026-10-27: all section paragraphs dark */
+p,li,span,small,div{color:#14231b!important}
+a{color:#0b5aa0!important}
+h1,h2,h3{color:#14231b!important}
+
+/* TB-SECTIONS-CARD-2026-10-27: New Tools/App update/Cant-find sections as raised cards */
+.block,.tb-sec,.sec{border-radius:22px!important;box-shadow:0 14px 28px rgba(0,0,0,.12),inset 0 2px 0 rgba(255,255,255,.8)!important;transform:translateY(-1px)}
+
+/* TB-SECTION-GAP-2026-10-27: sections separated, not touching */
+.block,.tb-sec,.sec,.tb-how-site,#tb-notice,.hero{margin-bottom:20px!important}
+.wrap>*{margin-bottom:20px}
+
+/* TB-INNER-BOLD-2026-10-27: inner text beautiful bold */
+.block p,.tb-how-site li,.tb-sec p{font-weight:600!important;line-height:1.6!important;letter-spacing:.1px}
+.block b,.block strong{font-weight:800!important}
+
+/* TB-BG-TEALGRAD-2026-10-27: background like Somnea reference - azure/teal gradient */
+body{background:linear-gradient(180deg,#2a6fb3 0%,#2aa5a0 55%,#7dd3c8 100%)!important;background-attachment:fixed}
+
+/* TB-DARK-BRIGHT-2026-10-27: dark background, bright orange/yellow/pink buttons like reference */
+body{background:linear-gradient(180deg,#1e2438 0%,#2a2a4a 55%,#3a2a5a 100%)!important;background-attachment:fixed;color:#eef4f0!important}
+.card,.tb-cat-card{background:#2e3550!important;color:#eef4f0!important}
+.card h3,.card p,.tb-cat-card .tb-cat-name{color:#eef4f0!important}
+.btn:nth-of-type(5n+1),button.tb-sug:nth-of-type(5n+1){background:#ff9f2e!important}
+.btn:nth-of-type(5n+2),button.tb-sug:nth-of-type(5n+2){background:#ffd93b!important}
+.btn:nth-of-type(5n+3),button.tb-sug:nth-of-type(5n+3){background:#ff5a7a!important}
+.btn:nth-of-type(5n+4),button.tb-sug:nth-of-type(5n+4){background:#2aa5a0!important}
+.btn:nth-of-type(5n+5),button.tb-sug:nth-of-type(5n+5){background:#ff7a3b!important}
+.btn,button.tb-sug{color:#14231b!important}
+
+/* TB-TEXT-CLEAR-FINAL-2026-10-27: all text clear on dark bright theme */
+p,li,span,small,div,h1,h2,h3{color:#eef4f0!important}
+a{color:#9ccdf5!important}
+.btn,button.tb-sug{color:#14231b!important;font-weight:700!important}
+
+/* TB-HEADER-MODERN-2026-10-27: top header modern - gradient, glass, centered */
+.top,.hdr{background:linear-gradient(135deg,#2a6fb3,#2aa5a0)!important;color:#ffffff!important;border-radius:28px!important;box-shadow:0 20px 40px rgba(0,0,0,.35)!important;padding:18px!important}
+.top .logo b{color:#ffffff!important;font-size:28px!important}
+.top .logo small{color:#d6f0ee!important}
+.ticker,.ticker2{background:#1e2438!important;border-radius:18px!important;padding:10px 14px!important;margin-bottom:12px!important}
+.ticker *,.ticker2 *{color:#ffffff!important}
+.tb-util button{background:#ffffff!important;color:#14231b!important;border-radius:18px!important;box-shadow:0 10px 20px rgba(0,0,0,.25)!important;font-weight:700!important}
+
+/* TB-HEADER-MATCH-2026-10-27: header colors matched to dark-bright theme */
+.top,.hdr{background:linear-gradient(135deg,#ff9f2e,#ff5a7a)!important}
+.top .logo b,.top .logo small{color:#ffffff!important}
+.ticker,.ticker2{background:#2e3550!important}
+.ticker *,.ticker2 *{color:#ffffff!important}
+.tb-util button{background:#ffd93b!important;color:#14231b!important}
+
+/* TB-HEADER-REF-2026-10-27: header exactly in reference dark-bright palette */
+.top,.hdr{background:#1e2438!important;border:1px solid rgba(255,255,255,.12)!important}
+.top .logo b{color:#ffffff!important}
+.top .logo small{color:#9ccdf5!important}
+.ticker,.ticker2{background:#2e3550!important}
+.tb-util button{background:#ff9f2e!important;color:#14231b!important}
+
+/* TB-RAISED-ALL-2026-10-27: whole site cards/buttons strongly raised like reference */
+.card,.tb-cat-card,.btn,button.tb-sug,#azBlock p a,.chip,.top,.hero,.block{box-shadow:0 18px 36px rgba(0,0,0,.35),inset 0 2px 0 rgba(255,255,255,.15)!important;transform:translateY(-2px)}
+
+/* TB-FULL-COMBINATION-2026-10-27: whole site in dark-bright combination, all text clear */
+body{background:#1e2438!important;color:#ffffff!important}
+.card,.tb-cat-card{background:#2e3550!important}
+.card h3,.card p,.tb-cat-card .tb-cat-name,.tb-cat-card .tb-cat-count{color:#ffffff!important}
+.ticker,.ticker2{background:#2e3550!important;border:1px solid rgba(255,255,255,.15)!important}
+.ticker *,.ticker2 *{color:#ffffff!important}
+.ticker b,.ticker2 b{color:#ffd93b!important}
+p,li,span,small,div,h1,h2,h3{color:#ffffff!important}
+a{color:#ffd93b!important}
+.btn,button.tb-sug{color:#14231b!important}
+.top,.hero,.block,.tb-how-site,#tb-notice{background:#2e3550!important;color:#ffffff!important}
+.top .logo b{color:#ffffff!important}
+
+/* TB-ORANGE-TEXT-2026-10-27: dark/black text areas become orange for readability */
+.ticker b,.ticker2 b,.card .star,.sec-head b,.cat-title{color:#ff9f2e!important}
+
+/* TB-WHATSNEW-BEAUTY-2026-10-27: whatsnew section beautiful readable */
+#tb-notice{background:linear-gradient(135deg,#ff9f2e,#ff5a7a)!important;color:#ffffff!important}
+#tb-notice *, #tb-notice p{color:#ffffff!important}
+#tb-notice a{color:#ffe9b8!important}
+
+/* TB-NO-BLACK-TEXT-2026-10-27: no black text anywhere on dark theme */
+body,body *,p,li,span,small,div,h1,h2,h3,h4{color:#ffffff!important}
+a{color:#ffd93b!important}
+.btn,button.tb-sug,.tb-util button{color:#14231b!important}
+
+/* TB-PROACTIVE-READABLE-2026-10-27: agent's own audit - one coherent dark theme, no dark-on-dark anywhere */
+:root{--ink:#ffffff!important;--ink2:#d6e2f0!important;--surface:#2e3550!important;--surface2:#3a4266!important;--bg:#1e2438!important;--line:rgba(255,255,255,.15)!important}
+html[data-theme="light"],html[data-theme="dark"]{--ink:#ffffff!important;--ink2:#d6e2f0!important}
+body{background:#1e2438!important;color:#ffffff!important}
+.card,.tb-cat-card,.top,.hero,.block,.tb-how-site,#tb-notice,.notice-area,.ticker,.ticker2{background:#2e3550!important;color:#ffffff!important}
+.card h3,.card p,.tb-cat-card .tb-cat-name,.tb-cat-card .tb-cat-count,.cat-desc,.tool-head p,.sec-head span,.chip{color:#d6e2f0!important}
+h1,h2,h3,.sec-head h2{color:#ffffff!important}
+a{color:#ffd93b!important}
+input,select,textarea{color:#ffffff!important;background:#2e3550!important}
+input::placeholder{color:#d6e2f0!important}
+
+/* TB-WHATSNEW-STYLE-ALL-2026-10-27: all info sections in whatsnew orange-pink style */
+.block,.tb-how-site,.hero,.sec{background:linear-gradient(135deg,#ff9f2e,#ff5a7a)!important;color:#ffffff!important}
+.block *, .tb-how-site *, .hero *{color:#ffffff!important}
+.block a,.tb-how-site a{color:#ffe9b8!important}
+
+/* TB-CARD-TEXT-FINAL-2026-10-27: card text white, no exceptions */
+.card,.card h3,.card p,.tb-cat-card,.tb-cat-card .tb-cat-name,.tb-cat-card .tb-cat-count,.tb-cat-card .tb-cat-ic{color:#ffffff!important}
+.card p,.tb-cat-card .tb-cat-count{color:#d6e2f0!important}
+
+/* TB-CHIP-FIX-2026-10-27: chips are white pills, so chip text must be dark */
+.chip,.chip *{color:#14231b!important}
+.chip b{color:#0b5aa0!important}
+
+/* TB-TREND-FIX-2026-10-27: trending cards dark with white text, not white-on-white */
+.tb-trend-card,.tb-trend-card *{background:#2e3550!important;color:#ffffff!important}
+.tb-recent-link,.tb-recent-link *{background:#2e3550!important;color:#ffffff!important}
+
+/* TB-POPULAR-CARD-DARKTEXT-2026-10-27: pastel cards need dark text, not white */
+.card,.card h3{color:#14231b!important}
+.card p{color:#2a3a30!important}
+.tb-cat-card,.tb-cat-card .tb-cat-name{color:#14231b!important}
+.tb-cat-card .tb-cat-count{color:#2a3a30!important}
+
+/* TB-CARD-PASTEL-LIVE-2026-10-27: keep pastel cards live too, so dark text stays readable */
+.card:nth-child(5n+1){background:#ffe9d6!important}
+.card:nth-child(5n+2){background:#d6e8d8!important}
+.card:nth-child(5n+3){background:#d6e4f0!important}
+.card:nth-child(5n+4){background:#ffe9b8!important}
+.card:nth-child(5n+5){background:#ffd6d6!important}
+.tb-cat-card:nth-child(5n+1){background:#ffe9d6!important}
+.tb-cat-card:nth-child(5n+2){background:#d6e8d8!important}
+.tb-cat-card:nth-child(5n+3){background:#d6e4f0!important}
+.tb-cat-card:nth-child(5n+4){background:#ffe9b8!important}
+.tb-cat-card:nth-child(5n+5){background:#ffd6d6!important}
+
+/* TB-HEADER-LOGO-DARK-2026-10-27: ToolBari logo dark on light sky header */
+.top .logo b{color:#14231b!important}
+.top .logo small{color:#2a3a30!important}
+
+/* TB-HEADER-NO-SKY-2026-10-27: header orange-pink, not sky */
+.top,.hdr{background:linear-gradient(135deg,#ff9f2e,#ff5a7a)!important}
+.top .logo b{color:#ffffff!important}
+.top .logo small{color:#ffe9b8!important}
+
+/* TB-HEADER-DARKNAVY-2026-10-27: header dark navy like reference, logo white */
+.top,.hdr{background:#1e2438!important;border:1px solid rgba(255,255,255,.15)!important}
+.top .logo b{color:#ffffff!important}
+.top .logo small{color:#d6e2f0!important}
+
+/* TB-HEADER-COMBO-2026-10-27: header combines both references - dark navy to teal */
+.top,.hdr{background:linear-gradient(135deg,#1e2438,#2aa5a0)!important}
+.top .logo b{color:#ffffff!important}
+.tb-util button{background:#ff9f2e!important;color:#14231b!important}
+
+/* TB-NO-SKY-ATALL-2026-10-27: no sky background anywhere */
+.top,.hdr{background:linear-gradient(135deg,#1e2438,#2aa5a0)!important}
+
+/* TB-SLIDE-TITLE-VISIBLE-2026-10-27: slideshow title dark on white card, beats blanket white */
+.tb-small-slide .tb-slide,.tb-small-slide .tb-slide b{color:#14231b!important}
+.tb-small-slide .tb-slide span{color:#0b5aa0!important}
+
+/* TB-ALL-CARDS-TEXT-2026-10-27: every remaining card text clear */
+.card h3,.card p,.tb-cat-card .tb-cat-name,.tb-cat-card .tb-cat-count,.tb-trend-card b,.tb-trend-card span,.tb-recent-link{font-weight:700!important}
+.card p,.tb-cat-card .tb-cat-count{color:#2a3a30!important}
+
+/* TB-NEON-DARK-2026-10-27: neon dark-mode tech theme per spec */
+body{background:#0f172a!important;color:#ffffff!important}
+.card,.tb-cat-card,.tb-trend-card,.top,.hero,.block,.tb-how-site,#tb-notice,.ticker,.ticker2{background:#1e293b!important;color:#ffffff!important;border:1px solid rgba(0,242,254,.35)!important;border-radius:16px!important;box-shadow:0 0 30px rgba(0,242,254,.3)!important}
+.card h3,.card p,.tb-cat-card .tb-cat-name{color:#ffffff!important}
+.card p,.tb-cat-card .tb-cat-count,.sec-head span{color:#cbd5e1!important}
+h1,h2,h3{color:#ffffff!important}
+a{color:#38bdf8!important}
+.ticker b,.ticker2 b{color:#00f2fe!important}
+.tb-util button{background:linear-gradient(135deg,#25d366,#128c7e)!important;color:#ffffff!important}
+
+/* TB-RESTORE-ORIGINAL-2026-10-27: back to original light theme, all evening overrides cancelled */
+body{background:#f4f6f4!important;color:#14231b!important}
+.card,.tb-cat-card,.top,.hero,.block,.tb-how-site,#tb-notice,.ticker,.ticker2{background:#ffffff!important;color:#14231b!important;border:1px solid #dbe3dc!important;box-shadow:0 2px 14px rgba(10,40,25,.08)!important}
+.card h3,.card p,.tb-cat-card .tb-cat-name{color:#14231b!important}
+.card p,.tb-cat-card .tb-cat-count{color:#4b5a51!important}
+.top,.hdr{background:#0b7a4b!important;color:#ffffff!important}
+.top .logo b{color:#ffffff!important}
+a{color:#0a6e43!important}
+
+/* TB-CHECK-ALL-ORIGINAL-2026-10-27: checked section by section - original light theme, all text dark */
+:root{--ink:#14231b!important;--ink2:#4b5a51!important;--bg:#f4f6f4!important;--surface:#ffffff!important}
+body{background:#f4f6f4!important;color:#14231b!important}
+.card,.tb-cat-card,.tb-trend-card,.tb-recent-link{background:#ffffff!important;color:#14231b!important}
+.card h3,.card p,.tb-cat-card .tb-cat-name{color:#14231b!important}
+.card p,.tb-cat-card .tb-cat-count,.sec-head span{color:#4b5a51!important}
+.top,.hdr{background:#0b7a4b!important}
+.top .logo b{color:#ffffff!important}
+#tb-notice,#tb-notice p{color:#14231b!important}
+#tb-notice a{color:#0a6e43!important}
+.ticker,.ticker2{background:#ffffff!important}
+.ticker *,.ticker2 *{color:#14231b!important}
+
+/* TB-LOGOMARK-ORANGE-2026-10-27: logo mark orange, not green */
+.logo-mark{background:#ff9f2e!important}
+
+/* TB-FINAL-AUDIT-2026-10-27: inside-checked - light theme, dark text, no white-on-light, no dark-on-dark */
+body{background:#f4f6f4!important;color:#14231b!important}
+.card,.tb-cat-card,.tb-trend-card{background:#ffffff!important;color:#14231b!important}
+.card h3,.card p,.tb-cat-card .tb-cat-name{color:#14231b!important}
+.card p{color:#4b5a51!important}
+.top{background:linear-gradient(135deg,#1e2438,#2aa5a0)!important}
+.top .logo b{color:#ffffff!important}
