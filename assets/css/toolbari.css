@@ -1037,3 +1037,9 @@ html:not([data-theme="dark"]) .top .logo b,html:not([data-theme="dark"]) .top .l
 /* TB-LIGHT-RESET-EXC: header keeps its light-blue background */
 html:not([data-theme="dark"]) .top{background-color:#cfe8f5!important;background-image:none!important}
 html:not([data-theme="dark"]) .ticker,html:not([data-theme="dark"]) .ticker2{background-color:#ffffff!important}
+
+/* TB-DARK-AUDIT-2026-10-28: dark theme - every text visible on navy, no cream/light surfaces leaking in */
+html[data-theme="dark"] body,html[data-theme="dark"] .view,html[data-theme="dark"] .panel,html[data-theme="dark"] .block,html[data-theme="dark"] .faqit,html[data-theme="dark"] .note,html[data-theme="dark"] .tb-note,html[data-theme="dark"] .tb-example,html[data-theme="dark"] .result,html[data-theme="dark"] .ticker,html[data-theme="dark"] .ticker2{background:#0f172a!important;color:#ffffff!important}
+html[data-theme="dark"] p,html[data-theme="dark"] li,html[data-theme="dark"] span,html[data-theme="dark"] small,html[data-theme="dark"] label,html[data-theme="dark"] h1,html[data-theme="dark"] h2,html[data-theme="dark"] h3,html[data-theme="dark"] summary,html[data-theme="dark"] details{color:#ffffff!important}
+html[data-theme="dark"] input,html[data-theme="dark"] textarea,html[data-theme="dark"] select,html[data-theme="dark"] option{color:#ffffff!important;background:#1e293b!important}
+html[data-theme="dark"] input::placeholder,html[data-theme="dark"] textarea::placeholder{color:#cbd5e1!important}
