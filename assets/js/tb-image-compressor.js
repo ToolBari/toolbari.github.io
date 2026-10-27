@@ -73,7 +73,7 @@ async function ppSegment(){
   if(!window.SelfieSegmentation){
    await new Promise((res,rej)=>{const sc=document.createElement('script');sc.src='https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js';sc.onload=res;sc.onerror=rej;document.head.appendChild(sc);});
   }
-  ppStatus.textContent='AI ব্যাকগ্রাউন্ড তৈরি হচ্ছে…';
+  ppStatus.textContent='Creating AI background…';
   const seg=new SelfieSegmentation({locateFile:f=>'https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/'+f});
   seg.setOptions({modelSelection:1});
   seg.onResults(res=>{
@@ -83,7 +83,7 @@ async function ppSegment(){
     const cx=cut.getContext('2d');
     cx.filter='blur(2px)';cx.drawImage(res.segmentationMask,0,0,iw,ih);cx.filter='none';
     cx.globalCompositeOperation='source-in';cx.drawImage(ppImg,0,0,iw,ih);
-    ppCutImg=cut;ppStatus.textContent='AI ব্যাকগ্রাউন্ড তৈরি ✓ — রঙ বদলালেই ঝকঝকে ব্যাকগ্রাউন্ড পাবেন।';ppDraw();
+    ppCutImg=cut;ppStatus.textContent='AI background created ✓ — change the colour for a vivid background.';ppDraw();
    }catch(e){ppStatus.textContent='';}
   });
   await seg.send({image:ppImg});
@@ -152,7 +152,7 @@ $('#wr-mask').addEventListener('pointerdown',e=>{if(wrMode!=='brush')return;wrPa
 $('#wr-mask').addEventListener('pointermove',e=>{if(wrPaint&&wrMode==='brush')wrPaintAt(e);});
 addEventListener('pointerup',()=>wrPaint=false);
 $('#wr-clear').addEventListener('click',()=>{wrMaskC.getContext('2d').clearRect(0,0,wrMaskC.width,wrMaskC.height);wrDrawMask();});
-$('#wr-reset').addEventListener('click',()=>{if(!wrOrig)return;$('#wr-canvas').getContext('2d').putImageData(wrOrig,0,0);wrMaskC.getContext('2d').clearRect(0,0,wrMaskC.width,wrMaskC.height);wrDrawMask();$('#wr-status').textContent='আসল ছবি ফেরত আনা হয়েছে।';});
+$('#wr-reset').addEventListener('click',()=>{if(!wrOrig)return;$('#wr-canvas').getContext('2d').putImageData(wrOrig,0,0);wrMaskC.getContext('2d').clearRect(0,0,wrMaskC.width,wrMaskC.height);wrDrawMask();$('#wr-status').textContent='Original image restored.';});
 function wrMarkGem(){
  const W=wrMaskC.width,H=wrMaskC.height,pct=+$('#wr-gsize').value,cor=$('#wr-corner').value;
  const sz=Math.round(W*pct/100);let x0=0,y0=0;
@@ -164,8 +164,8 @@ function wrInpaint(){
  const md=wrMaskC.getContext('2d').getImageData(0,0,W,H).data;
  let minx=W,miny=H,maxx=-1,maxy=-1;const mask=new Uint8Array(W*H);
  for(let j=0;j<H;j++)for(let i=0;i<W;i++){const k=j*W+i;if(md[k*4+3]>10){mask[k]=1;if(i<minx)minx=i;if(i>maxx)maxx=i;if(j<miny)miny=j;if(j>maxy)maxy=j;}}
- if(maxx<0){$('#wr-status').textContent='আগে মোছার জায়গাটা চিহ্নিত করুন।';return;}
- $('#wr-status').textContent='কাজ চলছে… একটু অপেক্ষা করুন।';
+ if(maxx<0){$('#wr-status').textContent='Please mark the area to erase first.';return;}
+ $('#wr-status').textContent='Working… একটু অপেক্ষা করুন।';
  setTimeout(()=>{
   minx=Math.max(0,minx-12);miny=Math.max(0,miny-12);maxx=Math.min(W-1,maxx+12);maxy=Math.min(H-1,maxy+12);
   const bw=maxx-minx+1,bh=maxy-miny+1;
@@ -193,8 +193,8 @@ function wrInpaint(){
   $('#wr-status').textContent='হয়ে গেছে ✓ এবার ডাউনলোড করুন। আরো জায়গা থাকলে আবার দাগ দিয়ে মুছুন।';
  },60);
 }
-$('#wr-gem-go').addEventListener('click',()=>{if(!wrImg){$('#wr-status').textContent='আগে ছবি বেছে নিন।';return;}wrMarkGem();wrInpaint();});
-$('#wr-brush-go').addEventListener('click',()=>{if(!wrImg){$('#wr-status').textContent='আগে ছবি বেছে নিন।';return;}wrInpaint();});
+$('#wr-gem-go').addEventListener('click',()=>{if(!wrImg){$('#wr-status').textContent='Please choose an image first.';return;}wrMarkGem();wrInpaint();});
+$('#wr-brush-go').addEventListener('click',()=>{if(!wrImg){$('#wr-status').textContent='Please choose an image first.';return;}wrInpaint();});
 $('#wr-dl').addEventListener('click',()=>canvasDl($('#wr-canvas'),'watermark-removed.png'));
 wrSetMode('gem');
 /* ===== Stylish Text ===== */
@@ -230,8 +230,8 @@ function stRender(){
   const row=document.createElement('div');row.className='row';row.style.cssText='align-items:center;margin-top:8px';
   row.innerHTML='<div class="field" style="flex:1"><label></label><div class="in" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></div></div>';
   row.querySelector('label').textContent=name;row.querySelector('.in').textContent=val;
-  const b=document.createElement('button');b.className='btn alt sm';b.textContent='কপি';b.style.marginTop='22px';
-  b.addEventListener('click',()=>{navigator.clipboard&&navigator.clipboard.writeText(val);b.textContent='কপি হয়েছে ✓';setTimeout(()=>b.textContent='কপি',1500);});
+  const b=document.createElement('button');b.className='btn alt sm';b.textContent='Copy';b.style.marginTop='22px';
+  b.addEventListener('click',()=>{navigator.clipboard&&navigator.clipboard.writeText(val);b.textContent='Copied ✓';setTimeout(()=>b.textContent='Copy',1500);});
   row.appendChild(b);box.appendChild(row);
  });
 }
@@ -267,7 +267,7 @@ function hgBuild(){
 }
 $('#hg-go').addEventListener('click',()=>{hgSeed=0;hgBuild();});
 $('#hg-shuffle').addEventListener('click',()=>{hgSeed++;hgBuild();});
-$('#hg-copy').addEventListener('click',()=>{navigator.clipboard&&navigator.clipboard.writeText($('#hg-out').value);$('#hg-count').textContent='কপি হয়েছে ✓';});
+$('#hg-copy').addEventListener('click',()=>{navigator.clipboard&&navigator.clipboard.writeText($('#hg-out').value);$('#hg-count').textContent='Copied ✓';});
 /* ===== Video Watermark Remover ===== */
 let vwrUrl=null,vwrDur=0;
 $('#vwr-size').addEventListener('input',()=>$('#vwr-sv').textContent=$('#vwr-size').value);
@@ -278,8 +278,8 @@ $('#vwr-file').addEventListener('change',e=>{
  const v=document.createElement('video');v.muted=true;v.src=vwrUrl;
  v.addEventListener('loadedmetadata',()=>{
   vwrDur=v.duration;
-  if(vwrDur>185){$('#vwr-status').textContent='ভিডিওটি ৩ মিনিটের বেশি লম্বা — ছোট ক্লিপ (সর্বোচ্চ ৩ মিনিট) দিন।';$('#vwr-go').disabled=true;}
-  else{$('#vwr-status').textContent='ভিডিও তৈরি ✓ দৈর্ঘ্য: '+Math.round(vwrDur)+' সেকেন্ড। লোগোর কোণ ঠিক করে বোতাম চাপুন।';$('#vwr-go').disabled=false;}
+  if(vwrDur>185){$('#vwr-status').textContent='ভিডিওটি ৩ minutesের বেশি লম্বা — ছোট ক্লিপ (সর্বোচ্চ ৩ minutes) days।';$('#vwr-go').disabled=true;}
+  else{$('#vwr-status').textContent='ভিডিও তৈরি ✓ দৈর্ঘ্য: '+Math.round(vwrDur)+' seconds। লোগোর কোণ ঠিক করে বোতাম চাপুন।';$('#vwr-go').disabled=false;}
  });
 });
 $('#vwr-go').addEventListener('click',async()=>{
@@ -315,7 +315,7 @@ $('#vwr-go').addEventListener('click',async()=>{
    x.drawImage(tiny,0,0,tiny.width,tiny.height,rx,ry,rw,rh);x.restore();
   }
   let raf;
-  function tick(){if(v.paused||v.ended)return;fx.drawImage(v,0,0,W,H);x.drawImage(fb,0,0);fix();st('প্রসেস হচ্ছে… '+Math.round(v.currentTime/v.duration*100)+'%');raf=requestAnimationFrame(tick);}
+  function tick(){if(v.paused||v.ended)return;fx.drawImage(v,0,0,W,H);x.drawImage(fb,0,0);fix();st('Processing… '+Math.round(v.currentTime/v.duration*100)+'%');raf=requestAnimationFrame(tick);}
   v.addEventListener('ended',()=>{cancelAnimationFrame(raf);if(rec.state!=='inactive')rec.stop();});
   rec.start(250);await v.play();tick();
   await stopped;
@@ -339,7 +339,7 @@ function dpDraw(){
  const f=$('#dp-frame').value,B=54;
  x.lineWidth=B;
  if(f==='eid'){x.strokeStyle='#0b7a4b';x.strokeRect(B/2,B/2,S-B,S-B);x.lineWidth=6;x.strokeStyle='#d4af37';x.strokeRect(B+16,B+16,S-2*(B+16),S-2*(B+16));
-  x.fillStyle='#0b7a4b';x.fillRect(0,S-190,S,190);x.fillStyle='#ffd94d';x.font='800 92px "Hind Siliguri",sans-serif';x.textAlign='center';x.fillText('ঈদ মোবারক',S/2,S-62);
+  x.fillStyle='#0b7a4b';x.fillRect(0,S-190,S,190);x.fillStyle='#ffd94d';x.font='800 92px "Hind Siliguri",sans-serif';x.textAlign='center';x.fillText('Eid Mubarak',S/2,S-62);
   x.font='700 64px serif';x.fillText('☪',S/2,120);}
  else if(f==='victory'||f==='flag'){x.strokeStyle='#0b7a4b';x.strokeRect(B/2,B/2,S-B,S-B);x.fillStyle='#d61f26';x.beginPath();x.arc(S-150,150,86,0,7);x.fill();
   x.fillStyle='#0b7a4b';x.fillRect(0,S-168,S,168);x.fillStyle='#fff';x.font='800 76px "Hind Siliguri",sans-serif';x.textAlign='center';x.fillText(f==='victory'?'মহান বিজয় দিবস':'বাংলাদেশ',S/2,S-58);}
@@ -383,7 +383,7 @@ $('#pe-auto').addEventListener('click',()=>{$('#pe-b').value=108;$('#pe-c').valu
 $('#pe-reset').addEventListener('click',()=>{$('#pe-b').value=100;$('#pe-c').value=100;$('#pe-s').value=100;$('#pe-h').value=0;$('#pe-2x').checked=false;peSync();});
 $('#pe-dl').addEventListener('click',()=>canvasDl($('#pe-canvas'),'enhanced-photo.png'));
 /* ===== Donate ===== */
-$('#dn-copy').addEventListener('click',()=>{copyText('01677161678','বিকাশ নম্বর কপি হয়েছে ✓');});
+$('#dn-copy').addEventListener('click',()=>{copyText('01677161678','বিকাশ নম্বর Copied ✓');});
 /* ===== Job Photo & Signature Sizer ===== */
 let jpImg=null,jpMode='photo';
 function jpDims(){return jpMode==='photo'?{w:300,h:300,kb:100}:{w:300,h:80,kb:60};}
@@ -409,7 +409,7 @@ $('#jp-dl').addEventListener('click',()=>{
  if(!jpImg)return;const maxB=(+$('#jp-kb').value||100)*1024,c=$('#jp-canvas');
  let q=0.92;
  const tryQ=()=>{c.toBlob(b=>{
-   if(b.size<=maxB||q<=0.3){dl(URL.createObjectURL(b),jpMode==='photo'?'job-photo-300x300.jpg':'signature-300x80.jpg');$('#jp-status').textContent='তৈরি ✓ সাইজ: '+(b.size/1024).toFixed(1)+'KB — আবেদনে ব্যবহার করুন।';}
+   if(b.size<=maxB||q<=0.3){dl(URL.createObjectURL(b),jpMode==='photo'?'job-photo-300x300.jpg':'signature-300x80.jpg');$('#jp-status').textContent='তৈরি ✓ সাইজ: '+(b.size/1024).toFixed(1)+'KB — use in applications.';}
    else{q-=0.07;tryQ();}
  },'image/jpeg',q);};
  tryQ();
@@ -434,7 +434,7 @@ $('#bd-go').addEventListener('click',()=>{
   else{cnt++;sum+=p;if(p===0)fail=true;}
  });
  const box=$('#bd-res');box.classList.add('show');
- if(!done||!cnt){box.innerHTML='<p style="margin:0">আগে অন্তত একটি প্রধান বিষয়ের নম্বর লিখুন।</p>';return;}
+ if(!done||!cnt){box.innerHTML='<p style="margin:0">Please enter at least one main subject number first.</p>';return;}
  const gpa=fail?0:Math.min(5,(sum+bonus)/cnt);
  box.innerHTML=Tf("<p style=\"margin:0 0 6px\">আপনার GPA: <b class=\"big\">{0}</b> <span style=\"color:var(--ink2)\">/ 5.00 ({1})</span></p><div class=\"kv\"><span>প্রধান বিষয়</span><b>{2}টি</b></div>{3}{4}",gpa.toFixed(2),bdLetter(gpa),cnt,bonus?`<div class="kv"><span>ঐচ্ছিক বোনাস</span><b>+${bonus.toFixed(2)}</b></div>`:'',fail?'<p style="margin:6px 0 0;color:#d61f26">কোনো প্রধান বিষয়ে ফেল (৩৩-এর কম) থাকায় GPA 0.00।</p>':'');
 });
@@ -442,15 +442,15 @@ $('#bd-go').addEventListener('click',()=>{
 let ocrFile=null;
 $('#ocr-file').addEventListener('change',e=>{ocrFile=e.target.files[0]||null;$('#ocr-go').disabled=!ocrFile;});
 $('#ocr-go').addEventListener('click',async()=>{
- if(!ocrFile)return;const btn=$('#ocr-go');btn.disabled=true;btn.textContent='কাজ চলছে…';
- $('#ocr-status').textContent='শুরু হচ্ছে…';
+ if(!ocrFile)return;const btn=$('#ocr-go');btn.disabled=true;btn.textContent='Working…';
+ $('#ocr-status').textContent='Starting…';
  try{
   const res=await Tesseract.recognize(ocrFile,$('#ocr-lang').value,{logger:m=>{if(m.status==='recognizing text')$('#ocr-status').textContent='লেখা শনাক্ত হচ্ছে: '+Math.round(m.progress*100)+'%';else if(m.status)$('#ocr-status').textContent=m.status+'…';}});
   $('#ocr-out').value=res.data.text.trim();$('#ocr-wrap').classList.add('show');$('#ocr-status').textContent='সম্পন্ন ✓';
  }catch(e){$('#ocr-status').textContent='দুঃখিত, লেখা তোলা যায়নি — পরিষ্কার ছবি দিয়ে আবার চেষ্টা করুন।';}
  btn.disabled=false;btn.textContent='লেখা তুলুন (Extract Text)';
 });
-$('#ocr-copy').addEventListener('click',()=>copyText($('#ocr-out').value,'লেখা কপি হয়েছে ✓'));
+$('#ocr-copy').addEventListener('click',()=>copyText($('#ocr-out').value,'Text copied ✓'));
 /* ===== QR ===== */
 function qrText(){
  const t=$('#qr-type').value;
@@ -463,13 +463,13 @@ $('#qr-type').addEventListener('change',()=>{
  $('#qr-wifi-wrap').style.display=w?'block':'none';
  $('#qr-text-wrap').style.display=w?'none':'block';
  if($('#qr-type').value==='tel')$('#qr-text').placeholder='01XXXXXXXXX';
- else $('#qr-text').placeholder='https://… অথবা যেকোনো লেখা';
+ else $('#qr-text').placeholder='https://… or any text';
 });
 $('#qr-go').addEventListener('click',()=>{
- const txt=qrText();if(!txt){toast(T('আগে লেখা/লিংক দিন'));return;}
+ const txt=qrText();if(!txt){toast(T('Please enter text/link first'));return;}
  const size=+$('#qr-size').value;const box=$('#qr-box');box.innerHTML='';
  try{new QRCode(box,{text:txt,width:size,height:size,colorDark:'#000000',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});}
- catch(e){toast(T('QR বানানো যায়নি — লেখা ছোট করুন'));return;}
+ catch(e){toast(T('Could not create QR — shorten the text'));return;}
  $('#qr-wrap').classList.add('show');
 });
 $('#qr-dl').addEventListener('click',()=>{const cv=$('#qr-box canvas');if(cv){canvasDl(cv,'qrcode.png');}else{const im=$('#qr-box img');if(im&&im.src)dl(im.src,'qrcode.png');}});
@@ -477,7 +477,7 @@ $('#qr-dl').addEventListener('click',()=>{const cv=$('#qr-box canvas');if(cv){ca
 $('#age-at').value=new Date().toISOString().slice(0,10);
 $('#age-go').addEventListener('click',()=>{
  const dobV=$('#age-dob').value,atV=$('#age-at').value;
- if(!dobV||!atV){toast(T('তারিখ দুটোই দিন'));return;}
+ if(!dobV||!atV){toast(T('তারিখ দুটোই days'));return;}
  let dob=new Date(dobV),at=new Date(atV);
  if(at<dob){toast(T('দ্বিতীয় তারিখ জন্মতারিখের পরে হতে হবে'));return;}
  let y=at.getFullYear()-dob.getFullYear(),m=at.getMonth()-dob.getMonth(),d=at.getDate()-dob.getDate();
@@ -499,7 +499,7 @@ $('#wc-in').addEventListener('input',()=>{
  $('#wc-nospace').textContent=t.replace(/\s/g,'').length;
  $('#wc-sent').textContent=t.trim()?(t.match(/[.!?।\n]+/g)||[]).length+( /[^\s.!?।]$/.test(t.trim())?1:0):0;
  $('#wc-lines').textContent=t?t.split('\n').length:0;
- const mins=words/180;$('#wc-read').textContent=words?(mins<1?Math.max(1,Math.round(words/3))+' সেকেন্ড':mins.toFixed(1)+' মিনিট'):'0 মিনিট';
+ const mins=words/180;$('#wc-read').textContent=words?(mins<1?Math.max(1,Math.round(words/3))+' seconds':mins.toFixed(1)+' minutes'):'0 minutes';
 });
 /* ===== Bijoy <-> Avro (Unicode) ===== */
 const U2B={'অ':'A','আ':'Av','ই':'B','ঈ':'C','উ':'D','ঊ':'E','ঋ':'F','এ':'G','ঐ':'H','ও':'I','ঔ':'J','ক':'K','খ':'L','গ':'M','ঘ':'N','ঙ':'O','চ':'P','ছ':'Q','জ':'R','ঝ':'S','ট':'T','ঠ':'U','ড':'V','ঢ':'W','ণ':'X','ত':'Y','থ':'Z','দ':'_','ধ':'a','ন':'b','প':'c','ফ':'d','ব':'e','ভ':'f','ম':'g','য':'h','র':'i','ল':'j','শ':'k','ষ':'l','স':'m','হ':'n','ড়':'o','ঢ়':'p','য়':'q','ৎ':'r','ং':'s','ঃ':'t','ঁ':'u','া':'v','ি':'w','ী':'x','ু':'y','ূ':'z','ৃ':'`','ে':'‡','ৈ':'ˆ','ো':'‡v','ৌ':'‡ˆ','্':'&','০':'0','১':'1','২':'2','৩':'3','৪':'4','৫':'5','৬':'6','৭':'7','৮':'8','৯':'9','।':'|','–':'-','—':'-'};
@@ -544,13 +544,13 @@ function bijoyToUni(s){
 $('#bj-go').addEventListener('click',()=>{
  const s=$('#bj-in').value;
  $('#bj-out').value=bjMode==='u2b'?uniToBijoy(s):bijoyToUni(s);
- toast(T('কনভার্ট হয়েছে ✓'));
+ toast(T('Converted ✓'));
 });
-$('#bj-copy').addEventListener('click',()=>copyText($('#bj-out').value,'কপি হয়েছে ✓'));
+$('#bj-copy').addEventListener('click',()=>copyText($('#bj-out').value,'Copied ✓'));
 /* ===== EMI ===== */
 $('#emi-go').addEventListener('click',()=>{
  const P=+$('#emi-p').value||0,r=(+$('#emi-r').value||0)/100/12,n=Math.round((+$('#emi-y').value||0)*12);
- if(P<=0||n<=0){toast(T('সঠিক মান দিন'));return;}
+ if(P<=0||n<=0){toast(T('সঠিক মান days'));return;}
  const emi=r>0?P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1):P/n;
  const total=emi*n,interest=total-P;
  const box=$('#emi-res');
@@ -576,7 +576,7 @@ $('#bk-go').addEventListener('click',()=>{
 });
 /* ===== CGPA ===== */
 function cgRow(){const tr=document.createElement('tr');
- tr.innerHTML=`<td><input class="in" data-cg="name" placeholder="বিষয়ের নাম" style="padding:8px"></td><td><input class="in" data-cg="gpa" type="number" step="0.01" min="0" placeholder="4.00" style="padding:8px"></td><td><input class="in" data-cg="cr" type="number" step="0.5" min="0" value="3" style="padding:8px"></td><td><button class="btn alt sm" data-cg="del">✕</button></td>`;
+ tr.innerHTML=`<td><input class="in" data-cg="name" placeholder="বিষয়ের Name" style="padding:8px"></td><td><input class="in" data-cg="gpa" type="number" step="0.01" min="0" placeholder="4.00" style="padding:8px"></td><td><input class="in" data-cg="cr" type="number" step="0.5" min="0" value="3" style="padding:8px"></td><td><button class="btn alt sm" data-cg="del">✕</button></td>`;
  tr.querySelector('[data-cg="del"]').onclick=()=>tr.remove();
  $('#cg-rows').appendChild(tr);}
 for(let i=0;i<4;i++)cgRow();
@@ -586,7 +586,7 @@ $('#cg-go').addEventListener('click',()=>{
  $$('#cg-rows tr').forEach(tr=>{
    const g=parseFloat(tr.querySelector('[data-cg="gpa"]').value),c=parseFloat(tr.querySelector('[data-cg="cr"]').value)||0;
    if(!isNaN(g)&&c>0){pts+=Math.min(g,scale)*c;cr+=c;count++;}});
- if(!cr){toast(T('অন্তত একটি বিষয়ের গ্রেড ও ক্রেডিট দিন'));return;}
+ if(!cr){toast(T('Please enter at least one subject grade and credit'));return;}
  const cgpa=pts/cr;
  const box=$('#cg-res');
  box.innerHTML=Tf("<p style=\"margin:0 0 6px\">আপনার CGPA: <b class=\"big\">{0}</b> <span style=\"color:var(--ink2)\">/ {1}</span></p><div class=\"kv\"><span>বিষয়</span><b>{2}টি</b></div><div class=\"kv\"><span>মোট ক্রেডিট</span><b>{3}</b></div><div class=\"kv\"><span>শতকরা (আনুমানিক)</span><b>{4}%</b></div>",cgpa.toFixed(2),scale.toFixed(2),toBn(count),toBn(cr),toBn((cgpa/scale*100).toFixed(1)));
@@ -629,13 +629,13 @@ function b2g(by,bm,bd){
 $('#bd-bm').innerHTML=BM.map((m,i)=>`<option value="${i}">${m}</option>`).join('');
 $('#bd-g').value=new Date().toISOString().slice(0,10);
 $('#bd-go1').addEventListener('click',()=>{
- const v=$('#bd-g').value;if(!v){toast(T('তারিখ দিন'));return;}
+ const v=$('#bd-g').value;if(!v){toast(T('তারিখ days'));return;}
  const r=g2b(new Date(v));
  const box=$('#bd-res1');box.innerHTML=Tf("বাংলা তারিখ: <b class=\"big\">{0} {1} {2}</b> বঙ্গাব্দ",toBn(r.d),BM[r.m],toBn(r.y));box.classList.add('show');
 });
 $('#bd-go2').addEventListener('click',()=>{
  const by=+$('#bd-by').value,bm=+$('#bd-bm').value,bd=+$('#bd-bd').value;
- if(!by||!bd){toast(T('বছর ও দিন দিন'));return;}
+ if(!by||!bd){toast(T('years ও days days'));return;}
  const g=b2g(by,bm,bd);
  const box=$('#bd-res2');box.innerHTML=Tf("ইংরেজি তারিখ: <b class=\"big\">{0}</b>",g.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}));box.classList.add('show');
 });
@@ -651,7 +651,7 @@ function genPw(){
 }
 $('#pw-len').addEventListener('input',()=>{$('#pw-lv').textContent=$('#pw-len').value;genPw();});
 $('#pw-go').addEventListener('click',genPw);
-$('#pw-copy').addEventListener('click',()=>copyText($('#pw-out').value,'পাসওয়ার্ড কপি হয়েছে ✓'));
+$('#pw-copy').addEventListener('click',()=>copyText($('#pw-out').value,'পাসওয়ার্ড Copied ✓'));
 genPw();
 /* ===== TTS + STT ===== */
 function loadVoices(){const vs=speechSynthesis.getVoices();
@@ -670,7 +670,7 @@ let recog=null;
 $('#stt-go').addEventListener('click',()=>{
  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
  showErr('#stt-err','');
- if(!SR){showErr('#stt-err','এই ব্রাউজারে Voice Typing সাপোর্ট নেই — Chrome ব্যবহার করুন।');return;}
+ if(!SR){showErr('#stt-err','This browser does not support Voice Typing — use Chrome.');return;}
  if(recog){recog.stop();recog=null;$('#stt-go').textContent='🎙 বলা শুরু করুন';return;}
  recog=new SR();recog.lang=$('#stt-lang').value;recog.interimResults=true;recog.continuous=true;
  let finalTxt=$('#stt-out').value;
@@ -678,10 +678,10 @@ $('#stt-go').addEventListener('click',()=>{
    for(let i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)finalTxt+=e.results[i][0].transcript+' ';else interim+=e.results[i][0].transcript;}
    $('#stt-out').value=finalTxt+interim;};
  recog.onend=()=>{recog=null;$('#stt-go').textContent='🎙 বলা শুরু করুন';};
- recog.onerror=e=>{showErr('#stt-err','মাইক্রোফোনে সমস্যা: '+e.error+' — অনুমতি দিয়েছেন কিনা চেক করুন।');};
+ recog.onerror=e=>{showErr('#stt-err','মাইক্রোফোনে সমস্যা: '+e.error+' — check whether permission was granted.');};
  recog.start();$('#stt-go').textContent='⏹ থামান (শুনছি…)';
 });
-$('#stt-copy').addEventListener('click',()=>copyText($('#stt-out').value,'কপি হয়েছে ✓'));
+$('#stt-copy').addEventListener('click',()=>copyText($('#stt-out').value,'Copied ✓'));
 /* ===== YouTube income ===== */
 $('#yti-cat').addEventListener('change',()=>{$('#yti-rpm-wrap').style.display=$('#yti-cat').value==='custom'?'block':'none';});
 $('#yti-go').addEventListener('click',()=>{
@@ -700,7 +700,7 @@ $('#land-go').addEventListener('click',()=>{
  const amt=+$('#land-amt').value||0,unit=$('#land-unit').value;
  const toSqft={shotangsho:435.6,katha:720,bigha:14400,acre:43560,sqft:1,sqm:10.7639};
  const sqft=amt*toSqft[unit];
- const r={'বর্গফুট (Sq Ft)':sqft,'শতাংশ (Decimal)':sqft/435.6,'কাঠা (Katha)':sqft/720,'বিঘা (Bigha)':sqft/14400,'একর (Acre)':sqft/43560,'বর্গমিটার (Sq M)':sqft/10.7639,'বর্গগজ (Sq Yard)':sqft/9};
+ const r={'বর্গফুট (Sq Ft)':sqft,'শতাংশ (Decimal)':sqft/435.6,'কাঠা (Katha)':sqft/720,'বিঘা (Bigha)':sqft/14400,'Acre':sqft/43560,'বর্গমিটার (Sq M)':sqft/10.7639,'বর্গগজ (Sq Yard)':sqft/9};
  const box=$('#land-res');
  box.innerHTML=Object.keys(r).map(k=>`<div class="kv"><span>${k}</span><b>${toBn(fmtN(r[k],4))}</b></div>`).join('');
  box.classList.add('show');
@@ -708,10 +708,10 @@ $('#land-go').addEventListener('click',()=>{
 /* ===== BMI ===== */
 $('#bmi-go').addEventListener('click',()=>{
  const w=+$('#bmi-w').value||0,ft=+$('#bmi-ft').value||0,inch=+$('#bmi-in').value||0;
- const m=(ft*12+inch)*0.0254;if(!w||!m){toast(T('ওজন ও উচ্চতা দিন'));return;}
+ const m=(ft*12+inch)*0.0254;if(!w||!m){toast(T('ওজন ও উচ্চতা days'));return;}
  const bmi=w/(m*m);
  let cat,color;
- if(bmi<18.5){cat='কম ওজন (Underweight)';color='#b8860b';}
+ if(bmi<18.5){cat='Underweight';color='#b8860b';}
  else if(bmi<25){cat='স্বাভাবিক (Healthy)';color='var(--ok)';}
  else if(bmi<30){cat='বেশি ওজন (Overweight)';color='#d2691e';}
  else{cat='স্থূলতা (Obese)';color='var(--danger)';}
@@ -723,14 +723,14 @@ $('#bmi-go').addEventListener('click',()=>{
 /* ===== Date difference ===== */
 $('#dd-go').addEventListener('click',()=>{
  const a=$('#dd-a').value,b=$('#dd-b').value;
- if(!a||!b){toast(T('দুটো তারিখই দিন'));return;}
+ if(!a||!b){toast(T('দুটো তারিখই days'));return;}
  let d1=new Date(a),d2=new Date(b);if(d2<d1){const t=d1;d1=d2;d2=t;}
  const days=Math.round((d2-d1)/864e5);
  let y=d2.getFullYear()-d1.getFullYear(),mo=d2.getMonth()-d1.getMonth(),da=d2.getDate()-d1.getDate();
  if(da<0){mo--;da+=new Date(d2.getFullYear(),d2.getMonth(),0).getDate();}
  if(mo<0){y--;mo+=12;}
  const box=$('#dd-res');
- box.innerHTML=Tf("<p style=\"margin:0 0 6px\">ব্যবধান: <b class=\"big\">{0} দিন</b></p><div class=\"kv\"><span>বছর-মাস-দিনে</span><b>{1} বছর {2} মাস {3} দিন</b></div><div class=\"kv\"><span>সপ্তাহে</span><b>{4} সপ্তাহ</b></div><div class=\"kv\"><span>মোট মাস (আনুমানিক)</span><b>{5} মাস</b></div>",toBn(days.toLocaleString('en-US')),toBn(y),toBn(mo),toBn(da),toBn(fmtN(days/7,1)),toBn(fmtN(days/30.44,1)));
+ box.innerHTML=Tf("<p style=\"margin:0 0 6px\">ব্যবধান: <b class=\"big\">{0} days</b></p><div class=\"kv\"><span>years-মাস-daysে</span><b>{1} years {2} মাস {3} days</b></div><div class=\"kv\"><span>সপ্তাহে</span><b>{4} সপ্তাহ</b></div><div class=\"kv\"><span>মোট মাস (আনুমানিক)</span><b>{5} মাস</b></div>",toBn(days.toLocaleString('en-US')),toBn(y),toBn(mo),toBn(da),toBn(fmtN(days/7,1)),toBn(fmtN(days/30.44,1)));
  box.classList.add('show');
 });
 /* ===== Crop & Rotate ===== */
@@ -774,7 +774,7 @@ $('#mm-dl').addEventListener('click',()=>canvasDl($('#mm-canvas'),'meme.png'));
 /* ===== Instagram DP ===== */
 $('#ig-go').addEventListener('click',()=>{
  showErr('#ig-err','');const u=$('#ig-user').value.trim().replace(/^@/,'');
- if(!u){showErr('#ig-err','Username দিন।');return;}
+ if(!u){showErr('#ig-err','Please enter a username.');return;}
  const img=$('#ig-img');img.onload=()=>$('#ig-wrap').classList.add('show');
  img.onerror=()=>{showErr('#ig-err','ছবি পাওয়া যায়নি — username ঠিক আছে কিনা ও অ্যাকাউন্ট পাবলিক কিনা যাচাই করুন।');$('#ig-wrap').classList.remove('show');};
  img.src='https://unavatar.io/instagram/'+encodeURIComponent(u)+'?fallback=false';
@@ -786,8 +786,8 @@ $('#ig-dl').addEventListener('click',async()=>{
 });
 /* ===== Unit converter ===== */
 const UC={
- weight:{base:'kg',units:{kg:['কেজি (kg)',1],g:['গ্রাম (g)',0.001],lb:['পাউন্ড (lb)',0.453592],oz:['আউন্স (oz)',0.0283495],ton:['টন (tonne)',1000],mon:['মণ (maund, BD)',37.3242]}},
- length:{base:'m',units:{m:['মিটার (m)',1],cm:['সেন্টিমিটার (cm)',0.01],mm:['মিলিমিটার (mm)',0.001],km:['কিলোমিটার (km)',1000],inch:['ইঞ্চি (inch)',0.0254],ft:['ফুট (ft)',0.3048],yd:['গজ (yard)',0.9144],mile:['মাইল (mile)',1609.34]}},
+ weight:{base:'kg',units:{kg:['কেজি (kg)',1],g:['গ্রাম (g)',0.001],lb:['পাউন্ড (lb)',0.453592],oz:['Ounces (oz)',0.0283495],ton:['টন (tonne)',1000],mon:['মণ (maund, BD)',37.3242]}},
+ length:{base:'m',units:{m:['মিটার (m)',1],cm:['সেন্টিমিটার (cm)',0.01],mm:['মিলিমিটার (mm)',0.001],km:['কিলোমিটার (km)',1000],inch:['Inches (inch)',0.0254],ft:['ফুট (ft)',0.3048],yd:['গজ (yard)',0.9144],mile:['মাইল (mile)',1609.34]}},
  temp:{base:'c',units:{c:['সেলসিয়াস (°C)',null],f:['ফারেনহাইট (°F)',null],k:['কেলভিন (K)',null]}}
 };
 function ucFill(){
@@ -821,7 +821,7 @@ $$('[data-tx]').forEach(btn=>btn.addEventListener('click',()=>{
  else if(op==='trim')t=t.split('\n').map(l=>l.trim().replace(/\s+/g,' ')).join('\n').replace(/\n{3,}/g,'\n\n');
  ta.value=t;toast(T('হয়ে গেছে ✓'));
 }));
-$('#tx-copy').addEventListener('click',()=>copyText($('#tx-in').value,'কপি হয়েছে ✓'));
+$('#tx-copy').addEventListener('click',()=>copyText($('#tx-in').value,'Copied ✓'));
 /* ===== Random picker ===== */
 let rpMode='names';
 $('#rp-mode-names').addEventListener('click',()=>{rpMode='names';$('#rp-mode-names').classList.add('on');$('#rp-mode-nums').classList.remove('on');$('#rp-names-wrap').style.display='block';$('#rp-nums-wrap').style.display='none';});
@@ -833,7 +833,7 @@ $('#rp-go').addEventListener('click',()=>{
  if(rpMode==='names'){pool=$('#rp-names').value.split('\n').map(s=>s.trim()).filter(Boolean);}
  else{const mn=+$('#rp-min').value||0,mx=+$('#rp-max').value||0;for(let i=mn;i<=mx;i++)pool.push(String(i));}
  const box=$('#rp-res');
- if(pool.length<count){box.innerHTML='পর্যাপ্ত অপশন নেই — আরও নাম/বড় রেঞ্জ দিন।';box.classList.add('show');return;}
+ if(pool.length<count){box.innerHTML='পর্যাপ্ত অপশন নেই — আরও Name/বড় রেঞ্জ days।';box.classList.add('show');return;}
  const copy=pool.slice(),winners=[];
  for(let i=0;i<count;i++){winners.push(copy.splice(randInt(copy.length),1)[0]);}
  box.innerHTML=Tf("<p style=\"margin:0;font-size:15px;color:var(--ink2)\">🏆 বিজয়ী</p><p style=\"margin:4px 0 0;font-size:clamp(24px,6vw,36px);font-weight:800\">{0}</p>",winners.join(' · '));
@@ -862,7 +862,7 @@ function beep(){try{audioCtx=audioCtx||new (window.AudioContext||window.webkitAu
 $('#tm-go').addEventListener('click',()=>{
  if(tmRun){clearInterval(tmInt);tmRun=false;$('#tm-go').textContent='Resume';return;}
  if(tmLeft<=0)tmLeft=((+$('#tm-min').value||0)*60+(+$('#tm-sec').value||0))*1000;
- if(tmLeft<=0){toast(T('সময় দিন'));return;}
+ if(tmLeft<=0){toast(T('সময় days'));return;}
  const end=Date.now()+tmLeft;tmRun=true;$('#tm-go').textContent='Pause';
  tmInt=setInterval(()=>{tmLeft=end-Date.now();tmRender();
    if(tmLeft<=0){clearInterval(tmInt);tmRun=false;tmLeft=0;tmRender();$('#tm-go').textContent='Start';beep();toast(T('⏰ টাইম শেষ!'));}},200);
@@ -893,4 +893,4 @@ function cpPick(cx,cy){
    pal.appendChild(s);}
 }
 $('#cp-canvas').addEventListener('click',e=>cpPick(e.clientX,e.clientY));
-$('#cp-copy').addEventListener('click',()=>{if(cpHex)copyText(cpHex,'HEX কপি হয়েছে ✓');});
+$('#cp-copy').addEventListener('click',()=>{if(cpHex)copyText(cpHex,'HEX copied ✓');});
