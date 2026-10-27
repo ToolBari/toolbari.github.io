@@ -42,9 +42,9 @@ function tzWallToUTC(str,tz){
 }
 function tzFmt(d,tz){return new Intl.DateTimeFormat('en-GB',{timeZone:tz,weekday:'long',day:'numeric',month:'long',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true}).format(d);}
 $('#tz-go').addEventListener('click',()=>{
- const v=$('#tz-dt').value;if(!v){toast(T('তারিখ ও সময় দিন'));return;}
+ const v=$('#tz-dt').value;if(!v){toast(T('তারিখ ও সময় days'));return;}
  const from=$('#tz-from').value,to=$('#tz-to').value;
- const utc=tzWallToUTC(v,from);if(!utc){toast(T('সঠিক সময় দিন'));return;}
+ const utc=tzWallToUTC(v,from);if(!utc){toast(T('সঠিক সময় days'));return;}
  const zf=ZONES.find(z=>z[0]===from),zt=ZONES.find(z=>z[0]===to);
  const box=$('#tz-res');
  box.innerHTML=Tf("<div class=\"kv\"><span>{0}</span><b>{1}</b></div><div class=\"kv\"><span>{2}</span><b class=\"big\" style=\"font-size:18px\">{3}</b></div><div class=\"kv\"><span>In Dhaka time</span><b>{4}</b></div>",zf[1],tzFmt(utc,from),zt[1],tzFmt(utc,to),tzFmt(utc,'Asia/Dhaka'));
@@ -61,7 +61,7 @@ function taxBD(annual,freeLimit){
  const slabs=[[100000,0.05],[300000,0.10],[400000,0.15],[500000,0.20],[Infinity,0.25]];
  let rem=Math.max(0,annual-freeLimit),tax=0;const rows=[];
  if(annual>0)rows.push(Tf("<div class=\"kv\"><span>করমুক্ত অংশ</span><b>৳{0}</b></div>",toBn(fmtN(Math.min(annual,freeLimit)))));
- const labels=['পরের ৳১,০০,০০০ — ৫%','পরের ৳৩,০০,০০০ — ১০%','পরের ৳৪,০০,০০০ — ১৫%','পরের ৳৫,০০,০০০ — ২০%','অবশিষ্ট — ২৫%'];
+ const labels=['পরের ৳১,০০,০০০ — ৫%','পরের ৳৩,০০,০০০ — ১০%','পরের ৳৪,০০,০০০ — ১৫%','পরের ৳৫,০০,০০০ — ২০%','Remaining — 25%'];
  slabs.forEach((s,i)=>{if(rem<=0)return;const take=Math.min(rem,s[0]);const t=take*s[1];tax+=t;rem-=take;
   rows.push(Tf("<div class=\"kv\"><span>{0} (আয় ৳{1})</span><b>৳{2}</b></div>",labels[i],toBn(fmtN(take)),toBn(fmtN(Math.round(t)))));});
  return {tax:Math.round(tax),rows:rows.join('')};
@@ -91,7 +91,7 @@ $('#sal-go').addEventListener('click',()=>{
  const tax=($('#sal-tax').value==='1')?taxBD(yearly+bonus,350000).tax:0;
  const netYear=yearly+bonus-pfYear-tax;
  const box=$('#sal-res');
- box.innerHTML=Tf("<p style=\"margin:0 0 6px\">মাসিক হাতে পাবেন (গড়ে): <b class=\"big\">৳{0}</b></p>\n <div class=\"kv\"><span>মাসিক গ্রস বেতন</span><b>৳{1}</b></div>\n <div class=\"kv\"><span>বার্ষিক গ্রস (১২ মাস)</span><b>৳{2}</b></div>\n <div class=\"kv\"><span>বার্ষিক বোনাস</span><b>৳{3}</b></div>\n <div class=\"kv\"><span>বার্ষিক PF কর্তন</span><b>৳{4}</b></div>\n <div class=\"kv\"><span>আনুমানিক বার্ষিক আয়কর</span><b>৳{5}</b></div>\n <div class=\"kv\"><span>বার্ষিক নিট (হাতে পাওয়া)</span><b>৳{6}</b></div>\n <div class=\"kv\"><span>ঘণ্টা প্রতি (২৬ দিন × ৮ ঘণ্টা ধরে)</span><b>৳{7}</b></div>",toBn(fmtN(Math.round(netYear/12))),toBn(fmtN(Math.round(monthly))),toBn(fmtN(Math.round(yearly))),toBn(fmtN(Math.round(bonus))),toBn(fmtN(Math.round(pfYear))),toBn(fmtN(tax)),toBn(fmtN(Math.round(netYear))),toBn(fmtN(monthly/208,1)));
+ box.innerHTML=Tf("<p style=\"margin:0 0 6px\">মাসিক হাতে পাবেন (গড়ে): <b class=\"big\">৳{0}</b></p>\n <div class=\"kv\"><span>মাসিক গ্রস বেতন</span><b>৳{1}</b></div>\n <div class=\"kv\"><span>বার্ষিক গ্রস (১২ মাস)</span><b>৳{2}</b></div>\n <div class=\"kv\"><span>বার্ষিক বোনাস</span><b>৳{3}</b></div>\n <div class=\"kv\"><span>বার্ষিক PF কর্তন</span><b>৳{4}</b></div>\n <div class=\"kv\"><span>আনুমানিক বার্ষিক আয়কর</span><b>৳{5}</b></div>\n <div class=\"kv\"><span>বার্ষিক নিট (হাতে পাওয়া)</span><b>৳{6}</b></div>\n <div class=\"kv\"><span>hours প্রতি (২৬ days × ৮ hours ধরে)</span><b>৳{7}</b></div>",toBn(fmtN(Math.round(netYear/12))),toBn(fmtN(Math.round(monthly))),toBn(fmtN(Math.round(yearly))),toBn(fmtN(Math.round(bonus))),toBn(fmtN(Math.round(pfYear))),toBn(fmtN(tax)),toBn(fmtN(Math.round(netYear))),toBn(fmtN(monthly/208,1)));
  box.classList.add('show');
 });
 /* ===== Percentage ===== */
@@ -100,7 +100,7 @@ $('#pc-mode').addEventListener('change',()=>{const l=PC_LABELS[$('#pc-mode').val
 $('#pc-go').addEventListener('click',()=>{
  const m=$('#pc-mode').value,a=+$('#pc-a').value||0,b=+$('#pc-b').value||0,box=$('#pc-res');let html='';
  if(m==='of')html=Tf("<b class=\"big\">{0}-এর {1}% = {2}</b>",fmtN(b),fmtN(a),fmtN(a/100*b));
- else if(m==='iswhat'){if(!b){toast(T('Y শূন্য হতে পারে না'));return;}html=Tf("<b class=\"big\">{0}, {1}-এর {2}%</b>",fmtN(a),fmtN(b),fmtN(a/b*100,4));}
+ else if(m==='iswhat'){if(!b){toast(T('Y cannot be zero'));return;}html=Tf("<b class=\"big\">{0}, {1}-এর {2}%</b>",fmtN(a),fmtN(b),fmtN(a/b*100,4));}
  else if(m==='change'){if(!a){toast(T('আগের মান শূন্য হতে পারে না'));return;}const ch=(b-a)/Math.abs(a)*100;
   html=Tf("<b class=\"big\">{0} → {1}: {2} {3}%</b><div class=\"kv\"><span>পার্থক্য</span><b>{4}</b></div>",fmtN(a),fmtN(b),ch>=0?'বেড়েছে':'কমেছে',fmtN(Math.abs(ch),4),fmtN(b-a));}
  else{const inc=b*(1+a/100),dec=b*(1-a/100);html=Tf("<div class=\"kv\"><span>{0}% বাড়ালে</span><b class=\"big\" style=\"font-size:19px\">{1}</b></div><div class=\"kv\"><span>{2}% কমালে</span><b class=\"big\" style=\"font-size:19px\">{3}</b></div>",fmtN(a),fmtN(inc),fmtN(a),fmtN(dec));}
@@ -120,10 +120,10 @@ function rowData(container){
 }
 dynRow('#cv-exp-rows',[['role','পদবি (যেমন: Sales Executive)'],['org','প্রতিষ্ঠান'],['period','সময়কাল (2019 – 2023)'],['desc','কাজের বিবরণ','flex:2;min-width:200px']]);
 dynRow('#cv-exp-rows',[['role','পদবি'],['org','প্রতিষ্ঠান'],['period','সময়কাল'],['desc','কাজের বিবরণ','flex:2;min-width:200px']]);
-dynRow('#cv-edu-rows',[['degree','ডিগ্রি (যেমন: BBA)'],['inst','প্রতিষ্ঠান'],['year','পাসের বছর'],['result','ফলাফল (CGPA/GPA)']]);
-dynRow('#cv-edu-rows',[['degree','ডিগ্রি (যেমন: HSC)'],['inst','প্রতিষ্ঠান'],['year','পাসের বছর'],['result','ফলাফল']]);
+dynRow('#cv-edu-rows',[['degree','ডিগ্রি (যেমন: BBA)'],['inst','প্রতিষ্ঠান'],['year','পাসের years'],['result','ফলাফল (CGPA/GPA)']]);
+dynRow('#cv-edu-rows',[['degree','ডিগ্রি (যেমন: HSC)'],['inst','প্রতিষ্ঠান'],['year','পাসের years'],['result','ফলাফল']]);
 $('#cv-exp-add').addEventListener('click',()=>dynRow('#cv-exp-rows',[['role','পদবি'],['org','প্রতিষ্ঠান'],['period','সময়কাল'],['desc','কাজের বিবরণ','flex:2;min-width:200px']]));
-$('#cv-edu-add').addEventListener('click',()=>dynRow('#cv-edu-rows',[['degree','ডিগ্রি'],['inst','প্রতিষ্ঠান'],['year','পাসের বছর'],['result','ফলাফল']]));
+$('#cv-edu-add').addEventListener('click',()=>dynRow('#cv-edu-rows',[['degree','ডিগ্রি'],['inst','প্রতিষ্ঠান'],['year','পাসের years'],['result','ফলাফল']]));
 function cvData(){
  return {name:$('#cv-name').value.trim(),title:$('#cv-title').value.trim(),email:$('#cv-email').value.trim(),
   phone:$('#cv-phone').value.trim(),addr:$('#cv-addr').value.trim(),summary:$('#cv-summary').value.trim(),
@@ -132,7 +132,7 @@ function cvData(){
 }
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;');}
 function cvRender(){
- const d=cvData();if(!d.name){toast(T('আগে নাম লিখুন'));return null;}
+ const d=cvData();if(!d.name){toast(T('আগে Name লিখুন'));return null;}
  const contact=[d.email,d.phone,d.addr].filter(Boolean).join(' · ');
  const paper=$('#cv-paper');
  paper.innerHTML=`<h2>${esc(d.name)}</h2>${d.title?`<p style="margin:2px 0 0;color:#0b7a4b;font-weight:600">${esc(d.title)}</p>`:''}${contact?`<p style="margin:2px 0 0;color:#555">${esc(contact)}</p>`:''}
@@ -173,8 +173,8 @@ $('#cv-pdf').addEventListener('click',()=>{
   if(d.edu.length){head('Education');d.edu.forEach(e=>para(`${e.degree}${e.inst?' — '+e.inst:''}${e.year?' ('+e.year+')':''}${e.result?' · Result: '+e.result:''}`));}
   if(d.skills){head('Skills');para(d.skills);}
   if(d.lang){head('Languages');para(d.lang);}
-  doc.save((d.name||'cv').replace(/\s+/g,'_')+'_CV.pdf');toast(T('PDF ডাউনলোড হয়েছে ✓'));
- }catch(e){toast(T('PDF তৈরি করা যায়নি — টেক্সট ডাউনলোড ব্যবহার করুন'));}
+  doc.save((d.name||'cv').replace(/\s+/g,'_')+'_CV.pdf');toast(T('PDF downloaded ✓'));
+ }catch(e){toast(T('Could not create PDF — use Text Download'));}
 });
 /* ===== Invoice Generator ===== */
 $('#inv-date').value=new Date().toISOString().slice(0,10);
@@ -183,7 +183,7 @@ function invCur(){const c=$('#inv-cur').value||'BDT';return {code:c,s:(CURS[c]||
 function invMoney(x){const c=invCur();return c.s+fmtN(Math.round(x*100)/100);}
 function invRow(){
  const div=document.createElement('div');div.className='dynrow inv-row';
- div.innerHTML=`<input class="in f-desc" data-k="desc" placeholder="আইটেমের নাম / বিবরণ" /><input class="in f-qty" data-k="qty" type="number" value="1" min="0" step="any" placeholder="পরিমাণ" /><input class="in f-price" data-k="price" type="number" value="0" min="0" step="any" placeholder="একক দাম" /><span class="f-amt">—</span><span class="f-x"><button class="btn alt sm" type="button">✕</button></span>`;
+ div.innerHTML=`<input class="in f-desc" data-k="desc" placeholder="আইটেমের Name / বিবরণ" /><input class="in f-qty" data-k="qty" type="number" value="1" min="0" step="any" placeholder="পরিমাণ" /><input class="in f-price" data-k="price" type="number" value="0" min="0" step="any" placeholder="একক দাম" /><span class="f-amt">—</span><span class="f-x"><button class="btn alt sm" type="button">✕</button></span>`;
  div.querySelector('button').onclick=()=>{div.remove();invLive();};
  div.querySelectorAll('input').forEach(el=>el.addEventListener('input',invLive));
  $('#inv-rows').appendChild(div);
@@ -224,7 +224,7 @@ function invLive(){
  set('inv-lv-total',invMoney(d.total)); set('inv-lv-paid',invMoney(d.paid)); set('inv-lv-due',invMoney(Math.max(0,d.due)));
 }
 function invRender(){
- const d=invCalc();if(!d.items.length){toast(T('অন্তত একটি আইটেম যোগ করুন'));return null;}
+ const d=invCalc();if(!d.items.length){toast(T('Please add at least one item'));return null;}
  const isInv=d.type==='invoice';
  const rows=d.items.map((it,ix)=>`<tr><td class="num">${ix+1}</td><td>${esc(it.desc)}</td><td class="r num">${fmtN(it.qty)}</td><td class="r num">${invMoney(it.price)}</td><td class="r num">${invMoney(it.qty*it.price)}</td></tr>`).join('');
  $('#inv-paper').innerHTML=`
@@ -280,8 +280,8 @@ $('#inv-pdf').addEventListener('click',()=>{
   y+=3;doc.setFontSize(10);doc.text('Amount in words: '+numWords(d.total)+' '+d.cur.n+' Only',X,y);y+=6;
   if(d.notes){doc.text(doc.splitTextToSize(d.notes,180),X,y);y+=8;}
   doc.setFontSize(9);doc.setTextColor(130);doc.text('Generated with ToolBari — All In One Tools',X,290);
-  doc.save((d.no||'invoice')+'.pdf');toast(T('PDF ডাউনলোড হয়েছে ✓'));
- }catch(e){toast(T('PDF তৈরি করা যায়নি — টেক্সট ডাউনলোড ব্যবহার করুন'));}
+  doc.save((d.no||'invoice')+'.pdf');toast(T('PDF downloaded ✓'));
+ }catch(e){toast(T('Could not create PDF — use Text Download'));}
 });
 invLive();
 
@@ -357,7 +357,7 @@ $('#vc-go').addEventListener('click',async()=>{
    const dest=actx.createMediaStreamDestination();
    v._vcSrc.connect(dest);v._vcSrc.connect(actx.destination);
    const at=dest.stream.getAudioTracks()[0];if(at)stream.addTrack(at);
- }catch(e){$('#vc-status').textContent='অডিও ছাড়া প্রসেস হচ্ছে (ব্রাউজার অডিও ধরতে পারেনি)…';}
+ }catch(e){$('#vc-status').textContent='Processing without audio (browser could not capture audio)…';}
  const mime=MediaRecorder.isTypeSupported('video/webm;codecs=vp9')?'video/webm;codecs=vp9':'video/webm';
  const rec=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:+$('#vc-br').value,audioBitsPerSecond:128000});
  const chunks=[];rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
@@ -412,15 +412,15 @@ $('#ac-go').addEventListener('click',async()=>{
  if(!acFile)return;const fmt=$('#ac-fmt').value;const btn=$('#ac-go');btn.disabled=true;
  try{
    const buffer=await acDecode();
-   $('#ac-info').innerHTML+=Tf("<div class=\"kv\"><span>দৈর্ঘ্য</span><b>{0} সেকেন্ড</b></div><div class=\"kv\"><span>চ্যানেল / স্যাম্পল রেট</span><b>{1}ch · {2} Hz</b></div>",buffer.duration.toFixed(1),buffer.numberOfChannels,buffer.sampleRate);
+   $('#ac-info').innerHTML+=Tf("<div class=\"kv\"><span>দৈর্ঘ্য</span><b>{0} seconds</b></div><div class=\"kv\"><span>চ্যানেল / স্যাম্পল রেট</span><b>{1}ch · {2} Hz</b></div>",buffer.duration.toFixed(1),buffer.numberOfChannels,buffer.sampleRate);
    if(fmt==='wav'){
-     $('#ac-status').textContent='WAV তৈরি হচ্ছে…';
+     $('#ac-status').textContent='Creating WAV…';
      const blob=wavEncode(buffer);
      $('#ac-res').innerHTML=Tf("<p style=\"margin:0 0 8px\"><b>তৈরি ✓</b> — {0} MB WAV ফাইল</p>",(blob.size/1048576).toFixed(2));
      const a=document.createElement('a');a.className='btn';a.textContent='⬇ WAV ডাউনলোড';a.href=URL.createObjectURL(blob);a.download='converted.wav';$('#ac-res').appendChild(a);
      $('#ac-res').classList.add('show');$('#ac-status').textContent='';
    }else{
-     $('#ac-status').textContent='WebM তৈরি হচ্ছে — অডিওটি রিয়েল-টাইমে চলছে ('+Math.ceil(buffer.duration)+'s)…';
+     $('#ac-status').textContent='Creating WebM — audio is playing in real time ('+Math.ceil(buffer.duration)+'s)…';
      const ctx=new (window.AudioContext||window.webkitAudioContext)();
      const src=ctx.createBufferSource();src.buffer=buffer;
      const dest=ctx.createMediaStreamDestination();src.connect(dest);
@@ -441,16 +441,16 @@ $('#ac-go').addEventListener('click',async()=>{
 /* ===== JSON Formatter ===== */
 function jfParse(){
  const s=$('#jf-in').value.trim();
- if(!s){showErr('#jf-err','আগে JSON ডেটা দিন।');return null;}
+ if(!s){showErr('#jf-err','আগে JSON Data days।');return null;}
  try{const o=JSON.parse(s);showErr('#jf-err','');return o;}
- catch(e){showErr('#jf-err','অবৈধ JSON: '+e.message);$('#jf-status').classList.remove('show');return null;}
+ catch(e){showErr('#jf-err','Invalid JSON: '+e.message);$('#jf-status').classList.remove('show');return null;}
 }
 function jfOk(msg){const b=$('#jf-status');b.textContent=msg;b.classList.add('show');}
 $('#jf-format').addEventListener('click',()=>{const o=jfParse();if(o===null)return;$('#jf-out').value=JSON.stringify(o,null,2);jfOk('✓ বৈধ JSON — ফরম্যাট করা হয়েছে');});
 $('#jf-min').addEventListener('click',()=>{const o=jfParse();if(o===null)return;$('#jf-out').value=JSON.stringify(o);jfOk('✓ বৈধ JSON — মিনিফাই করা হয়েছে');});
 $('#jf-validate').addEventListener('click',()=>{const o=jfParse();if(o===null)return;jfOk('✓ সম্পূর্ণ বৈধ JSON — কোনো ভুল নেই');});
 $('#jf-sample').addEventListener('click',()=>{$('#jf-in').value='{"name":"Rahim Uddin","city":"Dhaka","skills":["Excel","Word"],"active":true}';showErr('#jf-err','');});
-$('#jf-copy').addEventListener('click',()=>{if($('#jf-out').value)copyText($('#jf-out').value,'কপি হয়েছে ✓');});
+$('#jf-copy').addEventListener('click',()=>{if($('#jf-out').value)copyText($('#jf-out').value,'Copied ✓');});
 /* ===== Code Formatter ===== */
 function cssFmt(s){
  s=s.replace(/\/\*[\s\S]*?\*\//g,'').replace(/\s+/g,' ').replace(/\s*([{}:;,])\s*/g,'$1').replace(/;}/g,'}').trim();
@@ -503,16 +503,16 @@ function compactCode(s,lang){
  return s.replace(/\/\*[\s\S]*?\*\//g,'').split('\n').map(l=>l.trim()).filter(Boolean).join(lang==='html'?'':'\n');
 }
 $('#cf-format').addEventListener('click',()=>{
- const s=$('#cf-in').value;if(!s.trim()){showErr('#cf-err','আগে কোড দিন।');return;}showErr('#cf-err','');
+ const s=$('#cf-in').value;if(!s.trim()){showErr('#cf-err','আগে কোড days।');return;}showErr('#cf-err','');
  const lang=$('#cf-lang').value;
  $('#cf-out').value=lang==='css'?cssFmt(s):lang==='html'?htmlFmt(s):jsFmt(s);
  toast(T('ফরম্যাট হয়েছে ✓'));
 });
 $('#cf-min').addEventListener('click',()=>{
- const s=$('#cf-in').value;if(!s.trim()){showErr('#cf-err','আগে কোড দিন।');return;}showErr('#cf-err','');
+ const s=$('#cf-in').value;if(!s.trim()){showErr('#cf-err','আগে কোড days।');return;}showErr('#cf-err','');
  $('#cf-out').value=compactCode(s,$('#cf-lang').value);toast(T('মিনিফাই হয়েছে ✓'));
 });
-$('#cf-copy').addEventListener('click',()=>{if($('#cf-out').value)copyText($('#cf-out').value,'কপি হয়েছে ✓');});
+$('#cf-copy').addEventListener('click',()=>{if($('#cf-out').value)copyText($('#cf-out').value,'Copied ✓');});
 /* ===== URL Encoder ===== */
 function ueDo(fn){
  const ta=$('#ue-in');showErr('#ue-err','');
@@ -522,28 +522,28 @@ function ueDo(fn){
 $('#ue-enc').addEventListener('click',()=>ueDo(s=>encodeURIComponent(s)));
 $('#ue-enfull').addEventListener('click',()=>ueDo(s=>encodeURI(s)));
 $('#ue-dec').addEventListener('click',()=>ueDo(s=>decodeURIComponent(s)));
-$('#ue-copy').addEventListener('click',()=>copyText($('#ue-in').value,'কপি হয়েছে ✓'));
+$('#ue-copy').addEventListener('click',()=>copyText($('#ue-in').value,'Copied ✓'));
 /* ===== DNS Checker ===== */
 const DNS_TYPES={1:'A',2:'NS',5:'CNAME',6:'SOA',15:'MX',16:'TXT',28:'AAAA'};
 $('#dns-go').addEventListener('click',async()=>{
  const name=$('#dns-name').value.trim().replace(/^https?:\/\//,'').replace(/\/.*$/,'');
  const box=$('#dns-res');
- if(!/^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(name)){$('#dns-status').textContent='সঠিক ডোমেইন দিন — যেমন example.com';return;}
- $('#dns-status').textContent='DNS রেকর্ড আনা হচ্ছে…';box.classList.remove('show');
+ if(!/^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(name)){$('#dns-status').textContent='সঠিক ডোমেইন days — যেমন example.com';return;}
+ $('#dns-status').textContent='Fetching DNS records…';box.classList.remove('show');
  try{
    const r=await fetch('https://dns.google/resolve?name='+encodeURIComponent(name)+'&type='+encodeURIComponent($('#dns-type').value));
    const j=await r.json();
    if(j.Status===3){$('#dns-status').textContent='এই ডোমেইনটির অস্তিত্ব পাওয়া যায়নি (NXDOMAIN)।';return;}
-   if(!j.Answer||!j.Answer.length){$('#dns-status').textContent='এই ধরনের কোনো রেকর্ড পাওয়া যায়নি।';return;}
+   if(!j.Answer||!j.Answer.length){$('#dns-status').textContent='এই Typeের কোনো রেকর্ড পাওয়া যায়নি।';return;}
    $('#dns-status').textContent='';
-   box.innerHTML='<table class="tbl"><thead><tr><th>নাম</th><th>ধরন</th><th>TTL</th><th>ডেটা</th></tr></thead><tbody>'+
+   box.innerHTML='<table class="tbl"><thead><tr><th>Name</th><th>Type</th><th>TTL</th><th>Data</th></tr></thead><tbody>'+
      j.Answer.map(a=>`<tr><td class="mono">${esc(a.name)}</td><td>${DNS_TYPES[a.type]||a.type}</td><td>${a.TTL}</td><td class="mono" style="word-break:break-all">${esc(a.data)}</td></tr>`).join('')+'</tbody></table>';
    box.classList.add('show');
  }catch(e){$('#dns-status').textContent='সংযোগ করা যায়নি — ইন্টারনেট চেক করে আবার চেষ্টা করুন।';}
 });
 $('#dns-web').addEventListener('click',async()=>{
  const name=$('#dns-name').value.trim().replace(/^https?:\/\//,'').replace(/\/.*$/,'');
- if(!/^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(name)){$('#dns-status').textContent='সঠিক ডোমেইন দিন — যেমন example.com';return;}
+ if(!/^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(name)){$('#dns-status').textContent='সঠিক ডোমেইন days — যেমন example.com';return;}
  $('#dns-status').textContent='ওয়েবসাইট চেক করা হচ্ছে…';
  const t0=performance.now();
  try{
@@ -589,7 +589,7 @@ $('#sb-file').addEventListener('change',e=>{
 });
 function sbOp(fn){
  const cues=sbParse($('#sb-in').value);
- if(!cues.length){showErr('#sb-err','সাবটাইটেল টেক্সট পাওয়া যায়নি — সঠিক SRT/VTT দিন।');return;}
+ if(!cues.length){showErr('#sb-err','সাবটাইটেল টেক্সট পাওয়া যায়নি — সঠিক SRT/VTT days।');return;}
  showErr('#sb-err','');fn(cues);
 }
 $('#sb-shiftbtn').addEventListener('click',()=>sbOp(cues=>{
@@ -598,19 +598,19 @@ $('#sb-shiftbtn').addEventListener('click',()=>sbOp(cues=>{
  cues.forEach(c=>{c.start+=shift;c.end+=shift;});
  $('#sb-in').value=sbRender(cues,fmt);sbFmtDetect();toast(T('সময় শিফট হয়েছে ✓'));
 }));
-$('#sb-tosrt').addEventListener('click',()=>sbOp(cues=>{$('#sb-in').value=sbRender(cues,'srt');sbFmtDetect();toast(T('SRT-তে রূপান্তর হয়েছে ✓'));}));
-$('#sb-tovtt').addEventListener('click',()=>sbOp(cues=>{$('#sb-in').value=sbRender(cues,'vtt');sbFmtDetect();toast(T('VTT-তে রূপান্তর হয়েছে ✓'));}));
+$('#sb-tosrt').addEventListener('click',()=>sbOp(cues=>{$('#sb-in').value=sbRender(cues,'srt');sbFmtDetect();toast(T('Converted to SRT ✓'));}));
+$('#sb-tovtt').addEventListener('click',()=>sbOp(cues=>{$('#sb-in').value=sbRender(cues,'vtt');sbFmtDetect();toast(T('Converted to VTT ✓'));}));
 $('#sb-dl').addEventListener('click',()=>{
- const t=$('#sb-in').value;if(!t.trim()){toast(T('আগে সাবটাইটেল দিন'));return;}
+ const t=$('#sb-in').value;if(!t.trim()){toast(T('আগে সাবটাইটেল days'));return;}
  const vtt=t.includes('WEBVTT');
  dl(URL.createObjectURL(new Blob([t],{type:'text/plain;charset=utf-8'})),vtt?'subtitle.vtt':'subtitle.srt');
 });
-$('#sb-copy').addEventListener('click',()=>copyText($('#sb-in').value,'কপি হয়েছে ✓'));
+$('#sb-copy').addEventListener('click',()=>copyText($('#sb-in').value,'Copied ✓'));
 /* ===== Grammar & Writing Tools ===== */
 const MISSP={teh:'the',adress:'address',recieve:'receive',seperate:'separate',definately:'definitely',occured:'occurred',enviroment:'environment',goverment:'government',wich:'which',thier:'their',finaly:'finally',realy:'really',beleive:'believe',freind:'friend',tommorrow:'tomorrow',tomorow:'tomorrow',necesary:'necessary',existance:'existence',independant:'independent',langauge:'language',writting:'writing',comming:'coming',happend:'happened',knowlege:'knowledge',publich:'publish',grammer:'grammar',sentense:'sentence',paragraf:'paragraph',exelent:'excellent',immediatly:'immediately',noticable:'noticeable',prefered:'preferred',refering:'referring',untill:'until',withing:'within',youseful:'useful'};
 function grAnalyze(){
  const t=$('#gr-in').value;const box=$('#gr-res');
- if(!t.trim()){toast(T('আগে লেখা দিন'));return;}
+ if(!t.trim()){toast(T('আগে লেখা days'));return;}
  const issues=[];
  const words=t.trim().split(/\s+/).filter(Boolean).length;
  const sents=(t.match(/[^.!?।]+[.!?।]+/g)||[]).length||1;
@@ -626,7 +626,7 @@ function grAnalyze(){
  const fk=Object.keys(found);
  if(fk.length)issues.push(['err','সম্ভাব্য বানান ভুল: '+fk.slice(0,10).map(w=>`${w} → ${MISSP[w]}`).join(' · ')]);
  const lowStarts=(t.match(/(^|[.!?]\s+)[a-z]/gm)||[]).length;
- if(lowStarts)issues.push(['tip',Tf("বাক্যের শুরুতে ছোট হাতের অক্ষর: {0} জায়গায় — বাক্য বড় হাতের অক্ষর দিয়ে শুরু করুন।",toBn(lowStarts))]);
+ if(lowStarts)issues.push(['tip',Tf("বাক্যের শুরুতে ছোট হাতের characters: {0} জায়গায় — বাক্য বড় হাতের characters দিয়ে শুরু করুন।",toBn(lowStarts))]);
  const caps=(t.match(/\b[A-Z]{4,}\b/g)||[]).length;
  if(caps>2)issues.push(['tip',Tf("ALL CAPS শব্দ {0}টি — সব বড় হাতের লেখা পড়তে কষ্ট হয়, দরকার ছাড়া এড়িয়ে চলুন।",toBn(caps))]);
  const excl=(t.match(/!/g)||[]).length;
@@ -635,21 +635,21 @@ function grAnalyze(){
  if(avg>25)issues.push(['tip',Tf("বাক্যগুলো লম্বা (গড়ে {0} শব্দ/বাক্য) — ছোট বাক্য পড়তে সহজ।",toBn(avg.toFixed(0)))]);
  let html=Tf("<div class=\"kv\"><span>শব্দ</span><b>{0}</b></div><div class=\"kv\"><span>বাক্য</span><b>{1}</b></div><div class=\"kv\"><span>গড় বাক্যের দৈর্ঘ্য</span><b>{2} শব্দ</b></div>",toBn(words),toBn(sents),toBn(avg.toFixed(1)));
  if(issues.length)html+='<ul class="issue-list">'+issues.map(i=>`<li><span class="sev ${i[0]}">${i[0]==='err'?'ভুল':i[0]==='warn'?'সতর্কতা':'পরামর্শ'}</span>${i[1]}</li>`).join('')+'</ul>';
- else html+='<p style="margin:8px 0 0;color:var(--ok);font-weight:600">✓ সাধারণ কোনো ভুল পাওয়া যায়নি — চমৎকার!</p>';
+ else html+='<p style="margin:8px 0 0;color:var(--ok);font-weight:600">✓ No common mistakes found — excellent!</p>';
  box.innerHTML=html;box.classList.add('show');
 }
 $('#gr-check').addEventListener('click',grAnalyze);
 $('#gr-fix').addEventListener('click',()=>{
- let t=$('#gr-in').value;if(!t.trim()){toast(T('আগে লেখা দিন'));return;}
+ let t=$('#gr-in').value;if(!t.trim()){toast(T('আগে লেখা days'));return;}
  t=t.replace(/ {2,}/g,' ');
  t=t.replace(/\s+([,.!?;:])/g,'$1');
  t=t.replace(/\b([A-Za-z]+)(\s+)\1\b/gi,'$1');
  for(const w in MISSP){t=t.replace(new RegExp('\\b'+w+'\\b','gi'),m=>m[0]===m[0].toUpperCase()?MISSP[w][0].toUpperCase()+MISSP[w].slice(1):MISSP[w]);}
  t=t.replace(/(^|[.!?]\s+)([a-z])/g,(m,p,c)=>p+c.toUpperCase());
- $('#gr-in').value=t;toast(T('অটো-ফিক্স হয়েছে ✓'));grAnalyze();
+ $('#gr-in').value=t;toast(T('Auto-fix done ✓'));grAnalyze();
 });
 $('#gr-sample').addEventListener('click',()=>{$('#gr-in').value='teh quick brown fox is  very fast . He recieve alot of praise for his writting , but his grammer is noticable weak . the the fox runs fast and fast .';});
-$('#gr-copy').addEventListener('click',()=>copyText($('#gr-in').value,'কপি হয়েছে ✓'));
+$('#gr-copy').addEventListener('click',()=>copyText($('#gr-in').value,'Copied ✓'));
 
 "use strict";
 /* ===== Prayer Times (Aladhan API) ===== */
@@ -662,7 +662,7 @@ function pr12(t){
 async function prLoad(){
  const [city,country]=$('#pr-city').value.split('|');
  const method=city==='Makkah'?4:1;
- $('#pr-note').textContent='সময় আনা হচ্ছে…';
+ $('#pr-note').textContent='সময় Fetching…';
  try{
    const r=await fetch('https://api.aladhan.com/v1/timingsByCity?city='+encodeURIComponent(city)+'&country='+encodeURIComponent(country)+'&method='+method+'&school=1');
    const j=await r.json();
@@ -680,7 +680,7 @@ async function prLoad(){
    box.innerHTML=Tf("<p style=\"margin:0 0 8px\"><b>{0}</b> · হিজরি: {1} {2} {3} হিজরি</p>",esc(d.readable),d.hijri.day,d.hijri.month.en,d.hijri.year)+
      PRAYERS.map(([k,bn])=>`<div class="kv"><span>${bn}</span><b>${pr12(t[k])}</b></div>`).join('')+
      Tf("<div class=\"kv\"><span>সেহরির শেষ (ইমসাক)</span><b>{0}</b></div>",pr12(t.Imsak))+
-     Tf("<p style=\"margin:10px 0 0\">পরবর্তী ওয়াক্ত: <b class=\"big\" style=\"font-size:19px\">{0}</b> — আর {1} ঘণ্টা {2} মিনিট বাকি</p>",nextName,toBn(dh),toBn(dm));
+     Tf("<p style=\"margin:10px 0 0\">পরবর্তী ওয়াক্ত: <b class=\"big\" style=\"font-size:19px\">{0}</b> — আর {1} hours {2} minutes বাকি</p>",nextName,toBn(dh),toBn(dm));
    box.classList.add('show');
    $('#pr-note').textContent='';
  }catch(e){$('#pr-note').textContent='সময় আনা যায়নি — ইন্টারনেট সংযোগ চেক করে আবার চেষ্টা করুন।';}
@@ -692,16 +692,16 @@ prLoad();
 const WMO={0:'পরিষ্কার আকাশ',1:'প্রধানত পরিষ্কার',2:'আংশিক মেঘলা',3:'মেঘলা',45:'কুয়াশা',48:'কুয়াশা',51:'গুঁড়ি গুঁড়ি বৃষ্টি',53:'গুঁড়ি গুঁড়ি বৃষ্টি',55:'গুঁড়ি গুঁড়ি বৃষ্টি',56:'হিম গুঁড়ি বৃষ্টি',57:'হিম গুঁড়ি বৃষ্টি',61:'হালকা বৃষ্টি',63:'মাঝারি বৃষ্টি',65:'ভারী বৃষ্টি',66:'হিম বৃষ্টি',67:'হিম বৃষ্টি',71:'তুষারপাত',73:'তুষারপাত',75:'ভারী তুষারপাত',77:'তুষার কণা',80:'হালকা ঝরনা',81:'ঝরনা বৃষ্টি',82:'প্রবল ঝরনা',85:'তুষার ঝরনা',86:'তুষার ঝরনা',95:'বজ্রঝড়',96:'শিলাসহ বজ্রঝড়',99:'শিলাসহ বজ্রঝড়'};
 async function wxLoad(){
  const q=$('#wx-city').value.trim();showErr('#wx-err','');
- if(!q){showErr('#wx-err','শহরের নাম লিখুন।');return;}
- const box=$('#wx-res');box.innerHTML='<p style="margin:0;color:var(--ink2)">আবহাওয়া আনা হচ্ছে…</p>';box.classList.add('show');
+ if(!q){showErr('#wx-err','Enter a city name.');return;}
+ const box=$('#wx-res');box.innerHTML='<p style="margin:0;color:var(--ink2)">Fetching weather…</p>';box.classList.add('show');
  try{
    const g=await (await fetch('https://geocoding-api.open-meteo.com/v1/search?name='+encodeURIComponent(q)+'&count=1&language=en&format=json')).json();
-   if(!g.results||!g.results.length){showErr('#wx-err','এই নামে শহর পাওয়া যায়নি — বানান যাচাই করুন (ইংরেজিতে লিখুন)।');box.classList.remove('show');return;}
+   if(!g.results||!g.results.length){showErr('#wx-err','No city found with this name — check the spelling (write in English).');box.classList.remove('show');return;}
    const p=g.results[0];
    const f=await (await fetch('https://api.open-meteo.com/v1/forecast?latitude='+p.latitude+'&longitude='+p.longitude+'&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=5')).json();
    const c=f.current;
    const days=['রবিবার','সোমবার','মঙ্গলবার','বুধবার','বৃহস্পতিবার','শুক্রবার','শনিবার'];
-   box.innerHTML=Tf("<p style=\"margin:0 0 4px\"><b>{0}{1}, {2}</b></p>\n   <p style=\"margin:0 0 8px\">এখন: <b class=\"big\">{3}°C</b> — {4}</p>\n   <div class=\"kv\"><span>অনুভূত তাপমাত্রা</span><b>{5}°C</b></div>\n   <div class=\"kv\"><span>আর্দ্রতা</span><b>{6}%</b></div>\n   <div class=\"kv\"><span>বাতাসের গতি</span><b>{7} km/h</b></div>\n   <h4 style=\"margin:14px 0 4px;font-size:15px\">আগামী ৫ দিন</h4>",esc(p.name),p.admin1?', '+esc(p.admin1):'',esc(p.country||''),toBn(c.temperature_2m),WMO[c.weather_code]||'',toBn(c.apparent_temperature),toBn(c.relative_humidity_2m),toBn(c.wind_speed_10m))+
+   box.innerHTML=Tf("<p style=\"margin:0 0 4px\"><b>{0}{1}, {2}</b></p>\n   <p style=\"margin:0 0 8px\">এখন: <b class=\"big\">{3}°C</b> — {4}</p>\n   <div class=\"kv\"><span>অনুভূত তাপমাত্রা</span><b>{5}°C</b></div>\n   <div class=\"kv\"><span>আর্দ্রতা</span><b>{6}%</b></div>\n   <div class=\"kv\"><span>বাতাসের গতি</span><b>{7} km/h</b></div>\n   <h4 style=\"margin:14px 0 4px;font-size:15px\">আগামী ৫ days</h4>",esc(p.name),p.admin1?', '+esc(p.admin1):'',esc(p.country||''),toBn(c.temperature_2m),WMO[c.weather_code]||'',toBn(c.apparent_temperature),toBn(c.relative_humidity_2m),toBn(c.wind_speed_10m))+
    f.daily.time.map((d,i)=>`<div class="kv"><span>${days[new Date(d+'T12:00').getDay()]} (${toBn(d.slice(8))}/${toBn(d.slice(5,7))})</span><b>${WMO[f.daily.weather_code[i]]||''} · ${toBn(Math.round(f.daily.temperature_2m_min[i]))}° – ${toBn(Math.round(f.daily.temperature_2m_max[i]))}°C</b></div>`).join('');
  }catch(e){showErr('#wx-err','আবহাওয়া আনা যায়নি — আবার চেষ্টা করুন।');box.classList.remove('show');}
 }
@@ -718,13 +718,13 @@ function devInfo(){
  else if(/Mac OS X/.test(ua))os='macOS';else if(/Linux/.test(ua))os='Linux';
  const conn=navigator.connection||{};
  const rows=[
-  ['ব্রাউজার',browser],['অপারেটিং সিস্টেম',os],
+  ['ব্রাউজার',browser],['Operating System',os],
   ['স্ক্রিন রেজোলিউশন',screen.width+' × '+screen.height+' px'],
   ['ব্রাউজার উইন্ডো',window.innerWidth+' × '+window.innerHeight+' px'],
   ['ডিভাইস পিক্সেল রেশিও',window.devicePixelRatio||1],
   ['ভাষা (Language)',navigator.language],
-  ['CPU কোর',navigator.hardwareConcurrency||'—'],
-  ['RAM (আনুমানিক)',navigator.deviceMemory?navigator.deviceMemory+' GB':'—'],
+  ['CPU cores',navigator.hardwareConcurrency||'—'],
+  ['RAM (approx.)',navigator.deviceMemory?navigator.deviceMemory+' GB':'—'],
   ['টাচ সাপোর্ট','ontouchstart' in window?'হ্যাঁ':'না'],
   ['নেটওয়ার্ক টাইপ',conn.effectiveType?conn.effectiveType.toUpperCase():'—'],
   ['কুকি চালু আছে?',navigator.cookieEnabled?'হ্যাঁ':'না']
@@ -733,19 +733,19 @@ function devInfo(){
 }
 async function ipLoad(){
  const box=$('#myip-res');
- box.innerHTML='<p style="margin:0;color:var(--ink2)">IP তথ্য আনা হচ্ছে…</p>';
+ box.innerHTML='<p style="margin:0;color:var(--ink2)">IP Fetching info…</p>';
  try{
    const j=await (await fetch('https://ipapi.co/json/')).json();
    if(!j.ip)throw new Error('no ip');
-   box.innerHTML=Tf("<div class=\"kv\"><span>আপনার পাবলিক IP</span><b class=\"big mono\" style=\"font-size:20px\">{0}</b></div>\n   <div class=\"kv\"><span>আনুমানিক অবস্থান</span><b>{1}, {2}, {3}</b></div>\n   <div class=\"kv\"><span>ইন্টারনেট প্রোভাইডার (ISP)</span><b>{4}</b></div>\n   <div class=\"kv\"><span>IP সংস্করণ</span><b>{5}</b></div>",esc(j.ip),esc(j.city||'—'),esc(j.region||''),esc(j.country_name||''),esc(j.org||'—'),esc(j.version||'—'));
+   box.innerHTML=Tf("<div class=\"kv\"><span>আপনার পাবলিক IP</span><b class=\"big mono\" style=\"font-size:20px\">{0}</b></div>\n   <div class=\"kv\"><span>আনুমানিক Location</span><b>{1}, {2}, {3}</b></div>\n   <div class=\"kv\"><span>ইন্টারনেট প্রোভাইডার (ISP)</span><b>{4}</b></div>\n   <div class=\"kv\"><span>IP সংস্করণ</span><b>{5}</b></div>",esc(j.ip),esc(j.city||'—'),esc(j.region||''),esc(j.country_name||''),esc(j.org||'—'),esc(j.version||'—'));
  }catch(e){
    try{const w=await (await fetch('https://ipwho.is/')).json();
      if(!w||!w.success||!w.ip)throw new Error('ipwho');
-     box.innerHTML=Tf("<div class=\"kv\"><span>আপনার পাবলিক IP</span><b class=\"big mono\" style=\"font-size:20px\">{0}</b></div>\n   <div class=\"kv\"><span>আনুমানিক অবস্থান</span><b>{1}, {2}, {3}</b></div>\n   <div class=\"kv\"><span>ইন্টারনেট প্রোভাইডার (ISP)</span><b>{4}</b></div>\n   <div class=\"kv\"><span>IP সংস্করণ</span><b>{5}</b></div>\n   <p style=\"margin:8px 0 0\"><a class=\"btn sm alt\" target=\"_blank\" rel=\"noopener\" href=\"https://www.google.com/maps/search/{6},{7}\">📍 ম্যাপে লোকেশন দেখুন</a></p>",esc(w.ip),esc(w.city||'—'),esc(w.region||''),esc(w.country||''),esc((w.connection&&w.connection.isp)||'—'),esc(w.type||'—'),w.latitude,w.longitude);
+     box.innerHTML=Tf("<div class=\"kv\"><span>আপনার পাবলিক IP</span><b class=\"big mono\" style=\"font-size:20px\">{0}</b></div>\n   <div class=\"kv\"><span>আনুমানিক Location</span><b>{1}, {2}, {3}</b></div>\n   <div class=\"kv\"><span>ইন্টারনেট প্রোভাইডার (ISP)</span><b>{4}</b></div>\n   <div class=\"kv\"><span>IP সংস্করণ</span><b>{5}</b></div>\n   <p style=\"margin:8px 0 0\"><a class=\"btn sm alt\" target=\"_blank\" rel=\"noopener\" href=\"https://www.google.com/maps/search/{6},{7}\">📍 ম্যাপে লোকেশন দেখুন</a></p>",esc(w.ip),esc(w.city||'—'),esc(w.region||''),esc(w.country||''),esc((w.connection&&w.connection.isp)||'—'),esc(w.type||'—'),w.latitude,w.longitude);
    }catch(e3){
    try{const j2=await (await fetch('https://api.ipify.org?format=json')).json();
      box.innerHTML=Tf("<div class=\"kv\"><span>আপনার পাবলিক IP</span><b class=\"big mono\" style=\"font-size:20px\">{0}</b></div><p style=\"margin:6px 0 0;color:var(--ink2);font-size:13.5px\">বিস্তারিত তথ্য এই মুহূর্তে পাওয়া যাচ্ছে না।</p>",esc(j2.ip));
-   }catch(e2){box.innerHTML='<p style="margin:0;color:var(--danger);font-weight:600">IP তথ্য আনা যায়নি — ইন্টারনেট সংযোগ চেক করুন।</p>';}
+   }catch(e2){box.innerHTML='<p style="margin:0;color:var(--danger);font-weight:600">Could not fetch IP info — check the internet connectionন।</p>';}
    }
  }
 }
@@ -781,7 +781,7 @@ function ttFinish(){
  const r=ttRender();
  $('#tt-wpm').textContent=r.wpm;
  const box=$('#tty-res');
- box.innerHTML=Tf("<p style=\"margin:0\">সময় শেষ! আপনার ফলাফল: <b class=\"big\">{0} WPM</b></p>\n <div class=\"kv\"><span>নির্ভুলতা (Accuracy)</span><b>{1}%</b></div>\n <div class=\"kv\"><span>সঠিক অক্ষর</span><b>{2} / {3}</b></div>\n <p style=\"margin:8px 0 0;color:var(--ink2)\">{4}</p>",toBn(r.wpm),toBn(r.acc),toBn(r.correct),toBn(r.typed),r.wpm>=60?'অসাধারণ গতি! প্রফেশনাল টাইপিস্টের সমান।':r.wpm>=40?'ভালো গতি — গড় টাইপিস্টের সমান। নিয়মিত অনুশীলনে আরও বাড়বে।':r.wpm>=25?'মোটামুটি গতি — প্রতিদিন ১০ মিনিট অনুশীলন করুন, দ্রুত উন্নতি হবে।':'শুরু হিসেবে ভালো! হোম রো-তে আঙুল রেখে অনুশীলন করুন।');
+ box.innerHTML=Tf("<p style=\"margin:0\">সময় শেষ! আপনার ফলাফল: <b class=\"big\">{0} WPM</b></p>\n <div class=\"kv\"><span>নির্ভুলতা (Accuracy)</span><b>{1}%</b></div>\n <div class=\"kv\"><span>সঠিক characters</span><b>{2} / {3}</b></div>\n <p style=\"margin:8px 0 0;color:var(--ink2)\">{4}</p>",toBn(r.wpm),toBn(r.acc),toBn(r.correct),toBn(r.typed),r.wpm>=60?'Amazing speed! Equal to a professional typist.':r.wpm>=40?'ভালো গতি — গড় টাইপিস্টের সমান। নিয়মিত অনুশীলনে আরও বাড়বে।':r.wpm>=25?'মোটামুটি গতি — প্রতিdays ১০ minutes অনুশীলন করুন, দ্রুত উন্নতি হবে।':'শুরু হিসেবে ভালো! হোম রো-তে আঙুল রেখে অনুশীলন করুন।');
  box.classList.add('show');
 }
 function ttReset(){
@@ -810,31 +810,31 @@ ttReset();
 const PWS_COMMON=['password','123456','123456789','12345','qwerty','12345678','111111','123123','abc123','password1','iloveyou','admin','letmein','welcome','monkey','dragon','football','sunshine','master','shadow','superman','michael','ninja','mustang','charlie','bangladesh','dhaka','bangla','allah','muslim','faysal','1234567','1234','000000','654321','987654321'];
 function crackTime(bits){
  const secs=Math.pow(2,bits)/1e10;
- if(secs<1)return 'এক সেকেন্ডেরও কম';
- if(secs<60)return Math.round(secs)+' সেকেন্ড';
- if(secs<3600)return Math.round(secs/60)+' মিনিট';
- if(secs<86400)return Math.round(secs/3600)+' ঘণ্টা';
- if(secs<31536000)return Math.round(secs/86400)+' দিন';
- if(secs<31536000*100)return Math.round(secs/31536000)+' বছর';
- if(secs<31536000*1e6)return fmtN(secs/31536000,0)+' বছর';
- return 'লক্ষ লক্ষ বছর';
+ if(secs<1)return 'এক secondsেরও কম';
+ if(secs<60)return Math.round(secs)+' seconds';
+ if(secs<3600)return Math.round(secs/60)+' minutes';
+ if(secs<86400)return Math.round(secs/3600)+' hours';
+ if(secs<31536000)return Math.round(secs/86400)+' days';
+ if(secs<31536000*100)return Math.round(secs/31536000)+' years';
+ if(secs<31536000*1e6)return fmtN(secs/31536000,0)+' years';
+ return 'লক্ষ লক্ষ years';
 }
 $('#pws-in').addEventListener('input',()=>{
  const p=$('#pws-in').value;
  const list=$('#pws-list');
- if(!p){$('#pws-score').textContent='—';$('#pws-bar').style.width='0';$('#pws-len').textContent='0 অক্ষর';$('#pws-ent').textContent='0 bits';$('#pws-crack').textContent='—';list.innerHTML='';return;}
+ if(!p){$('#pws-score').textContent='—';$('#pws-bar').style.width='0';$('#pws-len').textContent='0 characters';$('#pws-ent').textContent='0 bits';$('#pws-crack').textContent='—';list.innerHTML='';return;}
  let pool=0;const tips=[];
  if(/[a-z]/.test(p))pool+=26;if(/[A-Z]/.test(p))pool+=26;if(/[0-9]/.test(p))pool+=10;if(/[^A-Za-z0-9]/.test(p))pool+=33;
  let bits=pool?p.length*Math.log2(pool):0;
  if(PWS_COMMON.includes(p.toLowerCase())){bits=Math.min(bits,8);tips.push(['err','এটি অত্যন্ত পরিচিত একটি পাসওয়ার্ড — হ্যাকাররা সবার আগে এগুলোই চেষ্টা করে। এখনই বদলে ফেলুন।']);}
- if(p.length<8)tips.push(['err','খুব ছোট — কমপক্ষে ১২ অক্ষর ব্যবহার করুন।']);
- else if(p.length<12)tips.push(['warn','দৈর্ঘ্য মোটামুটি — ১২+ অক্ষর হলে আরও নিরাপদ।']);
+ if(p.length<8)tips.push(['err','খুব ছোট — কমপক্ষে ১২ characters ব্যবহার করুন।']);
+ else if(p.length<12)tips.push(['warn','দৈর্ঘ্য মোটামুটি — ১২+ characters হলে আরও নিরাপদ।']);
  else tips.push(['tip','দৈর্ঘ্য ভালো — লম্বা পাসওয়ার্ড ভাঙা কঠিন।']);
- if(!/[A-Z]/.test(p))tips.push(['warn','বড় হাতের অক্ষর (A-Z) যোগ করুন।']);
+ if(!/[A-Z]/.test(p))tips.push(['warn','বড় হাতের characters (A-Z) যোগ করুন।']);
  if(!/[0-9]/.test(p))tips.push(['warn','সংখ্যা (0-9) যোগ করুন।']);
  if(!/[^A-Za-z0-9]/.test(p))tips.push(['warn','বিশেষ চিহ্ন (!@#$%) যোগ করুন।']);
- if(/(.)\1{2,}/.test(p)){tips.push(['warn','একই অক্ষর পরপর তিনবারের বেশি এসেছে — এগুলো অনুমান করা সহজ।']);bits*=0.85;}
- if(/0123|1234|2345|3456|4567|5678|6789|abcd|qwerty/i.test(p)){tips.push(['warn','ক্রমিক অক্ষর/সংখ্যা (1234, abcd, qwerty) এড়িয়ে চলুন।']);bits*=0.85;}
+ if(/(.)\1{2,}/.test(p)){tips.push(['warn','একই characters পরপর তিনবারের বেশি এসেছে — এগুলো অনুমান করা সহজ।']);bits*=0.85;}
+ if(/0123|1234|2345|3456|4567|5678|6789|abcd|qwerty/i.test(p)){tips.push(['warn','ক্রমিক characters/সংখ্যা (1234, abcd, qwerty) এড়িয়ে চলুন।']);bits*=0.85;}
  bits=Math.round(bits);
  let score,label,color;
  if(bits<28){score=0;label='খুব দুর্বল';color='#c0392b';}
@@ -844,7 +844,7 @@ $('#pws-in').addEventListener('input',()=>{
  else{score=4;label='খুব শক্তিশালী';color='#0b7a4b';}
  const bar=$('#pws-bar');bar.style.width=((score+1)*20)+'%';bar.style.background=color;
  $('#pws-score').textContent=label;
- $('#pws-len').textContent=toBn(p.length)+' অক্ষর';
+ $('#pws-len').textContent=toBn(p.length)+' characters';
  $('#pws-ent').textContent=toBn(bits)+' bits';
  $('#pws-crack').textContent=crackTime(bits);
  list.innerHTML=tips.map(t=>`<li><span class="sev ${t[0]}">${t[0]==='err'?'ঝুঁকি':t[0]==='warn'?'পরামর্শ':'ভালো'}</span>${t[1]}</li>`).join('');
@@ -881,7 +881,7 @@ $('#st-go').addEventListener('click',async()=>{
    const mbps=received*8/secs/1e6;
    $('#st-down').textContent=fmtN(mbps,1);
    $('#st-data').textContent=(received/1048576).toFixed(1)+' MB';
-   status.textContent='টেস্ট সম্পন্ন ✓ — ডাউনলোড '+fmtN(mbps,1)+' Mbps · পিং '+toBn(ping)+' ms (আনুমানিক)';
+   status.textContent='টেস্ট সম্পন্ন ✓ — ডাউনলোড '+fmtN(mbps,1)+' Mbps · Ping '+toBn(ping)+' ms (approx.)';
  }catch(e){status.textContent='টেস্ট করা যায়নি — সংযোগ চেক করে আবার চেষ্টা করুন।';}
  btn.disabled=false;
 });
@@ -946,17 +946,17 @@ async function fetchRSS(url){
    ['Now 241 free tools on ToolBari — all in one place','#/','']
  ]:[
    ['সর্বশেষ ব্রেকিং নিউজ পড়ুন','#/tool/breaking-news',''],
-   ['আজকের নামাজের সময়সূচি দেখুন','#/tool/prayer-times',''],
-   ['ToolBari-তে এখন ১৬৯টি ফ্রি টুল — সব এক জায়গায়','#/','']
+   ['আজকের Nameাজের সময়সূচি দেখুন','#/tool/prayer-times',''],
+   ['ToolBari now has 429 free tools — all in one place','#/','']
  ]);
  if(track2) renderTo(track2, LANG==='en'?[
    ['Live Dhaka Stock Exchange prices & the DSEX index','#/tool/stock-exchange',''],
    ["Today's dollar, pound & euro rates",'#/tool/currency-converter',''],
    ['Live world market prices, incl. Bitcoin','#/tool/stock-exchange','']
  ]:[
-   ['ঢাকা স্টক এক্সচেঞ্জের লাইভ দাম ও DSEX সূচক','#/tool/stock-exchange',''],
+   ['ঢাকা স্টক এক্সচেঞ্জের লাইভ দাম ও DSEX index','#/tool/stock-exchange',''],
    ['ডলার, পাউন্ড, ইউরোর আজকের রেট','#/tool/currency-converter',''],
-   ['Bitcoin-সহ বিশ্ববাজারের লাইভ দাম','#/tool/stock-exchange','']
+   ['Live world market prices including Bitcoin','#/tool/stock-exchange','']
  ]);
  (async()=>{
    const items=[], mkt=[];
@@ -991,7 +991,7 @@ async function fetchRSS(url){
    try{
      const sr=await fetch('https://scanner.tradingview.com/global/scan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({symbols:{tickers:['DSEBD:DSEX','DSEBD:GP','DSEBD:SQURPHARMA','DSEBD:ROBI','DSEBD:BRACBANK','DSEBD:WALTONHIL'],query:{types:[]}},columns:['close','change']})});
      const sj=await sr.json();
-     const names=LANG==='en'?{'DSEBD:DSEX':'DSEX Index','DSEBD:GP':'Grameenphone','DSEBD:SQURPHARMA':'Square Pharma','DSEBD:ROBI':'Robi Axiata','DSEBD:BRACBANK':'Brac Bank','DSEBD:WALTONHIL':'Walton Hi-Tech'}:{'DSEBD:DSEX':'DSEX সূচক','DSEBD:GP':'গ্রামীণফোন','DSEBD:SQURPHARMA':'স্কয়ার ফার্মা','DSEBD:ROBI':'রবি আজিয়াটা','DSEBD:BRACBANK':'ব্র্যাক ব্যাংক','DSEBD:WALTONHIL':'ওয়ালটন হাই-টেক'};
+     const names=LANG==='en'?{'DSEBD:DSEX':'DSEX Index','DSEBD:GP':'Grameenphone','DSEBD:SQURPHARMA':'Square Pharma','DSEBD:ROBI':'Robi Axiata','DSEBD:BRACBANK':'Brac Bank','DSEBD:WALTONHIL':'Walton Hi-Tech'}:{'DSEBD:DSEX':'DSEX index','DSEBD:GP':'গ্রামীণফোন','DSEBD:SQURPHARMA':'স্কয়ার ফার্মা','DSEBD:ROBI':'রবি আজিয়াটা','DSEBD:BRACBANK':'ব্র্যাক ব্যাংক','DSEBD:WALTONHIL':'ওয়ালটন হাই-টেক'};
      (sj.data||[]).forEach(function(row){
        if(!row.d||row.d[0]==null) return;
        const nm=names[row.s]||row.s.split(':')[1];
@@ -1070,7 +1070,7 @@ async function fetchRSS(url){
    if(over||board[i]) return;
    board[i]='X';
    const w=winner(board);
-   if(w==='X'){over=true; status.textContent='অভিনন্দন! আপনি জিতেছেন 🎉'; render(); return;}
+   if(w==='X'){over=true; status.textContent='Congratulations! You won 🎉'; render(); return;}
    if(w==='draw'){over=true; status.textContent='ড্র হয়েছে!'; render(); return;}
    status.textContent='কম্পিউটার ভাবছে…';
    render();
@@ -1097,7 +1097,7 @@ async function fetchRSS(url){
        b.textContent=e;
        if(!first){first=b; return;}
        moves++;
-       if(first.dataset.e===e){hit++; first.disabled=true; b.disabled=true; first=null; upd(); if(hit===6) toast(T('অভিনন্দন! সব জোড়া মিলে গেছে 🎉'));}
+       if(first.dataset.e===e){hit++; first.disabled=true; b.disabled=true; first=null; upd(); if(hit===6) toast(T('Congratulations! All pairs matched 🎉'));}
        else{lock=true; const f=first; first=null; setTimeout(()=>{f.textContent='❓'; b.textContent='❓'; lock=false;},700); upd();}
      });
      grid.appendChild(b);
@@ -1117,7 +1117,7 @@ async function fetchRSS(url){
  document.getElementById('v2m-go').addEventListener('click',async()=>{
    const st=document.getElementById('v2m-status');
    if(!file){toast(T('আগে ভিডিও/অডিও ফাইল বেছে নিন')); return;}
-   if(typeof lamejs==='undefined'||!lamejs.Mp3Encoder){st.textContent='MP3 ইঞ্জিন লোড হয়নি — পেজটি রিফ্রেশ করে আবার চেষ্টা করুন।'; return;}
+   if(typeof lamejs==='undefined'||!lamejs.Mp3Encoder){st.textContent='MP3 engine did not load — refresh the page and try again.'; return;}
    const btn=document.getElementById('v2m-go'); btn.disabled=true; st.textContent='ফাইল পড়া হচ্ছে…';
    try{
      const ab=await file.arrayBuffer();
@@ -1132,7 +1132,7 @@ async function fetchRSS(url){
      for(let i=0;i<L.length;i+=CH){
        const d=R?enc.encodeBuffer(to16(L.subarray(i,i+CH)),to16(R.subarray(i,i+CH))):enc.encodeBuffer(to16(L.subarray(i,i+CH)));
        if(d.length) parts.push(new Uint8Array(d));
-       if(i%(CH*300)===0){st.textContent='MP3 বানানো হচ্ছে… '+Math.round(i/L.length*100)+'%'; await new Promise(r=>setTimeout(r,0));}
+       if(i%(CH*300)===0){st.textContent='Creating MP3… '+Math.round(i/L.length*100)+'%'; await new Promise(r=>setTimeout(r,0));}
      }
      const end=enc.flush(); if(end.length) parts.push(new Uint8Array(end));
      try{ac.close();}catch(e){}
@@ -1195,7 +1195,7 @@ async function fetchRSS(url){
  }
  async function load(){
    const src=document.getElementById('nw-src').value;
-   status.textContent='খবর আনা হচ্ছে…'; list.innerHTML='';
+   status.textContent='খবর Fetching…'; list.innerHTML='';
    try{
      if(src==='hn'){
        const j=await (await fetch('https://hn.algolia.com/api/v1/search_by_date?tags=story&hitsPerPage=12')).json();
@@ -1245,7 +1245,7 @@ async function fetchRSS(url){
      rec.start(); t0=Date.now();
      dot.style.display='inline'; startB.disabled=true; stopB.disabled=false; msg.textContent='রেকর্ড হচ্ছে…';
      tiv=setInterval(()=>{timeEl.textContent=fmt(Math.floor((Date.now()-t0)/1000));},500);
-   }catch(e){msg.textContent='মাইক্রোফোনের অনুমতি পাওয়া যায়নি — ব্রাউজারের সেটিংসে Allow দিন।';}
+   }catch(e){msg.textContent='মাইক্রোফোনের অনুমতি পাওয়া যায়নি — ব্রাউজারের সেটিংসে Allow days।';}
  });
  stopB.addEventListener('click',()=>{
    if(rec&&rec.state!=='inactive') rec.stop();
@@ -1284,13 +1284,13 @@ async function fetchRSS(url){
  btn.addEventListener('click',async()=>{
    const ip=document.getElementById('iplook-ip').value.trim();
    const box=document.getElementById('iplook-res');
-   if(!/^[0-9a-fA-F:.]+$/.test(ip)){box.innerHTML='<p style="margin:0;color:var(--danger);font-weight:600">সঠিক IP ঠিকানা লিখুন (যেমন 8.8.8.8)।</p>'; box.classList.add('show'); return;}
-   box.innerHTML='<p style="margin:0;color:var(--ink2)">তথ্য আনা হচ্ছে…</p>'; box.classList.add('show');
+   if(!/^[0-9a-fA-F:.]+$/.test(ip)){box.innerHTML='<p style="margin:0;color:var(--danger);font-weight:600">Please enter a valid IP address (e.g. 8.8.8.8).</p>'; box.classList.add('show'); return;}
+   box.innerHTML='<p style="margin:0;color:var(--ink2)">Fetching info…</p>'; box.classList.add('show');
    try{
      const w=await (await fetch('https://ipwho.is/'+encodeURIComponent(ip))).json();
      if(!w||!w.success) throw new Error('bad');
      box.innerHTML='<div class="kv"><span>IP</span><b class="mono">'+esc(w.ip)+'</b></div>'
-       +'<div class="kv"><span>অবস্থান</span><b>'+esc(w.city||'—')+', '+esc(w.region||'')+', '+esc(w.country||'')+'</b></div>'
+       +'<div class="kv"><span>Location</span><b>'+esc(w.city||'—')+', '+esc(w.region||'')+', '+esc(w.country||'')+'</b></div>'
        +'<div class="kv"><span>ISP</span><b>'+esc((w.connection&&w.connection.isp)||'—')+'</b></div>'
        +'<p style="margin:8px 0 0"><a class="btn sm alt" target="_blank" rel="noopener" href="https://www.google.com/maps/search/'+w.latitude+','+w.longitude+'">📍 View on Map</a></p>';
    }catch(e){
