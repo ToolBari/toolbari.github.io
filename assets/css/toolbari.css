@@ -1081,3 +1081,6 @@ a.shb.shx span, .shb.shx span{color:#ffffff!important}
 
 /* TB-DESKTOP-NO-PHONEFRAME-2026-10-28: desktop is wide, not a phone column */
 @media(min-width:601px){body{background:#f4f6f4!important}.wrap{max-width:1100px!important;border:none!important;box-shadow:none!important}}
+
+/* TB-LOGO-TWOTONE-2026-10-28: logo text green+orange, solid colours, no gradient (gradient vanished on phone) */
+.top .logo b span, .hdr .logo b span{background:none!important;-webkit-background-clip:initial!important;background-clip:initial!important;-webkit-text-fill-color:inherit!important}
