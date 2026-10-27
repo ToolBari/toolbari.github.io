@@ -3817,6 +3817,7 @@ function saveFavs(){try{localStorage.setItem('fot_favs',JSON.stringify(favs));}c
 function cardHTML(t){const on=favs.includes(t.id)?' on':'';
  return `<a class="card" href="#/tool/${t.id}"><button class="star${on}" data-fav="${t.id}" aria-label="Favorite">★</button><span class="ic"><svg viewBox="0 0 24 24"><path d="${IC[t.ic]}"/></svg></span>${t.new?'<span class="tb-new-badge">New</span>':''}<h3>${LANG==='en'?t.bn:t.en}</h3><p>${LANG==='en'?(t.de||t.d):t.d}</p></a>`;}
 function renderCatalog(filter){
+ const mc0=$('#mCatPills'); if(mc0) mc0.innerHTML=CATS.map(c=>{const n=TOOLS.filter(x=>x.cat===c.id).length; return `<a href="#/cat/${c.id}">${c.en} (${n})</a>`;}).join('');
  const cat=$('#catalog');cat.innerHTML='';let any=false;let sponDone=false;
  const flatList=TOOLS.filter(t=>(!currentCat||t.cat===currentCat)&&(!filter||(t.bn+' '+t.en+' '+t.d).toLowerCase().includes(filter)));
    if(flatList.length){any=true;cat.insertAdjacentHTML('beforeend',`<div class="grid">${flatList.map(cardHTML).join('')}</div>`);}
