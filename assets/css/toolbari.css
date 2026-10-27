@@ -911,3 +911,60 @@ body{background:#f4f6f4!important;color:#14231b!important}
 .block a.tb-recent-link, .block a.tb-recent-link *, #newBlock a, .block #tbNewLinks a, .tb-recent-link{color:#14231b!important;background:#ffffff!important}
 .block a{color:#0a6e43!important}
 #tb-notice a{color:#0a6e43!important}
+
+/* TB-DESKTOP-WIDE-2026-10-27: desktop must NOT be a narrow phone column */
+@media(min-width:601px){
+ .wrap{max-width:1100px!important;margin:0 auto!important;background:#f4f6f4!important;border:none!important;box-shadow:none!important}
+ body{background:#f4f6f4!important}
+ .grid{grid-template-columns:repeat(3,1fr)!important}
+}
+@media(min-width:900px){
+ .grid{grid-template-columns:repeat(4,1fr)!important}
+}
+
+/* TB-SMALL-SQUARE-2026-10-27: homepage cards small, square, category by category */
+@media(max-width:600px){
+ .grid{grid-template-columns:repeat(2,1fr)!important;gap:10px!important}
+ .card{border-radius:12px!important;padding:12px 10px!important}
+ .card .ic{width:44px!important;height:44px!important;border-radius:10px!important}
+ .card h3{font-size:15px!important}
+ .card p{font-size:12.5px!important}
+ .tb-trend-card{min-width:160px!important;padding:12px!important}
+}
+
+/* TB-FAST-ONLY-2026-10-27: fast load only, colors unchanged */
+#catalog .grid{content-visibility:auto;contain-intrinsic-size:1px 600px}
+#catalog .grid{content-visibility:auto;contain-intrinsic-size:1px 600px}
+
+/* TB-NO-CATBAR-2026-10-27: no category system, cards only */
+#tbCatBar{display:none!important}
+
+/* TB-ALL-TEXT-CLEAR-2026-10-27: every text on homepage must be clearly visible, mobile + desktop */
+.card h3,.card p,.card b,.card span,.sec-head h2,.sec-head span,.tb-trend-card b,.tb-trend-card span,.tb-recent-link{color:#14231b!important}
+.card p,.sec-head span{color:#4b5a51!important}
+.tb-trend-card span{color:#0f766e!important}
+@media(min-width:601px){
+ .wrap{max-width:1100px!important}
+ .grid{grid-template-columns:repeat(3,1fr)!important}
+}
+@media(min-width:900px){
+ .grid{grid-template-columns:repeat(4,1fr)!important}
+}
+
+/* TB-NOTFOUND-TEXT-2026-10-27: Can't find a page paragraph must be dark and visible */
+#tbNotFoundBlock p{color:#14231b!important}
+.block p{color:#14231b!important}
+
+/* TB-BOTTOMNAV-TEXT-2026-10-27: mobile bottom Home/Search/Favorites text must be dark */
+#tbBottomNav button{color:#14231b!important;background:#ffffff!important}
+
+/* TB-FAST-GRIDS-2026-10-27: fast load mobile + desktop */
+#popularGrid,#catalog,#favGrid,.tb-trend-row{content-visibility:auto;contain-intrinsic-size:1px 400px}
+
+/* TB-DARK-REF-2026-10-27: dark mode like reference - navy bg, cyan border glow, green button, white title, grey desc */
+html[data-theme="dark"] body{background:#0f172a!important;color:#ffffff!important}
+html[data-theme="dark"] .card,html[data-theme="dark"] .tb-trend-card,html[data-theme="dark"] .tb-recent-link{background:#1e293b!important;border:1.5px solid rgba(0,242,254,.5)!important;box-shadow:0 0 18px rgba(0,242,254,.25)!important;color:#ffffff!important}
+html[data-theme="dark"] .card h3,html[data-theme="dark"] .tb-trend-card b{color:#ffffff!important}
+html[data-theme="dark"] .card p{color:#cbd5e1!important}
+html[data-theme="dark"] .btn{background:linear-gradient(135deg,#25d366,#128c7e)!important;color:#ffffff!important}
+html[data-theme="dark"] a{color:#38bdf8!important}
