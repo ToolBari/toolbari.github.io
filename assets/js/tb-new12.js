@@ -59,7 +59,12 @@ function tbRecord(canvas,durMs,total,drawFn,videoEl,outId,filename){
   });
   $('pti-dl').addEventListener('click',function(){
     if(img.style.display!=='block'||!img.src){out('pti-out','Generate an image first.');return;}
-    fetch(img.src).then(function(r){return r.blob();}).then(function(b){var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='prompt-to-image.jpg';a.click();}).catch(function(){var a=document.createElement('a');a.href=img.src;a.target='_blank';a.click();out('pti-out','Download opened in a new tab.');});
+    fetch(img.src).then(function(r){return r.blob();}).then(function(b){
+      if((b.type||'').indexOf('json')>=0){out('pti-out','Free limit reached (Pollinations: 1 free image every 45 seconds). Please wait 45 seconds and tap Generate again.');return;}
+      var cv=document.createElement('canvas'); cv.width=img.naturalWidth||1024; cv.height=img.naturalHeight||1024;
+      var ctx=cv.getContext('2d'); ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,cv.width,cv.height); ctx.drawImage(img,0,0,cv.width,cv.height);
+      cv.toBlob(function(jb){var a=document.createElement('a');a.href=URL.createObjectURL(jb);a.download='prompt-to-image.jpg';a.click();out('pti-out','JPG downloaded.');},'image/jpeg',0.92);
+    }).catch(function(){var a=document.createElement('a');a.href=img.src;a.target='_blank';a.click();out('pti-out','Download opened in a new tab.');});
   });
 })();
 /* AI Chat */

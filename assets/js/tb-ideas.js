@@ -45,6 +45,8 @@
     results.forEach(function(res){
       var panel=res.closest('.panel')||res.parentElement;
       if(!panel||panelHasCopy(panel)) return;
+      if(panel.querySelector('img')) return;
+      if(res.id==='pti-out') return;
       if(panel.querySelector('.tb-copy-result')) return;
       var btn=document.createElement('button');
       btn.type='button'; btn.className='btn tb-copy-result'; btn.textContent='Copy Result';
