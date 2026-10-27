@@ -121,7 +121,7 @@
       <div class="m-cat-pills" id="mCatPills"></div>
     </div>
   </div>
-<span class="tb-util" role="group" aria-label="Display settings"><button type="button" id="tbFontDown" style="color:#14231b!important">A− Smaller text</button><button type="button" id="tbFontUp" style="color:#14231b!important">A+ Bigger text</button></span></header>
+<span class="tb-util" role="group" aria-label="Display settings"><button type="button" id="tbFontDown" style="color:#14231b!important">A− Smaller text</button><button type="button" id="tbFontUp" style="color:#14231b!important">A+ Bigger text</button><button type="button" id="tbDarkBtn">🌙 Dark mode</button></span></header>
 <!-- INSITE-NOTICE-2026-10-27: in-site notice area only, no push service, no OneSignal, no external code -->
 <section id="tb-notice" class="notice-area" aria-label="Notices" style="background:#ffffff;border:1px solid #dbe3dc;border-radius:14px;padding:14px 16px;margin:16px auto;max-width:1120px;box-shadow:0 2px 14px rgba(10,40,25,.08)">
 <p style="margin:0;font-weight:700">🔔 What's new</p>
@@ -3826,6 +3826,7 @@ function renderCatalog(filter){
  $('#favBlock').style.display=fl.length?'block':'none';
  fg.innerHTML=fl.map(cardHTML).join('');
  const fp=$('#footPopular'); if(fp) fp.innerHTML=TOOLS.filter(t=>t.pop).sort((a,b)=>a.pop-b.pop).slice(0,8).map(t=>`<a href="#/tool/${t.id}">${LANG==='en'?t.bn:t.en+' · '+t.bn}</a>`).join('');
+ const mc=$('#mCatPills'); if(mc) mc.innerHTML=CATS.map(c=>{const n=TOOLS.filter(x=>x.cat===c.id).length; return `<a href="#/cat/${c.id}">${c.en} (${n})</a>`;}).join('');
  const fc=$('#footCats'); if(fc) fc.innerHTML=CATS.map(c=>{const n=TOOLS.filter(x=>x.cat===c.id).length; return `<a href="#/cat/${c.id}">${LANG==='en'?c.en:c.name} (${n})</a>`;}).join('');
  const fa=$('#footAll'); if(fa) fa.innerHTML=CATS.map(c=>{const list=TOOLS.filter(t=>t.cat===c.id); if(!list.length) return ''; return `<div class="foot-cat"><h5>${c.en} (${list.length})</h5><div class="foot-cat-links">${list.map(t=>`<a href="#/tool/${t.id}">${LANG==='en'?t.bn:t.en}</a>`).join('')}</div></div>`;}).join('');
  renderCatBar();
@@ -4698,7 +4699,7 @@ if(document.readyState==='complete'){ready();}else{window.addEventListener('load
 function getArr(k){try{var v=JSON.parse(localStorage.getItem(k)||'[]'); return Array.isArray(v)?v:[];}catch(e){return [];}}
 function setArr(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
 try{
-  document.documentElement.setAttribute('data-theme','light'); try{localStorage.setItem('tb_dark','0');}catch(e){}
+  try{var _d=localStorage.getItem('tb_dark'); document.documentElement.setAttribute('data-theme',_d==='1'?'dark':'light');}catch(e){document.documentElement.setAttribute('data-theme','light');}
   var fs=localStorage.getItem('tb_fontsize');
   if(fs==='small'){document.body.classList.add('tb-fs-small');}
   if(fs==='large'){document.body.classList.add('tb-fs-large');}
