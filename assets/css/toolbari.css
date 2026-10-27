@@ -980,3 +980,7 @@ html[data-theme="dark"] a{color:#38bdf8!important}
 
 /* TB-CARD-TRANSPARENT-2026-10-27: card titles/descriptions must NOT have white bars - transparent, pastel card shows through */
 .card h3,.card p,.card b,.card span{background:transparent!important}
+
+/* TB-NOTE-TEXT-2026-10-28: info/how-it-works notes must be dark on pale yellow, never white */
+.view .tb-note,.view .tb-example,.view small,.tb-note,.tb-example{color:#14231b!important}
+.view .tb-note *,.view .tb-example *{color:#14231b!important}
