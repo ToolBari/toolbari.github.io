@@ -1003,3 +1003,8 @@ html:not([data-theme="dark"]) .faqit,html:not([data-theme="dark"]) .faqit summar
 /* TB-ALL-SECTIONS-2026-10-28: EVERY section/feature on homepage - summary, details, headings, paragraphs, links, buttons (except green buttons) dark in light mode */
 html:not([data-theme="dark"]) summary,html:not([data-theme="dark"]) details,html:not([data-theme="dark"]) details *,html:not([data-theme="dark"]) .block,html:not([data-theme="dark"]) .block *,html:not([data-theme="dark"]) .faqit,html:not([data-theme="dark"]) .faqit *{color:#14231b!important}
 html:not([data-theme="dark"]) .block a{color:#0a6e43!important}
+
+/* TB-BOTTOM-AUDIT-2026-10-28: bottom-up audit - footer and notice sections readable */
+html:not([data-theme="dark"]) .foot,html:not([data-theme="dark"]) .foot *,html:not([data-theme="dark"]) .foot-bottom,html:not([data-theme="dark"]) .foot-col *,html:not([data-theme="dark"]) .foot-shop *,html:not([data-theme="dark"]) .foot-cat *{color:#14231b!important}
+html:not([data-theme="dark"]) .foot-shop a{color:#ffffff!important}
+html:not([data-theme="dark"]) .foot-all summary,html:not([data-theme="dark"]) .foot-all summary span{color:#ffffff!important}
