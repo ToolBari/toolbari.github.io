@@ -977,3 +977,6 @@ html[data-theme="dark"] a{color:#38bdf8!important}
 .view input,.view textarea,.view select{color:#14231b!important;background:#ffffff!important}
 .view a{color:#0a6e43!important}
 .view .tb-note,.view .tb-example{background:#fff8e1!important;color:#14231b!important}
+
+/* TB-CARD-TRANSPARENT-2026-10-27: card titles/descriptions must NOT have white bars - transparent, pastel card shows through */
+.card h3,.card p,.card b,.card span{background:transparent!important}
