@@ -52,7 +52,8 @@ function tbRecord(canvas,durMs,total,drawFn,videoEl,outId,filename){
     var sz=$('pti-size').value.split('x');
     var url='https://image.pollinations.ai/prompt/'+encodeURIComponent(p)+'?width='+sz[0]+'&height='+sz[1]+'&seed='+Math.floor(Math.random()*1000000)+'&nologo=true';
     out('pti-out','Generating image\u2026 please wait.'); img.style.display='none';
-    img.onload=function(){img.style.display='block';out('pti-out','Image ready. Tap Download JPG to save it.');};
+    var wrap=img.closest('.stage-wrap'); if(wrap)wrap.classList.add('show');
+    img.onload=function(){img.style.display='block'; if(wrap)wrap.classList.add('show'); out('pti-out','Image ready. Tap Download JPG to save it.');};
     img.onerror=function(){out('pti-out','The image service did not respond. Please try again in a moment.');};
     img.src=url;
   });
