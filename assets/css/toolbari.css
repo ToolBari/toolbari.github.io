@@ -1054,3 +1054,13 @@ html[data-theme="dark"] input::placeholder,html[data-theme="dark"] textarea::pla
 /* TB-MCAT-VISIBLE-2026-10-28: hamburger menu category pills always visible */
 #mCatPills{display:flex!important;flex-wrap:wrap!important;gap:8px!important}
 #mCatPills a{display:inline-block!important;background:#ffe9d6!important;color:#14231b!important;border:1px solid #dbe3dc!important;padding:8px 12px!important;border-radius:999px!important;font-weight:700!important}
+
+/* TB-LOGO-COLOR-2026-10-28: ToolBari logo readable - dark green with orange accent, shadow for contrast */
+.top .logo b, .hdr .logo b, header.top .logo b{background:linear-gradient(90deg,#0b7a4b,#ff9f2e)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;color:#0b7a4b!important;text-shadow:none!important}
+.top .logo small, .hdr .logo small{color:#14231b!important}
+html[data-theme="dark"] .top .logo b,html[data-theme="dark"] .hdr .logo b{background:linear-gradient(90deg,#25d366,#ffd93b)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;color:#25d366!important}
+html[data-theme="dark"] .top .logo small{color:#cbd5e1!important}
+
+/* TB-X-VISIBLE-2026-10-28: X share button white on black, always visible */
+a.shb.shx, .shb.shx{color:#ffffff!important;background:#000000!important;-webkit-text-fill-color:#ffffff!important}
+a.shb.shx span, .shb.shx span{color:#ffffff!important}
