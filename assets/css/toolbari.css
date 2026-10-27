@@ -1016,3 +1016,13 @@ html:not([data-theme="dark"]) .foot-all summary,html:not([data-theme="dark"]) .f
 
 /* TB-HIDE-LOADING-2026-10-28: delete the top Ready/Loading bar completely */
 .tb-loading,#tbPageLoading{display:none!important}
+
+/* TB-NOTE-CLASS-2026-10-28: .note (How it works) and share links in tool views must be dark */
+html:not([data-theme="dark"]) .view .note,html:not([data-theme="dark"]) .note,html:not([data-theme="dark"]) .sharebar,html:not([data-theme="dark"]) .sharebar .shl,html:not([data-theme="dark"]) .sharebar a{color:#14231b!important}
+html:not([data-theme="dark"]) .view .err{color:#b91c1c!important}
+
+/* TB-SHARE-COLORS-2026-10-28: share buttons coloured by brand, white text */
+.sharebar a[href*="whatsapp"]{background:#25d366!important;color:#ffffff!important;border-color:#25d366!important}
+.sharebar a[href*="facebook"]{background:#1877f2!important;color:#ffffff!important;border-color:#1877f2!important}
+.sharebar a[href*="telegram"],.sharebar a[href*="t.me"]{background:#229ed9!important;color:#ffffff!important;border-color:#229ed9!important}
+.sharebar a[href*="instagram"]{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)!important;color:#ffffff!important;border-color:#dc2743!important}
