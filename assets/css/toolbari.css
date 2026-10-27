@@ -781,7 +781,7 @@ a{color:#ffd93b!important}
 /* TB-WHATSNEW-BEAUTY-2026-10-27: whatsnew section beautiful readable */
 #tb-notice{background:linear-gradient(135deg,#ff9f2e,#ff5a7a)!important;color:#ffffff!important}
 #tb-notice *, #tb-notice p{color:#ffffff!important}
-#tb-notice a{color:#ffe9b8!important}
+#tb-notice a{color:#14231b!important}
 
 /* TB-NO-BLACK-TEXT-2026-10-27: no black text anywhere on dark theme */
 body,body *,p,li,span,small,div,h1,h2,h3,h4{color:#ffffff!important}
@@ -793,20 +793,20 @@ a{color:#ffd93b!important}
 html[data-theme="light"],html[data-theme="dark"]{--ink:#ffffff!important;--ink2:#d6e2f0!important}
 body{background:#1e2438!important;color:#ffffff!important}
 .card,.tb-cat-card,.top,.hero,.block,.tb-how-site,#tb-notice,.notice-area,.ticker,.ticker2{background:#2e3550!important;color:#ffffff!important}
-.card h3,.card p,.tb-cat-card .tb-cat-name,.tb-cat-card .tb-cat-count,.cat-desc,.tool-head p,.sec-head span,.chip{color:#d6e2f0!important}
+.card h3,.card p,.tb-cat-card .tb-cat-name,.tb-cat-card .tb-cat-count,.cat-desc,.tool-head p,.sec-head span,.chip{color:#4b5a51!important}
 h1,h2,h3,.sec-head h2{color:#ffffff!important}
 a{color:#ffd93b!important}
 input,select,textarea{color:#ffffff!important;background:#2e3550!important}
-input::placeholder{color:#d6e2f0!important}
+input::placeholder{color:#4b5a51!important}
 
 /* TB-WHATSNEW-STYLE-ALL-2026-10-27: all info sections in whatsnew orange-pink style */
 .block,.tb-how-site,.hero,.sec{background:linear-gradient(135deg,#ff9f2e,#ff5a7a)!important;color:#ffffff!important}
 .block *, .tb-how-site *, .hero *{color:#ffffff!important}
-.block a,.tb-how-site a{color:#ffe9b8!important}
+.block a,.tb-how-site a{color:#14231b!important}
 
 /* TB-CARD-TEXT-FINAL-2026-10-27: card text white, no exceptions */
 .card,.card h3,.card p,.tb-cat-card,.tb-cat-card .tb-cat-name,.tb-cat-card .tb-cat-count,.tb-cat-card .tb-cat-ic{color:#ffffff!important}
-.card p,.tb-cat-card .tb-cat-count{color:#d6e2f0!important}
+.card p,.tb-cat-card .tb-cat-count{color:#4b5a51!important}
 
 /* TB-CHIP-FIX-2026-10-27: chips are white pills, so chip text must be dark */
 .chip,.chip *{color:#14231b!important}
@@ -841,12 +841,12 @@ input::placeholder{color:#d6e2f0!important}
 /* TB-HEADER-NO-SKY-2026-10-27: header orange-pink, not sky */
 .top,.hdr{background:linear-gradient(135deg,#ff9f2e,#ff5a7a)!important}
 .top .logo b{color:#ffffff!important}
-.top .logo small{color:#ffe9b8!important}
+.top .logo small{color:#14231b!important}
 
 /* TB-HEADER-DARKNAVY-2026-10-27: header dark navy like reference, logo white */
 .top,.hdr{background:#1e2438!important;border:1px solid rgba(255,255,255,.15)!important}
 .top .logo b{color:#ffffff!important}
-.top .logo small{color:#d6e2f0!important}
+.top .logo small{color:#4b5a51!important}
 
 /* TB-HEADER-COMBO-2026-10-27: header combines both references - dark navy to teal */
 .top,.hdr{background:linear-gradient(135deg,#1e2438,#2aa5a0)!important}
@@ -868,7 +868,7 @@ input::placeholder{color:#d6e2f0!important}
 body{background:#0f172a!important;color:#ffffff!important}
 .card,.tb-cat-card,.tb-trend-card,.top,.hero,.block,.tb-how-site,#tb-notice,.ticker,.ticker2{background:#1e293b!important;color:#ffffff!important;border:1px solid rgba(0,242,254,.35)!important;border-radius:16px!important;box-shadow:0 0 30px rgba(0,242,254,.3)!important}
 .card h3,.card p,.tb-cat-card .tb-cat-name{color:#ffffff!important}
-.card p,.tb-cat-card .tb-cat-count,.sec-head span{color:#cbd5e1!important}
+.card p,.tb-cat-card .tb-cat-count,.sec-head span{color:#4b5a51!important}
 h1,h2,h3{color:#ffffff!important}
 a{color:#38bdf8!important}
 .ticker b,.ticker2 b{color:#00f2fe!important}
@@ -984,3 +984,7 @@ html[data-theme="dark"] a{color:#38bdf8!important}
 /* TB-NOTE-TEXT-2026-10-28: info/how-it-works notes must be dark on pale yellow, never white */
 .view .tb-note,.view .tb-example,.view small,.tb-note,.tb-example{color:#14231b!important}
 .view .tb-note *,.view .tb-example *{color:#14231b!important}
+
+/* TB-FINAL-TEXT-2026-10-28: light mode - every text element dark, bars dark, no pale/white text on light backgrounds */
+html:not([data-theme="dark"]) p,html:not([data-theme="dark"]) li,html:not([data-theme="dark"]) span,html:not([data-theme="dark"]) label,html:not([data-theme="dark"]) small,html:not([data-theme="dark"]) h1,html:not([data-theme="dark"]) h2,html:not([data-theme="dark"]) h3,html:not([data-theme="dark"]) h4{color:#14231b!important}
+html:not([data-theme="dark"]) .tb-note,html:not([data-theme="dark"]) .tb-example{color:#14231b!important}
