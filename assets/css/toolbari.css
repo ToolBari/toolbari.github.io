@@ -995,3 +995,11 @@ body>div:empty{display:none!important}
 /* TB-ALL-VIEW-FORM-2026-10-28: every tool/post view - ALL form controls, options, outputs and results dark on white (light mode) */
 html:not([data-theme="dark"]) .view input,html:not([data-theme="dark"]) .view textarea,html:not([data-theme="dark"]) .view select,html:not([data-theme="dark"]) .view option,html:not([data-theme="dark"]) .view output,html:not([data-theme="dark"]) .view .result,html:not([data-theme="dark"]) .view .result *,html:not([data-theme="dark"]) .view .tb-out,html:not([data-theme="dark"]) .view .tb-out *{color:#14231b!important;background:#ffffff!important}
 html:not([data-theme="dark"]) .view input::placeholder,html:not([data-theme="dark"]) .view textarea::placeholder{color:#4b5a51!important}
+
+/* TB-FAQ-DARKBTN-2026-10-28: FAQ questions/answers dark, Dark mode button text dark, AD NOTICE dark */
+html:not([data-theme="dark"]) .faqit,html:not([data-theme="dark"]) .faqit summary,html:not([data-theme="dark"]) .faqit p,html:not([data-theme="dark"]) details summary,html:not([data-theme="dark"]) details p{color:#14231b!important}
+#tbDarkBtn{color:#14231b!important}
+
+/* TB-ALL-SECTIONS-2026-10-28: EVERY section/feature on homepage - summary, details, headings, paragraphs, links, buttons (except green buttons) dark in light mode */
+html:not([data-theme="dark"]) summary,html:not([data-theme="dark"]) details,html:not([data-theme="dark"]) details *,html:not([data-theme="dark"]) .block,html:not([data-theme="dark"]) .block *,html:not([data-theme="dark"]) .faqit,html:not([data-theme="dark"]) .faqit *{color:#14231b!important}
+html:not([data-theme="dark"]) .block a{color:#0a6e43!important}
