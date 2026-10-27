@@ -3841,7 +3841,7 @@ function renderCatBar(){const bar=document.getElementById('tbCatBar');if(!bar)re
 function bindStars(){$$('[data-fav]').forEach(b=>{b.onclick=e=>{e.preventDefault();e.stopPropagation();const id=b.dataset.fav;
  if(favs.includes(id))favs=favs.filter(f=>f!==id);else favs.push(id);saveFavs();renderCatalog(currentFilter);toast(favs.includes(id)?'পছন্দের তালিকায় যোগ হয়েছে ★':'পছন্দ থেকে সরানো হয়েছে');};});}
 let currentFilter='';
-$('#toolSearch').addEventListener('input',e=>{currentFilter=e.target.value.trim().toLowerCase();renderCatalog(currentFilter);
+$('#toolSearch').addEventListener('input',e=>{currentFilter=e.target.value.trim().toLowerCase();if(location.hash&&location.hash!=='#/')location.hash='#/';renderCatalog(currentFilter);
  });
 /* TB-BOTTOMNAV-2026-10-28: bottom nav buttons actually work */
 (function(){var h=$('#tbNavHome');if(h)h.onclick=function(){location.hash='#/';window.scrollTo(0,0);};
