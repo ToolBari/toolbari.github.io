@@ -421,8 +421,8 @@ button.tb-sug:hover{border-color:var(--brand);color:var(--brand)}
  .tb-cat-card{min-height:64px}
 }
 
-/* TB-LAZY-SCROLL-2026-10-27: cards render only when scrolled into view, no overload */
-.card{content-visibility:auto;contain-intrinsic-size:110px}
+/* TB-FIX-2026-10-28: cards must render immediately on load, no scroll-dependent blank grid on slow phones */
+.card{content-visibility:visible}
 
 /* TB-CAT-MOBILE-2026-10-27: categories as clean horizontal scroll on mobile, not a messy wall */
 @media(max-width:600px){
@@ -933,8 +933,8 @@ body{background:#f4f6f4!important;color:#14231b!important}
 }
 
 /* TB-FAST-ONLY-2026-10-27: fast load only, colors unchanged */
-#catalog .grid{content-visibility:auto;contain-intrinsic-size:1px 600px}
-#catalog .grid{content-visibility:auto;contain-intrinsic-size:1px 600px}
+#catalog .grid{content-visibility:visible}
+#catalog .grid{content-visibility:visible}
 
 /* TB-NO-CATBAR-2026-10-27: no category system, cards only */
 #tbCatBar{display:none!important}
@@ -959,7 +959,7 @@ body{background:#f4f6f4!important;color:#14231b!important}
 #tbBottomNav button{color:#14231b!important;background:#ffffff!important}
 
 /* TB-FAST-GRIDS-2026-10-27: fast load mobile + desktop */
-#popularGrid,#catalog,#favGrid,.tb-trend-row{content-visibility:auto;contain-intrinsic-size:1px 400px}
+#popularGrid,#catalog,#favGrid,.tb-trend-row{content-visibility:visible}
 
 /* TB-DARK-REF-2026-10-27: dark mode like reference - navy bg, cyan border glow, green button, white title, grey desc */
 html[data-theme="dark"] body{background:#0f172a!important;color:#ffffff!important}
