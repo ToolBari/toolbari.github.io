@@ -1050,3 +1050,7 @@ html[data-theme="dark"] input::placeholder,html[data-theme="dark"] textarea::pla
 .shb.shtg{background:#229ed9!important;color:#ffffff!important;border-color:#229ed9!important}
 .shb.shx{background:#000000!important;color:#ffffff!important;border-color:#000000!important}
 .sharebar a[href*="wa.me"]{background:#25d366!important;color:#ffffff!important;border-color:#25d366!important}
+
+/* TB-MCAT-VISIBLE-2026-10-28: hamburger menu category pills always visible */
+#mCatPills{display:flex!important;flex-wrap:wrap!important;gap:8px!important}
+#mCatPills a{display:inline-block!important;background:#ffe9d6!important;color:#14231b!important;border:1px solid #dbe3dc!important;padding:8px 12px!important;border-radius:999px!important;font-weight:700!important}
