@@ -4315,8 +4315,8 @@ $('#i2p-go').addEventListener('click',async()=>{
  }catch(e){
   const m=String(e&&(e.message||e));
   if(m==='nolib')showErr('#i2p-err','PDF লাইব্রেরি লোড হয়নি — ইন্টারনেট সংযোগ দেখে আবার চেষ্টা করুন।');
-  else if(m.indexOf('unsupported:')===0)showErr('#i2p-err','এই ফরম্যাট সাপোর্ট করে না ('+m.slice(12)+') — JPG, PNG, WebP, GIF বা BMP ছবি ব্যবহার করুন। HEIC/HEIF ছবি সরাসরি সাপোর্ট করে না, আগে JPG/PNG-তে বদলে নিন।');
-  else if(m.indexOf('decode:')===0)showErr('#i2p-err','ছবিটি খোলা যায়নি ('+m.slice(7)+') — ফাইলটি ভাঙা, HEIC/অসমর্থিত ফরম্যাট, বা খুব বড় হতে পারে। JPG/PNG দিয়ে আবার চেষ্টা করুন।');
+  else if(m.indexOf('unsupported:')===0)showErr('#i2p-err','This format is not supported ('+m.slice(12)+') — use a JPG, PNG, WebP, GIF or BMP image. HEIC/HEIF images are not supported directly, convert to JPG/PNG first.');
+  else if(m.indexOf('decode:')===0)showErr('#i2p-err','Could not open this image ('+m.slice(7)+') — the file may be broken, in HEIC/unsupported format, or too large. Try again with JPG/PNG.');
   else if(m==='canvas')showErr('#i2p-err','এই ডিভাইসে ছবি প্রসেস করা যায়নি — ছোট ছবি দিয়ে চেষ্টা করুন।');
   else showErr('#i2p-err','PDF তৈরি করা যায়নি — অন্য ছবি দিয়ে চেষ্টা করুন।');
  }
