@@ -3157,28 +3157,19 @@ async function instagramRender(url, box, attempt){
  const __ai=document.getElementById('vd-ad-ig'); if(__ai)__ai.appendChild(waitAdIframe());
  const __t0=Date.now();
  const escT=function(t){return String(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');};
- try{
-  const r=await fetch('https://toolbari-dl.faysalb60k.workers.dev/instagram?url='+encodeURIComponent(url));
-  const j=await r.json();
-  if(!j||!j.success||(!j.video_url&&!j.image_url)) throw new Error('igapi');
-  let h='<p style="margin:0 0 10px"><b>আপনার ডাউনলোড তৈরি ✓ — Instagram</b></p>';
-  if(j.image_url)h+='<img src="'+escT(j.image_url)+'" alt="Instagram thumbnail" style="max-width:180px;border-radius:10px;display:block;margin:0 0 10px"/>';
-  if(j.caption)h+='<p style="margin:0 0 8px;font-size:14px">'+escT(j.caption)+'</p>';
-  if(j.video_url)h+='<p style="margin:0 0 6px"><a class="btn" href="'+escT(j.video_url)+'" target="_blank" rel="noopener">⬇ ভিডিও ডাউনলোড</a></p>';
-  if(j.image_url&&!j.video_url)h+='<p style="margin:0 0 6px"><a class="btn" href="'+escT(j.image_url)+'" target="_blank" rel="noopener">⬇ ছবি ডাউনলোড</a></p>';
-  h+='<p style="margin:0;color:var(--ink2);font-size:13px">বোতামে চাপ দিলে ভিডিওটি খুলতে পারে — সেখানে লং-প্রেস করে সেভ করে নিন। ডাউনলোড লিংকের মেয়াদ অল্প সময় — এখনই ডাউনলোড করুন।</p>';
-  const __w=5000-(Date.now()-__t0); if(__w>0)await new Promise(r=>setTimeout(r,__w));
-  box.innerHTML=h;
- }catch(e){
-  if(attempt<1){ setTimeout(function(){ instagramRender(url, box, attempt+1); },1600); return; }
-  box.innerHTML='<p style="margin:0 0 8px"><b>এই লিংক থেকে সরাসরি ডাউনলোড লিংক আনা যায়নি 😔</b></p>'
-   +'<p style="margin:0 0 10px;color:var(--ink2);font-size:14px">ভিডিওটি পাবলিক কিনা দেখুন — প্রাইভেট ভিডিও ডাউনলোড হয় না। নিচের ধাপে ডাউনলোড সাইটে লিংকটি পেস্ট করলেই ডাউনলোড হবে:</p>'
-   +'<input id="vd-ig-url" readonly value="'+escT(url)+'" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;margin:0 0 10px;background:var(--card,#fff)"/>'
-   +'<p style="margin:0 0 10px"><button class="btn" id="vd-ig-copy" type="button">📋 লিংক কপি করুন</button> '
-   +'<a class="btn" href="https://en1.savefrom.net/15xA/download-from-instagram" target="_blank" rel="noopener">▶ Instagram Downloader খুলুন</a></p>'
-   +'<p style="margin:0;color:var(--ink2);font-size:13px">ধাপ: ১) লিংক কপি করুন ২) ডাউনলোড সাইটে পেস্ট করুন ৩) Download চাপুন।</p>';
-  const cb=document.getElementById('vd-ig-copy'); if(cb)cb.onclick=function(){ copyText(url,'লিংক কপি হয়েছে ✓'); };
+ const __m=String(url||'').match(/instagram\.com\/(?:reel|reels|p)\/([A-Za-z0-9_-]+)/i);
+ if(!__m){
+  box.innerHTML='<p style="margin:0 0 8px"><b>সঠিক Instagram রিল/পোস্ট লিংক দিন 😔</b></p><p style="margin:0;color:var(--ink2);font-size:14px">উদাহরণ: instagram.com/reel/… লিংক পেস্ট করুন। প্রাইভেট ভিডিও ডাউনলোড হয় না।</p>';
+  return;
  }
+ const __dl='https://www.vxinstagram.com/offload/'+__m[1]+'/0.mp4';
+ let h='<p style="margin:0 0 10px"><b>আপনার ডাউনলোড তৈরি ✓ — Instagram</b></p>';
+ h+='<p style="margin:0 0 6px"><a class="btn" href="'+escT(__dl)+'">⬇ ভিডিও ডাউনলোড</a></p>';
+ h+='<p style="margin:0 0 6px"><a class="btn alt" href="'+escT(url)+'" target="_blank" rel="noopener">▶ Instagram-এ খুলুন</a></p>';
+ h+='<p style="margin:0 0 6px"><a class="btn alt" href="https://en1.savefrom.net/15xA/download-from-instagram" target="_blank" rel="noopener">▶ অন্য ডাউনলোডার (যদি উপরের বোতাম কাজ না করে)</a></p>';
+ h+='<p style="margin:0;color:var(--ink2);font-size:13px">ডাউনলোড বোতামে চাপ দিলে ফাইলটি সরাসরি Downloads-এ সেভ হবে। প্রাইভেট ভিডিও ডাউনলোড হয় না।</p>';
+ const __w=5000-(Date.now()-__t0); if(__w>0)await new Promise(r=>setTimeout(r,__w));
+ box.innerHTML=h;
 }
 async function threadsRender(url, box){
  box.classList.add('show');
