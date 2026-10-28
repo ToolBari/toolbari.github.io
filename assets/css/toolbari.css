@@ -183,8 +183,8 @@ footer{margin-top:48px;background:var(--surface);border-top:1px solid var(--line
 .foot-bottom{border-top:1px solid var(--line);margin-top:24px;padding:16px 0 22px;display:flex;gap:10px 18px;flex-wrap:wrap;justify-content:space-between;align-items:center;color:var(--ink2);font-size:13.5px}
 .foot-bottom a{color:var(--ink2);font-weight:600;text-decoration:none}
 /* toast + bottom nav */
-.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(80px);background:var(--ink);color:var(--bg);padding:11px 20px;border-radius:999px;font-weight:600;font-size:14.5px;z-index:99999;transition:transform .25s;box-shadow:var(--shadow)}
-.toast.show{transform:translateX(-50%) translateY(0)}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(80px);background:var(--ink);color:var(--bg);padding:11px 20px;border-radius:999px;font-weight:600;font-size:14.5px;z-index:99999;transition:transform .25s,opacity .25s;box-shadow:var(--shadow);opacity:0;visibility:hidden;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1;visibility:visible;pointer-events:auto}
 #tbBottomNav{display:none}
 .faqit summary{cursor:pointer;font-weight:700;padding:10px 0;color:var(--ink)}
 /* dark mode surfaces */
