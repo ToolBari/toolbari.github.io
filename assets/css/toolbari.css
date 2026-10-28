@@ -321,15 +321,3 @@ html[data-theme="dark"] .block a:not(.card):not(.backlink):not(.logo),html[data-
 .btn{box-shadow:0 12px 28px rgba(10,132,255,.35),0 3px 8px rgba(0,0,0,.15)!important;transform:translateY(0)}
 .btn:hover{transform:translateY(-2px)!important;box-shadow:0 16px 32px rgba(255,159,46,.45),0 4px 10px rgba(0,0,0,.15)!important}
 .btn:active{transform:translateY(1px)!important;box-shadow:0 4px 12px rgba(0,0,0,.15)!important}
-
-/* Upper-part trial only: teal header/hero like reference image, raised pill buttons like second image */
-header.top{background:#0f4c4c!important;border-bottom-color:#0f4c4c!important;box-shadow:0 14px 30px rgba(15,76,76,.35)}
-header.top a,header.top .tb-util button{color:#ffffff!important}
-header.top .tb-util button{background:#145f5f!important;border-color:#145f5f!important;border-radius:999px!important;box-shadow:0 10px 22px rgba(0,0,0,.30)}
-.hero{background:#0f4c4c!important;color:#ffffff!important;border-radius:24px!important;box-shadow:0 18px 36px rgba(15,76,76,.35)}
-.hero h1,.hero p{color:#ffffff!important}
-.hero .hero-card,.hero .hero-stats{background:#f2f7f5!important;color:#14231b!important;border-radius:20px!important;box-shadow:0 12px 26px rgba(0,0,0,.25)}
-.hero .hero-card h3,.hero .hero-card p{color:#14231b!important}
-header.top .btn,.hero .btn,.tb-util button{border-radius:999px!important;box-shadow:0 12px 24px rgba(0,0,0,.30)}
-header.top .btn:hover,.hero .btn:hover,.tb-util button:hover{background:#b8b8b8!important;color:#ffffff!important}
-header.top .btn:focus,.hero .btn:focus,.tb-util button:focus{background:#ff7a3d!important;color:#ffffff!important}
