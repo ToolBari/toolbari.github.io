@@ -254,3 +254,51 @@ html[data-theme="dark"] #tbBottomNav button{color:#e2e8f0}
   .card .ic{width:48px;height:48px;border-radius:13px}
   .card p{font-size:13px}
 }
+
+/* Dark-mode legibility fix 2026-10-28 (local): white-background blocks that kept white bg + white text in dark mode */
+html[data-theme="dark"] .tb-small-slide .tb-slide{background:#1e293b;color:#e2e8f0}
+html[data-theme="dark"] .tb-small-slide .tb-slide span{color:#7dd3fc}
+html[data-theme="dark"] .notice-area{background:#1e293b;color:#e2e8f0}
+html[data-theme="dark"] .tb-how-site{background:#1e293b;color:#e2e8f0}
+html[data-theme="dark"] .tb-util button{color:#e2e8f0}
+html[data-theme="dark"] .block p{color:#e2e8f0}
+html[data-theme="dark"] .block a{color:#7ee2b0}
+
+/* Games 2026-10-29 (local): clean CSS had lost the game styles, so buttons fell back to small browser defaults */
+.game-cv{background:#0e1511;border-radius:12px;max-width:100%;height:auto}
+.dpad{display:grid;grid-template-columns:repeat(3,64px);gap:8px;justify-content:center;margin-top:12px}
+.dpad button{height:56px;font-size:22px;border:1px solid var(--line);border-radius:12px;background:var(--surface2);color:var(--ink);cursor:pointer}
+.ttt-grid{display:grid;grid-template-columns:repeat(3,84px);gap:8px}
+.ttt-cell{height:84px;font-size:36px;font-weight:700;border:1px solid var(--line);border-radius:12px;background:var(--surface2);color:var(--ink);cursor:pointer}
+.mem-grid{display:grid;grid-template-columns:repeat(4,72px);gap:8px}
+.mem-card{height:72px;font-size:30px;border:1px solid var(--line);border-radius:12px;background:var(--surface2);color:var(--ink);cursor:pointer}
+.mem-card:disabled{opacity:.9;cursor:default}
+@media(max-width:600px){
+  .dpad{grid-template-columns:repeat(3,68px)}
+  .dpad button{height:60px;font-size:24px}
+  .ttt-grid{grid-template-columns:repeat(3,1fr)}
+  .ttt-cell{height:92px}
+  .mem-grid{grid-template-columns:repeat(4,1fr)}
+  .mem-card{height:76px}
+}
+
+/* Button colours 2026-10-29 (local, from user's reference image): pill buttons, state colours */
+.btn{border-radius:999px!important;box-shadow:0 8px 20px rgba(10,132,255,.35)}
+.btn,.btn:link{background:#0a84ff!important;color:#ffffff!important;border:1px solid #0a84ff!important}
+.btn:hover{background:#ff9f2e!important;color:#14231b!important;border-color:#ff9f2e!important;box-shadow:0 8px 24px rgba(255,159,46,.45)}
+.btn:focus-visible{background:#0f172a!important;color:#ffffff!important;border-color:#0f172a!important;outline:3px solid #38bdf8;outline-offset:2px}
+.btn:active{background:#ffffff!important;color:#14231b!important;border-color:#dbe3dc!important;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.btn.loading{background:#e11d48!important;color:#ffffff!important;border-color:#e11d48!important}
+.btn.success{background:#eef2f7!important;color:#334155!important;border-color:#dbe3dc!important;box-shadow:none}
+
+/* Dark result text 2026-10-29 (local): JS-generated result spans with grey inline colour become readable in dark mode */
+html[data-theme="dark"] .result p,html[data-theme="dark"] .result span,html[data-theme="dark"] .result div{color:#cbd5e1!important}
+html[data-theme="dark"] .result b,html[data-theme="dark"] .result b.big{color:#ffffff!important}
+html[data-theme="dark"] .notice-area,html[data-theme="dark"] .tb-how-site,html[data-theme="dark"] .tb-small-slide .tb-slide{background:#1e293b!important;color:#e2e8f0!important}
+
+/* Cards like user's glossy round-icon reference 2026-10-29 (local): same look in light and dark mode */
+.card,.card:nth-child(5n+1),.card:nth-child(5n+2),.card:nth-child(5n+3),.card:nth-child(5n+4),.card:nth-child(5n+5),html[data-theme="dark"] .card,html[data-theme="dark"] .card:nth-child(5n+1),html[data-theme="dark"] .card:nth-child(5n+2),html[data-theme="dark"] .card:nth-child(5n+3),html[data-theme="dark"] .card:nth-child(5n+4),html[data-theme="dark"] .card:nth-child(5n+5){background:#ffffff!important;color:#14231b!important;border-color:#e5e7eb!important}
+.card h3,html[data-theme="dark"] .card h3{color:#14231b!important;text-shadow:none!important}
+.card p,html[data-theme="dark"] .card p{color:#4b5a51!important;text-shadow:none!important}
+.card .ic{border-radius:50%!important;width:64px!important;height:64px!important;box-shadow:inset 0 2px 6px rgba(255,255,255,.7),inset 0 -4px 8px rgba(0,0,0,.12),0 8px 16px rgba(0,0,0,.18)!important}
+.card .star.on{color:#ff9f2e!important}
