@@ -54,17 +54,39 @@ function tbRecord(canvas,durMs,total,drawFn,videoEl,outId,filename){
     out('pti-out','Generating image\u2026 please wait.'); img.style.display='none';
     var wrap=img.closest('.stage-wrap'); if(wrap)wrap.classList.add('show');
     img.onload=function(){img.style.display='block'; if(wrap)wrap.classList.add('show'); out('pti-out','Image ready. Tap Download JPG to save it.');};
-    img.onerror=function(){out('pti-out','The image service did not respond. Please try again in a moment.');};
+    img.onerror=function(){
+      if(img.crossOrigin){ img.crossOrigin=null; img.onerror=function(){out('pti-out','The image service did not respond. Please try again in a moment.');}; img.src=url; return; }
+      out('pti-out','The image service did not respond. Please try again in a moment.');
+    };
+    img.crossOrigin='anonymous';
     img.src=url;
   });
   $('pti-dl').addEventListener('click',function(){
     if(img.style.display!=='block'||!img.src){out('pti-out','Generate an image first.');return;}
-    fetch(img.src).then(function(r){return r.blob();}).then(function(b){
+    function saveBlob(b, name){
+      var a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download=name;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function(){URL.revokeObjectURL(a.href);}, 5000);
+      out('pti-out','JPG downloaded.');
+    }
+    function openInTab(){
+      var a=document.createElement('a'); a.href=img.src; a.target='_blank'; a.rel='noopener'; a.click();
+      out('pti-out','Direct download was blocked by the image service, so the image opened in a new tab. Long-press (or right-click) the image there and choose Save image.');
+    }
+    function canvasFallback(){
+      try{
+        var cv=document.createElement('canvas'); cv.width=img.naturalWidth||1024; cv.height=img.naturalHeight||1024;
+        var ctx=cv.getContext('2d'); ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,cv.width,cv.height); ctx.drawImage(img,0,0,cv.width,cv.height);
+        cv.toBlob(function(jb){
+          if(jb){ saveBlob(jb,'prompt-to-image.jpg'); } else { openInTab(); }
+        },'image/jpeg',0.92);
+      }catch(e){ openInTab(); }
+    }
+    fetch(img.src,{mode:'cors'}).then(function(r){ if(!r.ok) throw new Error('fetch'); return r.blob(); }).then(function(b){
       if((b.type||'').indexOf('json')>=0){out('pti-out','Free limit reached (Pollinations: 1 free image every 45 seconds). Please wait 45 seconds and tap Generate again.');return;}
-      var cv=document.createElement('canvas'); cv.width=img.naturalWidth||1024; cv.height=img.naturalHeight||1024;
-      var ctx=cv.getContext('2d'); ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,cv.width,cv.height); ctx.drawImage(img,0,0,cv.width,cv.height);
-      cv.toBlob(function(jb){var a=document.createElement('a');a.href=URL.createObjectURL(jb);a.download='prompt-to-image.jpg';a.click();out('pti-out','JPG downloaded.');},'image/jpeg',0.92);
-    }).catch(function(){var a=document.createElement('a');a.href=img.src;a.target='_blank';a.click();out('pti-out','Download opened in a new tab.');});
+      if((b.type||'').indexOf('image')<0){ canvasFallback(); return; }
+      saveBlob(b,'prompt-to-image.jpg');
+    }).catch(canvasFallback);
   });
 })();
 /* AI Chat */
