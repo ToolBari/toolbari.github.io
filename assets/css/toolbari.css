@@ -83,8 +83,17 @@ section.block{padding:26px 0 4px}
 .card:nth-child(5n+3){background:#d6e4f0}
 .card:nth-child(5n+4){background:#ffe9b8}
 .card:nth-child(5n+5){background:#ffd6d6}
-.card .ic{width:44px;height:44px;border-radius:10px;background:#ffffff;display:grid;place-items:center;margin-bottom:10px}
+.card .ic{width:44px;height:44px;border-radius:10px;background:#e6f2ea;display:grid;place-items:center;margin-bottom:10px}
 .card .ic svg{width:23px;height:23px;fill:var(--brand)}
+.card:nth-child(9n+1) .ic{background:#fee2e2}
+.card:nth-child(9n+2) .ic{background:#e0f2fe}
+.card:nth-child(9n+3) .ic{background:#ede9fe}
+.card:nth-child(9n+4) .ic{background:#d1fae5}
+.card:nth-child(9n+5) .ic{background:#fef3c7}
+.card:nth-child(9n+6) .ic{background:#e2e8f0}
+.card:nth-child(9n+7) .ic{background:#fce7f3}
+.card:nth-child(9n+8) .ic{background:#cffafe}
+.card:nth-child(9n+9) .ic{background:#ecfccb}
 .card h3{font-size:15.5px;font-weight:700;color:var(--ink)}
 .card p{margin:3px 0 0;color:var(--ink2);font-size:13px;line-height:1.4}
 .card .star{position:absolute;top:8px;right:8px;background:none;border:none;font-size:19px;line-height:1;color:#b9c6bc;padding:5px}
