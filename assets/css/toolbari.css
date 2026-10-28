@@ -321,3 +321,26 @@ html[data-theme="dark"] .block a:not(.card):not(.backlink):not(.logo),html[data-
 .btn{box-shadow:0 12px 28px rgba(10,132,255,.35),0 3px 8px rgba(0,0,0,.15)!important;transform:translateY(0)}
 .btn:hover{transform:translateY(-2px)!important;box-shadow:0 16px 32px rgba(255,159,46,.45),0 4px 10px rgba(0,0,0,.15)!important}
 .btn:active{transform:translateY(1px)!important;box-shadow:0 4px 12px rgba(0,0,0,.15)!important}
+
+/* Small links everywhere: raised pill like button-states image - default light, hover grey, focus orange, loading dark glow, success orange */
+.block a,.panel a,.result a,footer a,.m-nav a,.top nav a,.tb-cat-bar a,#mCatPills a,.view a,.tb-spon-line a{display:inline-block!important;padding:6px 14px!important;border-radius:999px!important;background:#f5efe6!important;color:#14231b!important;box-shadow:0 10px 22px rgba(0,0,0,.25)!important;text-decoration:none!important}
+.block a:hover,.panel a:hover,.result a:hover,footer a:hover,.m-nav a:hover,.top nav a:hover,.tb-cat-bar a:hover,#mCatPills a:hover,.view a:hover,.tb-spon-line a:hover{background:#b8b8b8!important;color:#ffffff!important}
+.block a:focus,.panel a:focus,.result a:focus,footer a:focus,.m-nav a:focus,.top nav a:focus,.tb-cat-bar a:focus,#mCatPills a:focus,.view a:focus,.tb-spon-line a:focus,.block a:active,.panel a:active,.result a:active,footer a:active{background:#ff7a3d!important;color:#ffffff!important}
+.block a.loading,.panel a.loading,.result a.loading{background:#0f2e2e!important;color:#7ee2b0!important;box-shadow:0 0 18px rgba(126,226,176,.8),0 10px 22px rgba(0,0,0,.25)!important}
+.block a.success,.panel a.success,.result a.success{background:#ff9a3d!important;color:#ffffff!important}
+
+/* All 429 tool links too, lighter shadow so 429 items stay light on phone */
+a.card,.card a,.tool-card a,#allTools a,#popularTools a{display:inline-block!important;border-radius:999px!important;box-shadow:0 6px 14px rgba(0,0,0,.18)!important}
+a.card:hover,.card a:hover{background:#b8b8b8!important;color:#ffffff!important}
+a.card:focus,.card a:focus{background:#ff7a3d!important;color:#ffffff!important}
+
+/* STRONG style: colourful strong buttons/links/cards, white text */
+.btn,.block a,.panel a,.result a,a.card{font-weight:700!important}
+.btn{background:#0a84ff!important;color:#ffffff!important}
+a.card:nth-child(4n+1),.block a:nth-child(4n+1){background:#0a84ff!important;color:#ffffff!important}
+a.card:nth-child(4n+2),.block a:nth-child(4n+2){background:#18a879!important;color:#ffffff!important}
+a.card:nth-child(4n+3),.block a:nth-child(4n+3){background:#e5484d!important;color:#ffffff!important}
+a.card:nth-child(4n+4),.block a:nth-child(4n+4){background:#ff7a3d!important;color:#ffffff!important}
+a.card h3,a.card p,.block a{color:#ffffff!important}
+a.card .ic{background:rgba(255,255,255,.25)!important;color:#ffffff!important}
+/* dark mode keeps STRONG card colours, page background dark */
