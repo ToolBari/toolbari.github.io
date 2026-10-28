@@ -12,10 +12,10 @@ function ccConvert(){
  const amt=+$('#cc-amt').value||0,f=$('#cc-from').value,t=$('#cc-to').value;
  const out=amt*RATES[t]/RATES[f];
  const box=$('#cc-res');
- box.innerHTML=Tf("<p style=\"margin:0 0 6px\"><b class=\"big\">{0} {1}</b> = <b class=\"big\">{2} {3}</b></p><div class=\"kv\"><span>১ {4} =</span><b>{5} {6}</b></div><div class=\"kv\"><span>১ {7} =</span><b>{8} {9}</b></div>",fmtN(amt,4),f,fmtN(out,4),t,f,fmtN(RATES[t]/RATES[f],6),t,t,fmtN(RATES[f]/RATES[t],6),f);
+ box.innerHTML=Tf("<p style=\"margin:0 0 6px\"><b class=\"big\">{0} {1}</b> = <b class=\"big\">{2} {3}</b></p><div class=\"kv\"><span>1 {4} =</span><b>{5} {6}</b></div><div class=\"kv\"><span>1 {7} =</span><b>{8} {9}</b></div>",fmtN(amt,4),f,fmtN(out,4),t,f,fmtN(RATES[t]/RATES[f],6),t,t,fmtN(RATES[f]/RATES[t],6),f);
  box.classList.add('show');
  $('#cc-quick').innerHTML=['USD','EUR','GBP','SAR','AED','KWD','INR','MYR','SGD'].map(code=>{
-   const c=CURR.find(x=>x[0]===code);return Tf("<div class=\"kv\"><span>১ {0} ({1})</span><b>৳{2}</b></div>",code,c[1].split(' (')[0],toBn(fmtN(RATES.BDT/RATES[code],4)));}).join('');
+   const c=CURR.find(x=>x[0]===code);return Tf("<div class=\"kv\"><span>1 {0} ({1})</span><b>৳{2}</b></div>",code,c[1].split(' (')[0],toBn(fmtN(RATES.BDT/RATES[code],4)));}).join('');
 }
 $('#cc-go').addEventListener('click',ccConvert);
 $('#cc-swap').addEventListener('click',()=>{const f=$('#cc-from').value;$('#cc-from').value=$('#cc-to').value;$('#cc-to').value=f;ccConvert();});
@@ -23,7 +23,7 @@ $('#cc-amt').addEventListener('input',ccConvert);
 ccConvert();
 fetch('https://open.er-api.com/v6/latest/USD').then(r=>r.json()).then(j=>{
  if(j&&j.rates){CURR.forEach(c=>{if(j.rates[c[0]])RATES[c[0]]=j.rates[c[0]];});
-  $('#cc-note').textContent='হার: লাইভ (ExchangeRate-API) — সর্বশেষ আপডেট: '+toBn(new Date(j.time_last_update_utc).toLocaleDateString('en-GB'))+'।';
+  $('#cc-note').textContent='Rate: Live (ExchangeRate-API) — Last updated: '+toBn(new Date(j.time_last_update_utc).toLocaleDateString('en-GB'))+'.';
   ccConvert();}
 }).catch(()=>{});
 /* ===== Time Zone Converter ===== */
@@ -42,9 +42,9 @@ function tzWallToUTC(str,tz){
 }
 function tzFmt(d,tz){return new Intl.DateTimeFormat('en-GB',{timeZone:tz,weekday:'long',day:'numeric',month:'long',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true}).format(d);}
 $('#tz-go').addEventListener('click',()=>{
- const v=$('#tz-dt').value;if(!v){toast(T('তারিখ ও সময় days'));return;}
+ const v=$('#tz-dt').value;if(!v){toast(T('Enter date and time'));return;}
  const from=$('#tz-from').value,to=$('#tz-to').value;
- const utc=tzWallToUTC(v,from);if(!utc){toast(T('সঠিক সময় days'));return;}
+ const utc=tzWallToUTC(v,from);if(!utc){toast(T('Enter a valid time'));return;}
  const zf=ZONES.find(z=>z[0]===from),zt=ZONES.find(z=>z[0]===to);
  const box=$('#tz-res');
  box.innerHTML=Tf("<div class=\"kv\"><span>{0}</span><b>{1}</b></div><div class=\"kv\"><span>{2}</span><b class=\"big\" style=\"font-size:18px\">{3}</b></div><div class=\"kv\"><span>In Dhaka time</span><b>{4}</b></div>",zf[1],tzFmt(utc,from),zt[1],tzFmt(utc,to),tzFmt(utc,'Asia/Dhaka'));
@@ -60,10 +60,10 @@ tzWorld();setInterval(()=>{if($('#tz-world'))tzWorld();},1000);
 function taxBD(annual,freeLimit){
  const slabs=[[100000,0.05],[300000,0.10],[400000,0.15],[500000,0.20],[Infinity,0.25]];
  let rem=Math.max(0,annual-freeLimit),tax=0;const rows=[];
- if(annual>0)rows.push(Tf("<div class=\"kv\"><span>করমুক্ত অংশ</span><b>৳{0}</b></div>",toBn(fmtN(Math.min(annual,freeLimit)))));
- const labels=['পরের ৳১,০০,০০০ — ৫%','পরের ৳৩,০০,০০০ — ১০%','পরের ৳৪,০০,০০০ — ১৫%','পরের ৳৫,০০,০০০ — ২০%','Remaining — 25%'];
+ if(annual>0)rows.push(Tf("<div class=\"kv\"><span>Tax-free portion</span><b>৳{0}</b></div>",toBn(fmtN(Math.min(annual,freeLimit)))));
+ const labels=['Next ৳100,000 — 5%','Next ৳300,000 — 10%','Next ৳400,000 — 15%','Next ৳500,000 — 20%','Remaining — 25%'];
  slabs.forEach((s,i)=>{if(rem<=0)return;const take=Math.min(rem,s[0]);const t=take*s[1];tax+=t;rem-=take;
-  rows.push(Tf("<div class=\"kv\"><span>{0} (আয় ৳{1})</span><b>৳{2}</b></div>",labels[i],toBn(fmtN(take)),toBn(fmtN(Math.round(t)))));});
+  rows.push(Tf("<div class=\"kv\"><span>{0} (income ৳{1})</span><b>৳{2}</b></div>",labels[i],toBn(fmtN(take)),toBn(fmtN(Math.round(t)))));});
  return {tax:Math.round(tax),rows:rows.join('')};
 }
 /* ===== VAT & Tax ===== */
@@ -71,16 +71,16 @@ $('#vt-mode').addEventListener('change',()=>{
  const m=$('#vt-mode').value;
  $('#vt-rate-wrap').style.display=m==='income'?'none':'block';
  $('#vt-cat-wrap').style.display=m==='income'?'block':'none';
- $('#vt-amt-label').textContent=m==='income'?'বার্ষিক মোট আয় (৳)':'পরিমাণ (৳)';
+ $('#vt-amt-label').textContent=m==='income'?'Annual total income (৳)':'Amount (৳)';
 });
 $('#vt-go').addEventListener('click',()=>{
  const m=$('#vt-mode').value,amt=+$('#vt-amt').value||0,box=$('#vt-res');
  if(m==='add'){const r=+$('#vt-rate').value||0;const vat=amt*r/100;
-  box.innerHTML=Tf("<p style=\"margin:0 0 6px\">VATসহ মোট দাম: <b class=\"big\">৳{0}</b></p><div class=\"kv\"><span>মূল দাম</span><b>৳{1}</b></div><div class=\"kv\"><span>VAT ({2}%)</span><b>৳{3}</b></div>",toBn(fmtN(amt+vat)),toBn(fmtN(amt)),toBn(r),toBn(fmtN(vat)));}
+  box.innerHTML=Tf("<p style=\"margin:0 0 6px\">Total price including VAT: <b class=\"big\">৳{0}</b></p><div class=\"kv\"><span>Original price</span><b>৳{1}</b></div><div class=\"kv\"><span>VAT ({2}%)</span><b>৳{3}</b></div>",toBn(fmtN(amt+vat)),toBn(fmtN(amt)),toBn(r),toBn(fmtN(vat)));}
  else if(m==='remove'){const r=+$('#vt-rate').value||0;const net=amt/(1+r/100);const vat=amt-net;
-  box.innerHTML=Tf("<p style=\"margin:0 0 6px\">VAT ছাড়া মূল দাম: <b class=\"big\">৳{0}</b></p><div class=\"kv\"><span>VATসহ দাম</span><b>৳{1}</b></div><div class=\"kv\"><span>এর মধ্যে VAT ({2}%)</span><b>৳{3}</b></div>",toBn(fmtN(net)),toBn(fmtN(amt)),toBn(r),toBn(fmtN(vat)));}
+  box.innerHTML=Tf("<p style=\"margin:0 0 6px\">Price without VAT: <b class=\"big\">৳{0}</b></p><div class=\"kv\"><span>Price including VAT</span><b>৳{1}</b></div><div class=\"kv\"><span>VAT included ({2}%)</span><b>৳{3}</b></div>",toBn(fmtN(net)),toBn(fmtN(amt)),toBn(r),toBn(fmtN(vat)));}
  else{const lim=+$('#vt-cat').value;const res=taxBD(amt,lim);
-  box.innerHTML=res.rows+Tf("<p style=\"margin:10px 0 0\">আনুমানিক মোট আয়কর: <b class=\"big\">৳{0}</b></p><div class=\"kv\"><span>কার্যকর করের হার</span><b>{1}%</b></div><div class=\"kv\"><span>মাসে গড়ে</span><b>৳{2}</b></div>",toBn(fmtN(res.tax)),amt?toBn((res.tax/amt*100).toFixed(2)):0,toBn(fmtN(Math.round(res.tax/12))));}
+  box.innerHTML=res.rows+Tf("<p style=\"margin:10px 0 0\">Estimated total income tax: <b class=\"big\">৳{0}</b></p><div class=\"kv\"><span>Effective tax rate</span><b>{1}%</b></div><div class=\"kv\"><span>Average per month</span><b>৳{2}</b></div>",toBn(fmtN(res.tax)),amt?toBn((res.tax/amt*100).toFixed(2)):0,toBn(fmtN(Math.round(res.tax/12))));}
  box.classList.add('show');
 });
 /* ===== Salary ===== */
@@ -91,19 +91,19 @@ $('#sal-go').addEventListener('click',()=>{
  const tax=($('#sal-tax').value==='1')?taxBD(yearly+bonus,350000).tax:0;
  const netYear=yearly+bonus-pfYear-tax;
  const box=$('#sal-res');
- box.innerHTML=Tf("<p style=\"margin:0 0 6px\">মাসিক হাতে পাবেন (গড়ে): <b class=\"big\">৳{0}</b></p>\n <div class=\"kv\"><span>মাসিক গ্রস বেতন</span><b>৳{1}</b></div>\n <div class=\"kv\"><span>বার্ষিক গ্রস (১২ মাস)</span><b>৳{2}</b></div>\n <div class=\"kv\"><span>বার্ষিক বোনাস</span><b>৳{3}</b></div>\n <div class=\"kv\"><span>বার্ষিক PF কর্তন</span><b>৳{4}</b></div>\n <div class=\"kv\"><span>আনুমানিক বার্ষিক আয়কর</span><b>৳{5}</b></div>\n <div class=\"kv\"><span>বার্ষিক নিট (হাতে পাওয়া)</span><b>৳{6}</b></div>\n <div class=\"kv\"><span>hours প্রতি (২৬ days × ৮ hours ধরে)</span><b>৳{7}</b></div>",toBn(fmtN(Math.round(netYear/12))),toBn(fmtN(Math.round(monthly))),toBn(fmtN(Math.round(yearly))),toBn(fmtN(Math.round(bonus))),toBn(fmtN(Math.round(pfYear))),toBn(fmtN(tax)),toBn(fmtN(Math.round(netYear))),toBn(fmtN(monthly/208,1)));
+ box.innerHTML=Tf("<p style=\"margin:0 0 6px\">Monthly take-home (average): <b class=\"big\">৳{0}</b></p>\n <div class=\"kv\"><span>Monthly gross salary</span><b>৳{1}</b></div>\n <div class=\"kv\"><span>Annual gross (12 months)</span><b>৳{2}</b></div>\n <div class=\"kv\"><span>Annual bonus</span><b>৳{3}</b></div>\n <div class=\"kv\"><span>Annual PF deduction</span><b>৳{4}</b></div>\n <div class=\"kv\"><span>Estimated annual income tax</span><b>৳{5}</b></div>\n <div class=\"kv\"><span>Annual net (take-home)</span><b>৳{6}</b></div>\n <div class=\"kv\"><span>Per hour (based on 26 days × 8 hours)</span><b>৳{7}</b></div>",toBn(fmtN(Math.round(netYear/12))),toBn(fmtN(Math.round(monthly))),toBn(fmtN(Math.round(yearly))),toBn(fmtN(Math.round(bonus))),toBn(fmtN(Math.round(pfYear))),toBn(fmtN(tax)),toBn(fmtN(Math.round(netYear))),toBn(fmtN(monthly/208,1)));
  box.classList.add('show');
 });
 /* ===== Percentage ===== */
-const PC_LABELS={of:['শতকরা (X %)','মোট সংখ্যা (Y)'],iswhat:['সংখ্যা (X)','কিসের মধ্যে (Y)'],change:['আগের মান (A)','পরের মান (B)'],incdec:['শতকরা (X %)','সংখ্যা (Y)']};
+const PC_LABELS={of:['Percentage (X %)','Total number (Y)'],iswhat:['Number (X)','Out of (Y)'],change:['Previous value (A)','Next value (B)'],incdec:['Percentage (X %)','Number (Y)']};
 $('#pc-mode').addEventListener('change',()=>{const l=PC_LABELS[$('#pc-mode').value];$('#pc-la').textContent=l[0];$('#pc-lb').textContent=l[1];});
 $('#pc-go').addEventListener('click',()=>{
  const m=$('#pc-mode').value,a=+$('#pc-a').value||0,b=+$('#pc-b').value||0,box=$('#pc-res');let html='';
- if(m==='of')html=Tf("<b class=\"big\">{0}-এর {1}% = {2}</b>",fmtN(b),fmtN(a),fmtN(a/100*b));
- else if(m==='iswhat'){if(!b){toast(T('Y cannot be zero'));return;}html=Tf("<b class=\"big\">{0}, {1}-এর {2}%</b>",fmtN(a),fmtN(b),fmtN(a/b*100,4));}
- else if(m==='change'){if(!a){toast(T('আগের মান শূন্য হতে পারে না'));return;}const ch=(b-a)/Math.abs(a)*100;
-  html=Tf("<b class=\"big\">{0} → {1}: {2} {3}%</b><div class=\"kv\"><span>পার্থক্য</span><b>{4}</b></div>",fmtN(a),fmtN(b),ch>=0?'বেড়েছে':'কমেছে',fmtN(Math.abs(ch),4),fmtN(b-a));}
- else{const inc=b*(1+a/100),dec=b*(1-a/100);html=Tf("<div class=\"kv\"><span>{0}% বাড়ালে</span><b class=\"big\" style=\"font-size:19px\">{1}</b></div><div class=\"kv\"><span>{2}% কমালে</span><b class=\"big\" style=\"font-size:19px\">{3}</b></div>",fmtN(a),fmtN(inc),fmtN(a),fmtN(dec));}
+ if(m==='of')html=Tf("<b class=\"big\">{1}% of {0} = {2}</b>",fmtN(b),fmtN(a),fmtN(a/100*b));
+ else if(m==='iswhat'){if(!b){toast(T('Y cannot be zero'));return;}html=Tf("<b class=\"big\">{0} is {2}% of {1}</b>",fmtN(a),fmtN(b),fmtN(a/b*100,4));}
+ else if(m==='change'){if(!a){toast(T('Previous value cannot be zero'));return;}const ch=(b-a)/Math.abs(a)*100;
+  html=Tf("<b class=\"big\">{0} → {1}: {2} {3}%</b><div class=\"kv\"><span>Difference</span><b>{4}</b></div>",fmtN(a),fmtN(b),ch>=0?'Increased':'Decreased',fmtN(Math.abs(ch),4),fmtN(b-a));}
+ else{const inc=b*(1+a/100),dec=b*(1-a/100);html=Tf("<div class=\"kv\"><span>{0}% If increased by</span><b class=\"big\" style=\"font-size:19px\">{1}</b></div><div class=\"kv\"><span>{2}% If decreased by</span><b class=\"big\" style=\"font-size:19px\">{3}</b></div>",fmtN(a),fmtN(inc),fmtN(a),fmtN(dec));}
  box.innerHTML=html;box.classList.add('show');
 });
 /* ===== CV Builder ===== */
@@ -118,12 +118,12 @@ function rowData(container){
   const o={};r.querySelectorAll('[data-k]').forEach(i=>o[i.dataset.k]=i.value.trim());return o;
  }).filter(o=>Object.values(o).some(v=>v));
 }
-dynRow('#cv-exp-rows',[['role','পদবি (যেমন: Sales Executive)'],['org','প্রতিষ্ঠান'],['period','সময়কাল (2019 – 2023)'],['desc','কাজের বিবরণ','flex:2;min-width:200px']]);
-dynRow('#cv-exp-rows',[['role','পদবি'],['org','প্রতিষ্ঠান'],['period','সময়কাল'],['desc','কাজের বিবরণ','flex:2;min-width:200px']]);
-dynRow('#cv-edu-rows',[['degree','ডিগ্রি (যেমন: BBA)'],['inst','প্রতিষ্ঠান'],['year','পাসের years'],['result','ফলাফল (CGPA/GPA)']]);
-dynRow('#cv-edu-rows',[['degree','ডিগ্রি (যেমন: HSC)'],['inst','প্রতিষ্ঠান'],['year','পাসের years'],['result','ফলাফল']]);
-$('#cv-exp-add').addEventListener('click',()=>dynRow('#cv-exp-rows',[['role','পদবি'],['org','প্রতিষ্ঠান'],['period','সময়কাল'],['desc','কাজের বিবরণ','flex:2;min-width:200px']]));
-$('#cv-edu-add').addEventListener('click',()=>dynRow('#cv-edu-rows',[['degree','ডিগ্রি'],['inst','প্রতিষ্ঠান'],['year','পাসের years'],['result','ফলাফল']]));
+dynRow('#cv-exp-rows',[['role','Job title (e.g. Sales Executive)'],['org','Organization'],['period','Period (2019 – 2023)'],['desc','Job description','flex:2;min-width:200px']]);
+dynRow('#cv-exp-rows',[['role','Job title'],['org','Organization'],['period','Period'],['desc','Job description','flex:2;min-width:200px']]);
+dynRow('#cv-edu-rows',[['degree','Degree (e.g. BBA)'],['inst','Organization'],['year','Passing year'],['result','Result (CGPA/GPA)']]);
+dynRow('#cv-edu-rows',[['degree','Degree (e.g. HSC)'],['inst','Organization'],['year','Passing year'],['result','Result']]);
+$('#cv-exp-add').addEventListener('click',()=>dynRow('#cv-exp-rows',[['role','Job title'],['org','Organization'],['period','Period'],['desc','Job description','flex:2;min-width:200px']]));
+$('#cv-edu-add').addEventListener('click',()=>dynRow('#cv-edu-rows',[['degree','Degree'],['inst','Organization'],['year','Passing year'],['result','Result']]));
 function cvData(){
  return {name:$('#cv-name').value.trim(),title:$('#cv-title').value.trim(),email:$('#cv-email').value.trim(),
   phone:$('#cv-phone').value.trim(),addr:$('#cv-addr').value.trim(),summary:$('#cv-summary').value.trim(),
@@ -132,7 +132,7 @@ function cvData(){
 }
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;');}
 function cvRender(){
- const d=cvData();if(!d.name){toast(T('আগে Name লিখুন'));return null;}
+ const d=cvData();if(!d.name){toast(T('Enter a name first'));return null;}
  const contact=[d.email,d.phone,d.addr].filter(Boolean).join(' · ');
  const paper=$('#cv-paper');
  paper.innerHTML=`<h2>${esc(d.name)}</h2>${d.title?`<p style="margin:2px 0 0;color:#0b7a4b;font-weight:600">${esc(d.title)}</p>`:''}${contact?`<p style="margin:2px 0 0;color:#555">${esc(contact)}</p>`:''}
@@ -183,7 +183,7 @@ function invCur(){const c=$('#inv-cur').value||'BDT';return {code:c,s:(CURS[c]||
 function invMoney(x){const c=invCur();return c.s+fmtN(Math.round(x*100)/100);}
 function invRow(){
  const div=document.createElement('div');div.className='dynrow inv-row';
- div.innerHTML=`<input class="in f-desc" data-k="desc" placeholder="আইটেমের Name / বিবরণ" /><input class="in f-qty" data-k="qty" type="number" value="1" min="0" step="any" placeholder="পরিমাণ" /><input class="in f-price" data-k="price" type="number" value="0" min="0" step="any" placeholder="একক দাম" /><span class="f-amt">—</span><span class="f-x"><button class="btn alt sm" type="button">✕</button></span>`;
+ div.innerHTML=`<input class="in f-desc" data-k="desc" placeholder="Item name / description" /><input class="in f-qty" data-k="qty" type="number" value="1" min="0" step="any" placeholder="Quantity" /><input class="in f-price" data-k="price" type="number" value="0" min="0" step="any" placeholder="Unit price" /><span class="f-amt">—</span><span class="f-x"><button class="btn alt sm" type="button">✕</button></span>`;
  div.querySelector('button').onclick=()=>{div.remove();invLive();};
  div.querySelectorAll('input').forEach(el=>el.addEventListener('input',invLive));
  $('#inv-rows').appendChild(div);
@@ -337,13 +337,13 @@ $('#vc-file').addEventListener('change',e=>{
  vcURL=URL.createObjectURL(f);
  const v=$('#vc-video');v.src=vcURL;
  v.onloadedmetadata=()=>{
-  $('#vc-info').innerHTML=Tf("<div class=\"kv\"><span>আসল ফাইল</span><b>{0} MB</b></div><div class=\"kv\"><span>রেজোলিউশন</span><b>{1}×{2}</b></div><div class=\"kv\"><span>দৈর্ঘ্য</span><b>{3}:{4}</b></div>",(f.size/1048576).toFixed(2),v.videoWidth,v.videoHeight,Math.floor(v.duration/60),String(Math.floor(v.duration%60)).padStart(2,'0'));
+  $('#vc-info').innerHTML=Tf("<div class=\"kv\"><span>Original file</span><b>{0} MB</b></div><div class=\"kv\"><span>Resolution</span><b>{1}×{2}</b></div><div class=\"kv\"><span>Duration</span><b>{3}:{4}</b></div>",(f.size/1048576).toFixed(2),v.videoWidth,v.videoHeight,Math.floor(v.duration/60),String(Math.floor(v.duration%60)).padStart(2,'0'));
   $('#vc-prev-wrap').classList.add('show');$('#vc-go').disabled=false;
  };
 });
 $('#vc-go').addEventListener('click',async()=>{
  const v=$('#vc-video');if(!v.src||vcBusy)return;
- if(typeof MediaRecorder==='undefined'){$('#vc-status').textContent='এই ব্রাউজারে MediaRecorder সাপোর্ট নেই — Chrome/Edge ব্যবহার করুন।';return;}
+ if(typeof MediaRecorder==='undefined'){$('#vc-status').textContent='This browser does not support MediaRecorder — use Chrome/Edge.';return;}
  vcBusy=true;$('#vc-go').disabled=true;$('#vc-wrap').classList.remove('show');
  const maxH=+$('#vc-res').value;let w=v.videoWidth,h=v.videoHeight;
  if(maxH&&h>maxH){w=Math.round(w*maxH/h/2)*2;h=maxH;}
@@ -362,20 +362,20 @@ $('#vc-go').addEventListener('click',async()=>{
  const rec=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:+$('#vc-br').value,audioBitsPerSecond:128000});
  const chunks=[];rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
  let raf=null;
- const draw=()=>{ctx.drawImage(v,0,0,w,h);$('#vc-status').textContent='কমপ্রেস হচ্ছে… '+Math.floor(v.currentTime)+'s / '+Math.floor(v.duration||0)+'s';raf=requestAnimationFrame(draw);};
+ const draw=()=>{ctx.drawImage(v,0,0,w,h);$('#vc-status').textContent='Compressing… '+Math.floor(v.currentTime)+'s / '+Math.floor(v.duration||0)+'s';raf=requestAnimationFrame(draw);};
  rec.onstop=()=>{
    cancelAnimationFrame(raf);vcBusy=false;$('#vc-go').disabled=false;
    vcOutBlob=new Blob(chunks,{type:'video/webm'});
    $('#vc-out').src=URL.createObjectURL(vcOutBlob);
-   $('#vc-outinfo').innerHTML=Tf("<div class=\"kv\"><span>কমপ্রেস করা ফাইল</span><b>{0} MB · {1}×{2} · WebM</b></div>",(vcOutBlob.size/1048576).toFixed(2),w,h);
+   $('#vc-outinfo').innerHTML=Tf("<div class=\"kv\"><span>Compressed file</span><b>{0} MB · {1}×{2} · WebM</b></div>",(vcOutBlob.size/1048576).toFixed(2),w,h);
    $('#vc-wrap').classList.add('show');
-   $('#vc-status').textContent='সম্পন্ন ✓';
+   $('#vc-status').textContent='Done ✓';
    if(actx)actx.close().catch(()=>{});
  };
  v.onended=()=>{if(rec.state==='recording')rec.stop();};
  try{
    v.currentTime=0;await v.play();rec.start(250);draw();
- }catch(e){$('#vc-status').textContent='ভিডিও চালানো যায়নি — ফাইলটি আবার বেছে নিন।';vcBusy=false;$('#vc-go').disabled=false;}
+ }catch(e){$('#vc-status').textContent='Video could not be played — please select the file again.';vcBusy=false;$('#vc-go').disabled=false;}
 });
 $('#vc-dl').addEventListener('click',()=>{if(vcOutBlob)dl(URL.createObjectURL(vcOutBlob),'compressed-video.webm');});
 /* ===== Audio Converter ===== */
@@ -383,7 +383,7 @@ let acFile=null,acBuffer=null;
 $('#ac-file').addEventListener('change',async e=>{
  const f=e.target.files[0];if(!f)return;acFile=f;acBuffer=null;
  $('#ac-audio').src=URL.createObjectURL(f);$('#ac-prev-wrap').classList.add('show');
- $('#ac-info').innerHTML=Tf("<div class=\"kv\"><span>ফাইল</span><b>{0}</b></div><div class=\"kv\"><span>সাইজ</span><b>{1} KB</b></div>",esc(f.name),(f.size/1024).toFixed(0));
+ $('#ac-info').innerHTML=Tf("<div class=\"kv\"><span>File</span><b>{0}</b></div><div class=\"kv\"><span>Size</span><b>{1} KB</b></div>",esc(f.name),(f.size/1024).toFixed(0));
  $('#ac-go').disabled=false;$('#ac-status').textContent='';
  $('#ac-res').classList.remove('show');
 });
@@ -412,12 +412,12 @@ $('#ac-go').addEventListener('click',async()=>{
  if(!acFile)return;const fmt=$('#ac-fmt').value;const btn=$('#ac-go');btn.disabled=true;
  try{
    const buffer=await acDecode();
-   $('#ac-info').innerHTML+=Tf("<div class=\"kv\"><span>দৈর্ঘ্য</span><b>{0} seconds</b></div><div class=\"kv\"><span>চ্যানেল / স্যাম্পল রেট</span><b>{1}ch · {2} Hz</b></div>",buffer.duration.toFixed(1),buffer.numberOfChannels,buffer.sampleRate);
+   $('#ac-info').innerHTML+=Tf("<div class=\"kv\"><span>Duration</span><b>{0} seconds</b></div><div class=\"kv\"><span>Channels / sample rate</span><b>{1}ch · {2} Hz</b></div>",buffer.duration.toFixed(1),buffer.numberOfChannels,buffer.sampleRate);
    if(fmt==='wav'){
      $('#ac-status').textContent='Creating WAV…';
      const blob=wavEncode(buffer);
-     $('#ac-res').innerHTML=Tf("<p style=\"margin:0 0 8px\"><b>তৈরি ✓</b> — {0} MB WAV ফাইল</p>",(blob.size/1048576).toFixed(2));
-     const a=document.createElement('a');a.className='btn';a.textContent='⬇ WAV ডাউনলোড';a.href=URL.createObjectURL(blob);a.download='converted.wav';$('#ac-res').appendChild(a);
+     $('#ac-res').innerHTML=Tf("<p style=\"margin:0 0 8px\"><b>Created ✓</b> — {0} MB WAV File</p>",(blob.size/1048576).toFixed(2));
+     const a=document.createElement('a');a.className='btn';a.textContent='⬇ Download WAV';a.href=URL.createObjectURL(blob);a.download='converted.wav';$('#ac-res').appendChild(a);
      $('#ac-res').classList.add('show');$('#ac-status').textContent='';
    }else{
      $('#ac-status').textContent='Creating WebM — audio is playing in real time ('+Math.ceil(buffer.duration)+'s)…';
@@ -428,27 +428,27 @@ $('#ac-go').addEventListener('click',async()=>{
      const chunks=[];rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
      rec.onstop=()=>{ctx.close().catch(()=>{});
        const blob=new Blob(chunks,{type:'audio/webm'});
-       $('#ac-res').innerHTML=Tf("<p style=\"margin:0 0 8px\"><b>তৈরি ✓</b> — {0} KB WebM ফাইল</p>",(blob.size/1024).toFixed(0));
-       const a=document.createElement('a');a.className='btn';a.textContent='⬇ WebM ডাউনলোড';a.href=URL.createObjectURL(blob);a.download='converted.webm';$('#ac-res').appendChild(a);
+       $('#ac-res').innerHTML=Tf("<p style=\"margin:0 0 8px\"><b>Created ✓</b> — {0} KB WebM File</p>",(blob.size/1024).toFixed(0));
+       const a=document.createElement('a');a.className='btn';a.textContent='⬇ Download WebM';a.href=URL.createObjectURL(blob);a.download='converted.webm';$('#ac-res').appendChild(a);
        $('#ac-res').classList.add('show');$('#ac-status').textContent='';btn.disabled=false;};
      src.onended=()=>{if(rec.state==='recording')rec.stop();};
      rec.start(250);src.start();
      return;
    }
- }catch(e){$('#ac-status').textContent='ফাইলটি পড়া যায়নি — অন্য অডিও/ভিডিও ফাইল চেষ্টা করুন।';}
+ }catch(e){$('#ac-status').textContent='File could not be read — try another audio/video file.';}
  btn.disabled=false;
 });
 /* ===== JSON Formatter ===== */
 function jfParse(){
  const s=$('#jf-in').value.trim();
- if(!s){showErr('#jf-err','আগে JSON Data days।');return null;}
+ if(!s){showErr('#jf-err','Enter JSON data first.');return null;}
  try{const o=JSON.parse(s);showErr('#jf-err','');return o;}
  catch(e){showErr('#jf-err','Invalid JSON: '+e.message);$('#jf-status').classList.remove('show');return null;}
 }
 function jfOk(msg){const b=$('#jf-status');b.textContent=msg;b.classList.add('show');}
-$('#jf-format').addEventListener('click',()=>{const o=jfParse();if(o===null)return;$('#jf-out').value=JSON.stringify(o,null,2);jfOk('✓ বৈধ JSON — ফরম্যাট করা হয়েছে');});
-$('#jf-min').addEventListener('click',()=>{const o=jfParse();if(o===null)return;$('#jf-out').value=JSON.stringify(o);jfOk('✓ বৈধ JSON — মিনিফাই করা হয়েছে');});
-$('#jf-validate').addEventListener('click',()=>{const o=jfParse();if(o===null)return;jfOk('✓ সম্পূর্ণ বৈধ JSON — কোনো ভুল নেই');});
+$('#jf-format').addEventListener('click',()=>{const o=jfParse();if(o===null)return;$('#jf-out').value=JSON.stringify(o,null,2);jfOk('✓ Valid JSON — formatted');});
+$('#jf-min').addEventListener('click',()=>{const o=jfParse();if(o===null)return;$('#jf-out').value=JSON.stringify(o);jfOk('✓ Valid JSON — minified');});
+$('#jf-validate').addEventListener('click',()=>{const o=jfParse();if(o===null)return;jfOk('✓ Fully valid JSON — no errors');});
 $('#jf-sample').addEventListener('click',()=>{$('#jf-in').value='{"name":"Rahim Uddin","city":"Dhaka","skills":["Excel","Word"],"active":true}';showErr('#jf-err','');});
 $('#jf-copy').addEventListener('click',()=>{if($('#jf-out').value)copyText($('#jf-out').value,'Copied ✓');});
 /* ===== Code Formatter ===== */
@@ -503,21 +503,21 @@ function compactCode(s,lang){
  return s.replace(/\/\*[\s\S]*?\*\//g,'').split('\n').map(l=>l.trim()).filter(Boolean).join(lang==='html'?'':'\n');
 }
 $('#cf-format').addEventListener('click',()=>{
- const s=$('#cf-in').value;if(!s.trim()){showErr('#cf-err','আগে কোড days।');return;}showErr('#cf-err','');
+ const s=$('#cf-in').value;if(!s.trim()){showErr('#cf-err','Enter code first.');return;}showErr('#cf-err','');
  const lang=$('#cf-lang').value;
  $('#cf-out').value=lang==='css'?cssFmt(s):lang==='html'?htmlFmt(s):jsFmt(s);
- toast(T('ফরম্যাট হয়েছে ✓'));
+ toast(T('Formatted ✓'));
 });
 $('#cf-min').addEventListener('click',()=>{
- const s=$('#cf-in').value;if(!s.trim()){showErr('#cf-err','আগে কোড days।');return;}showErr('#cf-err','');
- $('#cf-out').value=compactCode(s,$('#cf-lang').value);toast(T('মিনিফাই হয়েছে ✓'));
+ const s=$('#cf-in').value;if(!s.trim()){showErr('#cf-err','Enter code first.');return;}showErr('#cf-err','');
+ $('#cf-out').value=compactCode(s,$('#cf-lang').value);toast(T('Minified ✓'));
 });
 $('#cf-copy').addEventListener('click',()=>{if($('#cf-out').value)copyText($('#cf-out').value,'Copied ✓');});
 /* ===== URL Encoder ===== */
 function ueDo(fn){
  const ta=$('#ue-in');showErr('#ue-err','');
- try{ta.value=fn(ta.value);toast(T('হয়ে গেছে ✓'));}
- catch(e){showErr('#ue-err','ডিকোড করা যায়নি — এটি বৈধ এনকোড করা লেখা নয়।');}
+ try{ta.value=fn(ta.value);toast(T('Done ✓'));}
+ catch(e){showErr('#ue-err','Could not decode — this is not valid encoded text.');}
 }
 $('#ue-enc').addEventListener('click',()=>ueDo(s=>encodeURIComponent(s)));
 $('#ue-enfull').addEventListener('click',()=>ueDo(s=>encodeURI(s)));
@@ -528,29 +528,29 @@ const DNS_TYPES={1:'A',2:'NS',5:'CNAME',6:'SOA',15:'MX',16:'TXT',28:'AAAA'};
 $('#dns-go').addEventListener('click',async()=>{
  const name=$('#dns-name').value.trim().replace(/^https?:\/\//,'').replace(/\/.*$/,'');
  const box=$('#dns-res');
- if(!/^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(name)){$('#dns-status').textContent='সঠিক ডোমেইন days — যেমন example.com';return;}
+ if(!/^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(name)){$('#dns-status').textContent='Enter a valid domain — e.g. example.com';return;}
  $('#dns-status').textContent='Fetching DNS records…';box.classList.remove('show');
  try{
    const r=await fetch('https://dns.google/resolve?name='+encodeURIComponent(name)+'&type='+encodeURIComponent($('#dns-type').value));
    const j=await r.json();
-   if(j.Status===3){$('#dns-status').textContent='এই ডোমেইনটির অস্তিত্ব পাওয়া যায়নি (NXDOMAIN)।';return;}
-   if(!j.Answer||!j.Answer.length){$('#dns-status').textContent='এই Typeের কোনো রেকর্ড পাওয়া যায়নি।';return;}
+   if(j.Status===3){$('#dns-status').textContent='This domain does not exist (NXDOMAIN).';return;}
+   if(!j.Answer||!j.Answer.length){$('#dns-status').textContent='No record of this type was found.';return;}
    $('#dns-status').textContent='';
    box.innerHTML='<table class="tbl"><thead><tr><th>Name</th><th>Type</th><th>TTL</th><th>Data</th></tr></thead><tbody>'+
      j.Answer.map(a=>`<tr><td class="mono">${esc(a.name)}</td><td>${DNS_TYPES[a.type]||a.type}</td><td>${a.TTL}</td><td class="mono" style="word-break:break-all">${esc(a.data)}</td></tr>`).join('')+'</tbody></table>';
    box.classList.add('show');
- }catch(e){$('#dns-status').textContent='সংযোগ করা যায়নি — ইন্টারনেট চেক করে আবার চেষ্টা করুন।';}
+ }catch(e){$('#dns-status').textContent='Could not connect — check your internet and try again.';}
 });
 $('#dns-web').addEventListener('click',async()=>{
  const name=$('#dns-name').value.trim().replace(/^https?:\/\//,'').replace(/\/.*$/,'');
- if(!/^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(name)){$('#dns-status').textContent='সঠিক ডোমেইন days — যেমন example.com';return;}
- $('#dns-status').textContent='ওয়েবসাইট চেক করা হচ্ছে…';
+ if(!/^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(name)){$('#dns-status').textContent='Enter a valid domain — e.g. example.com';return;}
+ $('#dns-status').textContent='Checking website…';
  const t0=performance.now();
  try{
    await fetch('https://'+name+'/',{mode:'no-cors',cache:'no-store'});
    const ms=Math.round(performance.now()-t0);
-   $('#dns-status').textContent='✓ ওয়েবসাইটটি সাড়া দিচ্ছে (অনলাইন) — আনুমানিক প্রতিক্রিয়া সময়: '+toBn(ms)+' ms';
- }catch(e){$('#dns-status').textContent='✗ ওয়েবসাইট থেকে সাড়া পাওয়া যায়নি — সাইটটি ডাউন হতে পারে বা ডোমেইনটি ভুল।';}
+   $('#dns-status').textContent='✓ Website is responding (online) — approximate response time: '+toBn(ms)+' ms';
+ }catch(e){$('#dns-status').textContent='✗ No response from website — the site may be down or the domain may be wrong.';}
 });
 /* ===== Subtitle Editor ===== */
 function t2ms(t){
@@ -580,28 +580,28 @@ function sbRender(cues,fmt){
 }
 function sbFmtDetect(){
  const t=$('#sb-in').value;
- $('#sb-fmt').textContent='ফরম্যাট: '+(t.includes('WEBVTT')?'WebVTT (VTT)':(/-->/.test(t)?'SRT':'—'));
+ $('#sb-fmt').textContent='Format: '+(t.includes('WEBVTT')?'WebVTT (VTT)':(/-->/.test(t)?'SRT':'—'));
 }
 $('#sb-in').addEventListener('input',sbFmtDetect);
 $('#sb-file').addEventListener('change',e=>{
  const f=e.target.files[0];if(!f)return;
- f.text().then(t=>{$('#sb-in').value=t;sbFmtDetect();toast(T('ফাইল লোড হয়েছে ✓'));});
+ f.text().then(t=>{$('#sb-in').value=t;sbFmtDetect();toast(T('File loaded ✓'));});
 });
 function sbOp(fn){
  const cues=sbParse($('#sb-in').value);
- if(!cues.length){showErr('#sb-err','সাবটাইটেল টেক্সট পাওয়া যায়নি — সঠিক SRT/VTT days।');return;}
+ if(!cues.length){showErr('#sb-err','No subtitle text found — enter valid SRT/VTT.');return;}
  showErr('#sb-err','');fn(cues);
 }
 $('#sb-shiftbtn').addEventListener('click',()=>sbOp(cues=>{
  const shift=Math.round((+$('#sb-shift').value||0)*1000);
  const fmt=$('#sb-in').value.includes('WEBVTT')?'vtt':'srt';
  cues.forEach(c=>{c.start+=shift;c.end+=shift;});
- $('#sb-in').value=sbRender(cues,fmt);sbFmtDetect();toast(T('সময় শিফট হয়েছে ✓'));
+ $('#sb-in').value=sbRender(cues,fmt);sbFmtDetect();toast(T('Time shifted ✓'));
 }));
 $('#sb-tosrt').addEventListener('click',()=>sbOp(cues=>{$('#sb-in').value=sbRender(cues,'srt');sbFmtDetect();toast(T('Converted to SRT ✓'));}));
 $('#sb-tovtt').addEventListener('click',()=>sbOp(cues=>{$('#sb-in').value=sbRender(cues,'vtt');sbFmtDetect();toast(T('Converted to VTT ✓'));}));
 $('#sb-dl').addEventListener('click',()=>{
- const t=$('#sb-in').value;if(!t.trim()){toast(T('আগে সাবটাইটেল days'));return;}
+ const t=$('#sb-in').value;if(!t.trim()){toast(T('Enter subtitles first'));return;}
  const vtt=t.includes('WEBVTT');
  dl(URL.createObjectURL(new Blob([t],{type:'text/plain;charset=utf-8'})),vtt?'subtitle.vtt':'subtitle.srt');
 });
@@ -610,37 +610,37 @@ $('#sb-copy').addEventListener('click',()=>copyText($('#sb-in').value,'Copied �
 const MISSP={teh:'the',adress:'address',recieve:'receive',seperate:'separate',definately:'definitely',occured:'occurred',enviroment:'environment',goverment:'government',wich:'which',thier:'their',finaly:'finally',realy:'really',beleive:'believe',freind:'friend',tommorrow:'tomorrow',tomorow:'tomorrow',necesary:'necessary',existance:'existence',independant:'independent',langauge:'language',writting:'writing',comming:'coming',happend:'happened',knowlege:'knowledge',publich:'publish',grammer:'grammar',sentense:'sentence',paragraf:'paragraph',exelent:'excellent',immediatly:'immediately',noticable:'noticeable',prefered:'preferred',refering:'referring',untill:'until',withing:'within',youseful:'useful'};
 function grAnalyze(){
  const t=$('#gr-in').value;const box=$('#gr-res');
- if(!t.trim()){toast(T('আগে লেখা days'));return;}
+ if(!t.trim()){toast(T('Enter text first'));return;}
  const issues=[];
  const words=t.trim().split(/\s+/).filter(Boolean).length;
- const sents=(t.match(/[^.!?।]+[.!?।]+/g)||[]).length||1;
+ const sents=(t.match(/[^.!?.]+[.!?.]+/g)||[]).length||1;
  const dbl=(t.match(/ {2,}/g)||[]).length;
- if(dbl)issues.push(['warn',Tf("অতিরিক্ত স্পেস: {0} জায়গায় পরপর একাধিক স্পেস আছে।",toBn(dbl))]);
+ if(dbl)issues.push(['warn',Tf("Extra spaces: {0} places have multiple consecutive spaces.",toBn(dbl))]);
  const sp=(t.match(/\s+[,.!?;:]/g)||[]).length;
- if(sp)issues.push(['warn',Tf("যতিচিহ্নের আগে স্পেস: {0} জায়গায় (কমা/দাড়ির আগে স্পেস হয় না)।",toBn(sp))]);
+ if(sp)issues.push(['warn',Tf("Space before punctuation: {0} places (no space before commas/full stops).",toBn(sp))]);
  const rep=[...t.matchAll(/\b([A-Za-z]+)\s+\1\b/gi)].map(m=>m[1].toLowerCase());
  const repU=[...new Set(rep)];
- if(repU.length)issues.push(['err',Tf("একই শব্দ পরপর দুইবার: {0}",repU.slice(0,6).join(', '))]);
+ if(repU.length)issues.push(['err',Tf("Same word twice in a row: {0}",repU.slice(0,6).join(', '))]);
  const found={};
  for(const w in MISSP){const re=new RegExp('\\b'+w+'\\b','gi');const mm=t.match(re);if(mm)found[w]=mm.length;}
  const fk=Object.keys(found);
- if(fk.length)issues.push(['err','সম্ভাব্য বানান ভুল: '+fk.slice(0,10).map(w=>`${w} → ${MISSP[w]}`).join(' · ')]);
+ if(fk.length)issues.push(['err','Possible spelling mistakes: '+fk.slice(0,10).map(w=>`${w} → ${MISSP[w]}`).join(' · ')]);
  const lowStarts=(t.match(/(^|[.!?]\s+)[a-z]/gm)||[]).length;
- if(lowStarts)issues.push(['tip',Tf("বাক্যের শুরুতে ছোট হাতের characters: {0} জায়গায় — বাক্য বড় হাতের characters দিয়ে শুরু করুন।",toBn(lowStarts))]);
+ if(lowStarts)issues.push(['tip',Tf("Sentences starting with lowercase letters: {0} places — start sentences with capital letters.",toBn(lowStarts))]);
  const caps=(t.match(/\b[A-Z]{4,}\b/g)||[]).length;
- if(caps>2)issues.push(['tip',Tf("ALL CAPS শব্দ {0}টি — সব বড় হাতের লেখা পড়তে কষ্ট হয়, দরকার ছাড়া এড়িয়ে চলুন।",toBn(caps))]);
+ if(caps>2)issues.push(['tip',Tf("ALL CAPS words {0}— all-caps text is hard to read, avoid unless needed.",toBn(caps))]);
  const excl=(t.match(/!/g)||[]).length;
- if(excl>3)issues.push(['tip','বিস্ময়চিহ্ন (!) অনেক বেশি — প্রফেশনাল লেখায় কম ব্যবহার করুন।']);
+ if(excl>3)issues.push(['tip','Too many exclamation marks (!) — use fewer in professional writing.']);
  const avg=words/sents;
- if(avg>25)issues.push(['tip',Tf("বাক্যগুলো লম্বা (গড়ে {0} শব্দ/বাক্য) — ছোট বাক্য পড়তে সহজ।",toBn(avg.toFixed(0)))]);
- let html=Tf("<div class=\"kv\"><span>শব্দ</span><b>{0}</b></div><div class=\"kv\"><span>বাক্য</span><b>{1}</b></div><div class=\"kv\"><span>গড় বাক্যের দৈর্ঘ্য</span><b>{2} শব্দ</b></div>",toBn(words),toBn(sents),toBn(avg.toFixed(1)));
- if(issues.length)html+='<ul class="issue-list">'+issues.map(i=>`<li><span class="sev ${i[0]}">${i[0]==='err'?'ভুল':i[0]==='warn'?'সতর্কতা':'পরামর্শ'}</span>${i[1]}</li>`).join('')+'</ul>';
+ if(avg>25)issues.push(['tip',Tf("Sentences are long (average {0} words/sentence) — short sentences are easier to read.",toBn(avg.toFixed(0)))]);
+ let html=Tf("<div class=\"kv\"><span>Words</span><b>{0}</b></div><div class=\"kv\"><span>Sentences</span><b>{1}</b></div><div class=\"kv\"><span>Average sentence length</span><b>{2} Words</b></div>",toBn(words),toBn(sents),toBn(avg.toFixed(1)));
+ if(issues.length)html+='<ul class="issue-list">'+issues.map(i=>`<li><span class="sev ${i[0]}">${i[0]==='err'?'Error':i[0]==='warn'?'Warning':'Tip'}</span>${i[1]}</li>`).join('')+'</ul>';
  else html+='<p style="margin:8px 0 0;color:var(--ok);font-weight:600">✓ No common mistakes found — excellent!</p>';
  box.innerHTML=html;box.classList.add('show');
 }
 $('#gr-check').addEventListener('click',grAnalyze);
 $('#gr-fix').addEventListener('click',()=>{
- let t=$('#gr-in').value;if(!t.trim()){toast(T('আগে লেখা days'));return;}
+ let t=$('#gr-in').value;if(!t.trim()){toast(T('Enter text first'));return;}
  t=t.replace(/ {2,}/g,' ');
  t=t.replace(/\s+([,.!?;:])/g,'$1');
  t=t.replace(/\b([A-Za-z]+)(\s+)\1\b/gi,'$1');
@@ -662,7 +662,7 @@ function pr12(t){
 async function prLoad(){
  const [city,country]=$('#pr-city').value.split('|');
  const method=city==='Makkah'?4:1;
- $('#pr-note').textContent='সময় Fetching…';
+ $('#pr-note').textContent='Fetching times…';
  try{
    const r=await fetch('https://api.aladhan.com/v1/timingsByCity?city='+encodeURIComponent(city)+'&country='+encodeURIComponent(country)+'&method='+method+'&school=1');
    const j=await r.json();
@@ -677,19 +677,19 @@ async function prLoad(){
    if(!next){const [hh,mm]=t.Fajr.split(':').map(Number);next=new Date();next.setDate(next.getDate()+1);next.setHours(hh,mm,0,0);nextName='Fajr (tomorrow)';}
    const diffMs=next-now,dh=Math.floor(diffMs/3600000),dm=Math.floor(diffMs%3600000/60000);
    const box=$('#pr-res');
-   box.innerHTML=Tf("<p style=\"margin:0 0 8px\"><b>{0}</b> · হিজরি: {1} {2} {3} হিজরি</p>",esc(d.readable),d.hijri.day,d.hijri.month.en,d.hijri.year)+
+   box.innerHTML=Tf("<p style=\"margin:0 0 8px\"><b>{0}</b> · Hijri: {1} {2} Hijri</p>",esc(d.readable),d.hijri.day,d.hijri.month.en,d.hijri.year)+
      PRAYERS.map(([k,bn])=>`<div class="kv"><span>${bn}</span><b>${pr12(t[k])}</b></div>`).join('')+
-     Tf("<div class=\"kv\"><span>সেহরির শেষ (ইমসাক)</span><b>{0}</b></div>",pr12(t.Imsak))+
-     Tf("<p style=\"margin:10px 0 0\">পরবর্তী ওয়াক্ত: <b class=\"big\" style=\"font-size:19px\">{0}</b> — আর {1} hours {2} minutes বাকি</p>",nextName,toBn(dh),toBn(dm));
+     Tf("<div class=\"kv\"><span>Sehri end (Imsak)</span><b>{0}</b></div>",pr12(t.Imsak))+
+     Tf("<p style=\"margin:10px 0 0\">Next prayer time: <b class=\"big\" style=\"font-size:19px\">{0}</b> — {1} hours {2} minutes remaining</p>",nextName,toBn(dh),toBn(dm));
    box.classList.add('show');
    $('#pr-note').textContent='';
- }catch(e){$('#pr-note').textContent='সময় আনা যায়নি — ইন্টারনেট সংযোগ চেক করে আবার চেষ্টা করুন।';}
+ }catch(e){$('#pr-note').textContent='Times could not be fetched — check your internet connection and try again.';}
 }
 $('#pr-go').addEventListener('click',prLoad);
 $('#pr-city').addEventListener('change',prLoad);
 prLoad();
 /* ===== Weather (Open-Meteo) ===== */
-const WMO={0:'পরিষ্কার আকাশ',1:'প্রধানত পরিষ্কার',2:'আংশিক মেঘলা',3:'মেঘলা',45:'কুয়াশা',48:'কুয়াশা',51:'গুঁড়ি গুঁড়ি বৃষ্টি',53:'গুঁড়ি গুঁড়ি বৃষ্টি',55:'গুঁড়ি গুঁড়ি বৃষ্টি',56:'হিম গুঁড়ি বৃষ্টি',57:'হিম গুঁড়ি বৃষ্টি',61:'হালকা বৃষ্টি',63:'মাঝারি বৃষ্টি',65:'ভারী বৃষ্টি',66:'হিম বৃষ্টি',67:'হিম বৃষ্টি',71:'তুষারপাত',73:'তুষারপাত',75:'ভারী তুষারপাত',77:'তুষার কণা',80:'হালকা ঝরনা',81:'ঝরনা বৃষ্টি',82:'প্রবল ঝরনা',85:'তুষার ঝরনা',86:'তুষার ঝরনা',95:'বজ্রঝড়',96:'শিলাসহ বজ্রঝড়',99:'শিলাসহ বজ্রঝড়'};
+const WMO={0:'Clear sky',1:'Mostly clear',2:'Partly cloudy',3:'Cloudy',45:'Fog',48:'Fog',51:'Drizzle',53:'Drizzle',55:'Drizzle',56:'Freezing drizzle',57:'Freezing drizzle',61:'Light rain',63:'Moderate rain',65:'Heavy rain',66:'Freezing rain',67:'Freezing rain',71:'Snowfall',73:'Snowfall',75:'Heavy snowfall',77:'Snow grains',80:'Light showers',81:'Showers',82:'Violent showers',85:'Snow showers',86:'Snow showers',95:'Thunderstorm',96:'Thunderstorm with hail',99:'Thunderstorm with hail'};
 async function wxLoad(){
  const q=$('#wx-city').value.trim();showErr('#wx-err','');
  if(!q){showErr('#wx-err','Enter a city name.');return;}
@@ -700,10 +700,10 @@ async function wxLoad(){
    const p=g.results[0];
    const f=await (await fetch('https://api.open-meteo.com/v1/forecast?latitude='+p.latitude+'&longitude='+p.longitude+'&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=5')).json();
    const c=f.current;
-   const days=['রবিবার','সোমবার','মঙ্গলবার','বুধবার','বৃহস্পতিবার','শুক্রবার','শনিবার'];
-   box.innerHTML=Tf("<p style=\"margin:0 0 4px\"><b>{0}{1}, {2}</b></p>\n   <p style=\"margin:0 0 8px\">এখন: <b class=\"big\">{3}°C</b> — {4}</p>\n   <div class=\"kv\"><span>অনুভূত তাপমাত্রা</span><b>{5}°C</b></div>\n   <div class=\"kv\"><span>আর্দ্রতা</span><b>{6}%</b></div>\n   <div class=\"kv\"><span>বাতাসের গতি</span><b>{7} km/h</b></div>\n   <h4 style=\"margin:14px 0 4px;font-size:15px\">আগামী ৫ days</h4>",esc(p.name),p.admin1?', '+esc(p.admin1):'',esc(p.country||''),toBn(c.temperature_2m),WMO[c.weather_code]||'',toBn(c.apparent_temperature),toBn(c.relative_humidity_2m),toBn(c.wind_speed_10m))+
+   const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+   box.innerHTML=Tf("<p style=\"margin:0 0 4px\"><b>{0}{1}, {2}</b></p>\n   <p style=\"margin:0 0 8px\">Now: <b class=\"big\">{3}°C</b> — {4}</p>\n   <div class=\"kv\"><span>Feels like</span><b>{5}°C</b></div>\n   <div class=\"kv\"><span>Humidity</span><b>{6}%</b></div>\n   <div class=\"kv\"><span>Wind speed</span><b>{7} km/h</b></div>\n   <h4 style=\"margin:14px 0 4px;font-size:15px\">Next 5 days</h4>",esc(p.name),p.admin1?', '+esc(p.admin1):'',esc(p.country||''),toBn(c.temperature_2m),WMO[c.weather_code]||'',toBn(c.apparent_temperature),toBn(c.relative_humidity_2m),toBn(c.wind_speed_10m))+
    f.daily.time.map((d,i)=>`<div class="kv"><span>${days[new Date(d+'T12:00').getDay()]} (${toBn(d.slice(8))}/${toBn(d.slice(5,7))})</span><b>${WMO[f.daily.weather_code[i]]||''} · ${toBn(Math.round(f.daily.temperature_2m_min[i]))}° – ${toBn(Math.round(f.daily.temperature_2m_max[i]))}°C</b></div>`).join('');
- }catch(e){showErr('#wx-err','আবহাওয়া আনা যায়নি — আবার চেষ্টা করুন।');box.classList.remove('show');}
+ }catch(e){showErr('#wx-err','Weather could not be fetched — try again.');box.classList.remove('show');}
 }
 $('#wx-go').addEventListener('click',wxLoad);
 wxLoad();
@@ -718,16 +718,16 @@ function devInfo(){
  else if(/Mac OS X/.test(ua))os='macOS';else if(/Linux/.test(ua))os='Linux';
  const conn=navigator.connection||{};
  const rows=[
-  ['ব্রাউজার',browser],['Operating System',os],
-  ['স্ক্রিন রেজোলিউশন',screen.width+' × '+screen.height+' px'],
-  ['ব্রাউজার উইন্ডো',window.innerWidth+' × '+window.innerHeight+' px'],
-  ['ডিভাইস পিক্সেল রেশিও',window.devicePixelRatio||1],
-  ['ভাষা (Language)',navigator.language],
+  ['Browser',browser],['Operating System',os],
+  ['Screen resolution',screen.width+' × '+screen.height+' px'],
+  ['Browser window',window.innerWidth+' × '+window.innerHeight+' px'],
+  ['Device pixel ratio',window.devicePixelRatio||1],
+  ['Language',navigator.language],
   ['CPU cores',navigator.hardwareConcurrency||'—'],
   ['RAM (approx.)',navigator.deviceMemory?navigator.deviceMemory+' GB':'—'],
-  ['টাচ সাপোর্ট','ontouchstart' in window?'হ্যাঁ':'না'],
-  ['নেটওয়ার্ক টাইপ',conn.effectiveType?conn.effectiveType.toUpperCase():'—'],
-  ['কুকি চালু আছে?',navigator.cookieEnabled?'হ্যাঁ':'না']
+  ['Touch support','ontouchstart' in window?'Yes':'No'],
+  ['Network type',conn.effectiveType?conn.effectiveType.toUpperCase():'—'],
+  ['Cookies enabled?',navigator.cookieEnabled?'Yes':'No']
  ];
  $('#mydev-res').innerHTML=rows.map(r=>`<div class="kv"><span>${r[0]}</span><b>${esc(String(r[1]))}</b></div>`).join('');
 }
@@ -737,15 +737,15 @@ async function ipLoad(){
  try{
    const j=await (await fetch('https://ipapi.co/json/')).json();
    if(!j.ip)throw new Error('no ip');
-   box.innerHTML=Tf("<div class=\"kv\"><span>আপনার পাবলিক IP</span><b class=\"big mono\" style=\"font-size:20px\">{0}</b></div>\n   <div class=\"kv\"><span>আনুমানিক Location</span><b>{1}, {2}, {3}</b></div>\n   <div class=\"kv\"><span>ইন্টারনেট প্রোভাইডার (ISP)</span><b>{4}</b></div>\n   <div class=\"kv\"><span>IP সংস্করণ</span><b>{5}</b></div>",esc(j.ip),esc(j.city||'—'),esc(j.region||''),esc(j.country_name||''),esc(j.org||'—'),esc(j.version||'—'));
+   box.innerHTML=Tf("<div class=\"kv\"><span>Your public IP</span><b class=\"big mono\" style=\"font-size:20px\">{0}</b></div>\n   <div class=\"kv\"><span>Approximate location</span><b>{1}, {2}, {3}</b></div>\n   <div class=\"kv\"><span>Internet provider (ISP)</span><b>{4}</b></div>\n   <div class=\"kv\"><span>IP version</span><b>{5}</b></div>",esc(j.ip),esc(j.city||'—'),esc(j.region||''),esc(j.country_name||''),esc(j.org||'—'),esc(j.version||'—'));
  }catch(e){
    try{const w=await (await fetch('https://ipwho.is/')).json();
      if(!w||!w.success||!w.ip)throw new Error('ipwho');
-     box.innerHTML=Tf("<div class=\"kv\"><span>আপনার পাবলিক IP</span><b class=\"big mono\" style=\"font-size:20px\">{0}</b></div>\n   <div class=\"kv\"><span>আনুমানিক Location</span><b>{1}, {2}, {3}</b></div>\n   <div class=\"kv\"><span>ইন্টারনেট প্রোভাইডার (ISP)</span><b>{4}</b></div>\n   <div class=\"kv\"><span>IP সংস্করণ</span><b>{5}</b></div>\n   <p style=\"margin:8px 0 0\"><a class=\"btn sm alt\" target=\"_blank\" rel=\"noopener\" href=\"https://www.google.com/maps/search/{6},{7}\">📍 ম্যাপে লোকেশন দেখুন</a></p>",esc(w.ip),esc(w.city||'—'),esc(w.region||''),esc(w.country||''),esc((w.connection&&w.connection.isp)||'—'),esc(w.type||'—'),w.latitude,w.longitude);
+     box.innerHTML=Tf("<div class=\"kv\"><span>Your public IP</span><b class=\"big mono\" style=\"font-size:20px\">{0}</b></div>\n   <div class=\"kv\"><span>Approximate location</span><b>{1}, {2}, {3}</b></div>\n   <div class=\"kv\"><span>Internet provider (ISP)</span><b>{4}</b></div>\n   <div class=\"kv\"><span>IP version</span><b>{5}</b></div>\n   <p style=\"margin:8px 0 0\"><a class=\"btn sm alt\" target=\"_blank\" rel=\"noopener\" href=\"https://www.google.com/maps/search/{6},{7}\">📍 View on Map</a></p>",esc(w.ip),esc(w.city||'—'),esc(w.region||''),esc(w.country||''),esc((w.connection&&w.connection.isp)||'—'),esc(w.type||'—'),w.latitude,w.longitude);
    }catch(e3){
    try{const j2=await (await fetch('https://api.ipify.org?format=json')).json();
-     box.innerHTML=Tf("<div class=\"kv\"><span>আপনার পাবলিক IP</span><b class=\"big mono\" style=\"font-size:20px\">{0}</b></div><p style=\"margin:6px 0 0;color:var(--ink2);font-size:13.5px\">বিস্তারিত তথ্য এই মুহূর্তে পাওয়া যাচ্ছে না।</p>",esc(j2.ip));
-   }catch(e2){box.innerHTML='<p style="margin:0;color:var(--danger);font-weight:600">Could not fetch IP info — check the internet connectionন।</p>';}
+     box.innerHTML=Tf("<div class=\"kv\"><span>Your public IP</span><b class=\"big mono\" style=\"font-size:20px\">{0}</b></div><p style=\"margin:6px 0 0;color:var(--ink2);font-size:13.5px\">Detailed information is not available right now.</p>",esc(j2.ip));
+   }catch(e2){box.innerHTML='<p style="margin:0;color:var(--danger);font-weight:600">Could not fetch IP info — check the internet connection.</p>';}
    }
  }
 }
@@ -781,7 +781,7 @@ function ttFinish(){
  const r=ttRender();
  $('#tt-wpm').textContent=r.wpm;
  const box=$('#tty-res');
- box.innerHTML=Tf("<p style=\"margin:0\">সময় শেষ! আপনার ফলাফল: <b class=\"big\">{0} WPM</b></p>\n <div class=\"kv\"><span>নির্ভুলতা (Accuracy)</span><b>{1}%</b></div>\n <div class=\"kv\"><span>সঠিক characters</span><b>{2} / {3}</b></div>\n <p style=\"margin:8px 0 0;color:var(--ink2)\">{4}</p>",toBn(r.wpm),toBn(r.acc),toBn(r.correct),toBn(r.typed),r.wpm>=60?'Amazing speed! Equal to a professional typist.':r.wpm>=40?'ভালো গতি — গড় টাইপিস্টের সমান। নিয়মিত অনুশীলনে আরও বাড়বে।':r.wpm>=25?'মোটামুটি গতি — প্রতিdays ১০ minutes অনুশীলন করুন, দ্রুত উন্নতি হবে।':'শুরু হিসেবে ভালো! হোম রো-তে আঙুল রেখে অনুশীলন করুন।');
+ box.innerHTML=Tf("<p style=\"margin:0\">Time is up! Your result: <b class=\"big\">{0} WPM</b></p>\n <div class=\"kv\"><span>Accuracy</span><b>{1}%</b></div>\n <div class=\"kv\"><span>Correct characters</span><b>{2} / {3}</b></div>\n <p style=\"margin:8px 0 0;color:var(--ink2)\">{4}</p>",toBn(r.wpm),toBn(r.acc),toBn(r.correct),toBn(r.typed),r.wpm>=60?'Amazing speed! Equal to a professional typist.':r.wpm>=40?'Good speed — equal to an average typist. It will improve with regular practice.':r.wpm>=25?'Fair speed — practise 10 minutes every day, you will improve quickly.':'Good start! Practise with your fingers on the home row.');
  box.classList.add('show');
 }
 function ttReset(){
@@ -810,14 +810,14 @@ ttReset();
 const PWS_COMMON=['password','123456','123456789','12345','qwerty','12345678','111111','123123','abc123','password1','iloveyou','admin','letmein','welcome','monkey','dragon','football','sunshine','master','shadow','superman','michael','ninja','mustang','charlie','bangladesh','dhaka','bangla','allah','muslim','faysal','1234567','1234','000000','654321','987654321'];
 function crackTime(bits){
  const secs=Math.pow(2,bits)/1e10;
- if(secs<1)return 'এক secondsেরও কম';
+ if(secs<1)return 'Less than a second';
  if(secs<60)return Math.round(secs)+' seconds';
  if(secs<3600)return Math.round(secs/60)+' minutes';
  if(secs<86400)return Math.round(secs/3600)+' hours';
  if(secs<31536000)return Math.round(secs/86400)+' days';
  if(secs<31536000*100)return Math.round(secs/31536000)+' years';
  if(secs<31536000*1e6)return fmtN(secs/31536000,0)+' years';
- return 'লক্ষ লক্ষ years';
+ return 'Millions of years';
 }
 $('#pws-in').addEventListener('input',()=>{
  const p=$('#pws-in').value;
@@ -826,28 +826,28 @@ $('#pws-in').addEventListener('input',()=>{
  let pool=0;const tips=[];
  if(/[a-z]/.test(p))pool+=26;if(/[A-Z]/.test(p))pool+=26;if(/[0-9]/.test(p))pool+=10;if(/[^A-Za-z0-9]/.test(p))pool+=33;
  let bits=pool?p.length*Math.log2(pool):0;
- if(PWS_COMMON.includes(p.toLowerCase())){bits=Math.min(bits,8);tips.push(['err','এটি অত্যন্ত পরিচিত একটি পাসওয়ার্ড — হ্যাকাররা সবার আগে এগুলোই চেষ্টা করে। এখনই বদলে ফেলুন।']);}
- if(p.length<8)tips.push(['err','খুব ছোট — কমপক্ষে ১২ characters ব্যবহার করুন।']);
- else if(p.length<12)tips.push(['warn','দৈর্ঘ্য মোটামুটি — ১২+ characters হলে আরও নিরাপদ।']);
- else tips.push(['tip','দৈর্ঘ্য ভালো — লম্বা পাসওয়ার্ড ভাঙা কঠিন।']);
- if(!/[A-Z]/.test(p))tips.push(['warn','বড় হাতের characters (A-Z) যোগ করুন।']);
- if(!/[0-9]/.test(p))tips.push(['warn','সংখ্যা (0-9) যোগ করুন।']);
- if(!/[^A-Za-z0-9]/.test(p))tips.push(['warn','বিশেষ চিহ্ন (!@#$%) যোগ করুন।']);
- if(/(.)\1{2,}/.test(p)){tips.push(['warn','একই characters পরপর তিনবারের বেশি এসেছে — এগুলো অনুমান করা সহজ।']);bits*=0.85;}
- if(/0123|1234|2345|3456|4567|5678|6789|abcd|qwerty/i.test(p)){tips.push(['warn','ক্রমিক characters/সংখ্যা (1234, abcd, qwerty) এড়িয়ে চলুন।']);bits*=0.85;}
+ if(PWS_COMMON.includes(p.toLowerCase())){bits=Math.min(bits,8);tips.push(['err','This is a very common password — hackers try these first. Change it now.']);}
+ if(p.length<8)tips.push(['err','Too short — use at least 12 characters.']);
+ else if(p.length<12)tips.push(['warn','Length is okay — 12+ characters would be safer.']);
+ else tips.push(['tip','Good length — long passwords are hard to crack.']);
+ if(!/[A-Z]/.test(p))tips.push(['warn','Add uppercase letters (A-Z).']);
+ if(!/[0-9]/.test(p))tips.push(['warn','Add numbers (0-9).']);
+ if(!/[^A-Za-z0-9]/.test(p))tips.push(['warn','Add special characters (!@#$%).']);
+ if(/(.)\1{2,}/.test(p)){tips.push(['warn','The same character appears more than three times in a row — these are easy to guess.']);bits*=0.85;}
+ if(/0123|1234|2345|3456|4567|5678|6789|abcd|qwerty/i.test(p)){tips.push(['warn','Avoid sequential characters/numbers (1234, abcd, qwerty).']);bits*=0.85;}
  bits=Math.round(bits);
  let score,label,color;
- if(bits<28){score=0;label='খুব দুর্বল';color='#c0392b';}
- else if(bits<45){score=1;label='দুর্বল';color='#e67e22';}
- else if(bits<65){score=2;label='মাঝারি';color='#e8a00c';}
- else if(bits<90){score=3;label='শক্তিশালী';color='#27ae60';}
- else{score=4;label='খুব শক্তিশালী';color='#0b7a4b';}
+ if(bits<28){score=0;label='Very weak';color='#c0392b';}
+ else if(bits<45){score=1;label='Weak';color='#e67e22';}
+ else if(bits<65){score=2;label='Medium';color='#e8a00c';}
+ else if(bits<90){score=3;label='Strong';color='#27ae60';}
+ else{score=4;label='Very strong';color='#0b7a4b';}
  const bar=$('#pws-bar');bar.style.width=((score+1)*20)+'%';bar.style.background=color;
  $('#pws-score').textContent=label;
  $('#pws-len').textContent=toBn(p.length)+' characters';
  $('#pws-ent').textContent=toBn(bits)+' bits';
  $('#pws-crack').textContent=crackTime(bits);
- list.innerHTML=tips.map(t=>`<li><span class="sev ${t[0]}">${t[0]==='err'?'ঝুঁকি':t[0]==='warn'?'পরামর্শ':'ভালো'}</span>${t[1]}</li>`).join('');
+ list.innerHTML=tips.map(t=>`<li><span class="sev ${t[0]}">${t[0]==='err'?'Risk':t[0]==='warn'?'Tip':'Good'}</span>${t[1]}</li>`).join('');
 });
 /* ===== Internet Speed Test ===== */
 $('#st-go').addEventListener('click',async()=>{
@@ -855,7 +855,7 @@ $('#st-go').addEventListener('click',async()=>{
  const status=$('#st-status');
  $('#st-ping').textContent='—';$('#st-down').textContent='—';$('#st-data').textContent='—';
  try{
-   status.textContent='পিং মাপা হচ্ছে…';
+   status.textContent='Measuring ping…';
    const pings=[];
    for(let i=0;i<3;i++){
      const t0=performance.now();
@@ -864,7 +864,7 @@ $('#st-go').addEventListener('click',async()=>{
    }
    const ping=Math.round(pings.reduce((a,b)=>a+b,0)/pings.length);
    $('#st-ping').textContent=toBn(ping);
-   status.textContent='ডাউনলোড গতি মাপা হচ্ছে…';
+   status.textContent='Measuring download speed…';
    const t0=performance.now();
    const res=await fetch('https://speed.cloudflare.com/__down?bytes=25000000&r='+Math.random(),{cache:'no-store'});
    const reader=res.body.getReader();let received=0;
@@ -881,8 +881,8 @@ $('#st-go').addEventListener('click',async()=>{
    const mbps=received*8/secs/1e6;
    $('#st-down').textContent=fmtN(mbps,1);
    $('#st-data').textContent=(received/1048576).toFixed(1)+' MB';
-   status.textContent='টেস্ট সম্পন্ন ✓ — ডাউনলোড '+fmtN(mbps,1)+' Mbps · Ping '+toBn(ping)+' ms (approx.)';
- }catch(e){status.textContent='টেস্ট করা যায়নি — সংযোগ চেক করে আবার চেষ্টা করুন।';}
+   status.textContent='Test complete ✓ — Download '+fmtN(mbps,1)+' Mbps · Ping '+toBn(ping)+' ms (approx.)';
+ }catch(e){status.textContent='Test could not be run — check connection and try again.';}
  btn.disabled=false;
 });
 /* ===== Business Directory ===== */
@@ -945,8 +945,8 @@ async function fetchRSS(url){
    ["See today's prayer times",'#/tool/prayer-times',''],
    ['Now 241 free tools on ToolBari — all in one place','#/','']
  ]:[
-   ['সর্বশেষ ব্রেকিং নিউজ পড়ুন','#/tool/breaking-news',''],
-   ['আজকের Nameাজের সময়সূচি দেখুন','#/tool/prayer-times',''],
+   ['Read the latest breaking news','#/tool/breaking-news',''],
+   ['View prayer times for today','#/tool/prayer-times',''],
    ['ToolBari now has 429 free tools — all in one place','#/','']
  ]);
  if(track2) renderTo(track2, LANG==='en'?[
@@ -954,8 +954,8 @@ async function fetchRSS(url){
    ["Today's dollar, pound & euro rates",'#/tool/currency-converter',''],
    ['Live world market prices, incl. Bitcoin','#/tool/stock-exchange','']
  ]:[
-   ['ঢাকা স্টক এক্সচেঞ্জের লাইভ দাম ও DSEX index','#/tool/stock-exchange',''],
-   ['ডলার, পাউন্ড, ইউরোর আজকের রেট','#/tool/currency-converter',''],
+   ['Dhaka Stock Exchange live prices and DSEX index','#/tool/stock-exchange',''],
+   ['Dollar, pound and euro rates for today','#/tool/currency-converter',''],
    ['Live world market prices including Bitcoin','#/tool/stock-exchange','']
  ]);
  (async()=>{
@@ -979,9 +979,9 @@ async function fetchRSS(url){
    try{
      const j=await (await fetch('https://open.er-api.com/v6/latest/USD')).json();
      if(j&&j.rates&&j.rates.BDT){
-       mkt.push([LANG==='en'?'Dollar = ৳'+(+j.rates.BDT).toFixed(2):'ডলার = ৳'+toBn((+j.rates.BDT).toFixed(2)), '#/tool/stock-exchange', '💵']);
-       if(j.rates.GBP) mkt.push([LANG==='en'?'Pound = ৳'+(+j.rates.BDT/+j.rates.GBP).toFixed(2):'পাউন্ড = ৳'+toBn((+j.rates.BDT/+j.rates.GBP).toFixed(2)), '#/tool/currency-converter', '💷']);
-       if(j.rates.EUR) mkt.push([LANG==='en'?'Euro = ৳'+(+j.rates.BDT/+j.rates.EUR).toFixed(2):'ইউরো = ৳'+toBn((+j.rates.BDT/+j.rates.EUR).toFixed(2)), '#/tool/currency-converter', '💶']);
+       mkt.push([LANG==='en'?'Dollar = ৳'+(+j.rates.BDT).toFixed(2):'Dollar = ৳'+toBn((+j.rates.BDT).toFixed(2)), '#/tool/stock-exchange', '💵']);
+       if(j.rates.GBP) mkt.push([LANG==='en'?'Pound = ৳'+(+j.rates.BDT/+j.rates.GBP).toFixed(2):'Pound = ৳'+toBn((+j.rates.BDT/+j.rates.GBP).toFixed(2)), '#/tool/currency-converter', '💷']);
+       if(j.rates.EUR) mkt.push([LANG==='en'?'Euro = ৳'+(+j.rates.BDT/+j.rates.EUR).toFixed(2):'Euro = ৳'+toBn((+j.rates.BDT/+j.rates.EUR).toFixed(2)), '#/tool/currency-converter', '💶']);
      }
    }catch(e){}
    try{
@@ -991,7 +991,7 @@ async function fetchRSS(url){
    try{
      const sr=await fetch('https://scanner.tradingview.com/global/scan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({symbols:{tickers:['DSEBD:DSEX','DSEBD:GP','DSEBD:SQURPHARMA','DSEBD:ROBI','DSEBD:BRACBANK','DSEBD:WALTONHIL'],query:{types:[]}},columns:['close','change']})});
      const sj=await sr.json();
-     const names=LANG==='en'?{'DSEBD:DSEX':'DSEX Index','DSEBD:GP':'Grameenphone','DSEBD:SQURPHARMA':'Square Pharma','DSEBD:ROBI':'Robi Axiata','DSEBD:BRACBANK':'Brac Bank','DSEBD:WALTONHIL':'Walton Hi-Tech'}:{'DSEBD:DSEX':'DSEX index','DSEBD:GP':'গ্রামীণফোন','DSEBD:SQURPHARMA':'স্কয়ার ফার্মা','DSEBD:ROBI':'রবি আজিয়াটা','DSEBD:BRACBANK':'ব্র্যাক ব্যাংক','DSEBD:WALTONHIL':'ওয়ালটন হাই-টেক'};
+     const names=LANG==='en'?{'DSEBD:DSEX':'DSEX Index','DSEBD:GP':'Grameenphone','DSEBD:SQURPHARMA':'Square Pharma','DSEBD:ROBI':'Robi Axiata','DSEBD:BRACBANK':'Brac Bank','DSEBD:WALTONHIL':'Walton Hi-Tech'}:{'DSEBD:DSEX':'DSEX index','DSEBD:GP':'Grameenphone','DSEBD:SQURPHARMA':'Square Pharma','DSEBD:ROBI':'Robi Axiata','DSEBD:BRACBANK':'Brac Bank','DSEBD:WALTONHIL':'Walton Hi-Tech'};
      (sj.data||[]).forEach(function(row){
        if(!row.d||row.d[0]==null) return;
        const nm=names[row.s]||row.s.split(':')[1];
@@ -1018,7 +1018,7 @@ async function fetchRSS(url){
  function stop(){if(timer)clearInterval(timer); timer=null; alive=false;}
  function step(){
    const h={x:snake[0].x+dir.x, y:snake[0].y+dir.y};
-   if(h.x<0||h.y<0||h.x>=N||h.y>=N||snake.some(p=>p.x===h.x&&p.y===h.y)){stop(); toast('খেলা শেষ! স্কোর: '+score); return;}
+   if(h.x<0||h.y<0||h.x>=N||h.y>=N||snake.some(p=>p.x===h.x&&p.y===h.y)){stop(); toast('Game over! Score: '+score); return;}
    snake.unshift(h);
    if(h.x===food.x&&h.y===food.y){score+=10; document.getElementById('snk-score').textContent=score; placeFood();}
    else snake.pop();
@@ -1061,8 +1061,8 @@ async function fetchRSS(url){
    if(pick===null) pick=(board[4]===''?4:empty[Math.floor(Math.random()*empty.length)]);
    board[pick]='O';
    const w=winner(board);
-   if(w==='O'){over=true; status.textContent='কম্পিউটার জিতেছে! আবার চেষ্টা করুন।';}
-   else if(w==='draw'){over=true; status.textContent='ড্র হয়েছে!';}
+   if(w==='O'){over=true; status.textContent='Computer won! Try again.';}
+   else if(w==='draw'){over=true; status.textContent='It is a draw!';}
    render();
  }
  cells.forEach(c=>c.addEventListener('click',()=>{
@@ -1071,13 +1071,13 @@ async function fetchRSS(url){
    board[i]='X';
    const w=winner(board);
    if(w==='X'){over=true; status.textContent='Congratulations! You won 🎉'; render(); return;}
-   if(w==='draw'){over=true; status.textContent='ড্র হয়েছে!'; render(); return;}
-   status.textContent='কম্পিউটার ভাবছে…';
+   if(w==='draw'){over=true; status.textContent='It is a draw!'; render(); return;}
+   status.textContent='Computer is thinking…';
    render();
    setTimeout(computer,300);
  }));
  document.getElementById('ttt-reset').addEventListener('click',()=>{
-   board=Array(9).fill(''); over=false; status.textContent='আপনার পালা — যেকোনো ঘরে X বসান।'; render();
+   board=Array(9).fill(''); over=false; status.textContent='Your turn — place X in any square.'; render();
  });
  render();
 })();
@@ -1112,13 +1112,13 @@ async function fetchRSS(url){
  let file=null;
  fileEl.addEventListener('change',e=>{
    file=e.target.files[0]||null;
-   document.getElementById('v2m-info').textContent=file?('ফাইল: '+file.name+' ('+(file.size/1048576).toFixed(1)+' MB)'):'';
+   document.getElementById('v2m-info').textContent=file?('File: '+file.name+' ('+(file.size/1048576).toFixed(1)+' MB)'):'';
  });
  document.getElementById('v2m-go').addEventListener('click',async()=>{
    const st=document.getElementById('v2m-status');
-   if(!file){toast(T('আগে ভিডিও/অডিও ফাইল বেছে নিন')); return;}
+   if(!file){toast(T('Select a video/audio file first')); return;}
    if(typeof lamejs==='undefined'||!lamejs.Mp3Encoder){st.textContent='MP3 engine did not load — refresh the page and try again.'; return;}
-   const btn=document.getElementById('v2m-go'); btn.disabled=true; st.textContent='ফাইল পড়া হচ্ছে…';
+   const btn=document.getElementById('v2m-go'); btn.disabled=true; st.textContent='Reading file…';
    try{
      const ab=await file.arrayBuffer();
      const AC=window.AudioContext||window.webkitAudioContext; const ac=new AC();
@@ -1139,9 +1139,9 @@ async function fetchRSS(url){
      const blob=new Blob(parts,{type:'audio/mpeg'}); const url=URL.createObjectURL(blob);
      const au=document.getElementById('v2m-audio'); au.src=url; au.style.display='block';
      const dlEl=document.getElementById('v2m-dl'); dlEl.href=url; dlEl.download=(file.name.replace(/\.[^.]+$/,'')||'audio')+'.mp3'; dlEl.style.display='inline-flex';
-     st.textContent='তৈরি হয়ে গেছে ✓ ('+(blob.size/1048576).toFixed(2)+' MB MP3)';
+     st.textContent='Created ✓ ('+(blob.size/1048576).toFixed(2)+' MB MP3)';
    }catch(e){
-     st.textContent='দুঃখিত — এই ফাইল থেকে অডিও পড়া যায়নি। MP4/WebM/MP3 ফরম্যাটের ফাইল দিয়ে চেষ্টা করুন।';
+     st.textContent='Sorry — audio could not be read from this file. Try an MP4/WebM/MP3 file.';
    }
    btn.disabled=false;
  });
@@ -1178,7 +1178,7 @@ async function fetchRSS(url){
    ids.forEach((id,i)=>{document.getElementById(id).value=[100,100,100,0,0,0][i];}); rot=0; flip=1; syncLabels(); draw();
  });
  document.getElementById('pe-dl').addEventListener('click',()=>{
-   if(!img){toast(T('আগে ছবি বেছে নিন')); return;}
+   if(!img){toast(T('Select an image first')); return;}
    dl(document.getElementById('pe-cv').toDataURL('image/jpeg',0.92),'edited-photo.jpg');
  });
  syncLabels();
@@ -1195,7 +1195,7 @@ async function fetchRSS(url){
  }
  async function load(){
    const src=document.getElementById('nw-src').value;
-   status.textContent='খবর Fetching…'; list.innerHTML='';
+   status.textContent='Fetching news…'; list.innerHTML='';
    try{
      if(src==='hn'){
        const j=await (await fetch('https://hn.algolia.com/api/v1/search_by_date?tags=story&hitsPerPage=12')).json();
@@ -1212,9 +1212,9 @@ async function fetchRSS(url){
          return card(esc(g('title')), g('link'), date, esc(d));
        }).join('');
      }
-     status.textContent='সর্বশেষ খবর ✓'; loaded=true;
+     status.textContent='Latest news ✓'; loaded=true;
    }catch(e){
-     status.textContent='এই সোর্স থেকে খবর আনা যায়নি — অন্য সোর্স বেছে আবার চেষ্টা করুন।';
+     status.textContent='News could not be fetched from this source — choose another source and try again.';
    }
  }
  btn.addEventListener('click',load);
@@ -1230,7 +1230,7 @@ async function fetchRSS(url){
  let rec=null, chunks=[], t0=0, tiv=null;
  function fmt(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
  startB.addEventListener('click',async()=>{
-   if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||typeof MediaRecorder==='undefined'){msg.textContent='এই ব্রাউজারে রেকর্ডিং সাপোর্ট নেই — Chrome ব্যবহার করুন।'; return;}
+   if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||typeof MediaRecorder==='undefined'){msg.textContent='This browser does not support recording — use Chrome.'; return;}
    try{
      const stream=await navigator.mediaDevices.getUserMedia({audio:true});
      chunks=[]; rec=new MediaRecorder(stream);
@@ -1240,12 +1240,12 @@ async function fetchRSS(url){
        const blob=new Blob(chunks,{type:rec.mimeType||'audio/webm'}); const url=URL.createObjectURL(blob);
        const au=document.getElementById('vr-audio'); au.src=url; au.style.display='block';
        const a=document.getElementById('vr-dl'); a.href=url; a.download='voice-recording.webm'; a.style.display='inline-flex';
-       msg.textContent='রেকর্ডিং তৈরি ✓ নিচে শুনুন বা ডাউনলোড করুন।';
+       msg.textContent='Recording created ✓ Listen below or download.';
      };
      rec.start(); t0=Date.now();
-     dot.style.display='inline'; startB.disabled=true; stopB.disabled=false; msg.textContent='রেকর্ড হচ্ছে…';
+     dot.style.display='inline'; startB.disabled=true; stopB.disabled=false; msg.textContent='Recording…';
      tiv=setInterval(()=>{timeEl.textContent=fmt(Math.floor((Date.now()-t0)/1000));},500);
-   }catch(e){msg.textContent='মাইক্রোফোনের অনুমতি পাওয়া যায়নি — ব্রাউজারের সেটিংসে Allow days।';}
+   }catch(e){msg.textContent='Microphone permission was not granted — allow it in browser settings.';}
  });
  stopB.addEventListener('click',()=>{
    if(rec&&rec.state!=='inactive') rec.stop();
@@ -1258,10 +1258,10 @@ async function fetchRSS(url){
  const stopB=document.getElementById('sr-stop'), msg=document.getElementById('sr-msg');
  let rec=null, chunks=[], stream=null;
  startB.addEventListener('click',async()=>{
-   if(!navigator.mediaDevices||typeof navigator.mediaDevices.getDisplayMedia!=='function'){msg.textContent='এই ডিভাইস/ব্রাউজারে স্ক্রিন রেকর্ডিং সাপোর্ট নেই — ডেস্কটপ Chrome বা Edge-এ চেষ্টা করুন।'; return;}
+   if(!navigator.mediaDevices||typeof navigator.mediaDevices.getDisplayMedia!=='function'){msg.textContent='This device/browser does not support screen recording — try desktop Chrome or Edge.'; return;}
    try{
      stream=await navigator.mediaDevices.getDisplayMedia({video:true,audio:true});
-   }catch(e){msg.textContent='স্ক্রিন বাছাই বাতিল হয়েছে বা অনুমতি পাওয়া যায়নি।'; return;}
+   }catch(e){msg.textContent='Screen selection was cancelled or permission was not granted.'; return;}
    chunks=[]; rec=new MediaRecorder(stream,{mimeType:'video/webm'});
    rec.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data);};
    rec.onstop=()=>{
@@ -1269,11 +1269,11 @@ async function fetchRSS(url){
      const blob=new Blob(chunks,{type:'video/webm'}); const url=URL.createObjectURL(blob);
      const v=document.getElementById('sr-video'); v.src=url; v.style.display='block';
      const a=document.getElementById('sr-dl'); a.href=url; a.download='screen-recording.webm'; a.style.display='inline-flex';
-     msg.textContent='রেকর্ডিং তৈরি ✓ নিচে দেখুন বা ডাউনলোড করুন।';
+     msg.textContent='Recording created ✓ Watch below or download.';
      startB.disabled=false; stopB.disabled=true;
    };
    stream.getVideoTracks()[0].addEventListener('ended',()=>{if(rec&&rec.state!=='inactive')rec.stop();});
-   rec.start(1000); msg.textContent='রেকর্ড হচ্ছে… থামাতে "থামান" চাপুন বা ব্রাউজারের Stop sharing চাপুন।';
+   rec.start(1000); msg.textContent='Recording… To stop, press "Stop" or press Stop sharing in the browser.';
    startB.disabled=true; stopB.disabled=false;
  });
  stopB.addEventListener('click',()=>{if(rec&&rec.state!=='inactive')rec.stop();});
@@ -1294,7 +1294,7 @@ async function fetchRSS(url){
        +'<div class="kv"><span>ISP</span><b>'+esc((w.connection&&w.connection.isp)||'—')+'</b></div>'
        +'<p style="margin:8px 0 0"><a class="btn sm alt" target="_blank" rel="noopener" href="https://www.google.com/maps/search/'+w.latitude+','+w.longitude+'">📍 View on Map</a></p>';
    }catch(e){
-     box.innerHTML='<p style="margin:0;color:var(--danger);font-weight:600">এই IP-র তথ্য পাওয়া যায়নি — ঠিকানা যাচাই করে আবার চেষ্টা করুন।</p>';
+     box.innerHTML='<p style="margin:0;color:var(--danger);font-weight:600">Information for this IP was not found — verify the address and try again.</p>';
    }
  });
 })();

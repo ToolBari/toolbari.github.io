@@ -11,7 +11,7 @@ async function icRender(){
  icBlob=await new Promise(r=>c.toBlob(r,'image/jpeg',q));
  $('#ic-img').src=URL.createObjectURL(icBlob);
  const orig=icImg._size||0;
- $('#ic-info').innerHTML=Tf("<div class=\"kv\"><span>আগের সাইজ</span><b>{0}</b></div><div class=\"kv\"><span>নতুন সাইজ</span><b>{1} KB</b></div><div class=\"kv\"><span>কমেছে</span><b>{2}</b></div><div class=\"kv\"><span>মাপ</span><b>{3}×{4}px</b></div>",orig?(orig/1024).toFixed(1)+' KB':'—',(icBlob.size/1024).toFixed(1),orig?Math.max(0,(100-icBlob.size/orig*100)).toFixed(0)+'%':'—',w,h);
+ $('#ic-info').innerHTML=Tf("<div class=\"kv\"><span>Previous size</span><b>{0}</b></div><div class=\"kv\"><span>New size</span><b>{1} KB</b></div><div class=\"kv\"><span>Decreased</span><b>{2}</b></div><div class=\"kv\"><span>Dimensions</span><b>{3}×{4}px</b></div>",orig?(orig/1024).toFixed(1)+' KB':'—',(icBlob.size/1024).toFixed(1),orig?Math.max(0,(100-icBlob.size/orig*100)).toFixed(0)+'%':'—',w,h);
  $('#ic-wrap').classList.add('show');
 }
 $('#ic-file').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;icImg=await loadImgFile(f);icImg._size=f.size;icRender();});
@@ -30,7 +30,7 @@ $('#cv-go').addEventListener('click',()=>{
  x.drawImage(cvImg,0,0,w,h);
  const ext=fmt==='image/png'?'png':fmt==='image/webp'?'webp':'jpg';
  c.toBlob(b=>{dl(URL.createObjectURL(b),'converted.'+ext);
-  const info=$('#cv-info');info.innerHTML=Tf("কনভার্ট হয়েছে: <b>{0}×{1}px</b> · সাইজ <b>{2} KB</b> · ফরম্যাট <b>{3}</b>",w,h,(b.size/1024).toFixed(1),ext.toUpperCase());info.classList.add('show');},fmt,0.92);
+  const info=$('#cv-info');info.innerHTML=Tf("Converted: <b>{0}×{1}px</b> · Size <b>{2} KB</b> · Format <b>{3}</b>",w,h,(b.size/1024).toFixed(1),ext.toUpperCase());info.classList.add('show');},fmt,0.92);
 });
 /* ===== Passport Photo ===== */
 let ppImg=null;
@@ -165,7 +165,7 @@ function wrInpaint(){
  let minx=W,miny=H,maxx=-1,maxy=-1;const mask=new Uint8Array(W*H);
  for(let j=0;j<H;j++)for(let i=0;i<W;i++){const k=j*W+i;if(md[k*4+3]>10){mask[k]=1;if(i<minx)minx=i;if(i>maxx)maxx=i;if(j<miny)miny=j;if(j>maxy)maxy=j;}}
  if(maxx<0){$('#wr-status').textContent='Please mark the area to erase first.';return;}
- $('#wr-status').textContent='Working… একটু অপেক্ষা করুন।';
+ $('#wr-status').textContent='Working… Please wait a moment.';
  setTimeout(()=>{
   minx=Math.max(0,minx-12);miny=Math.max(0,miny-12);maxx=Math.min(W-1,maxx+12);maxy=Math.min(H-1,maxy+12);
   const bw=maxx-minx+1,bh=maxy-miny+1;
@@ -190,7 +190,7 @@ function wrInpaint(){
   }
   img.data.set(cur);x.putImageData(img,minx,miny);
   wrMaskC.getContext('2d').clearRect(0,0,W,H);wrDrawMask();
-  $('#wr-status').textContent='হয়ে গেছে ✓ এবার ডাউনলোড করুন। আরো জায়গা থাকলে আবার দাগ দিয়ে মুছুন।';
+  $('#wr-status').textContent='Done ✓ Now download. If there is more area, mark it again and erase.';
  },60);
 }
 $('#wr-gem-go').addEventListener('click',()=>{if(!wrImg){$('#wr-status').textContent='Please choose an image first.';return;}wrMarkGem();wrInpaint();});
@@ -262,7 +262,7 @@ function hgBuild(){
  if(kw){tags.unshift('#'+kw);tags.push('#'+kw+'bangladesh');}
  tags=[...new Set(tags)].slice(0,25);
  $('#hg-out').value=tags.join(' ');
- $('#hg-count').textContent=tags.length+'টা হ্যাশট্যাগ';
+ $('#hg-count').textContent=tags.length+'hashtags';
  $('#hg-wrap').classList.add('show');
 }
 $('#hg-go').addEventListener('click',()=>{hgSeed=0;hgBuild();});
@@ -278,8 +278,8 @@ $('#vwr-file').addEventListener('change',e=>{
  const v=document.createElement('video');v.muted=true;v.src=vwrUrl;
  v.addEventListener('loadedmetadata',()=>{
   vwrDur=v.duration;
-  if(vwrDur>185){$('#vwr-status').textContent='ভিডিওটি ৩ minutesের বেশি লম্বা — ছোট ক্লিপ (সর্বোচ্চ ৩ minutes) days।';$('#vwr-go').disabled=true;}
-  else{$('#vwr-status').textContent='ভিডিও তৈরি ✓ দৈর্ঘ্য: '+Math.round(vwrDur)+' seconds। লোগোর কোণ ঠিক করে বোতাম চাপুন।';$('#vwr-go').disabled=false;}
+  if(vwrDur>185){$('#vwr-status').textContent='Video is longer than 3 minutes — enter a short clip (maximum 3 minutes).';$('#vwr-go').disabled=true;}
+  else{$('#vwr-status').textContent='Video created ✓ Duration: '+Math.round(vwrDur)+' seconds. Adjust the logo corner and press the button.';$('#vwr-go').disabled=false;}
  });
 });
 $('#vwr-go').addEventListener('click',async()=>{
@@ -322,8 +322,8 @@ $('#vwr-go').addEventListener('click',async()=>{
   const blob=new Blob(chunks,{type:'video/webm'});
   const a=$('#vwr-dl');a.href=URL.createObjectURL(blob);
   $('#vwr-wrap').classList.add('show');
-  st('হয়ে গেছে ✓ এবার ডাউনলোড করুন।');
- }catch(e){st('ভিডিও প্রসেস করা যায়নি — অন্য ক্লিপ দিয়ে চেষ্টা করুন।');}
+  st('Done ✓ Now download.');
+ }catch(e){st('Video could not be processed — try another clip.');}
  btn.disabled=false;
 });
 /* ===== DP Frame Maker ===== */
@@ -383,7 +383,7 @@ $('#pe-auto').addEventListener('click',()=>{$('#pe-b').value=108;$('#pe-c').valu
 $('#pe-reset').addEventListener('click',()=>{$('#pe-b').value=100;$('#pe-c').value=100;$('#pe-s').value=100;$('#pe-h').value=0;$('#pe-2x').checked=false;peSync();});
 $('#pe-dl').addEventListener('click',()=>canvasDl($('#pe-canvas'),'enhanced-photo.png'));
 /* ===== Donate ===== */
-$('#dn-copy').addEventListener('click',()=>{copyText('01677161678','বিকাশ নম্বর Copied ✓');});
+$('#dn-copy').addEventListener('click',()=>{copyText('01677161678','bKash number copied ✓');});
 /* ===== Job Photo & Signature Sizer ===== */
 let jpImg=null,jpMode='photo';
 function jpDims(){return jpMode==='photo'?{w:300,h:300,kb:100}:{w:300,h:80,kb:60};}
@@ -409,7 +409,7 @@ $('#jp-dl').addEventListener('click',()=>{
  if(!jpImg)return;const maxB=(+$('#jp-kb').value||100)*1024,c=$('#jp-canvas');
  let q=0.92;
  const tryQ=()=>{c.toBlob(b=>{
-   if(b.size<=maxB||q<=0.3){dl(URL.createObjectURL(b),jpMode==='photo'?'job-photo-300x300.jpg':'signature-300x80.jpg');$('#jp-status').textContent='তৈরি ✓ সাইজ: '+(b.size/1024).toFixed(1)+'KB — use in applications.';}
+   if(b.size<=maxB||q<=0.3){dl(URL.createObjectURL(b),jpMode==='photo'?'job-photo-300x300.jpg':'signature-300x80.jpg');$('#jp-status').textContent='Created ✓ Size: '+(b.size/1024).toFixed(1)+'KB — use in applications.';}
    else{q-=0.07;tryQ();}
  },'image/jpeg',q);};
  tryQ();
@@ -417,7 +417,7 @@ $('#jp-dl').addEventListener('click',()=>{
 /* ===== SSC/HSC marks -> GPA ===== */
 function bdRow(){
  const tr=document.createElement('tr');
- tr.innerHTML='<td><input class="in bd-sub" placeholder="বিষয়" style="min-width:90px"></td><td><input class="in bd-mark" type="number" min="0" max="100" placeholder="নম্বর" style="width:96px"></td><td><select class="in bd-type"><option value="main">প্রধান</option><option value="opt">ঐচ্ছিক (৪র্থ)</option></select></td><td><button class="btn alt sm bd-del">✕</button></td>';
+ tr.innerHTML='<td><input class="in bd-sub" placeholder="Subject" style="min-width:90px"></td><td><input class="in bd-mark" type="number" min="0" max="100" placeholder="Number" style="width:96px"></td><td><select class="in bd-type"><option value="main">Main</option><option value="opt">Optional (4th)</option></select></td><td><button class="btn alt sm bd-del">✕</button></td>';
  tr.querySelector('.bd-del').addEventListener('click',()=>tr.remove());
  $('#bd-rows').appendChild(tr);
 }
@@ -436,7 +436,7 @@ $('#bd-go').addEventListener('click',()=>{
  const box=$('#bd-res');box.classList.add('show');
  if(!done||!cnt){box.innerHTML='<p style="margin:0">Please enter at least one main subject number first.</p>';return;}
  const gpa=fail?0:Math.min(5,(sum+bonus)/cnt);
- box.innerHTML=Tf("<p style=\"margin:0 0 6px\">আপনার GPA: <b class=\"big\">{0}</b> <span style=\"color:var(--ink2)\">/ 5.00 ({1})</span></p><div class=\"kv\"><span>প্রধান বিষয়</span><b>{2}টি</b></div>{3}{4}",gpa.toFixed(2),bdLetter(gpa),cnt,bonus?`<div class="kv"><span>ঐচ্ছিক বোনাস</span><b>+${bonus.toFixed(2)}</b></div>`:'',fail?'<p style="margin:6px 0 0;color:#d61f26">কোনো প্রধান বিষয়ে ফেল (৩৩-এর কম) থাকায় GPA 0.00।</p>':'');
+ box.innerHTML=Tf("<p style=\"margin:0 0 6px\">Your GPA: <b class=\"big\">{0}</b> <span style=\"color:var(--ink2)\">/ 5.00 ({1})</span></p><div class=\"kv\"><span>Main subjects</span><b>{2}</b></div>{3}{4}",gpa.toFixed(2),bdLetter(gpa),cnt,bonus?`<div class="kv"><span>Optional bonus</span><b>+${bonus.toFixed(2)}</b></div>`:'',fail?'<p style="margin:6px 0 0;color:#d61f26">GPA is 0.00 because of a fail in a main subject (below 33).</p>':'');
 });
 /* ===== OCR ===== */
 let ocrFile=null;
@@ -445,10 +445,10 @@ $('#ocr-go').addEventListener('click',async()=>{
  if(!ocrFile)return;const btn=$('#ocr-go');btn.disabled=true;btn.textContent='Working…';
  $('#ocr-status').textContent='Starting…';
  try{
-  const res=await Tesseract.recognize(ocrFile,$('#ocr-lang').value,{logger:m=>{if(m.status==='recognizing text')$('#ocr-status').textContent='লেখা শনাক্ত হচ্ছে: '+Math.round(m.progress*100)+'%';else if(m.status)$('#ocr-status').textContent=m.status+'…';}});
-  $('#ocr-out').value=res.data.text.trim();$('#ocr-wrap').classList.add('show');$('#ocr-status').textContent='সম্পন্ন ✓';
- }catch(e){$('#ocr-status').textContent='দুঃখিত, লেখা তোলা যায়নি — পরিষ্কার ছবি দিয়ে আবার চেষ্টা করুন।';}
- btn.disabled=false;btn.textContent='লেখা তুলুন (Extract Text)';
+  const res=await Tesseract.recognize(ocrFile,$('#ocr-lang').value,{logger:m=>{if(m.status==='recognizing text')$('#ocr-status').textContent='Recognizing text: '+Math.round(m.progress*100)+'%';else if(m.status)$('#ocr-status').textContent=m.status+'…';}});
+  $('#ocr-out').value=res.data.text.trim();$('#ocr-wrap').classList.add('show');$('#ocr-status').textContent='Done ✓';
+ }catch(e){$('#ocr-status').textContent='Sorry, text could not be extracted — try again with a clearer image.';}
+ btn.disabled=false;btn.textContent='Extract Text';
 });
 $('#ocr-copy').addEventListener('click',()=>copyText($('#ocr-out').value,'Text copied ✓'));
 /* ===== QR ===== */
@@ -477,9 +477,9 @@ $('#qr-dl').addEventListener('click',()=>{const cv=$('#qr-box canvas');if(cv){ca
 $('#age-at').value=new Date().toISOString().slice(0,10);
 $('#age-go').addEventListener('click',()=>{
  const dobV=$('#age-dob').value,atV=$('#age-at').value;
- if(!dobV||!atV){toast(T('তারিখ দুটোই days'));return;}
+ if(!dobV||!atV){toast(T('Enter both dates'));return;}
  let dob=new Date(dobV),at=new Date(atV);
- if(at<dob){toast(T('দ্বিতীয় তারিখ জন্মতারিখের পরে হতে হবে'));return;}
+ if(at<dob){toast(T('Second date must be after the date of birth'));return;}
  let y=at.getFullYear()-dob.getFullYear(),m=at.getMonth()-dob.getMonth(),d=at.getDate()-dob.getDate();
  if(d<0){m--;d+=new Date(at.getFullYear(),at.getMonth(),0).getDate();}
  if(m<0){y--;m+=12;}
@@ -497,7 +497,7 @@ $('#wc-in').addEventListener('input',()=>{
  const words=t.trim()?t.trim().split(/\s+/).length:0;
  $('#wc-words').textContent=words;$('#wc-chars').textContent=t.length;
  $('#wc-nospace').textContent=t.replace(/\s/g,'').length;
- $('#wc-sent').textContent=t.trim()?(t.match(/[.!?।\n]+/g)||[]).length+( /[^\s.!?।]$/.test(t.trim())?1:0):0;
+ $('#wc-sent').textContent=t.trim()?(t.match(/[.!?.\n]+/g)||[]).length+( /[^\s.!?.]$/.test(t.trim())?1:0):0;
  $('#wc-lines').textContent=t?t.split('\n').length:0;
  const mins=words/180;$('#wc-read').textContent=words?(mins<1?Math.max(1,Math.round(words/3))+' seconds':mins.toFixed(1)+' minutes'):'0 minutes';
 });
@@ -550,11 +550,11 @@ $('#bj-copy').addEventListener('click',()=>copyText($('#bj-out').value,'Copied �
 /* ===== EMI ===== */
 $('#emi-go').addEventListener('click',()=>{
  const P=+$('#emi-p').value||0,r=(+$('#emi-r').value||0)/100/12,n=Math.round((+$('#emi-y').value||0)*12);
- if(P<=0||n<=0){toast(T('সঠিক মান days'));return;}
+ if(P<=0||n<=0){toast(T('Enter valid values'));return;}
  const emi=r>0?P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1):P/n;
  const total=emi*n,interest=total-P;
  const box=$('#emi-res');
- box.innerHTML=Tf("<p style=\"margin:0 0 6px\">মাসিক কিস্তি (EMI): <b class=\"big\">৳{0}</b></p><div class=\"kv\"><span>আসল (Principal)</span><b>৳{1}</b></div><div class=\"kv\"><span>মোট সুদ</span><b>৳{2}</b></div><div class=\"kv\"><span>মোট পরিশোধ</span><b>৳{3}</b></div><div class=\"kv\"><span>মেয়াদ</span><b>{4} মাস</b></div>",toBn(fmtN(Math.round(emi))),toBn(fmtN(P)),toBn(fmtN(Math.round(interest))),toBn(fmtN(Math.round(total))),toBn(n));
+ box.innerHTML=Tf("<p style=\"margin:0 0 6px\">Monthly instalment (EMI): <b class=\"big\">৳{0}</b></p><div class=\"kv\"><span>Principal</span><b>৳{1}</b></div><div class=\"kv\"><span>Total interest</span><b>৳{2}</b></div><div class=\"kv\"><span>Total payment</span><b>৳{3}</b></div><div class=\"kv\"><span>Term</span><b>{4} months</b></div>",toBn(fmtN(Math.round(emi))),toBn(fmtN(P)),toBn(fmtN(Math.round(interest))),toBn(fmtN(Math.round(total))),toBn(n));
  box.classList.add('show');
 });
 /* ===== Discount ===== */
@@ -562,7 +562,7 @@ $('#dc-go').addEventListener('click',()=>{
  const p=+$('#dc-p').value||0,d=+$('#dc-d').value||0;
  const save=p*d/100,final=p-save;
  const box=$('#dc-res');
- box.innerHTML=Tf("<p style=\"margin:0 0 6px\">ছাড়ের পর দাম: <b class=\"big\">৳{0}</b></p><div class=\"kv\"><span>আসল দাম</span><b>৳{1}</b></div><div class=\"kv\"><span>ছাড় ({2}%)</span><b>৳{3} সাশ্রয়</b></div>",toBn(fmtN(final)),toBn(fmtN(p)),toBn(d),toBn(fmtN(save)));
+ box.innerHTML=Tf("<p style=\"margin:0 0 6px\">Price after discount: <b class=\"big\">৳{0}</b></p><div class=\"kv\"><span>Original price</span><b>৳{1}</b></div><div class=\"kv\"><span>Discount ({2}%)</span><b>৳{3} saved</b></div>",toBn(fmtN(final)),toBn(fmtN(p)),toBn(d),toBn(fmtN(save)));
  box.classList.add('show');
 });
 /* ===== bKash/Nagad ===== */
@@ -571,12 +571,12 @@ $('#bk-go').addEventListener('click',()=>{
  const rates={bkash:{app:14.90,ussd:18.50},nagad:{app:12.99,ussd:14.94}};
  const per=rates[svc][via];const charge=Math.ceil(amt/1000*per*100)/100;
  const box=$('#bk-res');
- box.innerHTML=Tf("<p style=\"margin:0 0 6px\">ক্যাশ আউট চার্জ: <b class=\"big\">৳{0}</b></p><div class=\"kv\"><span>তুলতে চান</span><b>৳{1}</b></div><div class=\"kv\"><span>হার (প্রতি ১০০০)</span><b>৳{2}</b></div><div class=\"kv\"><span>ব্যালেন্স থেকে মোট কাটবে</span><b>৳{3}</b></div><div class=\"kv\"><span>এজেন্টকে মোট দিতে হতে পারে</span><b>৳{4}</b></div>",toBn(fmtN(charge)),toBn(fmtN(amt)),toBn(per.toFixed(2)),toBn(fmtN(amt+charge)),toBn(fmtN(amt+charge)));
+ box.innerHTML=Tf("<p style=\"margin:0 0 6px\">Cash-out charge: <b class=\"big\">৳{0}</b></p><div class=\"kv\"><span>Amount to withdraw</span><b>৳{1}</b></div><div class=\"kv\"><span>Rate (per 1000)</span><b>৳{2}</b></div><div class=\"kv\"><span>Total to be deducted from balance</span><b>৳{3}</b></div><div class=\"kv\"><span>Total you may have to pay the agent</span><b>৳{4}</b></div>",toBn(fmtN(charge)),toBn(fmtN(amt)),toBn(per.toFixed(2)),toBn(fmtN(amt+charge)),toBn(fmtN(amt+charge)));
  box.classList.add('show');
 });
 /* ===== CGPA ===== */
 function cgRow(){const tr=document.createElement('tr');
- tr.innerHTML=`<td><input class="in" data-cg="name" placeholder="বিষয়ের Name" style="padding:8px"></td><td><input class="in" data-cg="gpa" type="number" step="0.01" min="0" placeholder="4.00" style="padding:8px"></td><td><input class="in" data-cg="cr" type="number" step="0.5" min="0" value="3" style="padding:8px"></td><td><button class="btn alt sm" data-cg="del">✕</button></td>`;
+ tr.innerHTML=`<td><input class="in" data-cg="name" placeholder="Subject name" style="padding:8px"></td><td><input class="in" data-cg="gpa" type="number" step="0.01" min="0" placeholder="4.00" style="padding:8px"></td><td><input class="in" data-cg="cr" type="number" step="0.5" min="0" value="3" style="padding:8px"></td><td><button class="btn alt sm" data-cg="del">✕</button></td>`;
  tr.querySelector('[data-cg="del"]').onclick=()=>tr.remove();
  $('#cg-rows').appendChild(tr);}
 for(let i=0;i<4;i++)cgRow();
@@ -589,7 +589,7 @@ $('#cg-go').addEventListener('click',()=>{
  if(!cr){toast(T('Please enter at least one subject grade and credit'));return;}
  const cgpa=pts/cr;
  const box=$('#cg-res');
- box.innerHTML=Tf("<p style=\"margin:0 0 6px\">আপনার CGPA: <b class=\"big\">{0}</b> <span style=\"color:var(--ink2)\">/ {1}</span></p><div class=\"kv\"><span>বিষয়</span><b>{2}টি</b></div><div class=\"kv\"><span>মোট ক্রেডিট</span><b>{3}</b></div><div class=\"kv\"><span>শতকরা (আনুমানিক)</span><b>{4}%</b></div>",cgpa.toFixed(2),scale.toFixed(2),toBn(count),toBn(cr),toBn((cgpa/scale*100).toFixed(1)));
+ box.innerHTML=Tf("<p style=\"margin:0 0 6px\">Your CGPA: <b class=\"big\">{0}</b> <span style=\"color:var(--ink2)\">/ {1}</span></p><div class=\"kv\"><span>Subject</span><b>{2}</b></div><div class=\"kv\"><span>Total credits</span><b>{3}</b></div><div class=\"kv\"><span>Percentage (approx.)</span><b>{4}%</b></div>",cgpa.toFixed(2),scale.toFixed(2),toBn(count),toBn(cr),toBn((cgpa/scale*100).toFixed(1)));
  box.classList.add('show');
 });
 /* ===== Electricity ===== */
@@ -597,12 +597,12 @@ $('#el-go').addEventListener('click',()=>{
  const u=+$('#el-units').value||0;
  const slabs=[[50,4.35],[25,5.52],[125,6.92],[100,7.10],[100,7.37],[200,8.36],[Infinity,9.68]];
  let rem=u,energy=0,rows='',prev=0;
- const names=['লাইফলাইন ০–৫০','১ম ধাপ ৫১–৭৫','২য় ধাপ ৭৬–২০০','৩য় ধাপ ২০১–৩০০','৪র্থ ধাপ ৩০১–৪০০','৫ম ধাপ ৪০১–৬০০','৬ষ্ঠ ধাপ ৬০০+'];
+ const names=['Lifeline 0–50','Step 1 51–75','Step 2 76–200','Step 3 201–300','Step 4 301–400','Step 5 401–600','Step 6 600+'];
  slabs.forEach((s,i)=>{if(rem<=0)return;const take=Math.min(rem,s[0]);const cost=take*s[1];energy+=cost;rem-=take;
-  rows+=Tf("<div class=\"kv\"><span>{0} — {1} ইউনিট × ৳{2}</span><b>৳{3}</b></div>",names[i],toBn(take),toBn(s[1].toFixed(2)),toBn(fmtN(cost)));});
+  rows+=Tf("<div class=\"kv\"><span>{0} — {1} units × ৳{2}</span><b>৳{3}</b></div>",names[i],toBn(take),toBn(s[1].toFixed(2)),toBn(fmtN(cost)));});
  const demand=u>0?42:0,meter=u>0?40:0,sub=energy+demand+meter,vat=sub*0.05,total=sub+vat;
  const box=$('#el-res');
- box.innerHTML=rows+Tf("<div class=\"kv\"><span>ডিমান্ড চার্জ</span><b>৳{0}</b></div><div class=\"kv\"><span>মিটার ভাড়া</span><b>৳{1}</b></div><div class=\"kv\"><span>ভ্যাট (৫%)</span><b>৳{2}</b></div><p style=\"margin:10px 0 0\">আনুমানিক মোট বিল: <b class=\"big\">৳{3}</b></p>",toBn(demand),toBn(meter),toBn(fmtN(vat)),toBn(fmtN(Math.round(total))));
+ box.innerHTML=rows+Tf("<div class=\"kv\"><span>Demand charge</span><b>৳{0}</b></div><div class=\"kv\"><span>Meter rent</span><b>৳{1}</b></div><div class=\"kv\"><span>VAT (5%)</span><b>৳{2}</b></div><p style=\"margin:10px 0 0\">Estimated total bill: <b class=\"big\">৳{3}</b></p>",toBn(demand),toBn(meter),toBn(fmtN(vat)),toBn(fmtN(Math.round(total))));
  box.classList.add('show');
 });
 /* ===== Bangla date ===== */
@@ -629,15 +629,15 @@ function b2g(by,bm,bd){
 $('#bd-bm').innerHTML=BM.map((m,i)=>`<option value="${i}">${m}</option>`).join('');
 $('#bd-g').value=new Date().toISOString().slice(0,10);
 $('#bd-go1').addEventListener('click',()=>{
- const v=$('#bd-g').value;if(!v){toast(T('তারিখ days'));return;}
+ const v=$('#bd-g').value;if(!v){toast(T('Enter a date'));return;}
  const r=g2b(new Date(v));
- const box=$('#bd-res1');box.innerHTML=Tf("বাংলা তারিখ: <b class=\"big\">{0} {1} {2}</b> বঙ্গাব্দ",toBn(r.d),BM[r.m],toBn(r.y));box.classList.add('show');
+ const box=$('#bd-res1');box.innerHTML=Tf("Bangla date: <b class=\"big\">{0} {1} {2}</b> Bongabdo",toBn(r.d),BM[r.m],toBn(r.y));box.classList.add('show');
 });
 $('#bd-go2').addEventListener('click',()=>{
  const by=+$('#bd-by').value,bm=+$('#bd-bm').value,bd=+$('#bd-bd').value;
- if(!by||!bd){toast(T('years ও days days'));return;}
+ if(!by||!bd){toast(T('Enter the year and date'));return;}
  const g=b2g(by,bm,bd);
- const box=$('#bd-res2');box.innerHTML=Tf("ইংরেজি তারিখ: <b class=\"big\">{0}</b>",g.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}));box.classList.add('show');
+ const box=$('#bd-res2');box.innerHTML=Tf("English date: <b class=\"big\">{0}</b>",g.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}));box.classList.add('show');
 });
 /* ===== Password ===== */
 function genPw(){
@@ -651,7 +651,7 @@ function genPw(){
 }
 $('#pw-len').addEventListener('input',()=>{$('#pw-lv').textContent=$('#pw-len').value;genPw();});
 $('#pw-go').addEventListener('click',genPw);
-$('#pw-copy').addEventListener('click',()=>copyText($('#pw-out').value,'পাসওয়ার্ড Copied ✓'));
+$('#pw-copy').addEventListener('click',()=>copyText($('#pw-out').value,'Password copied ✓'));
 genPw();
 /* ===== TTS + STT ===== */
 function loadVoices(){const vs=speechSynthesis.getVoices();
@@ -671,15 +671,15 @@ $('#stt-go').addEventListener('click',()=>{
  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
  showErr('#stt-err','');
  if(!SR){showErr('#stt-err','This browser does not support Voice Typing — use Chrome.');return;}
- if(recog){recog.stop();recog=null;$('#stt-go').textContent='🎙 বলা শুরু করুন';return;}
+ if(recog){recog.stop();recog=null;$('#stt-go').textContent='🎙 Start speaking';return;}
  recog=new SR();recog.lang=$('#stt-lang').value;recog.interimResults=true;recog.continuous=true;
  let finalTxt=$('#stt-out').value;
  recog.onresult=e=>{let interim='';
    for(let i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)finalTxt+=e.results[i][0].transcript+' ';else interim+=e.results[i][0].transcript;}
    $('#stt-out').value=finalTxt+interim;};
- recog.onend=()=>{recog=null;$('#stt-go').textContent='🎙 বলা শুরু করুন';};
- recog.onerror=e=>{showErr('#stt-err','মাইক্রোফোনে সমস্যা: '+e.error+' — check whether permission was granted.');};
- recog.start();$('#stt-go').textContent='⏹ থামান (শুনছি…)';
+ recog.onend=()=>{recog=null;$('#stt-go').textContent='🎙 Start speaking';};
+ recog.onerror=e=>{showErr('#stt-err','Microphone problem: '+e.error+' — check whether permission was granted.');};
+ recog.start();$('#stt-go').textContent='⏹ Stop (listening…)';
 });
 $('#stt-copy').addEventListener('click',()=>copyText($('#stt-out').value,'Copied ✓'));
 /* ===== YouTube income ===== */
@@ -692,7 +692,7 @@ $('#yti-go').addEventListener('click',()=>{
  else rpm=+$('#yti-cat').value;
  const usd=views/1000*rpm,bdt=usd*120;
  const box=$('#yti-res');
- box.innerHTML=Tf("<p style=\"margin:0 0 6px\">আনুমানিক মাসিক আয়: <b class=\"big\">${0} ≈ ৳{1}</b></p><div class=\"kv\"><span>দৈনিক (আনুমানিক)</span><b>${2} ≈ ৳{3}</b></div><div class=\"kv\"><span>বার্ষিক (আনুমানিক)</span><b>${4} ≈ ৳{5}</b></div><div class=\"kv\"><span>ধরা RPM</span><b>${6} / ১০০০ ভিউ</b></div>",fmtN(usd),toBn(fmtN(Math.round(bdt))),fmtN(usd/30),toBn(fmtN(Math.round(bdt/30))),fmtN(usd*12),toBn(fmtN(Math.round(bdt*12))),rpm);
+ box.innerHTML=Tf("<p style=\"margin:0 0 6px\">Estimated monthly income: <b class=\"big\">${0} ≈ ৳{1}</b></p><div class=\"kv\"><span>Daily (approx.)</span><b>${2} ≈ ৳{3}</b></div><div class=\"kv\"><span>Annual (approx.)</span><b>${4} ≈ ৳{5}</b></div><div class=\"kv\"><span>Assumed RPM</span><b>${6} / 1000 views</b></div>",fmtN(usd),toBn(fmtN(Math.round(bdt))),fmtN(usd/30),toBn(fmtN(Math.round(bdt/30))),fmtN(usd*12),toBn(fmtN(Math.round(bdt*12))),rpm);
  box.classList.add('show');
 });
 /* ===== Land ===== */
@@ -700,7 +700,7 @@ $('#land-go').addEventListener('click',()=>{
  const amt=+$('#land-amt').value||0,unit=$('#land-unit').value;
  const toSqft={shotangsho:435.6,katha:720,bigha:14400,acre:43560,sqft:1,sqm:10.7639};
  const sqft=amt*toSqft[unit];
- const r={'বর্গফুট (Sq Ft)':sqft,'শতাংশ (Decimal)':sqft/435.6,'কাঠা (Katha)':sqft/720,'বিঘা (Bigha)':sqft/14400,'Acre':sqft/43560,'বর্গমিটার (Sq M)':sqft/10.7639,'বর্গগজ (Sq Yard)':sqft/9};
+ const r={'Square feet (Sq Ft)':sqft,'Decimal':sqft/435.6,'Katha':sqft/720,'Bigha':sqft/14400,'Acre':sqft/43560,'Square metres (Sq M)':sqft/10.7639,'Square yards (Sq Yard)':sqft/9};
  const box=$('#land-res');
  box.innerHTML=Object.keys(r).map(k=>`<div class="kv"><span>${k}</span><b>${toBn(fmtN(r[k],4))}</b></div>`).join('');
  box.classList.add('show');
@@ -708,29 +708,29 @@ $('#land-go').addEventListener('click',()=>{
 /* ===== BMI ===== */
 $('#bmi-go').addEventListener('click',()=>{
  const w=+$('#bmi-w').value||0,ft=+$('#bmi-ft').value||0,inch=+$('#bmi-in').value||0;
- const m=(ft*12+inch)*0.0254;if(!w||!m){toast(T('ওজন ও উচ্চতা days'));return;}
+ const m=(ft*12+inch)*0.0254;if(!w||!m){toast(T('Enter weight and height'));return;}
  const bmi=w/(m*m);
  let cat,color;
  if(bmi<18.5){cat='Underweight';color='#b8860b';}
- else if(bmi<25){cat='স্বাভাবিক (Healthy)';color='var(--ok)';}
- else if(bmi<30){cat='বেশি ওজন (Overweight)';color='#d2691e';}
- else{cat='স্থূলতা (Obese)';color='var(--danger)';}
+ else if(bmi<25){cat='Normal (Healthy)';color='var(--ok)';}
+ else if(bmi<30){cat='Overweight';color='#d2691e';}
+ else{cat='Obese';color='var(--danger)';}
  const lo=(18.5*m*m).toFixed(1),hi=(24.9*m*m).toFixed(1);
  const box=$('#bmi-res');
- box.innerHTML=Tf("<p style=\"margin:0 0 6px\">আপনার BMI: <b class=\"big\">{0}</b> — <b style=\"color:{1}\">{2}</b></p><div class=\"kv\"><span>আপনার উচ্চতায় স্বাস্থ্যকর ওজন</span><b>{3} – {4} কেজি</b></div>",bmi.toFixed(1),color,cat,toBn(lo),toBn(hi));
+ box.innerHTML=Tf("<p style=\"margin:0 0 6px\">Your BMI: <b class=\"big\">{0}</b> — <b style=\"color:{1}\">{2}</b></p><div class=\"kv\"><span>Healthy weight for your height</span><b>{3} – {4} kg</b></div>",bmi.toFixed(1),color,cat,toBn(lo),toBn(hi));
  box.classList.add('show');
 });
 /* ===== Date difference ===== */
 $('#dd-go').addEventListener('click',()=>{
  const a=$('#dd-a').value,b=$('#dd-b').value;
- if(!a||!b){toast(T('দুটো তারিখই days'));return;}
+ if(!a||!b){toast(T('Enter both dates'));return;}
  let d1=new Date(a),d2=new Date(b);if(d2<d1){const t=d1;d1=d2;d2=t;}
  const days=Math.round((d2-d1)/864e5);
  let y=d2.getFullYear()-d1.getFullYear(),mo=d2.getMonth()-d1.getMonth(),da=d2.getDate()-d1.getDate();
  if(da<0){mo--;da+=new Date(d2.getFullYear(),d2.getMonth(),0).getDate();}
  if(mo<0){y--;mo+=12;}
  const box=$('#dd-res');
- box.innerHTML=Tf("<p style=\"margin:0 0 6px\">ব্যবধান: <b class=\"big\">{0} days</b></p><div class=\"kv\"><span>years-মাস-daysে</span><b>{1} years {2} মাস {3} days</b></div><div class=\"kv\"><span>সপ্তাহে</span><b>{4} সপ্তাহ</b></div><div class=\"kv\"><span>মোট মাস (আনুমানিক)</span><b>{5} মাস</b></div>",toBn(days.toLocaleString('en-US')),toBn(y),toBn(mo),toBn(da),toBn(fmtN(days/7,1)),toBn(fmtN(days/30.44,1)));
+ box.innerHTML=Tf("<p style=\"margin:0 0 6px\">Difference: <b class=\"big\">{0} days</b></p><div class=\"kv\"><span>In years-months-days</span><b>{1} years {2} months {3} days</b></div><div class=\"kv\"><span>In weeks</span><b>{4} weeks</b></div><div class=\"kv\"><span>Total months (approx.)</span><b>{5} months</b></div>",toBn(days.toLocaleString('en-US')),toBn(y),toBn(mo),toBn(da),toBn(fmtN(days/7,1)),toBn(fmtN(days/30.44,1)));
  box.classList.add('show');
 });
 /* ===== Crop & Rotate ===== */
@@ -776,7 +776,7 @@ $('#ig-go').addEventListener('click',()=>{
  showErr('#ig-err','');const u=$('#ig-user').value.trim().replace(/^@/,'');
  if(!u){showErr('#ig-err','Please enter a username.');return;}
  const img=$('#ig-img');img.onload=()=>$('#ig-wrap').classList.add('show');
- img.onerror=()=>{showErr('#ig-err','ছবি পাওয়া যায়নি — username ঠিক আছে কিনা ও অ্যাকাউন্ট পাবলিক কিনা যাচাই করুন।');$('#ig-wrap').classList.remove('show');};
+ img.onerror=()=>{showErr('#ig-err','Image not found — check whether the username is correct and the account is public.');$('#ig-wrap').classList.remove('show');};
  img.src='https://unavatar.io/instagram/'+encodeURIComponent(u)+'?fallback=false';
 });
 $('#ig-dl').addEventListener('click',async()=>{
@@ -786,9 +786,9 @@ $('#ig-dl').addEventListener('click',async()=>{
 });
 /* ===== Unit converter ===== */
 const UC={
- weight:{base:'kg',units:{kg:['কেজি (kg)',1],g:['গ্রাম (g)',0.001],lb:['পাউন্ড (lb)',0.453592],oz:['Ounces (oz)',0.0283495],ton:['টন (tonne)',1000],mon:['মণ (maund, BD)',37.3242]}},
- length:{base:'m',units:{m:['মিটার (m)',1],cm:['সেন্টিমিটার (cm)',0.01],mm:['মিলিমিটার (mm)',0.001],km:['কিলোমিটার (km)',1000],inch:['Inches (inch)',0.0254],ft:['ফুট (ft)',0.3048],yd:['গজ (yard)',0.9144],mile:['মাইল (mile)',1609.34]}},
- temp:{base:'c',units:{c:['সেলসিয়াস (°C)',null],f:['ফারেনহাইট (°F)',null],k:['কেলভিন (K)',null]}}
+ weight:{base:'kg',units:{kg:['Kilogram (kg)',1],g:['Gram (g)',0.001],lb:['Pound (lb)',0.453592],oz:['Ounces (oz)',0.0283495],ton:['Tonne',1000],mon:['Maund (BD)',37.3242]}},
+ length:{base:'m',units:{m:['Metre (m)',1],cm:['Centimetre (cm)',0.01],mm:['Millimetre (mm)',0.001],km:['Kilometre (km)',1000],inch:['Inches (inch)',0.0254],ft:['Foot (ft)',0.3048],yd:['Yard (yard)',0.9144],mile:['Mile (mile)',1609.34]}},
+ temp:{base:'c',units:{c:['Celsius (°C)',null],f:['Fahrenheit (°F)',null],k:['Kelvin (K)',null]}}
 };
 function ucFill(){
  const cat=UC[$('#uc-cat').value];
@@ -813,13 +813,13 @@ $$('[data-tx]').forEach(btn=>btn.addEventListener('click',()=>{
  const ta=$('#tx-in');let t=ta.value;const op=btn.dataset.tx;
  if(op==='upper')t=t.toUpperCase();
  else if(op==='lower')t=t.toLowerCase();
- else if(op==='title')t=t.toLowerCase().replace(/(^|\s|।|\.)\S/g,c=>c.toUpperCase());
- else if(op==='sentence')t=t.toLowerCase().replace(/(^\s*\w|[.!?।]\s*\w)/g,c=>c.toUpperCase());
+ else if(op==='title')t=t.toLowerCase().replace(/(^|\s|.|\.)\S/g,c=>c.toUpperCase());
+ else if(op==='sentence')t=t.toLowerCase().replace(/(^\s*\w|[.!?.]\s*\w)/g,c=>c.toUpperCase());
  else if(op==='dedup'){const seen=new Set();t=t.split('\n').filter(l=>{const k=l.trim();if(seen.has(k))return false;seen.add(k);return true;}).join('\n');}
  else if(op==='sort')t=t.split('\n').sort((a,b)=>a.localeCompare(b)).join('\n');
  else if(op==='reverse')t=t.split('').reverse().join('');
  else if(op==='trim')t=t.split('\n').map(l=>l.trim().replace(/\s+/g,' ')).join('\n').replace(/\n{3,}/g,'\n\n');
- ta.value=t;toast(T('হয়ে গেছে ✓'));
+ ta.value=t;toast(T('Done ✓'));
 }));
 $('#tx-copy').addEventListener('click',()=>copyText($('#tx-in').value,'Copied ✓'));
 /* ===== Random picker ===== */
@@ -833,10 +833,10 @@ $('#rp-go').addEventListener('click',()=>{
  if(rpMode==='names'){pool=$('#rp-names').value.split('\n').map(s=>s.trim()).filter(Boolean);}
  else{const mn=+$('#rp-min').value||0,mx=+$('#rp-max').value||0;for(let i=mn;i<=mx;i++)pool.push(String(i));}
  const box=$('#rp-res');
- if(pool.length<count){box.innerHTML='পর্যাপ্ত অপশন নেই — আরও Name/বড় রেঞ্জ days।';box.classList.add('show');return;}
+ if(pool.length<count){box.innerHTML='Not enough options — enter a larger name/range.';box.classList.add('show');return;}
  const copy=pool.slice(),winners=[];
  for(let i=0;i<count;i++){winners.push(copy.splice(randInt(copy.length),1)[0]);}
- box.innerHTML=Tf("<p style=\"margin:0;font-size:15px;color:var(--ink2)\">🏆 বিজয়ী</p><p style=\"margin:4px 0 0;font-size:clamp(24px,6vw,36px);font-weight:800\">{0}</p>",winners.join(' · '));
+ box.innerHTML=Tf("<p style=\"margin:0;font-size:15px;color:var(--ink2)\">🏆 Winner</p><p style=\"margin:4px 0 0;font-size:clamp(24px,6vw,36px);font-weight:800\">{0}</p>",winners.join(' · '));
  box.classList.add('show');
 });
 /* ===== Stopwatch & Timer ===== */
@@ -862,10 +862,10 @@ function beep(){try{audioCtx=audioCtx||new (window.AudioContext||window.webkitAu
 $('#tm-go').addEventListener('click',()=>{
  if(tmRun){clearInterval(tmInt);tmRun=false;$('#tm-go').textContent='Resume';return;}
  if(tmLeft<=0)tmLeft=((+$('#tm-min').value||0)*60+(+$('#tm-sec').value||0))*1000;
- if(tmLeft<=0){toast(T('সময় days'));return;}
+ if(tmLeft<=0){toast(T('Enter a time'));return;}
  const end=Date.now()+tmLeft;tmRun=true;$('#tm-go').textContent='Pause';
  tmInt=setInterval(()=>{tmLeft=end-Date.now();tmRender();
-   if(tmLeft<=0){clearInterval(tmInt);tmRun=false;tmLeft=0;tmRender();$('#tm-go').textContent='Start';beep();toast(T('⏰ টাইম শেষ!'));}},200);
+   if(tmLeft<=0){clearInterval(tmInt);tmRun=false;tmLeft=0;tmRender();$('#tm-go').textContent='Start';beep();toast(T('⏰ Time is up!'));}},200);
  tmRender();
 });
 $('#tm-reset').addEventListener('click',()=>{clearInterval(tmInt);tmRun=false;tmLeft=((+$('#tm-min').value||0)*60+(+$('#tm-sec').value||0))*1000;$('#tm-go').textContent='Start';tmRender();});
