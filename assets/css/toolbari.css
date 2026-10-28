@@ -223,3 +223,34 @@ html[data-theme="dark"] .tb-trend-card span{color:#38bdf8}
   #tbBottomNav button{flex:1;border:none;background:transparent;padding:12px 4px;min-height:56px;font-size:15px;font-weight:700;cursor:pointer;color:#14231b}
   .foot-top{grid-template-columns:1fr;gap:22px}
 }
+
+/* === Local fix 2026-10-28: raised / floating cards + buttons, app-icon style.
+   Layout unchanged: no .wrap width, no .grid column count, no logo, no pastel
+   card-colour changes. Light rules below; dark rules are separate and never
+   touch light mode. === */
+.card{box-shadow:0 10px 24px rgba(10,40,25,.14),0 2px 6px rgba(10,40,25,.08)}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(10,40,25,.18),0 3px 8px rgba(10,40,25,.10)}
+.card:focus-within{outline:2px solid var(--brand);outline-offset:2px}
+.card .ic{width:52px;height:52px;border-radius:14px;box-shadow:0 6px 14px rgba(10,40,25,.16),inset 0 1px 0 rgba(255,255,255,.55)}
+.card h3{font-weight:800;line-height:1.3}
+.card p{font-size:13.5px;line-height:1.45}
+.btn{box-shadow:0 6px 16px rgba(11,122,75,.25)}
+.btn:active{transform:translateY(1px);box-shadow:0 2px 8px rgba(11,122,75,.20)}
+.btn.alt{box-shadow:0 4px 12px rgba(10,40,25,.10)}
+.panel,.notice-area,.tb-trend-card,.tb-how-site{box-shadow:0 10px 24px rgba(10,40,25,.10),0 2px 6px rgba(10,40,25,.06)}
+/* Dark mode only: calm navy surfaces, soft readable text, neon glow ONLY on
+   icons/buttons/active elements — never on body text. */
+html[data-theme="dark"] .card{box-shadow:0 10px 26px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.35);border-color:#334155}
+html[data-theme="dark"] .card:hover{box-shadow:0 14px 30px rgba(0,0,0,.60),0 3px 8px rgba(0,0,0,.40)}
+html[data-theme="dark"] .card h3,html[data-theme="dark"] .card p{text-shadow:none}
+html[data-theme="dark"] .card .ic{box-shadow:0 0 0 1px rgba(47,187,119,.35),0 0 18px rgba(47,187,119,.22)}
+html[data-theme="dark"] .card .star.on{color:#ff9f2e;text-shadow:0 0 12px rgba(255,159,46,.45)}
+html[data-theme="dark"] .btn{box-shadow:0 6px 18px rgba(47,187,119,.35)}
+html[data-theme="dark"] .btn.alt{box-shadow:0 4px 12px rgba(0,0,0,.40)}
+html[data-theme="dark"] .result b.big{color:#2fbb77}
+html[data-theme="dark"] #tbBottomNav{background:#1e293b;border-top-color:#334155;box-shadow:0 -4px 16px rgba(0,0,0,.45)}
+html[data-theme="dark"] #tbBottomNav button{color:#e2e8f0}
+@media(max-width:600px){
+  .card .ic{width:48px;height:48px;border-radius:13px}
+  .card p{font-size:13px}
+}
