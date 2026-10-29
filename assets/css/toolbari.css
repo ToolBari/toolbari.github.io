@@ -329,3 +329,11 @@ html[data-theme="dark"] button, html[data-theme="dark"] .btn, html[data-theme="d
   border:1px solid #38bdf8!important; box-shadow:0 0 0 1px rgba(56,189,248,.55), 0 0 12px rgba(56,189,248,.35)!important;
 }
 body.dark button:hover, body.dark .btn:hover, html[data-theme="dark"] button:hover, html[data-theme="dark"] .btn:hover{box-shadow:0 0 0 1px rgba(56,189,248,.8), 0 0 16px rgba(56,189,248,.5)!important}
+
+/* CHOSEN THEME D9 Teal Night - dark mode only, all dark, no white */
+body.dark, html[data-theme="dark"] body{background:#042f2e!important;color:#f0fdfa!important}
+body.dark .card, body.dark section.block, body.dark .panel, body.dark .block, html[data-theme="dark"] .card, html[data-theme="dark"] section.block, html[data-theme="dark"] .panel, html[data-theme="dark"] .block{background:#134e4a!important;color:#f0fdfa!important;border-color:#2dd4bf!important}
+body.dark .card h3, body.dark section.block h2, body.dark .panel h2, html[data-theme="dark"] .card h3, html[data-theme="dark"] section.block h2, html[data-theme="dark"] .panel h2{color:#f0fdfa!important}
+body.dark .card p, body.dark section.block p, body.dark .panel p, html[data-theme="dark"] .card p, html[data-theme="dark"] section.block p, html[data-theme="dark"] .panel p{color:#99f6e4!important}
+body.dark button, body.dark .btn, body.dark .pill, body.dark .tb-cat-card, body.dark .tb-util, body.dark a.btn, html[data-theme="dark"] button, html[data-theme="dark"] .btn, html[data-theme="dark"] .pill, html[data-theme="dark"] .tb-cat-card, html[data-theme="dark"] .tb-util, html[data-theme="dark"] a.btn{background:#134e4a!important;color:#f0fdfa!important;border:1px solid #2dd4bf!important;box-shadow:0 0 12px rgba(45,212,191,.35)!important}
+body.dark a, html[data-theme="dark"] a{color:#5eead4!important}
