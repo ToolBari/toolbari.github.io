@@ -358,3 +358,5 @@ body.dark .card, body.dark .card:nth-child(5n+1), body.dark .card:nth-child(5n+2
 html[data-theme="dark"] .card h3, body.dark .card h3{color:#f0fdfa!important}
 html[data-theme="dark"] .card p, body.dark .card p{color:#99f6e4!important}
 html[data-theme="dark"] .tb-trend-card, body.dark .tb-trend-card{background:#134e4a!important;color:#f0fdfa!important}
+
+.m-menu.open{display:block!important}
