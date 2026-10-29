@@ -337,10 +337,30 @@ a.card:focus,.card a:focus{background:#ff7a3d!important;color:#ffffff!important}
 /* STRONG style: colourful strong buttons/links/cards, white text */
 .btn,.block a,.panel a,.result a,a.card{font-weight:700!important}
 .btn{background:#0a84ff!important;color:#ffffff!important}
-a.card:nth-child(4n+1),.block a:nth-child(4n+1){background:#0a84ff!important;color:#ffffff!important}
-a.card:nth-child(4n+2),.block a:nth-child(4n+2){background:#18a879!important;color:#ffffff!important}
-a.card:nth-child(4n+3),.block a:nth-child(4n+3){background:#e5484d!important;color:#ffffff!important}
-a.card:nth-child(4n+4),.block a:nth-child(4n+4){background:#ff7a3d!important;color:#ffffff!important}
 a.card h3,a.card p,.block a{color:#ffffff!important}
 a.card .ic{background:rgba(255,255,255,.25)!important;color:#ffffff!important}
 /* dark mode keeps STRONG card colours, page background dark */
+
+/* FIX: card shape back to original rectangle, logo/icon colours back to original - only card background stays STRONG */
+a.card{border-radius:16px!important}
+a.card .ic{color:var(--brand)!important}
+a.card .ic svg{fill:var(--brand)!important}
+a.card:nth-child(9n+1) .ic{background:#fee2e2!important}
+a.card:nth-child(9n+2) .ic{background:#e0f2fe!important}
+a.card:nth-child(9n+3) .ic{background:#ede9fe!important}
+a.card:nth-child(9n+4) .ic{background:#d1fae5!important}
+a.card:nth-child(9n+5) .ic{background:#fef3c7!important}
+a.card:nth-child(9n+6) .ic{background:#e2e8f0!important}
+a.card:nth-child(9n+7) .ic{background:#fce7f3!important}
+a.card:nth-child(9n+8) .ic{background:#cffafe!important}
+a.card:nth-child(9n+9) .ic{background:#ecfccb!important}
+
+/* All raised-shadow items coloured STRONG (sections/panels/notices/trend cards) */
+section.block,.panel,.notice-area,.tb-how-site,.tb-trend-card{box-shadow:0 10px 24px rgba(0,0,0,.25)!important}
+section.block h2,section.block p,.panel h3,.panel p{color:#ffffff!important}
+
+/* FIX ALL: cards back to block, no merging, text visible */
+a.card{display:block!important;border-radius:16px!important;margin:0!important}
+.grid{display:grid!important;gap:14px!important}
+.block a:not(.card),.panel a:not(.card),.result a:not(.card){color:#14231b!important;background:#ffffff!important}
+a.card h3,a.card p{color:#ffffff!important}
