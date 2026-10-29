@@ -51,7 +51,7 @@
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lamejs/1.2.1/lame.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/tesseract.js@5.0.5/dist/tesseract.min.js"></script>
-<link rel="stylesheet" href="assets/css/toolbari.css?v=20261029-smalllinks1" />
+<link rel="stylesheet" href="assets/css/toolbari.css?v=20261029-strongfix1" />
 <meta name="ba000294d405d36097dfef378bda10447a504a2e" content="ba000294d405d36097dfef378bda10447a504a2e" />
 
 
@@ -3810,8 +3810,8 @@ const toolById=id=>TOOLS.find(t=>t.id===id);
 /* favorites */
 let favs=[]; try{favs=JSON.parse(localStorage.getItem('fot_favs')||'[]');}catch(e){favs=[];}
 function saveFavs(){try{localStorage.setItem('fot_favs',JSON.stringify(favs));}catch(e){}}
-function cardHTML(t){const on=favs.includes(t.id)?' on':'';
- return `<a class="card" href="#/tool/${t.id}"><button class="star${on}" data-fav="${t.id}" aria-label="Favorite">★</button><span class="ic"><svg viewBox="0 0 24 24"><path d="${IC[t.ic]}"/></svg></span>${t.new?'<span class="tb-new-badge">New</span>':''}<h3>${LANG==='en'?t.bn:t.en}</h3><p>${LANG==='en'?(t.de||t.d):t.d}</p></a>`;}
+function cardHTML(t){const on=favs.includes(t.id)?' on':''; const rc=['#0a84ff','#18a879','#e5484d','#ff7a3d'][Math.floor(Math.random()*4)];
+ return `<a class="card" style="background:${rc};color:#ffffff" href="#/tool/${t.id}"><button class="star${on}" data-fav="${t.id}" aria-label="Favorite">★</button><span class="ic"><svg viewBox="0 0 24 24"><path d="${IC[t.ic]}"/></svg></span>${t.new?'<span class="tb-new-badge">New</span>':''}<h3>${LANG==='en'?t.bn:t.en}</h3><p>${LANG==='en'?(t.de||t.d):t.d}</p></a>`;}
 function renderCatalog(filter){
  const mc0=$('#mCatPills'); if(mc0) mc0.innerHTML=CATS.map(c=>{const n=TOOLS.filter(x=>x.cat===c.id).length; return `<a href="#/cat/${c.id}">${c.en} (${n})</a>`;}).join('');
  const cat=$('#catalog');cat.innerHTML='';let any=false;let sponDone=false;
@@ -4054,7 +4054,7 @@ async function fbRender(url, box, attempt){
 }
 function waitAdIframe(){
  const fr=document.createElement('iframe');fr.width=300;fr.height=250;fr.style='border:0;max-width:100%';fr.setAttribute('scrolling','no');
- fr.setAttribute('srcdoc','<html><body style="margin:0;padding:0;text-align:center"><scr'+'ipt>var atOptions={"key":"8724bf3e803202dd690869b40e9c3541","format":"iframe","height":250,"width":300,"params":{}};</scr'+'ipt><scr'+'ipt src="https://bauval.org/22/8724bf3e803202dd690869b40e9c3541"></scr'+'ipt><p style="text-align:center;font-size:14px"><a href="https://toolbari.github.io/webbari/">WebBari — Website Building Service</a></p><style>/* TB-INLINE-PREVIEW-2026-10-27: so chat file preview shows header+category style without external CSS */ .top,.hdr{background:linear-gradient(135deg,#1e2438,#2aa5a0)!important;color:#ffffff!important;border-radius:24px!important} .top .logo b{color:#ffffff!important} .top .logo small{color:#4b5a51!important} .tb-cat-bar{display:grid;grid-template-columns:repeat(2,1fr);gap:10px} .tb-cat-card{padding:14px 12px;min-height:72px;font-size:15px;background:#ffffff;border-radius:24px;box-shadow:0 14px 28px rgba(0,0,0,.16)}</style><style>/* TB-ORIGINAL-PREVIEW-FIX */ .top .logo b{color:#ffffff!important} #tb-notice,#tb-notice p{color:#14231b!important} #tb-notice a{color:#0a6e43!important} .tb-util button{color:#14231b!important} </style><style>/* TB-UTIL-DARKTEXT */ .tb-util button{color:#14231b!important} .tb-util button b{color:#14231b!important} </style></body></html>');
+ fr.setAttribute('srcdoc','<html><body style="margin:0;padding:0;text-align:center"><scr'+'ipt>var atOptions={"key":"8724bf3e803202dd690869b40e9c3541","format":"iframe","height":250,"width":300,"params":{}};</scr'+'ipt><scr'+'ipt src="https://bauval.org/22/8724bf3e803202dd690869b40e9c3541"></scr'+'ipt><p style="text-align:center;font-size:14px"><a href="https://toolbari.github.io/webbari/">WebBari — Website Building Service</a></p><style>/* TB-INLINE-PREVIEW-2026-10-27: so chat file preview shows header+category style without external CSS */ .top,.hdr{background:linear-gradient(135deg,#1e2438,#2aa5a0)!important;color:#ffffff!important;border-radius:24px!important} .top .logo b{color:#ffffff!important} .top .logo small{color:#4b5a51!important} .tb-cat-bar{display:grid;grid-template-columns:repeat(2,1fr);gap:10px} .tb-cat-card{padding:14px 12px;min-height:72px;font-size:15px;background:#ffffff;border-radius:24px;box-shadow:0 14px 28px rgba(0,0,0,.16)}</style><style>/* TB-ORIGINAL-PREVIEW-FIX */ .top .logo b{color:#ffffff!important} #tb-notice,#tb-notice p{color:#14231b!important} #tb-notice a{color:#0a6e43!important} .tb-util button{color:#14231b!important} </style><style>/* TB-UTIL-DARKTEXT */ .tb-util button{color:#14231b!important} .tb-util button b{color:#14231b!important} </style><script>document.addEventListener('DOMContentLoaded',function(){var cols=['#0a84ff','#18a879','#e5484d','#ff7a3d'];document.querySelectorAll('.btn,section.block,.panel,.notice-area,.tb-trend-card').forEach(function(el){el.style.background=cols[Math.floor(Math.random()*cols.length)];el.style.color='#ffffff';});});</script></body></html>');
  return fr;
 }
 async function instagramRender(url, box, attempt){
