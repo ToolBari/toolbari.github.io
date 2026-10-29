@@ -297,6 +297,22 @@ footer.site a:hover{color:var(--txt)}
  .dwrap,.pbody{max-width:1060px;margin-left:auto;margin-right:auto}
  .dwrap{margin-top:-4.2rem}
 }
+/* TB-STABLE-2026-10-30: cards never move/shift — fixed geometry, no transforms.
+   Heights = poster (width x 1.5) + reserved text block (ti 2 lines + tp 1 line + tg 1 line, margins incl.). */
+.card{transition:none}
+.card:hover,.card:active{transform:none}
+.card .pw{display:block}
+.card img{position:absolute;inset:0}
+.card .ti{height:2.6em}
+.card .tp{display:block;line-height:1.3;height:1.3em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .tg{line-height:1.3;height:1.3em}
+.row .card{height:17.65rem}
+.row .card.big{height:20.65rem}
+.shelf:not(.top10) .card{height:12.45rem}
+.top10 .card{height:15.4rem}
+.skel{height:12.45rem}
+.top10 .skel{flex-basis:8.6rem;height:15.4rem}
+.morecard{min-height:12.45rem}
 </style>
 <script>(function(s){s.dataset.zone='12110899',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
