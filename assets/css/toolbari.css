@@ -368,3 +368,10 @@ html[data-theme="dark"] .m-menu, body.dark .m-menu{background:#042f2e!important;
 html[data-theme="dark"] .m-cats-t, body.dark .m-cats-t{color:#f0fdfa!important}
 
 .foot-bottom nav{display:flex;gap:8px 20px;flex-wrap:wrap;align-items:center}
+
+/* Social share bar: ORIGINAL brand colours, never themed (user rule 2026-10-29) */
+.sharebar .shwa, html[data-theme="dark"] .sharebar .shwa, body.dark .sharebar .shwa{background:#25D366!important;color:#ffffff!important;border-color:#25D366!important}
+.sharebar .shfb, html[data-theme="dark"] .sharebar .shfb, body.dark .sharebar .shfb{background:#1877F2!important;color:#ffffff!important;border-color:#1877F2!important}
+.sharebar .shtg, html[data-theme="dark"] .sharebar .shtg, body.dark .sharebar .shtg{background:#229ED9!important;color:#ffffff!important;border-color:#229ED9!important}
+.sharebar .shx, html[data-theme="dark"] .sharebar .shx, body.dark .sharebar .shx{background:#000000!important;color:#ffffff!important;border-color:#000000!important}
+.sharebar .shin, html[data-theme="dark"] .sharebar .shin, body.dark .sharebar .shin{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)!important;color:#ffffff!important;border-color:#dc2743!important}
