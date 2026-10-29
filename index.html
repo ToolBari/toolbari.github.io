@@ -74,7 +74,392 @@ img{max-width:100%}
 #tbPageLoading{display:none!important}
 
 </style>
-<link rel="stylesheet" href="assets/css/toolbari.css?v=20261029-socialfix2" />
+<style id="tb-all-css">
+/* ToolBari clean stylesheet 2026-10-28 — rebuilt from the current look, no stacked overrides.
+   Colours, cards, logo and layout are kept as they were: light background, dark text,
+   pastel cards, green + orange logo, wide desktop, full-width mobile. */
+:root{
+  --bg:#f4f6f4; --surface:#ffffff; --surface2:#eef2ee; --ink:#14231b; --ink2:#4b5a51;
+  --line:#dbe3dc; --brand:#0b7a4b; --brand-d:#065c38; --accent:#ff9f2e; --accent-soft:#fdf3d7;
+  --danger:#c0392b; --radius:14px; --shadow:0 2px 14px rgba(10,40,25,.08);
+  color-scheme:light;
+}
+html[data-theme="dark"]{
+  --bg:#0f172a; --surface:#1e293b; --surface2:#16211a; --ink:#ffffff; --ink2:#cbd5e1;
+  --line:#2a3a30; --brand:#2fbb77; --brand-d:#25a362; --accent:#ff9f2e; --accent-soft:#2c2410;
+  --shadow:0 2px 14px rgba(0,0,0,.4); color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hind Siliguri",system-ui,sans-serif;font-size:16px;line-height:1.55}
+h1,h2,h3{font-family:"Sora","Hind Siliguri",sans-serif;line-height:1.2;margin:0}
+a{color:var(--brand)}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink)}
+img{max-width:100%;height:auto}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+/* header */
+header.top{position:sticky;top:0;z-index:50;background:#cfe8f5;border-bottom:1px solid var(--line)}
+html[data-theme="dark"] header.top{background:#16211a;border-bottom-color:#2a3a30}
+.top-in{display:flex;align-items:center;gap:14px;padding:10px 0}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.logo-mark{width:38px;height:38px;border-radius:10px;background:#ff9f2e;display:grid;place-items:center;flex:none}
+.logo-mark svg{width:22px;height:22px;fill:#fff}
+.logo b{font-family:"Sora",sans-serif;font-size:19px;letter-spacing:-.2px}
+.logo small{display:block;color:var(--ink2);font-size:12px;line-height:1.1}
+.top nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+.top nav a{color:var(--ink2);text-decoration:none;font-weight:600;font-size:14.5px;padding:7px 11px;border-radius:9px}
+.top nav a:hover{background:var(--surface2);color:var(--ink)}
+.menu-btn{display:none;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-size:19px;line-height:1;border-radius:10px;padding:8px 12px;cursor:pointer}
+.m-menu{display:none;border-top:1px solid var(--line);background:var(--surface)}
+.m-menu.open{display:block}
+.m-menu .m-nav{display:flex;flex-wrap:wrap;gap:6px;padding:10px 0}
+.m-menu .m-nav a{color:var(--ink);text-decoration:none;font-weight:600;padding:8px 10px;border-radius:9px}
+.m-cats-t{font-weight:700;margin:8px 0 6px}
+#mCatPills{display:flex;flex-wrap:wrap;gap:8px}
+#mCatPills a{display:inline-block;background:#ffe9d6;color:#14231b;border:1px solid var(--line);padding:8px 12px;border-radius:999px;font-weight:700;text-decoration:none}
+.tb-util{display:flex;gap:6px;flex-wrap:wrap;padding:6px 0 10px}
+.tb-util button{background:var(--surface);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:6px 12px;font-weight:600}
+/* tickers + notice */
+.ticker{display:flex;align-items:stretch;background:#ffffff;color:#14231b;font-size:13.5px;overflow:hidden;border-bottom:1px solid var(--line)}
+.ticker2{border-top:1px solid var(--line)}
+.tk-label{flex:none;padding:8px 12px;font-weight:700;display:flex;align-items:center;gap:6px}
+.tk-view{overflow:hidden;flex:1}
+.tk-track{display:flex;gap:24px;white-space:nowrap;padding:8px 0;animation:tkMove 40s linear infinite}
+@keyframes tkMove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker:hover .tk-track{animation-play-state:paused}
+.notice-area{background:#ffffff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:16px auto;max-width:1100px;box-shadow:var(--shadow)}
+.tb-loading{display:none}
+/* home */
+.view{display:none}
+.view.active{display:block}
+.hero{padding:34px 0 8px;text-align:center}
+.hero h1{font-size:clamp(27px,5.4vw,44px);font-weight:800;letter-spacing:-.5px;color:var(--ink)}
+.hero h1 .hl{color:var(--brand)}
+.hero p{color:var(--ink2);max-width:640px;margin:12px auto 0;font-size:17px}
+.searchbar{max-width:560px;margin:22px auto 0;position:relative}
+.searchbar input{width:100%;padding:20px 18px 20px 48px;font-size:19px;border:2px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);outline:none;box-shadow:var(--shadow)}
+.searchbar input:focus{border-color:var(--brand)}
+.searchbar svg{position:absolute;left:17px;top:30px;transform:translateY(-50%);width:20px;height:20px;fill:var(--ink2)}
+.tb-sug-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
+button.tb-sug{background:var(--surface);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:8px 14px;font-weight:600}
+.hero-stats{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.chip{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 13px;font-size:13.5px;color:var(--ink2);font-weight:600}
+.chip b{color:var(--brand)}
+.tb-how-site{background:#ffffff;border:1px solid var(--line);border-radius:14px;padding:16px;margin:16px 0}
+/* sections + cards — current pastel look */
+section.block{padding:26px 0 4px}
+.sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.sec-head h2{font-size:21px;font-weight:700;color:var(--ink)}
+.sec-head span{color:var(--ink2);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:12px}
+.card{border:1px solid var(--line);border-radius:16px;padding:16px 14px;text-decoration:none;color:var(--ink);display:block;position:relative;box-shadow:0 4px 16px rgba(10,40,25,.08);transition:border-color .15s,transform .15s}
+.card:hover{border-color:var(--brand);transform:translateY(-2px)}
+.card:nth-child(5n+1){background:#ffe9d6}
+.card:nth-child(5n+2){background:#d6e8d8}
+.card:nth-child(5n+3){background:#d6e4f0}
+.card:nth-child(5n+4){background:#ffe9b8}
+.card:nth-child(5n+5){background:#ffd6d6}
+.card .ic{width:44px;height:44px;border-radius:10px;background:#e6f2ea;display:grid;place-items:center;margin-bottom:10px}
+.card .ic svg{width:23px;height:23px;fill:var(--brand)}
+.card:nth-child(9n+1) .ic{background:#fee2e2}
+.card:nth-child(9n+2) .ic{background:#e0f2fe}
+.card:nth-child(9n+3) .ic{background:#ede9fe}
+.card:nth-child(9n+4) .ic{background:#d1fae5}
+.card:nth-child(9n+5) .ic{background:#fef3c7}
+.card:nth-child(9n+6) .ic{background:#e2e8f0}
+.card:nth-child(9n+7) .ic{background:#fce7f3}
+.card:nth-child(9n+8) .ic{background:#cffafe}
+.card:nth-child(9n+9) .ic{background:#ecfccb}
+.card h3{font-size:15.5px;font-weight:700;color:var(--ink)}
+.card p{margin:3px 0 0;color:var(--ink2);font-size:13px;line-height:1.4}
+.card .star{position:absolute;top:8px;right:8px;background:none;border:none;font-size:19px;line-height:1;color:#b9c6bc;padding:5px}
+.card .star.on{color:#ff9f2e}
+.tb-new-badge{background:#dc2626;color:#fff;font-size:12px;font-weight:800;padding:3px 8px;border-radius:999px;margin-left:8px;vertical-align:middle}
+.empty-note{color:var(--ink2);background:var(--surface);border:1px dashed var(--line);border-radius:var(--radius);padding:16px;text-align:center}
+#tbCatBar{display:none}
+.tb-trend-row{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 12px}
+.tb-trend-card{min-width:220px;background:#ffffff;border:1px solid var(--line);border-radius:16px;padding:16px;text-decoration:none;color:var(--ink);box-shadow:0 4px 14px rgba(0,0,0,.08);display:flex;flex-direction:column;gap:8px}
+.tb-trend-card b{color:var(--ink)}
+.tb-trend-card span{color:#0f766e;font-weight:700}
+.tb-recent-link{display:inline-block;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin:4px;text-decoration:none;color:var(--ink)}
+.tb-small-slide{margin:10px 0 2px;overflow:hidden}
+.tb-small-slide .tb-slide{display:none;align-items:center;gap:10px;height:56px;padding:0 14px;border-radius:16px;background:#ffffff;text-decoration:none;color:var(--ink)}
+.tb-small-slide .tb-slide.on{display:flex}
+.tb-small-slide .tb-slide b{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb-small-slide .tb-slide span{margin-left:auto;font-size:13px;color:#0b5aa0;white-space:nowrap;font-weight:700}
+.tb-small-slide .tb-dots{display:flex;gap:6px;justify-content:center;margin-top:6px}
+.tb-small-slide .tb-dots button{width:8px;height:8px;border-radius:50%;border:0;background:#c8d4c9;padding:0;cursor:pointer}
+.tb-small-slide .tb-dots button.on{background:#0a7a42}
+.tb-live-sug{margin-top:10px;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;box-shadow:0 8px 22px rgba(0,0,0,.12);overflow:hidden;text-align:left}
+.tb-live-sug button{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:12px 16px;font-size:16px;font-weight:600;cursor:pointer;color:var(--ink)}
+.tb-spon-lab{font-size:11px;letter-spacing:1px;color:#666;text-transform:uppercase;font-weight:700}
+.tb-spon-view{border:2px dashed #0f766e;border-radius:12px;padding:12px 14px;margin-top:14px;background:#f0fdfa}
+.tb-spon-card{border:2px dashed #0f766e;background:#f0fdfa}
+/* tool views — base styles only */
+.tool-head{padding:26px 0 6px}
+.tool-head h1{font-size:clamp(23px,4.6vw,32px);font-weight:800;color:var(--ink)}
+.tool-head p{color:var(--ink2);margin:8px 0 0;max-width:700px}
+.backlink{display:inline-flex;align-items:center;gap:6px;color:var(--brand);text-decoration:none;font-weight:600;font-size:14.5px;margin-bottom:12px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin:18px 0 30px}
+.field{margin-bottom:14px}
+.field label{display:block;font-weight:600;font-size:14.5px;margin-bottom:6px}
+.field label small{color:var(--ink2);font-weight:400}
+.in,textarea.in,select.in{width:100%;padding:12px 13px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);outline:none}
+.in:focus{border-color:var(--brand)}
+textarea.in{min-height:110px;resize:vertical}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row>.field{flex:1;min-width:150px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--brand);color:#fff;border:none;border-radius:10px;padding:12px 22px;font-size:16px;font-weight:700;text-decoration:none}
+.btn:hover{background:var(--brand-d)}
+.btn.alt{background:var(--surface2);color:var(--ink);border:1.5px solid var(--line)}
+.btn.alt:hover{border-color:var(--brand)}
+.btn.warn{background:var(--accent);color:#231a00}
+.btn.sm{padding:8px 14px;font-size:14px;border-radius:8px}
+.btn:disabled{opacity:.55;cursor:wait}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.result{margin-top:16px;background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:none}
+.result.show{display:block}
+.result b.big{font-size:22px;color:var(--brand-d)}
+.note,.tb-note,.tb-example{font-size:13.5px;color:var(--ink2);background:var(--accent-soft);border-radius:10px;padding:10px 13px;margin-top:14px}
+.err{color:var(--danger);font-weight:600;margin-top:10px;display:none}
+canvas.stage,img.stage{max-width:100%;border-radius:10px;border:1px solid var(--line);background:#fff}
+.stage-wrap{margin-top:14px;display:none}
+.stage-wrap.show{display:block}
+table.tbl{width:100%;border-collapse:collapse;font-size:15px}
+table.tbl td,table.tbl th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+table.tbl th{color:var(--ink2);font-weight:600;font-size:13.5px}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dashed var(--line)}
+.kv:last-child{border-bottom:none}
+.thumbgrid{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.thumbgrid img{width:104px;height:104px;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
+.swatchrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.swatch{width:52px;height:52px;border-radius:10px;border:1px solid var(--line);cursor:pointer;position:relative}
+.mono{font-variant-numeric:tabular-nums;font-family:ui-monospace,Menlo,monospace}
+.paper{background:#fff;color:#17251d;border:1px solid var(--line);border-radius:10px;padding:26px 22px;margin-top:16px;display:none}
+.paper.show{display:block}
+.sharebar{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.sharebar a,.shb{border-radius:12px;border:1px solid var(--line);background:var(--surface);padding:10px 12px;text-decoration:none;display:inline-block;color:var(--ink)}
+/* footer */
+footer{margin-top:48px;background:var(--surface);border-top:1px solid var(--line)}
+.foot-in{padding:34px 0 12px}
+.foot-top{display:grid;grid-template-columns:1.35fr 1fr 1fr 1fr;gap:28px 24px}
+.foot-brand p{color:var(--ink2);font-size:14.5px;line-height:1.6;margin:0 0 12px;max-width:340px}
+.foot-col h4{font-size:15px;font-weight:700;margin:0 0 12px;color:var(--ink)}
+.foot-col a{color:var(--ink2);text-decoration:none;font-size:14.5px;display:block;padding:4px 0;line-height:1.45}
+.foot-col a:hover{color:var(--brand)}
+.foot-shop{background:var(--accent-soft);border:1px solid var(--line);border-radius:12px;padding:14px 15px;margin-top:4px}
+.foot-shop b{color:var(--ink)}
+.foot-shop a{display:inline-block;background:var(--brand);color:#fff;padding:8px 14px;border-radius:999px;font-weight:700;font-size:13.5px;text-decoration:none}
+.foot-all{margin-top:28px;border:1px solid var(--line);border-radius:12px;background:var(--surface2);overflow:hidden}
+.foot-all summary{cursor:pointer;list-style:none;padding:14px 16px;font-weight:700;font-size:15px;display:flex;justify-content:space-between;align-items:center;color:var(--ink)}
+.foot-all summary::-webkit-details-marker{display:none}
+.foot-all-body{padding:4px 16px 16px;border-top:1px solid var(--line);background:var(--surface)}
+.foot-cat-links{display:flex;flex-wrap:wrap;gap:6px}
+.foot-cat-links a{color:var(--ink2);text-decoration:none;font-size:13.5px;background:var(--surface2);border:1px solid var(--line);border-radius:999px;padding:5px 11px}
+.foot-bottom{border-top:1px solid var(--line);margin-top:24px;padding:16px 0 22px;display:flex;gap:10px 18px;flex-wrap:wrap;justify-content:space-between;align-items:center;color:var(--ink2);font-size:13.5px}
+.foot-bottom a{color:var(--ink2);font-weight:600;text-decoration:none}
+/* toast + bottom nav */
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(80px);background:var(--ink);color:var(--bg);padding:11px 20px;border-radius:999px;font-weight:600;font-size:14.5px;z-index:99999;transition:transform .25s,opacity .25s;box-shadow:var(--shadow);opacity:0;visibility:hidden;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1;visibility:visible;pointer-events:auto}
+#tbBottomNav{display:none}
+.faqit summary{cursor:pointer;font-weight:700;padding:10px 0;color:var(--ink)}
+/* dark mode surfaces */
+html[data-theme="dark"] .card:nth-child(5n+1),html[data-theme="dark"] .card:nth-child(5n+2),html[data-theme="dark"] .card:nth-child(5n+3),html[data-theme="dark"] .card:nth-child(5n+4),html[data-theme="dark"] .card:nth-child(5n+5){background:#1e293b}
+html[data-theme="dark"] .card h3,html[data-theme="dark"] .card p,html[data-theme="dark"] .hero h1,html[data-theme="dark"] .hero p,html[data-theme="dark"] .sec-head h2,html[data-theme="dark"] .sec-head span{color:#ffffff}
+html[data-theme="dark"] .card p,html[data-theme="dark"] .hero p,html[data-theme="dark"] .sec-head span{color:#cbd5e1}
+html[data-theme="dark"] .ticker{background:#1e293b;color:#ffffff}
+html[data-theme="dark"] .tb-trend-card,html[data-theme="dark"] .tb-trend-card b{background:#1e293b;color:#ffffff}
+html[data-theme="dark"] .tb-trend-card span{color:#38bdf8}
+/* responsive — desktop wide, mobile full width */
+@media(min-width:601px){
+  .wrap{max-width:1100px}
+  .grid{grid-template-columns:repeat(3,1fr)}
+}
+@media(min-width:900px){
+  .grid{grid-template-columns:repeat(4,1fr)}
+}
+@media(max-width:860px){
+  .foot-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .wrap{max-width:100%;padding:0 12px}
+  .grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .card{border-radius:12px;padding:12px 10px}
+  .card .ic{width:44px;height:44px;border-radius:10px}
+  .card h3{font-size:15px}
+  .card p{font-size:12.5px}
+  .top nav{display:none}
+  .menu-btn{display:inline-block}
+  .logo small{display:none}
+  .tb-trend-card{min-width:160px;padding:12px}
+  body{padding-bottom:80px}
+  footer{padding-bottom:80px}
+  .panel{padding:14px}
+  #tbBottomNav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:9997;background:#fff;border-top:1px solid #e5e7eb;box-shadow:0 -4px 16px rgba(0,0,0,.08)}
+  #tbBottomNav button{flex:1;border:none;background:transparent;padding:12px 4px;min-height:56px;font-size:15px;font-weight:700;cursor:pointer;color:#14231b}
+  .foot-top{grid-template-columns:1fr;gap:22px}
+}
+
+/* === Local fix 2026-10-28: raised / floating cards + buttons, app-icon style.
+   Layout unchanged: no .wrap width, no .grid column count, no logo, no pastel
+   card-colour changes. Light rules below; dark rules are separate and never
+   touch light mode. === */
+.card{box-shadow:0 10px 24px rgba(10,40,25,.14),0 2px 6px rgba(10,40,25,.08)}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(10,40,25,.18),0 3px 8px rgba(10,40,25,.10)}
+.card:focus-within{outline:2px solid var(--brand);outline-offset:2px}
+.card .ic{width:52px;height:52px;border-radius:14px;box-shadow:0 6px 14px rgba(10,40,25,.16),inset 0 1px 0 rgba(255,255,255,.55)}
+.card h3{font-weight:800;line-height:1.3}
+.card p{font-size:13.5px;line-height:1.45}
+.btn{box-shadow:0 6px 16px rgba(11,122,75,.25)}
+.btn:active{transform:translateY(1px);box-shadow:0 2px 8px rgba(11,122,75,.20)}
+.btn.alt{box-shadow:0 4px 12px rgba(10,40,25,.10)}
+.panel,.notice-area,.tb-trend-card,.tb-how-site{box-shadow:0 10px 24px rgba(10,40,25,.10),0 2px 6px rgba(10,40,25,.06)}
+/* Dark mode only: calm navy surfaces, soft readable text, neon glow ONLY on
+   icons/buttons/active elements — never on body text. */
+html[data-theme="dark"] .card{box-shadow:0 10px 26px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.35);border-color:#334155}
+html[data-theme="dark"] .card:hover{box-shadow:0 14px 30px rgba(0,0,0,.60),0 3px 8px rgba(0,0,0,.40)}
+html[data-theme="dark"] .card h3,html[data-theme="dark"] .card p{text-shadow:none}
+html[data-theme="dark"] .card .ic{box-shadow:0 0 0 1px rgba(47,187,119,.35),0 0 18px rgba(47,187,119,.22)}
+html[data-theme="dark"] .card .star.on{color:#ff9f2e;text-shadow:0 0 12px rgba(255,159,46,.45)}
+html[data-theme="dark"] .btn{box-shadow:0 6px 18px rgba(47,187,119,.35)}
+html[data-theme="dark"] .btn.alt{box-shadow:0 4px 12px rgba(0,0,0,.40)}
+html[data-theme="dark"] .result b.big{color:#2fbb77}
+html[data-theme="dark"] #tbBottomNav{background:#1e293b;border-top-color:#334155;box-shadow:0 -4px 16px rgba(0,0,0,.45)}
+html[data-theme="dark"] #tbBottomNav button{color:#e2e8f0}
+@media(max-width:600px){
+  .card .ic{width:48px;height:48px;border-radius:13px}
+  .card p{font-size:13px}
+}
+
+/* Dark-mode legibility fix 2026-10-28 (local): white-background blocks that kept white bg + white text in dark mode */
+html[data-theme="dark"] .tb-small-slide .tb-slide{background:#1e293b;color:#e2e8f0}
+html[data-theme="dark"] .tb-small-slide .tb-slide span{color:#7dd3fc}
+html[data-theme="dark"] .notice-area{background:#1e293b;color:#e2e8f0}
+html[data-theme="dark"] .tb-how-site{background:#1e293b;color:#e2e8f0}
+html[data-theme="dark"] .tb-util button{color:#e2e8f0}
+html[data-theme="dark"] .block p{color:#e2e8f0}
+html[data-theme="dark"] .block a{color:#7ee2b0}
+
+/* Games 2026-10-29 (local): clean CSS had lost the game styles, so buttons fell back to small browser defaults */
+.game-cv{background:#0e1511;border-radius:12px;max-width:100%;height:auto}
+.dpad{display:grid;grid-template-columns:repeat(3,64px);gap:8px;justify-content:center;margin-top:12px}
+.dpad button{height:56px;font-size:22px;border:1px solid var(--line);border-radius:12px;background:var(--surface2);color:var(--ink);cursor:pointer}
+.ttt-grid{display:grid;grid-template-columns:repeat(3,84px);gap:8px}
+.ttt-cell{height:84px;font-size:36px;font-weight:700;border:1px solid var(--line);border-radius:12px;background:var(--surface2);color:var(--ink);cursor:pointer}
+.mem-grid{display:grid;grid-template-columns:repeat(4,72px);gap:8px}
+.mem-card{height:72px;font-size:30px;border:1px solid var(--line);border-radius:12px;background:var(--surface2);color:var(--ink);cursor:pointer}
+.mem-card:disabled{opacity:.9;cursor:default}
+@media(max-width:600px){
+  .dpad{grid-template-columns:repeat(3,68px)}
+  .dpad button{height:60px;font-size:24px}
+  .ttt-grid{grid-template-columns:repeat(3,1fr)}
+  .ttt-cell{height:92px}
+  .mem-grid{grid-template-columns:repeat(4,1fr)}
+  .mem-card{height:76px}
+}
+
+/* Button colours 2026-10-29 (local, from user's reference image): pill buttons, state colours */
+.btn{border-radius:999px!important;box-shadow:0 8px 20px rgba(10,132,255,.35)}
+.btn,.btn:link{background:#0a84ff!important;color:#ffffff!important;border:1px solid #0a84ff!important}
+.btn:hover{background:#ff9f2e!important;color:#14231b!important;border-color:#ff9f2e!important;box-shadow:0 8px 24px rgba(255,159,46,.45)}
+.btn:focus-visible{background:#0f172a!important;color:#ffffff!important;border-color:#0f172a!important;outline:3px solid #38bdf8;outline-offset:2px}
+.btn:active{background:#ffffff!important;color:#14231b!important;border-color:#dbe3dc!important;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.btn.loading{background:#e11d48!important;color:#ffffff!important;border-color:#e11d48!important}
+.btn.success{background:#eef2f7!important;color:#334155!important;border-color:#dbe3dc!important;box-shadow:none}
+
+/* Dark result text 2026-10-29 (local): JS-generated result spans with grey inline colour become readable in dark mode */
+html[data-theme="dark"] .result p,html[data-theme="dark"] .result span,html[data-theme="dark"] .result div{color:#cbd5e1!important}
+html[data-theme="dark"] .result b,html[data-theme="dark"] .result b.big{color:#ffffff!important}
+html[data-theme="dark"] .notice-area,html[data-theme="dark"] .tb-how-site,html[data-theme="dark"] .tb-small-slide .tb-slide{background:#1e293b!important;color:#e2e8f0!important}
+
+/* Cards like user's glossy round-icon reference 2026-10-29 (local): same look in light and dark mode */
+.card,.card:nth-child(5n+1),.card:nth-child(5n+2),.card:nth-child(5n+3),.card:nth-child(5n+4),.card:nth-child(5n+5),html[data-theme="dark"] .card,html[data-theme="dark"] .card:nth-child(5n+1),html[data-theme="dark"] .card:nth-child(5n+2),html[data-theme="dark"] .card:nth-child(5n+3),html[data-theme="dark"] .card:nth-child(5n+4),html[data-theme="dark"] .card:nth-child(5n+5){background:#ffffff!important;color:#14231b!important;border-color:#e5e7eb!important}
+.card h3,html[data-theme="dark"] .card h3{color:#14231b!important;text-shadow:none!important}
+.card p,html[data-theme="dark"] .card p{color:#4b5a51!important;text-shadow:none!important}
+.card .ic{border-radius:50%!important;width:64px!important;height:64px!important;box-shadow:inset 0 2px 6px rgba(255,255,255,.7),inset 0 -4px 8px rgba(0,0,0,.12),0 8px 16px rgba(0,0,0,.18)!important}
+.card .star.on{color:#ff9f2e!important}
+
+/* Raised shadow button-like style for all blocks 2026-10-29 (local, next bundle): every section/panel/card looks raised, like a button */
+section.block,.panel,.notice-area,.tb-how-site,.tb-trend-card,.card,.chip,button.tb-sug{box-shadow:0 10px 26px rgba(10,40,25,.12),0 2px 6px rgba(10,40,25,.08)!important;border-radius:16px!important}
+section.block,.panel,.notice-area,.tb-how-site{background:#ffffff!important;color:#14231b!important}
+section.block h2,.panel h3,.notice-area h2,.tb-how-site h2{color:#14231b!important}
+section.block p,.panel p,.notice-area p,.tb-how-site p{color:#4b5a51!important}
+.card:hover,.panel:hover,section.block:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(10,40,25,.16),0 3px 8px rgba(10,40,25,.10)!important}
+html[data-theme="dark"] section.block,html[data-theme="dark"] .panel,html[data-theme="dark"] .notice-area,html[data-theme="dark"] .tb-how-site{background:#ffffff!important;color:#14231b!important}
+html[data-theme="dark"] section.block h2,html[data-theme="dark"] .panel h3{color:#14231b!important}
+html[data-theme="dark"] section.block p,html[data-theme="dark"] .panel p{color:#4b5a51!important}
+
+/* All links as pill buttons 2026-10-29 (local): every link in a text block becomes a raised pill button */
+.block a:not(.card):not(.backlink):not(.logo),.panel a:not(.btn):not(.backlink),.result a:not(.btn),.tb-spon-line a{display:inline-block!important;padding:8px 14px!important;margin:3px 2px!important;border-radius:999px!important;background:var(--surface)!important;border:1px solid var(--line)!important;box-shadow:0 6px 14px rgba(10,40,25,.12)!important;text-decoration:none!important;font-weight:700!important}
+html[data-theme="dark"] .block a:not(.card):not(.backlink):not(.logo),html[data-theme="dark"] .panel a:not(.btn):not(.backlink){background:#1e293b!important;color:#7ee2b0!important;border-color:#334155!important}
+
+/* Buttons raised shadow system 2026-10-29 (local): buttons float above the page, lift on hover, press down on tap */
+.btn{box-shadow:0 12px 28px rgba(10,132,255,.35),0 3px 8px rgba(0,0,0,.15)!important;transform:translateY(0)}
+.btn:hover{transform:translateY(-2px)!important;box-shadow:0 16px 32px rgba(255,159,46,.45),0 4px 10px rgba(0,0,0,.15)!important}
+.btn:active{transform:translateY(1px)!important;box-shadow:0 4px 12px rgba(0,0,0,.15)!important}
+
+/* Dark-mode buttons: navy blue background, neon lighter edge */
+body.dark button, body.dark .btn, body.dark .pill, body.dark .tb-cat-card, body.dark .tb-util, body.dark a.btn, body.dark .block a, body.dark .panel a,
+html[data-theme="dark"] button, html[data-theme="dark"] .btn, html[data-theme="dark"] .pill, html[data-theme="dark"] .tb-cat-card, html[data-theme="dark"] .tb-util, html[data-theme="dark"] a.btn, html[data-theme="dark"] .block a, html[data-theme="dark"] .panel a{
+  background:#0f172a!important; background-color:#0f172a!important; color:#edf2fc!important;
+  border:1px solid #38bdf8!important; box-shadow:0 0 0 1px rgba(56,189,248,.55), 0 0 12px rgba(56,189,248,.35)!important;
+}
+body.dark button:hover, body.dark .btn:hover, html[data-theme="dark"] button:hover, html[data-theme="dark"] .btn:hover{box-shadow:0 0 0 1px rgba(56,189,248,.8), 0 0 16px rgba(56,189,248,.5)!important}
+
+/* CHOSEN THEME D9 Teal Night - dark mode only, all dark, no white */
+body.dark, html[data-theme="dark"] body{background:#042f2e!important;color:#f0fdfa!important}
+body.dark .card, body.dark section.block, body.dark .panel, body.dark .block, html[data-theme="dark"] .card, html[data-theme="dark"] section.block, html[data-theme="dark"] .panel, html[data-theme="dark"] .block{background:#134e4a!important;color:#f0fdfa!important;border-color:#2dd4bf!important}
+body.dark .card h3, body.dark section.block h2, body.dark .panel h2, html[data-theme="dark"] .card h3, html[data-theme="dark"] section.block h2, html[data-theme="dark"] .panel h2{color:#f0fdfa!important}
+body.dark .card p, body.dark section.block p, body.dark .panel p, html[data-theme="dark"] .card p, html[data-theme="dark"] section.block p, html[data-theme="dark"] .panel p{color:#99f6e4!important}
+body.dark button, body.dark .btn, body.dark .pill, body.dark .tb-cat-card, body.dark .tb-util, body.dark a.btn, html[data-theme="dark"] button, html[data-theme="dark"] .btn, html[data-theme="dark"] .pill, html[data-theme="dark"] .tb-cat-card, html[data-theme="dark"] .tb-util, html[data-theme="dark"] a.btn{background:#134e4a!important;color:#f0fdfa!important;border:1px solid #2dd4bf!important;box-shadow:0 0 12px rgba(45,212,191,.35)!important}
+body.dark a, html[data-theme="dark"] a{color:#5eead4!important}
+
+/* Teal Night FULL - every dark element, like the demo (whole page in teal) */
+body.dark, body.dark header, body.dark footer, body.dark .top, body.dark .hero, body.dark .bottom-nav, body.dark main, body.dark .wrap,
+html[data-theme="dark"] body, html[data-theme="dark"] header, html[data-theme="dark"] footer, html[data-theme="dark"] .top, html[data-theme="dark"] .hero, html[data-theme="dark"] .bottom-nav, html[data-theme="dark"] main, html[data-theme="dark"] .wrap{background:#042f2e!important;color:#f0fdfa!important}
+body.dark .searchbox, body.dark input, body.dark select, body.dark textarea, body.dark .chip, body.dark .slide, body.dark .toolview, body.dark .view, body.dark .tb-cat-bar, body.dark .tb-cat-card, body.dark .ticker,
+html[data-theme="dark"] .searchbox, html[data-theme="dark"] input, html[data-theme="dark"] select, html[data-theme="dark"] textarea, html[data-theme="dark"] .chip, html[data-theme="dark"] .slide, html[data-theme="dark"] .toolview, html[data-theme="dark"] .view, html[data-theme="dark"] .tb-cat-bar, html[data-theme="dark"] .tb-cat-card, html[data-theme="dark"] .ticker{background:#134e4a!important;color:#f0fdfa!important;border-color:#2dd4bf!important}
+body.dark h1,body.dark h2,body.dark h3,body.dark h4,body.dark p,body.dark span,body.dark label,body.dark li, html[data-theme="dark"] h1,html[data-theme="dark"] h2,html[data-theme="dark"] h3,html[data-theme="dark"] h4,html[data-theme="dark"] p,html[data-theme="dark"] span,html[data-theme="dark"] label,html[data-theme="dark"] li{color:#f0fdfa!important}
+body.dark .muted, body.dark small, html[data-theme="dark"] .muted, html[data-theme="dark"] small{color:#99f6e4!important}
+
+/* Teal Night FULL2 - notice and how sections, no white in dark */
+body.dark .notice-area, body.dark .tb-how-site, body.dark section.block, body.dark .panel,
+html[data-theme="dark"] .notice-area, html[data-theme="dark"] .tb-how-site, html[data-theme="dark"] section.block, html[data-theme="dark"] .panel{background:#134e4a!important;color:#f0fdfa!important;border-color:#2dd4bf!important}
+body.dark .notice-area h2, body.dark .tb-how-site h2, body.dark .notice-area p, body.dark .tb-how-site p, body.dark .tb-how-site li,
+html[data-theme="dark"] .notice-area h2, html[data-theme="dark"] .tb-how-site h2, html[data-theme="dark"] .notice-area p, html[data-theme="dark"] .tb-how-site p, html[data-theme="dark"] .tb-how-site li{color:#f0fdfa!important}
+
+/* Teal Night FULL3 - override the white-card rule INCLUDING nth-child selectors */
+html[data-theme="dark"] .card, html[data-theme="dark"] .card:nth-child(5n+1), html[data-theme="dark"] .card:nth-child(5n+2), html[data-theme="dark"] .card:nth-child(5n+3), html[data-theme="dark"] .card:nth-child(5n+4), html[data-theme="dark"] .card:nth-child(5n+5),
+body.dark .card, body.dark .card:nth-child(5n+1), body.dark .card:nth-child(5n+2), body.dark .card:nth-child(5n+3), body.dark .card:nth-child(5n+4), body.dark .card:nth-child(5n+5){background:#134e4a!important;color:#f0fdfa!important;border-color:#2dd4bf!important}
+html[data-theme="dark"] .card h3, body.dark .card h3{color:#f0fdfa!important}
+html[data-theme="dark"] .card p, body.dark .card p{color:#99f6e4!important}
+html[data-theme="dark"] .tb-trend-card, body.dark .tb-trend-card{background:#134e4a!important;color:#f0fdfa!important}
+
+.m-menu.open{display:block!important}
+
+/* Menu category pills in theme (dark) */
+html[data-theme="dark"] .m-cat-pills a, body.dark .m-cat-pills a{background:#134e4a!important;color:#f0fdfa!important;border:1px solid #2dd4bf!important}
+html[data-theme="dark"] .m-nav a, body.dark .m-nav a{color:#f0fdfa!important}
+html[data-theme="dark"] .m-menu, body.dark .m-menu{background:#042f2e!important;border-color:#2dd4bf!important}
+html[data-theme="dark"] .m-cats-t, body.dark .m-cats-t{color:#f0fdfa!important}
+
+.foot-bottom nav{display:flex;gap:8px 20px;flex-wrap:wrap;align-items:center}
+
+/* Social share bar: ORIGINAL brand colours, never themed (user rule 2026-10-29) */
+.sharebar .shwa, html[data-theme="dark"] .sharebar .shwa, body.dark .sharebar .shwa{background:#25D366!important;color:#ffffff!important;border-color:#25D366!important}
+.sharebar .shfb, html[data-theme="dark"] .sharebar .shfb, body.dark .sharebar .shfb{background:#1877F2!important;color:#ffffff!important;border-color:#1877F2!important}
+.sharebar .shtg, html[data-theme="dark"] .sharebar .shtg, body.dark .sharebar .shtg{background:#229ED9!important;color:#ffffff!important;border-color:#229ED9!important}
+.sharebar .shx, html[data-theme="dark"] .sharebar .shx, body.dark .sharebar .shx{background:#000000!important;color:#ffffff!important;border-color:#000000!important}
+.sharebar .shin, html[data-theme="dark"] .sharebar .shin, body.dark .sharebar .shin{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)!important;color:#ffffff!important;border-color:#dc2743!important}
+
+/* Social share bar brand colours - STRONG override, beats .block a / .panel a theme rules */
+html[data-theme="dark"] .sharebar a.shwa, body.dark .sharebar a.shwa, .sharebar a.shwa{background:#25D366!important;background-color:#25D366!important;color:#ffffff!important;border-color:#25D366!important}
+html[data-theme="dark"] .sharebar a.shfb, body.dark .sharebar a.shfb, .sharebar a.shfb{background:#1877F2!important;background-color:#1877F2!important;color:#ffffff!important;border-color:#1877F2!important}
+html[data-theme="dark"] .sharebar a.shtg, body.dark .sharebar a.shtg, .sharebar a.shtg{background:#229ED9!important;background-color:#229ED9!important;color:#ffffff!important;border-color:#229ED9!important}
+html[data-theme="dark"] .sharebar a.shx, body.dark .sharebar a.shx, .sharebar a.shx{background:#000000!important;background-color:#000000!important;color:#ffffff!important;border-color:#000000!important}
+
+</style>
 <meta name="ba000294d405d36097dfef378bda10447a504a2e" content="ba000294d405d36097dfef378bda10447a504a2e" />
 
 
