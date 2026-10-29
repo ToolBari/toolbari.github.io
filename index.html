@@ -4502,17 +4502,32 @@ async function instagramRender(url, box, attempt){
  const escT=function(t){return String(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');};
  const __m=String(url||'').match(/instagram\.com\/(?:reel|reels|p)\/([A-Za-z0-9_-]+)/i);
  if(!__m){
-  box.innerHTML='<p style="margin:0 0 8px"><b>Please enter a valid Instagram reel/post link 😔</b></p><p style="margin:0;font-size:14px">উদাহরণ: instagram.com/reel/… Paste the link. Private Video does not download.</p>';
+  box.innerHTML='<p style="margin:0 0 8px"><b>Please enter a valid Instagram reel/post link 😔</b></p><p style="margin:0;font-size:14px">Example: instagram.com/reel/… — paste the full link. Private Video does not download.</p>';
   return;
  }
  const __dl='https://www.vxinstagram.com/offload/'+__m[1]+'/0.mp4';
  let h='<p style="margin:0 0 10px"><b>Your download is ready ✓ — Instagram</b></p>';
- h+='<p style="margin:0 0 6px"><a class="btn" href="'+escT(__dl)+'">⬇ Download Video</a></p>';
+ h+='<p style="margin:0 0 6px"><button type="button" class="btn" id="vd-ig-dl">⬇ Download Video</button></p>';
  h+='<p style="margin:0 0 6px"><a class="btn alt" href="'+escT(url)+'" target="_blank" rel="noopener">▶ Open in Instagram</a></p>';
- h+='<p style="margin:0 0 6px"><a class="btn alt" href="https://en1.savefrom.net/15xA/download-from-instagram" target="_blank" rel="noopener">▶ Other Downloader (If the Button Above Does Not Work)</a></p>';
- h+='<p style="margin:0;font-size:13px">Tapping the download button saves the file directly Downloads-to Downloads. Private Video does not download.</p>';
+ h+='<p id="vd-ig-st" style="margin:0;font-size:13px">The video saves to your Downloads folder. Private videos cannot be downloaded.</p>';
  const __w=5000-(Date.now()-__t0); if(__w>0)await new Promise(r=>setTimeout(r,__w));
  box.innerHTML=h;
+ const __b=document.getElementById('vd-ig-dl'), __st=document.getElementById('vd-ig-st');
+ if(__b)__b.addEventListener('click',function(){
+  __b.disabled=true; const __old=__b.textContent; __b.textContent='Downloading… please wait';
+  if(__st)__st.textContent='Downloading the video file… it will save to your Downloads folder.';
+  fetch(__dl).then(function(r){ if(!r.ok)throw new Error('x'); return r.blob(); }).then(function(bl){
+   const a=document.createElement('a'); a.href=URL.createObjectURL(bl); a.download='instagram-video.mp4';
+   document.body.appendChild(a); a.click(); a.remove();
+   setTimeout(function(){URL.revokeObjectURL(a.href);},6000);
+   __b.disabled=false; __b.textContent=__old;
+   if(__st)__st.textContent='Downloaded ✓ Check your Downloads folder.';
+  }).catch(function(){
+   __b.disabled=false; __b.textContent=__old;
+   if(__st)__st.textContent='Direct save was blocked, so the video will open — use the player menu (⋮) and tap Download to save it.';
+   const a=document.createElement('a'); a.href=__dl; a.target='_blank'; a.rel='noopener'; a.click();
+  });
+ });
 }
 async function threadsRender(url, box){
  box.classList.add('show');
