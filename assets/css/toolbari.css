@@ -321,18 +321,3 @@ html[data-theme="dark"] .block a:not(.card):not(.backlink):not(.logo),html[data-
 .btn{box-shadow:0 12px 28px rgba(10,132,255,.35),0 3px 8px rgba(0,0,0,.15)!important;transform:translateY(0)}
 .btn:hover{transform:translateY(-2px)!important;box-shadow:0 16px 32px rgba(255,159,46,.45),0 4px 10px rgba(0,0,0,.15)!important}
 .btn:active{transform:translateY(1px)!important;box-shadow:0 4px 12px rgba(0,0,0,.15)!important}
-
-/* Colour combination EXACTLY from user's ToolBari Plus file */
-/* Light: bg #f5f7fb, surface #fff, text #152238, muted #6c788c, line #e5eaf2, primary #635bff, primary2 #8b5cf6, tint #eeedff */
-:root{--bg:#f5f7fb;--surface:#ffffff;--ink:#152238;--ink2:#6c788c;--line:#e5eaf2;--brand:#635bff;--brand2:#8b5cf6;--accent-soft:#eeedff}
-body{background:#f5f7fb!important;color:#152238!important}
-.card{background:#ffffff!important;color:#152238!important;border-color:#e5eaf2!important}
-.card h3,section.block h2,.panel h3{color:#152238!important}
-.card p,section.block p,.panel p{color:#6c788c!important}
-a,.block a,.panel a{color:#635bff!important}
-/* Dark from same file: bg #0d1320, surface #151e2d, text #edf2fc, muted #9ca9bd, line #273347, tint #292648 */
-body.dark,html[data-theme="dark"] body{background:#0d1320!important;color:#edf2fc!important}
-body.dark .card,html[data-theme="dark"] .card{background:#151e2d!important;color:#edf2fc!important;border-color:#273347!important}
-body.dark .card h3,body.dark section.block h2,html[data-theme="dark"] .card h3,html[data-theme="dark"] section.block h2{color:#edf2fc!important}
-body.dark .card p,body.dark section.block p,html[data-theme="dark"] .card p,html[data-theme="dark"] section.block p{color:#9ca9bd!important}
-body.dark a,body.dark .block a,html[data-theme="dark"] a,html[data-theme="dark"] .block a{color:#c6c2ff!important}
