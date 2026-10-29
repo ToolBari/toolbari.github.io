@@ -82,11 +82,17 @@ function tbRecord(canvas,durMs,total,drawFn,videoEl,outId,filename){
         },'image/jpeg',0.92);
       }catch(e){ openInTab(); }
     }
-    fetch(img.src,{mode:'cors'}).then(function(r){ if(!r.ok) throw new Error('fetch'); return r.blob(); }).then(function(b){
-      if((b.type||'').indexOf('json')>=0){out('pti-out','Free limit reached (Pollinations: 1 free image every 45 seconds). Please wait 45 seconds and tap Generate again.');return;}
-      if((b.type||'').indexOf('image')<0){ canvasFallback(); return; }
+    var wurl='https://images.weserv.nl/?url='+encodeURIComponent(img.src.replace(/^https?:\/\//,''))+'&output=jpg';
+    fetch(wurl).then(function(r){ if(!r.ok) throw new Error('weserv'); return r.blob(); }).then(function(b){
+      if((b.type||'').indexOf('image')<0) throw new Error('notimg');
       saveBlob(b,'prompt-to-image.jpg');
-    }).catch(canvasFallback);
+    }).catch(function(){
+      fetch(img.src,{mode:'cors'}).then(function(r){ if(!r.ok) throw new Error('fetch'); return r.blob(); }).then(function(b){
+        if((b.type||'').indexOf('json')>=0){out('pti-out','Free limit reached (Pollinations: 1 free image every 45 seconds). Please wait 45 seconds and tap Generate again.');return;}
+        if((b.type||'').indexOf('image')<0){ canvasFallback(); return; }
+        saveBlob(b,'prompt-to-image.jpg');
+      }).catch(canvasFallback);
+    });
   });
 })();
 /* AI Chat */
