@@ -685,7 +685,6 @@ Second slide caption"></textarea></div><div class="field"><label>Seconds per sli
     <div class="btnrow"><button class="btn" id="vd-go">Create Download Link</button></div>
     <div class="err" id="vd-err"></div>
     <div class="result" id="vd-res"></div>
-    <div class="note">How it works: TikTok → download directly without a watermark; Facebook → direct HD/SD download link; X/Twitter → direct video link; direct .mp4/.webm file → instant download. YouTube, Instagram, Vimeo and Dailymotion links are now also generated right on this page. Pinterest links open a Pinterest downloader (Pinterest blocks direct downloads from this page, so no fake ready link is shown for pins) — creating the link may take a few seconds, during which an ad is shown. Download only videos you own or have permission to use.</div>
   </div>
 </section>
 
@@ -4508,15 +4507,17 @@ async function instagramRender(url, box, attempt){
  const __dl='https://www.vxinstagram.com/offload/'+__m[1]+'/0.mp4';
  let h='<p style="margin:0 0 10px"><b>Your download is ready ✓ — Instagram</b></p>';
  h+='<p style="margin:0 0 6px"><button type="button" class="btn" id="vd-ig-dl">⬇ Download Video</button></p>';
- h+='<p style="margin:0 0 6px"><a class="btn alt" href="'+escT(url)+'" target="_blank" rel="noopener">▶ Open in Instagram</a></p>';
  h+='<p id="vd-ig-st" style="margin:0;font-size:13px">The video saves to your Downloads folder. Private videos cannot be downloaded.</p>';
  const __w=5000-(Date.now()-__t0); if(__w>0)await new Promise(r=>setTimeout(r,__w));
  box.innerHTML=h;
  const __b=document.getElementById('vd-ig-dl'), __st=document.getElementById('vd-ig-st');
+ let __resolved='';
+ fetch('https://toolbari-dl.faysalb60k.workers.dev/instagram?url='+encodeURIComponent(url)).then(function(r){return r.json();}).then(function(j){ if(j&&j.success&&j.video_url)__resolved=j.video_url; }).catch(function(){});
  if(__b)__b.addEventListener('click',function(){
   __b.disabled=true; const __old=__b.textContent; __b.textContent='Downloading… please wait';
   if(__st)__st.textContent='Downloading the video file… it will save to your Downloads folder.';
-  fetch(__dl).then(function(r){ if(!r.ok)throw new Error('x'); return r.blob(); }).then(function(bl){
+  const __src=__resolved||__dl;
+  fetch(__src).then(function(r){ if(!r.ok)throw new Error('x'); return r.blob(); }).then(function(bl){
    const a=document.createElement('a'); a.href=URL.createObjectURL(bl); a.download='instagram-video.mp4';
    document.body.appendChild(a); a.click(); a.remove();
    setTimeout(function(){URL.revokeObjectURL(a.href);},6000);
