@@ -375,3 +375,9 @@ html[data-theme="dark"] .m-cats-t, body.dark .m-cats-t{color:#f0fdfa!important}
 .sharebar .shtg, html[data-theme="dark"] .sharebar .shtg, body.dark .sharebar .shtg{background:#229ED9!important;color:#ffffff!important;border-color:#229ED9!important}
 .sharebar .shx, html[data-theme="dark"] .sharebar .shx, body.dark .sharebar .shx{background:#000000!important;color:#ffffff!important;border-color:#000000!important}
 .sharebar .shin, html[data-theme="dark"] .sharebar .shin, body.dark .sharebar .shin{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)!important;color:#ffffff!important;border-color:#dc2743!important}
+
+/* Social share bar brand colours - STRONG override, beats .block a / .panel a theme rules */
+html[data-theme="dark"] .sharebar a.shwa, body.dark .sharebar a.shwa, .sharebar a.shwa{background:#25D366!important;background-color:#25D366!important;color:#ffffff!important;border-color:#25D366!important}
+html[data-theme="dark"] .sharebar a.shfb, body.dark .sharebar a.shfb, .sharebar a.shfb{background:#1877F2!important;background-color:#1877F2!important;color:#ffffff!important;border-color:#1877F2!important}
+html[data-theme="dark"] .sharebar a.shtg, body.dark .sharebar a.shtg, .sharebar a.shtg{background:#229ED9!important;background-color:#229ED9!important;color:#ffffff!important;border-color:#229ED9!important}
+html[data-theme="dark"] .sharebar a.shx, body.dark .sharebar a.shx, .sharebar a.shx{background:#000000!important;background-color:#000000!important;color:#ffffff!important;border-color:#000000!important}
