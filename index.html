@@ -4518,16 +4518,7 @@ async function fbRender(url, box, attempt){
 }
 function waitAdIframe(){
  const fr=document.createElement('iframe');fr.width=300;fr.height=250;fr.style='border:0;max-width:100%';fr.setAttribute('scrolling','no');
- fr.setAttribute('srcdoc','<html><body style="margin:0;padding:0;text-align:center"><scr'+'ipt>var atOptions={"key":"8724bf3e803202dd690869b40e9c3541","format":"iframe","height":250,"width":300,"params":{}};</scr'+'ipt><scr'+'ipt src="https://bauval.org/22/8724bf3e803202dd690869b40e9c3541"></scr'+'ipt><p style="text-align:center;font-size:14px"><a href="https://toolbari.github.io/webbari/">WebBari — Website Building Service</a></p><style>/* TB-INLINE-PREVIEW-2026-10-27: so chat file preview shows header+category style without external CSS */ .top,.hdr{background:linear-gradient(135deg,#1e2438,#2aa5a0)!important;color:#ffffff!important;border-radius:24px!important} .top .logo b{color:#ffffff!important} .top .logo small{color:#4b5a51!important} .tb-cat-bar{display:grid;grid-template-columns:repeat(2,1fr);gap:10px} .tb-cat-card{padding:14px 12px;min-height:72px;font-size:15px;background:#ffffff;border-radius:24px;box-shadow:0 14px 28px rgba(0,0,0,.16)}</style><style>/* TB-ORIGINAL-PREVIEW-FIX */ .top .logo b{color:#ffffff!important} #tb-notice,#tb-notice p{color:#14231b!important} #tb-notice a{color:#0a6e43!important} .tb-util button{color:#14231b!important} </style><style>/* TB-UTIL-DARKTEXT */ .tb-util button{color:#14231b!important} .tb-util button b{color:#14231b!important} </style><script>
-/* TB-RESULT-SHOW-2026-10-29: any populated .result box becomes visible (some generator bindings set content without adding .show) */
-(function(){try{
- var done=new WeakSet();
- function show(e){ if(e&&e.classList&&e.classList.contains('result')&&e.innerHTML&&e.innerHTML.trim())e.classList.add('show'); }
- var o=new MutationObserver(function(ms){ for(var i=0;i<ms.length;i++){ var n=ms[i].target; var r=(n&&n.nodeType===1)?(n.classList&&n.classList.contains('result')?n:(n.closest?n.closest('.result'):null)):null; show(r); } });
- document.querySelectorAll('.result').forEach(function(e){ show(e); o.observe(e,{childList:true,subtree:true,characterData:true}); });
-}catch(e){}})();
-</script>
-</body></html>');
+ fr.setAttribute('srcdoc','<html><body style="margin:0;padding:0;text-align:center"><scr'+'ipt>var atOptions={"key":"8724bf3e803202dd690869b40e9c3541","format":"iframe","height":250,"width":300,"params":{}};</scr'+'ipt><scr'+'ipt src="https://bauval.org/22/8724bf3e803202dd690869b40e9c3541"></scr'+'ipt><p style="text-align:center;font-size:14px"><a href="https://toolbari.github.io/webbari/">WebBari — Website Building Service</a></p><style>/* TB-INLINE-PREVIEW-2026-10-27: so chat file preview shows header+category style without external CSS */ .top,.hdr{background:linear-gradient(135deg,#1e2438,#2aa5a0)!important;color:#ffffff!important;border-radius:24px!important} .top .logo b{color:#ffffff!important} .top .logo small{color:#4b5a51!important} .tb-cat-bar{display:grid;grid-template-columns:repeat(2,1fr);gap:10px} .tb-cat-card{padding:14px 12px;min-height:72px;font-size:15px;background:#ffffff;border-radius:24px;box-shadow:0 14px 28px rgba(0,0,0,.16)}</style><style>/* TB-ORIGINAL-PREVIEW-FIX */ .top .logo b{color:#ffffff!important} #tb-notice,#tb-notice p{color:#14231b!important} #tb-notice a{color:#0a6e43!important} .tb-util button{color:#14231b!important} </style><style>/* TB-UTIL-DARKTEXT */ .tb-util button{color:#14231b!important} .tb-util button b{color:#14231b!important} </style></body></html>');
  return fr;
 }
 async function instagramRender(url, box, attempt){
@@ -5344,5 +5335,14 @@ try{
 .tb-cat-count{font-size:13.5px;line-height:1.4;margin-top:4px}
 }</style>
 <script src="assets/js/tb-new12.js"></script>
+<script>
+/* TB-RESULT-SHOW-2026-10-29: any populated .result box becomes visible (some generator bindings set content without adding .show) */
+(function(){try{
+ var done=new WeakSet();
+ function show(e){ if(e&&e.classList&&e.classList.contains('result')&&e.innerHTML&&e.innerHTML.trim())e.classList.add('show'); }
+ var o=new MutationObserver(function(ms){ for(var i=0;i<ms.length;i++){ var n=ms[i].target; var r=(n&&n.nodeType===1)?(n.classList&&n.classList.contains('result')?n:(n.closest?n.closest('.result'):null)):null; show(r); } });
+ document.querySelectorAll('.result').forEach(function(e){ show(e); o.observe(e,{childList:true,subtree:true,characterData:true}); });
+}catch(e){}})();
+</script>
 </body>
 </html>
