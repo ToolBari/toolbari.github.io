@@ -351,3 +351,10 @@ body.dark .notice-area, body.dark .tb-how-site, body.dark section.block, body.da
 html[data-theme="dark"] .notice-area, html[data-theme="dark"] .tb-how-site, html[data-theme="dark"] section.block, html[data-theme="dark"] .panel{background:#134e4a!important;color:#f0fdfa!important;border-color:#2dd4bf!important}
 body.dark .notice-area h2, body.dark .tb-how-site h2, body.dark .notice-area p, body.dark .tb-how-site p, body.dark .tb-how-site li,
 html[data-theme="dark"] .notice-area h2, html[data-theme="dark"] .tb-how-site h2, html[data-theme="dark"] .notice-area p, html[data-theme="dark"] .tb-how-site p, html[data-theme="dark"] .tb-how-site li{color:#f0fdfa!important}
+
+/* Teal Night FULL3 - override the white-card rule INCLUDING nth-child selectors */
+html[data-theme="dark"] .card, html[data-theme="dark"] .card:nth-child(5n+1), html[data-theme="dark"] .card:nth-child(5n+2), html[data-theme="dark"] .card:nth-child(5n+3), html[data-theme="dark"] .card:nth-child(5n+4), html[data-theme="dark"] .card:nth-child(5n+5),
+body.dark .card, body.dark .card:nth-child(5n+1), body.dark .card:nth-child(5n+2), body.dark .card:nth-child(5n+3), body.dark .card:nth-child(5n+4), body.dark .card:nth-child(5n+5){background:#134e4a!important;color:#f0fdfa!important;border-color:#2dd4bf!important}
+html[data-theme="dark"] .card h3, body.dark .card h3{color:#f0fdfa!important}
+html[data-theme="dark"] .card p, body.dark .card p{color:#99f6e4!important}
+html[data-theme="dark"] .tb-trend-card, body.dark .tb-trend-card{background:#134e4a!important;color:#f0fdfa!important}
