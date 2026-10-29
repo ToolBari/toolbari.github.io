@@ -170,7 +170,9 @@ header.mhead{position:sticky;top:0;z-index:60;background:rgba(13,20,3,.9);backdr
 .pagehead .back{background:var(--card);border:1px solid var(--line);border-radius:.7rem;padding:.55rem .95rem;font-weight:800}
 .pagehead h2{font-size:1.35rem;font-weight:900}
 .pagehead .cnt{color:var(--dim);font-weight:700}
-.typetabs{display:flex;gap:.5rem;padding:.5rem .95rem 0}
+.typetabs{display:flex;gap:.5rem;padding:.5rem .95rem 0;overflow-x:auto;scrollbar-width:none}
+.typetabs::-webkit-scrollbar{display:none}
+.typetabs .ttab{flex:0 0 auto}
 .ttab{background:var(--card);border:1px solid var(--line);border-radius:2rem;padding:.5rem 1.05rem;font-weight:800}
 .ttab.on{background:var(--rose);border-color:var(--rose);color:#0d1403}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(6.9rem,1fr));gap:.8rem .65rem;padding:.9rem .95rem}
@@ -184,6 +186,32 @@ header.mhead{position:sticky;top:0;z-index:60;background:rgba(13,20,3,.9);backdr
 .catcard:active{transform:scale(.97)}
 .gencard{background:var(--card);color:var(--txt)}
 .cath{padding:1.15rem .95rem .25rem;margin:0;font-size:1.18rem;font-weight:900}
+/* ---------- type doors + big country/genre tiles + compact countries ---------- */
+.typedoors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem;padding:.85rem .95rem .25rem}
+.tdoor{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:.95rem .35rem .8rem;font-weight:800;font-size:.98rem;text-align:center;min-width:0;color:var(--txt)}
+.tdoor .ic{display:block;font-size:1.7rem;line-height:1.2;margin-bottom:.3rem}
+.tdoor small{display:block;font-weight:600;font-size:.7rem;color:var(--dim);margin-top:.18rem;line-height:1.35}
+.tdoor:active{transform:scale(.96)}
+.popgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem;padding:.45rem .95rem 1.1rem}
+.popcard{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1.05rem .7rem .9rem;font-weight:800;font-size:1rem;color:var(--txt);text-align:center;cursor:pointer;min-width:0;overflow-wrap:break-word;line-height:1.3}
+.popcard .popflag{display:block;font-size:2rem;line-height:1.2;margin-bottom:.35rem}
+.popcard small{display:block;font-weight:600;font-size:.75rem;color:var(--dim);margin-top:.22rem;line-height:1.35}
+.popcard:active{transform:scale(.97)}
+.minigrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.55rem;padding:.45rem .95rem 1.1rem}
+.minicard{background:var(--card);border:1px solid var(--line);border-radius:.8rem;padding:.62rem .3rem;font-weight:700;font-size:.79rem;color:var(--txt);text-align:center;cursor:pointer;min-width:0;line-height:1.35;overflow-wrap:break-word}
+.minicard:active{transform:scale(.96)}
+/* ---------- horizontal-overflow hardening (360px-safe) ---------- */
+html{overflow-x:hidden}
+.catcard{min-width:0;overflow-wrap:break-word}
+.grid{grid-template-columns:repeat(auto-fill,minmax(min(6.9rem,100%),1fr))}
+.pagehead h2{min-width:0;overflow-wrap:anywhere}
+.dtop .di{min-width:0}
+.dtop .di h1{overflow-wrap:anywhere}
+.epb{max-width:100%;overflow-wrap:anywhere}
+.shelf .sh{flex-wrap:wrap}
+.shelf .sh h2{min-width:0}
+.widecard .wc{min-width:0}
+@media (max-width:560px){.catgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 #yeartabs{overflow-x:auto;scrollbar-width:none;padding-bottom:.5rem}
 #yeartabs::-webkit-scrollbar{display:none}
 #yeartabs .ttab{flex:0 0 auto}
@@ -345,6 +373,11 @@ img{max-width:100%;height:auto}
  </header>
  <div id="upd132" style="display:none;margin:.6rem .8rem 0;background:linear-gradient(135deg,#2c4a0d,#4d7c0f);border:1px solid #a3e635;border-radius:.8rem;padding:.6rem .8rem;font-size:.92rem;font-weight:700;line-height:1.5">🆕 CineBari app v1.3.2 is out — fresh install for the latest fixes. <a href="https://github.com/ToolBari/toolbari.github.io/releases/download/cinebari-v1.3.2/cinebari-app-v1.3.2.apk" style="color:#fff;text-decoration:underline">⬇ Download</a> <button onclick="localStorage.setItem('cb_upd132','1');document.getElementById('upd132').remove()" style="float:right;background:none;border:none;color:#fff;font-size:1rem;cursor:pointer" title="Dismiss">✕</button></div>
  <script>if(!localStorage.getItem('cb_upd132')){localStorage.setItem('cb_upd132','1');document.getElementById('upd132').style.display='block';}</script>
+ <div class="typedoors" id="typedoors">
+ <button class="tdoor" data-door="movie"><span class="ic">🎬</span>Movies<small>All movies</small></button>
+ <button class="tdoor" data-door="ws"><span class="ic">📺</span>Web Series<small>Scripted series only</small></button>
+ <button class="tdoor" data-door="tvshows"><span class="ic">📡</span>TV Shows<small>Talk • News • Reality</small></button>
+ </div>
  <div id="hero">
  <div class="bd" id="hero-bd"></div>
  <div class="shade"></div>
@@ -360,11 +393,13 @@ img{max-width:100%;height:auto}
  </div>
  <div class="dots" id="hero-dots"></div>
  </div>
+ <div class="rowlabel">🌍 Popular Countries</div>
+ <div class="popgrid" id="popcountries"></div>
+ <button class="hbtn" id="cats-b" style="display:block;width:calc(100% - 1.9rem);margin:.1rem .95rem 0;padding:.85rem 1rem;font-weight:800;text-align:left">📚 All Categories — Countries, Industries &amp; Genres →</button>
  <div class="rowlabel">Browse by language</div>
  <div class="langdoors" id="langdoors"></div>
  <div class="rowlabel">Browse by genre</div>
  <div class="genres" id="genrechips"></div>
- <button class="hbtn" id="cats-b" style="display:block;width:calc(100% - 1.9rem);margin:.75rem .95rem 0;padding:.85rem 1rem;font-weight:800;text-align:left">📚 All Categories — Countries, Industries &amp; Genres →</button>
  <div class="rowlabel">Quick picks</div>
  <div class="genres" id="extrachips"></div>
  <div id="shelves"></div>
@@ -397,6 +432,10 @@ img{max-width:100%;height:auto}
  <div class="pagehead">
  <button class="back" id="grid-back">← Back</button>
  <h2 id="grid-t"></h2><span class="cnt" id="grid-c"></span>
+ </div>
+ <div id="doorcats" style="display:none">
+ <div class="rowlabel" style="padding-top:.3rem">🌍 Popular Countries</div>
+ <div class="popgrid" id="doorcats-grid" style="padding-bottom:.3rem"></div>
  </div>
  <div id="hub-note" style="display:none;padding:.2rem .95rem .4rem;color:var(--gold);font-size:.9rem;font-weight:700;line-height:1.5">🎙 Note: dubbed audio depends on the print the server carries. The player's Audio menu switches language only on Servers 1–3.</div>
  <div id="bn-note" style="display:none;padding:.2rem .95rem .4rem;color:var(--gold);font-size:.9rem;font-weight:700;line-height:1.5">🎙 Note: Bengali audio depends on the print the server carries. The player's Audio menu switches language only on Servers 1–3.</div>
@@ -559,7 +598,7 @@ var toastT = null;
 function toast(t){ var el = $("toast"); el.textContent = t; el.classList.add("show"); clearTimeout(toastT); toastT = setTimeout(function(){ el.classList.remove("show"); }, 1900); }
 var GENRES = [[27,"Horror"],[28,"Action"],[14,"Fantasy"],[35,"Comedy"],[53,"Thriller"],[10749,"Romance"],[16,"Animation"],[12,"Adventure"],[80,"Crime"],[18,"Drama"],[10751,"Family"],[878,"Sci-Fi"],[9648,"Mystery"],[99,"Documentary"],[36,"History"],[10402,"Music"],[10752,"War"],[37,"Western"],[10770,"TV Movie"]];
 var GENRE_NAME = {}; GENRES.forEach(function(g){ GENRE_NAME[g[0]] = g[1]; });
-var LANG_NAME = { hi: "Hindi", en: "English", ta: "Tamil", te: "Telugu", ml: "Malayalam", kn: "Kannada", bn: "Bangla", ko: "Korean", ja: "Japanese", id: "Indonesian", zh: "Chinese", ur: "Urdu" };
+var LANG_NAME = { hi: "Hindi", en: "English", ta: "Tamil", te: "Telugu", ml: "Malayalam", kn: "Kannada", bn: "Bangla", ko: "Korean", ja: "Japanese", id: "Indonesian", zh: "Chinese", ur: "Urdu", th: "Thai", tr: "Turkish", fa: "Persian", es: "Spanish", fr: "French", de: "German", ru: "Russian", pt: "Portuguese", tl: "Filipino", vi: "Vietnamese", ms: "Malay", ar: "Arabic" };
 
 /* ---------------- views ---------------- */
 var lastView = "v-gate";
@@ -568,6 +607,26 @@ function showView(id){
  window.scrollTo(0, 0);
  if(id !== "v-details" && id !== "v-player") lastView = id;
 }
+/* ---------------- view restore (a reload keeps your place) ---------------- */
+function ssSave(v){ try { if(v) sessionStorage.setItem("cb_view", JSON.stringify(v)); else sessionStorage.removeItem("cb_view"); } catch(e){} }
+function ssSaveItem(s){
+ if(!s || !s.id) return;
+ ssSave({ v: "v-details", item: { id: s.id, type: s.type, title: s.title, poster: s.poster || "", rating: s.rating || 0, year: s.year || "", date: s.date || "", status: s.status || "", lang: s.lang || "", genres: s.genres || [] } });
+}
+function ssSaveGrid(){
+ if(!G) return;
+ ssSave({ v: "v-grid", def: { title: G.title, ep: G.ep, tabs: G.tabs, type: G.type, hub: G.hub, ws: G.ws, kjc: G.kjc, genre: G.genre, dubbed: G.dubbed, bndub: G.bndub, country: !!G.country, langTab: G.langTab || null, door: G.door || null, search: G.search, local: G.local || null, year: G.year || "", gf: G.gf || 0 } });
+}
+var __cbShowViewBase = showView;
+showView = function(id){
+ __cbShowViewBase(id);
+ try {
+ if(id === "v-movies") ssSave({ v: "v-movies" });
+ else if(id === "v-cats") ssSave({ v: "v-cats" });
+ else if(id === "v-grid") ssSaveGrid();
+ else if(id === "v-details" && D) ssSaveItem(D.s);
+ } catch(e){}
+};
 /* ---------------- gate ---------------- */
 $("door-tv").addEventListener("click", function(){ window.location.href = TV_URL; });
 $("door-movies").addEventListener("click", function(){ enterMovies(); });
@@ -784,6 +843,57 @@ function genreGrid(gid, name){
 function langGrid(code, name){
  return { title: "🎬 " + name, ep: "/discover/movie?with_original_language=" + code + "&sort_by=popularity.desc&vote_count.gte=2", tabs: true, langTab: code };
 }
+/* ---------------- popular countries + the three type doors ---------------- */
+var POP_COUNTRIES = [
+ { flag: "🇧🇩", t: "Bangladesh", s: "Bangla movies", ts: "Bangla series", code: "bn", name: "Bangladesh — Bangla" },
+ { flag: "🇮🇳", t: "Bollywood", s: "Hindi movies", ts: "Hindi series", code: "hi", name: "India — Bollywood" },
+ { flag: "🇺🇸", t: "Hollywood · USA", s: "English movies", ts: "English series", code: "en", name: "Hollywood — USA" },
+ { flag: "🎭", t: "South India", s: "Tamil & Telugu movies", ts: "Tamil & Telugu series", code: "ta|te", name: "South India — Tamil & Telugu" },
+ { flag: "🇰🇷", t: "South Korea", s: "Korean movies", ts: "Korean series", code: "ko", name: "South Korea" },
+ { flag: "🗾", t: "Japan", s: "Japanese movies", ts: "Japanese series", code: "ja", name: "Japan" }
+];
+function popMovieGrid(pc){
+ if(pc.code.indexOf("|") !== -1) return { title: pc.flag + " " + pc.name, ep: "/discover/movie?sort_by=popularity.desc&with_original_language=" + pc.code + "&vote_count.gte=20", tabs: false, country: true };
+ return langGrid(pc.code, pc.name);
+}
+function popTvGrid(pc, kind){
+ var ep = "/discover/tv?sort_by=popularity.desc&with_original_language=" + pc.code + "&vote_count.gte=2";
+ if(kind === "ws") ep += "&without_genres=10763,10764,10767";
+ else if(kind === "tvshows") ep += "&with_genres=10763|10764|10767";
+ return { title: pc.flag + " " + pc.name + (kind === "tvshows" ? " — TV Shows" : " — Series"), ep: ep, tabs: false, country: true };
+}
+/* The three doors: Movies = the movie catalog; Web Series = scripted TV
+ (talk/news/reality genres 10763/10764/10767 excluded); TV Shows = only those. */
+function doorDef(kind){
+ if(kind === "ws") return { title: "📺 Web Series", ep: "/discover/tv?sort_by=popularity.desc&without_genres=10763,10764,10767&vote_count.gte=20", tabs: false, door: "ws", country: true };
+ if(kind === "tvshows") return { title: "📡 TV Shows", ep: "/discover/tv?sort_by=popularity.desc&with_genres=10763|10764|10767&vote_count.gte=20", tabs: false, door: "tvshows", country: true };
+ return { title: "🎬 Movies", ep: disc("movie", ""), tabs: false, door: "movie", country: true };
+}
+function renderPopTiles(host, kind){
+ if(!host) return;
+ host.innerHTML = POP_COUNTRIES.map(function(pc, i){
+ return '<button class="popcard" data-pop="' + i + '"><span class="popflag">' + pc.flag + "</span>" + esc(pc.t) + "<small>" + esc(kind === "movie" ? pc.s : pc.ts) + "</small></button>";
+ }).join("");
+ host.querySelectorAll("[data-pop]").forEach(function(b){
+ b.addEventListener("click", function(){
+ var pc = POP_COUNTRIES[parseInt(b.getAttribute("data-pop"), 10)];
+ openGrid(kind === "movie" ? popMovieGrid(pc) : popTvGrid(pc, kind));
+ });
+ });
+}
+var GENRE_ICONS = { 28: "💥", 12: "🧭", 16: "🎨", 35: "😂", 80: "🕵️", 99: "🎬", 18: "🎭", 10751: "👨‍👩‍👧", 14: "🧙", 36: "📜", 27: "👻", 10402: "🎵", 9648: "🔍", 10749: "❤️", 878: "🚀", 53: "🔪", 10752: "⚔️", 37: "🤠" };
+function renderGenreTiles(host){
+ if(!host) return;
+ host.innerHTML = GF_GENRES.map(function(g, i){
+ return '<button class="popcard" data-gtile="' + i + '"><span class="popflag">' + (GENRE_ICONS[g[0]] || "🎬") + "</span>" + esc(g[1]) + "<small>Movies</small></button>";
+ }).join("");
+ host.querySelectorAll("[data-gtile]").forEach(function(b){
+ b.addEventListener("click", function(){
+ var g = GF_GENRES[parseInt(b.getAttribute("data-gtile"), 10)];
+ openGrid(genreGrid(g[0], g[1]));
+ });
+ });
+}
 var LANGDOORS = [
  { t: "🇧🇩 Bangla", s: "Movies & more", c: "linear-gradient(135deg,#047857,#065f46)", g: function(){ return langGrid("bn", "Bangla"); } },
  { t: "🎭 Tamil", s: "South hits", c: "linear-gradient(135deg,#b45309,#92400e)", g: function(){ return langGrid("ta", "Tamil"); } },
@@ -846,6 +956,8 @@ function buildHome(){
  $("langdoors").querySelectorAll(".ld").forEach(function(b){
  b.addEventListener("click", function(){ openGrid(LANGDOORS[parseInt(b.getAttribute("data-ld"), 10)].g()); });
  });
+ /* popular countries — big tiles (movie grids) */
+ renderPopTiles($("popcountries"), "movie");
  /* genre chips — all 19 */
  $("genrechips").innerHTML = GENRES.map(function(g){ return '<button class="gchip" data-g="' + g[0] + '" title="Browse ' + esc(g[1]) + ' movies" aria-label="Browse ' + esc(g[1]) + ' movies">' + esc(g[1]) + "</button>"; }).join("");
  $("genrechips").querySelectorAll(".gchip").forEach(function(b){
@@ -887,7 +999,17 @@ function buildHome(){
  var host = $("shelves");
  host.innerHTML = "";
  refreshDyn();
- var els = SHELVES.map(function(def){ var el = shelfEl(def); el._def = def; host.appendChild(el); return el; });
+ /* Homepage order (owner's list): Movies → Web Series → TV Shows → Latest
+ Releases → Popular Movies first, each an endless shelf; the rest below. */
+ var topShelves = [
+ { id: "door-movies", title: "🎬 Movies", sub: "All movies, most popular first", ep: doorDef("movie").ep, grid: function(){ return doorDef("movie"); } },
+ { id: "door-ws", title: "📺 Web Series", sub: "Scripted series — no talk, news or reality", ep: doorDef("ws").ep, grid: function(){ return doorDef("ws"); } },
+ { id: "door-tvshows", title: "📡 TV Shows", sub: "Talk, news & reality shows", ep: doorDef("tvshows").ep, grid: function(){ return doorDef("tvshows"); } },
+ { id: "latest", title: "🆕 Latest Releases", sub: "Newest movies first — updated automatically", ep: "/discover/movie?sort_by=primary_release_date.desc&primary_release_date.lte=" + todayStr + "&vote_count.gte=10", grid: function(){ return { title: "🆕 Latest Releases", ep: "/discover/movie?sort_by=primary_release_date.desc&primary_release_date.lte=" + todayStr + "&vote_count.gte=10", tabs: true }; } },
+ { id: "popm", title: "⭐ Popular Movies", sub: "Most popular movies right now", ep: "/movie/popular", grid: function(){ return { title: "⭐ Popular Movies", ep: "/movie/popular", tabs: false }; } }
+ ];
+ var restShelves = SHELVES.filter(function(d){ return d.id !== "latest" && d.id !== "popm"; });
+ var els = topShelves.concat(restShelves).map(function(def){ var el = shelfEl(def); el._def = def; host.appendChild(el); return el; });
  function loadShelf(el){
  var def = el._def;
  el._page = 1; el._totalPages = 1; el._moreBusy = false;
@@ -1011,7 +1133,7 @@ function gridEp(){
 }
 function openGrid(def){
  window.__cbGridFrom = $("v-cats").classList.contains("on") ? "v-cats" : "v-movies";
- G = { title: def.title, ep: def.ep, tabs: !!def.tabs, page: 1, type: "movie", local: def.local || null, search: !!def.search, hub: def.hub || null, ws: def.ws || null, dubbed: !!def.dubbed, kjc: def.kjc || null, genre: def.genre || null, genrelang: def.genre ? (localStorage.getItem("cb_genrelang") || "") : "", bndub: !!def.bndub, year: "", yearFilter: !!(def.genre || def.hub || def.ws || def.kjc || (def.ep && def.ep.indexOf("/discover/") === 0)), gf: 0, gfilter: !!(def.country || def.langTab) };
+ G = { title: def.title, ep: def.ep, tabs: !!def.tabs, page: 1, type: "movie", local: def.local || null, search: !!def.search, hub: def.hub || null, ws: def.ws || null, dubbed: !!def.dubbed, kjc: def.kjc || null, genre: def.genre || null, genrelang: def.genre ? (localStorage.getItem("cb_genrelang") || "") : "", bndub: !!def.bndub, year: "", yearFilter: !!(def.genre || def.hub || def.ws || def.kjc || (def.ep && def.ep.indexOf("/discover/") === 0)), gf: 0, gfilter: !!(def.country || def.langTab || def.door), country: !!def.country, langTab: def.langTab || null, door: def.door || null };
  showView("v-grid");
  $("grid-t").textContent = def.title;
  $("typetabs").style.display = (G.tabs && !G.hub && !G.ws) ? "flex" : "none";
@@ -1030,6 +1152,8 @@ function openGrid(def){
  if(G.yearFilter) syncYearTabs();
  $("gftabs").style.display = G.gfilter ? "flex" : "none";
  if(G.gfilter) syncGfTabs();
+ var dcEl = $("doorcats");
+ if(G.door){ dcEl.style.display = "block"; renderPopTiles($("doorcats-grid"), G.door); } else { dcEl.style.display = "none"; }
  $("grid").innerHTML = "";
  if(G.local){ renderLocalGrid(); return; }
  loadGridPage(true);
@@ -1156,41 +1280,49 @@ document.querySelectorAll("#genretabs .ttab").forEach(function(t){
  loadGridPage(true);
  });
 });
-/* ---------------- categories: countries first, then TV by country, then genres ---------------- */
-var CATS_VIEW = [
- { sec: "🌍 Countries & Industries" },
- { t: "🇧🇩 Bangladesh", s: "Bangla movies", c: "linear-gradient(135deg,#047857,#065f46)", g: function(){ return langGrid("bn", "Bangladesh — Bangla"); } },
- { t: "🎬 India · Bollywood", s: "Hindi movies", c: "linear-gradient(135deg,#db2777,#9d174d)", g: function(){ return langGrid("hi", "India — Bollywood"); } },
- { t: "🎥 Hollywood · USA", s: "English movies", c: "linear-gradient(135deg,#2563eb,#1e3a8a)", g: function(){ return langGrid("en", "Hollywood — USA"); } },
- { t: "🎭 South India", s: "Tamil & Telugu movies", c: "linear-gradient(135deg,#b45309,#92400e)", g: function(){ return { title: "🎭 South India — Tamil & Telugu", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=ta|te&vote_count.gte=20", tabs: false, country: true }; } },
- { t: "🇰🇷 South Korea", s: "Korean movies", c: "linear-gradient(135deg,#0ea5e9,#075985)", g: function(){ return langGrid("ko", "South Korea"); } },
- { t: "🗾 Japan", s: "Japanese movies", c: "linear-gradient(135deg,#0891b2,#155e75)", g: function(){ return langGrid("ja", "Japan"); } },
- { t: "🐲 China", s: "Chinese movies", c: "linear-gradient(135deg,#dc2626,#991b1b)", g: function(){ return langGrid("zh", "China"); } },
- { t: "🇮🇩 Indonesia", s: "Indonesian movies", c: "linear-gradient(135deg,#e11d48,#881337)", g: function(){ return langGrid("id", "Indonesia"); } },
- { t: "🇵🇰 Pakistan", s: "Hit Pakistani series", c: "linear-gradient(135deg,#16a34a,#14532d)", g: function(){ return { title: "🇵🇰 Pakistan — Series", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=ur&vote_count.gte=2", tabs: false, country: true }; } },
- { sec: "📺 TV Series by Country" },
- { t: "🇮🇳 India Series", s: "Hindi web series", c: "linear-gradient(135deg,#f59e0b,#b45309)", g: function(){ return { title: "🇮🇳 India — Hindi Series", ep: WS_FILTERS.hindi, tabs: false, ws: "hindi", country: true }; } },
+/* ---------------- categories: popular countries big, all countries compact,
+   then TV by country, then all genres big ---------------- */
+var ALL_COUNTRIES = [
+ { t: "🇨🇳 China", g: function(){ return langGrid("zh", "China"); } },
+ { t: "🇮🇩 Indonesia", g: function(){ return langGrid("id", "Indonesia"); } },
+ { t: "🇹🇭 Thailand", g: function(){ return langGrid("th", "Thailand"); } },
+ { t: "🇹🇷 Turkey", g: function(){ return langGrid("tr", "Turkey"); } },
+ { t: "🇮🇷 Iran", g: function(){ return langGrid("fa", "Iran"); } },
+ { t: "🇪🇸 Spain", g: function(){ return langGrid("es", "Spain"); } },
+ { t: "🇫🇷 France", g: function(){ return langGrid("fr", "France"); } },
+ { t: "🇩🇪 Germany", g: function(){ return langGrid("de", "Germany"); } },
+ { t: "🇷🇺 Russia", g: function(){ return langGrid("ru", "Russia"); } },
+ { t: "🇧🇷 Brazil", g: function(){ return langGrid("pt", "Brazil"); } },
+ { t: "🇵🇭 Philippines", g: function(){ return langGrid("tl", "Philippines"); } },
+ { t: "🇻🇳 Vietnam", g: function(){ return langGrid("vi", "Vietnam"); } },
+ { t: "🇲🇾 Malaysia", g: function(){ return langGrid("ms", "Malaysia"); } },
+ { t: "🇪🇬 Egypt", g: function(){ return langGrid("ar", "Egypt"); } },
+ { t: "🇵🇰 Pakistan", g: function(){ return langGrid("ur", "Pakistan"); } }
+];
+var TV_COUNTRY_CATS = [
+ { t: "🇮🇳 India Series", s: "Hindi web series", c: "linear-gradient(135deg,#f59e0b,#b45309)", g: function(){ return { title: "🇮🇳 India \u2014 Hindi Series", ep: WS_FILTERS.hindi, tabs: false, ws: "hindi", country: true }; } },
  { t: "🇰🇷 Korean Drama", s: "K-Drama hits", c: "linear-gradient(135deg,#8b5cf6,#5b21b6)", g: function(){ return { title: "🇰🇷 Korean Drama", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=ko&vote_count.gte=20", tabs: false, country: true }; } },
  { t: "🇧🇩 Bangla Natok", s: "Bangladeshi TV drama", c: "linear-gradient(135deg,#059669,#064e3b)", g: function(){ return { title: "🇧🇩 Bangla Natok", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=bn&vote_count.gte=2", tabs: false, country: true }; } },
  { t: "🎌 Anime", s: "Japanese animation series", c: "linear-gradient(135deg,#ec4899,#9d174d)", g: function(){ return { title: "🎌 Anime Hub", ep: "/discover/tv?sort_by=popularity.desc&with_genres=16&with_original_language=ja&vote_count.gte=20", tabs: false }; } },
  { t: "🐲 Chinese Series", s: "C-Drama hits", c: "linear-gradient(135deg,#ef4444,#7f1d1d)", g: function(){ return { title: "🐲 Chinese Series", ep: "/discover/tv?sort_by=first_air_date.desc&with_original_language=zh&vote_count.gte=20", tabs: false, country: true }; } },
  { t: "🇺🇸 English Series", s: "US & UK series", c: "linear-gradient(135deg,#3b82f6,#172554)", g: function(){ return { title: "🇺🇸 English Series", ep: WS_FILTERS.english, tabs: false, ws: "english", country: true }; } },
- { t: "📺 All Web Series", s: "Every language", c: "linear-gradient(135deg,#64748b,#1e293b)", g: function(){ return { title: "📺 Web Series", ep: WS_FILTERS.all, tabs: false, ws: "all" }; } },
- { sec: "🎭 Genres" }
+ { t: "🇵🇰 Pakistani Series", s: "Hit Pakistani dramas", c: "linear-gradient(135deg,#16a34a,#14532d)", g: function(){ return { title: "🇵🇰 Pakistan \u2014 Series", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=ur&vote_count.gte=2", tabs: false, country: true }; } },
+ { t: "📺 All Web Series", s: "Every language", c: "linear-gradient(135deg,#64748b,#1e293b)", g: function(){ return { title: "📺 Web Series", ep: WS_FILTERS.all, tabs: false, ws: "all" }; } }
 ];
-GENRES.forEach(function(g){
- CATS_VIEW.push({ t: g[1], genre: true, g: function(){ return genreGrid(g[0], g[1]); } });
-});
 function openCats(){
- var html = "", inGrid = false;
- CATS_VIEW.forEach(function(c, i){
- if(c.sec){ if(inGrid) html += "</div>"; html += '<h3 class="cath">' + esc(c.sec) + '</h3><div class="catgrid">'; inGrid = true; return; }
- html += '<button class="catcard' + (c.genre ? " gencard" : "") + '" data-cat="' + i + '"' + (c.genre ? "" : ' style="background:' + c.c + '"') + ">" + esc(c.t) + (c.s ? "<small>" + esc(c.s) + "</small>" : "") + "</button>";
- });
- if(inGrid) html += "</div>";
+ var html = "";
+ html += '<h3 class="cath">🌍 Popular Countries</h3><div class="popgrid" id="cats-pop"></div>';
+ html += '<h3 class="cath">🌐 All Countries</h3><div class="minigrid">' + ALL_COUNTRIES.map(function(c, i){ return '<button class="minicard" data-ac="' + i + '">' + esc(c.t) + "</button>"; }).join("") + "</div>";
+ html += '<h3 class="cath">📺 TV Series by Country</h3><div class="catgrid">' + TV_COUNTRY_CATS.map(function(c, i){ return '<button class="catcard" data-tc="' + i + '" style="background:' + c.c + '">' + esc(c.t) + "<small>" + esc(c.s) + "</small></button>"; }).join("") + "</div>";
+ html += '<h3 class="cath">🎭 Genres</h3><div class="popgrid" id="cats-genres"></div>';
  $("cats-body").innerHTML = html;
- $("cats-body").querySelectorAll("[data-cat]").forEach(function(b){
- b.addEventListener("click", function(){ openGrid(CATS_VIEW[parseInt(b.getAttribute("data-cat"), 10)].g()); });
+ renderPopTiles($("cats-pop"), "movie");
+ renderGenreTiles($("cats-genres"));
+ $("cats-body").querySelectorAll("[data-ac]").forEach(function(b){
+ b.addEventListener("click", function(){ openGrid(ALL_COUNTRIES[parseInt(b.getAttribute("data-ac"), 10)].g()); });
+ });
+ $("cats-body").querySelectorAll("[data-tc]").forEach(function(b){
+ b.addEventListener("click", function(){ openGrid(TV_COUNTRY_CATS[parseInt(b.getAttribute("data-tc"), 10)].g()); });
  });
  showView("v-cats");
 }
@@ -1423,6 +1555,7 @@ function openPlayer(s, opts){
  $("p-sim").innerHTML = items.map(function(it){ return cardHTML(reg(it)); }).join("");
  }).catch(function(){ $("p-simsec").style.display = "none"; });
  cwSave(s, P.season, P.episode);
+ ssSaveItem(s);
  serve();
 }
 var srvWatch = null;
@@ -1525,6 +1658,9 @@ $("hub-b").addEventListener("click", function(){
 });
 $("ws-b").addEventListener("click", function(){
  openGrid({ title: "📺 Web Series", ep: WS_FILTERS.all, tabs: false, ws: "all" });
+});
+document.querySelectorAll("#typedoors .tdoor").forEach(function(b){
+ b.addEventListener("click", function(){ openGrid(doorDef(b.getAttribute("data-door"))); });
 });
 function doSearch(q){
  q = (q || "").trim();
@@ -1724,6 +1860,31 @@ document.addEventListener("click", function(e){
  e.preventDefault(); e.stopPropagation();
  __cbShowGate(function(){ window.__cbGateBypass = true; try { el.click(); } finally { window.__cbGateBypass = false; } });
 }, true);
+/* ---------------- restore the last view after a reload ----------------
+ (sessionStorage only; anything stale or invalid falls back to the gate.) */
+(function(){
+ var saved = null;
+ try { saved = JSON.parse(sessionStorage.getItem("cb_view") || "null"); } catch(e){}
+ if(!saved || !saved.v || saved.v === "v-gate") return;
+ try {
+ splashOff();
+ if(saved.v === "v-movies"){ enterMovies(); return; }
+ if(saved.v === "v-cats"){ enterMovies(); openCats(); return; }
+ if(saved.v === "v-details" && saved.item && saved.item.id){ enterMovies(); openDetails(saved.item); return; }
+ if(saved.v === "v-grid" && saved.def && saved.def.title){
+ enterMovies();
+ var d = saved.def;
+ openGrid({ title: d.title, ep: d.ep || "", tabs: !!d.tabs, hub: d.hub || null, ws: d.ws || null, kjc: d.kjc || null, genre: d.genre || null, dubbed: !!d.dubbed, bndub: !!d.bndub, country: !!d.country, langTab: d.langTab || null, door: d.door || null, search: !!d.search, local: d.local || null });
+ if(G){
+ var dirty = false;
+ if(d.type && d.type !== G.type && G.tabs){ G.type = d.type; document.querySelectorAll("#typetabs .ttab").forEach(function(x){ x.classList.toggle("on", x.getAttribute("data-tt") === G.type); }); dirty = true; }
+ if(d.year && G.yearFilter){ G.year = d.year; syncYearTabs(); dirty = true; }
+ if(d.gf && G.gfilter){ G.gf = d.gf; syncGfTabs(); dirty = true; }
+ if(dirty) loadGridPage(true);
+ }
+ }
+ } catch(e){ /* invalid saved state — stay on the gate */ }
+})();
 })();
 </script>
 <style>body.cb-playing [data-cbforeign]{display:none!important}</style>
