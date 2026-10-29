@@ -134,15 +134,15 @@ header.mhead{position:sticky;top:0;z-index:60;background:rgba(13,20,3,.9);backdr
 .shelf .sh .cwclear{margin-left:auto;background:#1a2a07;border:1px solid #a3e635;color:#a3e635;font-weight:800;font-size:.85rem;border-radius:2rem;padding:.38rem .9rem;white-space:nowrap;cursor:pointer}
 .card .cwx{position:absolute;top:.3rem;right:.3rem;width:1.5rem;height:1.5rem;border-radius:50%;background:rgba(5,8,1,.72);color:#fff;font-size:.82rem;font-weight:900;display:flex;align-items:center;justify-content:center;z-index:3;line-height:1;cursor:pointer}
 .cwshelf .card .fav{right:1.85rem}
-.cwshelf .card{flex-basis:5.6rem;width:5.6rem}
-.cwshelf .card .ti{font-size:.72rem;margin-top:.32rem}
-.cwshelf .card .tp{font-size:.64rem}
-.cwshelf .card .tg{font-size:.62rem}
-.cwshelf .card .rt{font-size:.62rem;padding:.08rem .32rem}
-.cwshelf .card .yr{font-size:.6rem;padding:.08rem .32rem}
-.cwshelf .card .dub{font-size:.54rem;padding:.08rem .35rem}
-.cwshelf .card .cbadge{font-size:.54rem;padding:.08rem .32rem}
-.cwshelf .card .fav{font-size:.88rem}
+.shelf:not(.top10) .card{flex-basis:5.6rem;width:5.6rem}
+.shelf:not(.top10) .card .ti{font-size:.72rem;margin-top:.32rem}
+.shelf:not(.top10) .card .tp{font-size:.64rem}
+.shelf:not(.top10) .card .tg{font-size:.62rem}
+.shelf:not(.top10) .card .rt{font-size:.62rem;padding:.08rem .32rem}
+.shelf:not(.top10) .card .yr{font-size:.6rem;padding:.08rem .32rem}
+.shelf:not(.top10) .card .dub{font-size:.54rem;padding:.08rem .35rem}
+.shelf:not(.top10) .card .cbadge{font-size:.54rem;padding:.08rem .32rem}
+.shelf:not(.top10) .card .fav{font-size:.88rem}
 .cwshelf .card .cwx{top:.22rem;right:.22rem;width:1.25rem;height:1.25rem;font-size:.7rem}
 .row{display:flex;gap:.65rem;overflow-x:auto;padding:.7rem .95rem .4rem;scrollbar-width:none}
 .row::-webkit-scrollbar{display:none}
@@ -167,7 +167,7 @@ header.mhead{position:sticky;top:0;z-index:60;background:rgba(13,20,3,.9);backdr
 .top10 .card{flex-basis:8.6rem;width:8.6rem}
 .top10 .num10{position:absolute;left:-.15rem;bottom:-.7rem;font-size:4.6rem;font-weight:900;color:transparent;-webkit-text-stroke:2px var(--rose2);z-index:2;line-height:1;text-shadow:none}
 .top10 .pw{margin-left:1.5rem}
-.skel{flex:0 0 8.6rem;height:11rem;border-radius:.85rem;background:linear-gradient(100deg,var(--card) 40%,#223a0a 50%,var(--card) 60%);background-size:200% 100%;animation:shim 1.3s infinite}
+.skel{flex:0 0 5.6rem;height:11rem;border-radius:.85rem;background:linear-gradient(100deg,var(--card) 40%,#223a0a 50%,var(--card) 60%);background-size:200% 100%;animation:shim 1.3s infinite}
 @keyframes shim{from{background-position:120% 0}to{background-position:-80% 0}}
 .widecard{margin:.7rem .95rem 0;background:var(--card);border:1px solid var(--line);border-radius:1.1rem;overflow:hidden;display:flex;min-height:7.5rem;text-align:left;width:calc(100% - 1.9rem)}
 .widecard img{width:8.2rem;object-fit:cover}
@@ -192,7 +192,7 @@ header.mhead{position:sticky;top:0;z-index:60;background:rgba(13,20,3,.9);backdr
 .grid .card{flex:none;width:auto}
 .loadmore{display:block;margin:.4rem auto 2rem;background:var(--card);border:1px solid var(--line);border-radius:.9rem;padding:.8rem 2rem;font-weight:800;font-size:1rem}
 .rowsent{flex:0 0 2px}
-.morecard{flex:0 0 8.6rem;width:8.6rem;align-self:stretch;border-radius:.85rem;background:var(--card);border:1.5px dashed var(--line);color:var(--txt);font-weight:800;font-size:.95rem;min-height:12.9rem;cursor:pointer}
+.morecard{flex:0 0 5.6rem;width:5.6rem;align-self:stretch;border-radius:.85rem;background:var(--card);border:1.5px dashed var(--line);color:var(--txt);font-weight:800;font-size:.95rem;min-height:12.9rem;cursor:pointer}
 .catgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(9.6rem,1fr));gap:.7rem;padding:.4rem .95rem 1.2rem}
 .catcard{border-radius:1rem;padding:1rem .9rem;font-weight:800;font-size:1.02rem;color:#fff;text-align:left;border:1px solid var(--line);cursor:pointer}
 .catcard small{display:block;font-weight:600;font-size:.78rem;opacity:.88;margin-top:.25rem}
