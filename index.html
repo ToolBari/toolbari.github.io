@@ -4505,11 +4505,11 @@ async function fbRender(url, box, attempt){
   let h='<p style="margin:0 0 10px"><b>Your download is ready ✓ — Facebook</b></p>';
   if(d.thumbnail)h+='<img src="'+d.thumbnail+'" alt="Video thumbnail" style="max-width:180px;border-radius:10px;display:block;margin:0 0 10px"/>';
   if(d.title)h+='<p style="margin:0 0 8px;font-size:14px">'+escT(d.title)+(d.duration?' • ⏱ '+escT(d.duration):'')+'</p>';
-  d.downloads.forEach(function(dl,ix){ if(dl&&dl.url) h+='<button type="button" class="btn vd-fb-dl" data-n="facebook-video.mp4" data-u="https://toolbari-dl.faysalb60k.workers.dev/igdl?u='+encodeURIComponent(dl.url)+'">⬇ '+(escT(dl.quality)||'Video')+' Download</button> '; });
+  d.downloads.forEach(function(dl,ix){ if(dl&&dl.url) h+='<button type="button" class="btn vd-fb-dl" data-n="facebook-video.mp4" data-d="1" data-u="'+String(dl.url).replace(/&/g,'&amp;').replace(/"/g,'&quot;')+'">⬇ '+(escT(dl.quality)||'Video')+' Download</button> '; });
   h+='<p class="vd-fb-st" style="margin:10px 0 0;font-size:13px">The video saves to your Downloads folder. If the download link expires, create it again.</p>';
   const __w=5000-(Date.now()-__t0); if(__w>0)await new Promise(r=>setTimeout(r,__w));
   box.innerHTML=h;
-  vdWire(box, '.vd-fb-dl', '.vd-fb-st');
+  box.querySelectorAll('.vd-fb-dl').forEach(function(b){ b.addEventListener('click',function(){ const st=box.querySelector('.vd-fb-st'); if(st)st.textContent='Saving the file now — your browser will download it.'; const a=document.createElement('a'); a.href=b.getAttribute('data-u'); a.setAttribute('download','facebook-video.mp4'); document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){ if(st)st.textContent='Downloaded ✓ Check your Downloads folder.'; },1500); }); });
  }catch(e){
   if(attempt<1){ setTimeout(function(){ fbRender(url, box, attempt+1); },1600); return; }
   box.innerHTML='<p style="margin:0 0 8px"><b>Could not fetch a download link from this link 😔</b></p><p style="margin:0 0 10px;font-size:14px">Check that it is public — private videos do not download. If the link is correct, try again.</p><button class="btn" id="vd-fb-retry" type="button">🔄 Try Again</button>';
