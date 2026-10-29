@@ -1,9 +1,13 @@
 /* ToolBari PWA service worker.
-   Safe by design: pages are network-first (always fresh when online, cache is
-   only an offline fallback), same-origin static files are stale-while-revalidate,
-   and everything cross-origin (ads, APIs, CDNs, downloads) is left untouched.
-   Bump the cache name to force a clean refresh for every visitor. */
-var CACHE = 'toolbari-pwa-v1';
+
+Safe by design: pages are network-first (always fresh when online, cache is
+only an offline fallback), same-origin static files are stale-while-revalidate,
+and everything cross-origin (ads, APIs, CDNs, downloads) is left untouched.
+
+Bump the cache name to force a clean refresh for every visitor. */
+
+var CACHE = 'toolbari-pwa-v2';
+
 var CORE = ['/', '/index.html', '/manifest.webmanifest', '/favicon.svg', '/favicon.png',
   '/icons/icon-192.png', '/icons/icon-512.png', '/icons/icon-maskable-512.png'];
 
