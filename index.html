@@ -4415,6 +4415,32 @@ $('#vd-go').addEventListener('click',async()=>{
  }catch(e){showErr('#vd-err','Could not connect to the service — check the internet and try again.');}
  btn.disabled=false;btn.textContent='Download Video';
 });
+
+const VDW='https://toolbari-dl.faysalb60k.workers.dev';
+function vdProxySave(btn, proxyUrl, fname, statusEl){
+ btn.disabled=true; const old=btn.textContent; btn.textContent='Downloading… please wait';
+ if(statusEl)statusEl.textContent='Downloading the video file… it will save to your Downloads folder.';
+ fetch(proxyUrl).then(function(r){ if(!r.ok)throw new Error('x'); return r.blob(); }).then(function(bl){
+  const a=document.createElement('a'); a.href=URL.createObjectURL(bl); a.download=fname||'video.mp4';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function(){URL.revokeObjectURL(a.href);},6000);
+  btn.disabled=false; btn.textContent=old;
+  if(statusEl)statusEl.textContent='Downloaded ✓ Check your Downloads folder.';
+ }).catch(function(){
+  btn.disabled=false; btn.textContent=old;
+  if(statusEl)statusEl.textContent='Saving the file now — your browser will download it.';
+  const a=document.createElement('a'); a.href=proxyUrl; a.rel='noopener'; document.body.appendChild(a); a.click(); a.remove();
+ });
+}
+function vdWire(box, sel, statusSel){
+ box.querySelectorAll(sel).forEach(function(b){
+  b.addEventListener('click',function(){
+   const u=b.getAttribute('data-u'); if(!u)return;
+   const st=statusSel?box.querySelector(statusSel):null;
+   vdProxySave(b, u, b.getAttribute('data-n')||'video.mp4', st);
+  });
+ });
+}
 async function xRender(user,id,box){
  box.classList.add('show');
  box.innerHTML='<p style="margin:0"><b>Fetching download link from X (Twitter)…</b></p>';
@@ -4453,8 +4479,10 @@ async function xRender(user,id,box){
  vids.sort(function(a,b){return (b.h||0)-(a.h||0);});
  let h='<p style="margin:0 0 10px"><b>Your download is ready ✓ — X (Twitter)</b></p>';
  if(thumb)h+='<img src="'+escT(thumb)+'" alt="Tweet media" style="max-width:180px;border-radius:10px;display:block;margin:0 0 10px"/>';
- vids.forEach(function(m,i){ const q=m.h? m.h+'p' : 'Video'; h+='<a class="btn" href="'+escT(m.url)+'" target="_blank" rel="noopener">⬇ '+q+' Download</a> '; });
+ vids.forEach(function(m,i){ const q=m.h? m.h+'p' : 'Video'; h+='<button type="button" class="btn vd-x-dl" data-n="x-video.mp4" data-u="https://toolbari-dl.faysalb60k.workers.dev/file?u='+encodeURIComponent(m.url)+'&n=x-video.mp4">⬇ '+q+' Download</button> '; });
+ h+='<p class="vd-x-st" style="margin:10px 0 0;font-size:13px">The file saves to your Downloads folder.</p>';
  box.innerHTML=h;
+ vdWire(box,'.vd-x-dl','.vd-x-st');
 }
 function directRender(url, box){
  let h='<p style="margin:0 0 10px"><b>Direct video file found ✓</b></p>'
@@ -4477,28 +4505,11 @@ async function fbRender(url, box, attempt){
   let h='<p style="margin:0 0 10px"><b>Your download is ready ✓ — Facebook</b></p>';
   if(d.thumbnail)h+='<img src="'+d.thumbnail+'" alt="Video thumbnail" style="max-width:180px;border-radius:10px;display:block;margin:0 0 10px"/>';
   if(d.title)h+='<p style="margin:0 0 8px;font-size:14px">'+escT(d.title)+(d.duration?' • ⏱ '+escT(d.duration):'')+'</p>';
-  d.downloads.forEach(function(dl,ix){ if(dl&&dl.url) h+='<button type="button" class="btn vd-fb-dl" data-u="'+escT(dl.url)+'" data-q="'+(escT(dl.quality)||'Video')+'">⬇ '+(escT(dl.quality)||'Video')+' Download</button> '; });
+  d.downloads.forEach(function(dl,ix){ if(dl&&dl.url) h+='<button type="button" class="btn vd-fb-dl" data-n="facebook-video.mp4" data-u="https://toolbari-dl.faysalb60k.workers.dev/igdl?u='+encodeURIComponent(dl.url)+'">⬇ '+(escT(dl.quality)||'Video')+' Download</button> '; });
   h+='<p class="vd-fb-st" style="margin:10px 0 0;font-size:13px">The video saves to your Downloads folder. If the download link expires, create it again.</p>';
   const __w=5000-(Date.now()-__t0); if(__w>0)await new Promise(r=>setTimeout(r,__w));
   box.innerHTML=h;
-  box.querySelectorAll('.vd-fb-dl').forEach(function(b){
-   b.addEventListener('click',function(){
-    const st=box.querySelector('.vd-fb-st'); const u=b.getAttribute('data-u'); const q=b.getAttribute('data-q')||'video';
-    b.disabled=true; const old=b.textContent; b.textContent='Downloading… please wait';
-    if(st)st.textContent='Downloading the video file… it will save to your Downloads folder.';
-    fetch(u).then(function(r){ if(!r.ok)throw new Error('x'); return r.blob(); }).then(function(bl){
-     const a=document.createElement('a'); a.href=URL.createObjectURL(bl); a.download='facebook-video.mp4';
-     document.body.appendChild(a); a.click(); a.remove();
-     setTimeout(function(){URL.revokeObjectURL(a.href);},6000);
-     b.disabled=false; b.textContent=old;
-     if(st)st.textContent='Downloaded ✓ Check your Downloads folder.';
-    }).catch(function(){
-     b.disabled=false; b.textContent=old;
-     if(st)st.textContent='Direct save was blocked, so the video will open — use the player menu (⋮) and tap Download to save it.';
-     const a=document.createElement('a'); a.href=u; a.target='_blank'; a.rel='noopener'; a.click();
-    });
-   });
-  });
+  vdWire(box, '.vd-fb-dl', '.vd-fb-st');
  }catch(e){
   if(attempt<1){ setTimeout(function(){ fbRender(url, box, attempt+1); },1600); return; }
   box.innerHTML='<p style="margin:0 0 8px"><b>Could not fetch a download link from this link 😔</b></p><p style="margin:0 0 10px;font-size:14px">Check that it is public — private videos do not download. If the link is correct, try again.</p><button class="btn" id="vd-fb-retry" type="button">🔄 Try Again</button>';
@@ -4507,7 +4518,16 @@ async function fbRender(url, box, attempt){
 }
 function waitAdIframe(){
  const fr=document.createElement('iframe');fr.width=300;fr.height=250;fr.style='border:0;max-width:100%';fr.setAttribute('scrolling','no');
- fr.setAttribute('srcdoc','<html><body style="margin:0;padding:0;text-align:center"><scr'+'ipt>var atOptions={"key":"8724bf3e803202dd690869b40e9c3541","format":"iframe","height":250,"width":300,"params":{}};</scr'+'ipt><scr'+'ipt src="https://bauval.org/22/8724bf3e803202dd690869b40e9c3541"></scr'+'ipt><p style="text-align:center;font-size:14px"><a href="https://toolbari.github.io/webbari/">WebBari — Website Building Service</a></p><style>/* TB-INLINE-PREVIEW-2026-10-27: so chat file preview shows header+category style without external CSS */ .top,.hdr{background:linear-gradient(135deg,#1e2438,#2aa5a0)!important;color:#ffffff!important;border-radius:24px!important} .top .logo b{color:#ffffff!important} .top .logo small{color:#4b5a51!important} .tb-cat-bar{display:grid;grid-template-columns:repeat(2,1fr);gap:10px} .tb-cat-card{padding:14px 12px;min-height:72px;font-size:15px;background:#ffffff;border-radius:24px;box-shadow:0 14px 28px rgba(0,0,0,.16)}</style><style>/* TB-ORIGINAL-PREVIEW-FIX */ .top .logo b{color:#ffffff!important} #tb-notice,#tb-notice p{color:#14231b!important} #tb-notice a{color:#0a6e43!important} .tb-util button{color:#14231b!important} </style><style>/* TB-UTIL-DARKTEXT */ .tb-util button{color:#14231b!important} .tb-util button b{color:#14231b!important} </style></body></html>');
+ fr.setAttribute('srcdoc','<html><body style="margin:0;padding:0;text-align:center"><scr'+'ipt>var atOptions={"key":"8724bf3e803202dd690869b40e9c3541","format":"iframe","height":250,"width":300,"params":{}};</scr'+'ipt><scr'+'ipt src="https://bauval.org/22/8724bf3e803202dd690869b40e9c3541"></scr'+'ipt><p style="text-align:center;font-size:14px"><a href="https://toolbari.github.io/webbari/">WebBari — Website Building Service</a></p><style>/* TB-INLINE-PREVIEW-2026-10-27: so chat file preview shows header+category style without external CSS */ .top,.hdr{background:linear-gradient(135deg,#1e2438,#2aa5a0)!important;color:#ffffff!important;border-radius:24px!important} .top .logo b{color:#ffffff!important} .top .logo small{color:#4b5a51!important} .tb-cat-bar{display:grid;grid-template-columns:repeat(2,1fr);gap:10px} .tb-cat-card{padding:14px 12px;min-height:72px;font-size:15px;background:#ffffff;border-radius:24px;box-shadow:0 14px 28px rgba(0,0,0,.16)}</style><style>/* TB-ORIGINAL-PREVIEW-FIX */ .top .logo b{color:#ffffff!important} #tb-notice,#tb-notice p{color:#14231b!important} #tb-notice a{color:#0a6e43!important} .tb-util button{color:#14231b!important} </style><style>/* TB-UTIL-DARKTEXT */ .tb-util button{color:#14231b!important} .tb-util button b{color:#14231b!important} </style><script>
+/* TB-RESULT-SHOW-2026-10-29: any populated .result box becomes visible (some generator bindings set content without adding .show) */
+(function(){try{
+ var done=new WeakSet();
+ function show(e){ if(e&&e.classList&&e.classList.contains('result')&&e.innerHTML&&e.innerHTML.trim())e.classList.add('show'); }
+ var o=new MutationObserver(function(ms){ for(var i=0;i<ms.length;i++){ var n=ms[i].target; var r=(n&&n.nodeType===1)?(n.classList&&n.classList.contains('result')?n:(n.closest?n.closest('.result'):null)):null; show(r); } });
+ document.querySelectorAll('.result').forEach(function(e){ show(e); o.observe(e,{childList:true,subtree:true,characterData:true}); });
+}catch(e){}})();
+</script>
+</body></html>');
  return fr;
 }
 async function instagramRender(url, box, attempt){
@@ -4529,23 +4549,18 @@ async function instagramRender(url, box, attempt){
  const __w=5000-(Date.now()-__t0); if(__w>0)await new Promise(r=>setTimeout(r,__w));
  box.innerHTML=h;
  const __b=document.getElementById('vd-ig-dl'), __st=document.getElementById('vd-ig-st');
- let __resolved='';
- fetch('https://toolbari-dl.faysalb60k.workers.dev/instagram?url='+encodeURIComponent(url)).then(function(r){return r.json();}).then(function(j){ if(j&&j.success&&j.video_url)__resolved=String(j.video_url).replace(/\\/g,''); }).catch(function(){});
+ let __proxy='';
+ fetch('https://toolbari-dl.faysalb60k.workers.dev/igvx?url='+encodeURIComponent(url)).then(function(r){return r.json();}).then(function(j){ if(j&&j.success){ const du=String(j.download_url||j.download||'').replace(/\\/g,''); if(du) __proxy='https://toolbari-dl.faysalb60k.workers.dev/file?u='+encodeURIComponent(du)+'&n=instagram-video.mp4'; } }).catch(function(){});
  if(__b)__b.addEventListener('click',function(){
-  __b.disabled=true; const __old=__b.textContent; __b.textContent='Downloading… please wait';
-  if(__st)__st.textContent='Downloading the video file… it will save to your Downloads folder.';
-  const __src=__resolved||__dl;
-  fetch(__src).then(function(r){ if(!r.ok)throw new Error('x'); return r.blob(); }).then(function(bl){
-   const a=document.createElement('a'); a.href=URL.createObjectURL(bl); a.download='instagram-video.mp4';
-   document.body.appendChild(a); a.click(); a.remove();
-   setTimeout(function(){URL.revokeObjectURL(a.href);},6000);
-   __b.disabled=false; __b.textContent=__old;
-   if(__st)__st.textContent='Downloaded ✓ Check your Downloads folder.';
-  }).catch(function(){
-   __b.disabled=false; __b.textContent=__old;
-   if(__st)__st.textContent='Direct save was blocked, so the video will open — use the player menu (⋮) and tap Download to save it.';
-   const a=document.createElement('a'); a.href=__dl; a.target='_blank'; a.rel='noopener'; a.click();
-  });
+  if(__proxy){ vdProxySave(__b, __proxy, 'instagram-video.mp4', __st); return; }
+  __b.disabled=true; const __old=__b.textContent; __b.textContent='Preparing… please wait';
+  if(__st)__st.textContent='Preparing your download…';
+  let tries=0;
+  const iv=setInterval(function(){
+   tries++;
+   if(__proxy){ clearInterval(iv); __b.disabled=false; __b.textContent=__old; vdProxySave(__b, __proxy, 'instagram-video.mp4', __st); }
+   else if(tries>10){ clearInterval(iv); __b.disabled=false; __b.textContent=__old; if(__st)__st.textContent='Could not prepare the file this time — please press Create again and retry.'; }
+  },700);
  });
 }
 async function threadsRender(url, box){
@@ -4562,98 +4577,110 @@ async function threadsRender(url, box){
    let h='<p style="margin:0 0 10px"><b>Your download is ready ✓ — Threads</b></p>';
    if(j.image_url)h+='<img src="'+escT(j.image_url)+'" alt="Threads media" style="max-width:180px;border-radius:10px;display:block;margin:0 0 10px"/>';
    if(j.caption)h+='<p style="margin:0 0 8px;font-size:14px">'+escT(j.caption)+'</p>';
-   if(j.video_url)h+='<a class="btn" href="'+escT(j.video_url)+'" download target="_blank" rel="noopener">⬇ Download Video</a> ';
-   if(j.image_url)h+='<a class="btn alt" href="'+escT(j.image_url)+'" download target="_blank" rel="noopener">⬇ Download Image</a>';
-   box.innerHTML=h; return;
+   if(j.video_url)h+='<button type="button" class="btn vd-th-dl" data-n="threads-video.mp4" data-u="https://toolbari-dl.faysalb60k.workers.dev/thdl?u='+encodeURIComponent(j.video_url)+'">⬇ Download Video</button> ';
+   if(j.image_url)h+='<button type="button" class="btn alt vd-th-dl" data-n="threads-image.jpg" data-u="https://toolbari-dl.faysalb60k.workers.dev/thdl?u='+encodeURIComponent(j.image_url)+'">⬇ Download Image</button>';
+   h+='<p class="vd-th-st" style="margin:10px 0 0;font-size:13px">The file saves to your Downloads folder.</p>';
+   box.innerHTML=h; vdWire(box,'.vd-th-dl','.vd-th-st'); return;
   }
   throw new Error('nf');
  }catch(e){
-  box.innerHTML='<p style="margin:0 0 8px"><b>Threads Download — in the special downloader</b></p>'
-  +'<p style="margin:0 0 10px;font-size:14px">Threads blocks direct downloads, so use the special Threads downldownloader: Copy the link and paste it on that site and Video/the image will download.</p>'
-  +'<input readonly value="'+escT(url)+'" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;margin:0 0 10px;background:var(--card,#fff)"/>'
-  +'<p style="margin:0 0 6px"><button class="btn" id="vd-th-copy" type="button">📋 Copy Link</button> '
-  +'<a class="btn" href="https://threadsdo.com" target="_blank" rel="noopener">🧵 Open Threads Downloader</a></p>'
-  +'<p style="margin:0;font-size:13px">Steps: 1) Copy the link 2) Paste in the downloader 3) Tap Download.</p>';
-  const cb=document.getElementById('vd-th-copy'); if(cb) cb.onclick=function(){ copyText(url,'Link copied ✓'); };
+  box.innerHTML='<p style="margin:0 0 8px"><b>Could not fetch this Threads post 😔</b></p>'
+  +'<p style="margin:0 0 10px;font-size:14px">Check that the post is public and the link is complete, then try again.</p>'
+  +'<button class="btn" id="vd-th-retry" type="button">🔄 Try Again</button>';
+  const rb=document.getElementById('vd-th-retry'); if(rb) rb.onclick=function(){ threadsRender(url, box); };
  }
 }
 async function loaderFlow(url, box){
  const W='https://toolbari-dl.faysalb60k.workers.dev';
- const escT=function(t){return String(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');};
+ const escT=function(t){return String(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;');};
  let host='Video';
  if(/youtube\.com|youtu\.be/i.test(url))host='YouTube';
- else if(/instagram\.com/i.test(url))host='Instagram';
  else if(/vimeo\.com/i.test(url))host='Vimeo';
- else if(/dailymotion\.com/i.test(url))host='Dailymotion';
- else if(/(?:pinterest\.[a-z.]+|pin\.it)/i.test(url))host='Pinterest';
- const qSel=$('#vd-q').value; const fmt=(qSel==='max')?'1080':qSel;
+ else if(/dailymotion\.com|dai\.ly/i.test(url))host='Dailymotion';
  box.classList.add('show');
- box.innerHTML='<p style="margin:0 0 8px"><b>'+host+' Creating download link from </b></p>'
-  +'<div style="background:#e5e7eb;border-radius:99px;height:12px;overflow:hidden;margin:0 0 8px"><div id="vd-bar" style="height:100%;width:2%;background:#0b7cc0;transition:width .4s"></div></div>'
-  +'<p class="mono" id="vd-pct" style="margin:0 0 10px;font-size:14px">Starting… 0%</p>'
-  +'<div id="vd-ad" style="display:flex;justify-content:center;margin:0 0 6px"></div>'
-  +'<p style="margin:0;font-size:12.5px">An ad is shown while the link is being created — this is how ToolBari stays free.</p>'
-  +'<p style="margin:10px 0 0"><button class="btn alt sm" id="vd-skip" type="button">Download via Alternative Method Without Waiting</button></p>';
- const adBox=document.getElementById('vd-ad');
- if(adBox){const fr=document.createElement('iframe');fr.width=300;fr.height=250;fr.style='border:0;max-width:100%';fr.setAttribute('scrolling','no');
-  fr.setAttribute('srcdoc','<html><body style="margin:0;padding:0;text-align:center"><scr'+'ipt>var atOptions={"key":"8724bf3e803202dd690869b40e9c3541","format":"iframe","height":250,"width":300,"params":{}};</scr'+'ipt><scr'+'ipt src="https://bauval.org/22/8724bf3e803202dd690869b40e9c3541"></scr'+'ipt><style>/* TB-INLINE-PREVIEW-2026-10-27: so chat file preview shows header+category style without external CSS */ .top,.hdr{background:linear-gradient(135deg,#1e2438,#2aa5a0)!important;color:#ffffff!important;border-radius:24px!important} .top .logo b{color:#ffffff!important} .top .logo small{color:#4b5a51!important} .tb-cat-bar{display:grid;grid-template-columns:repeat(2,1fr);gap:10px} .tb-cat-card{padding:14px 12px;min-height:72px;font-size:15px;background:#ffffff;border-radius:24px;box-shadow:0 14px 28px rgba(0,0,0,.16)}</style></body></html>');
-  adBox.appendChild(fr);}
- let skipped=false;
- function showFallback(){
-  box.innerHTML='<p style="margin:0 0 8px;font-size:14px">Direct link could not be created — try the alternative method Download:</p>';
-  const inner=document.createElement('div');box.appendChild(inner);extRender(url,inner);
- }
- const skipBtn=document.getElementById('vd-skip');
- if(skipBtn)skipBtn.onclick=function(){skipped=true;showFallback();};
+ box.innerHTML='<p style="margin:0 0 8px"><b>'+host+' — Creating download link…</b></p>'
+  +'<div id="vd-ad-g" style="display:flex;justify-content:center;margin:0 0 6px"></div>'
+  +'<p style="margin:0;font-size:12.5px">An ad is shown while the link is being created — this is how ToolBari stays free.</p>';
+ const __ag=document.getElementById('vd-ad-g'); if(__ag)__ag.appendChild(waitAdIframe());
  const t0=Date.now();
- const setP=function(p,st){const b=document.getElementById('vd-bar'),t=document.getElementById('vd-pct');if(b)b.style.width=Math.max(2,Math.min(100,p))+'%';if(t)t.textContent=(st||'Creating…')+' '+Math.round(p)+'%';};
+ function fail(msg){
+  box.innerHTML='<p style="margin:0 0 8px"><b>Could not create a download for this '+host+' link 😔</b></p>'
+   +'<p style="margin:0;font-size:14px">'+escT(msg||'Check that the video is public and the link is complete, then try again.')+'</p>';
+ }
  try{
-  const cr=await fetch(W+'/create?url='+encodeURIComponent(url)+'&f='+encodeURIComponent(fmt));
-  const cj=await cr.json();
-  if(skipped)return;
-  if(!cj||(!cj.id&&!cj.progress_url))throw new Error('create');
-  const title=(cj.title&&!/^https?:/i.test(cj.title))?cj.title:'';
-  const purl=cj.progress_url||(W+'/progress?id='+encodeURIComponent(cj.id));
-  let done=null,lastText='',lastChange=Date.now(),lastPct=-1;
-  while(Date.now()-t0<100000){
-   if(skipped)return;
-   await new Promise(r=>setTimeout(r,2500));
-   if(skipped)return;
-   try{
-    const pr=await fetch(purl);
-    const pj=await pr.json();
-    let p=+pj.progress||0; if(p>100)p=p/10;
-    setP(Math.max(2,Math.min(99,p)),'লিংক Creating…');
-    if(pj.text&&pj.text!==lastText){lastText=pj.text;lastChange=Date.now();}
-    if(p>lastPct){lastPct=p;lastChange=Date.now();}
-    if((pj.success===1||pj.success===true)&&pj.download_url){done=pj.download_url;break;}
-    if((pj.success===false||pj.success===0)&&(+pj.progress||0)>=1000)throw new Error('expired');
-    if(Date.now()-lastChange>40000)throw new Error('stall');
-   }catch(e){ if(e&&(e.message==='expired'||e.message==='stall'))throw e; }
-  }
-  if(!done)throw new Error('timeout');
-  const wait=5000-(Date.now()-t0);
-  if(wait>0){setP(100,'Almost ready…');await new Promise(r=>setTimeout(r,wait));}
-  if(skipped)return;
-  box.innerHTML='<p style="margin:0 0 10px"><b>Your download is ready ✓ — '+host+'</b></p>'
-   +(title?'<p style="margin:0 0 8px;font-size:14px">'+escT(title)+'</p>':'')
-   +'<p style="margin:0 0 6px"><a class="btn" href="'+escT(done)+'" target="_blank" rel="noopener">⬇ Video Download ('+fmt+'p)</a></p>'
-   +'<p style="margin:0;font-size:13px">Download link validity is short — download now. If it expires, Create it. Tapping the button may open the file server page — where again Download tapping the button will download the file.</p>';
- }catch(e){ if(!skipped)showFallback(); }
+  let title='', dls=[];
+  if(host==='YouTube'){
+   const mm=String(url).match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|live\/|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/i);
+   if(!mm) { fail('That does not look like a complete YouTube link.'); return; }
+   const r=await fetch('https://api.piped.private.coffee/streams/'+mm[1]);
+   const j=await r.json();
+   if(!j||!j.videoStreams) throw new Error('piped');
+   title=j.title||'';
+   const vs=(j.videoStreams||[]).filter(function(s){return s&&s.url&&/mp4/i.test(s.mimeType||'')&&!s.videoOnly;});
+   vs.sort(function(a,b){return (parseInt(b.quality)||0)-(parseInt(a.quality)||0);});
+   vs.slice(0,3).forEach(function(s){ dls.push({q:s.quality||'Video', u:s.url}); });
+   if(!dls.length) throw new Error('nostream');
+  } else if(host==='Vimeo'){
+   const r=await fetch(W+'/vimeo?url='+encodeURIComponent(url));
+   const j=await r.json();
+   if(j&&j.downloads&&j.downloads.length){ j.downloads.slice(0,4).forEach(function(d){ dls.push({q:d.quality||'Video', u:d.url||d}); }); }
+   else if(j&&j.download){ dls.push({q:'Video', u:j.download}); }
+   else throw new Error((j&&j.error)||'vimeo');
+   title=(j&&j.title)||'';
+  } else if(host==='Dailymotion'){
+   const r=await fetch(W+'/dailymotion?url='+encodeURIComponent(url));
+   const j=await r.json();
+   if(j&&j.downloads&&j.downloads.length){ j.downloads.slice(0,4).forEach(function(d){ dls.push({q:d.quality||'Video', u:d.url}); }); }
+   else if(j&&j.download){ dls.push({q:'Video', u:j.download}); }
+   else throw new Error((j&&j.error)||'dm');
+   title=(j&&j.title)||'';
+  } else { fail(); return; }
+  const w=5000-(Date.now()-t0); if(w>0)await new Promise(r=>setTimeout(r,w));
+  let h='<p style="margin:0 0 10px"><b>Your download is ready ✓ — '+host+'</b></p>';
+  if(title)h+='<p style="margin:0 0 8px;font-size:14px">'+escT(title)+'</p>';
+  dls.forEach(function(d){
+   const px=W+'/file?u='+encodeURIComponent(d.u)+'&n='+encodeURIComponent(host.toLowerCase()+'-video.mp4');
+   h+='<button type="button" class="btn vd-g-dl" data-n="'+host.toLowerCase()+'-video.mp4" data-u="'+px+'">⬇ '+escT(d.q)+' Download</button> ';
+  });
+  h+='<p class="vd-g-st" style="margin:10px 0 0;font-size:13px">The file saves to your Downloads folder.</p>';
+  box.innerHTML=h;
+  vdWire(box,'.vd-g-dl','.vd-g-st');
+ }catch(e){
+  const w2=5000-(Date.now()-t0); if(w2>0)await new Promise(r=>setTimeout(r,w2));
+  fail(e&&e.message&&e.message.length<90?('Reason: '+e.message):'');
+ }
 }
 
-function pinterestRender(url, box){
- const escT=function(t){return String(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');};
+async function pinterestRender(url, box){
+ const W='https://toolbari-dl.faysalb60k.workers.dev';
+ const escT=function(t){return String(t||'').replace(/&/g,'&amp;').replace(/</g,'&gt;').replace(/\"/g,'&quot;');};
  box.classList.add('show');
- box.innerHTML='<p style="margin:0 0 10px"><b>Pinterest Download — paste your link on a Pinterest downloader</b></p>'
-  +'<p style="margin:0 0 10px;font-size:14px">Pinterest blocks direct video downloads from this page (browser security rules), so ToolBari does not show a fake ready link for pins. Use a public pin link — pinterest.com/pin/… or a pin.it/… short link — not a board or profile link. Private pins cannot be downloaded.</p>'
-  +'<input id="vd-pin-url" readonly value="'+escT(url)+'" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;margin:0 0 10px;background:var(--card,#fff)"/>'
-  +'<p style="margin:0 0 10px"><button class="btn" id="vd-pin-copy" type="button">📋 Copy Link</button> '
-  +'<a class="btn" href="https://pindownload.net/" target="_blank" rel="noopener">▶ Open Pinterest Downloader</a> '
-  +'<a class="btn alt" href="https://ssdownloader.net/" target="_blank" rel="noopener">Alternative Downloader</a> '
-  +'<a class="btn alt" href="'+escT(url)+'" target="_blank" rel="noopener">▶ Open in Pinterest</a></p>'
-  +'<p style="margin:0;font-size:13px">Steps: 1) Copy the link 2) Paste it on the downloader site 3) Tap Download and choose MP4. If the pin is an image or GIF, the same downloader offers the image/GIF file. Warning: external sites may show ads — do not install any software/app.</p>';
- const cb=document.getElementById('vd-pin-copy'); if(cb) cb.onclick=function(){ copyText(url,'Link copied ✓'); };
+ box.innerHTML='<p style="margin:0 0 8px"><b>Pinterest — Creating download link…</b></p><div id="vd-ad-pin" style="display:flex;justify-content:center;margin:0 0 6px"></div><p style="margin:0;font-size:12.5px">An ad is shown while the link is being created — this is how ToolBari stays free.</p>';
+ const __ap=document.getElementById('vd-ad-pin'); if(__ap)__ap.appendChild(waitAdIframe());
+ const t0=Date.now();
+ try{
+  const r=await fetch(W+'/pinterest?url='+encodeURIComponent(url));
+  const j=await r.json();
+  const w=5000-(Date.now()-t0); if(w>0)await new Promise(r2=>setTimeout(r2,w));
+  let h='';
+  if(j&&j.success&&j.video_url){
+   h='<p style="margin:0 0 10px"><b>Your download is ready ✓ — Pinterest</b></p>';
+   if(j.image_url)h+='<img src="'+escT(j.image_url)+'" alt="Pin image" style="max-width:180px;border-radius:10px;display:block;margin:0 0 10px"/>';
+   h+='<button type="button" class="btn vd-pin-dl" data-n="pinterest-video.mp4" data-u="'+W+'/file?u='+encodeURIComponent(j.video_url)+'&n=pinterest-video.mp4">⬇ Download Video</button> ';
+   h+='<p class="vd-pin-st" style="margin:10px 0 0;font-size:13px">The video saves to your Downloads folder.</p>';
+  } else if(j&&j.image_url){
+   h='<p style="margin:0 0 10px"><b>This pin is an image — Pinterest</b></p>';
+   h+='<img src="'+escT(j.image_url)+'" alt="Pin image" style="max-width:180px;border-radius:10px;display:block;margin:0 0 10px"/>';
+   h+='<button type="button" class="btn vd-pin-dl" data-n="pinterest-image.jpg" data-u="'+W+'/file?u='+encodeURIComponent(j.image_url)+'&n=pinterest-image.jpg">⬇ Download Image</button> ';
+   h+='<p class="vd-pin-st" style="margin:10px 0 0;font-size:13px">The image saves to your Downloads folder.</p>';
+  } else {
+   h='<p style="margin:0 0 8px"><b>Could not fetch this pin 😔</b></p><p style="margin:0;font-size:14px">Use a single public pin link (pinterest.com/pin/… or pin.it/…), not a board or profile link. Private pins cannot be downloaded.</p>';
+  }
+  box.innerHTML=h;
+  vdWire(box,'.vd-pin-dl','.vd-pin-st');
+ }catch(e){
+  box.innerHTML='<p style="margin:0 0 8px"><b>Could not fetch this pin 😔</b></p><p style="margin:0;font-size:14px">Check the link and your internet connection, then try again.</p>';
+ }
 }
 function extRender(url, box){
  let host='This site';
@@ -4681,13 +4708,17 @@ async function tikwmFetch(url){
  return j.data;
 }
 function tikwmRender(boxId,d){
- const box=$(boxId);let h='<p style="margin:0 0 10px"><b>Your download is ready ✓</b></p>';
+ const box=$(boxId);let h='<p style="margin:0 0 10px"><b>Your download is ready ✓ — TikTok</b></p>';
  if(d.cover)h+='<img src="'+d.cover+'" alt="Video cover" style="max-width:180px;border-radius:10px;display:block;margin:0 0 10px"/>';
- if(d.play)h+='<a class="btn" href="'+d.play+'" target="_blank" rel="noopener">⬇ Video Without Watermark</a> ';
- if(d.wmplay)h+='<a class="btn alt" href="'+d.wmplay+'" target="_blank" rel="noopener">Video With Watermark</a> ';
- if(d.music)h+='<a class="btn alt" href="'+d.music+'" target="_blank" rel="noopener">🎵 Audio only (MP3)</a>';
- if(d.title)h+='<p style="margin:10px 0 0;font-size:13.5px">'+esc(d.title)+'</p>';
- box.innerHTML=h;box.classList.add('show');return true;
+ const PX='https://toolbari-dl.faysalb60k.workers.dev/tikdl?u=';
+ if(d.play)h+='<button type="button" class="btn vd-tk-dl" data-n="tiktok-video.mp4" data-u="'+PX+encodeURIComponent(d.play)+'">⬇ Video Without Watermark</button> ';
+ if(d.wmplay)h+='<button type="button" class="btn alt vd-tk-dl" data-n="tiktok-video.mp4" data-u="'+PX+encodeURIComponent(d.wmplay)+'">Video With Watermark</button> ';
+ if(d.music)h+='<button type="button" class="btn alt vd-tk-dl" data-n="tiktok-audio.mp3" data-u="'+PX+encodeURIComponent(d.music)+'">🎵 Audio only (MP3)</button> ';
+ h+='<p class="vd-tk-st" style="margin:10px 0 0;font-size:13px">The file saves to your Downloads folder.</p>';
+ if(d.title)h+='<p style="margin:6px 0 0;font-size:13.5px">'+esc(d.title)+'</p>';
+ box.innerHTML=h;box.classList.add('show');
+ vdWire(box,'.vd-tk-dl','.vd-tk-st');
+ return true;
 }
 // Link to Image Downloader
 let liPrevUrl=null;
