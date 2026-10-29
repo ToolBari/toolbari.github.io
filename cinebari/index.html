@@ -313,6 +313,14 @@ footer.site a:hover{color:var(--txt)}
 .skel{height:12.45rem}
 .top10 .skel{flex-basis:8.6rem;height:15.4rem}
 .morecard{min-height:12.45rem}
+/* TB-GRIDFIX-2026-10-30: grid rows were sized from the <button> card's intrinsic height,
+   which under-counts the text block (title counted ~1 line, meta/genre ~0) in the app
+   WebView — titles clipped to slivers, next row painted over them. Make grid cards a
+   column flex container so every reserved block (poster + title + meta + genres) is a
+   flex item with an exact, non-shrinking height; the row then fits the full card. */
+.grid .card{display:flex;flex-direction:column;align-items:stretch;height:100%}
+.grid .card .pw{flex:0 0 auto}
+.grid .card .ti,.grid .card .tp,.grid .card .tg{flex:0 0 auto}
 </style>
 <script>(function(s){s.dataset.zone='12110899',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
@@ -656,6 +664,80 @@ showView = function(id){
  else if(id === "v-details" && D) ssSaveItem(D.s);
  } catch(e){}
 };
+/* ---------------- view-history stack (Back steps one view at a time) ----------------
+   Forward navigations (openGrid / openCats / openDetails) first push a
+   descriptor of the view being left onto CB_STACK; the "← Back" buttons pop
+   one descriptor and re-open exactly that view. Descriptors use the same
+   shape as the session restore (cb_view) above, and navOpen() mirrors the
+   restore logic at the bottom of this script. */
+/* CB-NAV-STACK-BEGIN */
+var CB_STACK = [], CB_NAVBUSY = false;
+function navCurId(){
+ var v = document.querySelector(".view.on");
+ return v ? v.id : "v-gate";
+}
+function navGridDesc(){
+ if(!G) return null;
+ return { v: "v-grid", def: { title: G.title, ep: G.ep, tabs: G.tabs, type: G.type, hub: G.hub, ws: G.ws, kjc: G.kjc, genre: G.genre, dubbed: G.dubbed, bndub: G.bndub, country: !!G.country, langTab: G.langTab || null, door: G.door || null, search: G.search, local: G.local || null, year: G.year || "", gf: G.gf || 0 } };
+}
+function navItemDesc(){
+ if(!D || !D.s || !D.s.id) return null;
+ var s = D.s;
+ return { v: "v-details", item: { id: s.id, type: s.type, title: s.title, poster: s.poster || "", rating: s.rating || 0, year: s.year || "", date: s.date || "", status: s.status || "", lang: s.lang || "", genres: s.genres || [] } };
+}
+function navSnap(){
+ var id = navCurId();
+ if(id === "v-grid") return navGridDesc();
+ if(id === "v-details") return navItemDesc();
+ if(id === "v-cats") return { v: "v-cats" };
+ if(id === "v-movies") return { v: "v-movies" };
+ return null; /* gate / player overlay: nothing worth returning to */
+}
+function navKey(d){
+ if(!d) return "";
+ if(d.v === "v-grid" && d.def) return "g|" + (d.def.title || "") + "|" + (d.def.ep || "") + "|" + (d.def.type || "") + "|" + (d.def.door || "") + "|" + (d.def.hub || "") + "|" + (d.def.ws || "") + "|" + (d.def.kjc || "") + "|" + (d.def.genre || "") + "|" + (d.def.year || "") + "|" + (d.def.gf || 0);
+ if(d.v === "v-details" && d.item) return "d|" + d.item.type + ":" + d.item.id;
+ return d.v || "";
+}
+function navLeave(){
+ if(CB_NAVBUSY) return;
+ var d = navSnap();
+ if(!d) return;
+ if(CB_STACK.length && navKey(CB_STACK[CB_STACK.length - 1]) === navKey(d)) return;
+ CB_STACK.push(d);
+ if(CB_STACK.length > 30) CB_STACK.shift();
+}
+function navOpen(d){
+ if(!d || !d.v) return;
+ CB_NAVBUSY = true;
+ try {
+ if(d.v === "v-movies"){ enterMovies(); }
+ else if(d.v === "v-cats"){ enterMovies(); openCats(); }
+ else if(d.v === "v-details" && d.item && d.item.id){ openDetails(d.item); }
+ else if(d.v === "v-grid" && d.def && d.def.title){
+ var f = d.def;
+ openGrid({ title: f.title, ep: f.ep || "", tabs: !!f.tabs, hub: f.hub || null, ws: f.ws || null, kjc: f.kjc || null, genre: f.genre || null, dubbed: !!f.dubbed, bndub: !!f.bndub, country: !!f.country, langTab: f.langTab || null, door: f.door || null, search: !!f.search, local: f.local || null });
+ if(G){
+ var dirty = false;
+ if(f.type && f.type !== G.type && G.tabs){ G.type = f.type; document.querySelectorAll("#typetabs .ttab").forEach(function(x){ x.classList.toggle("on", x.getAttribute("data-tt") === G.type); }); dirty = true; }
+ if(f.year && G.yearFilter){ G.year = f.year; syncYearTabs(); dirty = true; }
+ if(f.gf && G.gfilter){ G.gf = f.gf; syncGfTabs(); dirty = true; }
+ if(dirty) loadGridPage(true);
+ }
+ }
+ } catch(e){}
+ CB_NAVBUSY = false;
+}
+function navBack(){
+ var d = CB_STACK.pop();
+ if(!d){ showView("v-movies"); return; }
+ navOpen(d);
+}
+function navHome(){
+ CB_STACK.length = 0;
+ showView("v-movies");
+}
+/* CB-NAV-STACK-END */
 /* ---------------- gate ---------------- */
 $("door-tv").addEventListener("click", function(){ window.location.href = TV_URL; });
 $("door-movies").addEventListener("click", function(){ enterMovies(); });
@@ -1194,6 +1276,7 @@ function gridEp(){
  return e;
 }
 function openGrid(def){
+ navLeave();
  window.__cbGridFrom = $("v-cats").classList.contains("on") ? "v-cats" : "v-movies";
  G = { title: def.title, ep: def.ep, tabs: !!def.tabs, page: 1, type: "movie", local: def.local || null, search: !!def.search, hub: def.hub || null, ws: def.ws || null, dubbed: !!def.dubbed, kjc: def.kjc || null, genre: def.genre || null, genrelang: def.genre ? (localStorage.getItem("cb_genrelang") || "") : "", bndub: !!def.bndub, year: "", yearFilter: !!(def.genre || def.hub || def.ws || def.kjc || (def.ep && def.ep.indexOf("/discover/") === 0)), gf: 0, gfilter: !!(def.country || def.langTab || def.door), country: !!def.country, langTab: def.langTab || null, door: def.door || null };
  showView("v-grid");
@@ -1372,6 +1455,7 @@ var TV_COUNTRY_CATS = [
  { t: "📺 All Web Series", s: "Every language", c: "linear-gradient(135deg,#64748b,#1e293b)", g: function(){ return { title: "📺 Web Series", ep: WS_FILTERS.all, tabs: false, ws: "all" }; } }
 ];
 function openCats(){
+ navLeave();
  var html = "";
  html += '<h3 class="cath">🌍 Popular Countries</h3><div class="popgrid" id="cats-pop"></div>';
  html += '<h3 class="cath">🌐 All Countries</h3><div class="minigrid">' + ALL_COUNTRIES.map(function(c, i){ return '<button class="minicard" data-ac="' + i + '">' + esc(c.t) + "</button>"; }).join("") + "</div>";
@@ -1421,6 +1505,7 @@ function pacedAd(){
 /* ---------------- details ---------------- */
 var D = null, backTarget = "v-movies";
 function openDetails(s, opts){
+ navLeave();
  pacedAd();
  var gridOn = $("v-grid").classList.contains("on");
  backTarget = gridOn ? "v-grid" : "v-movies";
@@ -1547,7 +1632,7 @@ function syncFavBtn(){
  $("d-fav").textContent = isFav(D.s.id, D.s.type) ? "💔 Remove" : "❤️ My List";
 }
 $("d-fav").addEventListener("click", function(){ if(D){ toggleFav(D.s); syncFavBtn(); } });
-$("d-back-b").addEventListener("click", function(){ showView(backTarget); });
+$("d-back-b").addEventListener("click", function(){ navBack(); });
 $("d-watch").addEventListener("click", function(){
  if(!D) return;
  var cw = cwGet(D.s.id, D.s.type);
@@ -1758,11 +1843,11 @@ $("mylist-b").addEventListener("click", function(){
  openGrid({ title: "❤️ My List", ep: "", tabs: false, local: l });
 });
 $("tv-b").addEventListener("click", function(){ window.location.href = TV_URL; });
-$("home-b2").addEventListener("click", function(){ showView("v-movies"); });
-$("grid-back").addEventListener("click", function(){ showView(window.__cbGridFrom || "v-movies"); });
+$("home-b2").addEventListener("click", function(){ navHome(); });
+$("grid-back").addEventListener("click", function(){ navBack(); });
 $("cats-b").addEventListener("click", openCats);
-$("cats-back").addEventListener("click", function(){ showView("v-movies"); });
-$("cats-home").addEventListener("click", function(){ showView("v-movies"); });
+$("cats-back").addEventListener("click", function(){ navBack(); });
+$("cats-home").addEventListener("click", function(){ navHome(); });
 document.querySelector(".mlogo").addEventListener("click", function(){});
 /* global card / actor delegation */
 document.addEventListener("click", function(e){
@@ -1863,15 +1948,23 @@ function __cbClosePlayerNow(){
  try { $("p-iframe").src = "about:blank"; } catch(e){}
  try { $("v-player").classList.remove("on"); document.body.style.overflow = ""; P = null; } catch(e){}
 }
-/* History: wrap showView so browser Back/Forward have in-site states to gate. */
+/* History: wrap showView so browser Back/Forward have in-site states to gate.
+   States also carry the view descriptor (navSnap, taken after the switch,
+   when G/D already describe the new view) so a browser Back restores the
+   exact grid/details, not just the view id. Same-view transitions that
+   change the descriptor (door grid -> country grid, details -> details)
+   push a state too. */
 var __cbOrigShowView = showView;
+var __cbLastKey = "";
 showView = function(id){
  if (window.__cbGatePopstate) { __cbOrigShowView(id); return; }
  var cur = __cbCurView();
  __cbOrigShowView(id);
- if (cur !== id) { try { history.pushState({cb:1, view:id}, ""); } catch(e){} }
+ var desc = null; try { desc = navSnap(); } catch(e){}
+ var key = desc ? navKey(desc) : "";
+ if (cur !== id || (key && key !== __cbLastKey)) { try { history.pushState({cb:1, view:id, desc:desc}, ""); __cbLastKey = key; } catch(e){} }
 };
-try { if (!history.state || !history.state.cb) history.replaceState({cb:1, view:__cbCurView()}, ""); } catch(e){}
+try { if (!history.state || !history.state.cb) history.replaceState({cb:1, view:__cbCurView(), desc:null}, ""); } catch(e){}
 window.addEventListener("popstate", function(e){
  var st = e ? e.state : null;
  if (!st || !st.cb || !st.view) return;
@@ -1881,7 +1974,10 @@ window.addEventListener("popstate", function(e){
  var target = st.view;
  __cbShowGate(function(){
  window.__cbGatePopstate = true;
- try { __cbOrigShowView(target); } finally { window.__cbGatePopstate = false; }
+ try {
+ if (st.desc && st.desc.v) { if (CB_STACK.length) CB_STACK.pop(); __cbLastKey = navKey(st.desc); navOpen(st.desc); }
+ else __cbOrigShowView(target);
+ } finally { window.__cbGatePopstate = false; }
  try { refreshDyn(); } catch(err){}
  });
 });
