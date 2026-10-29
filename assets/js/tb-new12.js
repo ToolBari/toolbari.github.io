@@ -47,7 +47,7 @@ function tbRecord(canvas,durMs,total,drawFn,videoEl,outId,filename){
 (function(){
   var go=$('pti-go'); if(!go)return;
   var img=$('pti-img');
-  function ptiAdShow(wrap){
+  function adShow(wrap){
     try{
       var old=document.getElementById('pti-ad'); if(old)old.remove();
       if(typeof waitAdIframe!=='function')return;
@@ -57,9 +57,30 @@ function tbRecord(canvas,durMs,total,drawFn,videoEl,outId,filename){
       if(wrap)wrap.appendChild(d);
     }catch(e){}
   }
-  function ptiAdHide(){ var d=document.getElementById('pti-ad'); if(d)d.remove(); }
-  function hordeGenerate(p, sz, wrap){
-    out('pti-out','First service is busy \u2014 trying the second image service\u2026 this can take up to a minute.');
+  function adHide(){ var d=document.getElementById('pti-ad'); if(d)d.remove(); }
+  function saveBlob(b){
+    var a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='prompt-to-image.jpg';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){URL.revokeObjectURL(a.href);},5000);
+  }
+  function autoDownload(){
+    if(!img.src){return;}
+    var wurl='https://images.weserv.nl/?url='+encodeURIComponent(img.src.replace(/^https?:\/\//,''))+'&output=jpg';
+    fetch(wurl).then(function(r){ if(!r.ok) throw new Error('w'); return r.blob(); })
+    .then(function(b){ if((b.type||'').indexOf('image')<0) throw new Error('n'); saveBlob(b); out('pti-out','Image ready and downloaded as JPG.'); })
+    .catch(function(){
+      fetch(img.src,{mode:'cors'}).then(function(r){return r.blob();}).then(function(b){
+        if((b.type||'').indexOf('image')>=0){ saveBlob(b); out('pti-out','Image ready and downloaded as JPG.'); }
+        else{ out('pti-out','Image ready. Tap Download JPG to save it.'); }
+      }).catch(function(){ out('pti-out','Image ready. Tap Download JPG to save it.'); });
+    });
+  }
+  function showAndSave(wrap){
+    img.style.display='block'; if(wrap)wrap.classList.add('show'); adHide();
+    out('pti-out','Image ready \u2014 downloading\u2026');
+    autoDownload();
+  }
+  function hordeGenerate(p, sz, wrap, done){
     var W=Math.min(1024,Math.round((+sz[0])/64)*64), H=Math.min(1024,Math.round((+sz[1])/64)*64);
     fetch('https://stablehorde.net/api/v2/generate/async',{method:'POST',headers:{'Content-Type':'application/json','apikey':'0000000000','Client-Agent':'toolbari:1.0:web'},body:JSON.stringify({prompt:p,params:{width:W,height:H,steps:25,n:1},models:['stable_diffusion']})})
     .then(function(r){return r.json();})
@@ -68,7 +89,7 @@ function tbRecord(canvas,durMs,total,drawFn,videoEl,outId,filename){
       var id=j.id, tries=0;
       var iv=setInterval(function(){
         tries++;
-        if(tries>30){ clearInterval(iv); ptiAdHide(); out('pti-out','The second service is too busy right now. Please try again in a moment.'); return; }
+        if(tries>40){ clearInterval(iv); done(false); return; }
         fetch('https://stablehorde.net/api/v2/generate/check/'+id,{headers:{'Client-Agent':'toolbari:1.0:web'}})
         .then(function(r){return r.json();})
         .then(function(c){
@@ -78,79 +99,56 @@ function tbRecord(canvas,durMs,total,drawFn,videoEl,outId,filename){
           .then(function(r){return r.json();})
           .then(function(s){
             var g=s&&s.generations&&s.generations[0];
-            if(!g||!g.img){ ptiAdHide(); out('pti-out','The second service did not return an image. Please try again.'); return; }
-            img.onload=function(){img.style.display='block'; if(wrap)wrap.classList.add('show'); ptiAdHide(); out('pti-out','Image ready. Tap Download JPG to save it.');};
-            img.onerror=function(){ ptiAdHide(); out('pti-out','The image could not be loaded. Please try again.'); };
+            if(!g||!g.img){ done(false); return; }
+            img.onload=function(){ done(true); };
+            img.onerror=function(){ done(false); };
             img.crossOrigin=null; img.src=g.img;
-          }).catch(function(){ ptiAdHide(); out('pti-out','The second service did not respond. Please try again.'); });
+          }).catch(function(){ done(false); });
         }).catch(function(){});
       },4000);
     })
-    .catch(function(){ ptiAdHide(); out('pti-out','Both image services are busy. Please try again in a moment.'); });
+    .catch(function(){ done(false); });
+  }
+  function pollinationsGenerate(p, sz, wrap, done){
+    var url='https://image.pollinations.ai/prompt/'+encodeURIComponent(p)+'?width='+sz[0]+'&height='+sz[1]+'&seed='+Math.floor(Math.random()*1000000)+'&nologo=true';
+    img.onload=function(){ done(true); };
+    img.onerror=function(){
+      if(img.crossOrigin){ img.crossOrigin=null; img.onerror=function(){ done(false); }; img.src=url; return; }
+      done(false);
+    };
+    img.crossOrigin='anonymous';
+    img.src=url;
   }
   go.addEventListener('click',function(){
     var p=$('pti-prompt').value.trim(); if(!p){out('pti-out','Please type a prompt first.');return;}
     var sz=$('pti-size').value.split('x');
     var wrap=img.closest('.stage-wrap'); if(wrap)wrap.classList.add('show');
     img.style.display='none';
-    ptiAdShow(wrap);
+    adShow(wrap);
+    var adDone=false, imgDone=false, imgOk=false;
+    function maybeFinish(){
+      if(!adDone||!imgDone) return;
+      go.disabled=false; go.textContent='Generate Image';
+      if(imgOk){ showAndSave(wrap); }
+      else{ adHide(); out('pti-out','The image services are busy right now. Please try again in a moment.'); }
+    }
+    out('pti-out','Your image is being created. A 45-second ad plays first\u2026');
     var left=45;
     go.disabled=true; go.textContent='Please wait '+left+'s\u2026';
-    out('pti-out','Your image will be created after this 45-second ad. Please wait\u2026');
     var cd=setInterval(function(){
       left--;
       if(left>0){ go.textContent='Please wait '+left+'s\u2026'; return; }
-      clearInterval(cd);
-      go.disabled=false; go.textContent='Generate Image';
-      ptiAdHide();
-      startGenerate(p, sz, wrap);
+      clearInterval(cd); adDone=true; maybeFinish();
     },1000);
+    hordeGenerate(p, sz, wrap, function(ok){
+      if(ok){ imgDone=true; imgOk=true; maybeFinish(); return; }
+      pollinationsGenerate(p, sz, wrap, function(ok2){ imgDone=true; imgOk=ok2; maybeFinish(); });
+    });
   });
-  function startGenerate(p, sz, wrap){
-    var url='https://image.pollinations.ai/prompt/'+encodeURIComponent(p)+'?width='+sz[0]+'&height='+sz[1]+'&seed='+Math.floor(Math.random()*1000000)+'&nologo=true';
-    out('pti-out','Generating image\u2026 please wait.'); img.style.display='none';
-    if(wrap)wrap.classList.add('show');
-    ptiAdShow(wrap);
-    img.onload=function(){img.style.display='block'; if(wrap)wrap.classList.add('show'); ptiAdHide(); out('pti-out','Image ready. Tap Download JPG to save it.');};
-    img.onerror=function(){
-      if(img.crossOrigin){ img.crossOrigin=null; img.onerror=function(){ hordeGenerate(p, sz, wrap); }; img.src=url; return; }
-      hordeGenerate(p, sz, wrap);
-    };
-    img.crossOrigin='anonymous';
-    img.src=url;
-  }
   $('pti-dl').addEventListener('click',function(){
     if(img.style.display!=='block'||!img.src){out('pti-out','Generate an image first.');return;}
-    function saveBlob(b, name){
-      var a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download=name;
-      document.body.appendChild(a); a.click(); a.remove();
-      setTimeout(function(){URL.revokeObjectURL(a.href);}, 5000);
-      out('pti-out','JPG downloaded.');
-    }
-    function openInTab(){
-      var a=document.createElement('a'); a.href=img.src; a.target='_blank'; a.rel='noopener'; a.click();
-      out('pti-out','Direct download was blocked by the image service, so the image opened in a new tab. Long-press (or right-click) the image there and choose Save image.');
-    }
-    function canvasFallback(){
-      try{
-        var cv=document.createElement('canvas'); cv.width=img.naturalWidth||1024; cv.height=img.naturalHeight||1024;
-        var ctx=cv.getContext('2d'); ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,cv.width,cv.height); ctx.drawImage(img,0,0,cv.width,cv.height);
-        cv.toBlob(function(jb){
-          if(jb){ saveBlob(jb,'prompt-to-image.jpg'); } else { openInTab(); }
-        },'image/jpeg',0.92);
-      }catch(e){ openInTab(); }
-    }
-    var wurl='https://images.weserv.nl/?url='+encodeURIComponent(img.src.replace(/^https?:\/\//,''))+'&output=jpg';
-    fetch(wurl).then(function(r){ if(!r.ok) throw new Error('weserv'); return r.blob(); }).then(function(b){
-      if((b.type||'').indexOf('image')<0) throw new Error('notimg');
-      saveBlob(b,'prompt-to-image.jpg');
-    }).catch(function(){
-      fetch(img.src,{mode:'cors'}).then(function(r){ if(!r.ok) throw new Error('fetch'); return r.blob(); }).then(function(b){
-        if((b.type||'').indexOf('json')>=0){out('pti-out','Free limit reached (Pollinations: 1 free image every 45 seconds). Please wait 45 seconds and tap Generate again.');return;}
-        if((b.type||'').indexOf('image')<0){ canvasFallback(); return; }
-        saveBlob(b,'prompt-to-image.jpg');
-      }).catch(canvasFallback);
-    });
+    out('pti-out','Downloading\u2026');
+    autoDownload();
   });
 })();
 /* AI Chat */
