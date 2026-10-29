@@ -10,6 +10,8 @@
   gtag('config', 'G-YN2R4HKJS4');
 </script>
 <meta charset="utf-8" />
+<script>try{var _tbDark=localStorage.getItem('tb_dark');if(_tbDark==='1'){document.documentElement.setAttribute('data-theme','dark');}else if(_tbDark==='0'){document.documentElement.setAttribute('data-theme','light');}}catch(e){}</script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="light dark" />
 <meta name="description" content="ToolBari: 429 free online tools — video downloader, image to PDF, QR, calculators, CV & more. No sign-up." />
@@ -51,7 +53,7 @@
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lamejs/1.2.1/lame.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/tesseract.js@5.0.5/dist/tesseract.min.js"></script>
-<link rel="stylesheet" href="assets/css/toolbari.css?v=20261029-tealfull3" />
+<link rel="stylesheet" href="assets/css/toolbari.css?v=20261029-darkpersist1" />
 <meta name="ba000294d405d36097dfef378bda10447a504a2e" content="ba000294d405d36097dfef378bda10447a504a2e" />
 
 
@@ -4721,7 +4723,7 @@ if(document.readyState==='complete'){ready();}else{window.addEventListener('load
 function getArr(k){try{var v=JSON.parse(localStorage.getItem(k)||'[]'); return Array.isArray(v)?v:[];}catch(e){return [];}}
 function setArr(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
 try{
-  try{var _d=localStorage.getItem('tb_dark'); document.documentElement.setAttribute('data-theme',_d==='1'?'dark':'light');}catch(e){document.documentElement.setAttribute('data-theme','light');}
+  try{var _d=localStorage.getItem('tb_dark'); document.documentElement.setAttribute('data-theme',_d==='1'?'dark':'light'); if(document.body){document.body.classList.toggle('dark',_d==='1');}}catch(e){document.documentElement.setAttribute('data-theme','light');}
   var fs=localStorage.getItem('tb_fontsize');
   if(fs==='small'){document.body.classList.add('tb-fs-small');}
   if(fs==='large'){document.body.classList.add('tb-fs-large');}
@@ -4729,7 +4731,7 @@ try{
 var _mb=document.getElementById('menuBtn'),_mm=document.getElementById('mobileMenu');if(_mb&&_mm){_mb.addEventListener('click',function(){_mm.classList.toggle('open');_mb.setAttribute('aria-expanded',_mm.classList.contains('open')?'true':'false');});}
 var darkBtn=document.getElementById('tbDarkBtn');
 function syncDark(){if(darkBtn){darkBtn.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'\u2600 Light mode':'\u263e Dark mode';}}
-if(darkBtn){darkBtn.addEventListener('click',function(){var cur=document.documentElement.getAttribute('data-theme'); var next=(cur==='dark')?'light':'dark'; document.documentElement.setAttribute('data-theme',next); try{localStorage.setItem('tb_dark',next==='dark'?'1':'0');}catch(e){} syncDark();});}
+if(darkBtn){darkBtn.addEventListener('click',function(){var cur=document.documentElement.getAttribute('data-theme'); var next=(cur==='dark')?'light':'dark'; document.documentElement.setAttribute('data-theme',next); if(document.body){document.body.classList.toggle('dark',next==='dark');} try{localStorage.setItem('tb_dark',next==='dark'?'1':'0');}catch(e){} syncDark();});}
 syncDark();
 function setFs(mode){document.body.classList.remove('tb-fs-small','tb-fs-large'); if(mode==='small'){document.body.classList.add('tb-fs-small');} if(mode==='large'){document.body.classList.add('tb-fs-large');} try{localStorage.setItem('tb_fontsize',mode);}catch(e){}}
 function curFs(){if(document.body.classList.contains('tb-fs-small')){return 'small';} if(document.body.classList.contains('tb-fs-large')){return 'large';} return 'default';}
