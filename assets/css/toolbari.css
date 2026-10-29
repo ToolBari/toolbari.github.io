@@ -366,3 +366,5 @@ html[data-theme="dark"] .m-cat-pills a, body.dark .m-cat-pills a{background:#134
 html[data-theme="dark"] .m-nav a, body.dark .m-nav a{color:#f0fdfa!important}
 html[data-theme="dark"] .m-menu, body.dark .m-menu{background:#042f2e!important;border-color:#2dd4bf!important}
 html[data-theme="dark"] .m-cats-t, body.dark .m-cats-t{color:#f0fdfa!important}
+
+.foot-bottom nav{display:flex;gap:8px 20px;flex-wrap:wrap;align-items:center}
