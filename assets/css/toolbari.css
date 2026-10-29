@@ -345,3 +345,9 @@ body.dark .searchbox, body.dark input, body.dark select, body.dark textarea, bod
 html[data-theme="dark"] .searchbox, html[data-theme="dark"] input, html[data-theme="dark"] select, html[data-theme="dark"] textarea, html[data-theme="dark"] .chip, html[data-theme="dark"] .slide, html[data-theme="dark"] .toolview, html[data-theme="dark"] .view, html[data-theme="dark"] .tb-cat-bar, html[data-theme="dark"] .tb-cat-card, html[data-theme="dark"] .ticker{background:#134e4a!important;color:#f0fdfa!important;border-color:#2dd4bf!important}
 body.dark h1,body.dark h2,body.dark h3,body.dark h4,body.dark p,body.dark span,body.dark label,body.dark li, html[data-theme="dark"] h1,html[data-theme="dark"] h2,html[data-theme="dark"] h3,html[data-theme="dark"] h4,html[data-theme="dark"] p,html[data-theme="dark"] span,html[data-theme="dark"] label,html[data-theme="dark"] li{color:#f0fdfa!important}
 body.dark .muted, body.dark small, html[data-theme="dark"] .muted, html[data-theme="dark"] small{color:#99f6e4!important}
+
+/* Teal Night FULL2 - notice and how sections, no white in dark */
+body.dark .notice-area, body.dark .tb-how-site, body.dark section.block, body.dark .panel,
+html[data-theme="dark"] .notice-area, html[data-theme="dark"] .tb-how-site, html[data-theme="dark"] section.block, html[data-theme="dark"] .panel{background:#134e4a!important;color:#f0fdfa!important;border-color:#2dd4bf!important}
+body.dark .notice-area h2, body.dark .tb-how-site h2, body.dark .notice-area p, body.dark .tb-how-site p, body.dark .tb-how-site li,
+html[data-theme="dark"] .notice-area h2, html[data-theme="dark"] .tb-how-site h2, html[data-theme="dark"] .notice-area p, html[data-theme="dark"] .tb-how-site p, html[data-theme="dark"] .tb-how-site li{color:#f0fdfa!important}
