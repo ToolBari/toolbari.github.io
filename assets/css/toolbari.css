@@ -321,3 +321,11 @@ html[data-theme="dark"] .block a:not(.card):not(.backlink):not(.logo),html[data-
 .btn{box-shadow:0 12px 28px rgba(10,132,255,.35),0 3px 8px rgba(0,0,0,.15)!important;transform:translateY(0)}
 .btn:hover{transform:translateY(-2px)!important;box-shadow:0 16px 32px rgba(255,159,46,.45),0 4px 10px rgba(0,0,0,.15)!important}
 .btn:active{transform:translateY(1px)!important;box-shadow:0 4px 12px rgba(0,0,0,.15)!important}
+
+/* Dark-mode buttons: navy blue background, neon lighter edge */
+body.dark button, body.dark .btn, body.dark .pill, body.dark .tb-cat-card, body.dark .tb-util, body.dark a.btn, body.dark .block a, body.dark .panel a,
+html[data-theme="dark"] button, html[data-theme="dark"] .btn, html[data-theme="dark"] .pill, html[data-theme="dark"] .tb-cat-card, html[data-theme="dark"] .tb-util, html[data-theme="dark"] a.btn, html[data-theme="dark"] .block a, html[data-theme="dark"] .panel a{
+  background:#0f172a!important; background-color:#0f172a!important; color:#edf2fc!important;
+  border:1px solid #38bdf8!important; box-shadow:0 0 0 1px rgba(56,189,248,.55), 0 0 12px rgba(56,189,248,.35)!important;
+}
+body.dark button:hover, body.dark .btn:hover, html[data-theme="dark"] button:hover, html[data-theme="dark"] .btn:hover{box-shadow:0 0 0 1px rgba(56,189,248,.8), 0 0 16px rgba(56,189,248,.5)!important}
