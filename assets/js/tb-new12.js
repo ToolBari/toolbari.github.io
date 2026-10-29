@@ -47,20 +47,78 @@ function tbRecord(canvas,durMs,total,drawFn,videoEl,outId,filename){
 (function(){
   var go=$('pti-go'); if(!go)return;
   var img=$('pti-img');
+  function ptiAdShow(wrap){
+    try{
+      var old=document.getElementById('pti-ad'); if(old)old.remove();
+      if(typeof waitAdIframe!=='function')return;
+      var d=document.createElement('div'); d.id='pti-ad';
+      d.innerHTML='<p style="margin:0 0 6px;font-size:12.5px">An ad is shown while the image is being created \u2014 this is how ToolBari stays free.</p>';
+      var s=document.createElement('div'); s.style.display='flex'; s.style.justifyContent='center'; s.appendChild(waitAdIframe()); d.appendChild(s);
+      if(wrap)wrap.appendChild(d);
+    }catch(e){}
+  }
+  function ptiAdHide(){ var d=document.getElementById('pti-ad'); if(d)d.remove(); }
+  function hordeGenerate(p, sz, wrap){
+    out('pti-out','First service is busy \u2014 trying the second image service\u2026 this can take up to a minute.');
+    var W=Math.min(1024,Math.round((+sz[0])/64)*64), H=Math.min(1024,Math.round((+sz[1])/64)*64);
+    fetch('https://stablehorde.net/api/v2/generate/async',{method:'POST',headers:{'Content-Type':'application/json','apikey':'0000000000','Client-Agent':'toolbari:1.0:web'},body:JSON.stringify({prompt:p,params:{width:W,height:H,steps:25,n:1},models:['stable_diffusion']})})
+    .then(function(r){return r.json();})
+    .then(function(j){
+      if(!j||!j.id) throw new Error('horde');
+      var id=j.id, tries=0;
+      var iv=setInterval(function(){
+        tries++;
+        if(tries>30){ clearInterval(iv); ptiAdHide(); out('pti-out','The second service is too busy right now. Please try again in a moment.'); return; }
+        fetch('https://stablehorde.net/api/v2/generate/check/'+id,{headers:{'Client-Agent':'toolbari:1.0:web'}})
+        .then(function(r){return r.json();})
+        .then(function(c){
+          if(!c||!c.done) return;
+          clearInterval(iv);
+          fetch('https://stablehorde.net/api/v2/generate/status/'+id,{headers:{'Client-Agent':'toolbari:1.0:web'}})
+          .then(function(r){return r.json();})
+          .then(function(s){
+            var g=s&&s.generations&&s.generations[0];
+            if(!g||!g.img){ ptiAdHide(); out('pti-out','The second service did not return an image. Please try again.'); return; }
+            img.onload=function(){img.style.display='block'; if(wrap)wrap.classList.add('show'); ptiAdHide(); out('pti-out','Image ready. Tap Download JPG to save it.');};
+            img.onerror=function(){ ptiAdHide(); out('pti-out','The image could not be loaded. Please try again.'); };
+            img.crossOrigin=null; img.src=g.img;
+          }).catch(function(){ ptiAdHide(); out('pti-out','The second service did not respond. Please try again.'); });
+        }).catch(function(){});
+      },4000);
+    })
+    .catch(function(){ ptiAdHide(); out('pti-out','Both image services are busy. Please try again in a moment.'); });
+  }
   go.addEventListener('click',function(){
     var p=$('pti-prompt').value.trim(); if(!p){out('pti-out','Please type a prompt first.');return;}
     var sz=$('pti-size').value.split('x');
+    var wrap=img.closest('.stage-wrap'); if(wrap)wrap.classList.add('show');
+    img.style.display='none';
+    ptiAdShow(wrap);
+    var left=45;
+    go.disabled=true; go.textContent='Please wait '+left+'s\u2026';
+    out('pti-out','Your image will be created after this 45-second ad. Please wait\u2026');
+    var cd=setInterval(function(){
+      left--;
+      if(left>0){ go.textContent='Please wait '+left+'s\u2026'; return; }
+      clearInterval(cd);
+      go.disabled=false; go.textContent='Generate Image';
+      ptiAdHide();
+      startGenerate(p, sz, wrap);
+    },1000);
+  });
+  function startGenerate(p, sz, wrap){
     var url='https://image.pollinations.ai/prompt/'+encodeURIComponent(p)+'?width='+sz[0]+'&height='+sz[1]+'&seed='+Math.floor(Math.random()*1000000)+'&nologo=true';
     out('pti-out','Generating image\u2026 please wait.'); img.style.display='none';
-    var wrap=img.closest('.stage-wrap'); if(wrap)wrap.classList.add('show');
-    img.onload=function(){img.style.display='block'; if(wrap)wrap.classList.add('show'); out('pti-out','Image ready. Tap Download JPG to save it.');};
+    if(wrap)wrap.classList.add('show');
+    ptiAdShow(wrap);
+    img.onload=function(){img.style.display='block'; if(wrap)wrap.classList.add('show'); ptiAdHide(); out('pti-out','Image ready. Tap Download JPG to save it.');};
     img.onerror=function(){
-      if(img.crossOrigin){ img.crossOrigin=null; img.onerror=function(){out('pti-out','The image service did not respond. Please try again in a moment.');}; img.src=url; return; }
-      out('pti-out','The image service did not respond. Please try again in a moment.');
+      if(img.crossOrigin){ img.crossOrigin=null; img.onerror=function(){ hordeGenerate(p, sz, wrap); }; img.src=url; return; }
+      hordeGenerate(p, sz, wrap);
     };
     img.crossOrigin='anonymous';
     img.src=url;
-  });
+  }
   $('pti-dl').addEventListener('click',function(){
     if(img.style.display!=='block'||!img.src){out('pti-out','Generate an image first.');return;}
     function saveBlob(b, name){
