@@ -187,6 +187,9 @@ header.mhead{position:sticky;top:0;z-index:60;background:rgba(13,20,3,.9);backdr
 #yeartabs{overflow-x:auto;scrollbar-width:none;padding-bottom:.5rem}
 #yeartabs::-webkit-scrollbar{display:none}
 #yeartabs .ttab{flex:0 0 auto}
+#gftabs{overflow-x:auto;scrollbar-width:none;padding-bottom:.5rem}
+#gftabs::-webkit-scrollbar{display:none}
+#gftabs .ttab{flex:0 0 auto}
 .empty{color:var(--dim);text-align:center;padding:2.4rem 1rem;font-size:1.02rem;line-height:1.6}
 /* ---------- details ---------- */
 #d-back{position:relative;height:min(46vh,340px);min-height:210px;background-size:cover;background-position:center 22%}
@@ -432,6 +435,7 @@ img{max-width:100%;height:auto}
  <button class="ttab on" data-tt="movie">🎬 Movies</button>
  <button class="ttab" data-tt="tv">📺 Series</button>
  </div>
+ <div class="typetabs" id="gftabs" style="display:none"></div>
  <div class="typetabs" id="yeartabs" style="display:none"></div>
  <div class="grid" id="grid"></div>
  <div class="empty" id="grid-empty" style="display:none">Nothing found here yet.<br>Try another name — or tap “Request a Movie” on the home page.</div>
@@ -764,12 +768,12 @@ var SHELVES = [
  { id: "kannada", title: "🎭 Kannada Movies", ep: disc("movie", "&with_original_language=kn"), grid: function(){ return langGrid("kn", "Kannada"); } },
  { id: "chinese", title: "🐲 Chinese Movies & Series", ep: disc("movie", "&with_original_language=zh"), grid: function(){ return langGrid("zh", "Chinese"); } },
  { id: "japanese", title: "🗾 Japanese Movies", ep: disc("movie", "&with_original_language=ja"), grid: function(){ return langGrid("ja", "Japanese"); } },
- { id: "pakistani", title: "🇵🇰 Pakistani Series", sub: "Beloved dramas", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=ur&vote_count.gte=2", grid: function(){ return { title: "🇵🇰 Pakistani Series", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=ur&vote_count.gte=2", tabs: false }; } },
+ { id: "pakistani", title: "🇵🇰 Pakistani Series", sub: "Beloved dramas", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=ur&vote_count.gte=2", grid: function(){ return { title: "🇵🇰 Pakistani Series", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=ur&vote_count.gte=2", tabs: false, country: true }; } },
  { id: "kids", title: "🧒 Kids Zone", sub: "Fun for the little ones", ep: "/discover/movie?sort_by=popularity.desc&with_genres=10751&vote_count.gte=20", grid: function(){ return { title: "🧒 Kids Zone", ep: "/discover/movie?sort_by=popularity.desc&with_genres=10751&vote_count.gte=20", tabs: false }; } },
  { id: "soon", title: "🗓 Coming Soon", sub: "In cinemas soon — watch the space", ep: "/movie/upcoming", grid: function(){ return { title: "🗓 Coming Soon", ep: "/movie/upcoming", tabs: false }; } },
  { id: "id-dubbed", dubbed: true, title: "🇮🇩 Indonesian Hindi-Dubbed", sub: "Indonesian favourites — dubbed audio depends on the print the server carries", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=id&vote_average.gte=6&vote_count.gte=80", grid: function(){ return { title: "🇮🇩 Indonesian Hindi-Dubbed", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=id&vote_average.gte=6&vote_count.gte=80", tabs: false, dubbed: true }; } },
  { id: "bn-dubbed", dubbed: true, title: "🇧🇩 Bangla Hindi-Dubbed", sub: "Bangla favourites — dubbed audio depends on the print the server carries", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=bn&vote_average.gte=6&vote_count.gte=80", grid: function(){ return { title: "🇧🇩 Bangla Hindi-Dubbed", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=bn&vote_average.gte=6&vote_count.gte=80", tabs: false, dubbed: true }; } },
- { id: "banglanatok", title: "🇧🇩 Bangla Natok", sub: "Bangladeshi TV dramas & natoks", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=bn&vote_count.gte=2", grid: function(){ return { title: "🇧🇩 Bangla Natok", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=bn&vote_count.gte=2", tabs: false }; } },
+ { id: "banglanatok", title: "🇧🇩 Bangla Natok", sub: "Bangladeshi TV dramas & natoks", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=bn&vote_count.gte=2", grid: function(){ return { title: "🇧🇩 Bangla Natok", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=bn&vote_count.gte=2", tabs: false, country: true }; } },
  { id: "southindian", title: "🎬 South Indian", sub: "Tamil, Telugu, Malayalam & Kannada hits — original audio", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=te|ta|ml|kn&vote_count.gte=20", grid: function(){ return { title: "🎬 South Indian", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=te|ta|ml|kn&vote_count.gte=20", tabs: false }; } },
  { id: "ongoing", title: "📺 Ongoing Series", sub: "Series still running — new episodes coming", ep: "/discover/tv?sort_by=popularity.desc&with_status=0&vote_count.gte=20", grid: function(){ return { title: "📺 Ongoing Series", ep: "/discover/tv?sort_by=popularity.desc&with_status=0&vote_count.gte=20", tabs: false }; } },
  { id: "idhorror", title: "🇮🇩 Indonesian Horror", sub: "Scary picks from Indonesia", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=id&with_genres=27&vote_count.gte=20", grid: function(){ return { title: "🇮🇩 Indonesian Horror", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=id&with_genres=27&vote_count.gte=20", tabs: false }; } }
@@ -998,11 +1002,16 @@ function gridEp(){
  if(G.year === "old") e += isTV ? "&first_air_date.lte=1989-12-31" : "&primary_release_date.lte=1989-12-31";
  else if(G.year) e += isTV ? "&first_air_date_year=" + G.year : "&primary_release_year=" + G.year;
  }
+ if(G.gf && e.indexOf("/discover/") === 0 && e.indexOf("with_genres=") === -1){
+ var gid = G.gf;
+ if(gid === 878 && e.indexOf("/discover/tv") === 0) gid = 10765;
+ e += "&with_genres=" + gid;
+ }
  return e;
 }
 function openGrid(def){
  window.__cbGridFrom = $("v-cats").classList.contains("on") ? "v-cats" : "v-movies";
- G = { title: def.title, ep: def.ep, tabs: !!def.tabs, page: 1, type: "movie", local: def.local || null, search: !!def.search, hub: def.hub || null, ws: def.ws || null, dubbed: !!def.dubbed, kjc: def.kjc || null, genre: def.genre || null, genrelang: def.genre ? (localStorage.getItem("cb_genrelang") || "") : "", bndub: !!def.bndub, year: "", yearFilter: !!(def.genre || def.hub || def.ws || def.kjc || (def.ep && def.ep.indexOf("/discover/") === 0)) };
+ G = { title: def.title, ep: def.ep, tabs: !!def.tabs, page: 1, type: "movie", local: def.local || null, search: !!def.search, hub: def.hub || null, ws: def.ws || null, dubbed: !!def.dubbed, kjc: def.kjc || null, genre: def.genre || null, genrelang: def.genre ? (localStorage.getItem("cb_genrelang") || "") : "", bndub: !!def.bndub, year: "", yearFilter: !!(def.genre || def.hub || def.ws || def.kjc || (def.ep && def.ep.indexOf("/discover/") === 0)), gf: 0, gfilter: !!(def.country || def.langTab) };
  showView("v-grid");
  $("grid-t").textContent = def.title;
  $("typetabs").style.display = (G.tabs && !G.hub && !G.ws) ? "flex" : "none";
@@ -1019,6 +1028,8 @@ function openGrid(def){
  document.querySelectorAll("#typetabs .ttab").forEach(function(t){ t.classList.toggle("on", t.getAttribute("data-tt") === "movie"); });
  $("yeartabs").style.display = G.yearFilter ? "flex" : "none";
  if(G.yearFilter) syncYearTabs();
+ $("gftabs").style.display = G.gfilter ? "flex" : "none";
+ if(G.gfilter) syncGfTabs();
  $("grid").innerHTML = "";
  if(G.local){ renderLocalGrid(); return; }
  loadGridPage(true);
@@ -1073,6 +1084,27 @@ function syncYearTabs(){
  host.querySelectorAll(".ttab").forEach(function(x){ x.classList.toggle("on", (x.getAttribute("data-y") || "") === (G ? G.year : "")); });
 }
 buildYearTabs();
+/* genre filter chips inside country grids: All Genres + the main genres (combines with the year filter) */
+var GF_GENRES = [[28,"Action"],[12,"Adventure"],[16,"Animation"],[35,"Comedy"],[80,"Crime"],[99,"Documentary"],[18,"Drama"],[10751,"Family"],[14,"Fantasy"],[36,"History"],[27,"Horror"],[10402,"Music"],[9648,"Mystery"],[10749,"Romance"],[878,"Sci-Fi"],[53,"Thriller"],[10752,"War"],[37,"Western"]];
+function buildGfTabs(){
+ var h = '<button class="ttab on" data-gf="">All Genres</button>';
+ GF_GENRES.forEach(function(g){ h += '<button class="ttab" data-gf="' + g[0] + '">' + g[1] + "</button>"; });
+ $("gftabs").innerHTML = h;
+ $("gftabs").querySelectorAll(".ttab").forEach(function(t){
+ t.addEventListener("click", function(){
+ if(!G || !G.gfilter) return;
+ G.gf = parseInt(t.getAttribute("data-gf"), 10) || 0; G.page = 1;
+ syncGfTabs();
+ loadGridPage(true);
+ });
+ });
+}
+function syncGfTabs(){
+ var host = $("gftabs");
+ if(!host) return;
+ host.querySelectorAll(".ttab").forEach(function(x){ x.classList.toggle("on", (x.getAttribute("data-gf") || "") === (G && G.gf ? String(G.gf) : "")); });
+}
+buildGfTabs();
 /* grid infinite scroll: auto-load the next page near the bottom */
 if("IntersectionObserver" in window){
  var gio = new IntersectionObserver(function(entries){
@@ -1130,19 +1162,19 @@ var CATS_VIEW = [
  { t: "🇧🇩 Bangladesh", s: "Bangla movies", c: "linear-gradient(135deg,#047857,#065f46)", g: function(){ return langGrid("bn", "Bangladesh — Bangla"); } },
  { t: "🎬 India · Bollywood", s: "Hindi movies", c: "linear-gradient(135deg,#db2777,#9d174d)", g: function(){ return langGrid("hi", "India — Bollywood"); } },
  { t: "🎥 Hollywood · USA", s: "English movies", c: "linear-gradient(135deg,#2563eb,#1e3a8a)", g: function(){ return langGrid("en", "Hollywood — USA"); } },
- { t: "🎭 South India", s: "Tamil & Telugu movies", c: "linear-gradient(135deg,#b45309,#92400e)", g: function(){ return { title: "🎭 South India — Tamil & Telugu", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=ta|te&vote_count.gte=20", tabs: false }; } },
+ { t: "🎭 South India", s: "Tamil & Telugu movies", c: "linear-gradient(135deg,#b45309,#92400e)", g: function(){ return { title: "🎭 South India — Tamil & Telugu", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=ta|te&vote_count.gte=20", tabs: false, country: true }; } },
  { t: "🇰🇷 South Korea", s: "Korean movies", c: "linear-gradient(135deg,#0ea5e9,#075985)", g: function(){ return langGrid("ko", "South Korea"); } },
  { t: "🗾 Japan", s: "Japanese movies", c: "linear-gradient(135deg,#0891b2,#155e75)", g: function(){ return langGrid("ja", "Japan"); } },
  { t: "🐲 China", s: "Chinese movies", c: "linear-gradient(135deg,#dc2626,#991b1b)", g: function(){ return langGrid("zh", "China"); } },
  { t: "🇮🇩 Indonesia", s: "Indonesian movies", c: "linear-gradient(135deg,#e11d48,#881337)", g: function(){ return langGrid("id", "Indonesia"); } },
- { t: "🇵🇰 Pakistan", s: "Hit Pakistani series", c: "linear-gradient(135deg,#16a34a,#14532d)", g: function(){ return { title: "🇵🇰 Pakistan — Series", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=ur&vote_count.gte=2", tabs: false }; } },
+ { t: "🇵🇰 Pakistan", s: "Hit Pakistani series", c: "linear-gradient(135deg,#16a34a,#14532d)", g: function(){ return { title: "🇵🇰 Pakistan — Series", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=ur&vote_count.gte=2", tabs: false, country: true }; } },
  { sec: "📺 TV Series by Country" },
- { t: "🇮🇳 India Series", s: "Hindi web series", c: "linear-gradient(135deg,#f59e0b,#b45309)", g: function(){ return { title: "🇮🇳 India — Hindi Series", ep: WS_FILTERS.hindi, tabs: false, ws: "hindi" }; } },
- { t: "🇰🇷 Korean Drama", s: "K-Drama hits", c: "linear-gradient(135deg,#8b5cf6,#5b21b6)", g: function(){ return { title: "🇰🇷 Korean Drama", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=ko&vote_count.gte=20", tabs: false }; } },
- { t: "🇧🇩 Bangla Natok", s: "Bangladeshi TV drama", c: "linear-gradient(135deg,#059669,#064e3b)", g: function(){ return { title: "🇧🇩 Bangla Natok", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=bn&vote_count.gte=2", tabs: false }; } },
+ { t: "🇮🇳 India Series", s: "Hindi web series", c: "linear-gradient(135deg,#f59e0b,#b45309)", g: function(){ return { title: "🇮🇳 India — Hindi Series", ep: WS_FILTERS.hindi, tabs: false, ws: "hindi", country: true }; } },
+ { t: "🇰🇷 Korean Drama", s: "K-Drama hits", c: "linear-gradient(135deg,#8b5cf6,#5b21b6)", g: function(){ return { title: "🇰🇷 Korean Drama", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=ko&vote_count.gte=20", tabs: false, country: true }; } },
+ { t: "🇧🇩 Bangla Natok", s: "Bangladeshi TV drama", c: "linear-gradient(135deg,#059669,#064e3b)", g: function(){ return { title: "🇧🇩 Bangla Natok", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=bn&vote_count.gte=2", tabs: false, country: true }; } },
  { t: "🎌 Anime", s: "Japanese animation series", c: "linear-gradient(135deg,#ec4899,#9d174d)", g: function(){ return { title: "🎌 Anime Hub", ep: "/discover/tv?sort_by=popularity.desc&with_genres=16&with_original_language=ja&vote_count.gte=20", tabs: false }; } },
- { t: "🐲 Chinese Series", s: "C-Drama hits", c: "linear-gradient(135deg,#ef4444,#7f1d1d)", g: function(){ return { title: "🐲 Chinese Series", ep: "/discover/tv?sort_by=first_air_date.desc&with_original_language=zh&vote_count.gte=20", tabs: false }; } },
- { t: "🇺🇸 English Series", s: "US & UK series", c: "linear-gradient(135deg,#3b82f6,#172554)", g: function(){ return { title: "🇺🇸 English Series", ep: WS_FILTERS.english, tabs: false, ws: "english" }; } },
+ { t: "🐲 Chinese Series", s: "C-Drama hits", c: "linear-gradient(135deg,#ef4444,#7f1d1d)", g: function(){ return { title: "🐲 Chinese Series", ep: "/discover/tv?sort_by=first_air_date.desc&with_original_language=zh&vote_count.gte=20", tabs: false, country: true }; } },
+ { t: "🇺🇸 English Series", s: "US & UK series", c: "linear-gradient(135deg,#3b82f6,#172554)", g: function(){ return { title: "🇺🇸 English Series", ep: WS_FILTERS.english, tabs: false, ws: "english", country: true }; } },
  { t: "📺 All Web Series", s: "Every language", c: "linear-gradient(135deg,#64748b,#1e293b)", g: function(){ return { title: "📺 Web Series", ep: WS_FILTERS.all, tabs: false, ws: "all" }; } },
  { sec: "🎭 Genres" }
 ];
