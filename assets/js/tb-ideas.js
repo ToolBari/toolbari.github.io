@@ -43,6 +43,7 @@
     }
     var results=document.querySelectorAll('.view .result');
     results.forEach(function(res){
+      if(res.closest('#view-video-downloader')) return;
       var panel=res.closest('.panel')||res.parentElement;
       if(!panel||panelHasCopy(panel)) return;
       if(panel.querySelector('img')) return;
