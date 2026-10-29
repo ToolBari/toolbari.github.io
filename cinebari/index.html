@@ -131,6 +131,19 @@ header.mhead{position:sticky;top:0;z-index:60;background:rgba(13,20,3,.9);backdr
 .shelf .sh h2{font-size:1.22rem;font-weight:900}
 .shelf .sh .sub{color:var(--dim);font-size:.85rem;font-weight:600}
 .shelf .sh .seeall{margin-left:auto;color:var(--rose2);font-weight:800;font-size:.92rem;white-space:nowrap}
+.shelf .sh .cwclear{margin-left:auto;background:#1a2a07;border:1px solid #a3e635;color:#a3e635;font-weight:800;font-size:.85rem;border-radius:2rem;padding:.38rem .9rem;white-space:nowrap;cursor:pointer}
+.card .cwx{position:absolute;top:.3rem;right:.3rem;width:1.5rem;height:1.5rem;border-radius:50%;background:rgba(5,8,1,.72);color:#fff;font-size:.82rem;font-weight:900;display:flex;align-items:center;justify-content:center;z-index:3;line-height:1;cursor:pointer}
+.cwshelf .card .fav{right:1.85rem}
+.cwshelf .card{flex-basis:5.6rem;width:5.6rem}
+.cwshelf .card .ti{font-size:.72rem;margin-top:.32rem}
+.cwshelf .card .tp{font-size:.64rem}
+.cwshelf .card .tg{font-size:.62rem}
+.cwshelf .card .rt{font-size:.62rem;padding:.08rem .32rem}
+.cwshelf .card .yr{font-size:.6rem;padding:.08rem .32rem}
+.cwshelf .card .dub{font-size:.54rem;padding:.08rem .35rem}
+.cwshelf .card .cbadge{font-size:.54rem;padding:.08rem .32rem}
+.cwshelf .card .fav{font-size:.88rem}
+.cwshelf .card .cwx{top:.22rem;right:.22rem;width:1.25rem;height:1.25rem;font-size:.7rem}
 .row{display:flex;gap:.65rem;overflow-x:auto;padding:.7rem .95rem .4rem;scrollbar-width:none}
 .row::-webkit-scrollbar{display:none}
 .card{flex:0 0 8.6rem;width:8.6rem;text-align:left;position:relative}
@@ -921,6 +934,23 @@ function cwSave(s, season, episode){
  l.unshift({ id: s.id, type: s.type, title: s.title, poster: s.poster, rating: s.rating, year: s.year, lang: s.lang || "", s: season || 1, e: episode || 1, ts: Date.now() });
  saveLS("cb_cw", l.slice(0, 12));
 }
+function cwRemove(type, id){
+ saveLS("cb_cw", cwList().filter(function(x){ return !(x.type === type && String(x.id) === String(id)); }));
+ refreshDyn();
+ toast("Removed from Continue Watching");
+}
+function confirmCwClear(){
+ var n = cwList().length;
+ if(!n) return;
+ openModal('<h3>🗑 Clear Continue Watching?</h3><p>This removes all ' + n + " title" + (n === 1 ? "" : "s") + ' from your Continue Watching row. This cannot be undone.</p><button class="go" id="cw-clear-go">Clear</button><button class="x" id="m-close">Cancel</button>');
+ var b = $("cw-clear-go");
+ if(b) b.addEventListener("click", function(){
+ closeModal();
+ saveLS("cb_cw", []);
+ refreshDyn();
+ toast("Continue Watching cleared");
+ });
+}
 /* ---------------- home build ---------------- */
 var entered = false;
 function enterMovies(){
@@ -930,12 +960,28 @@ function enterMovies(){
  startHero();
  buildHome();
 }
-function dynShelf(title, sub, items){
+function dynShelf(title, sub, items, opts){
  if(!items.length) return null;
  items.forEach(function(s){ ITEMS[s.type + ":" + s.id] = s; });
  var d = document.createElement("div");
- d.className = "shelf dyn";
- d.innerHTML = '<div class="sh"><h2>' + esc(title) + "</h2>" + (sub ? '<span class="sub">' + esc(sub) + "</span>" : "") + '</div><div class="row">' + items.map(function(s){ return cardHTML(s); }).join("") + "</div>";
+ d.className = "shelf dyn" + (opts && opts.cw ? " cwshelf" : "");
+ d.innerHTML = '<div class="sh"><h2>' + esc(title) + "</h2>" + (sub ? '<span class="sub">' + esc(sub) + "</span>" : "") + (opts && opts.cw ? '<button class="cwclear" type="button">🗑 Clear</button>' : "") + '</div><div class="row">' + items.map(function(s){ return cardHTML(s); }).join("") + "</div>";
+ if(opts && opts.cw){
+ d.querySelectorAll(".card").forEach(function(c){
+ var pw = c.querySelector(".pw");
+ if(pw){ var x = document.createElement("span"); x.className = "cwx"; x.setAttribute("data-cwx", c.getAttribute("data-open") || ""); x.setAttribute("aria-label", "Remove from Continue Watching"); x.textContent = "✕"; pw.appendChild(x); }
+ });
+ var cb = d.querySelector(".cwclear");
+ if(cb) cb.addEventListener("click", function(){ confirmCwClear(); });
+ d.addEventListener("click", function(e){
+ var x = e.target.closest ? e.target.closest("[data-cwx]") : null;
+ if(!x) return;
+ e.preventDefault();
+ e.stopPropagation();
+ var p = (x.getAttribute("data-cwx") || "").split(":");
+ if(p.length >= 2) cwRemove(p[0], p.slice(1).join(":"));
+ });
+ }
  return d;
 }
 function refreshDyn(){
