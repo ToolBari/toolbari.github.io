@@ -806,21 +806,45 @@ function renderHero(){
  $("hero-info").onclick = function(){ openDetails(reg(it)); };
 }
 function startHero(){
- var calls = [api("/trending/movie/week").catch(function(){ return null; })];
+ /* Hero blend (owner, 2026-10-30): 21 slides = 3 each from the top-7
+ most-watched country/language sources, woven round-robin so the
+ countries mix through the rotation. Hollywood/English comes from the
+ global trending feed filtered to en (fallback: en discover, US|GB
+ origin); the other six are popularity discovers in their language.
+ Every source: movies only, backdrop + overview required; discover
+ calls are released-only. A source that comes up short has its slots
+ backfilled from the global trending pool; dedupe is by id. */
+ var trendCall = api("/trending/movie/week").catch(function(){ return null; });
+ function langCall(code){ return api("/discover/movie?sort_by=popularity.desc&with_original_language=" + code + "&primary_release_date.lte=" + todayStr).catch(function(){ return null; }); }
+ var calls = [trendCall, langCall("hi"), langCall("ta"), langCall("te"), langCall("ko"), langCall("bn"), langCall("zh")];
  Promise.all(calls).then(function(rs){
- var seen = {}, items = [];
- rs.forEach(function(j){
- if(!j || !j.results) return;
- for(var k = 0; k < j.results.length; k++){
- var r = j.results[k];
- if(r.backdrop_path && r.overview && mtype(r) === "movie" && !seen[r.id]){ seen[r.id] = 1; items.push(r); }
+ function usable(r){ return !!r && !!r.backdrop_path && !!r.overview && mtype(r) === "movie"; }
+ function pool(j, lang){
+ var out = [];
+ if(!j || !j.results) return out;
+ for(var k = 0; k < j.results.length; k++){ var r = j.results[k]; if(usable(r) && (!lang || r.original_language === lang)) out.push(r); }
+ return out;
  }
- });
- heroItems = items.slice(0, 12);
+ var trend = pool(rs[0]);
+ var others = [pool(rs[1]), pool(rs[2]), pool(rs[3]), pool(rs[4]), pool(rs[5]), pool(rs[6])];
+ function compose(enPool){
+ var sources = [enPool].concat(others);
+ var seen = {}, items = [];
+ function push(r){ if(r && !seen[r.id]){ seen[r.id] = 1; items.push(r); return true; } return false; }
+ for(var round = 0; round < 3; round++) for(var si = 0; si < sources.length; si++) push(sources[si][round]);
+ for(var ti = 0; ti < trend.length && items.length < 21; ti++) push(trend[ti]);
+ for(var sj = 0; sj < sources.length && items.length < 21; sj++) for(var sk = 3; sk < sources[sj].length && items.length < 21; sk++) push(sources[sj][sk]);
+ heroItems = items.slice(0, 21);
  heroItems.forEach(reg);
  heroIdx = 0; renderHero();
  clearInterval(heroTimer);
- if(heroItems.length) heroTimer = setInterval(function(){ if($("v-movies").classList.contains("on")){ heroIdx = (heroIdx + 1) % heroItems.length; renderHero(); } }, 3500);
+ if(heroItems.length) heroTimer = setInterval(function(){ if($("v-movies").classList.contains("on")){ heroIdx = (heroIdx + 1) % heroItems.length; renderHero(); } }, 2500);
+ }
+ var enPool = pool(rs[0], "en");
+ if(enPool.length >= 3){ compose(enPool); return; }
+ api("/discover/movie?sort_by=popularity.desc&with_original_language=en&with_origin_country=US|GB&primary_release_date.lte=" + todayStr).then(function(j){
+ compose(enPool.concat(pool(j)));
+ }).catch(function(){ compose(enPool); });
  }).catch(function(){});
 }
 /* ---------------- cards & shelves ---------------- */
@@ -925,7 +949,7 @@ function dedupeShelfItems(items, def){
  return out;
 }
 var todayStr = new Date().toISOString().slice(0, 10);
-function disc(type, extra){ return "/discover/" + type + "?sort_by=popularity.desc&vote_count.gte=20" + (extra || ""); }
+function disc(type, extra){ return "/discover/" + type + "?sort_by=popularity.desc&vote_count.gte=3" + (extra || ""); }
 var SHELVES = [
  { id: "latest", title: "🆕 Latest Releases", sub: "Newest movies & series first — updated automatically", fn: function(){
  return Promise.all([
@@ -937,22 +961,22 @@ var SHELVES = [
  return all.slice(0, 20);
  });
  }, grid: function(){ return { title: "🆕 Latest Releases", ep: "/discover/movie?sort_by=primary_release_date.desc&primary_release_date.lte=" + todayStr + "&vote_count.gte=10", tabs: true }; } },
- { id: "new", title: "🆕 New Movies", sub: "Fresh movies, newest first", ep: "/discover/movie?sort_by=primary_release_date.desc&primary_release_date.lte=" + todayStr + "&vote_count.gte=25", grid: function(){ return { title: "🆕 New Movies", ep: "/discover/movie?sort_by=primary_release_date.desc&primary_release_date.lte=" + todayStr + "&vote_count.gte=25", tabs: false }; } },
+ { id: "new", title: "🆕 New Movies", sub: "Fresh movies, newest first", ep: "/discover/movie?sort_by=primary_release_date.desc&primary_release_date.lte=" + todayStr + "&vote_count.gte=3", grid: function(){ return { title: "🆕 New Movies", ep: "/discover/movie?sort_by=primary_release_date.desc&primary_release_date.lte=" + todayStr + "&vote_count.gte=3", tabs: false }; } },
  { id: "trending", title: "🔥 Trending Now", ep: "/trending/all/week", grid: function(){ return { title: "🔥 Trending Now", ep: "/trending/all/week", tabs: false }; } },
- { id: "trending-dubbed", dubbed: true, title: "🔥 Trending in Hindi Dubbed", sub: "Trending favourites — Hindi audio where the print carries it", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=ta|te|ml|kn|en|hi&vote_average.gte=6&vote_count.gte=80", grid: function(){ return { title: "🔥 Trending in Hindi Dubbed", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=ta|te|ml|kn|en|hi&vote_average.gte=6&vote_count.gte=80", tabs: false, dubbed: true }; } },
- { id: "tamil-dubbed", dubbed: true, title: "🎙 Tamil Hindi-Dubbed", sub: "Tamil favourites — dubbed audio depends on the print the server carries", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=ta&vote_average.gte=6&vote_count.gte=80", grid: function(){ return { title: "🎙 Tamil Hindi-Dubbed", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=ta&vote_average.gte=6&vote_count.gte=80", tabs: false, dubbed: true }; } },
- { id: "tamil-new-dubbed", dubbed: true, title: "🆕 Top New Tamil Hindi-Dubbed", sub: "Newest Tamil favourites — Hindi audio where the print carries it", ep: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=ta&vote_count.gte=20", grid: function(){ return { title: "🆕 Top New Tamil Hindi-Dubbed", ep: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=ta&vote_count.gte=20", tabs: false, dubbed: true }; } },
- { id: "hollywood-new-dubbed", dubbed: true, title: "🆕 Top New Hollywood Hindi-Dubbed", sub: "Newest Hollywood favourites — Hindi audio where the print carries it", ep: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=en&vote_count.gte=20", grid: function(){ return { title: "🆕 Top New Hollywood Hindi-Dubbed", ep: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=en&vote_count.gte=20", tabs: false, dubbed: true }; } },
- { id: "indonesian-new-dubbed", dubbed: true, title: "🆕 Top New Indonesian Hindi-Dubbed", sub: "Newest Indonesian favourites — Hindi audio where the print carries it", ep: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=id&vote_count.gte=20", grid: function(){ return { title: "🆕 Top New Indonesian Hindi-Dubbed", ep: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=id&vote_count.gte=20", tabs: false, dubbed: true }; } },
- { id: "bangla-new-dubbed", dubbed: true, title: "🆕 Top New Bangla Hindi-Dubbed", sub: "Newest Bangla favourites — Hindi audio where the print carries it", ep: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=bn&vote_count.gte=20", grid: function(){ return { title: "🆕 Top New Bangla Hindi-Dubbed", ep: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=bn&vote_count.gte=20", tabs: false, dubbed: true }; } },
+ { id: "trending-dubbed", dubbed: true, title: "🔥 Trending in Hindi Dubbed", sub: "Trending favourites — Hindi audio where the print carries it", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=ta|te|ml|kn|en|hi&vote_average.gte=6&vote_count.gte=3", grid: function(){ return { title: "🔥 Trending in Hindi Dubbed", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=ta|te|ml|kn|en|hi&vote_average.gte=6&vote_count.gte=3", tabs: false, dubbed: true }; } },
+ { id: "tamil-dubbed", dubbed: true, title: "🎙 Tamil Hindi-Dubbed", sub: "Tamil favourites — dubbed audio depends on the print the server carries", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=ta&vote_average.gte=6&vote_count.gte=3", grid: function(){ return { title: "🎙 Tamil Hindi-Dubbed", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=ta&vote_average.gte=6&vote_count.gte=3", tabs: false, dubbed: true }; } },
+ { id: "tamil-new-dubbed", dubbed: true, title: "🆕 Top New Tamil Hindi-Dubbed", sub: "Newest Tamil favourites — Hindi audio where the print carries it", ep: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=ta&vote_count.gte=3", grid: function(){ return { title: "🆕 Top New Tamil Hindi-Dubbed", ep: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=ta&vote_count.gte=3", tabs: false, dubbed: true }; } },
+ { id: "hollywood-new-dubbed", dubbed: true, title: "🆕 Top New Hollywood Hindi-Dubbed", sub: "Newest Hollywood favourites — Hindi audio where the print carries it", ep: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=en&vote_count.gte=3", grid: function(){ return { title: "🆕 Top New Hollywood Hindi-Dubbed", ep: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=en&vote_count.gte=3", tabs: false, dubbed: true }; } },
+ { id: "indonesian-new-dubbed", dubbed: true, title: "🆕 Top New Indonesian Hindi-Dubbed", sub: "Newest Indonesian favourites — Hindi audio where the print carries it", ep: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=id&vote_count.gte=3", grid: function(){ return { title: "🆕 Top New Indonesian Hindi-Dubbed", ep: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=id&vote_count.gte=3", tabs: false, dubbed: true }; } },
+ { id: "bangla-new-dubbed", dubbed: true, title: "🆕 Top New Bangla Hindi-Dubbed", sub: "Newest Bangla favourites — Hindi audio where the print carries it", ep: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=bn&vote_count.gte=3", grid: function(){ return { title: "🆕 Top New Bangla Hindi-Dubbed", ep: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=bn&vote_count.gte=3", tabs: false, dubbed: true }; } },
  { id: "coming-soon", title: "🍿 Coming Soon", sub: "Upcoming movies with release dates", ep: "/movie/upcoming", grid: function(){ return { title: "🍿 Coming Soon", ep: "/movie/upcoming", tabs: false }; } },
  { id: "top-rated", title: "⭐ Top Rated of All Time", sub: "The highest-rated movies ever", ep: "/movie/top_rated", grid: function(){ return { title: "⭐ Top Rated of All Time", ep: "/movie/top_rated", tabs: false }; } },
- { id: "hidden-gems", title: "💎 Hidden Gems", sub: "Highly rated, rarely watched", ep: "/discover/movie?sort_by=vote_average.desc&vote_average.gte=7&vote_count.gte=50&vote_count.lte=500", grid: function(){ return { title: "💎 Hidden Gems", ep: "/discover/movie?sort_by=vote_average.desc&vote_average.gte=7&vote_count.gte=50&vote_count.lte=500", tabs: false }; } },
- { id: "best-of-year", title: "🏆 Best of 2026", sub: "This year's finest, by rating", ep: "/discover/movie?sort_by=vote_average.desc&primary_release_year=2026&vote_average.gte=7&vote_count.gte=200", grid: function(){ return { title: "🏆 Best of 2026", ep: "/discover/movie?sort_by=vote_average.desc&primary_release_year=2026&vote_average.gte=7&vote_count.gte=200", tabs: false }; } },
- { id: "hollywood-dubbed", dubbed: true, title: "🎙 Hollywood Hindi-Dubbed", sub: "Hollywood favourites — dubbed audio depends on the print the server carries", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=en&vote_average.gte=6&vote_count.gte=80", grid: function(){ return { title: "🎙 Hollywood Hindi-Dubbed", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=en&vote_average.gte=6&vote_count.gte=80", tabs: false, dubbed: true }; } },
- { id: "english-dubbed", dubbed: "en", title: "🎙 English Dubbed", sub: "Foreign hits — watch in English on Server 3", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=ta|te|ml|kn|hi|bn|ko|ja|zh|es|fr|de|id|tr|ru|it|pt&vote_count.gte=20", grid: function(){ return { title: "🎙 English Dubbed", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=ta|te|ml|kn|hi|bn|ko|ja|zh|es|fr|de|id|tr|ru|it|pt&vote_count.gte=20", tabs: false, edub: true }; } },
+ { id: "hidden-gems", title: "💎 Hidden Gems", sub: "Highly rated, rarely watched", ep: "/discover/movie?sort_by=vote_average.desc&vote_average.gte=7&vote_count.gte=3&vote_count.lte=500", grid: function(){ return { title: "💎 Hidden Gems", ep: "/discover/movie?sort_by=vote_average.desc&vote_average.gte=7&vote_count.gte=3&vote_count.lte=500", tabs: false }; } },
+ { id: "best-of-year", title: "🏆 Best of 2026", sub: "This year's finest, by rating", ep: "/discover/movie?sort_by=vote_average.desc&primary_release_year=2026&vote_average.gte=7&vote_count.gte=3", grid: function(){ return { title: "🏆 Best of 2026", ep: "/discover/movie?sort_by=vote_average.desc&primary_release_year=2026&vote_average.gte=7&vote_count.gte=3", tabs: false }; } },
+ { id: "hollywood-dubbed", dubbed: true, title: "🎙 Hollywood Hindi-Dubbed", sub: "Hollywood favourites — dubbed audio depends on the print the server carries", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=en&vote_average.gte=6&vote_count.gte=3", grid: function(){ return { title: "🎙 Hollywood Hindi-Dubbed", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=en&vote_average.gte=6&vote_count.gte=3", tabs: false, dubbed: true }; } },
+ { id: "english-dubbed", dubbed: "en", title: "🎙 English Dubbed", sub: "Foreign hits — watch in English on Server 3", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=ta|te|ml|kn|hi|bn|ko|ja|zh|es|fr|de|id|tr|ru|it|pt&vote_count.gte=3", grid: function(){ return { title: "🎙 English Dubbed", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=ta|te|ml|kn|hi|bn|ko|ja|zh|es|fr|de|id|tr|ru|it|pt&vote_count.gte=3", tabs: false, edub: true }; } },
  { id: "hindi", title: "🎬 Bollywood Movies", ep: disc("movie", "&with_original_language=hi"), grid: function(){ return langGrid("hi", "Hindi"); } },
- { id: "hollywood", title: "🎥 Hollywood Movies", ep: disc("movie", "&with_original_language=en"), grid: function(){ return langGrid("en", "Hollywood"); } },
+ { id: "hollywood", title: "🎥 Hollywood Movies", ep: disc("movie", "&with_original_language=en&with_origin_country=US|GB|CA|AU"), grid: function(){ var d = langGrid("en", "Hollywood"); d.ep += "&with_origin_country=US|GB|CA|AU"; d.country = true; return d; } },
  { id: "poptv", title: "📺 Popular Series", ep: "/tv/popular", grid: function(){ return { title: "📺 Popular Series", ep: "/tv/popular", tabs: false }; } },
  { id: "top10", title: "🏆 Top 10 This Week", style: "top10", ep: "/trending/all/week", slice: 10 },
  { id: "horror", title: "👻 Horror", sub: "Scary picks first — as you asked", ep: disc("movie", "&with_genres=27"), grid: function(){ return genreGrid(27, "Horror"); } },
@@ -964,7 +988,7 @@ var SHELVES = [
  { id: "animation", title: "🧸 Animation & Family", ep: disc("movie", "&with_genres=16"), grid: function(){ return genreGrid(16, "Animation"); } },
  { id: "popm", title: "🎬 Popular Movies", ep: "/movie/popular", grid: function(){ return { title: "🎬 Popular Movies", ep: "/movie/popular", tabs: false }; } },
  { id: "night", title: "🌙 Movie of the Night", style: "wide", fn: function(){ return api("/movie/top_rated").then(function(j){ var r = j.results || []; var pick = r[new Date().getDate() % Math.max(1, r.length)]; return pick ? [pick] : []; }); } },
- { id: "anime", title: "🎌 Anime Hub", sub: "Japanese animation hits", ep: "/discover/tv?sort_by=popularity.desc&with_genres=16&with_original_language=ja&vote_count.gte=20", grid: function(){ return { title: "🎌 Anime Hub", ep: "/discover/tv?sort_by=popularity.desc&with_genres=16&with_original_language=ja&vote_count.gte=20", tabs: false }; } },
+ { id: "anime", title: "🎌 Anime Hub", sub: "Japanese animation hits", ep: "/discover/tv?sort_by=popularity.desc&with_genres=16&with_original_language=ja&vote_count.gte=3", grid: function(){ return { title: "🎌 Anime Hub", ep: "/discover/tv?sort_by=popularity.desc&with_genres=16&with_original_language=ja&vote_count.gte=3", tabs: false }; } },
  { id: "korean", title: "🇰🇷 Korean Drama", sub: "Korean drama hits — dubbed audio depends on the print the server carries", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=ko", grid: function(){ return { title: "🇰🇷 Korean Drama", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=ko", tabs: false }; } },
  { id: "bangla", title: "🇧🇩 Bangla Movies", sub: "New releases first", ep: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=bn&vote_count.gte=2", grid: function(){ return { title: "🇧🇩 Bangla Movies", ep: "/discover/movie?with_original_language=bn&sort_by=popularity.desc&vote_count.gte=2", tabs: true, langTab: "bn" }; } },
  { id: "bangladrama", title: "🇧🇩 Bangla Movies & Drama", sub: "Bengali films and TV dramas", fn: function(){
@@ -985,13 +1009,13 @@ var SHELVES = [
  { id: "chinese", title: "🐲 Chinese Movies & Series", ep: disc("movie", "&with_original_language=zh"), grid: function(){ return langGrid("zh", "Chinese"); } },
  { id: "japanese", title: "🗾 Japanese Movies", ep: disc("movie", "&with_original_language=ja"), grid: function(){ return langGrid("ja", "Japanese"); } },
  { id: "pakistani", title: "🇵🇰 Pakistani Series", sub: "Beloved dramas", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=ur&vote_count.gte=2", grid: function(){ return { title: "🇵🇰 Pakistani Series", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=ur&vote_count.gte=2", tabs: false, country: true }; } },
- { id: "kids", title: "🧒 Kids Zone", sub: "Fun for the little ones", ep: "/discover/movie?sort_by=popularity.desc&with_genres=10751&vote_count.gte=20", grid: function(){ return { title: "🧒 Kids Zone", ep: "/discover/movie?sort_by=popularity.desc&with_genres=10751&vote_count.gte=20", tabs: false }; } },
- { id: "id-dubbed", dubbed: true, title: "🇮🇩 Indonesian Hindi-Dubbed", sub: "Indonesian favourites — dubbed audio depends on the print the server carries", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=id&vote_average.gte=6&vote_count.gte=80", grid: function(){ return { title: "🇮🇩 Indonesian Hindi-Dubbed", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=id&vote_average.gte=6&vote_count.gte=80", tabs: false, dubbed: true }; } },
- { id: "bn-dubbed", dubbed: true, title: "🇧🇩 Bangla Hindi-Dubbed", sub: "Bangla favourites — dubbed audio depends on the print the server carries", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=bn&vote_average.gte=6&vote_count.gte=80", grid: function(){ return { title: "🇧🇩 Bangla Hindi-Dubbed", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=bn&vote_average.gte=6&vote_count.gte=80", tabs: false, dubbed: true }; } },
+ { id: "kids", title: "🧒 Kids Zone", sub: "Fun for the little ones", ep: "/discover/movie?sort_by=popularity.desc&with_genres=10751&vote_count.gte=3", grid: function(){ return { title: "🧒 Kids Zone", ep: "/discover/movie?sort_by=popularity.desc&with_genres=10751&vote_count.gte=3", tabs: false }; } },
+ { id: "id-dubbed", dubbed: true, title: "🇮🇩 Indonesian Hindi-Dubbed", sub: "Indonesian favourites — dubbed audio depends on the print the server carries", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=id&vote_average.gte=6&vote_count.gte=3", grid: function(){ return { title: "🇮🇩 Indonesian Hindi-Dubbed", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=id&vote_average.gte=6&vote_count.gte=3", tabs: false, dubbed: true }; } },
+ { id: "bn-dubbed", dubbed: true, title: "🇧🇩 Bangla Hindi-Dubbed", sub: "Bangla favourites — dubbed audio depends on the print the server carries", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=bn&vote_average.gte=6&vote_count.gte=3", grid: function(){ return { title: "🇧🇩 Bangla Hindi-Dubbed", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=bn&vote_average.gte=6&vote_count.gte=3", tabs: false, dubbed: true }; } },
  { id: "banglanatok", title: "🇧🇩 Bangla Natok", sub: "Bangladeshi TV dramas & natoks", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=bn&vote_count.gte=2", grid: function(){ return { title: "🇧🇩 Bangla Natok", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=bn&vote_count.gte=2", tabs: false, country: true }; } },
- { id: "southindian", title: "🎬 South Indian", sub: "Tamil, Telugu, Malayalam & Kannada hits — original audio", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=te|ta|ml|kn&vote_count.gte=20", grid: function(){ return { title: "🎬 South Indian", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=te|ta|ml|kn&vote_count.gte=20", tabs: false }; } },
- { id: "ongoing", title: "📺 Ongoing Series", sub: "Series still running — new episodes coming", ep: "/discover/tv?sort_by=popularity.desc&with_status=0&vote_count.gte=20", grid: function(){ return { title: "📺 Ongoing Series", ep: "/discover/tv?sort_by=popularity.desc&with_status=0&vote_count.gte=20", tabs: false }; } },
- { id: "idhorror", title: "🇮🇩 Indonesian Horror", sub: "Scary picks from Indonesia", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=id&with_genres=27&vote_count.gte=20", grid: function(){ return { title: "🇮🇩 Indonesian Horror", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=id&with_genres=27&vote_count.gte=20", tabs: false }; } },
+ { id: "southindian", title: "🎬 South Indian", sub: "Tamil, Telugu, Malayalam & Kannada hits — original audio", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=te|ta|ml|kn&vote_count.gte=3", grid: function(){ return { title: "🎬 South Indian", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=te|ta|ml|kn&vote_count.gte=3", tabs: false }; } },
+ { id: "ongoing", title: "📺 Ongoing Series", sub: "Series still running — new episodes coming", ep: "/discover/tv?sort_by=popularity.desc&with_status=0&vote_count.gte=3", grid: function(){ return { title: "📺 Ongoing Series", ep: "/discover/tv?sort_by=popularity.desc&with_status=0&vote_count.gte=3", tabs: false }; } },
+ { id: "idhorror", title: "🇮🇩 Indonesian Horror", sub: "Scary picks from Indonesia", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=id&with_genres=27&vote_count.gte=3", grid: function(){ return { title: "🇮🇩 Indonesian Horror", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=id&with_genres=27&vote_count.gte=3", tabs: false }; } },
  { id: "adult18", adult: true, dubbed: "18", noDedupe: true, title: "🔞 18+ Erotic Movies", sub: "Mainstream erotic hits — adults only", fn: function(){
  return adultResolve().then(function(ep){
  if(!ep) return [];
@@ -1037,13 +1061,13 @@ function langGrid(code, name){
 var POP_COUNTRIES = [
  { flag: "🇧🇩", t: "Bangladesh", s: "Bangla movies", ts: "Bangla series", code: "bn", name: "Bangladesh — Bangla" },
  { flag: "🇮🇳", t: "Bollywood", s: "Hindi movies", ts: "Hindi series", code: "hi", name: "India — Bollywood" },
- { flag: "🇺🇸", t: "Hollywood · USA", s: "English movies", ts: "English series", code: "en", oc: "US", name: "Hollywood — USA" },
+ { flag: "🇺🇸", t: "Hollywood · USA", s: "English movies", ts: "English series", code: "en", oc: "US|GB|CA|AU", name: "Hollywood — USA" },
  { flag: "🎭", t: "South India", s: "Tamil & Telugu movies", ts: "Tamil & Telugu series", code: "ta|te", name: "South India — Tamil & Telugu" },
  { flag: "🇰🇷", t: "South Korea", s: "Korean movies", ts: "Korean series", code: "ko", name: "South Korea" },
  { flag: "🗾", t: "Japan", s: "Japanese movies", ts: "Japanese series", code: "ja", name: "Japan" }
 ];
 function popMovieGrid(pc){
- if(pc.code.indexOf("|") !== -1) return { title: pc.flag + " " + pc.name, ep: "/discover/movie?sort_by=popularity.desc&with_original_language=" + pc.code + "&vote_count.gte=20", tabs: false, country: true };
+ if(pc.code.indexOf("|") !== -1) return { title: pc.flag + " " + pc.name, ep: "/discover/movie?sort_by=popularity.desc&with_original_language=" + pc.code + "&vote_count.gte=3", tabs: false, country: true };
  var d = langGrid(pc.code, pc.name);
  if(pc.oc){ d.ep += "&with_origin_country=" + pc.oc; d.country = true; }
  return d;
@@ -1058,8 +1082,8 @@ function popTvGrid(pc, kind){
 /* The three doors: Movies = the movie catalog; Web Series = scripted TV
  (talk/news/reality genres 10763/10764/10767 excluded); TV Shows = only those. */
 function doorDef(kind){
- if(kind === "ws") return { title: "📺 Web Series", ep: "/discover/tv?sort_by=popularity.desc&without_genres=10763,10764,10767&vote_count.gte=20", tabs: false, door: "ws", country: true };
- if(kind === "tvshows") return { title: "📡 TV Shows", ep: "/discover/tv?sort_by=popularity.desc&with_genres=10763|10764|10767&vote_count.gte=20", tabs: false, door: "tvshows", country: true };
+ if(kind === "ws") return { title: "📺 Web Series", ep: "/discover/tv?sort_by=popularity.desc&without_genres=10763,10764,10767&vote_count.gte=3", tabs: false, door: "ws", country: true };
+ if(kind === "tvshows") return { title: "📡 TV Shows", ep: "/discover/tv?sort_by=popularity.desc&with_genres=10763|10764|10767&vote_count.gte=3", tabs: false, door: "tvshows", country: true };
  return { title: "🎬 Movies", ep: disc("movie", ""), tabs: false, door: "movie", country: true };
 }
 function renderPopTiles(host, kind){
@@ -1160,7 +1184,7 @@ function renderGenreTiles(host){
 var LANGDOORS = [
  { t: "🇧🇩 Bangla", s: "Movies & more", c: "linear-gradient(135deg,#047857,#065f46)", g: function(){ return langGrid("bn", "Bangla"); } },
  { t: "🎭 Tamil", s: "South hits", c: "linear-gradient(135deg,#b45309,#92400e)", g: function(){ return langGrid("ta", "Tamil"); } },
- { t: "🗣 Dubbed", s: "Hindi dubbed", c: "linear-gradient(135deg,#7c3aed,#5b21b6)", g: function(){ return { title: "🗣 Dubbed Collection", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=te|ta|ml&vote_average.gte=6&vote_count.gte=80", tabs: false, dubbed: true }; } },
+ { t: "🗣 Dubbed", s: "Hindi dubbed", c: "linear-gradient(135deg,#7c3aed,#5b21b6)", g: function(){ return { title: "🗣 Dubbed Collection", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=te|ta|ml&vote_average.gte=6&vote_count.gte=3", tabs: false, dubbed: true }; } },
  { t: "🎬 Hindi", s: "Bollywood", c: "linear-gradient(135deg,#db2777,#9d174d)", g: function(){ return langGrid("hi", "Hindi"); } },
  { t: "🐲 Chinese", s: "Movies & series", c: "linear-gradient(135deg,#dc2626,#991b1b)", g: function(){ return langGrid("zh", "Chinese"); } },
  { t: "🗾 Japanese", s: "+ Anime", c: "linear-gradient(135deg,#0891b2,#155e75)", g: function(){ return langGrid("ja", "Japanese"); } },
@@ -1265,7 +1289,7 @@ function buildHome(){
  /* categories grid — every button reuses an existing grid/view function */
  var CATS = [
  { t: "🇧🇩 BANGLA", g: function(){ return langGrid("bn", "Bangla"); } },
- { t: "🎙 BANGLA DUB", g: function(){ return { title: "🎙 Bangla Dub", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=ta|te|ml|kn|en|hi|id&vote_count.gte=20", tabs: false, bndub: true }; } },
+ { t: "🎙 BANGLA DUB", g: function(){ return { title: "🎙 Bangla Dub", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=ta|te|ml|kn|en|hi|id&vote_count.gte=3", tabs: false, bndub: true }; } },
  { t: "🎬 BOLLYWOOD", g: function(){ return langGrid("hi", "Hindi"); } },
  { t: "🎬 HINDI", g: function(){ return langGrid("hi", "Hindi"); } },
  { t: "🎙 HINDI DUB", g: function(){ return { title: "🎙 Hindi Dubbed Hub", ep: HUB_FILTERS.all, tabs: false, hub: "all" }; } },
@@ -1275,11 +1299,11 @@ function buildHome(){
  { t: "🔪 THRILLER", g: function(){ return genreGrid(53, "Thriller"); } },
  { t: "👻 HORROR", g: function(){ return genreGrid(27, "Horror"); } },
  { t: "❤️ ROMANCE", g: function(){ return genreGrid(10749, "Romance"); } },
- { t: "🎬 MOVIES", g: function(){ return { title: "🆕 All Movies — Newest First", ep: "/discover/movie?sort_by=primary_release_date.desc&primary_release_date.lte=" + todayStr + "&vote_count.gte=25", tabs: true }; } },
+ { t: "🎬 MOVIES", g: function(){ return { title: "🆕 All Movies — Newest First", ep: "/discover/movie?sort_by=primary_release_date.desc&primary_release_date.lte=" + todayStr + "&vote_count.gte=3", tabs: true }; } },
  { t: "📺 WEB SERIES", g: function(){ return { title: "📺 Web Series", ep: WS_FILTERS.all, tabs: false, ws: "all" }; } },
- { t: "🛡 MCU", g: function(){ return { title: "🛡 MCU", ep: "/discover/movie?sort_by=popularity.desc&with_companies=420&vote_count.gte=20", tabs: false }; } },
- { t: "🦇 DC", g: function(){ return { title: "🦇 DC", ep: "/discover/movie?sort_by=popularity.desc&with_companies=429&vote_count.gte=20", tabs: false }; } },
- { t: "🎌 ANIME ZONE", g: function(){ return { title: "🎌 Anime Hub", ep: "/discover/tv?sort_by=popularity.desc&with_genres=16&with_original_language=ja&vote_count.gte=20", tabs: false }; } },
+ { t: "🛡 MCU", g: function(){ return { title: "🛡 MCU", ep: "/discover/movie?sort_by=popularity.desc&with_companies=420&vote_count.gte=3", tabs: false }; } },
+ { t: "🦇 DC", g: function(){ return { title: "🦇 DC", ep: "/discover/movie?sort_by=popularity.desc&with_companies=429&vote_count.gte=3", tabs: false }; } },
+ { t: "🎌 ANIME ZONE", g: function(){ return { title: "🎌 Anime Hub", ep: "/discover/tv?sort_by=popularity.desc&with_genres=16&with_original_language=ja&vote_count.gte=3", tabs: false }; } },
  { t: "📺 ONGOING SERIES", a: "ongoing" },
  { t: "🎭 K/J/C-DRAMA", g: function(){ return { title: "🎭 K/J/C-Drama", ep: KJ_FILTERS.korean, tabs: false, kjc: "korean" }; } },
  { t: "🎬 SOUTH INDIAN", a: "southindian" },
@@ -1298,28 +1322,32 @@ function buildHome(){
  var host = $("shelves");
  host.innerHTML = "";
  refreshDyn();
- /* Homepage order: the top block is pinned by HEAD_ORDER below (owner's
- list, 2026-10-30) — doors first, then New / Latest / Popular / Trending /
- Most Watched up front, TV Shows pushed down; the rest keep their order. */
+ /* Homepage order: HEAD_ORDER below pins the FULL arrangement (owner,
+ 2026-10-30) — see the note at HEAD_ORDER. */
  var topShelves = [
  { id: "door-movies", title: "🎬 Movies", sub: "All movies, most popular first", ep: doorDef("movie").ep, grid: function(){ return doorDef("movie"); } },
  { id: "door-ws", title: "📺 Web Series", sub: "Scripted series — no talk, news or reality", ep: doorDef("ws").ep, grid: function(){ return doorDef("ws"); } },
  { id: "door-tvshows", title: "📡 TV Shows", sub: "Talk, news & reality shows", ep: doorDef("tvshows").ep, grid: function(){ return doorDef("tvshows"); } },
  { id: "popm", title: "⭐ Popular Movies", sub: "Most popular movies right now", ep: "/movie/popular", grid: function(){ return { title: "⭐ Popular Movies", ep: "/movie/popular", tabs: false }; } }
  ];
- var restShelves = SHELVES.filter(function(d){ return d.id !== "latest" && d.id !== "popm"; });
+ var restShelves = SHELVES.filter(function(d){ return d.id !== "latest"; }).map(function(d){ return d.id === "popm" ? Object.assign({}, d, { id: "popm-b", noDedupe: true }) : d; });
  var allDefs = topShelves.concat(restShelves);
  var MW_DEFS = [
- { id: "most-series", title: "🔥 Most Watched Series", sub: "The series everyone is watching", ep: "/discover/tv?sort_by=popularity.desc&vote_count.gte=20", grid: function(){ return { title: "🔥 Most Watched Series", ep: "/discover/tv?sort_by=popularity.desc&vote_count.gte=20", tabs: false }; } },
- { id: "most-movies", title: "🔥 Most Watched Movies", sub: "The movies everyone is watching", ep: "/discover/movie?sort_by=popularity.desc&vote_count.gte=20", grid: function(){ return { title: "🔥 Most Watched Movies", ep: "/discover/movie?sort_by=popularity.desc&vote_count.gte=20", tabs: false }; } },
+ { id: "most-series", title: "🔥 Most Watched Series", sub: "The series everyone is watching", ep: "/discover/tv?sort_by=popularity.desc&vote_count.gte=3", grid: function(){ return { title: "🔥 Most Watched Series", ep: "/discover/tv?sort_by=popularity.desc&vote_count.gte=3", tabs: false }; } },
+ { id: "most-movies", title: "🔥 Most Watched Movies", sub: "The movies everyone is watching", ep: "/discover/movie?sort_by=popularity.desc&vote_count.gte=3", grid: function(){ return { title: "🔥 Most Watched Movies", ep: "/discover/movie?sort_by=popularity.desc&vote_count.gte=3", tabs: false }; } },
  { id: "latest", title: "🆕 Latest Releases", sub: "Newest movies first — updated automatically", ep: "/discover/movie?sort_by=primary_release_date.desc&primary_release_date.lte=" + todayStr + "&vote_count.gte=10", grid: function(){ return { title: "🆕 Latest Releases", ep: "/discover/movie?sort_by=primary_release_date.desc&primary_release_date.lte=" + todayStr + "&vote_count.gte=10", tabs: true }; } }
  ];
  var tIdx = -1;
  allDefs.forEach(function(d, i){ if(d.id === "trending") tIdx = i; });
  if(tIdx !== -1) allDefs.splice.apply(allDefs, [tIdx + 1, 0].concat(MW_DEFS)); else allDefs = allDefs.concat(MW_DEFS);
- /* Pinned top order (owner, 2026-10-30): positions only — no def changes.
- Everything not listed keeps its current relative order; 18+ stays last. */
- var HEAD_ORDER = ["door-movies", "door-ws", "new", "latest", "popm", "trending", "most-series", "most-movies", "door-tvshows"];
+ /* Full homepage arrangement (owner, 2026-10-30): HEAD_ORDER pins EVERY
+ shelf's position — New / Trending / Popular up front, then the country
+ & language blocks, the Web Series / TV Shows doors pushed down, genres,
+ collections, Kids, and 18+ last of all. Positions only: no def's title
+ or query changes. "popm-b" is the second Popular Movies def (the one
+ inside SHELVES), included under its own id above so both Popular Movies
+ shelves render exactly once. */
+ var HEAD_ORDER = ["door-movies", "new", "latest", "trending", "popm", "most-series", "most-movies", "top10", "hindi", "hollywood", "trending-dubbed", "hollywood-dubbed", "tamil-dubbed", "tamil-new-dubbed", "hollywood-new-dubbed", "indonesian-new-dubbed", "bangla-new-dubbed", "english-dubbed", "southindian", "tamil", "telugu", "malayalam", "kannada", "chinese", "korean", "japanese", "anime", "bangla", "bangladrama", "banglanatok", "bn-dubbed", "id-dubbed", "idhorror", "pakistani", "door-ws", "door-tvshows", "poptv", "ongoing", "onair", "action", "horror", "comedy", "thriller", "romance", "fantasy", "animation", "top-rated", "hidden-gems", "best-of-year", "night", "popm-b", "coming-soon", "kids", "adult18"];
  var headDefs = [], tailDefs = [];
  allDefs.forEach(function(d){ if(HEAD_ORDER.indexOf(d.id) !== -1) headDefs.push(d); else tailDefs.push(d); });
  headDefs.sort(function(a, b){ return HEAD_ORDER.indexOf(a.id) - HEAD_ORDER.indexOf(b.id); });
@@ -1361,7 +1389,7 @@ function buildHome(){
  els.forEach(function(el){ if(el._def && el._def.id === "trending") trendEl = el; });
  var bar = document.createElement("div");
  bar.innerHTML = '<a href="https://toolbari.github.io/tv.html" style="display:block;background:linear-gradient(135deg,#dc2626,#991b1b);color:#fff;border-radius:14px;padding:1rem 1.1rem;font-weight:800;text-decoration:none;margin-bottom:1rem">\u26bd Football Live &amp; Live Sports — open Live TV \u2192</a>'
- + '<div style="display:flex;gap:.5rem;overflow-x:auto;padding-bottom:.4rem"><button class="gchip mb-chip on" data-mb="/trending/movie/day">Trending Movies</button><button class="gchip mb-chip" data-mb="/discover/movie?sort_by=popularity.desc&with_original_language=hi&vote_count.gte=20">Bollywood</button><button class="gchip mb-chip" data-mb="/discover/movie?sort_by=popularity.desc&with_original_language=en&vote_count.gte=20">Hollywood</button><button class="gchip mb-chip" data-mb="/discover/movie?sort_by=popularity.desc&with_original_language=ta|te|ml|kn&vote_count.gte=20">South Indian</button><button class="gchip mb-chip" data-mb="/discover/movie?sort_by=primary_release_date.desc&vote_count.gte=20">New Release</button></div>';
+ + '<div style="display:flex;gap:.5rem;overflow-x:auto;padding-bottom:.4rem"><button class="gchip mb-chip on" data-mb="/trending/movie/day">Trending Movies</button><button class="gchip mb-chip" data-mb="/discover/movie?sort_by=popularity.desc&with_original_language=hi&vote_count.gte=3">Bollywood</button><button class="gchip mb-chip" data-mb="/discover/movie?sort_by=popularity.desc&with_original_language=en&vote_count.gte=3">Hollywood</button><button class="gchip mb-chip" data-mb="/discover/movie?sort_by=popularity.desc&with_original_language=ta|te|ml|kn&vote_count.gte=3">South Indian</button><button class="gchip mb-chip" data-mb="/discover/movie?sort_by=primary_release_date.desc&vote_count.gte=3">New Release</button></div>';
  host.insertBefore(bar, host.firstChild);
  bar.querySelectorAll(".mb-chip").forEach(function(b){
  b.addEventListener("click", function(){
@@ -1406,8 +1434,8 @@ var GRID_EMPTY_HTML = $("grid-empty").innerHTML;
 /* Hindi Dubbed Hub filters — newest first */
 var HUB_FILTERS = {
  all: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=ta|te|ml|kn|en|hi|id|bn&primary_release_date.lte=" + todayStr,
- south: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=ta|te|ml|kn&vote_average.gte=6&vote_count.gte=80&primary_release_date.lte=" + todayStr,
- hollywood: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=en&vote_average.gte=6&vote_count.gte=80&primary_release_date.lte=" + todayStr,
+ south: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=ta|te|ml|kn&vote_average.gte=6&vote_count.gte=3&primary_release_date.lte=" + todayStr,
+ hollywood: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=en&vote_average.gte=6&vote_count.gte=3&primary_release_date.lte=" + todayStr,
  bollywood: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=hi&primary_release_date.lte=" + todayStr,
  series: "/discover/tv?sort_by=first_air_date.desc&with_original_language=hi|ta|te|ml|kn&first_air_date.lte=" + todayStr,
  indonesian: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=id&primary_release_date.lte=" + todayStr,
@@ -1447,7 +1475,7 @@ function gridEp(){
  if(!G) return "";
  var e;
  if(G.kjc) e = KJ_FILTERS[G.kjc] || KJ_FILTERS.korean;
- else if(G.genre){ var ggid = (G.type === "tv") ? tvGenreId(G.genre) : G.genre; e = disc("movie", "&with_genres=" + ggid); if(G.type === "tv") e = e.replace("/discover/movie", "/discover/tv"); if(G.genrelang) e += "&with_original_language=" + G.genrelang; }
+ else if(G.genre){ var effG = G.gf || G.genre; var ggid = (G.type === "tv") ? tvGenreId(effG) : effG; e = disc("movie", "&with_genres=" + ggid); if(G.type === "tv") e = e.replace("/discover/movie", "/discover/tv"); if(G.genrelang) e += "&with_original_language=" + G.genrelang; }
  else if(G.ws) e = WS_FILTERS[G.ws] || WS_FILTERS.all;
  else if(G.hub) e = HUB_FILTERS[G.hub] || HUB_FILTERS.all;
  else if(G.tabs && G.type === "tv"){ e = G.ep.replace("/discover/movie", "/discover/tv").replace("/movie/", "/tv/").replace("primary_release_date.desc", "first_air_date.desc").replace("primary_release_date.lte", "first_air_date.lte"); e = e.replace(/([?&]with_genres=)(\d+)(?=&|$)/, function(m, p, id){ return p + tvGenreId(parseInt(id, 10)); }); }
@@ -1471,17 +1499,28 @@ function gridEp(){
  }
  else if(G.year) e += isTV ? "&first_air_date_year=" + G.year : "&primary_release_year=" + G.year;
  }
- if(G.gf && e.indexOf("/discover/") === 0 && e.indexOf("with_genres=") === -1){
+ if(G.gf && e.indexOf("/discover/") === 0){
  var gid = G.gf;
  if(e.indexOf("/discover/tv") === 0) gid = tvGenreId(gid);
- e += "&with_genres=" + gid;
+ if(e.indexOf("with_genres=") === -1) e += "&with_genres=" + gid;
+ else if(G.bakedG) e = e.replace(/([?&]with_genres=)\d+(?=&|$)/, "$1" + gid);
  }
  return e;
 }
 function openGrid(def){
  navLeave();
  window.__cbGridFrom = $("v-cats").classList.contains("on") ? "v-cats" : "v-movies";
- G = { title: def.title, ep: def.ep, tabs: !!def.tabs, page: 1, loadedPage: 0, type: "movie", local: def.local || null, search: !!def.search, hub: def.hub || null, ws: def.ws || null, dubbed: !!def.dubbed, kjc: def.kjc || null, genre: def.genre || null, genrelang: def.genre ? (localStorage.getItem("cb_genrelang") || "") : "", bndub: !!def.bndub, year: "", yearFilter: !!(def.genre || def.hub || def.ws || def.kjc || (def.ep && def.ep.indexOf("/discover/") === 0)), gf: 0, gfilter: !!(def.country || def.langTab || def.door), country: !!def.country, langTab: def.langTab || null, door: def.door || null, q: def.q || "", edub: !!def.edub, adult: !!def.adult };
+ /* Uniform grid filters (owner, 2026-10-30): EVERY discover-based grid
+ gets the genre + year chip rows — country grids, every shelf's See All
+ grid, the 18+ grid. Only the search results grid is exempt (search/multi
+ takes no genre filter) and local (saved) grids have nothing to filter.
+ bakedG = a single genre already baked into the def's own endpoint
+ (Anime, Kids, Indonesian Horror…): the genre row starts with it
+ pre-selected, and picking another chip swaps it in gridEp. */
+ var isDiscGrid = !def.search && !def.local && (!!def.genre || !!def.hub || !!def.ws || !!def.kjc || !!(def.ep && def.ep.indexOf("/discover/") === 0));
+ var bakedG = 0;
+ if(!def.genre && def.ep){ var bgm = /[?&]with_genres=(\d+)(?=&|$)/.exec(def.ep); if(bgm) bakedG = parseInt(bgm[1], 10); }
+ G = { title: def.title, ep: def.ep, tabs: !!def.tabs, page: 1, loadedPage: 0, type: "movie", local: def.local || null, search: !!def.search, hub: def.hub || null, ws: def.ws || null, dubbed: !!def.dubbed, kjc: def.kjc || null, genre: def.genre || null, genrelang: def.genre ? (localStorage.getItem("cb_genrelang") || "") : "", bndub: !!def.bndub, year: "", yearFilter: isDiscGrid, gf: (def.genre || bakedG || 0), gbase: (def.genre || bakedG || 0), bakedG: bakedG, gfilter: isDiscGrid, country: !!def.country, langTab: def.langTab || null, door: def.door || null, q: def.q || "", edub: !!def.edub, adult: !!def.adult };
  showView("v-grid");
  $("grid-t").textContent = def.title;
  $("typetabs").style.display = (G.tabs && !G.hub && !G.ws) ? "flex" : "none";
@@ -1550,7 +1589,7 @@ $("loadmore").addEventListener("click", function(){ if(G && !G._loading){ G.page
 function syncClearFilters(){
  var b = $("clearfilters");
  if(!b) return;
- b.style.display = (G && (G.gf || G.year)) ? "" : "none";
+ b.style.display = (G && (G.year || (G.gf && G.gf !== G.gbase))) ? "" : "none";
 }
 function buildYearTabs(){
  var host = $("yeartabs");
@@ -1602,7 +1641,7 @@ function buildGfTabs(){
 function syncGfTabs(){
  var host = $("gftabs");
  if(!host) return;
- host.querySelectorAll(".ttab").forEach(function(x){ x.classList.toggle("on", (x.getAttribute("data-gf") || "") === (G && G.gf ? String(G.gf) : "")); });
+ host.querySelectorAll(".ttab").forEach(function(x){ x.classList.toggle("on", (x.getAttribute("data-gf") || "") === (G ? String(G.gf || G.gbase || "") : "")); });
  syncClearFilters();
 }
 buildGfTabs();
@@ -1666,10 +1705,10 @@ var ALL_COUNTRIES = COUNTRY_LIST.map(function(c){
 });
 var TV_COUNTRY_CATS = [
  { t: "🇮🇳 India Series", s: "Hindi web series", c: "linear-gradient(135deg,#f59e0b,#b45309)", g: function(){ return { title: "🇮🇳 India \u2014 Hindi Series", ep: WS_FILTERS.hindi, tabs: false, ws: "hindi", country: true }; } },
- { t: "🇰🇷 Korean Drama", s: "K-Drama hits", c: "linear-gradient(135deg,#8b5cf6,#5b21b6)", g: function(){ return { title: "🇰🇷 Korean Drama", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=ko&vote_count.gte=20", tabs: false, country: true }; } },
+ { t: "🇰🇷 Korean Drama", s: "K-Drama hits", c: "linear-gradient(135deg,#8b5cf6,#5b21b6)", g: function(){ return { title: "🇰🇷 Korean Drama", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=ko&vote_count.gte=3", tabs: false, country: true }; } },
  { t: "🇧🇩 Bangla Natok", s: "Bangladeshi TV drama", c: "linear-gradient(135deg,#059669,#064e3b)", g: function(){ return { title: "🇧🇩 Bangla Natok", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=bn&vote_count.gte=2", tabs: false, country: true }; } },
- { t: "🎌 Anime", s: "Japanese animation series", c: "linear-gradient(135deg,#ec4899,#9d174d)", g: function(){ return { title: "🎌 Anime Hub", ep: "/discover/tv?sort_by=popularity.desc&with_genres=16&with_original_language=ja&vote_count.gte=20", tabs: false }; } },
- { t: "🐲 Chinese Series", s: "C-Drama hits", c: "linear-gradient(135deg,#ef4444,#7f1d1d)", g: function(){ return { title: "🐲 Chinese Series", ep: "/discover/tv?sort_by=first_air_date.desc&with_original_language=zh&vote_count.gte=20", tabs: false, country: true }; } },
+ { t: "🎌 Anime", s: "Japanese animation series", c: "linear-gradient(135deg,#ec4899,#9d174d)", g: function(){ return { title: "🎌 Anime Hub", ep: "/discover/tv?sort_by=popularity.desc&with_genres=16&with_original_language=ja&vote_count.gte=3", tabs: false }; } },
+ { t: "🐲 Chinese Series", s: "C-Drama hits", c: "linear-gradient(135deg,#ef4444,#7f1d1d)", g: function(){ return { title: "🐲 Chinese Series", ep: "/discover/tv?sort_by=first_air_date.desc&with_original_language=zh&vote_count.gte=3", tabs: false, country: true }; } },
  { t: "🇺🇸 English Series", s: "US & UK series", c: "linear-gradient(135deg,#3b82f6,#172554)", g: function(){ return { title: "🇺🇸 English Series", ep: WS_FILTERS.english, tabs: false, ws: "english", country: true }; } },
  { t: "🇵🇰 Pakistani Series", s: "Hit Pakistani dramas", c: "linear-gradient(135deg,#16a34a,#14532d)", g: function(){ return { title: "🇵🇰 Pakistan \u2014 Series", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=ur&vote_count.gte=2", tabs: false, country: true }; } },
  { t: "📺 All Web Series", s: "Every language", c: "linear-gradient(135deg,#64748b,#1e293b)", g: function(){ return { title: "📺 Web Series", ep: WS_FILTERS.all, tabs: false, ws: "all" }; } }
@@ -2121,7 +2160,7 @@ $("request-b").addEventListener("click", function(){
 });
 /* ---------------- search / surprise / misc ---------------- */
 $("browse-b").addEventListener("click", function(){
- openGrid({ title: "🆕 All Movies — Newest First", ep: "/discover/movie?sort_by=primary_release_date.desc&primary_release_date.lte=" + todayStr + "&vote_count.gte=25", tabs: true });
+ openGrid({ title: "🆕 All Movies — Newest First", ep: "/discover/movie?sort_by=primary_release_date.desc&primary_release_date.lte=" + todayStr + "&vote_count.gte=3", tabs: true });
 });
 $("hub-b").addEventListener("click", function(){
  openGrid({ title: "🎙 Hindi Dubbed Hub", ep: HUB_FILTERS.all, tabs: false, hub: "all" });
