@@ -618,6 +618,7 @@ img{max-width:100%;height:auto}
  <div class="eps" id="p-eps"></div>
  </div>
  <div class="dsec" id="p-simsec" style="display:none"><h3>More Like This</h3><div class="row" id="p-sim" style="padding-left:0;padding-right:0"></div></div>
+ <div id="p-banner-anchor"></div>
  </div>
 </div>
 
@@ -1296,6 +1297,8 @@ function buildHome(){
  headDefs.sort(function(a, b){ return HEAD_ORDER.indexOf(a.id) - HEAD_ORDER.indexOf(b.id); });
  allDefs = headDefs.concat(tailDefs);
  var els = allDefs.map(function(def){ var el = shelfEl(def); el._def = def; host.appendChild(el); return el; });
+ /* One sponsored banner card between shelves, after the 4th shelf (owner: away from tap zones) */
+ (function(){ var card = sponsoredCard("cb-home-ad"); if(els[4]) host.insertBefore(card, els[4]); else host.appendChild(card); })();
  function loadShelf(el){
  var def = el._def;
  el._page = 1; el._totalPages = 1; el._moreBusy = false;
@@ -1661,6 +1664,35 @@ function openCats(){
  });
  showView("v-cats");
 }
+/* ---------------- sponsored banner (Adsterra 300x250, sandboxed: no pop-ups possible) ---------------- */
+function bannerIframe(){
+ var fr = document.createElement("iframe");
+ fr.width = 300; fr.height = 250;
+ fr.setAttribute("scrolling", "no");
+ fr.setAttribute("loading", "lazy");
+ fr.setAttribute("sandbox", "allow-scripts allow-same-origin");
+ fr.style.cssText = "border:0;display:block;margin:0 auto";
+ fr.setAttribute("srcdoc", '<html><body style="margin:0;padding:0;text-align:center"><scr' + 'ipt>var atOptions={"key":"8724bf3e803202dd690869b40e9c3541","format":"iframe","height":250,"width":300,"params":{}};</scr' + 'ipt><scr' + 'ipt src="https://bauval.org/22/8724bf3e803202dd690869b40e9c3541"></scr' + 'ipt></bo' + 'dy></ht' + 'ml>');
+ return fr;
+}
+function sponsoredCard(id){
+ var box = document.createElement("div");
+ if(id) box.id = id;
+ box.className = "cb-banner-card";
+ box.style.cssText = "margin:.9rem auto;max-width:340px;height:290px;overflow:hidden;box-sizing:border-box;padding:.4rem .6rem;border:1px solid var(--line);border-radius:10px;background:var(--card)";
+ var bar = document.createElement("div");
+ bar.style.cssText = "display:flex;justify-content:space-between;align-items:center;font-size:.75rem;color:var(--dim);margin-bottom:.3rem";
+ var lab = document.createElement("span"); lab.textContent = "Sponsored";
+ var x = document.createElement("button"); x.textContent = "✕"; x.setAttribute("aria-label", "Dismiss sponsored content");
+ x.style.cssText = "background:none;border:none;color:var(--dim);font-size:1rem;cursor:pointer;line-height:1";
+ x.onclick = function(){ if(box.parentNode) box.parentNode.removeChild(box); };
+ bar.appendChild(lab); bar.appendChild(x); box.appendChild(bar);
+ box.appendChild(bannerIframe());
+ setTimeout(function(){ if(box.parentNode && !box.querySelector("iframe")) box.appendChild(bannerIframe()); box.style.height = "290px"; }, 4000);
+ return box;
+}
+/* Player page: one banner card at the very end of the player body (below More Like This) */
+(function(){ var pa = document.getElementById("p-banner-anchor"); if(pa) pa.appendChild(sponsoredCard("cb-player-ad")); })();
 /* ---------------- paced ad (every 4th details view; never in/over the player) ---------------- */
 var __cbPacedMem = 0, __cbPacedLoaded = false;
 function pacedAd(){
@@ -1674,19 +1706,8 @@ function pacedAd(){
  var wrap = document.querySelector("#v-details .dwrap");
  if(!wrap) return;
  if(document.getElementById("cb-paced-ad")) return;
- var box = document.createElement("div");
- box.id = "cb-paced-ad";
- box.style.cssText = "margin:.8rem 0;padding:.4rem .6rem;border:1px solid var(--line);border-radius:10px;background:var(--card)";
- var bar = document.createElement("div");
- bar.style.cssText = "display:flex;justify-content:space-between;align-items:center;font-size:.75rem;color:var(--dim);margin-bottom:.3rem";
- var lab = document.createElement("span"); lab.textContent = "Sponsored";
- var x = document.createElement("button"); x.textContent = "✕"; x.setAttribute("aria-label", "Dismiss sponsored content");
- x.style.cssText = "background:none;border:none;color:var(--dim);font-size:1rem;cursor:pointer;line-height:1";
- x.onclick = function(){ if(box.parentNode) box.parentNode.removeChild(box); };
- bar.appendChild(lab); bar.appendChild(x); box.appendChild(bar);
- var tag = document.createElement("script");
- tag.text = "(function(vwpym){\nvar d = document,\n s = d.createElement('script'),\n l = d.currentScript || d.scripts[d.scripts.length - 1];\ns.settings = vwpym || {};\ns.src = \"//massivesalad.com/b/XjVDs/d.GblM0RYxW/cI/Zebms9yuJZLULlbkGP/Tmcu1dNUD/YW2CORDLk/tmNwzuU-0zNIjOYh5tMTwC\";\ns.async = true;\ns.referrerPolicy = 'no-referrer-when-downgrade';\nl.parentNode.insertBefore(s, l);\n})({})";
- box.appendChild(tag);
+ var box = sponsoredCard("cb-paced-ad");
+ box.style.margin = ".8rem auto";
  var story = wrap.querySelector(".dsec");
  if(story) wrap.insertBefore(box, story); else wrap.appendChild(box);
  __cbPacedLoaded = true;
