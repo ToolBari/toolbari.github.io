@@ -1,1 +1,29 @@
-{"items": [{"id": "v132-update-2026-10-24", "title": "CineBari app v1.3.2 is out — tap to download", "text": "Fresh install for the latest fixes: Continue Watching now opens every movie, and the search icons are fixed. Tap to download v1.3.2.", "url": "https://github.com/ToolBari/toolbari.github.io/releases/download/cinebari-v1.3.2/cinebari-app-v1.3.2.apk"}, {"id": "v131-launch-2026-10-24", "text": "CineBari v1.3.1 is live — clean install fix, and daily top-movie news notifications are now on. Tap to open CineBari.", "title": "CineBari v1.3.1 is live — tap to watch", "url": "https://toolbari.github.io/cinebari/"}, {"id": "v13-update-2026-10-24", "text": "New movies now appear first, a new Bangla Movies & Drama shelf is live, and a TV channel that stops working now switches automatically to the next working one.", "title": "CineBari updated — new movies first, Bangla drama, auto channel switching", "url": "https://toolbari.github.io/cinebari/"}], "updated": "2026-10-24"}
+{
+ "items": [
+  {
+   "id": "v14-update-2026-10-30",
+   "title": "CineBari app v1.4 is out — tap to download",
+   "text": "The TV remote now works inside the app (channel zapping, channel list, number keys), downloads finish inside the app with the installer opening automatically, and there is a fresh new logo. Tap to download v1.4.",
+   "url": "https://github.com/ToolBari/toolbari.github.io/releases/download/cinebari-v1.4/cinebari-app-v1.4.apk"
+  },
+  {
+   "id": "v132-update-2026-10-24",
+   "title": "CineBari app v1.3.2 is out — tap to download",
+   "text": "Fresh install for the latest fixes: Continue Watching now opens every movie, and the search icons are fixed. Tap to download v1.3.2.",
+   "url": "https://github.com/ToolBari/toolbari.github.io/releases/download/cinebari-v1.3.2/cinebari-app-v1.3.2.apk"
+  },
+  {
+   "id": "v131-launch-2026-10-24",
+   "text": "CineBari v1.3.1 is live — clean install fix, and daily top-movie news notifications are now on. Tap to open CineBari.",
+   "title": "CineBari v1.3.1 is live — tap to watch",
+   "url": "https://toolbari.github.io/cinebari/"
+  },
+  {
+   "id": "v13-update-2026-10-24",
+   "text": "New movies now appear first, a new Bangla Movies & Drama shelf is live, and a TV channel that stops working now switches automatically to the next working one.",
+   "title": "CineBari updated — new movies first, Bangla drama, auto channel switching",
+   "url": "https://toolbari.github.io/cinebari/"
+  }
+ ],
+ "updated": "2026-10-30"
+}
