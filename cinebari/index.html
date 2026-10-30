@@ -1264,7 +1264,13 @@ function gridEp(){
  if(G.yearFilter && e.indexOf("/discover/") === 0){
  var isTV = e.indexOf("/discover/tv") === 0;
  var srt = isTV ? "first_air_date.desc" : "primary_release_date.desc";
+ if(G.year){
  if(e.indexOf("sort_by=") !== -1) e = e.replace(/sort_by=[^&]+/, "sort_by=" + srt); else e += "&sort_by=" + srt;
+ if(G.year !== "old"){
+ var capName = isTV ? "first_air_date" : "primary_release_date";
+ e = e.replace(new RegExp("&" + capName + "[.]lte=[^&]*"), "").replace(new RegExp("[?]" + capName + "[.]lte=[^&]*&"), "?");
+ }
+ }
  if(G.year === "old") e += isTV ? "&first_air_date.lte=1989-12-31" : "&primary_release_date.lte=1989-12-31";
  else if(G.year) e += isTV ? "&first_air_date_year=" + G.year : "&primary_release_year=" + G.year;
  }
