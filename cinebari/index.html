@@ -2423,6 +2423,7 @@ document.addEventListener("click", function(e){
  if (!t || !t.closest) return;
  if (t.closest("input,select,textarea")) return;
  if (t.closest('[aria-label="Dismiss sponsored content"]') || t.closest('button[title="Dismiss"]') || t.closest("#m-close")) return;
+ if (t.closest("[data-cwx]")) return;
  if (t.id === "modal") return;
  if (t.closest(".mlogo") || t.id === "toast" || t.id === "splash") return;
  if (t.closest("#cb-paced-ad")) return;
