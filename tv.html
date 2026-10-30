@@ -102,7 +102,7 @@ main{padding:1rem .9rem 3rem;max-width:1100px;margin:0 auto}
 /* player */
 #player{position:fixed;inset:0;background:#000;z-index:100;display:none}
 #player.on{display:block}
-#vid{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
+#vid{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;background:#000}
 #ytf{position:absolute;inset:0;width:100%;height:100%;border:0;display:none;background:#000}
 /* YouTube-mode swipe layer: transparent, above the iframe (auto z), below the
  bottom strip (6), controls (7) and TAP TO WATCH (8). HLS mode never shows it. */
@@ -932,6 +932,13 @@ $("vid").addEventListener("error", function(){
  }, { passive: true });
  g.addEventListener("click", armHide);
 })();
+/* screen fit: fill = stretched full screen (default), cover = zoom-crop, contain = original with bars. Z key cycles; choice remembered. */
+var FIT_MODES = [["fill", "🖥 Screen: Full"], ["cover", "🖥 Screen: Zoom"], ["contain", "🖥 Screen: Normal"]];
+var fitIdx = 0;
+try{ fitIdx = Math.max(0, Math.min(2, parseInt(localStorage.getItem("tv_fit") || "0", 10) || 0)); }catch(e){}
+function applyFit(){ var v = $("vid"); if(v) v.style.objectFit = FIT_MODES[fitIdx][0]; }
+function cycleFit(){ fitIdx = (fitIdx + 1) % 3; try{ localStorage.setItem("tv_fit", String(fitIdx)); }catch(e){} applyFit(); osd(FIT_MODES[fitIdx][1]); }
+applyFit();
 /* remote / keyboard */
 document.addEventListener("keydown", function(e){
  if(!$("player").classList.contains("on")){
@@ -960,6 +967,7 @@ document.addEventListener("keydown", function(e){
  else if(e.key === "Escape" || e.key === "Backspace"){ e.preventDefault(); closePlayer(); }
  else if(e.key === "f" || e.key === "F"){ var v = $("vid"); if(v.requestFullscreen) v.requestFullscreen().catch(function(){}); }
  else if(e.key === "m" || e.key === "M"){ var v2 = $("vid"); v2.muted = !v2.muted; toast(v2.muted ? "🔇 Muted" : "🔊 Sound on"); }
+ else if(e.key === "z" || e.key === "Z"){ e.preventDefault(); cycleFit(); }
  else if(/^[0-9]$/.test(e.key)){
  numBuf += e.key;
  osd("Channel " + numBuf + "…");
