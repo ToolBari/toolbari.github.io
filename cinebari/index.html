@@ -152,6 +152,7 @@ header.mhead{position:sticky;top:0;z-index:60;background:rgba(13,20,3,.9);backdr
 .card .rt{position:absolute;top:.35rem;left:.35rem;background:rgba(10,16,2,.85);color:var(--gold);font-size:.72rem;font-weight:800;border-radius:.4rem;padding:.12rem .42rem}
 .card .yr{position:absolute;bottom:.35rem;right:.35rem;background:rgba(10,16,2,.85);color:#dfe8cc;font-size:.7rem;font-weight:700;border-radius:.4rem;padding:.12rem .42rem}
 .card .dub{position:absolute;left:.35rem;bottom:.35rem;background:#a3e635;color:#0d1403;font-size:.62rem;font-weight:800;border-radius:.4rem;padding:.12rem .45rem}
+.card .cwse{position:absolute;left:.35rem;top:1.95rem;background:rgba(10,16,2,.85);color:#dfe8cc;font-size:.62rem;font-weight:800;border-radius:.4rem;padding:.12rem .45rem}
 .card .fav{position:absolute;top:.2rem;right:.2rem;font-size:1.05rem;padding:.25rem;text-shadow:0 2px 8px rgba(0,0,0,.8)}
 .card .cbadge{position:absolute;bottom:.35rem;left:.35rem;background:rgba(10,16,2,.85);color:#fff;font-size:.62rem;font-weight:800;border-radius:.4rem;padding:.12rem .42rem;letter-spacing:.02rem}
 .card .cbadge.new{background:var(--rose)}
@@ -371,13 +372,13 @@ img{max-width:100%;height:auto}
  </div>
  <div class="chips">
  <span class="chipx">✅ No Sign-up</span>
- <span class="chipx">✅ No Pop-ups</span>
+ <span class="chipx">✅ No Pop-ups From Us</span>
  <span class="chipx">✅ 100% Free</span>
  </div>
  <div class="stats">
  <div class="stat"><div class="n" id="st-ch">100+</div><div class="l">LIVE CHANNELS</div></div>
  <div class="stat"><div class="n">10,000+</div><div class="l">MOVIES &amp; SERIES</div></div>
- <div class="stat"><div class="n">9</div><div class="l">FAST SERVERS</div></div>
+ <div class="stat"><div class="n" id="st-srv">9</div><div class="l">FAST SERVERS</div></div>
  </div>
  <div class="marqwrap"><div class="marq" id="marq"></div></div>
  <!-- INSITE-NOTICE-2026-10-27: in-site banner only, no push service, no OneSignal -->
@@ -412,9 +413,9 @@ img{max-width:100%;height:auto}
  <button id="voice-b" title="Voice search">🎤</button>
  <button id="search-b" title="Search">🔍</button>
  </div>
- <button class="hbtn" id="surprise-b">🎲</button>
- <button class="hbtn" id="mylist-b">❤️</button>
- <button class="hbtn" id="tv-b">📺 TV</button>
+ <button class="hbtn" id="surprise-b" title="Surprise me" aria-label="Surprise me">🎲 Surprise</button>
+ <button class="hbtn" id="mylist-b" title="My List" aria-label="My List">❤️ My List</button>
+ <button class="hbtn" id="tv-b" title="Live TV" aria-label="Live TV">📺 TV</button>
  </header>
  <div id="upd132" style="display:none;margin:.6rem .8rem 0;background:linear-gradient(135deg,#2c4a0d,#4d7c0f);border:1px solid #a3e635;border-radius:.8rem;padding:.6rem .8rem;font-size:.92rem;font-weight:700;line-height:1.5">🆕 CineBari app v1.3.2 is out — fresh install for the latest fixes. <a href="https://github.com/ToolBari/toolbari.github.io/releases/download/cinebari-v1.3.2/cinebari-app-v1.3.2.apk" style="color:#fff;text-decoration:underline">⬇ Download</a> <button onclick="localStorage.setItem('cb_upd132','1');document.getElementById('upd132').remove()" style="float:right;background:none;border:none;color:#fff;font-size:1rem;cursor:pointer" title="Dismiss">✕</button></div>
  <script>if(!localStorage.getItem('cb_upd132')){localStorage.setItem('cb_upd132','1');document.getElementById('upd132').style.display='block';}</script>
@@ -523,6 +524,7 @@ img{max-width:100%;height:auto}
  </div>
  <div class="typetabs" id="gftabs" style="display:none"></div>
  <div class="typetabs" id="yeartabs" style="display:none"></div>
+ <div style="padding:.35rem .95rem 0"><button class="hbtn" id="clearfilters" style="display:none">✖ Clear filters</button></div>
  <div class="grid" id="grid"></div>
  <div class="empty" id="grid-empty" style="display:none">Nothing found here yet.<br>Try another name — or tap “Request a Movie” on the home page.</div>
  <button class="loadmore" id="loadmore" style="display:none">Load More ↓</button>
@@ -667,7 +669,7 @@ function ssSaveItem(s){
 }
 function ssSaveGrid(){
  if(!G) return;
- ssSave({ v: "v-grid", def: { title: G.title, ep: G.ep, tabs: G.tabs, type: G.type, hub: G.hub, ws: G.ws, kjc: G.kjc, genre: G.genre, dubbed: G.dubbed, bndub: G.bndub, country: !!G.country, langTab: G.langTab || null, door: G.door || null, search: G.search, local: G.local || null, year: G.year || "", gf: G.gf || 0 } });
+ ssSave({ v: "v-grid", def: { title: G.title, ep: G.ep, tabs: G.tabs, type: G.type, hub: G.hub, ws: G.ws, kjc: G.kjc, genre: G.genre, dubbed: G.dubbed, bndub: G.bndub, country: !!G.country, langTab: G.langTab || null, door: G.door || null, search: G.search, local: G.local || null, year: G.year || "", gf: G.gf || 0, page: (G.loadedPage || G.page || 1), q: G.q || null, edub: !!G.edub } });
 }
 var __cbShowViewBase = showView;
 showView = function(id){
@@ -693,7 +695,7 @@ function navCurId(){
 }
 function navGridDesc(){
  if(!G) return null;
- return { v: "v-grid", def: { title: G.title, ep: G.ep, tabs: G.tabs, type: G.type, hub: G.hub, ws: G.ws, kjc: G.kjc, genre: G.genre, dubbed: G.dubbed, bndub: G.bndub, country: !!G.country, langTab: G.langTab || null, door: G.door || null, search: G.search, local: G.local || null, year: G.year || "", gf: G.gf || 0 } };
+ return { v: "v-grid", def: { title: G.title, ep: G.ep, tabs: G.tabs, type: G.type, hub: G.hub, ws: G.ws, kjc: G.kjc, genre: G.genre, dubbed: G.dubbed, bndub: G.bndub, country: !!G.country, langTab: G.langTab || null, door: G.door || null, search: G.search, local: G.local || null, year: G.year || "", gf: G.gf || 0, page: (G.loadedPage || G.page || 1), q: G.q || null, edub: !!G.edub } };
 }
 function navItemDesc(){
  if(!D || !D.s || !D.s.id) return null;
@@ -731,8 +733,9 @@ function navOpen(d){
  else if(d.v === "v-details" && d.item && d.item.id){ openDetails(d.item); }
  else if(d.v === "v-grid" && d.def && d.def.title){
  var f = d.def;
- openGrid({ title: f.title, ep: f.ep || "", tabs: !!f.tabs, hub: f.hub || null, ws: f.ws || null, kjc: f.kjc || null, genre: f.genre || null, dubbed: !!f.dubbed, bndub: !!f.bndub, country: !!f.country, langTab: f.langTab || null, door: f.door || null, search: !!f.search, local: f.local || null });
+ openGrid({ title: f.title, ep: f.ep || "", tabs: !!f.tabs, hub: f.hub || null, ws: f.ws || null, kjc: f.kjc || null, genre: f.genre || null, dubbed: !!f.dubbed, bndub: !!f.bndub, country: !!f.country, langTab: f.langTab || null, door: f.door || null, search: !!f.search, local: f.local || null, q: f.q || "", edub: !!f.edub });
  if(G){
+ if(f.page && f.page > 1) G.restorePage = f.page;
  var dirty = false;
  if(f.type && f.type !== G.type && G.tabs){ G.type = f.type; document.querySelectorAll("#typetabs .ttab").forEach(function(x){ x.classList.toggle("on", x.getAttribute("data-tt") === G.type); }); dirty = true; }
  if(f.year && G.yearFilter){ G.year = f.year; syncYearTabs(); dirty = true; }
@@ -806,6 +809,7 @@ function startHero(){
  }).catch(function(){});
 }
 /* ---------------- cards & shelves ---------------- */
+function isDubTitle(s){ return !!s && s.type === "movie" && !!s.lang && ["ta", "te", "ml", "kn"].indexOf(s.lang) !== -1; }
 /* status badge — only when TMDB data actually carries the date/status */
 function badgeHTML(s){
  if(s.status === "Ended") return '<span class="cbadge ended">ENDED</span>';
@@ -814,13 +818,13 @@ function badgeHTML(s){
  return "";
 }
 function cardHTML(s, big, dub){
- var isDub = dub || (s.type === "movie" && s.lang && ["ta", "te", "ml", "kn"].indexOf(s.lang) !== -1);
+ var isDub = !!dub || isDubTitle(s);
  var fav = isFav(s.id, s.type);
  return '<button class="card' + (big ? " big" : "") + '" data-open="' + s.type + ":" + s.id + '">' +
  '<span class="pw">' + (s.poster ? '<img loading="lazy" src="' + pimg(s.poster) + '" alt="" onerror="this.style.opacity=0">' : "") +
  (s.rating ? '<span class="rt">⭐ ' + s.rating.toFixed(1) + "</span>" : "") +
  (s.year ? '<span class="yr">' + s.year + "</span>" : "") +
- '<span class="fav">' + (fav ? "❤️" : "") + "</span>" + (isDub ? '<span class="dub">🎙 Hindi Dubbed</span>' : "") + badgeHTML(s) + "</span>" +
+ '<span class="fav">' + (fav ? "❤️" : "") + "</span>" + (isDub ? '<span class="dub">' + (dub === "en" ? "🎙 English Dubbed" : "🎙 Hindi Dubbed") + "</span>" : "") + badgeHTML(s) + "</span>" +
  '<span class="ti">' + esc(s.title) + "</span>" +
  '<span class="tp">' + (s.type === "tv" ? "📺 Series" : "🎬 Movie") + (s.year ? " • " + s.year : "") + (LANG_NAME[s.lang] ? " • " + LANG_NAME[s.lang] : "") + "</span>" +
  (s.genres && s.genres.length ? '<span class="tg">' + esc(s.genres.join(" • ")) + "</span>" : "") + "</button>";
@@ -894,6 +898,17 @@ function loadMoreShelf(el){
  if(el._page >= el._totalPages){ var mc = el.querySelector(".morecard"); if(mc) mc.remove(); var rs = el.querySelector(".rowsent"); if(rs) rs.remove(); }
  }).catch(function(){ el._moreBusy = false; });
 }
+/* cross-shelf dedupe: a title already shown in an earlier home shelf is
+   skipped in later ones. Trending, Top 10, wide and sliced shelves are
+   exempt, as are Continue Watching / Because You Watched (not loadShelf). */
+var CB_SEEN = {};
+function dedupeShelfItems(items, def){
+ if(!items || !items.length) return [];
+ if(def && (def.id === "trending" || def.noDedupe || def.slice || def.style === "top10" || def.style === "wide")) return items.slice();
+ var out = [], local = {};
+ items.forEach(function(it){ if(!it || !it.id) return; var k = mtype(it) + ":" + it.id; if(local[k] || CB_SEEN[k]) return; local[k] = 1; CB_SEEN[k] = 1; out.push(it); });
+ return out;
+}
 var todayStr = new Date().toISOString().slice(0, 10);
 function disc(type, extra){ return "/discover/" + type + "?sort_by=popularity.desc&vote_count.gte=20" + (extra || ""); }
 var SHELVES = [
@@ -920,6 +935,7 @@ var SHELVES = [
  { id: "hidden-gems", title: "💎 Hidden Gems", sub: "Highly rated, rarely watched", ep: "/discover/movie?sort_by=vote_average.desc&vote_average.gte=7&vote_count.gte=50&vote_count.lte=500", grid: function(){ return { title: "💎 Hidden Gems", ep: "/discover/movie?sort_by=vote_average.desc&vote_average.gte=7&vote_count.gte=50&vote_count.lte=500", tabs: false }; } },
  { id: "best-of-year", title: "🏆 Best of 2026", sub: "This year's finest, by rating", ep: "/discover/movie?sort_by=vote_average.desc&primary_release_year=2026&vote_average.gte=7&vote_count.gte=200", grid: function(){ return { title: "🏆 Best of 2026", ep: "/discover/movie?sort_by=vote_average.desc&primary_release_year=2026&vote_average.gte=7&vote_count.gte=200", tabs: false }; } },
  { id: "hollywood-dubbed", dubbed: true, title: "🎙 Hollywood Hindi-Dubbed", sub: "Hollywood favourites — dubbed audio depends on the print the server carries", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=en&vote_average.gte=6&vote_count.gte=80", grid: function(){ return { title: "🎙 Hollywood Hindi-Dubbed", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=en&vote_average.gte=6&vote_count.gte=80", tabs: false, dubbed: true }; } },
+ { id: "english-dubbed", dubbed: "en", title: "🎙 English Dubbed", sub: "Foreign hits — watch in English on Server 3", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=ta|te|ml|kn|hi|bn|ko|ja|zh|es|fr|de|id|tr|ru|it|pt&vote_count.gte=20", grid: function(){ return { title: "🎙 English Dubbed", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=ta|te|ml|kn|hi|bn|ko|ja|zh|es|fr|de|id|tr|ru|it|pt&vote_count.gte=20", tabs: false, edub: true }; } },
  { id: "hindi", title: "🎬 Bollywood Movies", ep: disc("movie", "&with_original_language=hi"), grid: function(){ return langGrid("hi", "Hindi"); } },
  { id: "hollywood", title: "🎥 Hollywood Movies", ep: disc("movie", "&with_original_language=en"), grid: function(){ return langGrid("en", "Hollywood"); } },
  { id: "poptv", title: "📺 Popular Series", ep: "/tv/popular", grid: function(){ return { title: "📺 Popular Series", ep: "/tv/popular", tabs: false }; } },
@@ -955,7 +971,6 @@ var SHELVES = [
  { id: "japanese", title: "🗾 Japanese Movies", ep: disc("movie", "&with_original_language=ja"), grid: function(){ return langGrid("ja", "Japanese"); } },
  { id: "pakistani", title: "🇵🇰 Pakistani Series", sub: "Beloved dramas", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=ur&vote_count.gte=2", grid: function(){ return { title: "🇵🇰 Pakistani Series", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=ur&vote_count.gte=2", tabs: false, country: true }; } },
  { id: "kids", title: "🧒 Kids Zone", sub: "Fun for the little ones", ep: "/discover/movie?sort_by=popularity.desc&with_genres=10751&vote_count.gte=20", grid: function(){ return { title: "🧒 Kids Zone", ep: "/discover/movie?sort_by=popularity.desc&with_genres=10751&vote_count.gte=20", tabs: false }; } },
- { id: "soon", title: "🗓 Coming Soon", sub: "In cinemas soon — watch the space", ep: "/movie/upcoming", grid: function(){ return { title: "🗓 Coming Soon", ep: "/movie/upcoming", tabs: false }; } },
  { id: "id-dubbed", dubbed: true, title: "🇮🇩 Indonesian Hindi-Dubbed", sub: "Indonesian favourites — dubbed audio depends on the print the server carries", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=id&vote_average.gte=6&vote_count.gte=80", grid: function(){ return { title: "🇮🇩 Indonesian Hindi-Dubbed", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=id&vote_average.gte=6&vote_count.gte=80", tabs: false, dubbed: true }; } },
  { id: "bn-dubbed", dubbed: true, title: "🇧🇩 Bangla Hindi-Dubbed", sub: "Bangla favourites — dubbed audio depends on the print the server carries", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=bn&vote_average.gte=6&vote_count.gte=80", grid: function(){ return { title: "🇧🇩 Bangla Hindi-Dubbed", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=bn&vote_average.gte=6&vote_count.gte=80", tabs: false, dubbed: true }; } },
  { id: "banglanatok", title: "🇧🇩 Bangla Natok", sub: "Bangladeshi TV dramas & natoks", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=bn&vote_count.gte=2", grid: function(){ return { title: "🇧🇩 Bangla Natok", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=bn&vote_count.gte=2", tabs: false, country: true }; } },
@@ -1113,7 +1128,7 @@ function toggleFav(s){
  saveLS("cb_list", l.slice(0, 60));
  return i === -1;
 }
-function cwList(){ return loadLS("cb_cw", []); }
+function cwList(){ var l = loadLS("cb_cw", []); if(!Array.isArray(l)) return []; return l.slice().sort(function(a, b){ return (b.ts || 0) - (a.ts || 0); }); }
 function cwGet(id, type){ return cwList().find(function(x){ return x.id === id && x.type === type; }); }
 function cwSave(s, season, episode){
  var l = cwList().filter(function(x){ return !(x.id === s.id && x.type === s.type); });
@@ -1156,6 +1171,8 @@ function dynShelf(title, sub, items, opts){
  d.querySelectorAll(".card").forEach(function(c){
  var pw = c.querySelector(".pw");
  if(pw){ var x = document.createElement("span"); x.className = "cwx"; x.setAttribute("data-cwx", c.getAttribute("data-open") || ""); x.setAttribute("aria-label", "Remove from Continue Watching"); x.textContent = "✕"; pw.appendChild(x); }
+ var it2 = items.find(function(s){ return (s.type + ":" + s.id) === (c.getAttribute("data-open") || ""); });
+ if(it2 && it2.type === "tv" && pw){ var se = document.createElement("span"); se.className = "cwse"; se.textContent = "S" + (it2.s || 1) + " E" + (it2.e || 1); pw.appendChild(se); }
  });
  var cb = d.querySelector(".cwclear");
  if(cb) cb.addEventListener("click", function(){ confirmCwClear(); });
@@ -1174,7 +1191,7 @@ function refreshDyn(){
  var host = $("shelves");
  if(!host) return;
  host.querySelectorAll(".shelf.dyn").forEach(function(el){ el.remove(); });
- var cwEl = dynShelf("▶ Continue Watching", "Pick up where you left off", cwList());
+ var cwEl = dynShelf("▶ Continue Watching", "Pick up where you left off", cwList(), { cw: true });
  var fl = dynShelf("❤️ My List", "Your saved favorites", favList());
  var first = host.firstChild;
  if(cwEl) host.insertBefore(cwEl, first);
@@ -1241,12 +1258,20 @@ function buildHome(){
  { id: "popm", title: "⭐ Popular Movies", sub: "Most popular movies right now", ep: "/movie/popular", grid: function(){ return { title: "⭐ Popular Movies", ep: "/movie/popular", tabs: false }; } }
  ];
  var restShelves = SHELVES.filter(function(d){ return d.id !== "latest" && d.id !== "popm"; });
- var els = topShelves.concat(restShelves).map(function(def){ var el = shelfEl(def); el._def = def; host.appendChild(el); return el; });
+ var allDefs = topShelves.concat(restShelves);
+ var MW_DEFS = [
+ { id: "most-series", title: "🔥 Most Watched Series", sub: "The series everyone is watching", ep: "/discover/tv?sort_by=popularity.desc&vote_count.gte=20", grid: function(){ return { title: "🔥 Most Watched Series", ep: "/discover/tv?sort_by=popularity.desc&vote_count.gte=20", tabs: false }; } },
+ { id: "most-movies", title: "🔥 Most Watched Movies", sub: "The movies everyone is watching", ep: "/discover/movie?sort_by=popularity.desc&vote_count.gte=20", grid: function(){ return { title: "🔥 Most Watched Movies", ep: "/discover/movie?sort_by=popularity.desc&vote_count.gte=20", tabs: false }; } }
+ ];
+ var tIdx = -1;
+ allDefs.forEach(function(d, i){ if(d.id === "trending") tIdx = i; });
+ if(tIdx !== -1) allDefs.splice.apply(allDefs, [tIdx + 1, 0].concat(MW_DEFS)); else allDefs = allDefs.concat(MW_DEFS);
+ var els = allDefs.map(function(def){ var el = shelfEl(def); el._def = def; host.appendChild(el); return el; });
  function loadShelf(el){
  var def = el._def;
  el._page = 1; el._totalPages = 1; el._moreBusy = false;
  var p = def.fn ? def.fn() : api(def.ep).then(function(j){ el._totalPages = j.total_pages || 1; return j.results || []; });
- p.then(function(items){ fillShelf(el, def.slice ? items.slice(0, def.slice) : items, def); attachShelfMore(el); }).catch(function(){ fillShelf(el, [], def); });
+ p.then(function(items){ var list = def.slice ? items.slice(0, def.slice) : items; list = dedupeShelfItems(list, def); if(!list.length && items.length){ el.style.display = "none"; return; } fillShelf(el, list, def); attachShelfMore(el); }).catch(function(){ fillShelf(el, [], def); });
  }
  /* v2.0 FULL UPDATE — homepage one-row fix (never hide, always load):
  (a) EAGER-LOAD the first 6 shelves immediately, so the home never shows
@@ -1317,15 +1342,16 @@ function buildHome(){
 }
 /* ---------------- grid ---------------- */
 var G = null;
+var GRID_EMPTY_HTML = $("grid-empty").innerHTML;
 /* Hindi Dubbed Hub filters — newest first */
 var HUB_FILTERS = {
- all: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=ta|te|ml|kn|en|hi|id|bn",
- south: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=ta|te|ml|kn&vote_average.gte=6&vote_count.gte=80",
- hollywood: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=en&vote_average.gte=6&vote_count.gte=80",
- bollywood: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=hi",
- series: "/discover/tv?sort_by=first_air_date.desc&with_original_language=hi|ta|te|ml|kn",
- indonesian: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=id",
- "indonesian-dubbed": "/discover/movie?sort_by=primary_release_date.desc&with_original_language=id"
+ all: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=ta|te|ml|kn|en|hi|id|bn&primary_release_date.lte=" + todayStr,
+ south: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=ta|te|ml|kn&vote_average.gte=6&vote_count.gte=80&primary_release_date.lte=" + todayStr,
+ hollywood: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=en&vote_average.gte=6&vote_count.gte=80&primary_release_date.lte=" + todayStr,
+ bollywood: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=hi&primary_release_date.lte=" + todayStr,
+ series: "/discover/tv?sort_by=first_air_date.desc&with_original_language=hi|ta|te|ml|kn&first_air_date.lte=" + todayStr,
+ indonesian: "/discover/movie?sort_by=primary_release_date.desc&with_original_language=id&primary_release_date.lte=" + todayStr,
+ "indonesian-dubbed": "/discover/movie?sort_by=primary_release_date.desc&with_original_language=id&primary_release_date.lte=" + todayStr
 };
 /* Web Series filters — TV discover, newest first */
 var WS_FILTERS = {
@@ -1395,7 +1421,7 @@ function gridEp(){
 function openGrid(def){
  navLeave();
  window.__cbGridFrom = $("v-cats").classList.contains("on") ? "v-cats" : "v-movies";
- G = { title: def.title, ep: def.ep, tabs: !!def.tabs, page: 1, type: "movie", local: def.local || null, search: !!def.search, hub: def.hub || null, ws: def.ws || null, dubbed: !!def.dubbed, kjc: def.kjc || null, genre: def.genre || null, genrelang: def.genre ? (localStorage.getItem("cb_genrelang") || "") : "", bndub: !!def.bndub, year: "", yearFilter: !!(def.genre || def.hub || def.ws || def.kjc || (def.ep && def.ep.indexOf("/discover/") === 0)), gf: 0, gfilter: !!(def.country || def.langTab || def.door), country: !!def.country, langTab: def.langTab || null, door: def.door || null };
+ G = { title: def.title, ep: def.ep, tabs: !!def.tabs, page: 1, loadedPage: 0, type: "movie", local: def.local || null, search: !!def.search, hub: def.hub || null, ws: def.ws || null, dubbed: !!def.dubbed, kjc: def.kjc || null, genre: def.genre || null, genrelang: def.genre ? (localStorage.getItem("cb_genrelang") || "") : "", bndub: !!def.bndub, year: "", yearFilter: !!(def.genre || def.hub || def.ws || def.kjc || (def.ep && def.ep.indexOf("/discover/") === 0)), gf: 0, gfilter: !!(def.country || def.langTab || def.door), country: !!def.country, langTab: def.langTab || null, door: def.door || null, q: def.q || "", edub: !!def.edub };
  showView("v-grid");
  $("grid-t").textContent = def.title;
  $("typetabs").style.display = (G.tabs && !G.hub && !G.ws) ? "flex" : "none";
@@ -1414,6 +1440,7 @@ function openGrid(def){
  if(G.yearFilter) syncYearTabs();
  $("gftabs").style.display = G.gfilter ? "flex" : "none";
  if(G.gfilter) syncGfTabs();
+ syncClearFilters();
  var dcEl = $("doorcats");
  if(G.door){ dcEl.style.display = "block"; renderPopTiles($("doorcats-grid"), G.door); renderDoorCountries($("doorcats-all"), G.door); } else { dcEl.style.display = "none"; }
  $("grid").innerHTML = "";
@@ -1424,7 +1451,7 @@ function renderLocalGrid(){
  var items = G.local || [];
  $("grid").innerHTML = items.map(function(s){ return cardHTML(s); }).join("");
  $("grid-c").textContent = items.length + " saved";
- $("grid-empty").style.display = items.length ? "none" : "block";
+ var em3 = $("grid-empty"); em3.innerHTML = GRID_EMPTY_HTML; em3.style.display = items.length ? "none" : "block";
  $("loadmore").style.display = "none";
 }
 function gridCardFor(it){
@@ -1432,26 +1459,39 @@ function gridCardFor(it){
  return '<button class="card" data-actor="' + it.id + ":" + esc(it.name || "") + '"><span class="pw">' + (it.profile_path ? '<img loading="lazy" src="' + IMG + "w185" + it.profile_path + '" alt="">' : "") + '</span><span class="ti">' + esc(it.name || "") + '</span><span class="tp">🎭 Actor</span></button>';
  }
  if(mtype(it) !== "movie" && mtype(it) !== "tv") return "";
- return cardHTML(reg(it));
+ return cardHTML(reg(it), false, (G && G.edub) ? "en" : undefined);
 }
 function loadGridPage(first){
- if(!G || G._loading) return;
+ if(!G || G._loading) return Promise.resolve();
  G._loading = true;
- api(pageEp(gridEp(), G.page)).then(function(j){
+ var pg = G.page;
+ return api(pageEp(gridEp(), pg)).then(function(j){
  G._loading = false;
+ G.loadedPage = pg;
+ if(G.search && j.total_results != null) G.totalResults = j.total_results;
  var items = (j.results || []).filter(function(it){ return it.poster_path || it.profile_path; });
  var html = items.map(gridCardFor).join("");
  if(first) $("grid").innerHTML = html; else $("grid").insertAdjacentHTML("beforeend", html);
  var total = j.total_pages || 1;
- $("grid-c").textContent = "Page " + G.page + " of " + total;
- $("grid-empty").style.display = $("grid").children.length ? "none" : "block";
- $("loadmore").style.display = G.page < total ? "block" : "none";
- }).catch(function(){ G._loading = false; if(first) $("grid-empty").style.display = "block"; });
+ if(G.search && G.totalResults != null) $("grid-c").textContent = G.totalResults + " results for \u201C" + (G.q || "") + "\u201D · Page " + pg + " of " + total;
+ else $("grid-c").textContent = "Page " + pg + " of " + total;
+ var em = $("grid-empty");
+ if($("grid").children.length){ em.style.display = "none"; }
+ else { em.innerHTML = (G.gf || G.year || G.genrelang) ? "No titles match these filters — clear the year or genre and try again" : GRID_EMPTY_HTML; em.style.display = "block"; }
+ $("loadmore").style.display = pg < total ? "block" : "none";
+ if(G.restorePage && pg < G.restorePage && pg < total){ G.page = pg + 1; loadGridPage(false); }
+ else if(G.restorePage && pg >= G.restorePage){ G.restorePage = 0; }
+ }).catch(function(){ G._loading = false; if(first){ var em2 = $("grid-empty"); em2.innerHTML = (G && (G.gf || G.year || G.genrelang)) ? "No titles match these filters — clear the year or genre and try again" : GRID_EMPTY_HTML; em2.style.display = "block"; } });
 }
-$("loadmore").addEventListener("click", function(){ if(G){ G.page++; loadGridPage(false); } });
+$("loadmore").addEventListener("click", function(){ if(G && !G._loading){ G.page++; loadGridPage(false); } });
 /* year filter, grouped by decade: "All Years" first, then 2026 at the top,
    stepping down decade by decade; the Classics group uses decade RANGE
    chips (see yearRange) instead of single years. */
+function syncClearFilters(){
+ var b = $("clearfilters");
+ if(!b) return;
+ b.style.display = (G && (G.gf || G.year)) ? "" : "none";
+}
 function buildYearTabs(){
  var host = $("yeartabs");
  host.classList.add("ygroups");
@@ -1480,8 +1520,10 @@ function syncYearTabs(){
  var host = $("yeartabs");
  if(!host) return;
  host.querySelectorAll(".ttab").forEach(function(x){ x.classList.toggle("on", (x.getAttribute("data-y") || "") === (G ? G.year : "")); });
+ syncClearFilters();
 }
 buildYearTabs();
+$("clearfilters").addEventListener("click", function(){ if(!G) return; G.gf = 0; G.year = ""; G.page = 1; syncYearTabs(); syncGfTabs(); syncClearFilters(); loadGridPage(true); });
 /* genre filter chips inside country grids: All Genres + the main genres (combines with the year filter) */
 var GF_GENRES = [[28,"Action"],[12,"Adventure"],[16,"Animation"],[35,"Comedy"],[80,"Crime"],[99,"Documentary"],[18,"Drama"],[10751,"Family"],[14,"Fantasy"],[36,"History"],[27,"Horror"],[10402,"Music"],[9648,"Mystery"],[10749,"Romance"],[878,"Sci-Fi"],[53,"Thriller"],[10752,"War"],[37,"Western"]];
 function buildGfTabs(){
@@ -1501,13 +1543,14 @@ function syncGfTabs(){
  var host = $("gftabs");
  if(!host) return;
  host.querySelectorAll(".ttab").forEach(function(x){ x.classList.toggle("on", (x.getAttribute("data-gf") || "") === (G && G.gf ? String(G.gf) : "")); });
+ syncClearFilters();
 }
 buildGfTabs();
 /* grid infinite scroll: auto-load the next page near the bottom */
 if("IntersectionObserver" in window){
  var gio = new IntersectionObserver(function(entries){
  entries.forEach(function(en){
- if(en.isIntersecting && G && !G.local && $("loadmore").style.display !== "none"){ G.page++; loadGridPage(false); }
+ if(en.isIntersecting && G && !G.local && !G._loading && G.loadedPage >= 1 && $("loadmore").style.display !== "none"){ G.page++; loadGridPage(false); }
  });
  }, { rootMargin: "700px" });
  var gs = $("gridsent");
@@ -1626,7 +1669,7 @@ function openDetails(s, opts){
  pacedAd();
  var gridOn = $("v-grid").classList.contains("on");
  backTarget = gridOn ? "v-grid" : "v-movies";
- var fromDubbed = !!((opts && opts.dubbed) || (gridOn && G && ((G.hub && G.hub !== "series") || G.dubbed)) || (s.type === "movie" && ["ta", "te", "ml", "kn"].indexOf(s.lang) !== -1));
+ var fromDubbed = !!((opts && opts.dubbed) || (gridOn && G && ((G.hub && G.hub !== "series") || G.dubbed)) || isDubTitle(s));
  var fromBndub = !!((opts && opts.bndub) || (gridOn && G && G.bndub));
  D = { s: s, data: null, season: 1, episode: 1, dubbed: fromDubbed, bndub: fromBndub };
  showView("v-details");
@@ -1646,7 +1689,7 @@ function openDetails(s, opts){
  api("/" + s.type + "/" + s.id + "?append_to_response=videos,credits,recommendations,release_dates,content_ratings,watch/providers,images").then(function(j){
  if(!D || D.s.id !== s.id) return;
  D.data = j;
- if(!D.dubbed && s.type === "movie" && ["ta", "te", "ml", "kn"].indexOf(j.original_language) !== -1){ D.dubbed = true; }
+ if(!D.dubbed && isDubTitle({ type: s.type, lang: j.original_language })){ D.dubbed = true; }
  if(j.backdrop_path) $("d-back").style.backgroundImage = "url(" + IMG + "w1280" + j.backdrop_path + ")";
  if(j.poster_path) $("d-poster").src = pimg(j.poster_path, "w342");
  $("d-title").textContent = j.title || j.name || s.title;
@@ -1704,12 +1747,12 @@ function openDetails(s, opts){
  }
  /* where to watch — streaming providers only, region-labelled, nothing if none */
  var wpr = (j["watch/providers"] && j["watch/providers"].results) || {};
- var wreg = null, wkey = "";
- ["IN", "US"].forEach(function(k){ if(!wreg && wpr[k] && wpr[k].flatrate && wpr[k].flatrate.length){ wreg = wpr[k]; wkey = k; } });
- if(!wreg){ var wk = Object.keys(wpr); for(var wi = 0; wi < wk.length; wi++){ var wr = wpr[wk[wi]]; if(wr && wr.flatrate && wr.flatrate.length){ wreg = wr; wkey = wk[wi]; break; } } }
+ var wreg = (wpr.IN && wpr.IN.flatrate && wpr.IN.flatrate.length) ? wpr.IN : null;
  if(wreg){
  $("d-wtwsec").style.display = "block";
- $("d-wtw").textContent = "Streaming on (" + wkey + "): " + wreg.flatrate.map(function(p){ return p.provider_name; }).join(", ");
+ $("d-wtw").textContent = "Streaming on (IN): " + wreg.flatrate.map(function(p){ return p.provider_name; }).join(", ");
+ } else {
+ $("d-wtwsec").style.display = "none";
  }
  /* stills — backdrops from the details response, nothing if none */
  var bds = (j.images && j.images.backdrops) || [];
@@ -1776,8 +1819,12 @@ var SERVERS = [
  { n: "Server 6", k: "vidy", /* Vidy */ f: function(t, id, s, e){ return t === "movie" ? "https://vidy.st/movie/" + id : "https://vidy.st/tv/" + id + "/" + s + "/" + e; } },
  { n: "Server 7", k: "vidzee", /* VidZee */ f: function(t, id, s, e){ return t === "movie" ? "https://player.vidzee.wtf/embed/movie/" + id : "https://player.vidzee.wtf/embed/tv/" + id + "/" + s + "/" + e; } },
  { n: "Server 8", k: "autoembed", /* AutoEmbed */ f: function(t, id, s, e){ return t === "movie" ? "https://autoembed.co/movie/tmdb/" + id : "https://autoembed.co/tv/tmdb/" + id + "-" + s + "-" + e; } },
- { n: "Server 9", k: "vidsrc", /* VidSrc */ f: function(t, id, s, e){ return t === "movie" ? "https://vidsrc.me/embed/movie/" + id : "https://vidsrc.me/embed/tv/" + id + "/" + s + "/" + e; } }
+ { n: "Server 9", k: "vidsrc", /* VidSrc */ f: function(t, id, s, e){ return t === "movie" ? "https://vidsrc.me/embed/movie/" + id : "https://vidsrc.me/embed/tv/" + id + "/" + s + "/" + e; } },
+ { n: "Server 10", k: "vidfast", /* VidFast */ f: function(t, id, s, e){ return t === "movie" ? "https://vidfast.pro/movie/" + id : "https://vidfast.pro/tv/" + id + "/" + s + "/" + e; } },
+ { n: "Server 11", k: "vidsrcbuzz", /* VidSrc.buzz */ f: function(t, id, s, e){ return t === "movie" ? "https://vidsrc.buzz/embed/movie/" + id : "https://vidsrc.buzz/embed/tv/" + id + "/" + s + "/" + e; } },
+ { n: "Server 12", k: "2embedcc", /* 2Embed.cc */ f: function(t, id, s, e){ return t === "movie" ? "https://www.2embed.cc/embed/" + id : "https://www.2embed.cc/embedtv/" + id + "&s=" + s + "&e=" + e; } }
 ];
+try { $("st-srv").textContent = SERVERS.length; } catch(e){}
 function srvByKey(k){ for(var i = 0; i < SERVERS.length; i++){ if(SERVERS[i].k === k) return i + 1; } return 1; }
 function srvTag(sv){ return sv.k === "2embed" ? "Hindi Server" : "English Server"; }
 function hindiSrv(){ return srvByKey("2embed"); }
@@ -1950,7 +1997,7 @@ function openTrailer(key, t){
  openModal('<h3>🎞 ' + esc(t || "Trailer") + '</h3><div style="position:relative;aspect-ratio:16/9;background:#000;border-radius:.8rem;overflow:hidden"><iframe src="https://www.youtube.com/embed/' + esc(key) + '?autoplay=1&rel=0" style="position:absolute;inset:0;width:100%;height:100%;border:0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe></div><button class="x" id="m-close">Close</button>');
 }
 $("help-b").addEventListener("click", function(){
- openModal("<h3>❓ How to Watch</h3><ol><li><b>Tap any poster</b>the movie or series page opens.</li><li><b>Press ▶ Watch Now</b>the video starts. For series, pick your season &amp; episode first.</li><li><b>Slow or stuck?</b> Scroll down in the player and tap another <b>Server</b> button — there are 9.</li></ol><p>Everything is free. No sign-up, no pop-ups. To watch live TV instead, tap 📺 LIVE TV on the first screen.</p><button class='x' id='m-close'>Close</button>");
+ openModal("<h3>❓ How to Watch</h3><ol><li><b>Tap any poster</b>the movie or series page opens.</li><li><b>Press ▶ Watch Now</b>the video starts. For series, pick your season &amp; episode first.</li><li><b>Slow or stuck?</b> Scroll down in the player and tap another <b>Server</b> button — there are " + SERVERS.length + ".</li></ol><p>Everything is free. No sign-up, no pop-ups. To watch live TV instead, tap 📺 LIVE TV on the first screen.</p><button class='x' id='m-close'>Close</button>");
 });
 $("request-b").addEventListener("click", function(){
  openModal('<h3>🎬 Request a Movie</h3><p>Type the movie or series name — we will arrange it for you.</p><input id="req-in" placeholder="Movie or series name…"><a class="go" id="req-go" style="display:block;text-align:center;text-decoration:none" href="#" target="_blank" rel="noopener">Send Request on WhatsApp</a><button class="x" id="m-close">Close</button>');
@@ -1973,7 +2020,7 @@ document.querySelectorAll("#typedoors .tdoor").forEach(function(b){
 function doSearch(q){
  q = (q || "").trim();
  if(!q){ toast("Type a movie, series or actor name"); return; }
- openGrid({ title: "🔍 “" + q + "”", ep: "/search/multi?query=" + encodeURIComponent(q), tabs: false, search: true });
+ openGrid({ title: "🔍 “" + q + "”", ep: "/search/multi?query=" + encodeURIComponent(q), tabs: false, search: true, q: q });
 }
 $("search-b").addEventListener("click", function(){ doSearch($("search-in").value); });
 $("search-in").addEventListener("keydown", function(e){ if(e.key === "Enter") doSearch(this.value); });
@@ -2069,7 +2116,7 @@ var __cbGateTimer = null, __cbGatePending = null, __cbGateBar = null, __cbGateAd
  lab.textContent = "Sponsored";
  lab.style.cssText = "font-weight:900;font-size:1.4rem;color:#f1f5f9";
  var sub = document.createElement("div");
- sub.textContent = "Opening\u2026 1 second \u2014 \u0996\u09c1\u09b2\u099b\u09c7\u2026 \u09e7 \u09b8\u09c7\u0995\u09c7\u09a8\u09cd\u09a1 \u0985\u09aa\u09c7\u0995\u09cd\u09b7\u09be \u0995\u09b0\u09c1\u09a8";
+ sub.textContent = "Opening\u2026 please wait 1 second";
  sub.style.cssText = "color:#94a3b8;font-weight:700;font-size:.98rem";
  var track = document.createElement("div");
  track.style.cssText = "width:min(320px,80vw);height:10px;background:#1c2a4a;border-radius:2rem;overflow:hidden";
@@ -2193,8 +2240,9 @@ document.addEventListener("click", function(e){
  if(saved.v === "v-grid" && saved.def && saved.def.title){
  enterMovies();
  var d = saved.def;
- openGrid({ title: d.title, ep: d.ep || "", tabs: !!d.tabs, hub: d.hub || null, ws: d.ws || null, kjc: d.kjc || null, genre: d.genre || null, dubbed: !!d.dubbed, bndub: !!d.bndub, country: !!d.country, langTab: d.langTab || null, door: d.door || null, search: !!d.search, local: d.local || null });
+ openGrid({ title: d.title, ep: d.ep || "", tabs: !!d.tabs, hub: d.hub || null, ws: d.ws || null, kjc: d.kjc || null, genre: d.genre || null, dubbed: !!d.dubbed, bndub: !!d.bndub, country: !!d.country, langTab: d.langTab || null, door: d.door || null, search: !!d.search, local: d.local || null, q: d.q || "", edub: !!d.edub });
  if(G){
+ if(d.page && d.page > 1) G.restorePage = d.page;
  var dirty = false;
  if(d.type && d.type !== G.type && G.tabs){ G.type = d.type; document.querySelectorAll("#typetabs .ttab").forEach(function(x){ x.classList.toggle("on", x.getAttribute("data-tt") === G.type); }); dirty = true; }
  if(d.year && G.yearFilter){ G.year = d.year; syncYearTabs(); dirty = true; }
