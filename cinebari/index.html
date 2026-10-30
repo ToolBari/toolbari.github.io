@@ -371,7 +371,7 @@ img{max-width:100%;height:auto}
  <div class="stats">
  <div class="stat"><div class="n" id="st-ch">100+</div><div class="l">LIVE CHANNELS</div></div>
  <div class="stat"><div class="n">10,000+</div><div class="l">MOVIES &amp; SERIES</div></div>
- <div class="stat"><div class="n">7</div><div class="l">FAST SERVERS</div></div>
+ <div class="stat"><div class="n">9</div><div class="l">FAST SERVERS</div></div>
  </div>
  <div class="marqwrap"><div class="marq" id="marq"></div></div>
  <!-- INSITE-NOTICE-2026-10-27: in-site banner only, no push service, no OneSignal -->
@@ -476,8 +476,8 @@ img{max-width:100%;height:auto}
  <div class="rowlabel" style="padding-top:.3rem">🌍 Popular Countries</div>
  <div class="popgrid" id="doorcats-grid" style="padding-bottom:.3rem"></div>
  </div>
- <div id="hub-note" style="display:none;padding:.2rem .95rem .4rem;color:var(--gold);font-size:.9rem;font-weight:700;line-height:1.5">🎙 Note: dubbed audio depends on the print the server carries. Audio language switching works on S1 VidLink; Hindi audio plays on S6 2Embed.</div>
- <div id="bn-note" style="display:none;padding:.2rem .95rem .4rem;color:var(--gold);font-size:.9rem;font-weight:700;line-height:1.5">🎙 Note: Bengali audio depends on the print the server carries. Audio language switching works on S1 VidLink; Hindi audio plays on S6 2Embed.</div>
+ <div id="hub-note" style="display:none;padding:.2rem .95rem .4rem;color:var(--gold);font-size:.9rem;font-weight:700;line-height:1.5">🎙 Note: dubbed audio depends on the print the server carries. Audio language switching works on Server 3; Hindi audio plays on Server 2.</div>
+ <div id="bn-note" style="display:none;padding:.2rem .95rem .4rem;color:var(--gold);font-size:.9rem;font-weight:700;line-height:1.5">🎙 Note: Bengali audio depends on the print the server carries. Audio language switching works on Server 3; Hindi audio plays on Server 2.</div>
  <div class="typetabs" id="hubtabs" style="display:none">
  <button class="ttab on" data-hub="all">All</button>
  <button class="ttab" data-hub="south">South Dubbed</button>
@@ -579,11 +579,16 @@ img{max-width:100%;height:auto}
  <div style="display:flex;gap:.55rem;flex-wrap:wrap;margin-top:.6rem;align-items:center">
  <button class="srvb" id="p-nextsrv" style="background:var(--rose);border-color:var(--rose);color:#0d1403">⏭ Next Server</button>
  <button class="srvb" id="p-retry">↻ Try Again</button>
+ <button class="srvb" id="p-prevep2" style="display:none">⏮ Prev Episode</button>
+ <button class="srvb" id="p-nextep2" style="display:none">⏭ Next Episode</button>
  <span style="color:var(--dim);font-size:.88rem;font-weight:700">A dead server moves to the next one by itself — or tap Next Server.</span>
  </div>
- <p class="pnote">💡 Tip: Audio switches only if that server's print carries another language — otherwise it stays the same. Language switching works on S1 VidLink; for Hindi audio, use S6 2Embed. Subtitles can be switched on inside the player (CC button) on most servers.</p>
+ <p class="pnote">💡 Tip: Audio switches only if that server's print carries another language — otherwise it stays the same. Language switching works on Server 3; for Hindi audio, use Server 2 — the Hindi Server. Subtitles can be switched on inside the player (CC button) on most servers.</p>
  <div style="display:flex;gap:.55rem;align-items:center;flex-wrap:wrap">
- <label style="font-weight:700;color:var(--dim)">Audio — Hindi first where the print carries it</label>
+ <label style="font-weight:700;color:var(--dim)">Audio — Every title: Original, Hindi (Server 2) and English (Server 3) — if Hindi is missing on a title, English will play.</label>
+ <button class="srvb" data-langb="auto">Original</button>
+ <button class="srvb" data-langb="hi">Hindi</button>
+ <button class="srvb" data-langb="en">English</button>
  <select class="sel" id="audio-sel">
  <option value="auto">Auto (Original)</option>
  <option value="hi">Hindi</option>
@@ -1666,17 +1671,28 @@ $("d-season").addEventListener("change", function(){ D.episode = 1; loadEpisodes
 /* ---------------- player ---------------- */
 function langQ(lang){ return lang && lang !== "auto" ? "?lang=" + lang : ""; }
 var SERVERS = [
- { n: "S1 VidLink", f: function(t, id, s, e, l){ return t === "movie" ? "https://vidlink.pro/movie/" + id + langQ(l) : "https://vidlink.pro/tv/" + id + "/" + s + "/" + e + langQ(l); } },
- { n: "S6 2Embed", f: function(t, id, s, e){ return t === "movie" ? "https://www.2embed.cc/embed/" + id : "https://www.2embed.cc/embedtv/" + id + "&s=" + s + "&e=" + e; } },
- { n: "S13 EmbedWave", f: function(t, id, s, e){ return t === "movie" ? "https://embedwave.cc/embed/movie/" + id : "https://embedwave.cc/embed/tv/" + id + "/" + s + "/" + e; } },
- { n: "S14 VidSpark", f: function(t, id, s, e){ return t === "movie" ? "https://www.vidspark.to/movie/" + id : "https://www.vidspark.to/tv/" + id + "/" + s + "/" + e; } },
- { n: "S16 Vidy", f: function(t, id, s, e){ return t === "movie" ? "https://vidy.st/movie/" + id : "https://vidy.st/tv/" + id + "/" + s + "/" + e; } },
- { n: "S19 VidZee", f: function(t, id, s, e){ return t === "movie" ? "https://player.vidzee.wtf/embed/movie/" + id : "https://player.vidzee.wtf/embed/tv/" + id + "/" + s + "/" + e; } },
- { n: "S20 VidNest", f: function(t, id, s, e){ return t === "movie" ? "https://vidnest.fun/movie/" + id : "https://vidnest.fun/tv/" + id + "/" + s + "/" + e; } }
+ { n: "Server 1", k: "vidnest", /* VidNest */ f: function(t, id, s, e){ return t === "movie" ? "https://vidnest.fun/movie/" + id : "https://vidnest.fun/tv/" + id + "/" + s + "/" + e; } },
+ { n: "Server 2", k: "2embed", /* 2Embed — Hindi Server */ f: function(t, id, s, e){ return t === "movie" ? "https://www.2embed.cc/embed/" + id : "https://www.2embed.cc/embedtv/" + id + "&s=" + s + "&e=" + e; } },
+ { n: "Server 3", k: "vidlink", /* VidLink — takes the ?lang= param */ f: function(t, id, s, e, l){ return t === "movie" ? "https://vidlink.pro/movie/" + id + langQ(l) : "https://vidlink.pro/tv/" + id + "/" + s + "/" + e + langQ(l); } },
+ { n: "Server 4", k: "embedwave", /* EmbedWave */ f: function(t, id, s, e){ return t === "movie" ? "https://embedwave.cc/embed/movie/" + id : "https://embedwave.cc/embed/tv/" + id + "/" + s + "/" + e; } },
+ { n: "Server 5", k: "vidspark", /* VidSpark */ f: function(t, id, s, e){ return t === "movie" ? "https://www.vidspark.to/movie/" + id : "https://www.vidspark.to/tv/" + id + "/" + s + "/" + e; } },
+ { n: "Server 6", k: "vidy", /* Vidy */ f: function(t, id, s, e){ return t === "movie" ? "https://vidy.st/movie/" + id : "https://vidy.st/tv/" + id + "/" + s + "/" + e; } },
+ { n: "Server 7", k: "vidzee", /* VidZee */ f: function(t, id, s, e){ return t === "movie" ? "https://player.vidzee.wtf/embed/movie/" + id : "https://player.vidzee.wtf/embed/tv/" + id + "/" + s + "/" + e; } },
+ { n: "Server 8", k: "autoembed", /* AutoEmbed */ f: function(t, id, s, e){ return t === "movie" ? "https://autoembed.co/movie/tmdb/" + id : "https://autoembed.co/tv/tmdb/" + id + "-" + s + "-" + e; } },
+ { n: "Server 9", k: "vidsrc", /* VidSrc */ f: function(t, id, s, e){ return t === "movie" ? "https://vidsrc.me/embed/movie/" + id : "https://vidsrc.me/embed/tv/" + id + "/" + s + "/" + e; } }
 ];
-function srvTag(sv){ if(/VidLink/.test(sv.n)) return "Audio choice"; if(/2Embed/.test(sv.n)) return "Hindi"; return "Original"; }
-function hindiSrv(){ for(var i = 0; i < SERVERS.length; i++){ if(/2Embed/.test(SERVERS[i].n)) return i + 1; } return 1; }
-function routeLang(){ if(P && P.lang === "hi"){ var hs = hindiSrv(); if(P.server !== hs){ P.server = hs; markSrvButtons(); } } }
+function srvByKey(k){ for(var i = 0; i < SERVERS.length; i++){ if(SERVERS[i].k === k) return i + 1; } return 1; }
+function srvTag(sv){ return sv.k === "2embed" ? "Hindi Server" : "English Server"; }
+function hindiSrv(){ return srvByKey("2embed"); }
+function englishSrv(){ return srvByKey("vidlink"); }
+function routeLang(){
+ if(!P) return;
+ var target = 0;
+ if(P.lang === "hi") target = hindiSrv();
+ else if(P.lang === "en") target = englishSrv();
+ else if(P.lang === "auto") target = parseInt(loadLS("cb_srv", 1), 10) || 1;
+ if(target >= 1 && target <= SERVERS.length && P.server !== target){ P.server = target; markSrvButtons(); }
+}
 var P = null;
 var failedSrv = {};
 function markSrvButtons(){
@@ -1702,8 +1718,11 @@ function openPlayer(s, opts){
  });
  });
  $("audio-sel").value = P.lang;
+ markLangButtons();
  if(s.type === "tv"){
  $("p-tvsec").style.display = "block";
+ $("p-nextep2").style.display = "";
+ $("p-prevep2").style.display = "";
  var fillSeasons = function(seasons){
  P.seasons = seasons;
  $("p-season").innerHTML = seasons.map(function(x){ return '<option value="' + x.season_number + '"' + (x.season_number === P.season ? " selected" : "") + ">Season " + x.season_number + "</option>"; }).join("");
@@ -1714,7 +1733,7 @@ function openPlayer(s, opts){
  var seasons = (j.seasons || []).filter(function(x){ return x.season_number > 0; });
  fillSeasons(seasons.length ? seasons : (j.seasons || []));
  }).catch(function(){});
- } else { $("p-tvsec").style.display = "none"; }
+ } else { $("p-tvsec").style.display = "none"; $("p-nextep2").style.display = "none"; $("p-prevep2").style.display = "none"; }
  api("/" + s.type + "/" + s.id + "/recommendations").then(function(j){
  var items = (j.results || []).slice(0, 12);
  $("p-simsec").style.display = items.length ? "block" : "none";
@@ -1751,7 +1770,26 @@ function nextServer(){
  serve();
  return true;
 }
-$("audio-sel").addEventListener("change", function(){ if(P){ P.lang = this.value; routeLang(); serve(); toast(P.lang === "hi" ? "Hindi selected — playing on S6 2Embed, where the Hindi print lives" : "Audio preference set — switches only if this server's print carries that language"); } });
+function markLangButtons(){
+ document.querySelectorAll("[data-langb]").forEach(function(b){ b.classList.toggle("on", !!P && b.getAttribute("data-langb") === P.lang); });
+}
+function langToast(){
+ if(!P) return;
+ if(P.lang === "hi") toast("Hindi selected — playing on Server 2, the Hindi Server.");
+ else if(P.lang === "en") toast("English selected — playing on Server 3.");
+ else if(P.lang === "auto") toast("Original audio selected.");
+ else toast("Audio preference set — switches only if this server's print carries that language");
+}
+function setLang(l){
+ if(!P) return;
+ P.lang = l;
+ $("audio-sel").value = l;
+ routeLang(); serve(); markLangButtons(); langToast();
+}
+document.querySelectorAll("[data-langb]").forEach(function(b){
+ b.addEventListener("click", function(){ setLang(b.getAttribute("data-langb")); });
+});
+$("audio-sel").addEventListener("change", function(){ if(P){ P.lang = this.value; routeLang(); serve(); markLangButtons(); langToast(); } });
 $("p-nextsrv").addEventListener("click", function(){
  if(!P) return;
  var start = P.server;
@@ -1770,17 +1808,24 @@ $("p-retry").addEventListener("click", function(){
  toast("Trying " + SERVERS[P.server - 1].n + " again…");
 });
 $("p-season").addEventListener("change", function(){ P.season = parseInt(this.value, 10); P.episode = 1; loadEpisodes("p"); serve(); cwSave(P.s, P.season, P.episode); });
-$("p-nextep").addEventListener("click", function(){
- if(!P) return;
- if(P.epCount && P.episode < P.epCount){ P.episode++; }
- else {
+function stepEpisode(dir){
+ if(!P || P.s.type !== "tv") return;
  var seasons = P.seasons || [];
  var idx = seasons.findIndex(function(x){ return x.season_number === P.season; });
- if(idx !== -1 && seasons[idx + 1]){ P.season = seasons[idx + 1].season_number; P.episode = 1; $("p-season").value = String(P.season); loadEpisodes("p"); }
- else { toast("This is the last episode"); return; }
+ if(dir > 0){
+ if(P.epCount && P.episode < P.epCount){ P.episode++; }
+ else if(idx !== -1 && seasons[idx + 1]){ P.season = seasons[idx + 1].season_number; P.episode = 1; $("p-season").value = String(P.season); loadEpisodes("p"); }
+ else { toast("This is the last episode."); return; }
+ } else {
+ if(P.episode > 1){ P.episode--; }
+ else if(idx > 0){ var prev = seasons[idx - 1]; P.season = prev.season_number; P.episode = prev.episode_count || 1; $("p-season").value = String(P.season); loadEpisodes("p"); }
+ else { toast("This is the first episode."); return; }
  }
  markEpButtons(); serve(); cwSave(P.s, P.season, P.episode);
-});
+}
+$("p-nextep").addEventListener("click", function(){ stepEpisode(1); });
+$("p-nextep2").addEventListener("click", function(){ stepEpisode(1); });
+$("p-prevep2").addEventListener("click", function(){ stepEpisode(-1); });
 $("p-close").addEventListener("click", function(){
  if(srvWatch) clearTimeout(srvWatch);
  srvWatch = null;
@@ -1808,7 +1853,7 @@ function openTrailer(key, t){
  openModal('<h3>🎞 ' + esc(t || "Trailer") + '</h3><div style="position:relative;aspect-ratio:16/9;background:#000;border-radius:.8rem;overflow:hidden"><iframe src="https://www.youtube.com/embed/' + esc(key) + '?autoplay=1&rel=0" style="position:absolute;inset:0;width:100%;height:100%;border:0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe></div><button class="x" id="m-close">Close</button>');
 }
 $("help-b").addEventListener("click", function(){
- openModal("<h3>❓ How to Watch</h3><ol><li><b>Tap any poster</b>the movie or series page opens.</li><li><b>Press ▶ Watch Now</b>the video starts. For series, pick your season &amp; episode first.</li><li><b>Slow or stuck?</b> Scroll down in the player and tap another <b>Server</b> button — there are 14.</li></ol><p>Everything is free. No sign-up, no pop-ups. To watch live TV instead, tap 📺 LIVE TV on the first screen.</p><button class='x' id='m-close'>Close</button>");
+ openModal("<h3>❓ How to Watch</h3><ol><li><b>Tap any poster</b>the movie or series page opens.</li><li><b>Press ▶ Watch Now</b>the video starts. For series, pick your season &amp; episode first.</li><li><b>Slow or stuck?</b> Scroll down in the player and tap another <b>Server</b> button — there are 9.</li></ol><p>Everything is free. No sign-up, no pop-ups. To watch live TV instead, tap 📺 LIVE TV on the first screen.</p><button class='x' id='m-close'>Close</button>");
 });
 $("request-b").addEventListener("click", function(){
  openModal('<h3>🎬 Request a Movie</h3><p>Type the movie or series name — we will arrange it for you.</p><input id="req-in" placeholder="Movie or series name…"><a class="go" id="req-go" style="display:block;text-align:center;text-decoration:none" href="#" target="_blank" rel="noopener">Send Request on WhatsApp</a><button class="x" id="m-close">Close</button>');
