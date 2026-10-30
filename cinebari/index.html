@@ -92,9 +92,22 @@ a{color:var(--sky)}
 header.mhead{position:sticky;top:0;z-index:60;background:rgba(13,20,3,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:.55rem .8rem;display:flex;align-items:center;gap:.55rem}
 .mlogo{font-size:1.3rem;font-weight:900;white-space:nowrap}
 .mlogo span{color:var(--rose2)}
-.searchbar{flex:1;display:flex;background:var(--card);border:1px solid var(--line);border-radius:2rem;overflow:hidden;min-width:0}
+.searchbar{flex:1;display:flex;background:var(--card);border:1px solid var(--line);border-radius:2rem;overflow:visible;min-width:0;position:relative}
 .searchbar input{flex:1;background:none;border:none;outline:none;color:var(--txt);font-size:1.15rem;padding:.75rem 1.1rem;min-width:0}
 .searchbar button{padding:.5rem .8rem;font-size:1.05rem}
+.searchbar button.listening{background:var(--rose);color:#0d1403;border-radius:2rem;animation:voicePulse 1s ease-in-out infinite}
+@keyframes voicePulse{0%,100%{box-shadow:0 0 0 0 rgba(163,230,53,.45)}50%{box-shadow:0 0 0 .45rem rgba(163,230,53,0)}}
+.suggest{position:absolute;top:calc(100% + .45rem);left:0;right:0;background:var(--card);border:1px solid var(--line);border-radius:1rem;box-shadow:0 18px 45px rgba(0,0,0,.45);overflow:hidden;z-index:200;text-align:left}
+.suggest[hidden]{display:none}
+.suggest button.sug{display:flex;align-items:center;gap:.65rem;width:100%;padding:.45rem .6rem;background:none;border:0;border-bottom:1px solid var(--line);color:var(--txt);text-align:left;cursor:pointer}
+.suggest button.sug:last-child{border-bottom:0}
+.suggest button.sug:hover,.suggest button.sug:focus{background:var(--bg2)}
+.suggest .thumb{width:27px;height:40px;flex:0 0 27px;border-radius:.3rem;object-fit:cover;background:var(--bg2)}
+.suggest .thumbph{width:27px;height:40px;flex:0 0 27px;border-radius:.3rem;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.suggest .meta{min-width:0;flex:1}
+.suggest .name{display:block;font-size:.95rem;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.suggest .year{display:block;color:var(--dim);font-size:.8rem;margin-top:.1rem}
+.suggest .badge{flex:0 0 auto;background:rgba(163,230,53,.16);border:1px solid rgba(163,230,53,.45);color:var(--rose2);border-radius:2rem;padding:.12rem .5rem;font-size:.72rem;font-weight:900}
 .hbtn{background:var(--card);border:1px solid var(--line);border-radius:2rem;padding:.52rem .85rem;font-weight:800;font-size:.92rem;white-space:nowrap}
 .hbtn.on{background:var(--rose);border-color:var(--rose);color:#0d1403}
 @media (max-width:560px){header.mhead{padding:.45rem .5rem;gap:.4rem}.mlogo{font-size:1.15rem}.hbtn{padding:.45rem .6rem;font-size:.85rem}.searchbar button{padding:.45rem .55rem;font-size:1rem}.searchbar input{padding:.5rem .6rem;font-size:.95rem}}
@@ -410,8 +423,9 @@ img{max-width:100%;height:auto}
  <div class="mlogo">Cine<span>Bari</span></div>
  <div class="searchbar">
  <input id="search-in" type="search" placeholder="Search movies, series, actors…" autocomplete="off">
- <button id="voice-b" title="Voice search">🎤</button>
+ <button id="voice-b" title="Voice search" style="display:none">🎤</button>
  <button id="search-b" title="Search">🔍</button>
+ <div class="suggest" id="search-suggest" hidden></div>
  </div>
  <button class="hbtn" id="surprise-b" title="Surprise me" aria-label="Surprise me">🎲 Surprise</button>
  <button class="hbtn" id="mylist-b" title="My List" aria-label="My List">❤️ My List</button>
@@ -472,6 +486,7 @@ img{max-width:100%;height:auto}
  <div class="searchbar">
  <input id="search-in2" type="search" placeholder="Search movies, series, actors…" autocomplete="off">
  <button id="search-b2" title="Search">🔍</button>
+ <div class="suggest" id="search-suggest2" hidden></div>
  </div>
  <button class="hbtn" id="home-b2">🏠 Home</button>
  </header>
@@ -633,7 +648,7 @@ var KEY = "600e97cad63901cac4a34e34a31f023c";
 var API = "https://api.themoviedb.org/3";
 var IMG = "https://image.tmdb.org/t/p/";
 var TV_URL = "https://toolbari.github.io/tv.html";
-var WA_NUM = "8801677161678";
+var TG_GROUP = "https://t.me/+FfnlCZPeZLAwZTI1";
 var $ = function(id){ return document.getElementById(id); };
 function esc(s){ return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
 function api(path){
@@ -982,20 +997,32 @@ var SHELVES = [
  if(!ep) return [];
  return api(ep).then(function(j){ return j.results || []; }).catch(function(){ return []; });
  });
- }, grid: function(){ return { title: "🔞 18+ Erotic Movies", ep: CB_ADULT.ep || "/discover/movie?with_keywords=0&sort_by=popularity.desc&include_adult=false&vote_count.gte=20", tabs: false, adult: true }; } }
+ }, grid: function(){ return { title: "🔞 18+ Erotic Movies", ep: CB_ADULT.ep || "/discover/movie?with_keywords=0&sort_by=popularity.desc&include_adult=false&vote_count.gte=3", tabs: false, adult: true }; } }
 ];
-/* ---------------- 18+ Erotic Movies — the TMDB keyword id for "erotic" is
-   resolved at runtime (never hard-coded); the feed itself stays mainstream
-   (include_adult=false). If resolution fails, the shelf row falls back to
-   the standard Retry state and the grid shows an unavailable note. ------- */
-var CB_ADULT = { kw: null, ep: null, ready: null };
+/* ---------------- 18+ Erotic Movies — a related TMDB keyword set is
+   resolved at runtime (never hard-coded) and combined with OR. The feed
+   itself stays mainstream (include_adult=false). If no keyword resolves,
+   the shelf row falls back to the standard Retry state and the grid shows
+   an unavailable note. ------- */
+var CB_ADULT = { kw: null, kws: [], names: ["erotic", "erotic thriller", "softcore", "sexuality", "nudity", "seduction", "sex", "adultery", "love affair", "stripper", "prostitution", "voyeurism", "bdsm", "fetish", "mistress"], ep: null, ready: null };
 function adultResolve(){
  if(CB_ADULT.ready) return CB_ADULT.ready;
- CB_ADULT.ready = api("/search/keyword?query=erotic").then(function(j){
- var rs = (j && j.results) || [], pick = null;
- rs.forEach(function(k){ if(!pick && k.name === "erotic") pick = k; });
- if(!pick) rs.forEach(function(k){ if(!pick && String(k.name || "").toLowerCase().indexOf("erotic") !== -1) pick = k; });
- if(pick){ CB_ADULT.kw = pick.id; CB_ADULT.ep = "/discover/movie?with_keywords=" + pick.id + "&sort_by=popularity.desc&include_adult=false&vote_count.gte=20"; }
+ CB_ADULT.ready = Promise.all(CB_ADULT.names.map(function(name){
+ return api("/search/keyword?query=" + encodeURIComponent(name)).then(function(j){
+ var rs = (j && j.results) || [], pick = null, wanted = name.toLowerCase();
+ rs.forEach(function(k){ if(!pick && String(k.name || "").toLowerCase() === wanted) pick = k; });
+ return pick ? pick.id : null;
+ }).catch(function(){ return null; });
+ })).then(function(ids){
+ var seen = {}, list = [];
+ ids.forEach(function(id){
+ if(id && !seen[id]){ seen[id] = true; list.push(id); }
+ });
+ if(list.length){
+ CB_ADULT.kw = list[0];
+ CB_ADULT.kws = list;
+ CB_ADULT.ep = "/discover/movie?with_keywords=" + list.join("%7C") + "&sort_by=popularity.desc&include_adult=false&vote_count.gte=3";
+ }
  return CB_ADULT.ep;
  }).catch(function(){ return null; });
  return CB_ADULT.ready;
@@ -2073,7 +2100,7 @@ $("p-close").addEventListener("click", function(){
 $("p-report").addEventListener("click", function(){
  if(!P) return;
  var msg = "Not working on CineBari: " + P.s.title + (P.s.type === "tv" ? " S" + P.season + " E" + P.episode : "") + " (Server " + P.server + ")";
- window.open("https://t.me/+FfnlCZPeZLAwZTI1", "_blank");
+ window.open(TG_GROUP, "_blank");
 });
 /* ---------------- trailer / modal ---------------- */
 function openModal(html){
@@ -2090,9 +2117,7 @@ $("help-b").addEventListener("click", function(){
  openModal("<h3>❓ How to Watch</h3><ol><li><b>Tap any poster</b>the movie or series page opens.</li><li><b>Press ▶ Watch Now</b>the video starts. For series, pick your season &amp; episode first.</li><li><b>Slow or stuck?</b> Scroll down in the player and tap another <b>Server</b> button — there are " + SERVERS.length + ".</li></ol><p>Everything is free. No sign-up, no pop-ups. To watch live TV instead, tap 📺 LIVE TV on the first screen.</p><button class='x' id='m-close'>Close</button>");
 });
 $("request-b").addEventListener("click", function(){
- openModal('<h3>🎬 Request a Movie</h3><p>Type the movie or series name — we will arrange it for you.</p><input id="req-in" placeholder="Movie or series name…"><a class="go" id="req-go" style="display:block;text-align:center;text-decoration:none" href="#" target="_blank" rel="noopener">Send Request on WhatsApp</a><button class="x" id="m-close">Close</button>');
- var upd = function(){ $("req-go").href = "https://wa.me/" + WA_NUM + "?text=" + encodeURIComponent("CineBari request: " + ($("req-in").value || "")); };
- $("req-in").addEventListener("input", upd); upd();
+ openModal('<h3>🎬 Request a Movie</h3><p>Join our Telegram group and post the movie or series name there — we will arrange it for you.</p><a class="go" id="req-go" style="display:block;text-align:center;text-decoration:none" href="' + TG_GROUP + '" target="_blank" rel="noopener">Send Request on Telegram</a><button class="x" id="m-close">Close</button>');
 });
 /* ---------------- search / surprise / misc ---------------- */
 $("browse-b").addEventListener("click", function(){
@@ -2116,17 +2141,100 @@ $("search-b").addEventListener("click", function(){ doSearch($("search-in").valu
 $("search-in").addEventListener("keydown", function(e){ if(e.key === "Enter") doSearch(this.value); });
 $("search-b2").addEventListener("click", function(){ doSearch($("search-in2").value); });
 $("search-in2").addEventListener("keydown", function(e){ if(e.key === "Enter") doSearch(this.value); });
-$("voice-b").addEventListener("click", function(){
- var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
- if(!SR){ toast("Voice search is not available in this browser"); return; }
+var sugTimers = {}, sugSeq = {};
+function hideSuggestions(box){
+ if(!box) return;
+ box.hidden = true;
+ box.innerHTML = "";
+ box._items = [];
+}
+function closeSuggestions(input, box){
+ if(input){
+ clearTimeout(sugTimers[input.id]);
+ sugSeq[input.id] = (sugSeq[input.id] || 0) + 1;
+ }
+ hideSuggestions(box);
+}
+function suggestionHTML(it, idx){
+ var isTV = mtype(it) === "tv";
+ var thumb = it.poster_path ? '<img class="thumb" loading="lazy" src="' + pimg(it.poster_path, "w92") + '" alt="">' : '<span class="thumbph">🎬</span>';
+ return '<button type="button" class="sug" data-sug="' + idx + '" role="option">' + thumb + '<span class="meta"><span class="name">' + esc(title(it)) + '</span><span class="year">' + esc(year(it) || "Year unknown") + '</span></span><span class="badge">' + (isTV ? "Series" : "Movie") + '</span></button>';
+}
+function fetchSuggestions(input, box){
+ var q = input.value.trim();
+ var seq = (sugSeq[input.id] || 0) + 1;
+ sugSeq[input.id] = seq;
+ if(q.length < 2){ hideSuggestions(box); return; }
+ api("/search/multi?query=" + encodeURIComponent(q)).then(function(j){
+ if(seq !== sugSeq[input.id] || input.value.trim() !== q) return;
+ var items = ((j && j.results) || []).filter(function(it){ return it && it.id && (it.media_type === "movie" || it.media_type === "tv"); }).slice(0, 8);
+ if(!items.length){ hideSuggestions(box); return; }
+ box._items = items;
+ box.innerHTML = items.map(suggestionHTML).join("");
+ box.hidden = false;
+ }).catch(function(){ if(seq === sugSeq[input.id]) hideSuggestions(box); });
+}
+function queueSuggestions(input, box, now){
+ if(!input || !box) return;
+ clearTimeout(sugTimers[input.id]);
+ if(input.value.trim().length < 2){ closeSuggestions(input, box); return; }
+ if(now) fetchSuggestions(input, box);
+ else sugTimers[input.id] = setTimeout(function(){ fetchSuggestions(input, box); }, 300);
+}
+function bindSuggestions(input, box){
+ if(!input || !box) return;
+ input.addEventListener("input", function(){ queueSuggestions(input, box, false); });
+ input.addEventListener("keydown", function(e){ if(e.key === "Escape") closeSuggestions(input, box); });
+ box.addEventListener("click", function(e){
+ var b = e.target.closest ? e.target.closest("[data-sug]") : null;
+ if(!b) return;
+ var it = (box._items || [])[Number(b.getAttribute("data-sug"))];
+ closeSuggestions(input, box);
+ if(it) openDetails(reg(it));
+ });
+ document.addEventListener("pointerdown", function(e){
+ var wrap = input.closest ? input.closest(".searchbar") : null;
+ if(!wrap || !wrap.contains(e.target)) closeSuggestions(input, box);
+ });
+}
+bindSuggestions($("search-in"), $("search-suggest"));
+bindSuggestions($("search-in2"), $("search-suggest2"));
+var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+var voiceBtn = $("voice-b");
+function restoreVoice(){
+ if(!voiceBtn) return;
+ voiceBtn.classList.remove("listening");
+ voiceBtn.textContent = "🎤";
+ voiceBtn.setAttribute("aria-label", "Voice search");
+}
+if(voiceBtn){
+ if(SR) voiceBtn.style.display = "";
+ else voiceBtn.remove();
+}
+if(voiceBtn && SR){
+ voiceBtn.addEventListener("click", function(){
  try {
- var r = new SR(); r.lang = "en-US";
- toast("🎤 Listening… say the name");
- r.onresult = function(ev){ var t = ev.results[0][0].transcript; $("search-in").value = t; doSearch(t); };
- r.onerror = function(){ toast("Could not hear you — please type instead"); };
+ var r = new SR();
+ r.lang = "en-US";
+ r.interimResults = false;
+ r.continuous = false;
+ voiceBtn.classList.add("listening");
+ voiceBtn.textContent = "🎤 Listening…";
+ voiceBtn.setAttribute("aria-label", "Listening");
+ r.onresult = function(ev){
+ var t = ev.results && ev.results[0] && ev.results[0][0] ? ev.results[0][0].transcript : "";
+ if(t){
+ $("search-in").value = t;
+ queueSuggestions($("search-in"), $("search-suggest"), true);
+ doSearch(t);
+ }
+ };
+ r.onerror = function(){ restoreVoice(); toast("Could not hear you — please type instead"); };
+ r.onend = function(){ restoreVoice(); };
  r.start();
- } catch(e){ toast("Voice search is not available here"); }
-});
+ } catch(e){ restoreVoice(); toast("Could not hear you — please type instead"); }
+ });
+}
 $("surprise-b").addEventListener("click", function(){
  var pool = heroItems.length ? heroItems : null;
  if(pool){ openDetails(reg(pool[Math.floor(Math.random() * pool.length)])); return; }
