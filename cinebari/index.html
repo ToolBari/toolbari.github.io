@@ -228,6 +228,12 @@ html{overflow-x:hidden}
 #yeartabs{overflow-x:auto;scrollbar-width:none;padding-bottom:.5rem}
 #yeartabs::-webkit-scrollbar{display:none}
 #yeartabs .ttab{flex:0 0 auto}
+/* year filter, grouped by decade (2026 first, descending to the classics) */
+#yeartabs.ygroups{flex-direction:column;align-items:stretch;gap:.3rem;overflow-x:visible}
+#yeartabs .ygrp{display:flex;align-items:flex-start;gap:.55rem}
+#yeartabs .yglabel{flex:0 0 4.6rem;font-size:.72rem;font-weight:800;color:var(--dim);text-transform:uppercase;letter-spacing:.04em;padding-top:.62rem}
+#yeartabs .yrow{display:flex;gap:.5rem;overflow-x:auto;scrollbar-width:none;padding-bottom:.1rem;flex:1 1 auto;min-width:0}
+#yeartabs .yrow::-webkit-scrollbar{display:none}
 #gftabs{overflow-x:auto;scrollbar-width:none;padding-bottom:.5rem}
 #gftabs::-webkit-scrollbar{display:none}
 #gftabs .ttab{flex:0 0 auto}
@@ -475,6 +481,8 @@ img{max-width:100%;height:auto}
  <div id="doorcats" style="display:none">
  <div class="rowlabel" style="padding-top:.3rem">🌍 Popular Countries</div>
  <div class="popgrid" id="doorcats-grid" style="padding-bottom:.3rem"></div>
+ <div class="rowlabel">🌐 All Countries</div>
+ <div class="minigrid" id="doorcats-all" style="padding-top:.1rem"></div>
  </div>
  <div id="hub-note" style="display:none;padding:.2rem .95rem .4rem;color:var(--gold);font-size:.9rem;font-weight:700;line-height:1.5">🎙 Note: dubbed audio depends on the print the server carries. Audio language switching works on Server 3; Hindi audio plays on Server 2.</div>
  <div id="bn-note" style="display:none;padding:.2rem .95rem .4rem;color:var(--gold);font-size:.9rem;font-weight:700;line-height:1.5">🎙 Note: Bengali audio depends on the print the server carries. Audio language switching works on Server 3; Hindi audio plays on Server 2.</div>
@@ -965,17 +973,20 @@ function langGrid(code, name){
 var POP_COUNTRIES = [
  { flag: "🇧🇩", t: "Bangladesh", s: "Bangla movies", ts: "Bangla series", code: "bn", name: "Bangladesh — Bangla" },
  { flag: "🇮🇳", t: "Bollywood", s: "Hindi movies", ts: "Hindi series", code: "hi", name: "India — Bollywood" },
- { flag: "🇺🇸", t: "Hollywood · USA", s: "English movies", ts: "English series", code: "en", name: "Hollywood — USA" },
+ { flag: "🇺🇸", t: "Hollywood · USA", s: "English movies", ts: "English series", code: "en", oc: "US", name: "Hollywood — USA" },
  { flag: "🎭", t: "South India", s: "Tamil & Telugu movies", ts: "Tamil & Telugu series", code: "ta|te", name: "South India — Tamil & Telugu" },
  { flag: "🇰🇷", t: "South Korea", s: "Korean movies", ts: "Korean series", code: "ko", name: "South Korea" },
  { flag: "🗾", t: "Japan", s: "Japanese movies", ts: "Japanese series", code: "ja", name: "Japan" }
 ];
 function popMovieGrid(pc){
  if(pc.code.indexOf("|") !== -1) return { title: pc.flag + " " + pc.name, ep: "/discover/movie?sort_by=popularity.desc&with_original_language=" + pc.code + "&vote_count.gte=20", tabs: false, country: true };
- return langGrid(pc.code, pc.name);
+ var d = langGrid(pc.code, pc.name);
+ if(pc.oc){ d.ep += "&with_origin_country=" + pc.oc; d.country = true; }
+ return d;
 }
 function popTvGrid(pc, kind){
  var ep = "/discover/tv?sort_by=popularity.desc&with_original_language=" + pc.code + "&vote_count.gte=2";
+ if(pc.oc) ep += "&with_origin_country=" + pc.oc;
  if(kind === "ws") ep += "&without_genres=10763,10764,10767";
  else if(kind === "tvshows") ep += "&with_genres=10763|10764|10767";
  return { title: pc.flag + " " + pc.name + (kind === "tvshows" ? " — TV Shows" : " — Series"), ep: ep, tabs: false, country: true };
@@ -996,6 +1007,76 @@ function renderPopTiles(host, kind){
  b.addEventListener("click", function(){
  var pc = POP_COUNTRIES[parseInt(b.getAttribute("data-pop"), 10)];
  openGrid(kind === "movie" ? popMovieGrid(pc) : popTvGrid(pc, kind));
+ });
+ });
+}
+/* ---------------- all countries (compact tiles): one data model for the
+   Categories page and the three doors. code = original language; oc =
+   optional TMDB origin country, added when the language alone cannot
+   isolate the industry (every English/Spanish/Portuguese/Arabic entry). */
+var COUNTRY_LIST = [
+ { flag: "🇨🇳", name: "China", code: "zh" },
+ { flag: "🇮🇩", name: "Indonesia", code: "id" },
+ { flag: "🇹🇭", name: "Thailand", code: "th" },
+ { flag: "🇹🇷", name: "Turkey", code: "tr" },
+ { flag: "🇮🇷", name: "Iran", code: "fa" },
+ { flag: "🇪🇸", name: "Spain", code: "es" },
+ { flag: "🇫🇷", name: "France", code: "fr" },
+ { flag: "🇩🇪", name: "Germany", code: "de" },
+ { flag: "🇷🇺", name: "Russia", code: "ru" },
+ { flag: "🇧🇷", name: "Brazil", code: "pt" },
+ { flag: "🇵🇭", name: "Philippines", code: "tl" },
+ { flag: "🇻🇳", name: "Vietnam", code: "vi" },
+ { flag: "🇲🇾", name: "Malaysia", code: "ms" },
+ { flag: "🇪🇬", name: "Egypt", code: "ar" },
+ { flag: "🇵🇰", name: "Pakistan", code: "ur" },
+ { flag: "🇬🇧", name: "United Kingdom", code: "en", oc: "GB" },
+ { flag: "🇨🇦", name: "Canada", code: "en", oc: "CA" },
+ { flag: "🇦🇺", name: "Australia", code: "en", oc: "AU" },
+ { flag: "🇮🇹", name: "Italy", code: "it", oc: "IT" },
+ { flag: "🇲🇽", name: "Mexico", code: "es", oc: "MX" },
+ { flag: "🇳🇱", name: "Netherlands", code: "nl", oc: "NL" },
+ { flag: "🇸🇪", name: "Sweden", code: "sv", oc: "SE" },
+ { flag: "🇵🇱", name: "Poland", code: "pl", oc: "PL" },
+ { flag: "🇵🇹", name: "Portugal", code: "pt", oc: "PT" },
+ { flag: "🇬🇷", name: "Greece", code: "el", oc: "GR" },
+ { flag: "🇺🇦", name: "Ukraine", code: "uk", oc: "UA" },
+ { flag: "🇳🇴", name: "Norway", code: "no", oc: "NO" },
+ { flag: "🇩🇰", name: "Denmark", code: "da", oc: "DK" },
+ { flag: "🇷🇴", name: "Romania", code: "ro", oc: "RO" },
+ { flag: "🇭🇺", name: "Hungary", code: "hu", oc: "HU" },
+ { flag: "🇨🇿", name: "Czechia", code: "cs", oc: "CZ" },
+ { flag: "🇨🇴", name: "Colombia", code: "es", oc: "CO" },
+ { flag: "🇸🇦", name: "Saudi Arabia", code: "ar", oc: "SA" },
+ { flag: "🇳🇬", name: "Nigeria", code: "en", oc: "NG" },
+ { flag: "🇳🇿", name: "New Zealand", code: "en", oc: "NZ" }
+];
+function countryMovieGrid(c){
+ var d = langGrid(c.code, c.name);
+ if(c.oc){ d.ep += "&with_origin_country=" + c.oc; d.country = true; }
+ return d;
+}
+function doorCountryGrid(c, kind){
+ var title = c.flag + " " + c.name;
+ if(kind === "movie"){
+ var ep = "/discover/movie?with_original_language=" + c.code + "&sort_by=popularity.desc&vote_count.gte=2";
+ if(c.oc) ep += "&with_origin_country=" + c.oc;
+ return { title: title, ep: ep, tabs: true, langTab: c.code, country: true };
+ }
+ var tep = "/discover/tv?sort_by=popularity.desc&with_original_language=" + c.code + "&vote_count.gte=2";
+ if(c.oc) tep += "&with_origin_country=" + c.oc;
+ if(kind === "ws") tep += "&without_genres=10763,10764,10767";
+ else if(kind === "tvshows") tep += "&with_genres=10763|10764|10767";
+ return { title: title + (kind === "tvshows" ? " — TV Shows" : " — Series"), ep: tep, tabs: false, country: true };
+}
+function renderDoorCountries(host, kind){
+ if(!host) return;
+ host.innerHTML = COUNTRY_LIST.map(function(c, i){
+ return '<button class="minicard" data-dc="' + i + '">' + esc(c.flag + " " + c.name) + "</button>";
+ }).join("");
+ host.querySelectorAll("[data-dc]").forEach(function(b){
+ b.addEventListener("click", function(){
+ openGrid(doorCountryGrid(COUNTRY_LIST[parseInt(b.getAttribute("data-dc"), 10)], kind));
  });
  });
 }
@@ -1266,6 +1347,16 @@ function tvGenreId(gid){
  var map = { 28: 10759, 12: 10759, 14: 10765, 878: 10765, 10752: 10768, 10749: 18, 27: 9648, 53: 9648, 36: 99, 10402: 99 };
  return map[gid] || gid;
 }
+/* Decade-range tokens stored in G.year (same string slot as a single year, so
+   nav-stack + reload restore carry them unchanged): "1980s" / "1970s" /
+   "1960s" = that whole decade; "pre1960" = everything before 1960.
+   "old" stays the legacy Before-1990 token. */
+function yearRange(y){
+ var m = /^(\d{4})s$/.exec(y || "");
+ if(m){ var s = parseInt(m[1], 10); return { gte: s + "-01-01", lte: (s + 9) + "-12-31" }; }
+ if(y === "pre1960") return { gte: "", lte: "1959-12-31" };
+ return null;
+}
 function gridEp(){
  if(!G) return "";
  var e;
@@ -1278,6 +1369,7 @@ function gridEp(){
  if(G.yearFilter && e.indexOf("/discover/") === 0){
  var isTV = e.indexOf("/discover/tv") === 0;
  var srt = isTV ? "first_air_date.desc" : "primary_release_date.desc";
+ var yr = yearRange(G.year);
  if(G.year){
  if(e.indexOf("sort_by=") !== -1) e = e.replace(/sort_by=[^&]+/, "sort_by=" + srt); else e += "&sort_by=" + srt;
  if(G.year !== "old"){
@@ -1286,6 +1378,11 @@ function gridEp(){
  }
  }
  if(G.year === "old") e += isTV ? "&first_air_date.lte=1989-12-31" : "&primary_release_date.lte=1989-12-31";
+ else if(yr){
+ var rn = isTV ? "first_air_date" : "primary_release_date";
+ if(yr.gte) e += "&" + rn + ".gte=" + yr.gte;
+ e += "&" + rn + ".lte=" + yr.lte;
+ }
  else if(G.year) e += isTV ? "&first_air_date_year=" + G.year : "&primary_release_year=" + G.year;
  }
  if(G.gf && e.indexOf("/discover/") === 0 && e.indexOf("with_genres=") === -1){
@@ -1318,7 +1415,7 @@ function openGrid(def){
  $("gftabs").style.display = G.gfilter ? "flex" : "none";
  if(G.gfilter) syncGfTabs();
  var dcEl = $("doorcats");
- if(G.door){ dcEl.style.display = "block"; renderPopTiles($("doorcats-grid"), G.door); } else { dcEl.style.display = "none"; }
+ if(G.door){ dcEl.style.display = "block"; renderPopTiles($("doorcats-grid"), G.door); renderDoorCountries($("doorcats-all"), G.door); } else { dcEl.style.display = "none"; }
  $("grid").innerHTML = "";
  if(G.local){ renderLocalGrid(); return; }
  loadGridPage(true);
@@ -1352,13 +1449,25 @@ function loadGridPage(first){
  }).catch(function(){ G._loading = false; if(first) $("grid-empty").style.display = "block"; });
 }
 $("loadmore").addEventListener("click", function(){ if(G){ G.page++; loadGridPage(false); } });
-/* year filter chips: All Years, 2026..1990, Before 1990 */
+/* year filter, grouped by decade: "All Years" first, then 2026 at the top,
+   stepping down decade by decade; the Classics group uses decade RANGE
+   chips (see yearRange) instead of single years. */
 function buildYearTabs(){
- var h = '<button class="ttab on" data-y="">All Years</button>';
- for(var y = 2026; y >= 1990; y--) h += '<button class="ttab" data-y="' + y + '">' + y + "</button>";
- h += '<button class="ttab" data-y="old">Before 1990</button>';
- $("yeartabs").innerHTML = h;
- $("yeartabs").querySelectorAll(".ttab").forEach(function(t){
+ var host = $("yeartabs");
+ host.classList.add("ygroups");
+ function yrow(label, chips){
+ return '<div class="ygrp"><span class="yglabel">' + label + '</span><div class="yrow">' + chips + "</div></div>";
+ }
+ function ychip(v){ return '<button class="ttab" data-y="' + v + '">' + v + "</button>"; }
+ var h = yrow("📅 Year", '<button class="ttab on" data-y="">All Years</button>');
+ [[2026, 2020, "2020s"], [2019, 2010, "2010s"], [2009, 2000, "2000s"], [1999, 1990, "1990s"]].forEach(function(d){
+ var chips = "";
+ for(var y = d[0]; y >= d[1]; y--) chips += ychip(y);
+ h += yrow(d[2], chips);
+ });
+ h += yrow("Classics", ychip("1980s") + ychip("1970s") + ychip("1960s") + '<button class="ttab" data-y="pre1960">Before 1960</button>');
+ host.innerHTML = h;
+ host.querySelectorAll(".ttab").forEach(function(t){
  t.addEventListener("click", function(){
  if(!G || !G.yearFilter) return;
  G.year = t.getAttribute("data-y"); G.page = 1;
@@ -1447,23 +1556,11 @@ document.querySelectorAll("#genretabs .ttab").forEach(function(t){
 });
 /* ---------------- categories: popular countries big, all countries compact,
    then TV by country, then all genres big ---------------- */
-var ALL_COUNTRIES = [
- { t: "🇨🇳 China", g: function(){ return langGrid("zh", "China"); } },
- { t: "🇮🇩 Indonesia", g: function(){ return langGrid("id", "Indonesia"); } },
- { t: "🇹🇭 Thailand", g: function(){ return langGrid("th", "Thailand"); } },
- { t: "🇹🇷 Turkey", g: function(){ return langGrid("tr", "Turkey"); } },
- { t: "🇮🇷 Iran", g: function(){ return langGrid("fa", "Iran"); } },
- { t: "🇪🇸 Spain", g: function(){ return langGrid("es", "Spain"); } },
- { t: "🇫🇷 France", g: function(){ return langGrid("fr", "France"); } },
- { t: "🇩🇪 Germany", g: function(){ return langGrid("de", "Germany"); } },
- { t: "🇷🇺 Russia", g: function(){ return langGrid("ru", "Russia"); } },
- { t: "🇧🇷 Brazil", g: function(){ return langGrid("pt", "Brazil"); } },
- { t: "🇵🇭 Philippines", g: function(){ return langGrid("tl", "Philippines"); } },
- { t: "🇻🇳 Vietnam", g: function(){ return langGrid("vi", "Vietnam"); } },
- { t: "🇲🇾 Malaysia", g: function(){ return langGrid("ms", "Malaysia"); } },
- { t: "🇪🇬 Egypt", g: function(){ return langGrid("ar", "Egypt"); } },
- { t: "🇵🇰 Pakistan", g: function(){ return langGrid("ur", "Pakistan"); } }
-];
+/* Categories-page tiles: same COUNTRY_LIST data model as the doors;
+   entries without oc return the plain langGrid def, exactly as before. */
+var ALL_COUNTRIES = COUNTRY_LIST.map(function(c){
+ return { t: c.flag + " " + c.name, g: function(){ return countryMovieGrid(c); } };
+});
 var TV_COUNTRY_CATS = [
  { t: "🇮🇳 India Series", s: "Hindi web series", c: "linear-gradient(135deg,#f59e0b,#b45309)", g: function(){ return { title: "🇮🇳 India \u2014 Hindi Series", ep: WS_FILTERS.hindi, tabs: false, ws: "hindi", country: true }; } },
  { t: "🇰🇷 Korean Drama", s: "K-Drama hits", c: "linear-gradient(135deg,#8b5cf6,#5b21b6)", g: function(){ return { title: "🇰🇷 Korean Drama", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=ko&vote_count.gte=20", tabs: false, country: true }; } },
