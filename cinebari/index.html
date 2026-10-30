@@ -156,7 +156,7 @@ header.mhead{position:sticky;top:0;z-index:60;background:rgba(13,20,3,.9);backdr
 .shelf:not(.top10) .card .dub{font-size:.54rem;padding:.08rem .35rem}
 .shelf:not(.top10) .card .cbadge{font-size:.54rem;padding:.08rem .32rem}
 .shelf:not(.top10) .card .fav{font-size:.88rem}
-.cwshelf .card .cwx{top:.22rem;right:.22rem;width:1.25rem;height:1.25rem;font-size:.7rem}
+.cwshelf .card .cwx{top:.22rem;right:.22rem;width:1.9rem;height:1.9rem;font-size:.9rem}
 .row{display:flex;gap:.65rem;overflow-x:auto;padding:.7rem .95rem .4rem;scrollbar-width:none}
 .row::-webkit-scrollbar{display:none}
 .card{flex:0 0 8.6rem;width:8.6rem;text-align:left;position:relative}
@@ -1240,7 +1240,7 @@ function dynShelf(title, sub, items, opts){
  if(opts && opts.cw){
  d.querySelectorAll(".card").forEach(function(c){
  var pw = c.querySelector(".pw");
- if(pw){ var x = document.createElement("span"); x.className = "cwx"; x.setAttribute("data-cwx", c.getAttribute("data-open") || ""); x.setAttribute("aria-label", "Remove from Continue Watching"); x.textContent = "✕"; pw.appendChild(x); }
+ if(pw){ var x = document.createElement("span"); x.className = "cwx"; x.setAttribute("data-cwx", c.getAttribute("data-open") || ""); x.setAttribute("aria-label", "Remove from Continue Watching"); x.textContent = "✕"; x.addEventListener("click", function(ev){ ev.preventDefault(); ev.stopPropagation(); var pp = (x.getAttribute("data-cwx") || "").split(":"); if(pp.length >= 2) cwRemove(pp[0], pp.slice(1).join(":")); }); pw.appendChild(x); }
  var it2 = items.find(function(s){ return (s.type + ":" + s.id) === (c.getAttribute("data-open") || ""); });
  if(it2 && it2.type === "tv" && pw){ var se = document.createElement("span"); se.className = "cwse"; se.textContent = "S" + (it2.s || 1) + " E" + (it2.e || 1); pw.appendChild(se); }
  });
@@ -1969,7 +1969,8 @@ var SERVERS = [
  { n: "Server 9", k: "vidsrc", /* VidSrc */ f: function(t, id, s, e){ return t === "movie" ? "https://vidsrc.me/embed/movie/" + id : "https://vidsrc.me/embed/tv/" + id + "/" + s + "/" + e; } },
  { n: "Server 10", k: "vidfast", /* VidFast */ f: function(t, id, s, e){ return t === "movie" ? "https://vidfast.pro/movie/" + id : "https://vidfast.pro/tv/" + id + "/" + s + "/" + e; } },
  { n: "Server 11", k: "vidsrcbuzz", /* VidSrc.buzz */ f: function(t, id, s, e){ return t === "movie" ? "https://vidsrc.buzz/embed/movie/" + id : "https://vidsrc.buzz/embed/tv/" + id + "/" + s + "/" + e; } },
- { n: "Server 12", k: "2embedcc", /* 2Embed.cc */ f: function(t, id, s, e){ return t === "movie" ? "https://www.2embed.cc/embed/" + id : "https://www.2embed.cc/embedtv/" + id + "&s=" + s + "&e=" + e; } }
+ { n: "Server 12", k: "2embedcc", /* 2Embed.cc */ f: function(t, id, s, e){ return t === "movie" ? "https://www.2embed.cc/embed/" + id : "https://www.2embed.cc/embedtv/" + id + "&s=" + s + "&e=" + e; } },
+ { n: "Server 13", k: "vidcore", /* VidCore — its own source list carries Hindi-labelled sources */ f: function(t, id, s, e){ return t === "movie" ? "https://vidcore.org/embed/movie/" + id : "https://vidcore.org/embed/tv/" + id + "/" + s + "/" + e; } }
 ];
 try { $("st-srv").textContent = SERVERS.length; } catch(e){}
 function srvByKey(k){ for(var i = 0; i < SERVERS.length; i++){ if(SERVERS[i].k === k) return i + 1; } return 1; }
@@ -2283,6 +2284,8 @@ $("cats-home").addEventListener("click", function(){ navHome(); });
 document.querySelector(".mlogo").addEventListener("click", function(){});
 /* global card / actor delegation */
 document.addEventListener("click", function(e){
+ var x2 = e.target.closest ? e.target.closest("[data-cwx]") : null;
+ if(x2){ e.preventDefault(); e.stopPropagation(); var p2 = (x2.getAttribute("data-cwx") || "").split(":"); if(p2.length >= 2) cwRemove(p2[0], p2.slice(1).join(":")); return; }
  var a = e.target.closest ? e.target.closest("[data-actor]") : null;
  if(a){
  var parts = a.getAttribute("data-actor").split(":");
