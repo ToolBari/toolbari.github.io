@@ -619,14 +619,6 @@ img{max-width:100%;height:auto}
  <button class="srvb" data-langb="auto">Original</button>
  <button class="srvb" data-langb="hi">Hindi</button>
  <button class="srvb" data-langb="en">English</button>
- <select class="sel" id="audio-sel">
- <option value="auto">Auto (Original)</option>
- <option value="hi">Hindi</option>
- <option value="en">English</option>
- <option value="bn">Bengali</option>
- <option value="ta">Tamil</option>
- <option value="te">Telugu</option>
- </select>
  </div>
  </div>
  <div class="dsec" id="p-tvsec" style="display:none"><h3>Episodes</h3>
@@ -2015,7 +2007,6 @@ function openPlayer(s, opts){
  serve();
  });
  });
- $("audio-sel").value = P.lang;
  markLangButtons();
  if(s.type === "tv"){
  $("p-tvsec").style.display = "block";
@@ -2081,13 +2072,11 @@ function langToast(){
 function setLang(l){
  if(!P) return;
  P.lang = l;
- $("audio-sel").value = l;
  routeLang(); serve(); markLangButtons(); langToast();
 }
 document.querySelectorAll("[data-langb]").forEach(function(b){
  b.addEventListener("click", function(){ setLang(b.getAttribute("data-langb")); });
 });
-$("audio-sel").addEventListener("change", function(){ if(P){ P.lang = this.value; routeLang(); serve(); markLangButtons(); langToast(); } });
 $("p-nextsrv").addEventListener("click", function(){
  if(!P) return;
  var start = P.server;
