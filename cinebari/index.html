@@ -1254,14 +1254,14 @@ function buildHome(){
  { id: "door-movies", title: "🎬 Movies", sub: "All movies, most popular first", ep: doorDef("movie").ep, grid: function(){ return doorDef("movie"); } },
  { id: "door-ws", title: "📺 Web Series", sub: "Scripted series — no talk, news or reality", ep: doorDef("ws").ep, grid: function(){ return doorDef("ws"); } },
  { id: "door-tvshows", title: "📡 TV Shows", sub: "Talk, news & reality shows", ep: doorDef("tvshows").ep, grid: function(){ return doorDef("tvshows"); } },
- { id: "latest", title: "🆕 Latest Releases", sub: "Newest movies first — updated automatically", ep: "/discover/movie?sort_by=primary_release_date.desc&primary_release_date.lte=" + todayStr + "&vote_count.gte=10", grid: function(){ return { title: "🆕 Latest Releases", ep: "/discover/movie?sort_by=primary_release_date.desc&primary_release_date.lte=" + todayStr + "&vote_count.gte=10", tabs: true }; } },
  { id: "popm", title: "⭐ Popular Movies", sub: "Most popular movies right now", ep: "/movie/popular", grid: function(){ return { title: "⭐ Popular Movies", ep: "/movie/popular", tabs: false }; } }
  ];
  var restShelves = SHELVES.filter(function(d){ return d.id !== "latest" && d.id !== "popm"; });
  var allDefs = topShelves.concat(restShelves);
  var MW_DEFS = [
  { id: "most-series", title: "🔥 Most Watched Series", sub: "The series everyone is watching", ep: "/discover/tv?sort_by=popularity.desc&vote_count.gte=20", grid: function(){ return { title: "🔥 Most Watched Series", ep: "/discover/tv?sort_by=popularity.desc&vote_count.gte=20", tabs: false }; } },
- { id: "most-movies", title: "🔥 Most Watched Movies", sub: "The movies everyone is watching", ep: "/discover/movie?sort_by=popularity.desc&vote_count.gte=20", grid: function(){ return { title: "🔥 Most Watched Movies", ep: "/discover/movie?sort_by=popularity.desc&vote_count.gte=20", tabs: false }; } }
+ { id: "most-movies", title: "🔥 Most Watched Movies", sub: "The movies everyone is watching", ep: "/discover/movie?sort_by=popularity.desc&vote_count.gte=20", grid: function(){ return { title: "🔥 Most Watched Movies", ep: "/discover/movie?sort_by=popularity.desc&vote_count.gte=20", tabs: false }; } },
+ { id: "latest", title: "🆕 Latest Releases", sub: "Newest movies first — updated automatically", ep: "/discover/movie?sort_by=primary_release_date.desc&primary_release_date.lte=" + todayStr + "&vote_count.gte=10", grid: function(){ return { title: "🆕 Latest Releases", ep: "/discover/movie?sort_by=primary_release_date.desc&primary_release_date.lte=" + todayStr + "&vote_count.gte=10", tabs: true }; } }
  ];
  var tIdx = -1;
  allDefs.forEach(function(d, i){ if(d.id === "trending") tIdx = i; });
