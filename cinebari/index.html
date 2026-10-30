@@ -2127,7 +2127,13 @@ $("p-close").addEventListener("click", function(){
 $("p-report").addEventListener("click", function(){
  if(!P) return;
  var msg = "Not working on CineBari: " + P.s.title + (P.s.type === "tv" ? " S" + P.season + " E" + P.episode : "") + " (Server " + P.server + ")";
- window.open(TG_GROUP, "_blank");
+ openModal('<h3>⚠ Report a problem</h3><p>Copy this line and paste it in our Telegram group — we will check and fix it:</p><p style="background:var(--card);border:1px solid var(--line);border-radius:.7rem;padding:.6rem .8rem;font-weight:700;word-break:break-word">' + esc(msg) + '</p><button class="go" id="rep-copy">📋 Copy report</button> <a class="go" href="' + TG_GROUP + '" target="_blank" rel="noopener" style="text-decoration:none;display:inline-block">Open Telegram Group →</a><button class="x" id="m-close">Close</button>');
+ var cb = $("rep-copy");
+ if(cb) cb.addEventListener("click", function(){
+ function done(){ toast("Report copied — paste it in the Telegram group"); }
+ if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(msg).then(done, function(){ toast(msg); }); }
+ else toast(msg);
+ });
 });
 /* ---------------- trailer / modal ---------------- */
 function openModal(html){
