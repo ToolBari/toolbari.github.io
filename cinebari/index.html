@@ -1218,6 +1218,7 @@ function refreshDyn(){
  var first = host.firstChild;
  if(cwEl) host.insertBefore(cwEl, first);
  if(fl) host.insertBefore(fl, first);
+ ensureHomeAd();
 }
 function buildHome(){
  /* language doors */
@@ -1297,8 +1298,8 @@ function buildHome(){
  headDefs.sort(function(a, b){ return HEAD_ORDER.indexOf(a.id) - HEAD_ORDER.indexOf(b.id); });
  allDefs = headDefs.concat(tailDefs);
  var els = allDefs.map(function(def){ var el = shelfEl(def); el._def = def; host.appendChild(el); return el; });
- /* One sponsored banner card between shelves, after the 4th shelf (owner: away from tap zones) */
- (function(){ var card = sponsoredCard("cb-home-ad"); if(els[4]) host.insertBefore(card, els[4]); else host.appendChild(card); })();
+ /* One sponsored banner card between shelves, after the 4th shelf (owner: away from tap zones) \u2014 placed by ensureHomeAd(), re-asserted on home re-renders */
+ ensureHomeAd();
  function loadShelf(el){
  var def = el._def;
  el._page = 1; el._totalPages = 1; el._moreBusy = false;
@@ -1664,33 +1665,72 @@ function openCats(){
  });
  showView("v-cats");
 }
-/* ---------------- sponsored banner (Adsterra 300x250, sandboxed: no pop-ups possible) ---------------- */
+/* ---------------- sponsored banner (Adsterra 300x250 \u2014 mechanism identical to ToolBari's working waitAdIframe: no sandbox, which was the prime no-fill suspect) ---------------- */
 function bannerIframe(){
  var fr = document.createElement("iframe");
  fr.width = 300; fr.height = 250;
+ fr.style.cssText = "border:0;max-width:100%";
  fr.setAttribute("scrolling", "no");
  fr.setAttribute("loading", "lazy");
- fr.setAttribute("sandbox", "allow-scripts allow-same-origin");
- fr.style.cssText = "border:0;display:block;margin:0 auto";
- fr.setAttribute("srcdoc", '<html><body style="margin:0;padding:0;text-align:center"><scr' + 'ipt>var atOptions={"key":"8724bf3e803202dd690869b40e9c3541","format":"iframe","height":250,"width":300,"params":{}};</scr' + 'ipt><scr' + 'ipt src="https://bauval.org/22/8724bf3e803202dd690869b40e9c3541"></scr' + 'ipt></bo' + 'dy></ht' + 'ml>');
+ fr.setAttribute("srcdoc", '<html><body style="margin:0;padding:0;text-align:center"><scr'+'ipt>var atOptions={"key":"8724bf3e803202dd690869b40e9c3541","format":"iframe","height":250,"width":300,"params":{}};</scr'+'ipt><scr'+'ipt src="https://bauval.org/22/8724bf3e803202dd690869b40e9c3541"></scr'+'ipt><p style="text-align:center;font-size:14px"><a href="https://toolbari.github.io/webbari/">WebBari — Website Building Service</a></p><style>/* TB-INLINE-PREVIEW-2026-10-27: so chat file preview shows header+category style without external CSS */ .top,.hdr{background:linear-gradient(135deg,#1e2438,#2aa5a0)!important;color:#ffffff!important;border-radius:24px!important} .top .logo b{color:#ffffff!important} .top .logo small{color:#4b5a51!important} .tb-cat-bar{display:grid;grid-template-columns:repeat(2,1fr);gap:10px} .tb-cat-card{padding:14px 12px;min-height:72px;font-size:15px;background:#ffffff;border-radius:24px;box-shadow:0 14px 28px rgba(0,0,0,.16)}</style><style>/* TB-ORIGINAL-PREVIEW-FIX */ .top .logo b{color:#ffffff!important} #tb-notice,#tb-notice p{color:#14231b!important} #tb-notice a{color:#0a6e43!important} .tb-util button{color:#14231b!important} </style><style>/* TB-UTIL-DARKTEXT */ .tb-util button{color:#14231b!important} .tb-util button b{color:#14231b!important} </style></bo' + 'dy></ht' + 'ml>');
  return fr;
 }
+
 function sponsoredCard(id){
  var box = document.createElement("div");
  if(id) box.id = id;
  box.className = "cb-banner-card";
- box.style.cssText = "margin:.9rem auto;max-width:340px;height:290px;overflow:hidden;box-sizing:border-box;padding:.4rem .6rem;border:1px solid var(--line);border-radius:10px;background:var(--card)";
+ box.style.cssText = "margin:.9rem auto;max-width:300px;height:248px;overflow:hidden;box-sizing:border-box;padding:.35rem .6rem;border:1px solid var(--line);border-radius:10px;background:var(--card)";
  var bar = document.createElement("div");
- bar.style.cssText = "display:flex;justify-content:space-between;align-items:center;font-size:.75rem;color:var(--dim);margin-bottom:.3rem";
+ bar.style.cssText = "display:flex;justify-content:space-between;align-items:center;font-size:.72rem;color:var(--dim);margin-bottom:.25rem";
  var lab = document.createElement("span"); lab.textContent = "Sponsored";
- var x = document.createElement("button"); x.textContent = "✕"; x.setAttribute("aria-label", "Dismiss sponsored content");
+ var x = document.createElement("button"); x.textContent = "\u2715"; x.setAttribute("aria-label", "Dismiss sponsored content");
  x.style.cssText = "background:none;border:none;color:var(--dim);font-size:1rem;cursor:pointer;line-height:1";
- x.onclick = function(){ if(box.parentNode) box.parentNode.removeChild(box); };
+ /* Owner's rule (2026-10-30): the ✕ dismiss is TEMPORARY — the card is
+ only hidden (never removed, no storage writes) and reappears after
+ 60 seconds; dismissing again restarts the same 60s cycle for as long
+ as this page view lives. The cycle stops on its own if the card has
+ left the DOM (e.g. its view was cleaned up). */
+ var reappearTimer = null;
+ x.onclick = function(){
+ box.style.display = "none";
+ if(reappearTimer) clearTimeout(reappearTimer);
+ reappearTimer = setTimeout(function(){
+ reappearTimer = null;
+ if(!document.contains(box)) return; /* card left the DOM — stop the cycle */
+ box.style.display = "";
+ }, 60000);
+ };
  bar.appendChild(lab); bar.appendChild(x); box.appendChild(bar);
- box.appendChild(bannerIframe());
- setTimeout(function(){ if(box.parentNode && !box.querySelector("iframe")) box.appendChild(bannerIframe()); box.style.height = "290px"; }, 4000);
+ /* Owner (2026-10-30): the full-size card was too big \u2014 the 300x250
+ creative now renders scaled to 0.72 inside a ~216px-tall clipped window;
+ the card totals ~248px including the label row. */
+ var clip = document.createElement("div");
+ clip.style.cssText = "position:relative;height:216px;overflow:hidden";
+ var scaler = document.createElement("div");
+ scaler.style.cssText = "position:absolute;left:50%;top:0;width:300px;height:250px;transform:translateX(-50%) scale(0.72);transform-origin:top center";
+ scaler.appendChild(bannerIframe());
+ clip.appendChild(scaler);
+ box.appendChild(clip);
+ setTimeout(function(){ if(box.parentNode && !box.querySelector("iframe")) scaler.appendChild(bannerIframe()); box.style.height = "248px"; }, 4000);
  return box;
 }
+/* Homepage card placement: inserted once the shelves exist (end of
+ buildHome) and re-asserted by refreshDyn() after later home re-renders.
+ Existence-guarded \u2014 never duplicates; a dismissed card stays in the DOM (hidden only \u2014 see sponsoredCard), so the id check also keeps it single. */
+function ensureHomeAd(){
+ var host = $("shelves");
+ if(!host) return;
+ if(document.getElementById("cb-home-ad")) return;
+ var anchor = null, n = 0;
+ for(var i = 0; i < host.children.length; i++){
+ var c = host.children[i];
+ if(c.classList && c.classList.contains("shelf") && !c.classList.contains("dyn")){ n++; if(n === 5){ anchor = c; break; } }
+ }
+ if(!anchor) return; /* home shelves not built yet */
+ host.insertBefore(sponsoredCard("cb-home-ad"), anchor);
+}
+
 /* Player page: one banner card at the very end of the player body (below More Like This) */
 (function(){ var pa = document.getElementById("p-banner-anchor"); if(pa) pa.appendChild(sponsoredCard("cb-player-ad")); })();
 /* ---------------- paced ad (every 4th details view; never in/over the player) ---------------- */
