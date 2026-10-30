@@ -1252,14 +1252,21 @@ var KJ_FILTERS = {
  japanese: "/discover/tv?sort_by=first_air_date.desc&with_original_language=ja",
  chinese: "/discover/tv?sort_by=first_air_date.desc&with_original_language=zh"
 };
+/* TMDB TV genre ids differ from movie ids — convert a movie genre id for /discover/tv.
+   Buckets: Action/Adventure->Action & Adventure, Fantasy/Sci-Fi->Sci-Fi & Fantasy,
+   War->War & Politics, Romance->Drama, Horror/Thriller->Mystery, History/Music->Documentary. */
+function tvGenreId(gid){
+ var map = { 28: 10759, 12: 10759, 14: 10765, 878: 10765, 10752: 10768, 10749: 18, 27: 9648, 53: 9648, 36: 99, 10402: 99 };
+ return map[gid] || gid;
+}
 function gridEp(){
  if(!G) return "";
  var e;
  if(G.kjc) e = KJ_FILTERS[G.kjc] || KJ_FILTERS.korean;
- else if(G.genre){ e = disc("movie", "&with_genres=" + G.genre); if(G.type === "tv") e = e.replace("/discover/movie", "/discover/tv"); if(G.genrelang) e += "&with_original_language=" + G.genrelang; }
+ else if(G.genre){ var ggid = (G.type === "tv") ? tvGenreId(G.genre) : G.genre; e = disc("movie", "&with_genres=" + ggid); if(G.type === "tv") e = e.replace("/discover/movie", "/discover/tv"); if(G.genrelang) e += "&with_original_language=" + G.genrelang; }
  else if(G.ws) e = WS_FILTERS[G.ws] || WS_FILTERS.all;
  else if(G.hub) e = HUB_FILTERS[G.hub] || HUB_FILTERS.all;
- else if(G.tabs && G.type === "tv") e = G.ep.replace("/discover/movie", "/discover/tv").replace("/movie/", "/tv/").replace("primary_release_date.desc", "first_air_date.desc").replace("primary_release_date.lte", "first_air_date.lte");
+ else if(G.tabs && G.type === "tv"){ e = G.ep.replace("/discover/movie", "/discover/tv").replace("/movie/", "/tv/").replace("primary_release_date.desc", "first_air_date.desc").replace("primary_release_date.lte", "first_air_date.lte"); e = e.replace(/([?&]with_genres=)(\d+)(?=&|$)/, function(m, p, id){ return p + tvGenreId(parseInt(id, 10)); }); }
  else e = G.ep;
  if(G.yearFilter && e.indexOf("/discover/") === 0){
  var isTV = e.indexOf("/discover/tv") === 0;
@@ -1276,7 +1283,7 @@ function gridEp(){
  }
  if(G.gf && e.indexOf("/discover/") === 0 && e.indexOf("with_genres=") === -1){
  var gid = G.gf;
- if(gid === 878 && e.indexOf("/discover/tv") === 0) gid = 10765;
+ if(e.indexOf("/discover/tv") === 0) gid = tvGenreId(gid);
  e += "&with_genres=" + gid;
  }
  return e;
