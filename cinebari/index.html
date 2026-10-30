@@ -505,8 +505,8 @@ img{max-width:100%;height:auto}
  <div class="rowlabel">🌐 All Countries</div>
  <div class="minigrid" id="doorcats-all" style="padding-top:.1rem"></div>
  </div>
- <div id="hub-note" style="display:none;padding:.2rem .95rem .4rem;color:var(--gold);font-size:.9rem;font-weight:700;line-height:1.5">🎙 Note: dubbed audio depends on the print the server carries. Audio language switching works on Server 3; Hindi audio plays on Server 2.</div>
- <div id="bn-note" style="display:none;padding:.2rem .95rem .4rem;color:var(--gold);font-size:.9rem;font-weight:700;line-height:1.5">🎙 Note: Bengali audio depends on the print the server carries. Audio language switching works on Server 3; Hindi audio plays on Server 2.</div>
+ <div id="hub-note" style="display:none;padding:.2rem .95rem .4rem;color:var(--gold);font-size:.9rem;font-weight:700;line-height:1.5">🎙 Note: Dubbed audio depends on the print each server carries. A few of these servers carry Hindi audio on some titles — please try the servers and select the one that plays Hindi for your title.</div>
+ <div id="bn-note" style="display:none;padding:.2rem .95rem .4rem;color:var(--gold);font-size:.9rem;font-weight:700;line-height:1.5">🎙 Note: Bengali audio depends on the print each server carries. A few of these servers also carry Hindi audio on some titles — please try the servers and select the one that plays your language.</div>
  <div class="typetabs" id="hubtabs" style="display:none">
  <button class="ttab on" data-hub="all">All</button>
  <button class="ttab" data-hub="south">South Dubbed</button>
@@ -613,9 +613,9 @@ img{max-width:100%;height:auto}
  <button class="srvb" id="p-nextep2" style="display:none">⏭ Next Episode</button>
  <span style="color:var(--dim);font-size:.88rem;font-weight:700">A dead server moves to the next one by itself — or tap Next Server.</span>
  </div>
- <p class="pnote">💡 Tip: Audio switches only if that server's print carries another language — otherwise it stays the same. Language switching works on Server 3; for Hindi audio, use Server 2 — the Hindi Server. Subtitles can be switched on inside the player (CC button) on most servers.</p>
+ <p class="pnote">💡 Tip: Audio switches only if that server's print carries another language — otherwise it stays the same. A few of these servers carry Hindi audio on some titles — please try the servers and select the one that plays Hindi for your title. Subtitles can be switched on inside the player (CC button) on most servers.</p>
  <div style="display:flex;gap:.55rem;align-items:center;flex-wrap:wrap">
- <label style="font-weight:700;color:var(--dim)">Audio — Every title: Original, Hindi (Server 2) and English (Server 3) — if Hindi is missing on a title, English will play.</label>
+ <label style="font-weight:700;color:var(--dim)">Audio — Original, Hindi and English: the language that plays depends on the print each server carries for the title.</label>
  <button class="srvb" data-langb="auto">Original</button>
  <button class="srvb" data-langb="hi">Hindi</button>
  <button class="srvb" data-langb="en">English</button>
@@ -979,7 +979,7 @@ var SHELVES = [
  { id: "hidden-gems", title: "💎 Hidden Gems", sub: "Highly rated, rarely watched", ep: "/discover/movie?sort_by=vote_average.desc&vote_average.gte=7&vote_count.gte=3&vote_count.lte=500", grid: function(){ return { title: "💎 Hidden Gems", ep: "/discover/movie?sort_by=vote_average.desc&vote_average.gte=7&vote_count.gte=3&vote_count.lte=500", tabs: false }; } },
  { id: "best-of-year", title: "🏆 Best of 2026", sub: "This year's finest, by rating", ep: "/discover/movie?sort_by=vote_average.desc&primary_release_year=2026&vote_average.gte=7&vote_count.gte=3", grid: function(){ return { title: "🏆 Best of 2026", ep: "/discover/movie?sort_by=vote_average.desc&primary_release_year=2026&vote_average.gte=7&vote_count.gte=3", tabs: false }; } },
  { id: "hollywood-dubbed", dubbed: true, title: "🎙 Hollywood Hindi-Dubbed", sub: "Hollywood favourites — dubbed audio depends on the print the server carries", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=en&vote_average.gte=6&vote_count.gte=3", grid: function(){ return { title: "🎙 Hollywood Hindi-Dubbed", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=en&vote_average.gte=6&vote_count.gte=3", tabs: false, dubbed: true }; } },
- { id: "english-dubbed", dubbed: "en", title: "🎙 English Dubbed", sub: "Foreign hits — watch in English on Server 3", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=ta|te|ml|kn|hi|bn|ko|ja|zh|es|fr|de|id|tr|ru|it|pt&vote_count.gte=3", grid: function(){ return { title: "🎙 English Dubbed", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=ta|te|ml|kn|hi|bn|ko|ja|zh|es|fr|de|id|tr|ru|it|pt&vote_count.gte=3", tabs: false, edub: true }; } },
+ { id: "english-dubbed", dubbed: "en", title: "🎙 English Dubbed", sub: "Foreign hits — English audio where the server's print carries it", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=ta|te|ml|kn|hi|bn|ko|ja|zh|es|fr|de|id|tr|ru|it|pt&vote_count.gte=3", grid: function(){ return { title: "🎙 English Dubbed", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=ta|te|ml|kn|hi|bn|ko|ja|zh|es|fr|de|id|tr|ru|it|pt&vote_count.gte=3", tabs: false, edub: true }; } },
  { id: "hindi", title: "🎬 Bollywood Movies", ep: disc("movie", "&with_original_language=hi"), grid: function(){ return langGrid("hi", "Hindi"); } },
  { id: "hollywood", title: "🎥 Hollywood Movies", ep: disc("movie", "&with_original_language=en&with_origin_country=US|GB|CA|AU"), grid: function(){ var d = langGrid("en", "Hollywood"); d.ep += "&with_origin_country=US|GB|CA|AU"; d.country = true; return d; } },
  { id: "poptv", title: "📺 Popular Series", ep: "/tv/popular", grid: function(){ return { title: "📺 Popular Series", ep: "/tv/popular", tabs: false }; } },
@@ -1967,7 +1967,7 @@ $("d-season").addEventListener("change", function(){ D.episode = 1; loadEpisodes
 function langQ(lang){ return lang && lang !== "auto" ? "?lang=" + lang : ""; }
 var SERVERS = [
  { n: "Server 1", k: "vidnest", /* VidNest */ f: function(t, id, s, e){ return t === "movie" ? "https://vidnest.fun/movie/" + id : "https://vidnest.fun/tv/" + id + "/" + s + "/" + e; } },
- { n: "Server 2", k: "2embed", /* 2Embed — Hindi Server */ f: function(t, id, s, e){ return t === "movie" ? "https://www.2embed.cc/embed/" + id : "https://www.2embed.cc/embedtv/" + id + "&s=" + s + "&e=" + e; } },
+ { n: "Server 2", k: "2embed", /* 2Embed */ f: function(t, id, s, e){ return t === "movie" ? "https://www.2embed.cc/embed/" + id : "https://www.2embed.cc/embedtv/" + id + "&s=" + s + "&e=" + e; } },
  { n: "Server 3", k: "vidlink", /* VidLink — takes the ?lang= param */ f: function(t, id, s, e, l){ return t === "movie" ? "https://vidlink.pro/movie/" + id + langQ(l) : "https://vidlink.pro/tv/" + id + "/" + s + "/" + e + langQ(l); } },
  { n: "Server 4", k: "embedwave", /* EmbedWave */ f: function(t, id, s, e){ return t === "movie" ? "https://embedwave.cc/embed/movie/" + id : "https://embedwave.cc/embed/tv/" + id + "/" + s + "/" + e; } },
  { n: "Server 5", k: "vidspark", /* VidSpark */ f: function(t, id, s, e){ return t === "movie" ? "https://www.vidspark.to/movie/" + id : "https://www.vidspark.to/tv/" + id + "/" + s + "/" + e; } },
@@ -1981,7 +1981,6 @@ var SERVERS = [
 ];
 try { $("st-srv").textContent = SERVERS.length; } catch(e){}
 function srvByKey(k){ for(var i = 0; i < SERVERS.length; i++){ if(SERVERS[i].k === k) return i + 1; } return 1; }
-function srvTag(sv){ return sv.k === "2embed" ? "Hindi Server" : "English Server"; }
 function hindiSrv(){ return srvByKey("2embed"); }
 function englishSrv(){ return srvByKey("vidlink"); }
 function routeLang(){
@@ -2006,7 +2005,7 @@ function openPlayer(s, opts){
  $("v-player").classList.add("on");
  document.body.style.overflow = "hidden";
  $("p-title").textContent = s.title + (s.type === "tv" ? " — S" + P.season + " E" + P.episode : "");
- $("srvrow").innerHTML = SERVERS.map(function(sv, i){ return '<button class="srvb' + (i + 1 === P.server ? " on" : "") + '" data-srv="' + (i + 1) + '">' + sv.n + ' <span class="tag">' + srvTag(sv) + "</span></button>"; }).join("");
+ $("srvrow").innerHTML = SERVERS.map(function(sv, i){ return '<button class="srvb' + (i + 1 === P.server ? " on" : "") + '" data-srv="' + (i + 1) + '">' + sv.n + "</button>"; }).join("");
  $("srvrow").querySelectorAll("[data-srv]").forEach(function(b){
  b.addEventListener("click", function(){
  P.server = parseInt(b.getAttribute("data-srv"), 10);
@@ -2074,8 +2073,8 @@ function markLangButtons(){
 }
 function langToast(){
  if(!P) return;
- if(P.lang === "hi") toast("Hindi selected — playing on Server 2, the Hindi Server.");
- else if(P.lang === "en") toast("English selected — playing on Server 3.");
+ if(P.lang === "hi") toast("Hindi selected — if this print has no Hindi, please try another server.");
+ else if(P.lang === "en") toast("English selected — if this print is not in English, please try another server.");
  else if(P.lang === "auto") toast("Original audio selected.");
  else toast("Audio preference set — switches only if this server's print carries that language");
 }
