@@ -669,7 +669,7 @@ function ssSaveItem(s){
 }
 function ssSaveGrid(){
  if(!G) return;
- ssSave({ v: "v-grid", def: { title: G.title, ep: G.ep, tabs: G.tabs, type: G.type, hub: G.hub, ws: G.ws, kjc: G.kjc, genre: G.genre, dubbed: G.dubbed, bndub: G.bndub, country: !!G.country, langTab: G.langTab || null, door: G.door || null, search: G.search, local: G.local || null, year: G.year || "", gf: G.gf || 0, page: (G.loadedPage || G.page || 1), q: G.q || null, edub: !!G.edub } });
+ ssSave({ v: "v-grid", def: { title: G.title, ep: G.ep, tabs: G.tabs, type: G.type, hub: G.hub, ws: G.ws, kjc: G.kjc, genre: G.genre, dubbed: G.dubbed, bndub: G.bndub, country: !!G.country, langTab: G.langTab || null, door: G.door || null, search: G.search, local: G.local || null, year: G.year || "", gf: G.gf || 0, page: (G.loadedPage || G.page || 1), q: G.q || null, edub: !!G.edub, adult: !!G.adult } });
 }
 var __cbShowViewBase = showView;
 showView = function(id){
@@ -695,7 +695,7 @@ function navCurId(){
 }
 function navGridDesc(){
  if(!G) return null;
- return { v: "v-grid", def: { title: G.title, ep: G.ep, tabs: G.tabs, type: G.type, hub: G.hub, ws: G.ws, kjc: G.kjc, genre: G.genre, dubbed: G.dubbed, bndub: G.bndub, country: !!G.country, langTab: G.langTab || null, door: G.door || null, search: G.search, local: G.local || null, year: G.year || "", gf: G.gf || 0, page: (G.loadedPage || G.page || 1), q: G.q || null, edub: !!G.edub } };
+ return { v: "v-grid", def: { title: G.title, ep: G.ep, tabs: G.tabs, type: G.type, hub: G.hub, ws: G.ws, kjc: G.kjc, genre: G.genre, dubbed: G.dubbed, bndub: G.bndub, country: !!G.country, langTab: G.langTab || null, door: G.door || null, search: G.search, local: G.local || null, year: G.year || "", gf: G.gf || 0, page: (G.loadedPage || G.page || 1), q: G.q || null, edub: !!G.edub, adult: !!G.adult } };
 }
 function navItemDesc(){
  if(!D || !D.s || !D.s.id) return null;
@@ -733,7 +733,7 @@ function navOpen(d){
  else if(d.v === "v-details" && d.item && d.item.id){ openDetails(d.item); }
  else if(d.v === "v-grid" && d.def && d.def.title){
  var f = d.def;
- openGrid({ title: f.title, ep: f.ep || "", tabs: !!f.tabs, hub: f.hub || null, ws: f.ws || null, kjc: f.kjc || null, genre: f.genre || null, dubbed: !!f.dubbed, bndub: !!f.bndub, country: !!f.country, langTab: f.langTab || null, door: f.door || null, search: !!f.search, local: f.local || null, q: f.q || "", edub: !!f.edub });
+ openGrid({ title: f.title, ep: f.ep || "", tabs: !!f.tabs, hub: f.hub || null, ws: f.ws || null, kjc: f.kjc || null, genre: f.genre || null, dubbed: !!f.dubbed, bndub: !!f.bndub, country: !!f.country, langTab: f.langTab || null, door: f.door || null, search: !!f.search, local: f.local || null, q: f.q || "", edub: !!f.edub, adult: !!f.adult });
  if(G){
  if(f.page && f.page > 1) G.restorePage = f.page;
  var dirty = false;
@@ -823,7 +823,7 @@ function cardHTML(s, big, dub){
  '<span class="pw">' + (s.poster ? '<img loading="lazy" src="' + pimg(s.poster) + '" alt="" onerror="this.style.opacity=0">' : "") +
  (s.rating ? '<span class="rt">⭐ ' + s.rating.toFixed(1) + "</span>" : "") +
  (s.year ? '<span class="yr">' + s.year + "</span>" : "") +
- '<span class="fav">' + (fav ? "❤️" : "") + "</span>" + (isDub ? '<span class="dub">' + (dub === "en" ? "🎙 English Dubbed" : "🎙 Hindi Dubbed") + "</span>" : "") + badgeHTML(s) + "</span>" +
+ '<span class="fav">' + (fav ? "❤️" : "") + "</span>" + (isDub ? '<span class="dub">' + (dub === "en" ? "🎙 English Dubbed" : dub === "18" ? "🔞 18+" : "🎙 Hindi Dubbed") + "</span>" : "") + badgeHTML(s) + "</span>" +
  '<span class="ti">' + esc(s.title) + "</span>" +
  '<span class="tp">' + (s.type === "tv" ? "📺 Series" : "🎬 Movie") + (s.year ? " • " + s.year : "") + (LANG_NAME[s.lang] ? " • " + LANG_NAME[s.lang] : "") + "</span>" +
  (s.genres && s.genres.length ? '<span class="tg">' + esc(s.genres.join(" • ")) + "</span>" : "") + "</button>";
@@ -975,8 +975,30 @@ var SHELVES = [
  { id: "banglanatok", title: "🇧🇩 Bangla Natok", sub: "Bangladeshi TV dramas & natoks", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=bn&vote_count.gte=2", grid: function(){ return { title: "🇧🇩 Bangla Natok", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=bn&vote_count.gte=2", tabs: false, country: true }; } },
  { id: "southindian", title: "🎬 South Indian", sub: "Tamil, Telugu, Malayalam & Kannada hits — original audio", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=te|ta|ml|kn&vote_count.gte=20", grid: function(){ return { title: "🎬 South Indian", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=te|ta|ml|kn&vote_count.gte=20", tabs: false }; } },
  { id: "ongoing", title: "📺 Ongoing Series", sub: "Series still running — new episodes coming", ep: "/discover/tv?sort_by=popularity.desc&with_status=0&vote_count.gte=20", grid: function(){ return { title: "📺 Ongoing Series", ep: "/discover/tv?sort_by=popularity.desc&with_status=0&vote_count.gte=20", tabs: false }; } },
- { id: "idhorror", title: "🇮🇩 Indonesian Horror", sub: "Scary picks from Indonesia", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=id&with_genres=27&vote_count.gte=20", grid: function(){ return { title: "🇮🇩 Indonesian Horror", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=id&with_genres=27&vote_count.gte=20", tabs: false }; } }
+ { id: "idhorror", title: "🇮🇩 Indonesian Horror", sub: "Scary picks from Indonesia", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=id&with_genres=27&vote_count.gte=20", grid: function(){ return { title: "🇮🇩 Indonesian Horror", ep: "/discover/movie?sort_by=popularity.desc&with_original_language=id&with_genres=27&vote_count.gte=20", tabs: false }; } },
+ { id: "adult18", adult: true, dubbed: "18", noDedupe: true, title: "🔞 18+ Erotic Movies", sub: "Mainstream erotic hits — adults only", fn: function(){
+ return adultResolve().then(function(ep){
+ if(!ep) return [];
+ return api(ep).then(function(j){ return j.results || []; }).catch(function(){ return []; });
+ });
+ }, grid: function(){ return { title: "🔞 18+ Erotic Movies", ep: CB_ADULT.ep || "/discover/movie?with_keywords=0&sort_by=popularity.desc&include_adult=false&vote_count.gte=20", tabs: false, adult: true }; } }
 ];
+/* ---------------- 18+ Erotic Movies — the TMDB keyword id for "erotic" is
+   resolved at runtime (never hard-coded); the feed itself stays mainstream
+   (include_adult=false). If resolution fails, the shelf row falls back to
+   the standard Retry state and the grid shows an unavailable note. ------- */
+var CB_ADULT = { kw: null, ep: null, ready: null };
+function adultResolve(){
+ if(CB_ADULT.ready) return CB_ADULT.ready;
+ CB_ADULT.ready = api("/search/keyword?query=erotic").then(function(j){
+ var rs = (j && j.results) || [], pick = null;
+ rs.forEach(function(k){ if(!pick && k.name === "erotic") pick = k; });
+ if(!pick) rs.forEach(function(k){ if(!pick && String(k.name || "").toLowerCase().indexOf("erotic") !== -1) pick = k; });
+ if(pick){ CB_ADULT.kw = pick.id; CB_ADULT.ep = "/discover/movie?with_keywords=" + pick.id + "&sort_by=popularity.desc&include_adult=false&vote_count.gte=20"; }
+ return CB_ADULT.ep;
+ }).catch(function(){ return null; });
+ return CB_ADULT.ready;
+}
 function genreGrid(gid, name){
  return { title: "🎬 " + name, ep: disc("movie", "&with_genres=" + gid), tabs: true, genreTab: gid, genre: gid };
 }
@@ -1247,8 +1269,9 @@ function buildHome(){
  var host = $("shelves");
  host.innerHTML = "";
  refreshDyn();
- /* Homepage order (owner's list): Movies → Web Series → TV Shows → Latest
- Releases → Popular Movies first, each an endless shelf; the rest below. */
+ /* Homepage order: the top block is pinned by HEAD_ORDER below (owner's
+ list, 2026-10-30) — doors first, then New / Latest / Popular / Trending /
+ Most Watched up front, TV Shows pushed down; the rest keep their order. */
  var topShelves = [
  { id: "door-movies", title: "🎬 Movies", sub: "All movies, most popular first", ep: doorDef("movie").ep, grid: function(){ return doorDef("movie"); } },
  { id: "door-ws", title: "📺 Web Series", sub: "Scripted series — no talk, news or reality", ep: doorDef("ws").ep, grid: function(){ return doorDef("ws"); } },
@@ -1265,6 +1288,13 @@ function buildHome(){
  var tIdx = -1;
  allDefs.forEach(function(d, i){ if(d.id === "trending") tIdx = i; });
  if(tIdx !== -1) allDefs.splice.apply(allDefs, [tIdx + 1, 0].concat(MW_DEFS)); else allDefs = allDefs.concat(MW_DEFS);
+ /* Pinned top order (owner, 2026-10-30): positions only — no def changes.
+ Everything not listed keeps its current relative order; 18+ stays last. */
+ var HEAD_ORDER = ["door-movies", "door-ws", "new", "latest", "popm", "trending", "most-series", "most-movies", "door-tvshows"];
+ var headDefs = [], tailDefs = [];
+ allDefs.forEach(function(d){ if(HEAD_ORDER.indexOf(d.id) !== -1) headDefs.push(d); else tailDefs.push(d); });
+ headDefs.sort(function(a, b){ return HEAD_ORDER.indexOf(a.id) - HEAD_ORDER.indexOf(b.id); });
+ allDefs = headDefs.concat(tailDefs);
  var els = allDefs.map(function(def){ var el = shelfEl(def); el._def = def; host.appendChild(el); return el; });
  function loadShelf(el){
  var def = el._def;
@@ -1420,7 +1450,7 @@ function gridEp(){
 function openGrid(def){
  navLeave();
  window.__cbGridFrom = $("v-cats").classList.contains("on") ? "v-cats" : "v-movies";
- G = { title: def.title, ep: def.ep, tabs: !!def.tabs, page: 1, loadedPage: 0, type: "movie", local: def.local || null, search: !!def.search, hub: def.hub || null, ws: def.ws || null, dubbed: !!def.dubbed, kjc: def.kjc || null, genre: def.genre || null, genrelang: def.genre ? (localStorage.getItem("cb_genrelang") || "") : "", bndub: !!def.bndub, year: "", yearFilter: !!(def.genre || def.hub || def.ws || def.kjc || (def.ep && def.ep.indexOf("/discover/") === 0)), gf: 0, gfilter: !!(def.country || def.langTab || def.door), country: !!def.country, langTab: def.langTab || null, door: def.door || null, q: def.q || "", edub: !!def.edub };
+ G = { title: def.title, ep: def.ep, tabs: !!def.tabs, page: 1, loadedPage: 0, type: "movie", local: def.local || null, search: !!def.search, hub: def.hub || null, ws: def.ws || null, dubbed: !!def.dubbed, kjc: def.kjc || null, genre: def.genre || null, genrelang: def.genre ? (localStorage.getItem("cb_genrelang") || "") : "", bndub: !!def.bndub, year: "", yearFilter: !!(def.genre || def.hub || def.ws || def.kjc || (def.ep && def.ep.indexOf("/discover/") === 0)), gf: 0, gfilter: !!(def.country || def.langTab || def.door), country: !!def.country, langTab: def.langTab || null, door: def.door || null, q: def.q || "", edub: !!def.edub, adult: !!def.adult };
  showView("v-grid");
  $("grid-t").textContent = def.title;
  $("typetabs").style.display = (G.tabs && !G.hub && !G.ws) ? "flex" : "none";
@@ -1458,7 +1488,7 @@ function gridCardFor(it){
  return '<button class="card" data-actor="' + it.id + ":" + esc(it.name || "") + '"><span class="pw">' + (it.profile_path ? '<img loading="lazy" src="' + IMG + "w185" + it.profile_path + '" alt="">' : "") + '</span><span class="ti">' + esc(it.name || "") + '</span><span class="tp">🎭 Actor</span></button>';
  }
  if(mtype(it) !== "movie" && mtype(it) !== "tv") return "";
- return cardHTML(reg(it), false, (G && G.edub) ? "en" : undefined);
+ return cardHTML(reg(it), false, (G && G.edub) ? "en" : (G && G.adult) ? "18" : undefined);
 }
 function loadGridPage(first){
  if(!G || G._loading) return Promise.resolve();
@@ -1476,11 +1506,11 @@ function loadGridPage(first){
  else $("grid-c").textContent = "Page " + pg + " of " + total;
  var em = $("grid-empty");
  if($("grid").children.length){ em.style.display = "none"; }
- else { em.innerHTML = (G.gf || G.year || G.genrelang) ? "No titles match these filters — clear the year or genre and try again" : GRID_EMPTY_HTML; em.style.display = "block"; }
+ else { em.innerHTML = (G.adult && (!CB_ADULT.ep || (!G.gf && !G.year))) ? "This section is unavailable right now" : (G.gf || G.year || G.genrelang) ? "No titles match these filters — clear the year or genre and try again" : GRID_EMPTY_HTML; em.style.display = "block"; }
  $("loadmore").style.display = pg < total ? "block" : "none";
  if(G.restorePage && pg < G.restorePage && pg < total){ G.page = pg + 1; loadGridPage(false); }
  else if(G.restorePage && pg >= G.restorePage){ G.restorePage = 0; }
- }).catch(function(){ G._loading = false; if(first){ var em2 = $("grid-empty"); em2.innerHTML = (G && (G.gf || G.year || G.genrelang)) ? "No titles match these filters — clear the year or genre and try again" : GRID_EMPTY_HTML; em2.style.display = "block"; } });
+ }).catch(function(){ G._loading = false; if(first){ var em2 = $("grid-empty"); em2.innerHTML = (G && G.adult && (!CB_ADULT.ep || (!G.gf && !G.year))) ? "This section is unavailable right now" : (G && (G.gf || G.year || G.genrelang)) ? "No titles match these filters — clear the year or genre and try again" : GRID_EMPTY_HTML; em2.style.display = "block"; } });
 }
 $("loadmore").addEventListener("click", function(){ if(G && !G._loading){ G.page++; loadGridPage(false); } });
 /* year filter, grouped by decade: "All Years" first, then 2026 at the top,
@@ -2239,7 +2269,7 @@ document.addEventListener("click", function(e){
  if(saved.v === "v-grid" && saved.def && saved.def.title){
  enterMovies();
  var d = saved.def;
- openGrid({ title: d.title, ep: d.ep || "", tabs: !!d.tabs, hub: d.hub || null, ws: d.ws || null, kjc: d.kjc || null, genre: d.genre || null, dubbed: !!d.dubbed, bndub: !!d.bndub, country: !!d.country, langTab: d.langTab || null, door: d.door || null, search: !!d.search, local: d.local || null, q: d.q || "", edub: !!d.edub });
+ openGrid({ title: d.title, ep: d.ep || "", tabs: !!d.tabs, hub: d.hub || null, ws: d.ws || null, kjc: d.kjc || null, genre: d.genre || null, dubbed: !!d.dubbed, bndub: !!d.bndub, country: !!d.country, langTab: d.langTab || null, door: d.door || null, search: !!d.search, local: d.local || null, q: d.q || "", edub: !!d.edub, adult: !!d.adult });
  if(G){
  if(d.page && d.page > 1) G.restorePage = d.page;
  var dirty = false;
