@@ -790,22 +790,21 @@ function renderHero(){
  $("hero-info").onclick = function(){ openDetails(reg(it)); };
 }
 function startHero(){
- var langs = ["en", "hi", "ta", "bn", "ko", "id"];
- var calls = [api("/trending/all/day").catch(function(){ return null; })].concat(langs.map(function(l){ return api("/discover/movie?sort_by=popularity.desc&with_original_language=" + l + "&vote_count.gte=50").catch(function(){ return null; }); }));
+ var calls = [api("/trending/movie/week").catch(function(){ return null; })];
  Promise.all(calls).then(function(rs){
  var seen = {}, items = [];
  rs.forEach(function(j){
  if(!j || !j.results) return;
  for(var k = 0; k < j.results.length; k++){
  var r = j.results[k];
- if(r.backdrop_path && (mtype(r) === "movie" || mtype(r) === "tv") && !seen[r.id]){ seen[r.id] = 1; items.push(r); break; }
+ if(r.backdrop_path && r.overview && mtype(r) === "movie" && !seen[r.id]){ seen[r.id] = 1; items.push(r); }
  }
  });
- heroItems = items.slice(0, 7);
+ heroItems = items.slice(0, 12);
  heroItems.forEach(reg);
  heroIdx = 0; renderHero();
  clearInterval(heroTimer);
- if(heroItems.length) heroTimer = setInterval(function(){ if($("v-movies").classList.contains("on")){ heroIdx = (heroIdx + 1) % heroItems.length; renderHero(); } }, 9000);
+ if(heroItems.length) heroTimer = setInterval(function(){ if($("v-movies").classList.contains("on")){ heroIdx = (heroIdx + 1) % heroItems.length; renderHero(); } }, 3500);
  }).catch(function(){});
 }
 /* ---------------- cards & shelves ---------------- */
