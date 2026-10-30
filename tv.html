@@ -550,7 +550,11 @@ function armHide(){
  clearTimeout(hideTimer);
  $("strip").classList.remove("hide");
  $("player").classList.remove("hideui");
- hideTimer = setTimeout(function(){ $("strip").classList.add("hide"); $("player").classList.add("hideui"); }, 4000);
+ hideTimer = setTimeout(function(){ $("strip").classList.add("hide"); $("player").classList.add("hideui"); }, 2500);
+}
+function hideSoon(){
+ clearTimeout(hideTimer);
+ hideTimer = setTimeout(function(){ if(!listOpen){ $("strip").classList.add("hide"); $("player").classList.add("hideui"); } }, 1500);
 }
 function buildStrip(){
  $("strip").innerHTML = chs.map(function(c, i){
@@ -878,7 +882,7 @@ $("tapwatch-b").addEventListener("click", function(){
  var p = v.play(); if(p) p.catch(function(){ showTapWatch(true); });
  if(!ytOn && cur >= 0){ armWatch(); armVideoWatch(); }
 });
-$("vid").addEventListener("playing", function(){ clearWatch(); showTapWatch(false); if(!ytOn) $("tool-pip").style.display = document.pictureInPictureEnabled ? "block" : "none"; });
+$("vid").addEventListener("playing", function(){ clearWatch(); showTapWatch(false); hideSoon(); if(!ytOn) $("tool-pip").style.display = document.pictureInPictureEnabled ? "block" : "none"; });
 $("vid").addEventListener("error", function(){
  var v = $("vid");
  if(ytOn || cur < 0 || !$("player").classList.contains("on")) return;
