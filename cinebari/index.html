@@ -380,8 +380,8 @@ img{max-width:100%;height:auto}
  <h1 class="glogo">Cine<span>Bari</span></h1>
  <div class="gtag">Your home of movies, series &amp; live TV</div>
  <div class="doors">
- <button class="door dm" id="door-movies">🎬 MOVIES<small>Movies &amp; web series — tap &amp; watch instantly</small></button>
- <button class="door dt" id="door-tv">📺 LIVE TV<small><span id="tv-count">100+</span> live channels — news, sports, Islamic &amp; more</small></button>
+ <button class="door dm" id="door-movies">🎬 MOVIES<small>Movies &amp; web series — Hindi, English &amp; Original audio — tap &amp; watch instantly</small></button>
+ <button class="door dt" id="door-tv">📺 LIVE TV<small><span id="tv-count">173+</span> live channels — news, sports, Islamic &amp; more</small></button>
  </div>
  <div class="chips">
  <span class="chipx">✅ No Sign-up</span>
@@ -389,20 +389,25 @@ img{max-width:100%;height:auto}
  <span class="chipx">✅ 100% Free</span>
  </div>
  <div class="stats">
- <div class="stat"><div class="n" id="st-ch">100+</div><div class="l">LIVE CHANNELS</div></div>
- <div class="stat"><div class="n">10,000+</div><div class="l">MOVIES &amp; SERIES</div></div>
- <div class="stat"><div class="n" id="st-srv">9</div><div class="l">FAST SERVERS</div></div>
+ <div class="stat"><div class="n" id="st-ch">173+</div><div class="l">LIVE CHANNELS</div></div>
+ <div class="stat"><div class="n">Unlimited</div><div class="l">MOVIES &amp; SERIES</div></div>
+ <div class="stat"><div class="n" id="st-srv">12</div><div class="l">FAST SERVERS</div></div>
  </div>
  <div class="marqwrap"><div class="marq" id="marq"></div></div>
  <!-- INSITE-NOTICE-2026-10-27: in-site banner only, no push service, no OneSignal -->
 <div class="notice-area" id="new-movie-notice" style="background:#1a2a07;border:1px solid #a3e635;border-radius:12px;padding:12px 14px;margin:12px 0">
 <div style="font-weight:700">🎬 New movies</div>
-<div>New movies appear in Trending and on the home rows. Check the hero slider for the latest additions. — Trending- - ।</div>
+<div>New movies are added all the time — find them in Trending and on the home rows, and check the hero slider for the very latest additions.</div>
 </div>
 <div class="gcard">
  <div class="t">🧰 ToolBari — 429 Free Tools</div>
  <div class="d">Video Downloader • PDF Tools • Image Tools • Calculators &amp; more — everything free, no sign-up.</div>
  <a href="https://toolbari.github.io/">Open ToolBari →</a>
+ </div>
+ <div class="gcard">
+ <div class="t">💬 Join our Telegram Group</div>
+ <div class="d">Movie requests, updates &amp; new releases — straight from the CineBari team.</div>
+ <a href="https://t.me/+FfnlCZPeZLAwZTI1" target="_blank" rel="noopener">Join the Group →</a>
  </div>
  <div class="gcard app">
  <div class="t">📱 Get the CineBari App</div>
@@ -979,14 +984,14 @@ var SHELVES = [
  { id: "hollywood", title: "🎥 Hollywood Movies", ep: disc("movie", "&with_original_language=en&with_origin_country=US|GB|CA|AU"), grid: function(){ var d = langGrid("en", "Hollywood"); d.ep += "&with_origin_country=US|GB|CA|AU"; d.country = true; return d; } },
  { id: "poptv", title: "📺 Popular Series", ep: "/tv/popular", grid: function(){ return { title: "📺 Popular Series", ep: "/tv/popular", tabs: false }; } },
  { id: "top10", title: "🏆 Top 10 This Week", style: "top10", ep: "/trending/all/week", slice: 10 },
- { id: "horror", title: "👻 Horror", sub: "Scary picks first — as you asked", ep: disc("movie", "&with_genres=27"), grid: function(){ return genreGrid(27, "Horror"); } },
+ { id: "horror", title: "👻 Horror", sub: "Scary picks to keep you up at night", ep: disc("movie", "&with_genres=27"), grid: function(){ return genreGrid(27, "Horror"); } },
  { id: "action", title: "💥 Action", ep: disc("movie", "&with_genres=28"), grid: function(){ return genreGrid(28, "Action"); } },
  { id: "fantasy", title: "🐉 Fantasy", ep: disc("movie", "&with_genres=14"), grid: function(){ return genreGrid(14, "Fantasy"); } },
  { id: "comedy", title: "😂 Comedy", ep: disc("movie", "&with_genres=35"), grid: function(){ return genreGrid(35, "Comedy"); } },
  { id: "thriller", title: "🔪 Thriller", ep: disc("movie", "&with_genres=53"), grid: function(){ return genreGrid(53, "Thriller"); } },
  { id: "romance", title: "❤️ Romance", ep: disc("movie", "&with_genres=10749"), grid: function(){ return genreGrid(10749, "Romance"); } },
  { id: "animation", title: "🧸 Animation & Family", ep: disc("movie", "&with_genres=16"), grid: function(){ return genreGrid(16, "Animation"); } },
- { id: "popm", title: "🎬 Popular Movies", ep: "/movie/popular", grid: function(){ return { title: "🎬 Popular Movies", ep: "/movie/popular", tabs: false }; } },
+ { id: "popm", title: "🎬 All-Time Popular Movies", ep: "/movie/popular", grid: function(){ return { title: "🎬 All-Time Popular Movies", ep: "/movie/popular", tabs: false }; } },
  { id: "night", title: "🌙 Movie of the Night", style: "wide", fn: function(){ return api("/movie/top_rated").then(function(j){ var r = j.results || []; var pick = r[new Date().getDate() % Math.max(1, r.length)]; return pick ? [pick] : []; }); } },
  { id: "anime", title: "🎌 Anime Hub", sub: "Japanese animation hits", ep: "/discover/tv?sort_by=popularity.desc&with_genres=16&with_original_language=ja&vote_count.gte=3", grid: function(){ return { title: "🎌 Anime Hub", ep: "/discover/tv?sort_by=popularity.desc&with_genres=16&with_original_language=ja&vote_count.gte=3", tabs: false }; } },
  { id: "korean", title: "🇰🇷 Korean Drama", sub: "Korean drama hits — dubbed audio depends on the print the server carries", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=ko", grid: function(){ return { title: "🇰🇷 Korean Drama", ep: "/discover/tv?sort_by=popularity.desc&with_original_language=ko", tabs: false }; } },
@@ -1731,14 +1736,17 @@ function openCats(){
  });
  showView("v-cats");
 }
-/* ---------------- sponsored banner (Adsterra 300x250 \u2014 mechanism identical to ToolBari's working waitAdIframe: no sandbox, which was the prime no-fill suspect) ---------------- */
+/* ---------------- sponsored slim bar (Adsterra bar zones, adult OFF \u2014 same srcdoc-iframe mechanism as the old 300x250 box: atOptions + invoke inside an iframe, no sandbox. Viewport picks the size: \u2265760px \u2192 728x90, below \u2192 320x50) ---------------- */
 function bannerIframe(){
+ var wide = (window.innerWidth || 0) >= 760;
+ var key = wide ? "4c5e5e4d6820ecce24fa77f42a28bba8" : "578200f21224607ceb2e50e9aa8d19c2";
+ var w = wide ? 728 : 320, h = wide ? 90 : 50;
  var fr = document.createElement("iframe");
- fr.width = 300; fr.height = 250;
- fr.style.cssText = "border:0;max-width:100%";
+ fr.width = w; fr.height = h;
+ fr.style.cssText = "border:0;max-width:100%;display:block;margin:0 auto";
  fr.setAttribute("scrolling", "no");
  fr.setAttribute("loading", "lazy");
- fr.setAttribute("srcdoc", '<html><body style="margin:0;padding:0;text-align:center"><scr'+'ipt>var atOptions={"key":"8724bf3e803202dd690869b40e9c3541","format":"iframe","height":250,"width":300,"params":{}};</scr'+'ipt><scr'+'ipt src="https://bauval.org/22/8724bf3e803202dd690869b40e9c3541"></scr'+'ipt><p style="text-align:center;font-size:14px"><a href="https://toolbari.github.io/webbari/">WebBari — Website Building Service</a></p><style>/* TB-INLINE-PREVIEW-2026-10-27: so chat file preview shows header+category style without external CSS */ .top,.hdr{background:linear-gradient(135deg,#1e2438,#2aa5a0)!important;color:#ffffff!important;border-radius:24px!important} .top .logo b{color:#ffffff!important} .top .logo small{color:#4b5a51!important} .tb-cat-bar{display:grid;grid-template-columns:repeat(2,1fr);gap:10px} .tb-cat-card{padding:14px 12px;min-height:72px;font-size:15px;background:#ffffff;border-radius:24px;box-shadow:0 14px 28px rgba(0,0,0,.16)}</style><style>/* TB-ORIGINAL-PREVIEW-FIX */ .top .logo b{color:#ffffff!important} #tb-notice,#tb-notice p{color:#14231b!important} #tb-notice a{color:#0a6e43!important} .tb-util button{color:#14231b!important} </style><style>/* TB-UTIL-DARKTEXT */ .tb-util button{color:#14231b!important} .tb-util button b{color:#14231b!important} </style></bo' + 'dy></ht' + 'ml>');
+ fr.setAttribute("srcdoc", '<html><body style="margin:0;padding:0;text-align:center"><scr' + 'ipt>var atOptions={"key":"' + key + '","format":"iframe","height":' + h + ',"width":' + w + ',"params":{}};</scr' + 'ipt><scr' + 'ipt src="https://bauval.org/22/' + key + '"></scr' + 'ipt></bo' + 'dy></ht' + 'ml>');
  return fr;
 }
 
@@ -1746,16 +1754,16 @@ function sponsoredCard(id){
  var box = document.createElement("div");
  if(id) box.id = id;
  box.className = "cb-banner-card";
- box.style.cssText = "margin:.9rem auto;max-width:300px;height:248px;overflow:hidden;box-sizing:border-box;padding:.35rem .6rem;border:1px solid var(--line);border-radius:10px;background:var(--card)";
+ box.style.cssText = "margin:.9rem auto;max-width:728px;overflow:hidden;box-sizing:border-box;padding:.3rem .6rem;border:1px solid var(--line);border-radius:10px;background:var(--card)";
  var bar = document.createElement("div");
- bar.style.cssText = "display:flex;justify-content:space-between;align-items:center;font-size:.72rem;color:var(--dim);margin-bottom:.25rem";
+ bar.style.cssText = "display:flex;justify-content:space-between;align-items:center;font-size:.72rem;color:var(--dim);margin-bottom:.15rem";
  var lab = document.createElement("span"); lab.textContent = "Sponsored";
  var x = document.createElement("button"); x.textContent = "\u2715"; x.setAttribute("aria-label", "Dismiss sponsored content");
  x.style.cssText = "background:none;border:none;color:var(--dim);font-size:1rem;cursor:pointer;line-height:1";
- /* Owner's rule (2026-10-30): the ✕ dismiss is TEMPORARY — the card is
+ /* Owner's rule (2026-10-30): the \u2715 dismiss is TEMPORARY \u2014 the bar is
  only hidden (never removed, no storage writes) and reappears after
  60 seconds; dismissing again restarts the same 60s cycle for as long
- as this page view lives. The cycle stops on its own if the card has
+ as this page view lives. The cycle stops on its own if the bar has
  left the DOM (e.g. its view was cleaned up). */
  var reappearTimer = null;
  x.onclick = function(){
@@ -1763,22 +1771,13 @@ function sponsoredCard(id){
  if(reappearTimer) clearTimeout(reappearTimer);
  reappearTimer = setTimeout(function(){
  reappearTimer = null;
- if(!document.contains(box)) return; /* card left the DOM — stop the cycle */
+ if(!document.contains(box)) return; /* bar left the DOM \u2014 stop the cycle */
  box.style.display = "";
  }, 60000);
  };
  bar.appendChild(lab); bar.appendChild(x); box.appendChild(bar);
- /* Owner (2026-10-30): the full-size card was too big \u2014 the 300x250
- creative now renders scaled to 0.72 inside a ~216px-tall clipped window;
- the card totals ~248px including the label row. */
- var clip = document.createElement("div");
- clip.style.cssText = "position:relative;height:216px;overflow:hidden";
- var scaler = document.createElement("div");
- scaler.style.cssText = "position:absolute;left:50%;top:0;width:300px;height:250px;transform:translateX(-50%) scale(0.72);transform-origin:top center";
- scaler.appendChild(bannerIframe());
- clip.appendChild(scaler);
- box.appendChild(clip);
- setTimeout(function(){ if(box.parentNode && !box.querySelector("iframe")) scaler.appendChild(bannerIframe()); box.style.height = "248px"; }, 4000);
+ box.appendChild(bannerIframe());
+ setTimeout(function(){ if(box.parentNode && !box.querySelector("iframe")) box.appendChild(bannerIframe()); }, 4000);
  return box;
 }
 /* Homepage card placement: inserted once the shelves exist (end of
