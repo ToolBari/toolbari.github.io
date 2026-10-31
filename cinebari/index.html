@@ -2514,7 +2514,7 @@ document.addEventListener("click", function(e){
   f.style.cssText = "border:0;width:100%;aspect-ratio:16/9;display:block;background:#000";
   w.appendChild(f);
   if ("IntersectionObserver" in window){
-   var io = new IntersectionObserver(function(es){ es.forEach(function(en){ if (en.isIntersecting){ f.setAttribute("srcdoc", SRC); io.disconnect(); } }); }, { rootMargin: "400px" });
+   var io = new IntersectionObserver(function(es){ es.forEach(function(en){ if (en.isIntersecting){ f.setAttribute("srcdoc", SRC); io.disconnect(); } }); }, { rootMargin: "0px" });
    io.observe(w);
   } else { f.setAttribute("srcdoc", SRC); }
   return w;
@@ -2544,7 +2544,7 @@ document.addEventListener("click", function(e){
   f.style.cssText = "border:0;width:100%;aspect-ratio:16/9;display:block;background:#000";
   box.appendChild(f);
   if ("IntersectionObserver" in window){
-   var io = new IntersectionObserver(function(es){ es.forEach(function(en){ if (en.isIntersecting){ f.setAttribute("srcdoc", SRC); io.disconnect(); } }); }, { rootMargin: "400px" });
+   var io = new IntersectionObserver(function(es){ es.forEach(function(en){ if (en.isIntersecting){ f.setAttribute("srcdoc", SRC); io.disconnect(); } }); }, { rootMargin: "0px" });
    io.observe(box);
   } else { f.setAttribute("srcdoc", SRC); }
  }
