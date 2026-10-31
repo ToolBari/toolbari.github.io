@@ -2568,10 +2568,13 @@ document.addEventListener("click", function(e){
   } else { loadSlot(f); }
  }
  ["cb-vad-details", "cb-vad-details2", "cb-vad-gate", "cb-vad-cats"].forEach(function(id){ var el = document.getElementById(id); if (el) armFrame(el); });
+ [["cb-vad-gate"], ["cb-vad-cats"]].forEach(function(a){ var el = document.getElementById(a[0]); if (el && el.parentNode) el.parentNode.insertBefore(sponsoredCard(), el.nextSibling); });
+ var sim = document.getElementById("d-simsec");
+ if (sim && sim.parentNode) sim.parentNode.insertBefore(sponsoredCard(), sim.nextSibling);
  function placeGridAds(){
   var g = document.getElementById("grid");
   if (!g) return;
-  var cards = [].filter.call(g.children, function(c){ return !(c.classList && c.classList.contains("cb-vad-slot")); });
+  var cards = [].filter.call(g.children, function(c){ return !(c.classList && (c.classList.contains("cb-vad-slot") || c.classList.contains("cb-banner-card"))); });
   var idxs = [];
   for (var k = 11; k < cards.length; k += 18) idxs.push(k);
   idxs.forEach(function(idx){
@@ -2583,6 +2586,12 @@ document.addEventListener("click", function(e){
    box.style.gridColumn = "1 / -1";
    box.style.margin = "0 auto";
    g.insertBefore(box, card.nextSibling);
+   var bn = box.nextElementSibling;
+   if (!(bn && bn.classList && bn.classList.contains("cb-banner-card"))){
+    var bc = sponsoredCard();
+    bc.style.gridColumn = "1 / -1";
+    g.insertBefore(bc, box.nextSibling);
+   }
   });
  }
  var gt = null;
