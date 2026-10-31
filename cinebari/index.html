@@ -2501,63 +2501,70 @@ document.addEventListener("click", function(e){
 </script>
 <script>
 (function(){
- /* Banners-only placements (owner order 2026-10-31): all HilltopAds video boxes removed;
-    banner cards now also fill the spots the video boxes vacated — one directly
-    under the home hero, and one after every home shelf, in serial. */
- var heroEl = document.getElementById("hero");
- if (heroEl && heroEl.parentNode && !document.getElementById("cb-hero-ad")) {
-  heroEl.parentNode.insertBefore(sponsoredCard("cb-hero-ad"), heroEl.nextSibling);
+ /* Banner placements (owner orders 2026-10-31): slim banner cards in every view —
+    entry-screen top, under the home hero, after every home shelf, categories,
+    details, and serially inside grids. Every insertion is idempotent and
+    RE-ASSERTED on view changes and DOM rebuilds: the SPA re-renders the home
+    view when it is entered, which wipes parse-time insertions — re-asserting
+    after every render is what makes these placements permanent. */
+ function isBanner(el){ return !!(el && el.classList && el.classList.contains("cb-banner-card")); }
+ function placeHero(){
+  var hero = document.getElementById("hero");
+  if (!hero || !hero.parentNode) return;
+  if (document.getElementById("cb-hero-ad")) return;
+  var anchor = document.getElementById("cb-vad-test") || hero;
+  if (anchor.parentNode) anchor.parentNode.insertBefore(sponsoredCard("cb-hero-ad"), anchor.nextSibling);
  }
- function placeShelfAds(){
+ function placeShelves(){
   var host = document.getElementById("shelves");
   if (!host) return;
   [].slice.call(host.children).forEach(function(sh){
    if (!(sh.classList && sh.classList.contains("shelf"))) return;
    var n = sh.nextElementSibling;
-   if (n && n.classList && n.classList.contains("cb-banner-card")) return;
+   if (isBanner(n)) return;
    var nn = n && n.nextElementSibling;
    if (nn && nn.id === "cb-home-ad") return;
    host.insertBefore(sponsoredCard(), sh.nextSibling);
   });
  }
- var st = null;
- function queueShelf(){ if (st) return; st = setTimeout(function(){ st = null; placeShelfAds(); }, 300); }
- var shEl = document.getElementById("shelves");
- if (shEl && "MutationObserver" in window) new MutationObserver(queueShelf).observe(shEl, { childList: true });
- setTimeout(placeShelfAds, 1500);
- setTimeout(placeShelfAds, 4000);
- var gateTopAnchor = document.querySelector("#v-gate .doors");
- if (gateTopAnchor && gateTopAnchor.parentNode && !document.getElementById("cb-gate-top")) {
-  gateTopAnchor.parentNode.insertBefore(sponsoredCard("cb-gate-top"), gateTopAnchor);
+ function placeGate(){
+  var doors = document.querySelector("#v-gate .doors");
+  if (doors && doors.parentNode && !document.getElementById("cb-gate-top")) doors.parentNode.insertBefore(sponsoredCard("cb-gate-top"), doors);
+  var mq = document.querySelector("#v-gate .marqwrap");
+  if (mq && mq.parentNode && !isBanner(mq.previousElementSibling)) mq.parentNode.insertBefore(sponsoredCard(), mq);
  }
- var gateSlotAnchor = document.querySelector("#v-gate .marqwrap");
- if (gateSlotAnchor && gateSlotAnchor.parentNode) gateSlotAnchor.parentNode.insertBefore(sponsoredCard(), gateSlotAnchor);
- var catsBody = document.getElementById("cats-body");
- if (catsBody && catsBody.parentNode) catsBody.parentNode.insertBefore(sponsoredCard(), catsBody);
- var sim = document.getElementById("d-simsec");
- if (sim && sim.parentNode) sim.parentNode.insertBefore(sponsoredCard(), sim.nextSibling);
+ function placeCats(){
+  var c = document.getElementById("cats-body");
+  if (c && c.parentNode && !isBanner(c.previousElementSibling)) c.parentNode.insertBefore(sponsoredCard(), c);
+ }
+ function placeDetails(){
+  var sim = document.getElementById("d-simsec");
+  if (sim && sim.parentNode && !isBanner(sim.nextElementSibling)) sim.parentNode.insertBefore(sponsoredCard(), sim.nextSibling);
+ }
  function placeGridAds(){
   var g = document.getElementById("grid");
   if (!g) return;
-  var cards = [].filter.call(g.children, function(c){ return !(c.classList && c.classList.contains("cb-banner-card")); });
-  var idxs = [];
-  for (var k = 11; k < cards.length; k += 18) idxs.push(k);
-  idxs.forEach(function(idx){
-   var card = cards[idx];
-   if (!card) return;
-   var n = card.nextElementSibling;
-   if (n && n.classList && n.classList.contains("cb-banner-card")) return;
+  var cards = [].filter.call(g.children, function(c){ return !isBanner(c); });
+  for (var k = 11; k < cards.length; k += 18){
+   var card = cards[k];
+   if (!card || isBanner(card.nextElementSibling)) continue;
    var bc = sponsoredCard();
    bc.style.gridColumn = "1 / -1";
    g.insertBefore(bc, card.nextSibling);
-  });
+  }
  }
- var gt = null;
- function queueGrid(){ if (gt) return; gt = setTimeout(function(){ gt = null; placeGridAds(); }, 300); }
- var gEl = document.getElementById("grid");
- if (gEl && "MutationObserver" in window) new MutationObserver(queueGrid).observe(gEl, { childList: true });
- setTimeout(placeGridAds, 1500);
- setTimeout(placeGridAds, 4000);
+ function cbBanners(){ placeHero(); placeShelves(); placeGate(); placeCats(); placeDetails(); placeGridAds(); }
+ cbBanners();
+ setTimeout(cbBanners, 1500);
+ setTimeout(cbBanners, 4000);
+ if (window.showView && !window.__cbBannerHook){
+  window.__cbBannerHook = 1;
+  var _sv = showView;
+  showView = function(id){ _sv(id); setTimeout(cbBanners, 350); setTimeout(cbBanners, 1600); };
+ }
+ var bt = null;
+ function queueBanners(){ if (bt) return; bt = setTimeout(function(){ bt = null; cbBanners(); }, 500); }
+ if ("MutationObserver" in window) new MutationObserver(queueBanners).observe(document.body, { childList: true, subtree: true });
 })();
 </script>
 <script>
