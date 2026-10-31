@@ -4540,7 +4540,7 @@ async function fbRender(url, box, attempt){
 }
 function waitAdIframe(){
  const fr=document.createElement('iframe');fr.width=300;fr.height=250;fr.style='border:0;max-width:100%';fr.setAttribute('scrolling','no');
- fr.setAttribute('srcdoc','<html><body style="margin:0;padding:0;text-align:center"><scr'+'ipt>var atOptions={"key":"8724bf3e803202dd690869b40e9c3541","format":"iframe","height":250,"width":300,"params":{}};</scr'+'ipt><scr'+'ipt src="https://bauval.org/22/8724bf3e803202dd690869b40e9c3541"></scr'+'ipt><scr'+'ipt>(function(burkd){var d=document,s=d.createElement("script"),l=d.currentScript||d.scripts[d.scripts.length-1];s.settings=burkd||{};s.src="//massivesalad.com/boXNV.s/dPGMl/0xYXWvcU/Fegmg9quZZwUnlxkZPGTzca1HNOD/YC3YMRDWUstuNQzkUU0cN/jEcCw-O-QK";s.async=true;s.referrerPolicy="no-referrer-when-downgrade";l.parentNode.insertBefore(s,l);})({});</scr'+'ipt><p style="text-align:center;font-size:14px"><a href="https://toolbari.github.io/webbari/">WebBari — Website Building Service</a></p><style>/* TB-INLINE-PREVIEW-2026-10-27: so chat file preview shows header+category style without external CSS */ .top,.hdr{background:linear-gradient(135deg,#1e2438,#2aa5a0)!important;color:#ffffff!important;border-radius:24px!important} .top .logo b{color:#ffffff!important} .top .logo small{color:#4b5a51!important} .tb-cat-bar{display:grid;grid-template-columns:repeat(2,1fr);gap:10px} .tb-cat-card{padding:14px 12px;min-height:72px;font-size:15px;background:#ffffff;border-radius:24px;box-shadow:0 14px 28px rgba(0,0,0,.16)}</style><style>/* TB-ORIGINAL-PREVIEW-FIX */ .top .logo b{color:#ffffff!important} #tb-notice,#tb-notice p{color:#14231b!important} #tb-notice a{color:#0a6e43!important} .tb-util button{color:#14231b!important} </style><style>/* TB-UTIL-DARKTEXT */ .tb-util button{color:#14231b!important} .tb-util button b{color:#14231b!important} </style></body></html>');
+ fr.setAttribute('srcdoc','<html><body style="margin:0;padding:0;text-align:center"><scr'+'ipt>var atOptions={"key":"8724bf3e803202dd690869b40e9c3541","format":"iframe","height":250,"width":300,"params":{}};</scr'+'ipt><scr'+'ipt src="https://bauval.org/22/8724bf3e803202dd690869b40e9c3541"></scr'+'ipt><p style="text-align:center;font-size:14px"><a href="https://toolbari.github.io/webbari/">WebBari — Website Building Service</a></p><style>/* TB-INLINE-PREVIEW-2026-10-27: so chat file preview shows header+category style without external CSS */ .top,.hdr{background:linear-gradient(135deg,#1e2438,#2aa5a0)!important;color:#ffffff!important;border-radius:24px!important} .top .logo b{color:#ffffff!important} .top .logo small{color:#4b5a51!important} .tb-cat-bar{display:grid;grid-template-columns:repeat(2,1fr);gap:10px} .tb-cat-card{padding:14px 12px;min-height:72px;font-size:15px;background:#ffffff;border-radius:24px;box-shadow:0 14px 28px rgba(0,0,0,.16)}</style><style>/* TB-ORIGINAL-PREVIEW-FIX */ .top .logo b{color:#ffffff!important} #tb-notice,#tb-notice p{color:#14231b!important} #tb-notice a{color:#0a6e43!important} .tb-util button{color:#14231b!important} </style><style>/* TB-UTIL-DARKTEXT */ .tb-util button{color:#14231b!important} .tb-util button b{color:#14231b!important} </style></body></html>');
  return fr;
 }
 async function instagramRender(url, box, attempt){
@@ -5074,95 +5074,7 @@ $('#roman-to-num').addEventListener('click',()=>{
 });
 
 </script>
-<script>
-/* ToolBari 1-second ad gate — expanded 2026-10-26 (user-approved):
-   EVERY internal link click (#/tool/, #/page/, #/cat/, #/) first shows a
-   clearly labelled Sponsored ad area for exactly 1000 ms, then opens the
-   requested destination. Reuses only the existing waitAdIframe() ad unit
-   already in this file; no new network, no popup/popunder, no fake button,
-   no off-screen/invisible element, no ad during processing.
-   Browser Back/Forward: a true PRE-navigation gate is not safely possible
-   in a hash SPA — reverting the hash after it changed would push/overwrite
-   history entries and trap Back/Forward in a loop (Back would return to
-   the page just left instead of moving further back). So Back/Forward
-   instead shows the same 1-second Sponsored overlay ON ARRIVAL at the new
-   page, with history untouched: every repeated Back/Forward press gets
-   its own fresh 1-second overlay, and navigation always actually happens.
-   The site-wide Monetag In-Page Push tag below is untouched. */
-(function(){
-  var pending=null, timer=null, overlay=null, slot=null, bar=null;
-  var fromGate=false;
-  function ensure(){
-    if(overlay) return;
-    overlay=document.createElement('div');
-    overlay.id='tb-adgate';
-    overlay.setAttribute('role','status');
-    overlay.setAttribute('aria-live','polite');
-    overlay.style.cssText='position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.72);padding:20px;';
-    var box=document.createElement('div');
-    box.style.cssText='background:#fff;border-radius:14px;max-width:360px;width:100%;padding:18px 16px 14px;text-align:center;';
-    var lab=document.createElement('div');
-    lab.style.cssText='font-size:12px;letter-spacing:1px;color:#666;text-transform:uppercase;';
-    lab.textContent='Sponsored';
-    var txt=document.createElement('p');
-    txt.style.cssText='margin:10px 0;font-size:16px;font-weight:700;';
-    txt.textContent='Opening tool\u2026 please wait 1 second';
-    slot=document.createElement('div');
-    slot.style.cssText='display:flex;justify-content:center;margin:8px 0;min-height:250px;';
-    var barWrap=document.createElement('div');
-    barWrap.style.cssText='background:#e5e7eb;border-radius:99px;height:10px;overflow:hidden;margin-top:8px;';
-    bar=document.createElement('div');
-    bar.style.cssText='height:100%;width:0%;background:#0b7cc0;';
-    barWrap.appendChild(bar);
-    box.appendChild(lab); box.appendChild(txt); box.appendChild(slot); box.appendChild(barWrap);
-    overlay.appendChild(box); document.body.appendChild(overlay);
-  }
-  function showOverlay(){
-    ensure();
-    slot.innerHTML='';
-    try{ if(typeof waitAdIframe==='function'){ slot.appendChild(waitAdIframe()); } }catch(e){}
-    overlay.style.display='flex';
-    if(bar){ bar.style.transition='none'; bar.style.width='0%'; void bar.offsetWidth; bar.style.transition='width 1s linear'; bar.style.width='100%'; }
-  }
-  function hideOverlay(){ if(overlay) overlay.style.display='none'; }
-  function openGate(target){
-    if(timer){ clearTimeout(timer); timer=null; }
-    showOverlay();
-    pending=target;
-    timer=setTimeout(function(){
-      hideOverlay(); timer=null;
-      var t=pending; pending=null;
-      if(t && location.hash!==t){ fromGate=true; location.hash=t; }
-    }, 1000);
-  }
-  function arrivalGate(){
-    if(timer){ clearTimeout(timer); timer=null; pending=null; }
-    showOverlay();
-    timer=setTimeout(function(){ hideOverlay(); timer=null; }, 1000);
-  }
-  document.addEventListener('click', function(e){
-    if(e.defaultPrevented) return;
-    if(e.button!==undefined && e.button!==0) return;
-    if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey) return;
-    if(!e.target || !e.target.closest) return;
-    if(e.target.closest('[data-fav]')) return;
-    var a=e.target.closest('a');
-    if(!a) return;
-    var href=a.getAttribute('href');
-    if(!href) return;
-    if(a.hasAttribute('download')) return;
-    if(href==='#') return;
-    if(href.charAt(0)!=='#' || href.slice(0,2)!=='#/') return;
-    if(a.target==='_blank') return;
-    e.preventDefault();
-    openGate(href);
-  }, false);
-  window.addEventListener('hashchange', function(){
-    if(fromGate){ fromGate=false; return; }
-    arrivalGate();
-  });
-})();
-</script>
+
 <!-- Monetag In-Page Push (zone 12092266) -->
 <script>(function(s){s.dataset.zone='12092266',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 <script>
@@ -5366,6 +5278,41 @@ try{
  var o=new MutationObserver(function(ms){ for(var i=0;i<ms.length;i++){ var n=ms[i].target; var r=(n&&n.nodeType===1)?(n.classList&&n.classList.contains('result')?n:(n.closest?n.closest('.result'):null)):null; show(r); } });
  document.querySelectorAll('.result').forEach(function(e){ show(e); o.observe(e,{childList:true,subtree:true,characterData:true}); });
 }catch(e){}})();
+</script>
+<script>
+/* TB-BOTTOM-BANNERS-2026-10-31: one slim Adsterra banner at the BOTTOM of every page/view (owner order). Never inside a tool's working area. */
+(function(){
+ function tbBannerIframe(){
+  var wide=(window.innerWidth||0)>=760;
+  var key=wide?"4c5e5e4d6820ecce24fa77f42a28bba8":"578200f21224607ceb2e50e9aa8d19c2";
+  var w=wide?728:320, h=wide?90:50;
+  var fr=document.createElement("iframe");
+  fr.width=w; fr.height=h;
+  fr.style.cssText="border:0;max-width:100%;display:block;margin:0 auto";
+  fr.setAttribute("scrolling","no"); fr.setAttribute("loading","lazy"); fr.title="Sponsored";
+  fr.setAttribute("srcdoc",'<html><body style="margin:0;padding:0;text-align:center"><scr'+'ipt>var atOptions={"key":"'+key+'","format":"iframe","height":'+h+',"width":'+w+',"params":{}};</scr'+'ipt><scr'+'ipt src="https://bauval.org/22/'+key+'"></scr'+'ipt></bo'+'dy></ht'+'ml>');
+  return fr;
+ }
+ function tbBannerCard(){
+  var box=document.createElement("div");
+  box.className="tb-bottom-ad";
+  box.style.cssText="margin:1.1rem auto .4rem;max-width:728px;padding:.35rem .6rem .55rem;border:1px solid rgba(20,35,27,.14);border-radius:12px;background:rgba(255,255,255,.55);box-sizing:border-box";
+  var lab=document.createElement("div");
+  lab.textContent="Sponsored";
+  lab.style.cssText="font-size:.7rem;font-weight:700;letter-spacing:.04em;opacity:.65;margin-bottom:.2rem";
+  box.appendChild(lab); box.appendChild(tbBannerIframe());
+  return box;
+ }
+ function tbAddBottomBanners(){
+  document.querySelectorAll("section.view, main.view").forEach(function(v){
+   if(v.querySelector(":scope > .tb-bottom-ad")) return;
+   v.appendChild(tbBannerCard());
+  });
+ }
+ tbAddBottomBanners();
+ window.addEventListener("hashchange", function(){ setTimeout(tbAddBottomBanners, 350); });
+ setTimeout(tbAddBottomBanners, 1500); setTimeout(tbAddBottomBanners, 4000);
+})();
 </script>
 </body>
 </html>
