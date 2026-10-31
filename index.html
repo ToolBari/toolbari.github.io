@@ -5348,9 +5348,12 @@ try{
   });
   var wrap=document.querySelector("#view-home .wrap");
   if(wrap){
+   if(!(wrap.previousElementSibling && wrap.previousElementSibling.classList && wrap.previousElementSibling.classList.contains("tb-mid-ad"))){
+    wrap.parentNode.insertBefore(tbMidCard(), wrap);
+   }
    var blocks=[].filter.call(wrap.children, function(c){ return !(c.tagName==="SCRIPT"||c.tagName==="STYLE"||c.tagName==="TEMPLATE"||isAd(c)); });
    var have=wrap.querySelectorAll(":scope > .tb-mid-ad").length;
-   for(var i=3;i<blocks.length && have<3;i+=4){
+   for(var i=1;i<blocks.length && have<4;i+=2){
     var b=blocks[i], n=b.nextElementSibling;
     if(n && n.classList && n.classList.contains("tb-mid-ad")) continue;
     wrap.insertBefore(tbMidCard(), b.nextSibling); have++;
