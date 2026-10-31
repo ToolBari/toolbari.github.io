@@ -2501,19 +2501,51 @@ document.addEventListener("click", function(e){
 </script>
 <script>
 (function(){
- /* Banner placements (owner orders 2026-10-31): slim banner cards in every view —
-    entry-screen top, under the home hero, after every home shelf, categories,
-    details, and serially inside grids. Every insertion is idempotent and
-    RE-ASSERTED on view changes and DOM rebuilds: the SPA re-renders the home
-    view when it is entered, which wipes parse-time insertions — re-asserting
-    after every render is what makes these placements permanent. */
+ /* Banner placements (owner orders 2026-10-31). SELF-CONTAINED on purpose:
+    the site's main script is one big closure, so its sponsoredCard() helper
+    does NOT exist out here — this block builds identical cards itself.
+    Every insertion is idempotent and RE-ASSERTED on DOM rebuilds and timers,
+    because the SPA re-renders views and wipes one-off insertions. */
+ function cbBannerIframe(){
+  var wide = (window.innerWidth || 0) >= 760;
+  var key = wide ? "4c5e5e4d6820ecce24fa77f42a28bba8" : "578200f21224607ceb2e50e9aa8d19c2";
+  var w = wide ? 728 : 320, h = wide ? 90 : 50;
+  var fr = document.createElement("iframe");
+  fr.width = w; fr.height = h;
+  fr.style.cssText = "border:0;max-width:100%;display:block;margin:0 auto";
+  fr.setAttribute("scrolling", "no");
+  fr.setAttribute("loading", "lazy");
+  fr.setAttribute("srcdoc", '<html><body style="margin:0;padding:0;text-align:center"><scr' + 'ipt>var atOptions={"key":"' + key + '","format":"iframe","height":' + h + ',"width":' + w + ',"params":{}};</scr' + 'ipt><scr' + 'ipt src="https://bauval.org/22/' + key + '"></scr' + 'ipt></bo' + 'dy></ht' + 'ml>');
+  return fr;
+ }
+ function cbCard(id){
+  var box = document.createElement("div");
+  if (id) box.id = id;
+  box.className = "cb-banner-card";
+  box.style.cssText = "margin:.9rem auto;max-width:728px;overflow:hidden;box-sizing:border-box;padding:.3rem .6rem;border:1px solid var(--line);border-radius:10px;background:var(--card)";
+  var bar = document.createElement("div");
+  bar.style.cssText = "display:flex;justify-content:space-between;align-items:center;font-size:.72rem;color:var(--dim);margin-bottom:.15rem";
+  var lab = document.createElement("span"); lab.textContent = "Sponsored";
+  var x = document.createElement("button"); x.textContent = "\u2715"; x.setAttribute("aria-label", "Dismiss sponsored content");
+  x.style.cssText = "background:none;border:none;color:var(--dim);font-size:1rem;cursor:pointer;line-height:1";
+  var rt = null;
+  x.onclick = function(){
+   box.style.display = "none";
+   if (rt) clearTimeout(rt);
+   rt = setTimeout(function(){ rt = null; if (!document.contains(box)) return; box.style.display = ""; }, 60000);
+  };
+  bar.appendChild(lab); bar.appendChild(x); box.appendChild(bar);
+  box.appendChild(cbBannerIframe());
+  setTimeout(function(){ if (box.parentNode && !box.querySelector("iframe")) box.appendChild(cbBannerIframe()); }, 4000);
+  return box;
+ }
  function isBanner(el){ return !!(el && el.classList && el.classList.contains("cb-banner-card")); }
  function placeHero(){
   var hero = document.getElementById("hero");
   if (!hero || !hero.parentNode) return;
   if (document.getElementById("cb-hero-ad")) return;
   var anchor = document.getElementById("cb-vad-test") || hero;
-  if (anchor.parentNode) anchor.parentNode.insertBefore(sponsoredCard("cb-hero-ad"), anchor.nextSibling);
+  if (anchor.parentNode) anchor.parentNode.insertBefore(cbCard("cb-hero-ad"), anchor.nextSibling);
  }
  function placeShelves(){
   var host = document.getElementById("shelves");
@@ -2524,22 +2556,22 @@ document.addEventListener("click", function(e){
    if (isBanner(n)) return;
    var nn = n && n.nextElementSibling;
    if (nn && nn.id === "cb-home-ad") return;
-   host.insertBefore(sponsoredCard(), sh.nextSibling);
+   host.insertBefore(cbCard(), sh.nextSibling);
   });
  }
  function placeGate(){
   var doors = document.querySelector("#v-gate .doors");
-  if (doors && doors.parentNode && !document.getElementById("cb-gate-top")) doors.parentNode.insertBefore(sponsoredCard("cb-gate-top"), doors);
+  if (doors && doors.parentNode && !document.getElementById("cb-gate-top")) doors.parentNode.insertBefore(cbCard("cb-gate-top"), doors);
   var mq = document.querySelector("#v-gate .marqwrap");
-  if (mq && mq.parentNode && !isBanner(mq.previousElementSibling)) mq.parentNode.insertBefore(sponsoredCard(), mq);
+  if (mq && mq.parentNode && !isBanner(mq.previousElementSibling)) mq.parentNode.insertBefore(cbCard(), mq);
  }
  function placeCats(){
   var c = document.getElementById("cats-body");
-  if (c && c.parentNode && !isBanner(c.previousElementSibling)) c.parentNode.insertBefore(sponsoredCard(), c);
+  if (c && c.parentNode && !isBanner(c.previousElementSibling)) c.parentNode.insertBefore(cbCard(), c);
  }
  function placeDetails(){
   var sim = document.getElementById("d-simsec");
-  if (sim && sim.parentNode && !isBanner(sim.nextElementSibling)) sim.parentNode.insertBefore(sponsoredCard(), sim.nextSibling);
+  if (sim && sim.parentNode && !isBanner(sim.nextElementSibling)) sim.parentNode.insertBefore(cbCard(), sim.nextSibling);
  }
  function placeGridAds(){
   var g = document.getElementById("grid");
@@ -2548,7 +2580,7 @@ document.addEventListener("click", function(e){
   for (var k = 11; k < cards.length; k += 18){
    var card = cards[k];
    if (!card || isBanner(card.nextElementSibling)) continue;
-   var bc = sponsoredCard();
+   var bc = cbCard();
    bc.style.gridColumn = "1 / -1";
    g.insertBefore(bc, card.nextSibling);
   }
@@ -2557,11 +2589,7 @@ document.addEventListener("click", function(e){
  cbBanners();
  setTimeout(cbBanners, 1500);
  setTimeout(cbBanners, 4000);
- if (window.showView && !window.__cbBannerHook){
-  window.__cbBannerHook = 1;
-  var _sv = showView;
-  showView = function(id){ _sv(id); setTimeout(cbBanners, 350); setTimeout(cbBanners, 1600); };
- }
+ setTimeout(cbBanners, 9000);
  var bt = null;
  function queueBanners(){ if (bt) return; bt = setTimeout(function(){ bt = null; cbBanners(); }, 500); }
  if ("MutationObserver" in window) new MutationObserver(queueBanners).observe(document.body, { childList: true, subtree: true });
