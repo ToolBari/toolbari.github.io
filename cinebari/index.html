@@ -588,7 +588,8 @@ img{max-width:100%;height:auto}
  <div class="eps" id="d-eps"></div>
  </div>
  <div class="dsec" id="d-castsec" style="display:none"><h3>Cast</h3><div class="cast" id="d-cast"></div></div>
- <div class="dsec" id="d-simsec" style="display:none"><h3>More Like This</h3><div class="row" id="d-sim" style="padding-left:0;padding-right:0"></div></div>
+ <div class="cb-vad-slot" id="cb-vad-details" style="margin:1.3rem auto 0;width:min(560px,94vw);background:#000;border:1px solid rgba(163,230,53,.35);border-radius:10px;overflow:hidden"><div style="padding:2px 8px;background:#101604;color:#a3e635;font-size:11px;font-weight:700">Sponsored</div></div>
+<div class="dsec" id="d-simsec" style="display:none"><h3>More Like This</h3><div class="row" id="d-sim" style="padding-left:0;padding-right:0"></div></div>
  <div class="dsec" id="d-wtwsec" style="display:none"><h3>Where to Watch</h3><p id="d-wtw"></p></div>
  <div class="dsec" id="d-stillsec" style="display:none"><h3>Stills</h3><div class="stills" id="d-stills"></div></div>
  </div>
@@ -2545,6 +2546,40 @@ document.addEventListener("click", function(e){
  if (shEl && "MutationObserver" in window) new MutationObserver(queue).observe(shEl, { childList: true });
  setTimeout(placeAds, 1500);
  setTimeout(placeAds, 4000);
+ function armFrame(box){
+  var f = box.querySelector("iframe");
+  if (f) return;
+  f = document.createElement("iframe");
+  f.setAttribute("scrolling", "no");
+  f.title = "Sponsored video";
+  f.style.cssText = "border:0;width:100%;aspect-ratio:16/9;display:block;background:#000";
+  box.appendChild(f);
+  if ("IntersectionObserver" in window){
+   var io = new IntersectionObserver(function(es){ es.forEach(function(en){ if (en.isIntersecting){ f.setAttribute("srcdoc", SRC); io.disconnect(); } }); }, { rootMargin: "400px" });
+   io.observe(box);
+  } else { f.setAttribute("srcdoc", SRC); }
+ }
+ var dSlot = document.getElementById("cb-vad-details");
+ if (dSlot) armFrame(dSlot);
+ function placeGridAds(){
+  var g = document.getElementById("grid");
+  if (!g) return;
+  var cards = [].filter.call(g.children, function(c){ return !(c.classList && c.classList.contains("cb-vad-slot")); });
+  [11, 29].forEach(function(idx){
+   var card = cards[idx];
+   if (!card) return;
+   var n = card.nextElementSibling;
+   if (n && n.classList && n.classList.contains("cb-vad-slot")) return;
+   var box = mkBox();
+   box.style.gridColumn = "1 / -1";
+   box.style.margin = "0 auto";
+   g.insertBefore(box, card.nextSibling);
+  });
+ }
+ var gt = null;
+ function queueGrid(){ if (gt) return; gt = setTimeout(function(){ gt = null; placeGridAds(); }, 300); }
+ var gEl = document.getElementById("grid");
+ if (gEl && "MutationObserver" in window) new MutationObserver(queueGrid).observe(gEl, { childList: true });
 })();
 </script>
 </body></html>";
