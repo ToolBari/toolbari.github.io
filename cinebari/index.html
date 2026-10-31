@@ -2505,19 +2505,46 @@ document.addEventListener("click", function(e){
  if(pv) new MutationObserver(function(){ document.body.classList.toggle("cb-playing", pv.classList.contains("on")); }).observe(pv, { attributes: true, attributeFilter: ["class"] });
 })();
 </script>
-<style>body.cb-playing #cb-vad{display:none!important}</style>
-<div id="cb-vad" style="display:none;position:fixed;right:10px;bottom:10px;width:300px;max-width:62vw;z-index:9000;background:#000;border:1px solid rgba(163,230,53,.35);border-radius:10px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.55)">
-<div style="display:flex;justify-content:space-between;align-items:center;padding:2px 4px 2px 8px;background:#101604;color:#a3e635;font-size:11px;font-weight:700"><span>Sponsored</span><button id="cb-vad-x" data-cwx="1" aria-label="Close" style="background:none;border:none;color:#fff;font-size:16px;cursor:pointer;line-height:1;padding:2px 6px">✕</button></div>
-<iframe id="cb-vad-f" title="Sponsored video" style="border:0;width:100%;aspect-ratio:16/9;display:block;background:#000" scrolling="no"></iframe>
-</div>
 <script>
 (function(){
- var closed = false;
- try { closed = sessionStorage.getItem("cb_vad_closed") === "1"; } catch(e){}
- if (closed) return;
- var box = document.getElementById("cb-vad"), fr = document.getElementById("cb-vad-f");
- document.getElementById("cb-vad-x").addEventListener("click", function(){ box.style.display = "none"; try { sessionStorage.setItem("cb_vad_closed", "1"); } catch(e){} });
  var SRC = "<html><body style=\"margin:0;padding:0;background:#000;text-align:center\"><script>(function(burkd){var d=document,s=d.createElement('script'),l=d.currentScript||d.scripts[d.scripts.length-1];s.settings=burkd||{};s.src=\"//massivesalad.com/boXNV.s/dPGMl/0xYXWvcU/Fegmg9quZZwUnlxkZPGTzca1HNOD/YC3YMRDWUstuNQzkUU0cN/jEcCw-O-QK\";s.async=true;s.referrerPolicy='no-referrer-when-downgrade';l.parentNode.insertBefore(s,l);})({});</scr" + "ipt></body></html>";
+ function mkBox(){
+  var w = document.createElement("div");
+  w.className = "cb-vad-slot";
+  w.style.cssText = "margin:1.3rem auto 0;width:min(560px,94vw);background:#000;border:1px solid rgba(163,230,53,.35);border-radius:10px;overflow:hidden";
+  w.innerHTML = '<div style="padding:2px 8px;background:#101604;color:#a3e635;font-size:11px;font-weight:700">Sponsored</div>';
+  var f = document.createElement("iframe");
+  f.setAttribute("scrolling", "no");
+  f.title = "Sponsored video";
+  f.style.cssText = "border:0;width:100%;aspect-ratio:16/9;display:block;background:#000";
+  w.appendChild(f);
+  if ("IntersectionObserver" in window){
+   var io = new IntersectionObserver(function(es){ es.forEach(function(en){ if (en.isIntersecting){ f.setAttribute("srcdoc", SRC); io.disconnect(); } }); }, { rootMargin: "400px" });
+   io.observe(w);
+  } else { f.setAttribute("srcdoc", SRC); }
+  return w;
+ }
+ function placeAds(){
+  var sh = document.getElementById("shelves");
+  if (!sh) return;
+  var shelves = [].filter.call(sh.children, function(c){ return c.classList && c.classList.contains("shelf"); });
+  [2, 7, 12].forEach(function(idx){
+   var sf = shelves[idx];
+   if (!sf) return;
+   var n = sf.nextElementSibling;
+   if (n && n.classList && n.classList.contains("cb-vad-slot")) return;
+   sf.parentNode.insertBefore(mkBox(), sf.nextSibling);
+  });
+ }
+ var t = null;
+ function queue(){ if (t) return; t = setTimeout(function(){ t = null; placeAds(); }, 300); }
+ var shEl = document.getElementById("shelves");
+ if (shEl && "MutationObserver" in window) new MutationObserver(queue).observe(shEl, { childList: true });
+ setTimeout(placeAds, 1500);
+ setTimeout(placeAds, 4000);
+})();
+</script>
+</body></html>";
  setTimeout(function(){ fr.setAttribute("srcdoc", SRC); box.style.display = "block"; }, 2500);
 })();
 </script>
