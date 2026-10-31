@@ -2554,7 +2554,9 @@ document.addEventListener("click", function(e){
   var g = document.getElementById("grid");
   if (!g) return;
   var cards = [].filter.call(g.children, function(c){ return !(c.classList && c.classList.contains("cb-vad-slot")); });
-  [11, 29].forEach(function(idx){
+  var idxs = [];
+  for (var k = 11; k < cards.length; k += 18) idxs.push(k);
+  idxs.forEach(function(idx){
    var card = cards[idx];
    if (!card) return;
    var n = card.nextElementSibling;
