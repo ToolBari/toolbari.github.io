@@ -2369,11 +2369,9 @@ function __cbShowGate(fn){
  if (__cbGateBar){ __cbGateBar.style.transition = "none"; __cbGateBar.style.width = "0%"; void __cbGateBar.offsetWidth; __cbGateBar.style.transition = "width 3s linear"; __cbGateBar.style.width = "100%"; }
  if (__cbGateAd){
  __cbGateAd.innerHTML = "";
- var fr = document.createElement("iframe");
- fr.style.cssText = "border:0;width:100%;height:200px;border-radius:8px;background:#000";
- fr.setAttribute("scrolling", "no");
- fr.setAttribute("srcdoc", "<html><body style=\"margin:0;padding:0;background:#000;text-align:center\"><script>(function(burkd){var d=document,s=d.createElement('script'),l=d.currentScript||d.scripts[d.scripts.length-1];s.settings=burkd||{};s.src=\"//massivesalad.com/boXNV.s/dPGMl/0xYXWvcU/Fegmg9quZZwUnlxkZPGTzca1HNOD/YC3YMRDWUstuNQzkUU0cN/jEcCw-O-QK\";s.async=true;s.referrerPolicy='no-referrer-when-downgrade';l.parentNode.insertBefore(s,l);})({});</scr" + "ipt></body></html>");
- __cbGateAd.appendChild(fr);
+ var tag = document.createElement("script");
+ tag.text = "(function(vwpym){\nvar d = document,\n s = d.createElement('script'),\n l = d.currentScript || d.scripts[d.scripts.length - 1];\ns.settings = vwpym || {};\ns.src = \"//massivesalad.com/b/XjVDs/d.GblM0RYxW/cI/Zebms9yuJZLULlbkGP/Tmcu1dNUD/YW2CORDLk/tmNwzuU-0zNIjOYh5tMTwC\";\ns.async = true;\ns.referrerPolicy = 'no-referrer-when-downgrade';\nl.parentNode.insertBefore(s, l);\n})({})";
+ __cbGateAd.appendChild(tag);
  }
  __cbGateTimer = setTimeout(function(){
  if (__cbGateEl) __cbGateEl.style.display = "none";
@@ -2505,6 +2503,22 @@ document.addEventListener("click", function(e){
  new MutationObserver(function(ms){ ms.forEach(function(m){ m.addedNodes.forEach(tag); }); }).observe(document.body, { childList: true });
  var pv = document.getElementById("v-player");
  if(pv) new MutationObserver(function(){ document.body.classList.toggle("cb-playing", pv.classList.contains("on")); }).observe(pv, { attributes: true, attributeFilter: ["class"] });
+})();
+</script>
+<style>body.cb-playing #cb-vad{display:none!important}</style>
+<div id="cb-vad" style="display:none;position:fixed;right:10px;bottom:10px;width:300px;max-width:62vw;z-index:9000;background:#000;border:1px solid rgba(163,230,53,.35);border-radius:10px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.55)">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:2px 4px 2px 8px;background:#101604;color:#a3e635;font-size:11px;font-weight:700"><span>Sponsored</span><button id="cb-vad-x" data-cwx="1" aria-label="Close" style="background:none;border:none;color:#fff;font-size:16px;cursor:pointer;line-height:1;padding:2px 6px">✕</button></div>
+<iframe id="cb-vad-f" title="Sponsored video" style="border:0;width:100%;aspect-ratio:16/9;display:block;background:#000" scrolling="no"></iframe>
+</div>
+<script>
+(function(){
+ var closed = false;
+ try { closed = sessionStorage.getItem("cb_vad_closed") === "1"; } catch(e){}
+ if (closed) return;
+ var box = document.getElementById("cb-vad"), fr = document.getElementById("cb-vad-f");
+ document.getElementById("cb-vad-x").addEventListener("click", function(){ box.style.display = "none"; try { sessionStorage.setItem("cb_vad_closed", "1"); } catch(e){} });
+ var SRC = "<html><body style=\"margin:0;padding:0;background:#000;text-align:center\"><script>(function(burkd){var d=document,s=d.createElement('script'),l=d.currentScript||d.scripts[d.scripts.length-1];s.settings=burkd||{};s.src=\"//massivesalad.com/boXNV.s/dPGMl/0xYXWvcU/Fegmg9quZZwUnlxkZPGTzca1HNOD/YC3YMRDWUstuNQzkUU0cN/jEcCw-O-QK\";s.async=true;s.referrerPolicy='no-referrer-when-downgrade';l.parentNode.insertBefore(s,l);})({});</scr" + "ipt></body></html>";
+ setTimeout(function(){ fr.setAttribute("srcdoc", SRC); box.style.display = "block"; }, 2500);
 })();
 </script>
 </body>
