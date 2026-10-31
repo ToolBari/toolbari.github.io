@@ -2502,7 +2502,30 @@ document.addEventListener("click", function(e){
 <script>
 (function(){
  /* Banners-only placements (owner order 2026-10-31): all HilltopAds video boxes removed;
-    a single NEW video zone test box sits under the home hero (id cb-vad-test). */
+    banner cards now also fill the spots the video boxes vacated — one directly
+    under the home hero, and one after every home shelf, in serial. */
+ var heroEl = document.getElementById("hero");
+ if (heroEl && heroEl.parentNode && !document.getElementById("cb-hero-ad")) {
+  heroEl.parentNode.insertBefore(sponsoredCard("cb-hero-ad"), heroEl.nextSibling);
+ }
+ function placeShelfAds(){
+  var host = document.getElementById("shelves");
+  if (!host) return;
+  [].slice.call(host.children).forEach(function(sh){
+   if (!(sh.classList && sh.classList.contains("shelf"))) return;
+   var n = sh.nextElementSibling;
+   if (n && n.classList && n.classList.contains("cb-banner-card")) return;
+   var nn = n && n.nextElementSibling;
+   if (nn && nn.id === "cb-home-ad") return;
+   host.insertBefore(sponsoredCard(), sh.nextSibling);
+  });
+ }
+ var st = null;
+ function queueShelf(){ if (st) return; st = setTimeout(function(){ st = null; placeShelfAds(); }, 300); }
+ var shEl = document.getElementById("shelves");
+ if (shEl && "MutationObserver" in window) new MutationObserver(queueShelf).observe(shEl, { childList: true });
+ setTimeout(placeShelfAds, 1500);
+ setTimeout(placeShelfAds, 4000);
  var gateSlotAnchor = document.querySelector("#v-gate .marqwrap");
  if (gateSlotAnchor && gateSlotAnchor.parentNode) gateSlotAnchor.parentNode.insertBefore(sponsoredCard(), gateSlotAnchor);
  var catsBody = document.getElementById("cats-body");
