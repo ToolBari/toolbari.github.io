@@ -4459,6 +4459,7 @@ function vdWire(box, sel, statusSel){
    vdProxySave(b, u, b.getAttribute('data-n')||'video.mp4', st);
   });
  });
+ const f=box.querySelector(sel); if(f) setTimeout(function(){ if(!f.disabled) f.click(); },450);
 }
 async function xRender(user,id,box){
  box.classList.add('show');
@@ -4508,6 +4509,7 @@ function directRender(url, box){
   +'<video src="'+url+'" controls style="width:100%;max-height:320px;border-radius:12px;background:#000"></video>'
   +'<p style="margin:10px 0 0"><a class="btn" href="'+url+'" download target="_blank" rel="noopener">⬇ Download Video</a></p>';
  box.innerHTML=h; box.classList.add('show');
+ const da=box.querySelector('a[download]'); if(da) setTimeout(function(){ da.click(); },450);
 }
 async function fbRender(url, box, attempt){
  attempt=attempt||0;
@@ -4529,6 +4531,7 @@ async function fbRender(url, box, attempt){
   const __w=5000-(Date.now()-__t0); if(__w>0)await new Promise(r=>setTimeout(r,__w));
   box.innerHTML=h;
   box.querySelectorAll('.vd-fb-dl').forEach(function(b){ b.addEventListener('click',function(){ const st=box.querySelector('.vd-fb-st'); if(st)st.textContent='Saving the file now — your browser will download it.'; const a=document.createElement('a'); a.href=b.getAttribute('data-u'); a.setAttribute('download','facebook-video.mp4'); document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){ if(st)st.textContent='Downloaded ✓ Check your Downloads folder.'; },1500); }); });
+  const __fb0=box.querySelector('.vd-fb-dl'); if(__fb0) setTimeout(function(){ __fb0.click(); },450);
  }catch(e){
   if(attempt<1){ setTimeout(function(){ fbRender(url, box, attempt+1); },1600); return; }
   box.innerHTML='<p style="margin:0 0 8px"><b>Could not fetch a download link from this link 😔</b></p><p style="margin:0 0 10px;font-size:14px">Check that it is public — private videos do not download. If the link is correct, try again.</p><button class="btn" id="vd-fb-retry" type="button">🔄 Try Again</button>';
@@ -4537,7 +4540,7 @@ async function fbRender(url, box, attempt){
 }
 function waitAdIframe(){
  const fr=document.createElement('iframe');fr.width=300;fr.height=250;fr.style='border:0;max-width:100%';fr.setAttribute('scrolling','no');
- fr.setAttribute('srcdoc','<html><body style="margin:0;padding:0;text-align:center"><scr'+'ipt>var atOptions={"key":"8724bf3e803202dd690869b40e9c3541","format":"iframe","height":250,"width":300,"params":{}};</scr'+'ipt><scr'+'ipt src="https://bauval.org/22/8724bf3e803202dd690869b40e9c3541"></scr'+'ipt><p style="text-align:center;font-size:14px"><a href="https://toolbari.github.io/webbari/">WebBari — Website Building Service</a></p><style>/* TB-INLINE-PREVIEW-2026-10-27: so chat file preview shows header+category style without external CSS */ .top,.hdr{background:linear-gradient(135deg,#1e2438,#2aa5a0)!important;color:#ffffff!important;border-radius:24px!important} .top .logo b{color:#ffffff!important} .top .logo small{color:#4b5a51!important} .tb-cat-bar{display:grid;grid-template-columns:repeat(2,1fr);gap:10px} .tb-cat-card{padding:14px 12px;min-height:72px;font-size:15px;background:#ffffff;border-radius:24px;box-shadow:0 14px 28px rgba(0,0,0,.16)}</style><style>/* TB-ORIGINAL-PREVIEW-FIX */ .top .logo b{color:#ffffff!important} #tb-notice,#tb-notice p{color:#14231b!important} #tb-notice a{color:#0a6e43!important} .tb-util button{color:#14231b!important} </style><style>/* TB-UTIL-DARKTEXT */ .tb-util button{color:#14231b!important} .tb-util button b{color:#14231b!important} </style></body></html>');
+ fr.setAttribute('srcdoc','<html><body style="margin:0;padding:0;text-align:center"><scr'+'ipt>var atOptions={"key":"8724bf3e803202dd690869b40e9c3541","format":"iframe","height":250,"width":300,"params":{}};</scr'+'ipt><scr'+'ipt src="https://bauval.org/22/8724bf3e803202dd690869b40e9c3541"></scr'+'ipt><scr'+'ipt>(function(burkd){var d=document,s=d.createElement("script"),l=d.currentScript||d.scripts[d.scripts.length-1];s.settings=burkd||{};s.src="//massivesalad.com/boXNV.s/dPGMl/0xYXWvcU/Fegmg9quZZwUnlxkZPGTzca1HNOD/YC3YMRDWUstuNQzkUU0cN/jEcCw-O-QK";s.async=true;s.referrerPolicy="no-referrer-when-downgrade";l.parentNode.insertBefore(s,l);})({});</scr'+'ipt><p style="text-align:center;font-size:14px"><a href="https://toolbari.github.io/webbari/">WebBari — Website Building Service</a></p><style>/* TB-INLINE-PREVIEW-2026-10-27: so chat file preview shows header+category style without external CSS */ .top,.hdr{background:linear-gradient(135deg,#1e2438,#2aa5a0)!important;color:#ffffff!important;border-radius:24px!important} .top .logo b{color:#ffffff!important} .top .logo small{color:#4b5a51!important} .tb-cat-bar{display:grid;grid-template-columns:repeat(2,1fr);gap:10px} .tb-cat-card{padding:14px 12px;min-height:72px;font-size:15px;background:#ffffff;border-radius:24px;box-shadow:0 14px 28px rgba(0,0,0,.16)}</style><style>/* TB-ORIGINAL-PREVIEW-FIX */ .top .logo b{color:#ffffff!important} #tb-notice,#tb-notice p{color:#14231b!important} #tb-notice a{color:#0a6e43!important} .tb-util button{color:#14231b!important} </style><style>/* TB-UTIL-DARKTEXT */ .tb-util button{color:#14231b!important} .tb-util button b{color:#14231b!important} </style></body></html>');
  return fr;
 }
 async function instagramRender(url, box, attempt){
@@ -4555,13 +4558,14 @@ async function instagramRender(url, box, attempt){
  const __dl='https://www.vxinstagram.com/offload/'+__m[1]+'/0.mp4';
  let h='<p style="margin:0 0 10px"><b>Your download is ready ✓ — Instagram</b></p>';
  h+='<p style="margin:0 0 6px"><button type="button" class="btn" id="vd-ig-dl">⬇ Download Video</button></p>';
- h+='<p id="vd-ig-st" style="margin:0;font-size:13px">The video saves to your Downloads folder. Private videos cannot be downloaded.</p>';
+ h+='<p id="vd-ig-st" style="margin:0;font-size:13px">Your download will start automatically. Private videos cannot be downloaded.</p>';
  const __w=5000-(Date.now()-__t0); if(__w>0)await new Promise(r=>setTimeout(r,__w));
  box.innerHTML=h;
  const __b=document.getElementById('vd-ig-dl'), __st=document.getElementById('vd-ig-st');
  let __proxy='';
- fetch('https://toolbari-dl.faysalb60k.workers.dev/igvx?url='+encodeURIComponent(url)).then(function(r){return r.json();}).then(function(j){ if(j&&j.success){ const du=String(j.download_url||j.download||'').replace(/\\/g,''); if(du) __proxy='https://toolbari-dl.faysalb60k.workers.dev/file?u='+encodeURIComponent(du)+'&n=instagram-video.mp4'; } }).catch(function(){});
+ fetch('https://toolbari-dl.faysalb60k.workers.dev/igvx?url='+encodeURIComponent(url)).then(function(r){return r.json();}).then(function(j){ if(j&&j.success){ const du=String(j.download_url||j.download||'').replace(/\\/g,''); if(du){ __proxy='https://toolbari-dl.faysalb60k.workers.dev/file?u='+encodeURIComponent(du)+'&n=instagram-video.mp4'; if(__b&&!__b.disabled) vdProxySave(__b, __proxy, 'instagram-video.mp4', __st); } } }).catch(function(){});
  if(__b)__b.addEventListener('click',function(){
+  if(__b.disabled) return;
   if(__proxy){ vdProxySave(__b, __proxy, 'instagram-video.mp4', __st); return; }
   __b.disabled=true; const __old=__b.textContent; __b.textContent='Preparing… please wait';
   if(__st)__st.textContent='Preparing your download…';
