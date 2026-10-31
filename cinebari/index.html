@@ -2531,7 +2531,7 @@ document.addEventListener("click", function(e){
   var sh = document.getElementById("shelves");
   if (!sh) return;
   var shelves = [].filter.call(sh.children, function(c){ return c.classList && c.classList.contains("shelf"); });
-  [2, 7, 12].forEach(function(idx){
+  [2, 6, 10, 14, 18, 22].forEach(function(idx){
    var sf = shelves[idx];
    if (!sf) return;
    var n = sf.nextElementSibling;
