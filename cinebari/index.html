@@ -588,7 +588,7 @@ img{max-width:100%;height:auto}
  <div class="eps" id="d-eps"></div>
  </div>
  <div class="dsec" id="d-castsec" style="display:none"><h3>Cast</h3><div class="cast" id="d-cast"></div></div>
- <div class="cb-vad-slot" id="cb-vad-details" style="margin:1.3rem auto 0;width:min(560px,94vw);background:#000;border:1px solid rgba(163,230,53,.35);border-radius:10px;overflow:hidden"><div style="padding:2px 8px;background:#101604;color:#a3e635;font-size:11px;font-weight:700">Sponsored</div></div>
+ <div class="cb-vad-slot" id="cb-vad-details" style="margin:1.3rem auto 0;width:min(340px,94vw);background:#000;border:1px solid rgba(163,230,53,.35);border-radius:10px;overflow:hidden"><div style="padding:2px 8px;background:#101604;color:#a3e635;font-size:11px;font-weight:700">Sponsored</div></div>
 <div class="dsec" id="d-simsec" style="display:none"><h3>More Like This</h3><div class="row" id="d-sim" style="padding-left:0;padding-right:0"></div></div>
  <div class="dsec" id="d-wtwsec" style="display:none"><h3>Where to Watch</h3><p id="d-wtw"></p></div>
  <div class="dsec" id="d-stillsec" style="display:none"><h3>Stills</h3><div class="stills" id="d-stills"></div></div>
@@ -2364,25 +2364,16 @@ var __cbGateTimer = null, __cbGatePending = null, __cbGateBar = null, __cbGateAd
  __cbGateEl = el; __cbGateBar = bar; __cbGateAd = ad;
 })();
 function __cbShowGate(fn){
- if (__cbGateTimer) clearTimeout(__cbGateTimer);
- __cbGatePending = fn;
- if (__cbGateEl) __cbGateEl.style.display = "flex";
- if (__cbGateBar){ __cbGateBar.style.transition = "none"; __cbGateBar.style.width = "0%"; void __cbGateBar.offsetWidth; __cbGateBar.style.transition = "width 3s linear"; __cbGateBar.style.width = "100%"; }
- if (__cbGateAd){
- __cbGateAd.innerHTML = "";
- var gfr = document.createElement("iframe");
- gfr.width = 320; gfr.height = 50;
- gfr.style.cssText = "border:0;max-width:100%;display:block;margin:0 auto";
- gfr.setAttribute("scrolling", "no");
- gfr.setAttribute("srcdoc", '<html><body style="margin:0;padding:0;text-align:center"><scr' + 'ipt>var atOptions={"key":"578200f21224607ceb2e50e9aa8d19c2","format":"iframe","height":50,"width":320,"params":{}};</scr' + 'ipt><scr' + 'ipt src="https://bauval.org/22/578200f21224607ceb2e50e9aa8d19c2"></scr' + 'ipt></bo' + 'dy></ht' + 'ml>');
- __cbGateAd.appendChild(gfr);
- }
- __cbGateTimer = setTimeout(function(){
+ /* Owner decision 2026-10-31: the 3-second Sponsored gate and its ads are
+ REMOVED. Navigation now runs instantly; ad income comes from the in-page
+ placements (banners + video boxes between rows) that visitors actually
+ see. This function keeps its name/signature so every caller (click gate,
+ popstate restore, player close) works unchanged - it simply runs the
+ pending action immediately, with no overlay, no timer and no ad. */
+ if (__cbGateTimer) { clearTimeout(__cbGateTimer); __cbGateTimer = null; }
+ __cbGatePending = null;
  if (__cbGateEl) __cbGateEl.style.display = "none";
- __cbGateTimer = null;
- var f = __cbGatePending; __cbGatePending = null;
- if (f) f();
- }, 3000);
+ if (fn) fn();
 }
 function __cbCurView(){
  var v = document.querySelector(".view.on");
@@ -2515,7 +2506,7 @@ document.addEventListener("click", function(e){
  function mkBox(){
   var w = document.createElement("div");
   w.className = "cb-vad-slot";
-  w.style.cssText = "margin:1.3rem auto 0;width:min(560px,94vw);background:#000;border:1px solid rgba(163,230,53,.35);border-radius:10px;overflow:hidden";
+  w.style.cssText = "margin:1.3rem auto 0;width:min(340px,94vw);background:#000;border:1px solid rgba(163,230,53,.35);border-radius:10px;overflow:hidden";
   w.innerHTML = '<div style="padding:2px 8px;background:#101604;color:#a3e635;font-size:11px;font-weight:700">Sponsored</div>';
   var f = document.createElement("iframe");
   f.setAttribute("scrolling", "no");
@@ -2532,9 +2523,7 @@ document.addEventListener("click", function(e){
   var sh = document.getElementById("shelves");
   if (!sh) return;
   var shelves = [].filter.call(sh.children, function(c){ return c.classList && c.classList.contains("shelf"); });
-  [2, 6, 10, 14, 18, 22].forEach(function(idx){
-   var sf = shelves[idx];
-   if (!sf) return;
+  shelves.forEach(function(sf){
    var n = sf.nextElementSibling;
    if (n && n.classList && n.classList.contains("cb-vad-slot")) return;
    sf.parentNode.insertBefore(mkBox(), sf.nextSibling);
