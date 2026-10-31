@@ -1008,15 +1008,17 @@ async function fetchRSS(url){
 (function(){
  const cv=document.getElementById('snk-cv'); if(!cv) return;
  const ctx=cv.getContext('2d'); const N=20,S=15;
- let snake=[{x:10,y:10},{x:9,y:10},{x:8,y:10}], dir={x:1,y:0}, food={x:15,y:10}, score=0, timer=null, alive=false;
+ let snake=[{x:10,y:10},{x:9,y:10},{x:8,y:10}], dir={x:1,y:0}, nextDir=null, food={x:15,y:10}, score=0, timer=null, alive=false, paused=false;
+ const pauseBtn=document.getElementById('snk-pause');
  function placeFood(){food={x:Math.floor(Math.random()*N),y:Math.floor(Math.random()*N)};}
  function draw(){
    ctx.fillStyle='#0e1511'; ctx.fillRect(0,0,300,300);
    ctx.fillStyle='#e8a00c'; ctx.fillRect(food.x*S+1,food.y*S+1,S-2,S-2);
    ctx.fillStyle='#2fbb77'; snake.forEach(p=>ctx.fillRect(p.x*S+1,p.y*S+1,S-2,S-2));
  }
- function stop(){if(timer)clearInterval(timer); timer=null; alive=false;}
+ function stop(){if(timer)clearInterval(timer); timer=null; alive=false; paused=false; if(pauseBtn)pauseBtn.textContent='⏸ Pause';}
  function step(){
+   if(nextDir){dir=nextDir; nextDir=null;}
    const h={x:snake[0].x+dir.x, y:snake[0].y+dir.y};
    if(h.x<0||h.y<0||h.x>=N||h.y>=N||snake.some(p=>p.x===h.x&&p.y===h.y)){stop(); toast('Game over! Score: '+score); return;}
    snake.unshift(h);
@@ -1024,15 +1026,28 @@ async function fetchRSS(url){
    else snake.pop();
    draw();
  }
- function setDir(nd){if(alive && !(nd.x===-dir.x && nd.y===-dir.y)) dir=nd;}
+ function setDir(nd){if(!alive||paused) return; const base=nextDir||dir; if(!(nd.x===-base.x && nd.y===-base.y)) nextDir=nd;}
  document.getElementById('snk-start').addEventListener('click',()=>{
-   stop(); snake=[{x:10,y:10},{x:9,y:10},{x:8,y:10}]; dir={x:1,y:0}; score=0;
+   stop(); snake=[{x:10,y:10},{x:9,y:10},{x:8,y:10}]; dir={x:1,y:0}; nextDir=null; score=0;
    document.getElementById('snk-score').textContent='0'; placeFood(); draw(); alive=true; timer=setInterval(step,140);
  });
- document.querySelectorAll('[data-sd]').forEach(b=>b.addEventListener('click',()=>{
+ if(pauseBtn) pauseBtn.addEventListener('click',()=>{
+   if(!alive) return;
+   if(paused){paused=false; timer=setInterval(step,140); pauseBtn.textContent='⏸ Pause';}
+   else{paused=true; if(timer)clearInterval(timer); timer=null; pauseBtn.textContent='▶ Resume';}
+ });
+ document.querySelectorAll('[data-sd]').forEach(b=>b.addEventListener('pointerdown',e=>{
+   e.preventDefault();
    const d=b.dataset.sd;
    setDir(d==='up'?{x:0,y:-1}:d==='down'?{x:0,y:1}:d==='left'?{x:-1,y:0}:{x:1,y:0});
  }));
+ let tx=0,ty=0;
+ cv.addEventListener('touchstart',e=>{const t=e.changedTouches[0]; tx=t.clientX; ty=t.clientY;},{passive:true});
+ cv.addEventListener('touchend',e=>{
+   const t=e.changedTouches[0], dx=t.clientX-tx, dy=t.clientY-ty;
+   if(Math.max(Math.abs(dx),Math.abs(dy))<24) return;
+   setDir(Math.abs(dx)>Math.abs(dy)?{x:dx>0?1:-1,y:0}:{x:0,y:dy>0?1:-1});
+ },{passive:true});
  document.addEventListener('keydown',e=>{
    if(!alive || !document.querySelector('#view-games.active')) return;
    const k=e.key.toLowerCase();
