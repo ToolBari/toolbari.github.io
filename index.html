@@ -5314,5 +5314,55 @@ try{
  setTimeout(tbAddBottomBanners, 1500); setTimeout(tbAddBottomBanners, 4000);
 })();
 </script>
+<script>
+/* TB-MID-BANNERS-2026-10-31: the same slim banner woven BETWEEN the content of every view (owner order: not only at the bottom — in the middle, one after another, nicely spaced). Never inside a tool's working panel. */
+(function(){
+ function tbMidIframe(){
+  var wide=(window.innerWidth||0)>=760;
+  var key=wide?"4c5e5e4d6820ecce24fa77f42a28bba8":"578200f21224607ceb2e50e9aa8d19c2";
+  var w=wide?728:320, h=wide?90:50;
+  var fr=document.createElement("iframe");
+  fr.width=w; fr.height=h;
+  fr.style.cssText="border:0;max-width:100%;display:block;margin:0 auto";
+  fr.setAttribute("scrolling","no"); fr.setAttribute("loading","lazy"); fr.title="Sponsored";
+  fr.setAttribute("srcdoc",'<html><body style="margin:0;padding:0;text-align:center"><scr'+'ipt>var atOptions={"key":"'+key+'","format":"iframe","height":'+h+',"width":'+w+',"params":{}};</scr'+'ipt><scr'+'ipt src="https://bauval.org/22/'+key+'"></scr'+'ipt></bo'+'dy></ht'+'ml>');
+  return fr;
+ }
+ function tbMidCard(){
+  var box=document.createElement("div");
+  box.className="tb-mid-ad";
+  box.style.cssText="margin:1.1rem auto;max-width:728px;padding:.35rem .6rem .55rem;border:1px solid rgba(20,35,27,.14);border-radius:12px;background:rgba(255,255,255,.55);box-sizing:border-box";
+  var lab=document.createElement("div");
+  lab.textContent="Sponsored";
+  lab.style.cssText="font-size:.7rem;font-weight:700;letter-spacing:.04em;opacity:.65;margin-bottom:.2rem";
+  box.appendChild(lab); box.appendChild(tbMidIframe());
+  return box;
+ }
+ function isAd(el){ return el.classList && (el.classList.contains("tb-mid-ad") || el.classList.contains("tb-bottom-ad")); }
+ function tbAddMidBanners(){
+  document.querySelectorAll("section.view, main.view").forEach(function(v){
+   var head=v.querySelector(":scope > .tool-head");
+   if(head && !(head.nextElementSibling && head.nextElementSibling.classList && head.nextElementSibling.classList.contains("tb-mid-ad"))){
+    head.parentNode.insertBefore(tbMidCard(), head.nextSibling);
+   }
+  });
+  var wrap=document.querySelector("#view-home .wrap");
+  if(wrap){
+   var blocks=[].filter.call(wrap.children, function(c){ return !(c.tagName==="SCRIPT"||c.tagName==="STYLE"||c.tagName==="TEMPLATE"||isAd(c)); });
+   var have=wrap.querySelectorAll(":scope > .tb-mid-ad").length;
+   for(var i=3;i<blocks.length && have<3;i+=4){
+    var b=blocks[i], n=b.nextElementSibling;
+    if(n && n.classList && n.classList.contains("tb-mid-ad")) continue;
+    wrap.insertBefore(tbMidCard(), b.nextSibling); have++;
+   }
+  }
+ }
+ tbAddMidBanners();
+ window.addEventListener("hashchange", function(){ setTimeout(tbAddMidBanners, 350); });
+ setTimeout(tbAddMidBanners, 1500); setTimeout(tbAddMidBanners, 4000);
+ var hw=document.querySelector("#view-home .wrap");
+ if(hw && "MutationObserver" in window){ var mt=null; new MutationObserver(function(){ if(mt) return; mt=setTimeout(function(){ mt=null; tbAddMidBanners(); }, 600); }).observe(hw, { childList: true }); }
+})();
+</script>
 </body>
 </html>
