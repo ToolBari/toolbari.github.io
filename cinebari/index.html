@@ -393,7 +393,6 @@ img{max-width:100%;height:auto}
  <div class="stat"><div class="n">Unlimited</div><div class="l">MOVIES &amp; SERIES</div></div>
  <div class="stat"><div class="n" id="st-srv">12</div><div class="l">FAST SERVERS</div></div>
  </div>
- <div class="cb-vad-slot" id="cb-vad-gate" style="margin:1.3rem auto 0;width:min(560px,94vw);background:#000;border:1px solid rgba(163,230,53,.35);border-radius:10px;overflow:hidden"><div style="padding:2px 8px;background:#101604;color:#a3e635;font-size:11px;font-weight:700">Sponsored</div></div>
  <div class="marqwrap"><div class="marq" id="marq"></div></div>
  <!-- INSITE-NOTICE-2026-10-27: in-site banner only, no push service, no OneSignal -->
 <div class="notice-area" id="new-movie-notice" style="background:#1a2a07;border:1px solid #a3e635;border-radius:12px;padding:12px 14px;margin:12px 0">
@@ -562,7 +561,6 @@ img{max-width:100%;height:auto}
  <button class="back" id="cats-back">← Back</button>
  <h2>📚 Categories</h2>
  </div>
- <div class="cb-vad-slot" id="cb-vad-cats" style="margin:1.3rem auto 0;width:min(560px,94vw);background:#000;border:1px solid rgba(163,230,53,.35);border-radius:10px;overflow:hidden"><div style="padding:2px 8px;background:#101604;color:#a3e635;font-size:11px;font-weight:700">Sponsored</div></div>
  <div id="cats-body"></div>
 </section>
 
@@ -580,7 +578,6 @@ img{max-width:100%;height:auto}
  <button class="btn ghost" id="d-fav" style="background:var(--card);border-color:var(--line);color:var(--txt)">❤️ My List</button>
  <button class="btn ghost" id="d-share" style="background:var(--card);border-color:var(--line);color:var(--txt)">↗ Share</button>
  </div>
- <div class="cb-vad-slot" id="cb-vad-details" style="margin:1.3rem auto 0;width:min(560px,94vw);background:#000;border:1px solid rgba(163,230,53,.35);border-radius:10px;overflow:hidden"><div style="padding:2px 8px;background:#101604;color:#a3e635;font-size:11px;font-weight:700">Sponsored</div></div>
  <div class="dsec"><h3>Story</h3><p id="d-ov"></p></div>
  <div class="dsec" id="d-tvsec" style="display:none">
  <h3>Seasons &amp; Episodes</h3>
@@ -591,7 +588,6 @@ img{max-width:100%;height:auto}
  <div class="eps" id="d-eps"></div>
  </div>
  <div class="dsec" id="d-castsec" style="display:none"><h3>Cast</h3><div class="cast" id="d-cast"></div></div>
- <div class="cb-vad-slot" id="cb-vad-details2" style="margin:1.3rem auto 0;width:min(560px,94vw);background:#000;border:1px solid rgba(163,230,53,.35);border-radius:10px;overflow:hidden"><div style="padding:2px 8px;background:#101604;color:#a3e635;font-size:11px;font-weight:700">Sponsored</div></div>
 <div class="dsec" id="d-simsec" style="display:none"><h3>More Like This</h3><div class="row" id="d-sim" style="padding-left:0;padding-right:0"></div></div>
  <div class="dsec" id="d-wtwsec" style="display:none"><h3>Where to Watch</h3><p id="d-wtw"></p></div>
  <div class="dsec" id="d-stillsec" style="display:none"><h3>Stills</h3><div class="stills" id="d-stills"></div></div>
@@ -2505,99 +2501,36 @@ document.addEventListener("click", function(e){
 </script>
 <script>
 (function(){
- var SRC = "<html><body style=\"margin:0;padding:0;background:#000;text-align:center\"><script>(function(burkd){var d=document,s=d.createElement('script'),l=d.currentScript||d.scripts[d.scripts.length-1];s.settings=burkd||{};s.src=\"//massivesalad.com/boXNV.s/dPGMl/0xYXWvcU/Fegmg9quZZwUnlxkZPGTzca1HNOD/YC3YMRDWUstuNQzkUU0cN/jEcCw-O-QK\";s.async=true;s.referrerPolicy='no-referrer-when-downgrade';l.parentNode.insertBefore(s,l);})({});</scr" + "ipt></body></html>";
- var VAD_MAX = 6, vadUsed = 0;
- setInterval(function(){ vadUsed = 0; }, 90000);
- var BANNER_SRCDOC = '<html><body style="margin:0;padding:0;text-align:center"><scr' + 'ipt>var atOptions={"key":"578200f21224607ceb2e50e9aa8d19c2","format":"iframe","height":50,"width":320,"params":{}};</scr' + 'ipt><scr' + 'ipt src="https://bauval.org/22/578200f21224607ceb2e50e9aa8d19c2"></scr' + 'ipt></bo' + 'dy></ht' + 'ml>';
- function loadSlot(f){
-  if (vadUsed < VAD_MAX){ vadUsed++; f.setAttribute("srcdoc", SRC); }
-  else {
-   f.title = "Sponsored";
-   f.style.cssText = "border:0;width:320px;max-width:100%;height:50px;display:block;margin:6px auto;background:transparent";
-   f.setAttribute("srcdoc", BANNER_SRCDOC);
-  }
- }
- function mkBox(){
-  var w = document.createElement("div");
-  w.className = "cb-vad-slot";
-  w.style.cssText = "margin:1.3rem auto 0;width:min(560px,94vw);background:#000;border:1px solid rgba(163,230,53,.35);border-radius:10px;overflow:hidden";
-  w.innerHTML = '<div style="padding:2px 8px;background:#101604;color:#a3e635;font-size:11px;font-weight:700">Sponsored</div>';
-  var f = document.createElement("iframe");
-  f.setAttribute("scrolling", "no");
-  f.title = "Sponsored video";
-  f.style.cssText = "border:0;width:100%;aspect-ratio:16/9;display:block;background:#000";
-  w.appendChild(f);
-  if ("IntersectionObserver" in window){
-   var io = new IntersectionObserver(function(es){ es.forEach(function(en){ if (en.isIntersecting){ loadSlot(f); io.disconnect(); } }); }, { rootMargin: "400px" });
-   io.observe(w);
-  } else { loadSlot(f); }
-  return w;
- }
- function placeAds(){
-  var sh = document.getElementById("shelves");
-  if (!sh) return;
-  var hero = document.getElementById("hero");
-  if (hero && hero.parentNode){
-   var hb = hero.nextElementSibling;
-   if (!(hb && hb.classList && hb.classList.contains("cb-vad-slot"))) hero.parentNode.insertBefore(mkBox(), hero.nextSibling);
-  }
-  var shelves = [].filter.call(sh.children, function(c){ return c.classList && c.classList.contains("shelf"); });
-  shelves.forEach(function(sf){
-   var n = sf.nextElementSibling;
-   if (n && n.classList && n.classList.contains("cb-vad-slot")) return;
-   sf.parentNode.insertBefore(mkBox(), sf.nextSibling);
-  });
- }
- var t = null;
- function queue(){ if (t) return; t = setTimeout(function(){ t = null; placeAds(); }, 300); }
- var shEl = document.getElementById("shelves");
- if (shEl && "MutationObserver" in window) new MutationObserver(queue).observe(shEl, { childList: true });
- setTimeout(placeAds, 1500);
- setTimeout(placeAds, 4000);
- function armFrame(box){
-  var f = box.querySelector("iframe");
-  if (f) return;
-  f = document.createElement("iframe");
-  f.setAttribute("scrolling", "no");
-  f.title = "Sponsored video";
-  f.style.cssText = "border:0;width:100%;aspect-ratio:16/9;display:block;background:#000";
-  box.appendChild(f);
-  if ("IntersectionObserver" in window){
-   var io = new IntersectionObserver(function(es){ es.forEach(function(en){ if (en.isIntersecting){ loadSlot(f); io.disconnect(); } }); }, { rootMargin: "400px" });
-   io.observe(box);
-  } else { loadSlot(f); }
- }
- ["cb-vad-details", "cb-vad-details2", "cb-vad-gate", "cb-vad-cats"].forEach(function(id){ var el = document.getElementById(id); if (el) armFrame(el); });
- [["cb-vad-gate"], ["cb-vad-cats"]].forEach(function(a){ var el = document.getElementById(a[0]); if (el && el.parentNode) el.parentNode.insertBefore(sponsoredCard(), el.nextSibling); });
+ /* Banners-only placements (owner order 2026-10-31): all HilltopAds video boxes removed;
+    a single NEW video zone test box sits under the home hero (id cb-vad-test). */
+ var gateSlotAnchor = document.querySelector("#v-gate .marqwrap");
+ if (gateSlotAnchor && gateSlotAnchor.parentNode) gateSlotAnchor.parentNode.insertBefore(sponsoredCard(), gateSlotAnchor);
+ var catsBody = document.getElementById("cats-body");
+ if (catsBody && catsBody.parentNode) catsBody.parentNode.insertBefore(sponsoredCard(), catsBody);
  var sim = document.getElementById("d-simsec");
  if (sim && sim.parentNode) sim.parentNode.insertBefore(sponsoredCard(), sim.nextSibling);
  function placeGridAds(){
   var g = document.getElementById("grid");
   if (!g) return;
-  var cards = [].filter.call(g.children, function(c){ return !(c.classList && (c.classList.contains("cb-vad-slot") || c.classList.contains("cb-banner-card"))); });
+  var cards = [].filter.call(g.children, function(c){ return !(c.classList && c.classList.contains("cb-banner-card")); });
   var idxs = [];
   for (var k = 11; k < cards.length; k += 18) idxs.push(k);
   idxs.forEach(function(idx){
    var card = cards[idx];
    if (!card) return;
    var n = card.nextElementSibling;
-   if (n && n.classList && n.classList.contains("cb-vad-slot")) return;
-   var box = mkBox();
-   box.style.gridColumn = "1 / -1";
-   box.style.margin = "0 auto";
-   g.insertBefore(box, card.nextSibling);
-   var bn = box.nextElementSibling;
-   if (!(bn && bn.classList && bn.classList.contains("cb-banner-card"))){
-    var bc = sponsoredCard();
-    bc.style.gridColumn = "1 / -1";
-    g.insertBefore(bc, box.nextSibling);
-   }
+   if (n && n.classList && n.classList.contains("cb-banner-card")) return;
+   var bc = sponsoredCard();
+   bc.style.gridColumn = "1 / -1";
+   g.insertBefore(bc, card.nextSibling);
   });
  }
  var gt = null;
  function queueGrid(){ if (gt) return; gt = setTimeout(function(){ gt = null; placeGridAds(); }, 300); }
  var gEl = document.getElementById("grid");
  if (gEl && "MutationObserver" in window) new MutationObserver(queueGrid).observe(gEl, { childList: true });
+ setTimeout(placeGridAds, 1500);
+ setTimeout(placeGridAds, 4000);
 })();
 </script>
 </body>
