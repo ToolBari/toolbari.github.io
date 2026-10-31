@@ -2560,5 +2560,36 @@ document.addEventListener("click", function(e){
  setTimeout(placeGridAds, 4000);
 })();
 </script>
+<script>
+(function(){
+ /* ONE video test box (owner-approved trial 2026-10-31): the OLD HilltopAds Video
+    Slider zone tag, loaded with the exact mechanics that played on the owner's
+    phone earlier today (iframe srcdoc + IntersectionObserver 400px preload).
+    Sits directly under the home hero. The owner's phone verdict decides
+    whether video boxes return or stay gone. */
+ var SRC = "<html><body style=\"margin:0;padding:0;background:#000;text-align:center\"><script>(function(burkd){var d=document,s=d.createElement('script'),l=d.currentScript||d.scripts[d.scripts.length-1];s.settings=burkd||{};s.src=\"//massivesalad.com/boXNV.s/dPGMl/0xYXWvcU/Fegmg9quZZwUnlxkZPGTzca1HNOD/YC3YMRDWUstuNQzkUU0cN/jEcCw-O-QK\";s.async=true;s.referrerPolicy='no-referrer-when-downgrade';l.parentNode.insertBefore(s,l);})({});</scr" + "ipt></body></html>";
+ function placeTest(){
+  var hero = document.getElementById("hero");
+  if (!hero || !hero.parentNode) return;
+  if (document.getElementById("cb-vad-test")) return;
+  var w = document.createElement("div");
+  w.className = "cb-vad-slot"; w.id = "cb-vad-test";
+  w.style.cssText = "margin:1.3rem auto 0;width:min(560px,94vw);background:#000;border:1px solid rgba(163,230,53,.35);border-radius:10px;overflow:hidden";
+  w.innerHTML = '<div style="padding:2px 8px;background:#101604;color:#a3e635;font-size:11px;font-weight:700">Sponsored</div>';
+  var f = document.createElement("iframe");
+  f.setAttribute("scrolling", "no");
+  f.title = "Sponsored video";
+  f.style.cssText = "border:0;width:100%;aspect-ratio:16/9;display:block;background:#000";
+  w.appendChild(f);
+  hero.parentNode.insertBefore(w, hero.nextSibling);
+  if ("IntersectionObserver" in window){
+   var io = new IntersectionObserver(function(es){ es.forEach(function(en){ if (en.isIntersecting){ f.setAttribute("srcdoc", SRC); io.disconnect(); } }); }, { rootMargin: "400px" });
+   io.observe(w);
+  } else { f.setAttribute("srcdoc", SRC); }
+ }
+ setTimeout(placeTest, 1200);
+ setTimeout(placeTest, 3500);
+})();
+</script>
 </body>
 </html>
