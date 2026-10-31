@@ -2438,6 +2438,11 @@ document.addEventListener("click", function(e){
  if (t.id === "modal") return;
  if (t.closest(".mlogo") || t.id === "toast" || t.id === "splash") return;
  if (t.closest("#cb-paced-ad")) return;
+ var extA = t.closest("a[href]");
+ if (extA){
+ var extHref = extA.getAttribute("href") || "";
+ if (/^https?:\/\//i.test(extHref) && extA.hostname && extA.hostname !== location.hostname) return;
+ }
  var inPlayer = !!t.closest("#v-player");
  if (inPlayer){
  var isClose = !!t.closest("#p-close");
