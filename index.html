@@ -368,17 +368,17 @@ html[data-theme="dark"] .block p{color:#e2e8f0}
 html[data-theme="dark"] .block a{color:#7ee2b0}
 
 /* Games 2026-10-29 (local): clean CSS had lost the game styles, so buttons fell back to small browser defaults */
-.game-cv{background:#0e1511;border-radius:12px;max-width:100%;height:auto}
-.dpad{display:grid;grid-template-columns:repeat(3,64px);gap:8px;justify-content:center;margin-top:12px}
-.dpad button{height:56px;font-size:22px;border:1px solid var(--line);border-radius:12px;background:var(--surface2);color:var(--ink);cursor:pointer}
+.game-cv{background:#0e1511;border-radius:12px;width:100%;max-width:340px;height:auto;display:block;margin:0 auto;touch-action:none}
+.dpad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:min(100%,340px);margin:14px auto 0;touch-action:none}
+.dpad button{height:76px;font-size:32px;border:1px solid var(--line);border-radius:16px;background:var(--surface2);color:var(--ink);cursor:pointer;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+.dpad button:active{background:#0a84ff;color:#ffffff}
 .ttt-grid{display:grid;grid-template-columns:repeat(3,84px);gap:8px}
 .ttt-cell{height:84px;font-size:36px;font-weight:700;border:1px solid var(--line);border-radius:12px;background:var(--surface2);color:var(--ink);cursor:pointer}
 .mem-grid{display:grid;grid-template-columns:repeat(4,72px);gap:8px}
 .mem-card{height:72px;font-size:30px;border:1px solid var(--line);border-radius:12px;background:var(--surface2);color:var(--ink);cursor:pointer}
 .mem-card:disabled{opacity:.9;cursor:default}
 @media(max-width:600px){
-  .dpad{grid-template-columns:repeat(3,68px)}
-  .dpad button{height:60px;font-size:24px}
+  .dpad button{height:72px;font-size:30px}
   .ttt-grid{grid-template-columns:repeat(3,1fr)}
   .ttt-cell{height:92px}
   .mem-grid{grid-template-columns:repeat(4,1fr)}
@@ -2281,9 +2281,9 @@ Second slide caption"></textarea></div><div class="field"><label>Seconds per sli
     <p>Play Snake, Tic-Tac-Toe and Memory Match in your browser</p></div>
   <div class="panel">
     <h3 style="margin:0 0 8px">🐍 Snake Game</h3>
-    <p style="margin:0 0 10px;">Score: <b id="snk-score">0</b> · On a computer, press Arrow/WASD; on mobile, use the buttons below.</p>
+    <p style="margin:0 0 10px;">Score: <b id="snk-score">0</b> · On a computer, press Arrow/WASD; on mobile, swipe on the board or use the big buttons below.</p>
     <canvas id="snk-cv" class="game-cv" width="300" height="300"></canvas>
-    <div class="btnrow"><button class="btn" id="snk-start">▶ Start Game</button></div>
+    <div class="btnrow"><button class="btn" id="snk-start">▶ Start Game</button><button class="btn alt" id="snk-pause">⏸ Pause</button></div>
     <div class="dpad">
       <span></span><button data-sd="up" aria-label="Up">⬆</button><span></span>
       <button data-sd="left" aria-label="Left">⬅</button><button data-sd="down" aria-label="Down">⬇</button><button data-sd="right" aria-label="Right">➡</button>
@@ -4870,7 +4870,7 @@ $('#fb-go').addEventListener('click',()=>{
 </script>
 
 <script src="assets/js/tb-image-compressor.js"></script>
-<script src="assets/js/tb-currency.js"></script>
+<script src="assets/js/tb-currency.js?v=20261031-snake1"></script>
 
 
 <a href="https://wa.me/8801677161678?text=%E0%A6%86%E0%A6%B8%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE" target="_blank" rel="noopener" title="WhatsApp-Message on " style="position:fixed;right:14px;bottom:72px;width:52px;height:52px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;font-size:25px;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.28);z-index:9998">💬</a>
