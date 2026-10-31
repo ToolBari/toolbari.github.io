@@ -5379,5 +5379,45 @@ try{
  setTimeout(tbAddMidBanners, 1500); setTimeout(tbAddMidBanners, 4000);
 })();
 </script>
+<style>
+#tb-voice-b{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);font-size:19px;line-height:1;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:var(--shadow);z-index:3;padding:0}
+#tb-voice-b.on{display:flex}
+#tb-voice-b.listening{background:#e11d48;border-color:#e11d48;animation:tbVp 1s ease-in-out infinite}
+@keyframes tbVp{0%,100%{box-shadow:0 0 0 0 rgba(225,29,72,.45)}50%{box-shadow:0 0 0 10px rgba(225,29,72,0)}}
+</style>
+<script>
+/* TB-VOICE-SEARCH-2026-11-01: voice input for the home tool search (owner order). Self-contained. The button appears only where the browser provides SpeechRecognition (Chrome). A result fills the search box and fires the normal input event, so the catalog filters exactly as if typed. */
+(function(){
+ var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+ if(!SR) return;
+ var inp = document.getElementById("toolSearch");
+ if(!inp || !inp.parentNode) return;
+ var bar = inp.closest ? (inp.closest(".searchbar") || inp.parentNode) : inp.parentNode;
+ var b = document.createElement("button");
+ b.type = "button"; b.id = "tb-voice-b"; b.textContent = "🎤";
+ b.title = "Voice search"; b.setAttribute("aria-label", "Voice search");
+ bar.appendChild(b);
+ inp.style.paddingRight = "60px";
+ b.classList.add("on");
+ var rec = null;
+ function stop(){ b.classList.remove("listening"); }
+ b.addEventListener("click", function(){
+  if(rec){ try{ rec.stop(); }catch(e){} return; }
+  try{
+   rec = new SR(); rec.lang = "en-US"; rec.interimResults = true; rec.maxAlternatives = 1;
+   b.classList.add("listening");
+   rec.onresult = function(ev){
+    var txt = "";
+    for(var i=0;i<ev.results.length;i++) txt += ev.results[i][0].transcript;
+    inp.value = txt;
+    inp.dispatchEvent(new Event("input", { bubbles: true }));
+   };
+   rec.onend = function(){ rec = null; stop(); };
+   rec.onerror = function(){ rec = null; stop(); };
+   rec.start();
+  }catch(e){ rec = null; stop(); }
+ });
+})();
+</script>
 </body>
 </html>
