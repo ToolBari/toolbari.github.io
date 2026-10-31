@@ -2369,9 +2369,12 @@ function __cbShowGate(fn){
  if (__cbGateBar){ __cbGateBar.style.transition = "none"; __cbGateBar.style.width = "0%"; void __cbGateBar.offsetWidth; __cbGateBar.style.transition = "width 3s linear"; __cbGateBar.style.width = "100%"; }
  if (__cbGateAd){
  __cbGateAd.innerHTML = "";
- var tag = document.createElement("script");
- tag.text = "(function(vwpym){\nvar d = document,\n s = d.createElement('script'),\n l = d.currentScript || d.scripts[d.scripts.length - 1];\ns.settings = vwpym || {};\ns.src = \"//massivesalad.com/b/XjVDs/d.GblM0RYxW/cI/Zebms9yuJZLULlbkGP/Tmcu1dNUD/YW2CORDLk/tmNwzuU-0zNIjOYh5tMTwC\";\ns.async = true;\ns.referrerPolicy = 'no-referrer-when-downgrade';\nl.parentNode.insertBefore(s, l);\n})({})";
- __cbGateAd.appendChild(tag);
+ var gfr = document.createElement("iframe");
+ gfr.width = 320; gfr.height = 50;
+ gfr.style.cssText = "border:0;max-width:100%;display:block;margin:0 auto";
+ gfr.setAttribute("scrolling", "no");
+ gfr.setAttribute("srcdoc", '<html><body style="margin:0;padding:0;text-align:center"><scr' + 'ipt>var atOptions={"key":"578200f21224607ceb2e50e9aa8d19c2","format":"iframe","height":50,"width":320,"params":{}};</scr' + 'ipt><scr' + 'ipt src="https://bauval.org/22/578200f21224607ceb2e50e9aa8d19c2"></scr' + 'ipt></bo' + 'dy></ht' + 'ml>');
+ __cbGateAd.appendChild(gfr);
  }
  __cbGateTimer = setTimeout(function(){
  if (__cbGateEl) __cbGateEl.style.display = "none";
