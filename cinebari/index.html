@@ -2526,6 +2526,10 @@ document.addEventListener("click", function(e){
  if (shEl && "MutationObserver" in window) new MutationObserver(queueShelf).observe(shEl, { childList: true });
  setTimeout(placeShelfAds, 1500);
  setTimeout(placeShelfAds, 4000);
+ var gateTopAnchor = document.querySelector("#v-gate .doors");
+ if (gateTopAnchor && gateTopAnchor.parentNode && !document.getElementById("cb-gate-top")) {
+  gateTopAnchor.parentNode.insertBefore(sponsoredCard("cb-gate-top"), gateTopAnchor);
+ }
  var gateSlotAnchor = document.querySelector("#v-gate .marqwrap");
  if (gateSlotAnchor && gateSlotAnchor.parentNode) gateSlotAnchor.parentNode.insertBefore(sponsoredCard(), gateSlotAnchor);
  var catsBody = document.getElementById("cats-body");
