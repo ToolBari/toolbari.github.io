@@ -4557,7 +4557,7 @@ async function instagramRender(url, box, attempt){
  }
  const __dl='https://www.vxinstagram.com/offload/'+__m[1]+'/0.mp4';
  let h='<p style="margin:0 0 10px"><b>Your download is ready ✓ — Instagram</b></p>';
- h+='<p style="margin:0 0 6px"><button type="button" class="btn" id="vd-ig-dl">⬇ Download Video</button></p>';
+ h+='<p style="margin:0 0 6px;display:none"><button type="button" class="btn" id="vd-ig-dl">⬇ Download Video</button></p>';
  h+='<p id="vd-ig-st" style="margin:0;font-size:13px">Your download will start automatically. Private videos cannot be downloaded.</p>';
  const __w=5000-(Date.now()-__t0); if(__w>0)await new Promise(r=>setTimeout(r,__w));
  box.innerHTML=h;
