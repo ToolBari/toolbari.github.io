@@ -2327,9 +2327,9 @@ setTimeout(splashOff, 2400);
 
 /* ---------------- 1-second ad gate (LOCAL, user-approved 2026-10-26) ---------------- */
 /* Every browsing feature/link click first shows a full-screen overlay clearly
- labelled "Sponsored" for 2000 ms, then the original action runs. A second
+ labelled "Sponsored" for 3000 ms, then the original action runs. A second
  click (or a Back/Forward popstate) during the gate replaces the pending
- action and restarts the 2000 ms timer. No new ad network: the gate ad box
+ action and restarts the 3000 ms timer. No new ad network: the gate ad box
  reuses the paced-ad script already in this file (massivesalad.com, as in
  pacedAd()), and the Monetag In-Page Push tag (zone 12110899) already in
  <head> keeps running globally. No Hilltop tag is added: zone 7546689 is
@@ -2349,7 +2349,7 @@ var __cbGateTimer = null, __cbGatePending = null, __cbGateBar = null, __cbGateAd
  lab.textContent = "Sponsored";
  lab.style.cssText = "font-weight:900;font-size:1.4rem;color:#f1f5f9";
  var sub = document.createElement("div");
- sub.textContent = "Opening\u2026 please wait 2 seconds";
+ sub.textContent = "Opening\u2026 please wait 3 seconds";
  sub.style.cssText = "color:#94a3b8;font-weight:700;font-size:.98rem";
  var track = document.createElement("div");
  track.style.cssText = "width:min(320px,80vw);height:10px;background:#1c2a4a;border-radius:2rem;overflow:hidden";
@@ -2366,7 +2366,7 @@ function __cbShowGate(fn){
  if (__cbGateTimer) clearTimeout(__cbGateTimer);
  __cbGatePending = fn;
  if (__cbGateEl) __cbGateEl.style.display = "flex";
- if (__cbGateBar){ __cbGateBar.style.transition = "none"; __cbGateBar.style.width = "0%"; void __cbGateBar.offsetWidth; __cbGateBar.style.transition = "width 2s linear"; __cbGateBar.style.width = "100%"; }
+ if (__cbGateBar){ __cbGateBar.style.transition = "none"; __cbGateBar.style.width = "0%"; void __cbGateBar.offsetWidth; __cbGateBar.style.transition = "width 3s linear"; __cbGateBar.style.width = "100%"; }
  if (__cbGateAd){
  __cbGateAd.innerHTML = "";
  var fr = document.createElement("iframe");
@@ -2380,7 +2380,7 @@ function __cbShowGate(fn){
  __cbGateTimer = null;
  var f = __cbGatePending; __cbGatePending = null;
  if (f) f();
- }, 2000);
+ }, 3000);
 }
 function __cbCurView(){
  var v = document.querySelector(".view.on");
