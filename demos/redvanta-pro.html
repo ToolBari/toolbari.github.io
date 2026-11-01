@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RedVanta — Pro Demo Theme (Shopping Blog)</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#232030; --dim:#5d5675; --red:#e4002b; --orange:#ff7a1a; --wa:#25d366;
+  --glass:rgba(255,255,255,.72); --glass2:rgba(255,255,255,.55);
+  --line:rgba(255,255,255,.8);
+  --sh:0 14px 30px rgba(90,60,160,.16),0 3px 8px rgba(90,60,160,.10);
+  --sh-lg:0 22px 44px rgba(90,60,160,.20),0 4px 10px rgba(90,60,160,.10);
+  --pill-sh:0 8px 18px rgba(60,40,120,.20),0 2px 4px rgba(60,40,120,.14);
+  --pill-sh-h:0 14px 26px rgba(60,40,120,.26),0 3px 6px rgba(60,40,120,.16);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;color:var(--ink);
+  background:linear-gradient(135deg,#e9e4ff 0%,#dcd2ff 22%,#ffd9ec 55%,#d8f5e3 100%);
+  background-attachment:fixed;min-height:100vh}
+a{text-decoration:none;color:inherit}
+img{max-width:100%}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+
+/* ---------- PILL BUTTON SYSTEM (signature style) ---------- */
+.pill{display:inline-flex;align-items:center;gap:7px;border:0;cursor:pointer;
+  border-radius:999px;font-weight:700;font-size:14.5px;line-height:1;
+  padding:11px 20px;background:rgba(255,255,255,.92);color:var(--ink);
+  box-shadow:var(--pill-sh);transition:transform .16s ease,box-shadow .16s ease,background .16s ease;
+  -webkit-tap-highlight-color:transparent}
+.pill:hover{transform:translateY(-2px);box-shadow:var(--pill-sh-h)}
+.pill:active{transform:translateY(1px);box-shadow:0 3px 8px rgba(60,40,120,.18)}
+.pill.red{background:linear-gradient(180deg,#ff3355,var(--red));color:#fff}
+.pill.orange{background:linear-gradient(180deg,#ffa04d,var(--orange));color:#fff}
+.pill.dark{background:linear-gradient(180deg,#37304f,#211c33);color:#fff}
+.pill.wa{background:linear-gradient(180deg,#4be389,var(--wa));color:#06351a}
+.pill.sm{padding:9px 16px;font-size:13.5px}
+
+/* ---------- HEADER ---------- */
+header{position:sticky;top:0;z-index:50;background:var(--glass);
+  backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);
+  border-bottom:1px solid var(--line);box-shadow:0 6px 20px rgba(90,60,160,.10)}
+.hwrap{max-width:1120px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:12px 16px}
+.logo{font-size:clamp(23px,5.4vw,29px);font-weight:900;letter-spacing:-.6px;white-space:nowrap}
+.logo b{color:var(--red)}
+.search{flex:1;display:flex;align-items:center;background:rgba(255,255,255,.95);
+  border-radius:999px;padding:4px;box-shadow:var(--pill-sh);min-width:0}
+.search input{flex:1;border:0;background:transparent;padding:9px 14px;font-size:15px;outline:none;min-width:0;color:var(--ink)}
+.search input::placeholder{color:#9a94b3}
+.search .pill{flex:none}
+.deals{flex:none}
+@media(max-width:560px){ .deals span{display:none} .deals{padding:11px 14px} }
+
+/* ---------- CATEGORY CHIPS ---------- */
+nav{position:sticky;top:65px;z-index:40;background:var(--glass2);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nwrap{max-width:1120px;margin:0 auto;display:flex;gap:9px;padding:11px 16px;overflow-x:auto;scrollbar-width:none}
+.nwrap::-webkit-scrollbar{display:none}
+.chip{flex:none;white-space:nowrap}
+.chip.on{background:linear-gradient(180deg,#37304f,#211c33);color:#fff}
+
+/* ---------- HERO SLIDESHOW ---------- */
+.hero{margin:20px auto 0;max-width:1120px;padding:0 16px}
+.stage{position:relative;border-radius:24px;overflow:hidden;box-shadow:var(--sh-lg);
+  border:1px solid var(--line);height:clamp(230px,38vw,340px)}
+.slide{position:absolute;inset:0;opacity:0;transform:scale(1.03);transition:opacity .8s ease,transform .8s ease;
+  display:flex;align-items:center;padding:clamp(20px,5vw,48px);pointer-events:none}
+.slide.on{opacity:1;transform:scale(1);pointer-events:auto}
+.slide.s1{background:linear-gradient(115deg,#fff 30%,#ffe3ee 68%,#ffd1e3)}
+.slide.s2{background:linear-gradient(115deg,#fff 30%,#e2fbf0 68%,#c9f5de)}
+.slide.s3{background:linear-gradient(115deg,#fff 30%,#e7e2ff 68%,#d5ccff)}
+.slide .k{font-size:12px;font-weight:800;letter-spacing:2.2px;text-transform:uppercase;color:var(--red)}
+.slide h1{font-size:clamp(25px,5.6vw,42px);font-weight:900;line-height:1.12;margin:8px 0 8px;max-width:560px}
+.slide h1 em{font-style:normal;color:var(--red)}
+.slide p{color:var(--dim);font-size:clamp(13.5px,2.6vw,16px);max-width:480px;margin-bottom:16px}
+.slide .emo{position:absolute;right:clamp(10px,6vw,60px);top:50%;transform:translateY(-50%);
+  font-size:clamp(84px,17vw,168px);filter:drop-shadow(0 18px 22px rgba(90,60,160,.25))}
+@media(max-width:640px){ .slide .emo{opacity:.28} }
+.dots{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:flex;gap:8px;z-index:3}
+.dot{width:10px;height:10px;border-radius:999px;border:0;cursor:pointer;background:rgba(35,32,48,.22);
+  box-shadow:0 2px 6px rgba(60,40,120,.25);transition:all .3s ease;padding:0}
+.dot.on{width:28px;background:var(--red)}
+.arrows{position:absolute;right:16px;bottom:12px;display:flex;gap:8px;z-index:3}
+.arrow{width:36px;height:36px;border-radius:999px;border:0;cursor:pointer;font-size:17px;line-height:1;
+  background:rgba(255,255,255,.92);color:var(--ink);box-shadow:var(--pill-sh);transition:transform .15s ease}
+.arrow:hover{transform:translateY(-2px)} .arrow:active{transform:translateY(1px)}
+@media(max-width:640px){ .arrows{display:none} }
+
+/* ---------- AD SLOTS ---------- */
+.adbox{margin:18px auto 0;max-width:1120px;padding:0 16px}
+.ad{border:1.5px dashed rgba(90,60,160,.35);border-radius:14px;background:rgba(255,255,255,.45);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  color:#7a7396;text-align:center;padding:10px}
+.ad .lab{font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase}
+.ad .sz{font-size:12.5px;font-weight:600}
+.ad.desk{height:90px} .ad.mob{display:none;height:60px}
+@media(max-width:760px){ .ad.desk{display:none} .ad.mob{display:flex} }
+
+/* ---------- SECTIONS & CARDS ---------- */
+h2.sec{font-size:clamp(20px,4.4vw,24px);font-weight:900;margin:32px 0 4px;display:flex;align-items:center;gap:9px}
+p.sub{color:var(--dim);font-size:14px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+@media(max-width:560px){ .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px} }
+.card{background:linear-gradient(165deg,rgba(255,255,255,.97),rgba(255,242,248,.92));
+  border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;
+  box-shadow:var(--sh);transition:transform .18s ease,box-shadow .18s ease}
+.card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg)}
+.ph{margin:12px 12px 0;height:132px;border-radius:14px;background:linear-gradient(140deg,#f3efff,#ffeef7 60%,#e9fbf1);
+  display:flex;align-items:center;justify-content:center;font-size:58px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.9),0 6px 14px rgba(90,60,160,.10)}
+.card .body{padding:13px 14px 15px;display:flex;flex-direction:column;gap:6px;flex:1}
+.badge{align-self:flex-start;background:linear-gradient(180deg,#ff3355,var(--red));color:#fff;
+  font-size:10.5px;font-weight:800;letter-spacing:.4px;padding:4px 10px;border-radius:999px;
+  box-shadow:0 4px 10px rgba(228,0,43,.30)}
+.badge.used{background:linear-gradient(180deg,#d98a12,#b26a00);box-shadow:0 4px 10px rgba(178,106,0,.30)}
+.card h3{font-size:15.5px;line-height:1.32;font-weight:700}
+.stars{color:#f5a623;font-size:14px;letter-spacing:1px}
+.stars span{color:#9892b0;letter-spacing:0;font-size:13px}
+.price{font-size:19px;font-weight:900;color:var(--red)}
+.price s{color:#a49cc0;font-size:13.5px;font-weight:500;margin-left:6px}
+.spec{font-size:13px;color:var(--dim);line-height:1.5}
+.card .buy{margin-top:auto;justify-content:center;width:100%}
+.card .buyrow{margin-top:auto;padding-top:8px}
+
+/* ---------- GUIDE ---------- */
+.guide{background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--sh)}
+.guide h3{font-size:17.5px;font-weight:800;margin-bottom:10px}
+.guide ul{list-style:none}
+.guide li{margin:7px 0;color:#3f3a58;font-size:14.5px;display:flex;gap:9px;align-items:flex-start}
+.guide li::before{content:"✓";flex:none;width:20px;height:20px;border-radius:999px;margin-top:1px;
+  background:linear-gradient(180deg,#4be389,#25d366);color:#06351a;font-size:12px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(37,211,102,.35)}
+
+/* ---------- FOOTER ---------- */
+footer{margin-top:40px;background:rgba(255,255,255,.6);backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line)}
+.fwrap{max-width:1120px;margin:0 auto;padding:28px 16px 34px;text-align:center;font-size:14px;color:#4a445f}
+.fwrap .flogo{font-size:22px;font-weight:900;color:var(--ink)} .fwrap .flogo b{color:var(--red)}
+.fnav{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin:15px 0 12px}
+.demo-tag{position:fixed;bottom:14px;right:14px;z-index:99;background:linear-gradient(180deg,#37304f,#211c33);
+  color:#fff;font-size:12px;font-weight:700;padding:8px 14px;border-radius:999px;box-shadow:var(--pill-sh)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hwrap">
+    <a class="logo" href="#">Red<b>Vanta</b></a>
+    <form class="search" onsubmit="return false">
+      <input type="search" placeholder="Search products, brands, deals…" aria-label="Search products">
+      <button class="pill red sm" type="submit">Search</button>
+    </form>
+    <a class="pill red deals" href="#deals">🛒 <span>Deals</span></a>
+  </div>
+</header>
+
+<nav aria-label="Categories">
+  <div class="nwrap">
+    <a class="pill chip on" href="#">All</a>
+    <a class="pill chip" href="#">Electronics</a>
+    <a class="pill chip" href="#">Kitchen</a>
+    <a class="pill chip" href="#">Beauty</a>
+    <a class="pill chip" href="#laptops">Laptops</a>
+    <a class="pill chip" href="#">Home</a>
+    <a class="pill chip" href="#">Fashion</a>
+  </div>
+</nav>
+
+<!-- HERO SLIDESHOW -->
+<section class="hero" aria-label="Featured deals">
+  <div class="stage" id="stage">
+    <div class="slide s1 on">
+      <div>
+        <div class="k">Winter Special</div>
+        <h1>Best Deals in Bangladesh, <em>Honestly Reviewed.</em></h1>
+        <p>Every product is checked for rating, price and real buyer reviews before we recommend it.</p>
+        <a class="pill red" href="#deals">Browse Today's Deals</a>
+      </div>
+      <div class="emo">🍳</div>
+    </div>
+    <div class="slide s2">
+      <div>
+        <div class="k">Home Essentials</div>
+        <h1>Smart Gadgets for <em>Every Home</em></h1>
+        <p>Lamps, kitchen helpers and everyday tech — top-rated picks that are actually worth the money.</p>
+        <a class="pill red" href="#deals">Shop Home Picks</a>
+      </div>
+      <div class="emo">💡</div>
+    </div>
+    <div class="slide s3">
+      <div>
+        <div class="k">Grade-A Checked</div>
+        <h1>Used Laptops, <em>Verified &amp; Trusted</em></h1>
+        <p>Clear specs, honest condition grades and a real person to message before you pay.</p>
+        <a class="pill dark" href="#laptops">See Laptops</a>
+      </div>
+      <div class="emo">💻</div>
+    </div>
+    <div class="dots" id="dots"></div>
+    <div class="arrows">
+      <button class="arrow" id="prev" aria-label="Previous slide">‹</button>
+      <button class="arrow" id="next" aria-label="Next slide">›</button>
+    </div>
+  </div>
+</section>
+
+<!-- AD SLOT 1 -->
+<div class="adbox" aria-hidden="true">
+  <div class="ad desk"><div class="lab">Sponsored</div><div class="sz">Advertisement · 728 × 90</div></div>
+  <div class="ad mob"><div class="lab">Sponsored</div><div class="sz">Advertisement · 320 × 50</div></div>
+</div>
+
+<div class="wrap">
+
+  <h2 class="sec" id="deals">🔥 Trending Deals</h2>
+  <p class="sub">Highly rated by real buyers — updated regularly.</p>
+  <div class="grid">
+    <article class="card"><div class="ph">🍳</div><div class="body">
+      <span class="badge">Best Seller</span>
+      <h3>Non-Stick Pitha Maker — Cast Iron, 7 Moulds</h3>
+      <div class="stars">★★★★★ <span>4.8 (312 reviews)</span></div>
+      <div class="price">৳ 850 <s>৳ 1,200</s></div>
+      <div class="buyrow"><a class="pill orange buy" href="#">Check Price on Daraz</a></div>
+    </div></article>
+    <article class="card"><div class="ph">🎧</div><div class="body">
+      <span class="badge">Top Rated</span>
+      <h3>Wireless Earbuds — Bluetooth 5.3, 36H Playtime</h3>
+      <div class="stars">★★★★★ <span>4.7 (1,204 reviews)</span></div>
+      <div class="price">৳ 1,450 <s>৳ 2,300</s></div>
+      <div class="buyrow"><a class="pill orange buy" href="#">Check Price on Daraz</a></div>
+    </div></article>
+    <article class="card"><div class="ph">💡</div><div class="body">
+      <span class="badge">New</span>
+      <h3>Rechargeable LED Table Lamp — Touch Dimmer</h3>
+      <div class="stars">★★★★☆ <span>4.6 (208 reviews)</span></div>
+      <div class="price">৳ 690 <s>৳ 990</s></div>
+      <div class="buyrow"><a class="pill orange buy" href="#">Check Price on Daraz</a></div>
+    </div></article>
+    <article class="card"><div class="ph">🧴</div><div class="body">
+      <span class="badge">Top Rated</span>
+      <h3>Vitamin C Face Serum — 30ml, All Skin Types</h3>
+      <div class="stars">★★★★★ <span>4.7 (864 reviews)</span></div>
+      <div class="price">৳ 540 <s>৳ 850</s></div>
+      <div class="buyrow"><a class="pill orange buy" href="#">Check Price on Daraz</a></div>
+    </div></article>
+  </div>
+
+</div>
+
+<!-- AD SLOT 2 -->
+<div class="adbox" aria-hidden="true">
+  <div class="ad desk"><div class="lab">Sponsored</div><div class="sz">Advertisement · 728 × 90</div></div>
+  <div class="ad mob"><div class="lab">Sponsored</div><div class="sz">Advertisement · 320 × 50</div></div>
+</div>
+
+<div class="wrap">
+
+  <h2 class="sec" id="laptops">💻 Used Laptops — Checked &amp; Verified</h2>
+  <p class="sub">Specs shown clearly, condition graded honestly.</p>
+  <div class="grid">
+    <article class="card"><div class="ph">💻</div><div class="body">
+      <span class="badge used">Used · Grade A</span>
+      <h3>HP EliteBook 840 G6 — Core i5, 8th Gen</h3>
+      <div class="spec">RAM 16GB · SSD 512GB · 14″ FHD · Battery 4h+</div>
+      <div class="stars">★★★★★ <span>Checked by RedVanta</span></div>
+      <div class="price">৳ 32,500</div>
+      <div class="buyrow"><a class="pill wa buy" href="#">Message on WhatsApp</a></div>
+    </div></article>
+    <article class="card"><div class="ph">💻</div><div class="body">
+      <span class="badge used">Used · Grade A</span>
+      <h3>Dell Latitude 7490 — Core i7, 8th Gen</h3>
+      <div class="spec">RAM 16GB · SSD 256GB · 14″ FHD · Backlit Keyboard</div>
+      <div class="stars">★★★★★ <span>Checked by RedVanta</span></div>
+      <div class="price">৳ 34,000</div>
+      <div class="buyrow"><a class="pill wa buy" href="#">Message on WhatsApp</a></div>
+    </div></article>
+  </div>
+
+  <h2 class="sec">📖 From the Buying Guides</h2>
+  <p class="sub">Every review on RedVanta carries this checklist — the AdSense-safe, buyer-first format.</p>
+  <div class="guide">
+    <h3>What to check before buying</h3>
+    <ul>
+      <li>Is the rating 4.5★ or higher, with enough real reviews?</li>
+      <li>Who is this product best for — and who should skip it?</li>
+      <li>Honest pros and cons, not just a sales pitch.</li>
+      <li>Price compared with the regular market price.</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- AD SLOT 3 -->
+<div class="adbox" aria-hidden="true">
+  <div class="ad desk"><div class="lab">Sponsored</div><div class="sz">Advertisement · 728 × 90</div></div>
+  <div class="ad mob"><div class="lab">Sponsored</div><div class="sz">Advertisement · 320 × 50</div></div>
+</div>
+
+<footer>
+  <div class="fwrap">
+    <div class="flogo">Red<b>Vanta</b></div>
+    <p style="margin-top:5px">Honest deals &amp; buying guides for Bangladesh</p>
+    <div class="fnav">
+      <a class="pill sm" href="#">Home</a>
+      <a class="pill sm" href="#">About</a>
+      <a class="pill sm" href="#">Contact</a>
+      <a class="pill sm" href="#">Privacy Policy</a>
+      <a class="pill sm" href="#">Disclaimer</a>
+    </div>
+    <p>© 2026 RedVanta — Prices may change; please check Daraz before buying.</p>
+  </div>
+</footer>
+
+<div class="demo-tag">DEMO — RedVanta Pro</div>
+
+<script>
+(function(){
+  var slides=document.querySelectorAll('.slide'), dotsBox=document.getElementById('dots'),
+      i=0, timer=null, dots=[];
+  slides.forEach(function(_,k){
+    var d=document.createElement('button');
+    d.className='dot'+(k===0?' on':''); d.setAttribute('aria-label','Go to slide '+(k+1));
+    d.addEventListener('click',function(){ go(k); restart(); });
+    dotsBox.appendChild(d); dots.push(d);
+  });
+  function go(n){
+    slides[i].classList.remove('on'); dots[i].classList.remove('on');
+    i=(n+slides.length)%slides.length;
+    slides[i].classList.add('on'); dots[i].classList.add('on');
+  }
+  function restart(){ clearInterval(timer); timer=setInterval(function(){ go(i+1); },4500); }
+  document.getElementById('next').addEventListener('click',function(){ go(i+1); restart(); });
+  document.getElementById('prev').addEventListener('click',function(){ go(i-1); restart(); });
+  var stage=document.getElementById('stage');
+  stage.addEventListener('mouseenter',function(){ clearInterval(timer); });
+  stage.addEventListener('mouseleave',restart);
+  restart();
+})();
+</script>
+</body>
+</html>
