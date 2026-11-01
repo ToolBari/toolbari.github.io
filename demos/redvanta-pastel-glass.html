@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RedVanta — Demo: Pastel Glass</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:linear-gradient(135deg,#e9e4ff 0%,#dcd2ff 22%,#ffd9ec 55%,#d8f5e3 100%);background-attachment:fixed;color:#232030}
+a{text-decoration:none;color:inherit}
+/* Header */
+header{background:rgba(255,255,255,.72);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.7);position:sticky;top:0;z-index:10}
+.hwrap{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:12px 16px}
+.logo{font-size:26px;font-weight:900;letter-spacing:-.5px}
+.logo b{color:#e4002b}
+.search{flex:1;display:flex;border:2px solid #e4002b;border-radius:999px;overflow:hidden}
+.search input{flex:1;border:0;padding:10px 16px;font-size:15px;outline:none}
+.search button{border:0;background:#e4002b;color:#fff;padding:0 22px;font-weight:700;cursor:pointer}
+.cart{background:#fff3f5;border:1px solid #ffd4dd;color:#e4002b;border-radius:999px;padding:9px 16px;font-weight:700;font-size:14px}
+/* Nav chips */
+nav{background:rgba(255,255,255,.55);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.6)
+.nwrap{max-width:1100px;margin:0 auto;display:flex;gap:8px;padding:10px 16px;overflow-x:auto}
+.chip{white-space:nowrap;padding:8px 15px;border-radius:999px;background:rgba(255,255,255,.85);font-size:14px;font-weight:600;color:#3c3752;box-shadow:0 4px 12px rgba(90,60,160,.10)}
+.chip.on{background:#1c2530;color:#fff}
+/* Hero */
+.hero{background:transparent;border-bottom:0}
+.hero-in{max-width:1100px;margin:22px auto 0;padding:30px 22px 26px;background:rgba(255,255,255,.62);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.75);border-radius:22px;box-shadow:0 18px 40px rgba(90,60,160,.16)}
+.hero h1{font-size:32px;font-weight:900;line-height:1.15}
+.hero h1 span{color:#e4002b}
+.hero p{color:#5a6675;margin-top:8px;font-size:16px;max-width:560px}
+.hero .btn{display:inline-block;margin-top:16px;background:#e4002b;color:#fff;font-weight:800;padding:12px 24px;border-radius:999px}
+/* Sections */
+.wrap{max-width:1100px;margin:0 auto;padding:8px 16px 30px}
+h2.sec{font-size:21px;font-weight:800;margin:26px 0 6px}
+p.sub{color:#5a6675;font-size:14px;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.card{background:linear-gradient(160deg,rgba(255,255,255,.95),rgba(255,240,248,.9));border:1px solid rgba(255,255,255,.85);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 14px 30px rgba(90,60,160,.15)
+.card .img{height:150px;display:flex;align-items:center;justify-content:center;font-size:64px;background:linear-gradient(140deg,#f3efff,#ffeef7 60%,#e9fbf1)}
+.card .body{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.badge{align-self:flex-start;background:#e4002b;color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:999px}
+.badge.used{background:#b26a00}
+.card h3{font-size:16px;line-height:1.3}
+.stars{color:#f5a623;font-size:14px}
+.stars span{color:#8a94a3}
+.price{font-size:19px;font-weight:900;color:#e4002b}
+.price s{color:#9aa4b1;font-size:14px;font-weight:500;margin-left:6px}
+.spec{font-size:13px;color:#5a6675}
+.buy{margin-top:auto;background:#ff7a1a;color:#fff;text-align:center;font-weight:800;padding:11px;border-radius:10px;font-size:15px}
+.guide{background:rgba(255,255,255,.78);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.85);border-radius:18px;padding:18px;margin-top:6px;box-shadow:0 14px 30px rgba(90,60,160,.12)}
+.guide h3{font-size:17px;margin-bottom:8px}
+.guide li{margin:5px 0 5px 18px;color:#3c4756;font-size:14.5px}
+/* Footer */
+footer{background:rgba(255,255,255,.6);backdrop-filter:blur(14px);color:#4a445f;margin-top:36px;border-top:1px solid rgba(255,255,255,.7)}
+.fwrap{max-width:1100px;margin:0 auto;padding:26px 16px;text-align:center;font-size:14px}
+.fwrap b{color:#232030}
+.demo-tag{position:fixed;bottom:14px;right:14px;background:#1c2530;color:#fff;font-size:12px;font-weight:700;padding:7px 13px;border-radius:999px;opacity:.9}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hwrap">
+    <div class="logo">Red<b>Vanta</b></div>
+    <div class="search"><input placeholder="Search products…"><button>Search</button></div>
+    <div class="cart">🛒 Deals</div>
+  </div>
+</header>
+
+<nav>
+  <div class="nwrap">
+    <a class="chip on" href="#">All</a>
+    <a class="chip" href="#">Electronics</a>
+    <a class="chip" href="#">Kitchen</a>
+    <a class="chip" href="#">Beauty</a>
+    <a class="chip" href="#">Laptops</a>
+    <a class="chip" href="#">Home</a>
+    <a class="chip" href="#">Fashion</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-in">
+    <h1>Best Deals in Bangladesh,<br><span>Honestly Reviewed.</span></h1>
+    <p>Every product is checked for rating, price and real buyer reviews before we recommend it — no thin listings, only buying guides you can trust.</p>
+    <a class="btn" href="#">Browse Today's Deals</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <h2 class="sec">🔥 Trending Deals</h2>
+  <p class="sub">Highly rated by real buyers — updated regularly.</p>
+  <div class="grid">
+    <div class="card"><div class="img">🍳</div><div class="body">
+      <span class="badge">Best Seller</span>
+      <h3>Non-Stick Pitha Maker — Cast Iron, 7 Moulds</h3>
+      <div class="stars">★★★★★ <span>4.8 (312 reviews)</span></div>
+      <div class="price">৳ 850 <s>৳ 1,200</s></div>
+      <a class="buy" href="#">Check Price on Daraz</a>
+    </div></div>
+    <div class="card"><div class="img">🎧</div><div class="body">
+      <span class="badge">Top Rated</span>
+      <h3>Wireless Earbuds — Bluetooth 5.3, 36H Playtime</h3>
+      <div class="stars">★★★★★ <span>4.7 (1,204 reviews)</span></div>
+      <div class="price">৳ 1,450 <s>৳ 2,300</s></div>
+      <a class="buy" href="#">Check Price on Daraz</a>
+    </div></div>
+    <div class="card"><div class="img">💡</div><div class="body">
+      <span class="badge">New</span>
+      <h3>Rechargeable LED Table Lamp — Touch Dimmer</h3>
+      <div class="stars">★★★★☆ <span>4.6 (208 reviews)</span></div>
+      <div class="price">৳ 690 <s>৳ 990</s></div>
+      <a class="buy" href="#">Check Price on Daraz</a>
+    </div></div>
+    <div class="card"><div class="img">🧴</div><div class="body">
+      <span class="badge">Top Rated</span>
+      <h3>Vitamin C Face Serum — 30ml, All Skin Types</h3>
+      <div class="stars">★★★★★ <span>4.7 (864 reviews)</span></div>
+      <div class="price">৳ 540 <s>৳ 850</s></div>
+      <a class="buy" href="#">Check Price on Daraz</a>
+    </div></div>
+  </div>
+
+  <h2 class="sec">💻 Used Laptops — Checked &amp; Verified</h2>
+  <p class="sub">Specs shown clearly, condition graded honestly.</p>
+  <div class="grid">
+    <div class="card"><div class="img">💻</div><div class="body">
+      <span class="badge used">Used · Grade A</span>
+      <h3>HP EliteBook 840 G6 — Core i5, 8th Gen</h3>
+      <div class="spec">RAM 16GB · SSD 512GB · 14″ FHD · Battery 4h+</div>
+      <div class="stars">★★★★★ <span>Checked by RedVanta</span></div>
+      <div class="price">৳ 32,500</div>
+      <a class="buy" href="#">Message on WhatsApp</a>
+    </div></div>
+    <div class="card"><div class="img">💻</div><div class="body">
+      <span class="badge used">Used · Grade A</span>
+      <h3>Dell Latitude 7490 — Core i7, 8th Gen</h3>
+      <div class="spec">RAM 16GB · SSD 256GB · 14″ FHD · Backlit Keyboard</div>
+      <div class="stars">★★★★★ <span>Checked by RedVanta</span></div>
+      <div class="price">৳ 34,000</div>
+      <a class="buy" href="#">Message on WhatsApp</a>
+    </div></div>
+  </div>
+
+  <h2 class="sec">📖 From the Buying Guides</h2>
+  <p class="sub">Every review on RedVanta carries this checklist — the AdSense-safe, buyer-first format.</p>
+  <div class="guide">
+    <h3>What to check before buying</h3>
+    <ul>
+      <li>Is the rating 4.5★ or higher, with enough real reviews?</li>
+      <li>Who is this product best for — and who should skip it?</li>
+      <li>Honest pros and cons, not just a sales pitch.</li>
+      <li>Price compared with the regular market price.</li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  <div class="fwrap">
+    <p><b>RedVanta</b> — Honest deals &amp; buying guides for Bangladesh</p>
+    <p style="margin-top:6px">Home · About · Contact · Privacy Policy · Disclaimer</p>
+  </div>
+</footer>
+
+<div class="demo-tag">DEMO — Pastel Glass</div>
+</body>
+</html>
