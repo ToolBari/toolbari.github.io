@@ -2485,6 +2485,18 @@ document.addEventListener("click", function(e){
  }
  } catch(e){ /* invalid saved state — stay on the gate */ }
 })();
+/* Deep link from the CineFlixOne blog: ?m=<tmdb id>&t=<movie|tv> opens that title's details directly */
+(function(){
+ try{
+  var q = new URLSearchParams(location.search);
+  var mid = q.get("m");
+  if(!mid || !/^\d+$/.test(mid)) return;
+  var mt = q.get("t") === "tv" ? "tv" : "movie";
+  api("/" + mt + "/" + mid).then(function(d){
+   if(d && d.id){ d.media_type = mt; enterMovies(); openDetails(reg(d)); }
+  }).catch(function(){});
+ }catch(e){}
+})();
 })();
 </script>
 <style>body.cb-playing [data-cbforeign]{display:none!important}</style>
