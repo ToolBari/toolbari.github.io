@@ -3,18 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ToolBari AI Video - Free AI Video Generator</title>
-  <meta name="description" content="Turn your words into video with AI — free with a free account. Free AI video generator supporting Veo Fast, Grok Video, and Vela Free models.">
+  <title>Free AI Video Generator — Turn Text into Video Free | ToolBari AI Video</title>
+  <meta name="description" content="Free AI video generator — turn text into video online, free with a free account. Type a prompt and create AI videos in seconds. No credit card needed; a fair daily free limit applies.">
+  <meta name="keywords" content="free ai video generator, ai video generator, text to video, create ai video free, online video generator, ai video maker">
   <link rel="canonical" href="https://toolbari.github.io/ai-video/">
   <meta name="robots" content="index, follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ToolBari">
-  <meta property="og:title" content="ToolBari AI Video - Free AI Video Generator">
-  <meta property="og:description" content="Turn your words into video with AI — free with a free account. Create AI videos from text with Veo Fast, Grok Video and Vela Free.">
+  <meta property="og:title" content="Free AI Video Generator — Turn Text into Video Free | ToolBari AI Video">
+  <meta property="og:description" content="Free AI video generator — turn text into video online, free with a free account. No credit card needed; a fair daily free limit applies.">
   <meta property="og:url" content="https://toolbari.github.io/ai-video/">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://toolbari.github.io/ai-video/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="ToolBari AI Video — Free AI Video Generator">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="ToolBari AI Video - Free AI Video Generator">
-  <meta name="twitter:description" content="Turn your words into video with AI — free with a free account.">
+  <meta name="twitter:description" content="Free AI video generator — turn text into video online, free with a free account. No credit card needed; a fair daily free limit applies.">
+  <meta name="twitter:image" content="https://toolbari.github.io/ai-video/og-image.png">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@graph":[
     {"@type":"SoftwareApplication","name":"ToolBari AI Video","applicationCategory":"MultimediaApplication","operatingSystem":"Web, Android","url":"https://toolbari.github.io/ai-video/","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free AI video generator — turn your words into video with AI."},
@@ -729,6 +736,7 @@
       <div class="result-area" id="result-area">
         <div class="video-player-container" id="video-box">
           <canvas id="video-canvas" class="video-canvas"></canvas>
+          <video id="result-video" class="video-canvas" controls playsinline style="display:none"></video>
         </div>
         <button class="btn-download-green" id="btn-download" onclick="handleDownload()">
           ⬇ Download Video
@@ -736,6 +744,14 @@
         <div id="launch-note" style="display:none;text-align:center;padding:28px 18px;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.35);border-radius:14px;color:#e5e7eb">
           <div style="font-size:20px;font-weight:700;margin-bottom:8px">🎬 You're signed in — you're on the list!</div>
           <div style="font-size:15px;line-height:1.55">Our free video engine is in final testing and launches in a few days.<br>We'll email you the moment it's live, and your free daily videos will be ready.</div>
+        </div>
+        <div id="limit-note" style="display:none;text-align:center;padding:28px 18px;background:rgba(245,158,11,.10);border:1px solid rgba(245,158,11,.4);border-radius:14px;color:#e5e7eb">
+          <div style="font-size:20px;font-weight:700;margin-bottom:8px">⏳ Daily free limit reached</div>
+          <div style="font-size:15px;line-height:1.55">You have used all of today's free videos.<br>Come back tomorrow — your free daily videos will be ready again.</div>
+        </div>
+        <div id="error-note" style="display:none;text-align:center;padding:28px 18px;background:rgba(244,63,94,.10);border:1px solid rgba(244,63,94,.4);border-radius:14px;color:#e5e7eb">
+          <div style="font-size:20px;font-weight:700;margin-bottom:8px">⚠️ Something went wrong</div>
+          <div style="font-size:15px;line-height:1.55" id="error-note-text">Your video could not be created. Please try again.</div>
         </div>
       </div>
 
@@ -781,7 +797,7 @@
       <div class="examples-grid">
         <div class="example-card">
           <div class="example-thumb">
-            <video src="https://videos.pexels.com/video-files/26081680/11929606_960_540_60fps.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block"></video>
+            <video title="AI video example: cinematic drone flyover of a green forested valley" src="https://videos.pexels.com/video-files/26081680/11929606_960_540_60fps.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block"></video>
           </div>
           <div class="example-body">
             <p class="example-prompt">"Cinematic drone flyover of a green forested valley surrounded by mountains"</p>
@@ -791,7 +807,7 @@
 
         <div class="example-card">
           <div class="example-thumb">
-            <video src="https://videos.pexels.com/video-files/35573592/15073889_960_540_24fps.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block"></video>
+            <video title="AI video example: moody mist rolling over an alpine mountain landscape" src="https://videos.pexels.com/video-files/35573592/15073889_960_540_24fps.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block"></video>
           </div>
           <div class="example-body">
             <p class="example-prompt">"Moody mist rolling over an alpine mountain landscape, cinematic light"</p>
@@ -801,7 +817,7 @@
 
         <div class="example-card">
           <div class="example-thumb">
-            <video src="https://videos.pexels.com/video-files/28735139/12463933_960_540_30fps.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block"></video>
+            <video title="AI video example: golden sunrise over a foggy bridge and river" src="https://videos.pexels.com/video-files/28735139/12463933_960_540_30fps.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block"></video>
           </div>
           <div class="example-body">
             <p class="example-prompt">"Golden sunrise glow over a foggy bridge and river, dreamy atmosphere"</p>
@@ -811,7 +827,7 @@
 
         <div class="example-card">
           <div class="example-thumb">
-            <video src="https://videos.pexels.com/video-files/35741864/15150568_960_540_25fps.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block"></video>
+            <video title="AI video example: aerial view of a mountain range at twilight" src="https://videos.pexels.com/video-files/35741864/15150568_960_540_25fps.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block"></video>
           </div>
           <div class="example-body">
             <p class="example-prompt">"Aerial view of a majestic mountain range at twilight, slow push-in"</p>
@@ -821,7 +837,7 @@
 
         <div class="example-card">
           <div class="example-thumb">
-            <video src="https://videos.pexels.com/video-files/40732373/17398979_960_540_30fps.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block"></video>
+            <video title="AI video example: flying through clouds on a misty mountain climb" src="https://videos.pexels.com/video-files/40732373/17398979_960_540_30fps.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block"></video>
           </div>
           <div class="example-body">
             <p class="example-prompt">"Flying through dense clouds on a misty mountain climb"</p>
@@ -831,7 +847,7 @@
 
         <div class="example-card">
           <div class="example-thumb">
-            <video src="https://videos.pexels.com/video-files/13698721/13698721-sd_960_540_30fps.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block"></video>
+            <video title="AI video example: moody black and white sky with fast-moving clouds" src="https://videos.pexels.com/video-files/13698721/13698721-sd_960_540_30fps.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block"></video>
           </div>
           <div class="example-body">
             <p class="example-prompt">"Moody black and white sky with fast-moving dramatic clouds"</p>
@@ -902,7 +918,7 @@
       <div class="footer-links">
         <a href="#">Privacy Policy</a>
         <a href="#">Terms of Service</a>
-        <a href="#">Models</a>
+        <a href="https://toolbari.github.io/">ToolBari — Free Online Tools</a>
         <a href="#">Support</a>
       </div>
       <div class="footer-copy">
@@ -914,8 +930,18 @@
   <!-- Single-File Inline JS -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
   <script>
+    // ================= CONFIG — EDIT ME =================
+    // Paste the Magic Hour API key between the quotes to switch on REAL video
+    // generation. While this is empty, the page keeps its current behaviour
+    // (sign-in + launch-list message) and no generation is attempted.
+    const MAGIC_HOUR_API_KEY = "";
+    // Free videos allowed per signed-in user per day (Firestore usage counter).
+    const FREE_DAILY_LIMIT = 3;
+    // ====================================================
     let selectedRatio = '16:9';
+    let resultVideoUrl = '';
     // --- ToolBari AI Video auth (Firebase) ---
     let currentUser = null;
     let authReady = false;
@@ -975,6 +1001,35 @@
       document.getElementById('btn-download').style.display = 'none';
       document.getElementById('launch-note').style.display = 'block';
     }
+    function hideResultNotes(){
+      document.getElementById('launch-note').style.display = 'none';
+      document.getElementById('limit-note').style.display = 'none';
+      document.getElementById('error-note').style.display = 'none';
+    }
+    function showLimitNote(){
+      hideResultNotes();
+      document.getElementById('video-box').style.display = 'none';
+      document.getElementById('btn-download').style.display = 'none';
+      document.getElementById('limit-note').style.display = 'block';
+    }
+    function showErrorNote(msg){
+      hideResultNotes();
+      document.getElementById('video-box').style.display = 'none';
+      document.getElementById('btn-download').style.display = 'none';
+      if (msg) document.getElementById('error-note-text').innerText = msg;
+      document.getElementById('error-note').style.display = 'block';
+    }
+    function showRealVideo(url){
+      hideResultNotes();
+      resultVideoUrl = url;
+      document.getElementById('video-canvas').style.display = 'none';
+      const rv = document.getElementById('result-video');
+      rv.src = url;
+      rv.style.display = 'block';
+      document.getElementById('video-box').style.display = 'flex';
+      const dl = document.getElementById('btn-download');
+      dl.style.display = 'flex';
+    }
     // --- ad-block bait check (runs once on load) ---
     window.__adblock = false;
     window.addEventListener('load', function(){
@@ -1021,7 +1076,25 @@
     }
 
     function handleGenerate() {
-      const prompt = document.getElementById('prompt-input').value.trim();
+      const promptEl = document.getElementById('prompt-input');
+      if (!promptEl.value.trim()) {
+        promptEl.value = 'Cinematic drone shot flying through futuristic neon skyscrapers with flying vehicles, 8k photorealistic';
+      }
+      const prompt = promptEl.value.trim();
+
+      if (authReady && !currentUser) { openAuthModal(); return; }
+      if (window.__adblock) { toggleAdblockBanner(true); document.getElementById('adblock-banner').scrollIntoView({ behavior: 'smooth' }); return; }
+
+      if (!MAGIC_HOUR_API_KEY) {
+        // Engine not configured yet: keep today's exact behaviour — progress,
+        // then the honest launch-list message. No fake video is produced.
+        runLaunchProgress();
+        return;
+      }
+      runRealGeneration(prompt);
+    }
+
+    function runLaunchProgress() {
       const progressArea = document.getElementById('progress-area');
       const resultArea = document.getElementById('result-area');
       const progressBar = document.getElementById('progress-bar');
@@ -1029,12 +1102,6 @@
       const progressStatus = document.getElementById('progress-status');
       const btn = document.getElementById('btn-generate');
 
-      if (!prompt) {
-        document.getElementById('prompt-input').value = 'Cinematic drone shot flying through futuristic neon skyscrapers with flying vehicles, 8k photorealistic';
-      }
-
-      if (authReady && !currentUser) { openAuthModal(); return; }
-      if (window.__adblock) { toggleAdblockBanner(true); document.getElementById('adblock-banner').scrollIntoView({ behavior: 'smooth' }); return; }
       progressArea.style.display = 'block';
       resultArea.style.display = 'none';
       btn.disabled = true;
@@ -1065,10 +1132,112 @@
             resultArea.style.display = 'block';
             btn.disabled = false;
             btn.innerText = 'Generate Video';
+            document.getElementById('video-box').style.display = 'flex';
+            document.getElementById('btn-download').style.display = 'flex';
             showLaunchNote();
           }, 400);
         }
       }, 160);
+    }
+
+    function sleepMs(ms) { return new Promise(function(r){ setTimeout(r, ms); }); }
+
+    async function runRealGeneration(prompt) {
+      const progressArea = document.getElementById('progress-area');
+      const resultArea = document.getElementById('result-area');
+      const progressBar = document.getElementById('progress-bar');
+      const progressPct = document.getElementById('progress-pct');
+      const progressStatus = document.getElementById('progress-status');
+      const progressTitle = document.getElementById('progress-title');
+      const btn = document.getElementById('btn-generate');
+
+      if (!currentUser) { openAuthModal(); return; }
+      progressArea.style.display = 'block';
+      resultArea.style.display = 'none';
+      btn.disabled = true;
+      btn.innerText = 'Creating Video...';
+      progressTitle.innerText = 'Creating your video…';
+
+      let shown = 0;
+      const creep = setInterval(function(){
+        if (shown < 90) { shown += 1; progressBar.style.width = shown + '%'; progressPct.innerText = shown + '%'; }
+      }, 1200);
+      function finish() {
+        clearInterval(creep);
+        progressArea.style.display = 'none';
+        resultArea.style.display = 'block';
+        btn.disabled = false;
+        btn.innerText = 'Generate Video';
+      }
+      function fail(msg) { finish(); showErrorNote(msg); }
+
+      // --- Per-user daily limit (Firestore: users/{uid}/usage/{YYYY-MM-DD}) ---
+      progressStatus.innerText = 'Checking your daily free videos...';
+      let db;
+      try { db = firebase.firestore(); } catch(e) { fail('Video generation is not available right now. Please try again later.'); return; }
+      const now = new Date();
+      const day = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+      const usageRef = db.doc('users/' + currentUser.uid + '/usage/' + day);
+      let used = 0;
+      try {
+        const snap = await usageRef.get();
+        if (snap.exists && snap.data() && typeof snap.data().count === 'number') used = snap.data().count;
+      } catch(e) { fail('Could not check your daily free videos. Please try again.'); return; }
+      if (used >= FREE_DAILY_LIMIT) { finish(); showLimitNote(); return; }
+      try {
+        await usageRef.set({ count: used + 1, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
+      } catch(e) { fail('Could not check your daily free videos. Please try again.'); return; }
+
+      // --- Submit the text-to-video job to Magic Hour ---
+      progressStatus.innerText = 'Submitting to the AI video engine...';
+      const headers = { 'Authorization': 'Bearer ' + MAGIC_HOUR_API_KEY, 'Content-Type': 'application/json' };
+      let jobId = null;
+      try {
+        const r = await fetch('https://api.magichour.ai/v1/text-to-video', {
+          method: 'POST', headers: headers,
+          body: JSON.stringify({
+            name: 'ToolBari AI Video',
+            end_seconds: 5,
+            aspect_ratio: selectedRatio,
+            resolution: '480p',
+            model: 'ltx-2.5',
+            audio: false,
+            style: { prompt: prompt }
+          })
+        });
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        const j = await r.json();
+        jobId = j.id;
+      } catch(e) { fail('Your video could not be started. Please try again later.'); return; }
+      if (!jobId) { fail('Your video could not be started. Please try again later.'); return; }
+
+      // --- Poll until complete (max ~10 minutes) ---
+      progressStatus.innerText = 'Rendering your video — this can take a few minutes...';
+      const deadline = Date.now() + 10 * 60 * 1000;
+      let videoUrl = '';
+      while (Date.now() < deadline) {
+        await sleepMs(5000);
+        let j = null;
+        try {
+          const r = await fetch('https://api.magichour.ai/v1/video-projects/' + jobId, { headers: headers });
+          if (!r.ok) continue;
+          j = await r.json();
+        } catch(e) { continue; }
+        if (!j) continue;
+        if (j.status === 'complete') {
+          if (j.downloads && j.downloads.length && j.downloads[0].url) videoUrl = j.downloads[0].url;
+          break;
+        }
+        if (j.status === 'error' || j.status === 'canceled') {
+          fail('The video engine could not create this video. Please try a different prompt.');
+          return;
+        }
+      }
+      if (!videoUrl) { fail('Your video is taking longer than usual. Please try again in a few minutes.'); return; }
+      progressBar.style.width = '100%';
+      progressPct.innerText = '100%';
+      finish();
+      showRealVideo(videoUrl);
     }
 
     function initVideoPlayer() {
@@ -1131,6 +1300,17 @@
     }
 
     function handleDownload() {
+      if (resultVideoUrl) {
+        const a = document.createElement('a');
+        a.href = resultVideoUrl;
+        a.download = 'toolbari-ai-video.mp4';
+        a.target = '_blank';
+        a.rel = 'noopener';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        return;
+      }
       const canvas = document.getElementById('video-canvas');
       const link = document.createElement('a');
       link.download = 'toolbari-video.png';
