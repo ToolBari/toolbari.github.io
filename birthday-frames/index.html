@@ -97,9 +97,9 @@ footer{text-align:center;color:#8f89b8;font-size:12.5px;padding:18px 10px 26px}
 <section id="gift" class="panel">
 <div id="giftIntro">
 <div style="font-size:19px;font-weight:900">🎁 A surprise gift for you!</div>
-<p style="color:#bdb6e8;margin-top:8px">Someone made this just for you. Tap the gift to open it!</p>
+<p style="color:#bdb6e8;margin-top:8px" id="giftHint">Someone made this just for you. Tap the gift to open it!</p>
 <button id="giftBox" aria-label="Open your gift">🎁</button>
-<p style="color:#ffd400;font-weight:800">👆 Tap to open</p>
+<p style="color:#ffd400;font-weight:800" id="giftTapTxt">👆 Tap to open</p>
 </div>
 <div id="giftReveal">
 <img id="giftImg" alt="Your birthday frame">
@@ -142,6 +142,12 @@ footer{text-align:center;color:#8f89b8;font-size:12.5px;padding:18px 10px 26px}
 <input type="text" id="gName" placeholder="Friend's name" maxlength="40">
 <textarea id="gMsg" placeholder="Your birthday message…" maxlength="220"></textarea>
 <input type="text" id="gFrom" placeholder="Your name (From…)" maxlength="40">
+<div class="seg" id="gStyleSeg">
+<button data-t="box" class="on">🎁 Gift Box</button>
+<button data-t="cake">🎂 Cake</button>
+<button data-t="balloon">🎈 Balloon</button>
+<button data-t="scratch">🎟️ Scratch</button>
+</div>
 <button class="dl" id="gMake" style="background:linear-gradient(135deg,#ff00a8,#7c00ff);color:#fff;box-shadow:0 6px 18px rgba(255,0,168,.35)">🎁 Create Gift Link</button>
 <div class="giftlink" id="gOut" style="display:none"><input type="text" id="gLink" readonly><button id="gCopy">Copy</button></div>
 <a class="gbtn" id="gWa" style="display:none;background:#25d366" target="_blank" rel="noopener">📲 Send on WhatsApp</a>
@@ -408,12 +414,16 @@ function confetti(){var c=document.createElement('canvas');c.style.cssText='posi
 /* surprise gift */
 function encGift(o){return btoa(unescape(encodeURIComponent(JSON.stringify(o))));}
 function decGift(s){return JSON.parse(decodeURIComponent(escape(atob(s))));}
+var gStyle='box';
+document.querySelectorAll('#gStyleSeg button').forEach(function(b){b.onclick=function(){
+ document.querySelectorAll('#gStyleSeg button').forEach(function(x){x.classList.remove('on');});
+ b.classList.add('on');gStyle=b.dataset.t;};});
 document.getElementById('gMake').onclick=function(){
  if(cur<0){alert('Pick a frame above first!');return;}
  var gn=document.getElementById('gName').value.trim()||'Dear Friend';
  var gm=document.getElementById('gMsg').value.trim()||'Happy Birthday! 🎂 May your day be filled with love, laughter and cake!';
  var gf=document.getElementById('gFrom').value.trim();
- var link=location.origin+location.pathname+'#g='+encGift({n:gn,m:gm,f:FRAMES[cur].s,s:gf});
+ var link=location.origin+location.pathname+'#g='+encGift({n:gn,m:gm,f:FRAMES[cur].s,s:gf,t:gStyle});
  document.getElementById('gOut').style.display='flex';document.getElementById('gLink').value=link;
  var wa=document.getElementById('gWa');wa.style.display='inline-block';
  wa.href='https://wa.me/?text='+encodeURIComponent('🎁 I made a surprise birthday gift for you! Tap to open it: '+link);};
@@ -425,14 +435,51 @@ if(GIFT){
  document.getElementById('gallery').style.display='none';
  document.querySelector('.toolrow').style.display='none';
  var gi=FRAMES.findIndex(function(f){return f.s===GIFT.f;});if(gi<0)gi=0;
- document.getElementById('giftBox').onclick=function(){
-  document.getElementById('giftIntro').style.display='none';
-  var rv=document.getElementById('giftReveal');rv.style.display='block';
+ var GT={box:{e:'🎁',hint:'Someone made this just for you. Tap the gift to open it!',tap:'👆 Tap to open',taps:1},
+  cake:{e:'🎂',hint:'Blow out the candles — tap the cake 3 times!',tap:'💨 Tap to blow!',taps:3},
+  balloon:{e:'🎈',hint:'Pop the balloon to open your surprise!',tap:'👆 Tap to pop!',taps:1},
+  scratch:{e:'🎟️',hint:'Someone made this just for you. Tap, then scratch the card!',tap:'👆 Tap to start',taps:1}};
+ var gt=GT[GIFT.t]||GT.box,gb=document.getElementById('giftBox');
+ gb.textContent=gt.e;document.getElementById('giftHint').textContent=gt.hint;document.getElementById('giftTapTxt').textContent=gt.tap;
+ function fillReveal(){
   document.getElementById('giftImg').src=(window.THUMBS&&THUMBS[FRAMES[gi].s])||'';
   document.getElementById('giftName').textContent='🎂 Happy Birthday, '+GIFT.n+'!';
   document.getElementById('giftMsg').textContent=GIFT.m;
-  document.getElementById('giftFrom').textContent=GIFT.s?('With love, from '+GIFT.s):'';
-  confetti();};
+  document.getElementById('giftFrom').textContent=GIFT.s?('With love, from '+GIFT.s):'';}
+ var tapsLeft=gt.taps;
+ gb.onclick=function(){
+  if(GIFT.t==='scratch'){
+   document.getElementById('giftIntro').style.display='none';
+   var rv=document.getElementById('giftReveal');rv.style.display='block';rv.style.position='relative';fillReveal();
+   var sc=document.createElement('canvas');sc.id='scratchCv';
+   sc.style.cssText='position:absolute;inset:0;width:100%;height:100%;border-radius:16px;touch-action:none;cursor:pointer';
+   rv.appendChild(sc);
+   requestAnimationFrame(function(){
+    sc.width=rv.clientWidth;sc.height=rv.clientHeight;var sx=sc.getContext('2d');
+    var gr=sx.createLinearGradient(0,0,sc.width,sc.height);gr.addColorStop(0,'#7c00ff');gr.addColorStop(1,'#ff00a8');
+    sx.fillStyle=gr;sx.fillRect(0,0,sc.width,sc.height);
+    sx.fillStyle='#fff';sx.font='900 26px Arial';sx.textAlign='center';
+    sx.fillText('🎟️ SCRATCH HERE!',sc.width/2,sc.height/2-8);
+    sx.font='700 15px Arial';sx.fillText('Rub to reveal your surprise…',sc.width/2,sc.height/2+24);
+    var down=false,last=null,checked=0;
+    function pos(e){var r=sc.getBoundingClientRect();return{x:(e.clientX-r.left)*sc.width/r.width,y:(e.clientY-r.top)*sc.height/r.height};}
+    function rub(e){if(!down)return;var p=pos(e);sx.globalCompositeOperation='destination-out';sx.lineWidth=46;sx.lineCap='round';
+     sx.beginPath();sx.moveTo(last?last.x:p.x,last?last.y:p.y);sx.lineTo(p.x,p.y);sx.stroke();last=p;
+     if(++checked%14===0){var d=sx.getImageData(0,0,sc.width,sc.height).data,cl=0,tot=0;
+      for(var i=3;i<d.length;i+=97){tot++;if(d[i]===0)cl++;}
+      if(cl/tot>0.35){sc.remove();confetti();}}}
+    sc.addEventListener('pointerdown',function(e){down=true;last=null;rub(e);});
+    sc.addEventListener('pointermove',rub);
+    window.addEventListener('pointerup',function(){down=false;last=null;});});
+   return;}
+  tapsLeft--;
+  if(GIFT.t==='cake'&&tapsLeft>0){gb.style.transform='scale(1.12)';setTimeout(function(){gb.style.transform='';},160);
+   document.getElementById('giftTapTxt').textContent='💨 Blow! '+(gt.taps-tapsLeft)+' of '+gt.taps;return;}
+  if(GIFT.t==='balloon'){gb.textContent='💥';}
+  setTimeout(function(){
+   document.getElementById('giftIntro').style.display='none';
+   var rv=document.getElementById('giftReveal');rv.style.display='block';fillReveal();confetti();
+  },GIFT.t==='balloon'?220:60);};
  document.getElementById('giftPhoto').onclick=function(){
   document.getElementById('gift').style.display='none';
   document.getElementById('gallery').style.display='';
