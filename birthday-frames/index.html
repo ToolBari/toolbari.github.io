@@ -33,7 +33,11 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,Helvetica,sans-serif;background:#111024;color:#f3f0ff;-webkit-text-size-adjust:100%}
 a{color:#7dd3fc}
-header{padding:22px 14px 8px;text-align:center;background:radial-gradient(600px 220px at 50% -40px,rgba(255,0,168,.35),transparent),radial-gradient(500px 200px at 85% 0,rgba(0,209,255,.22),transparent)}
+header{position:relative;overflow:hidden;padding:22px 14px 8px;text-align:center;background:radial-gradient(600px 220px at 50% -40px,rgba(255,0,168,.35),transparent),radial-gradient(500px 200px at 85% 0,rgba(0,209,255,.22),transparent)}
+.bln{position:absolute;bottom:-46px;font-size:27px;opacity:0;pointer-events:none;animation:rise 9s linear infinite;z-index:0}
+@keyframes rise{0%{transform:translateY(0) rotate(-6deg);opacity:0}12%{opacity:.85}88%{opacity:.7}100%{transform:translateY(-330px) rotate(12deg);opacity:0}}
+header h1,header .sub,header .steps{position:relative;z-index:1}
+.card .newb{position:absolute;top:8px;left:8px;display:inline-block;padding:3px 8px;background:linear-gradient(135deg,#ff00a8,#7c00ff);color:#fff;font-size:10.5px;font-weight:900;padding:3px 8px;border-radius:999px;letter-spacing:.6px;box-shadow:0 3px 10px rgba(255,0,168,.5);z-index:2}
 h1{font-size:27px;line-height:1.25;background:linear-gradient(90deg,#ff00a8,#ffd400,#00d1ff,#a855f7);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:900}
 .sub{color:#d8d3f5;font-size:14.5px;margin-top:6px}
 .steps{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin:13px 8px 2px}
@@ -126,6 +130,12 @@ footer{text-align:center;color:#8f89b8;font-size:12.5px;padding:18px 10px 26px}
 </head>
 <body>
 <header>
+<span class="bln" style="left:4%;animation-delay:0s">🎈</span>
+<span class="bln" style="left:16%;animation-delay:2.6s;font-size:21px">🎉</span>
+<span class="bln" style="left:30%;animation-delay:5.2s">🎈</span>
+<span class="bln" style="left:64%;animation-delay:1.4s;font-size:22px">✨</span>
+<span class="bln" style="left:78%;animation-delay:3.8s">🎈</span>
+<span class="bln" style="left:91%;animation-delay:6.4s;font-size:20px">🎊</span>
 <h1>🎂 Free Birthday Photo Frames</h1>
 <p class="sub">Pick a frame, add your photo &amp; name — download free!</p>
 <div class="steps"><span>1️⃣ Pick a Frame</span><span>2️⃣ Add Your Photo</span><span>3️⃣ Name &amp; Download</span></div>
@@ -207,7 +217,14 @@ footer{text-align:center;color:#8f89b8;font-size:12.5px;padding:18px 10px 26px}
 <div class="filts"><label>☀️ Light <input type="range" id="fB" min="50" max="150" value="100"></label><label>🎨 Colour <input type="range" id="fS" min="0" max="200" value="100"></label><label>◐ Sharp <input type="range" id="fC" min="50" max="150" value="100"></label></div>
 <div class="stk" id="stkRow"><span style="font-size:13px;color:#bdb6e8;font-weight:700">Stickers:</span></div>
 <input type="text" id="nm" placeholder="✍️ Type the birthday name here" maxlength="30">
+<select id="fontSel" style="width:100%;padding:11px 13px;border-radius:12px;border:1.5px solid rgba(255,255,255,.3);background:#241f4d;color:#fff;font-size:15px;margin-top:9px">
+<option value="bold">Font: 💪 Bold</option>
+<option value="cute">Font: 🧸 Cute Round</option>
+<option value="royal">Font: 👑 Royal Serif</option>
+<option value="hand">Font: ✍️ Handwriting</option>
+</select>
 <button class="dl" id="dl">⬇️ Download Your Photo</button>
+<button class="dl" id="shareBtn" style="background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;box-shadow:0 6px 18px rgba(37,211,102,.35);margin-top:9px">📤 Share My Photo</button>
 <p class="priv">🔒 Your photo is processed on your own phone — it is never uploaded anywhere.</p>
 <div id="giftMaker" style="margin-top:16px;border-top:1px dashed rgba(255,255,255,.25);padding-top:13px">
 <div style="font-weight:900;font-size:16.5px">🎁 Send as a Surprise Gift Link</div>
@@ -298,6 +315,7 @@ function saveFavs(){try{localStorage.setItem('bcp_favs',JSON.stringify(FAVS));}c
 function mkCard(fr,i){
   var b=document.createElement('button');b.className='card';b.dataset.i=i;b.dataset.slug=fr.s;b.dataset.name=fr.n.toLowerCase();
   b.innerHTML='<span class="im"><img loading="lazy" alt="'+fr.n+' birthday frame"></span><span>'+fr.n+'</span>';
+  if(fr.s.indexOf('occ-')===0){var nb=document.createElement('span');nb.className='newb';nb.textContent='✨ NEW';b.appendChild(nb);}
   b.querySelector('img').src=(window.THUMBS&&THUMBS[fr.s])||'';
   var ht=document.createElement('span');ht.className='heart';ht.textContent=FAVS[fr.s]?'❤️':'🤍';
   ht.onclick=function(ev){ev.stopPropagation();if(FAVS[fr.s])delete FAVS[fr.s];else FAVS[fr.s]=1;saveFavs();
@@ -328,6 +346,8 @@ COLLS.forEach(function(c){
 var cv=document.getElementById('cv'),ctx=cv.getContext('2d');
 var W=1080,H=1610,cur=-1,frameImg=new Image(),states=[],active=0,fitMode=false,loading=false,stickers=[];
 var filB=100,filS=100,filC=100;
+var FONTS={bold:'"Arial Black",Arial,sans-serif',cute:'"Comic Sans MS","Chalkboard SE",cursive',royal:'Georgia,"Times New Roman",serif',hand:'"Segoe Script","Bradley Hand",cursive'};
+var nameFont=FONTS.bold;
 function winRect(i){var w=FRAMES[cur].wins[i];return{x:w[0]*W,y:w[1]*H,w:(w[2]-w[0])*W,h:(w[3]-w[1])*H};}
 function clipWin(i){var r=winRect(i),sh=FRAMES[cur].shape;ctx.beginPath();
  if(sh==='circle'||sh==='oval'){ctx.ellipse(r.x+r.w/2,r.y+r.h/2,r.w/2,r.h/2,0,0,Math.PI*2);}
@@ -391,8 +411,8 @@ function draw(){
   ctx.fillStyle=fr.t;ctx.font='700 '+Math.round(r.w*0.045)+'px Arial';
   ctx.fillText('HAPPY BIRTHDAY',r.x+r.w/2,by+bh*0.34);
   try{ctx.letterSpacing='1px';}catch(e){}
-  var fs2=r.w*0.095;ctx.font='900 '+fs2+'px "Arial Black",Arial,sans-serif';
-  while(ctx.measureText(name).width>r.w*0.9&&fs2>16){fs2*=0.92;ctx.font='900 '+fs2+'px "Arial Black",Arial,sans-serif';}
+  var fs2=r.w*0.095;ctx.font='900 '+fs2+'px '+nameFont;
+  while(ctx.measureText(name).width>r.w*0.9&&fs2>16){fs2*=0.92;ctx.font='900 '+fs2+'px '+nameFont;}
   ctx.fillStyle=fr.nm;ctx.fillText(name,r.x+r.w/2,by+bh*0.74);
   try{ctx.letterSpacing='0px';}catch(e){}
   ctx.restore();}
@@ -428,8 +448,15 @@ cv.addEventListener('pointerdown',function(e){if(cur<0)return;var p=evPos(e);
 cv.addEventListener('pointermove',function(e){if(!drag||!states[active])return;var r=cv.getBoundingClientRect(),k=W/r.width;states[active].dx=drag.dx+(e.clientX-drag.x)*k;states[active].dy=drag.dy+(e.clientY-drag.y)*k;draw();});
 cv.addEventListener('pointerup',function(){drag=null;});
 cv.addEventListener('pointercancel',function(){drag=null;});
+document.getElementById('fontSel').addEventListener('change',function(e){nameFont=FONTS[e.target.value]||FONTS.bold;draw();});
 document.getElementById('dl').onclick=function(){if(cur<0){alert('Pick a frame first!');return;}
- cv.toBlob(function(b){var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='happy-birthday-frame.jpg';a.click();setTimeout(function(){URL.revokeObjectURL(a.href);},4000);},'image/jpeg',0.92);};
+ cv.toBlob(function(b){var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='happy-birthday-frame.jpg';a.click();setTimeout(function(){URL.revokeObjectURL(a.href);},4000);confetti();},'image/jpeg',0.92);};
+document.getElementById('shareBtn').onclick=function(){if(cur<0){alert('Pick a frame first!');return;}
+ cv.toBlob(function(b){if(!b)return;var f=new File([b],'happy-birthday-frame.jpg',{type:'image/jpeg'});
+  if(navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:'Happy Birthday!',text:'I made this with Birthday Cake PhotO 🎂'}).catch(function(){});}
+  else if(navigator.share){navigator.share({title:'Happy Birthday!',text:'Make your free birthday photo frame here:',url:location.href}).catch(function(){});}
+  else{var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='happy-birthday-frame.jpg';a.click();setTimeout(function(){URL.revokeObjectURL(a.href);},4000);alert('Photo downloaded — now share it from your gallery! 📤');}
+ },'image/jpeg',0.92);};
 var WLIB={
 '🇲🇲 Myanmar':[
 'မွေးနေ့မှာ ပျော်ရွှင်ပါစေ! 🎂',
