@@ -104,6 +104,9 @@ input[type=text]::placeholder{color:#bdb6e8}
 .panel{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:16px 13px;margin-top:26px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
 .panel h2{margin-top:0}
 .panel input[type=text],.panel input[type=date],.panel textarea{width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid rgba(255,255,255,.3);background:rgba(255,255,255,.09);color:#fff;font-size:16px;margin-top:10px;font-family:inherit}
+.panel select{width:100%;padding:12px 13px;border-radius:12px;border:1.5px solid rgba(255,255,255,.3);background:#241f4d;color:#fff;font-size:15.5px;margin-top:6px;font-family:inherit}
+.wmrow{display:flex;gap:10px;flex-wrap:wrap}
+.wmrow label{flex:1;min-width:140px;font-size:12.5px;font-weight:700;color:#bdb6e8}
 .panel textarea{min-height:64px;resize:vertical}
 .giftlink{display:flex;gap:7px;margin-top:10px}
 .giftlink input{flex:1;margin-top:0!important;font-size:13.5px!important}
@@ -157,6 +160,7 @@ footer{text-align:center;color:#8f89b8;font-size:12.5px;padding:18px 10px 26px}
 <button style="background:linear-gradient(135deg,#ff00a8,#7c00ff)" onclick="document.getElementById('giftMaker').scrollIntoView({behavior:'smooth',block:'center'})"><div class="fe">🎁</div><div class="ft">Surprise Gift Link</div><div class="fs">Send a gift that opens with confetti — box, cake, balloon or scratch!</div></button>
 <button style="background:linear-gradient(135deg,#f59e0b,#dc2626)" onclick="document.getElementById('facts').scrollIntoView({behavior:'smooth',block:'center'})"><div class="fe">🎂</div><div class="ft">Birthday Facts</div><div class="fs">Countdown, zodiac, birthstone &amp; the day you were born</div></button>
 <button style="background:linear-gradient(135deg,#0ea5e9,#2563eb)" onclick="document.getElementById('wishesSec').scrollIntoView({behavior:'smooth',block:'start'})"><div class="fe">💌</div><div class="ft">Wishes for Every Day</div><div class="fs">Birthdays in 6 languages + anniversary, Valentine, Eid &amp; all special days — tap to copy</div></button>
+<button style="background:linear-gradient(135deg,#7c3aed,#06b6d4)" onclick="document.getElementById('wishMaker').scrollIntoView({behavior:'smooth',block:'center'})"><div class="fe">🪄</div><div class="ft">AI Wish Maker</div><div class="fs">A personal wish with their name — heartfelt, funny or poetic, in one tap</div></button>
 <button style="background:linear-gradient(135deg,#e11d48,#7c00ff)" onclick="document.getElementById('occSec').scrollIntoView({behavior:'smooth',block:'center'})"><div class="fe">🎉</div><div class="ft">All Special Days</div><div class="fs">Anniversary, Valentine, Mother's &amp; Father's Day, Eid, Christmas &amp; more</div></button>
 <a style="background:linear-gradient(135deg,#db2777,#f59e0b)" href="https://toolbari.github.io/birthday-frames/name-cake/"><div class="fe">👑</div><div class="ft">Name on Cake</div><div class="fs">Write any name on a beautiful birthday cake</div></a>
 <a style="background:linear-gradient(135deg,#059669,#0ea5e9)" href="https://toolbari.github.io/birthday-frames/prompts/"><div class="fe">✨</div><div class="ft">AI Birthday Prompts</div><div class="fs">Copy prompts to make your own birthday photos with AI</div></a>
@@ -289,6 +293,78 @@ footer{text-align:center;color:#8f89b8;font-size:12.5px;padding:18px 10px 26px}
 <button class="dl" id="factsBtn">✨ Show My Birthday Facts</button>
 <div id="factsOut"></div>
 <button class="gbtn" id="factsCopy" style="display:none">📋 Copy My Facts to Share</button>
+</section>
+
+<section class="panel" id="wishMaker">
+<h2>🪄 AI Wish Maker — A Wish With Their Name</h2>
+<p style="color:#bdb6e8;font-size:14px">Free AI-style wish generator: write a name, pick who they are, choose a style — a fresh personal wish appears in one tap. For birthdays &amp; every special day.</p>
+<input type="text" id="wmName" placeholder="✍️ Their name (e.g. Ayesha)" maxlength="30">
+<div class="wmrow" style="margin-top:6px">
+<label>🎉 Occasion
+<select id="wmOcc">
+<option value="birthday">🎂 Birthday</option>
+<option value="anniversary">💍 Anniversary</option>
+<option value="valentine">❤️ Valentine's Day</option>
+<option value="friendship">🤝 Friendship Day</option>
+<option value="mother">🌸 Mother's Day</option>
+<option value="father">👔 Father's Day</option>
+<option value="wedding">💒 Wedding</option>
+<option value="eid">🌙 Eid</option>
+<option value="christmas">🎄 Christmas</option>
+<option value="newyear">🎉 New Year</option>
+<option value="baby">👶 New Baby</option>
+<option value="graduation">🎓 Graduation</option>
+<option value="getwell">💐 Get Well Soon</option>
+<option value="thanks">🙏 Thank You</option>
+<option value="goodluck">🍀 Good Luck</option>
+</select></label>
+<label>❤️ Who is it for?
+<select id="wmRel">
+<option value="friend">Friend</option>
+<option value="mom">Mom</option>
+<option value="dad">Dad</option>
+<option value="sister">Sister</option>
+<option value="brother">Brother</option>
+<option value="husband">Husband</option>
+<option value="wife">Wife</option>
+<option value="son">Son</option>
+<option value="daughter">Daughter</option>
+<option value="grandma">Grandmother</option>
+<option value="grandpa">Grandfather</option>
+<option value="uncle">Uncle</option>
+<option value="aunt">Aunt</option>
+<option value="cousin">Cousin</option>
+<option value="teacher">Teacher</option>
+<option value="beloved">My Loved One</option>
+<option value="someone">Someone Special</option>
+</select></label>
+</div>
+<div class="wmrow">
+<label>🎭 Style
+<select id="wmTone">
+<option value="heartfelt">❤️ Heartfelt</option>
+<option value="funny">😂 Funny</option>
+<option value="poetic">✨ Poetic</option>
+<option value="short">⚡ Short &amp; Sweet</option>
+</select></label>
+<label>🌐 Language
+<select id="wmLang">
+<option value="en">English</option>
+<option value="bn">বাংলা (Bengali)</option>
+<option value="my">မြန်မာ (Burmese)</option>
+<option value="tl">Tagalog</option>
+<option value="hi">हिन्दी (Hindi)</option>
+<option value="ur">اردو (Urdu)</option>
+</select></label>
+</div>
+<button class="dl" id="wmGo" style="margin-top:12px">🪄 Make My Wish</button>
+<div id="wmOut" style="display:none;margin-top:13px;background:rgba(255,255,255,.07);border:1px solid rgba(255,211,77,.45);border-radius:14px;padding:15px;font-size:17px;line-height:1.6"></div>
+<div class="seg" id="wmBtns" style="display:none">
+<button id="wmAgain">🔄 Another One</button>
+<button id="wmCopy">📋 Copy Wish</button>
+<button id="wmGift">🎁 Use in Gift Link</button>
+</div>
+<p style="color:#8f89b8;font-size:12px;margin-top:9px">Smart wish composer — instant, free, works offline. No sign-up.</p>
 </section>
 
 <h2 id="wishesSec">💌 Wishes for Every Occasion — Tap to Copy</h2>
@@ -662,6 +738,55 @@ function showWishes(key){
 Object.keys(WLIB).forEach(function(k){var b=document.createElement('button');b.textContent=k;b.onclick=function(){showWishes(k);};wtabs.appendChild(b);});
 showWishes('🌍 English');
 function goWish(k){showWishes(k);document.getElementById('wishesSec').scrollIntoView({behavior:'smooth',block:'start'});}
+/* ===== AI Wish Maker ===== */
+var WM_GREET={birthday:'Happy Birthday',anniversary:'Happy Anniversary',valentine:"Happy Valentine's Day",friendship:'Happy Friendship Day',mother:"Happy Mother's Day",father:"Happy Father's Day",wedding:'Congratulations on your wedding',eid:'Eid Mubarak',christmas:'Merry Christmas',newyear:'Happy New Year',baby:'Welcome to the world, little one',graduation:'Congratulations on your graduation',getwell:'Get well soon',thanks:'Thank you so much',goodluck:'Best of luck'};
+var WM_GREET_BN={birthday:'শুভ জন্মদিন',anniversary:'শুভ বিবাহবার্ষিকী',valentine:'শুভ ভালোবাসা দিবস',friendship:'শুভ বন্ধুত্ব দিবস',mother:'শুভ মা দিবস',father:'শুভ বাবা দিবস',wedding:'বিয়ের অনেক অনেক শুভেচ্ছা',eid:'ঈদ মোবারক',christmas:'শুভ বড়দিন',newyear:'শুভ নববর্ষ',baby:'নতুন অতিথিকে স্বাগতম',graduation:'স্নাতক হওয়ার অভিনন্দন',getwell:'দ্রুত সুস্থ হয়ে ওঠো',thanks:'অনেক অনেক ধন্যবাদ',goodluck:'অনেক অনেক শুভকামনা'};
+var WM_REL={friend:['my dear friend','আমার প্রিয় বন্ধু'],mom:['the best mom anyone could ask for','পৃথিবীর সেরা আম্মু'],dad:['the strongest dad in the world','পৃথিবীর সেরা আব্বু'],sister:['my lovely sister','আমার প্রাণের বোন'],brother:['my awesome brother','আমার প্রিয় ভাই'],husband:['my loving husband','আমার প্রিয় স্বামী'],wife:['my beautiful wife','আমার প্রিয় স্ত্রী'],son:['my dear son','আমার প্রিয় ছেলে'],daughter:['my dear daughter','আমার প্রিয় মেয়ে'],grandma:['my sweet grandmother','আমার প্রিয় দাদি'],grandpa:['my dear grandfather','আমার প্রিয় দাদা'],uncle:['my dear uncle','আমার প্রিয় আঙ্কেল'],aunt:['my dear aunt','আমার প্রিয় আন্টি'],cousin:['my fun cousin','আমার প্রিয় কাজিন'],teacher:['my respected teacher','আমার শ্রদ্ধেয় শিক্ষক'],beloved:['the love of my life','আমার প্রাণের মানুষ'],someone:['a very special person','খুব বিশেষ একজন মানুষ']};
+var WM_EN={
+heartfelt:{mid:["On this special day, I just want you to know how much you mean to me, {who}.","Today we celebrate you, {who} — your kindness makes every room brighter.","Having {who} in my life is one of my greatest blessings, and today I celebrate that gift.","May this new chapter bring you closer to every dream you hold dear, {who}.","Your smile is my favourite view, {who} — may it never fade."],end:["Stay happy, stay blessed, always. 💝","Here's to health, success and a heart full of peace. 🎉","May all your wishes come true — today and every day. ✨","Sending you all my love on your special day. ❤️"]},
+funny:{mid:["Congratulations, {who} — you're officially one year older and still not acting your age. Perfect. 😄","They say age is just a number, {who} — in your case, a really big one. Just kidding! 😜","Another year wiser, {who}... or at least another year of pretending to be. 😂","Cake calories don't count today, {who} — that's the law. Eat everything. 🎂","You're not old, {who} — you're a classic, and classics never go out of style. 🎩"],end:["Now blow out the candles before we have to call the fire brigade! 🔥😂","Party like it's your day — because it literally is. 🥳","Wishing you a day as amazing as your excuses for being late. 😆","Stay young, stay silly, stay you. 🎈"]},
+poetic:{mid:["Like the first light of morning, {who}, you bring warmth wherever you go.","May your path be lined with roses and your sky full of stars, {who}.","Every year adds a new verse to the beautiful poem that is you, {who}.","You are a chapter of joy in the story of everyone who knows you, {who}."],end:["May your days bloom like spring after rain. 🌸","Shine on — the world is brighter with you in it. 🌟","May love find you in every small moment. 💫","Forever grateful for the light you carry. 🕯️"]},
+short:{mid:["Wishing you love, luck and lots of cake, {who}! 🎂","May your day be as wonderful as you are, {who}. ✨","Health, happiness and success — today and always, {who}. 🍀","So glad you were born, {who}! 🎉"],end:[]}};
+var WM_BN={
+heartfelt:{mid:["তোমার হাসিটাই আমার সবচেয়ে প্রিয় দৃশ্য, {who}।","জীবনে তোমার মতো মানুষ পাওয়া সত্যিই ভাগ্যের ব্যাপার, {who}।","তোমার প্রতিটা স্বপ্ন পূরণ হোক, এই কামনাই করি, {who}।","তুমি আছো বলেই চারপাশটা এত সুন্দর, {who}।"],end:["সবসময় ভালো থেকো, সুখে থেকো। 💝","তোমার জন্য অনেক অনেক দোয়া আর ভালোবাসা। 🤲","আজকের দিনটা হোক তোমার জীবনের সেরা দিনগুলোর একটি। ✨"]},
+funny:{mid:["এক বছর করে বয়স বাড়ছে, কিন্তু মনটা এখনো বাচ্চাদের মতোই আছে, {who}! 😄","আজ কেকের ক্যালরি গোনা যাবে না — এটা আইন, {who}! 🎂","বয়স তো শুধু একটা সংখ্যা... তোমার ক্ষেত্রে বেশ বড় সংখ্যা, {who}! 😜"],end:["মোমবাতি নেভাতে গিয়ে আবার আগুন লাগিও না যেন! 🔥😂","আজকের দিনটা পুরোপুরি তোমার — জমিয়ে মজা করো! 🥳"]},
+poetic:null,
+short:{mid:["অনেক অনেক শুভেচ্ছা আর ভালোবাসা, {who}! 🎂","তোমার দিনটা হোক অসাধারণ, {who}! ✨","সুখ, শান্তি আর সাফল্য — আজ এবং সবসময়, {who}। 🍀"],end:[]}};
+var WM_LIB={my:'🇲🇲 Myanmar',tl:'🇵🇭 Philippines',hi:'🇮🇳 India',ur:'🇵🇰 Pakistan'};
+var wmText='';
+function wmPick(a){return a[Math.floor(Math.random()*a.length)];}
+function wmCompose(){
+ var name=document.getElementById('wmName').value.trim(),
+ occ=document.getElementById('wmOcc').value,
+ rel=document.getElementById('wmRel').value,
+ tone=document.getElementById('wmTone').value,
+ lang=document.getElementById('wmLang').value;
+ if(lang==='en'||lang==='bn'){
+  var bank=(lang==='en'?WM_EN:WM_BN), greet=(lang==='en'?WM_GREET:WM_GREET_BN)[occ], who=WM_REL[rel][lang==='en'?0:1];
+  var toneEff=tone;
+  if(tone==='funny'&&!(occ==='birthday'||occ==='friendship'||occ==='newyear'))toneEff='heartfelt';
+  var set=bank[toneEff]||bank.heartfelt;
+  var mid=wmPick(set.mid).split('{who}').join(who);
+  var out=greet+(name?', '+name:'')+'! '+mid;
+  if(set.end.length)out+=' '+wmPick(set.end);
+  return out;
+ }
+ var lines=WLIB[WM_LIB[lang]]||WLIB['🌍 English'];
+ var a=wmPick(lines),b=wmPick(lines);if(b===a)b=lines[(lines.indexOf(a)+1)%lines.length];
+ return (name?name+'! ':'')+a+' '+b;
+}
+function wmShow(){wmText=wmCompose();var o=document.getElementById('wmOut');o.textContent=wmText;o.style.display='block';document.getElementById('wmBtns').style.display='flex';}
+document.getElementById('wmGo').onclick=wmShow;
+document.getElementById('wmAgain').onclick=wmShow;
+document.getElementById('wmCopy').onclick=function(){if(!wmText)return;
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(wmText).then(function(){alert('Wish copied! 📋');}).catch(function(){alert(wmText);});}
+ else alert(wmText);};
+document.getElementById('wmGift').onclick=function(){if(!wmText)wmShow();
+ var occ=document.getElementById('wmOcc').value;
+ var gs=document.getElementById('gOcc');for(var i=0;i<gs.options.length;i++){if(gs.options[i].value===occ){gs.selectedIndex=i;break;}}
+ document.getElementById('gName').value=document.getElementById('wmName').value.trim();
+ document.getElementById('gMsg').value=wmText;
+ document.getElementById('giftMaker').scrollIntoView({behavior:'smooth',block:'center'});};
 /* search + favorites filter + random + top */
 var favOnly=false;
 function applyFilter(){
