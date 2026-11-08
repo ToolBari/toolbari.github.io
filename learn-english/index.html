@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English Learning Course — ইংরেজি বানান ও কাজের ইংরেজি | ToolBari</title>
+<meta name="description" content="বাংলাভাষীদের জন্য সহজ English Learning Course: ইংরেজি বানান, ক্রেতার সঙ্গে চ্যাট, Fiverr/Upwork-এর ইংরেজি আর শুদ্ধ বাংলা বানান। প্রথম ৩টি অধ্যায় সম্পূর্ণ ফ্রি।">
+<meta name="theme-color" content="#2563eb">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:"Noto Sans Bengali","Hind Siliguri",system-ui,sans-serif;background:#f4f7fc;color:#17233b;line-height:1.65}
+a{color:#2563eb}
+header{position:sticky;top:0;z-index:20;background:#2563eb;color:#fff;box-shadow:0 2px 10px rgba(20,40,90,.25)}
+.hwrap{max-width:860px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px}
+.logo{font-weight:800;font-size:19px;color:#fff;text-decoration:none}
+.logo span{color:#ffb020}
+.sp{flex:1}
+.langbtn{background:#fff;color:#2563eb;border:0;border-radius:999px;padding:8px 16px;font-weight:700;font-size:15px;cursor:pointer;min-height:40px}
+main{max-width:860px;margin:0 auto;padding:18px 14px 60px}
+.hero{background:linear-gradient(135deg,#2563eb,#0ea5e9);color:#fff;border-radius:20px;padding:24px 20px;margin-bottom:18px}
+.hero h1{margin:0 0 8px;font-size:27px;line-height:1.3}
+.hero p{margin:4px 0;opacity:.95}
+.badge{display:inline-block;background:#ffb020;color:#3a2703;font-weight:800;border-radius:999px;padding:3px 12px;font-size:13px;margin-bottom:8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0 22px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.card{background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 10px rgba(30,50,100,.07);cursor:pointer;border:2px solid transparent}
+.card:active{border-color:#2563eb}
+.card h3{margin:0 0 4px;font-size:17px}
+.card p{margin:0;color:#5b6b8c;font-size:14px}
+.tag{display:inline-block;font-size:12px;font-weight:800;border-radius:999px;padding:2px 10px;margin-bottom:6px}
+.free{background:#dcfce7;color:#166534}
+.lock{background:#fee2e2;color:#991b1b}
+section.chapter{background:#fff;border-radius:18px;padding:20px 18px;margin:0 0 18px;box-shadow:0 2px 10px rgba(30,50,100,.07)}
+section.chapter h2{margin:0 0 6px;font-size:21px}
+.sub{color:#5b6b8c;margin:0 0 14px;font-size:15px}
+table{width:100%;border-collapse:collapse;margin:10px 0}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid #e7edf7;vertical-align:top;font-size:15px}
+th{color:#2563eb;font-size:13px;text-transform:uppercase;letter-spacing:.4px}
+.en{font-weight:700}
+.use{color:#5b6b8c;font-size:13.5px}
+.word{background:#f8fafc;border:1px solid #e7edf7;border-radius:14px;padding:12px 14px;margin:10px 0}
+.word .w{font-size:19px;font-weight:800}
+.chunks{color:#2563eb;font-weight:700}
+.tip{background:#fff7ed;border:1px solid #fed7aa;border-radius:14px;padding:12px 14px;margin:12px 0}
+.script{background:#f8fafc;border-left:4px solid #2563eb;border-radius:10px;padding:10px 14px;margin:10px 0}
+.script p{margin:3px 0}
+.script .bn{color:#5b6b8c;font-size:14px}
+.pill{display:inline-block;background:#2563eb;color:#fff;border:0;border-radius:999px;padding:12px 22px;font-size:16px;font-weight:700;cursor:pointer;min-height:48px;text-decoration:none;text-align:center}
+.pill:hover{background:#f97316;color:#111}
+.pill.green{background:#22c55e;color:#06280f}
+.pill.green:hover{background:#f97316;color:#111}
+.pill.ghost{background:#e8eefc;color:#2563eb}
+input[type=text]{width:100%;padding:13px 14px;font-size:17px;border:2px solid #c9d6f2;border-radius:12px;margin:8px 0}
+.feedback{font-weight:700;margin:8px 0;min-height:26px}
+.ok{color:#16a34a}.bad{color:#dc2626}
+.progress{color:#5b6b8c;font-size:14px}
+.lockbox{background:#fef2f2;border:2px dashed #fca5a5;border-radius:14px;padding:18px;text-align:center}
+.lockbox .big{font-size:34px}
+.enroll{background:linear-gradient(135deg,#fff7ed,#ffedd5);border:2px solid #fdba74;border-radius:18px;padding:22px 18px;margin:0 0 18px}
+.enroll h2{margin-top:0}
+.price{font-size:30px;font-weight:900;color:#c2410c}
+.bkash{font-size:22px;font-weight:900;letter-spacing:1px;background:#fff;border:2px dashed #e2136e;color:#e2136e;border-radius:12px;padding:10px;text-align:center}
+.step{margin:10px 0}
+footer{text-align:center;color:#5b6b8c;font-size:13.5px;padding:20px 12px 34px}
+.qopt{display:block;width:100%;text-align:left;margin:6px 0;background:#f1f5ff}
+.qopt.sel{background:#2563eb;color:#fff}
+.hidden{display:none!important}
+.backlink{font-size:14px}
+</style>
+</head>
+<body>
+<header>
+  <div class="hwrap">
+    <a class="logo" href="https://toolbari.github.io/">Tool<span>Bari</span></a>
+    <div class="sp"></div>
+    <button class="langbtn" id="langBtn" onclick="toggleLang()">English</button>
+  </div>
+</header>
+<main>
+  <div class="hero">
+    <span class="badge" data-i18n="hero_badge">প্রথম ৩টি অধ্যায় ফ্রি</span>
+    <h1 data-i18n="hero_h">English Learning Course</h1>
+    <p data-i18n="hero_p1">কাজের জন্য ইংরেজি — বানান, ক্রেতার সঙ্গে চ্যাট, Fiverr/Upwork-এর মেসেজ। সহজ বাংলায়, ছোট ছোট পাঠে।</p>
+    <p data-i18n="hero_p2">প্রতিদিন মাত্র ১০ মিনিট অনুশীলন করলেই চলবে।</p>
+  </div>
+
+  <h2 data-i18n="chapters_h" style="margin:6px 0 0">অধ্যায়সমূহ</h2>
+  <div class="grid" id="chGrid"></div>
+
+  <div class="enroll hidden" id="enroll">
+    <h2 data-i18n="en_h">🎓 Enrollment — সব অধ্যায় খুলুন</h2>
+    <p><span class="price">৳৪৯৯</span> <span data-i18n="en_once">একবার পেমেন্ট — সব অধ্যায় চিরদিনের জন্য খোলা। কোনো মাসিক ফি নেই।</span></p>
+    <div class="step"><b data-i18n="en_s1t">ধাপ ১:</b> <span data-i18n="en_s1">নিচের bKash নম্বরে ৳৪৯৯ Send Money করুন (bKash Personal):</span></div>
+    <div class="bkash">01677161678</div>
+    <div class="step"><b data-i18n="en_s2t">ধাপ ২:</b> <span data-i18n="en_s2">পেমেন্টের Transaction ID (TrxID) টি WhatsApp-এ পাঠান। আমরা যাচাই করে আপনাকে Unlock Code পাঠিয়ে দেব।</span></div>
+    <a class="pill green" id="waBtn" target="_blank" rel="noopener" href="https://wa.me/8801677161678?text=%E0%A6%86%E0%A6%AE%E0%A6%BF%20English%20Learning%20Course-%E0%A6%8F%20enroll%20%E0%A6%95%E0%A6%B0%E0%A6%A4%E0%A7%87%20%E0%A6%9A%E0%A6%BE%E0%A6%87%E0%A5%A4%20%E0%A6%86%E0%A6%AE%E0%A6%BE%E0%A6%B0%20bKash%20Transaction%20ID%3A%20">💬 <span data-i18n="en_wa">WhatsApp-এ TrxID পাঠান</span></a>
+    <div class="step" style="margin-top:16px"><b data-i18n="en_s3t">ধাপ ৩:</b> <span data-i18n="en_s3">পাওয়া Unlock Code টি নিচে লিখুন — এই ফোনে/ব্রাউজারে সব অধ্যায় স্থায়ীভাবে খুলে যাবে।</span></div>
+    <input type="text" id="codeInput" placeholder="ENROLL-2026-XXXXXX" autocomplete="off">
+    <button class="pill" onclick="tryUnlock()" data-i18n="en_unlock">🔓 Unlock করুন</button>
+    <div class="feedback" id="unlockMsg"></div>
+    <p class="progress" data-i18n="en_note">আগে থেকেই enroll করে থাকলে শুধু ধাপ ৩-এর কোডটি দিলেই হবে।</p>
+  </div>
+
+  <!-- অধ্যায় ১ -->
+  <section class="chapter" id="ch1">
+    <span class="tag free">FREE · ফ্রি</span>
+    <h2>অধ্যায় ১ — প্রতিদিনের দরকারি ইংরেজি বাক্য</h2>
+    <p class="sub">বিক্রি আর কাজের সময় সবচেয়ে বেশি লাগে এমন ১৫টি বাক্য। প্রতিটি বাক্য জোরে জোরে পড়ুন, তারপর নিজে নিজে ব্যবহারের চেষ্টা করুন।</p>
+    <table>
+      <tr><th>English</th><th>বাংলা অর্থ</th><th>কখন ব্যবহার করবেন</th></tr>
+      <tr><td class="en">The price is fixed.</td><td>দাম ফিক্সড / একদাম।</td><td class="use">ক্রেতা দাম কমাতে চাইলে</td></tr>
+      <tr><td class="en">Check the product first, then pay.</td><td>আগে পণ্য দেখে নিন, তারপর টাকা দিন।</td><td class="use">ক্যাশ অন ডেলিভারিতে বিশ্বাস তৈরি করতে</td></tr>
+      <tr><td class="en">Home delivery available.</td><td>হোম ডেলিভারি আছে।</td><td class="use">ডেলিভারির সুবিধা জানাতে</td></tr>
+      <tr><td class="en">What is your budget?</td><td>আপনার বাজেট কত?</td><td class="use">ক্রেতার সামর্থ্য জানতে</td></tr>
+      <tr><td class="en">Please send your name and address.</td><td>নাম আর ঠিকানা পাঠান।</td><td class="use">অর্ডার নেওয়ার সময়</td></tr>
+      <tr><td class="en">Delivery charge is 60 taka inside Dhaka.</td><td>ঢাকার ভেতরে ডেলিভারি চার্জ ৬০ টাকা।</td><td class="use">চার্জ জানাতে</td></tr>
+      <tr><td class="en">This is the last price.</td><td>এটাই শেষ দাম।</td><td class="use">দরদামের একদম শেষে</td></tr>
+      <tr><td class="en">The product is 100% original.</td><td>পণ্যটি ১০০% অরিজিনাল।</td><td class="use">মান নিয়ে প্রশ্ন এলে</td></tr>
+      <tr><td class="en">You can check it in front of the delivery man.</td><td>ডেলিভারি ম্যানের সামনেই চেক করে নিতে পারবেন।</td><td class="use">ক্রেতা দ্বিধায় থাকলে</td></tr>
+      <tr><td class="en">How many pieces do you want?</td><td>কয়টি নিতে চান?</td><td class="use">পরিমাণ জানতে</td></tr>
+      <tr><td class="en">Please wait, I am checking.</td><td>একটু অপেক্ষা করুন, দেখছি।</td><td class="use">স্টক যাচাই করার সময়</td></tr>
+      <tr><td class="en">Sorry, this is out of stock.</td><td>দুঃখিত, এটা স্টকে নেই।</td><td class="use">পণ্য শেষ হয়ে গেলে</td></tr>
+      <tr><td class="en">I will confirm your order today.</td><td>আজই আপনার অর্ডার কনফার্ম করব।</td><td class="use">অর্ডার নিশ্চিত করতে</td></tr>
+      <tr><td class="en">Please pay after receiving the product.</td><td>পণ্য হাতে পেয়ে টাকা দিন।</td><td class="use">ক্যাশ অন ডেলিভারি বোঝাতে</td></tr>
+      <tr><td class="en">Thank you for your order.</td><td>অর্ডারের জন্য ধন্যবাদ।</td><td class="use">কথা শেষ করার সময়</td></tr>
+    </table>
+    <div class="tip">💡 <b>টিপস:</b> প্রতিদিন মাত্র ৩টি বাক্য বেছে বারবার বলুন। ৫ দিনেই ১৫টি বাক্য মুখস্থ হয়ে যাবে।</div>
+  </section>
+
+  <!-- অধ্যায় ২ -->
+  <section class="chapter" id="ch2">
+    <span class="tag free">FREE · ফ্রি</span>
+    <h2>অধ্যায় ২ — বানান মাস্টারি ১</h2>
+    <p class="sub">বড় শব্দ মুখস্থ করতে হয় না — ছোট ছোট অংশে (chunk) ভাগ করে শিখলেই মনে থাকে।</p>
+    <div class="tip">
+      <b>Chunking পদ্ধতি (Look – Cover – Write):</b><br>
+      ১) শব্দটা ভালো করে <b>দেখুন</b> আর অংশগুলো মুখে বলুন।<br>
+      ২) শব্দটা <b>ঢেকে</b> ফেলুন (হাত দিয়ে বা এই পেজের অনুশীলনীতে "লুকাও" চেপে)।<br>
+      ৩) না দেখে <b>লিখুন</b>। মিলিয়ে দেখুন। ভুল হলে আবার ৩ বার এই নিয়মে করুন।
+    </div>
+    <div id="words2"></div>
+    <h3>✍️ বানান অনুশীলনী</h3>
+    <p class="sub">শব্দটি দেখুন → "লুকাও" চাপুন → না দেখে লিখুন → "চেক" করুন।</p>
+    <div class="word">
+      <div class="w" id="sp2Word">—</div>
+      <div class="use" id="sp2Hint">—</div>
+      <input type="text" id="sp2Input" placeholder="এখানে শব্দটি লিখুন…" autocomplete="off" autocapitalize="none">
+      <button class="pill ghost" onclick="sp2Hide()">🙈 লুকাও</button>
+      <button class="pill" onclick="sp2Check()">✔ চেক</button>
+      <button class="pill ghost" onclick="sp2Next()">➡ পরের শব্দ</button>
+      <div class="feedback" id="sp2Msg"></div>
+      <div class="progress" id="sp2Prog"></div>
+    </div>
+  </section>
+
+  <!-- অধ্যায় ৩ -->
+  <section class="chapter" id="ch3">
+    <span class="tag free">FREE · ফ্রি</span>
+    <h2>অধ্যায় ৩ — ক্রেতার সঙ্গে ইংরেজিতে কথা</h2>
+    <p class="sub">Marketplace বা Fiverr-এ ক্রেতা ইংরেজিতে লিখলে যেভাবে উত্তর দেবেন — তৈরি স্ক্রিপ্ট। শুধু দরকারমতো দাম/দিন বদলে দিলেই হবে।</p>
+
+    <h3>১) শুভেচ্ছা (Greeting)</h3>
+    <div class="script">
+      <p class="en">Hello! Thank you for your message.</p><p class="bn">হ্যালো! আপনার মেসেজের জন্য ধন্যবাদ।</p>
+      <p class="en">How can I help you?</p><p class="bn">কীভাবে সাহায্য করতে পারি?</p>
+    </div>
+    <h3>২) দাম জানানো (Price reply)</h3>
+    <div class="script">
+      <p class="en">The price is 28,500 taka.</p><p class="bn">দাম ২৮,৫০০ টাকা।</p>
+      <p class="en">The product is in very good condition.</p><p class="bn">পণ্যটি খুব ভালো অবস্থায় আছে।</p>
+    </div>
+    <h3>৩) দরদাম (Bargaining)</h3>
+    <div class="script">
+      <p class="en">I understand your budget.</p><p class="bn">আপনার বাজেট আমি বুঝতে পারছি।</p>
+      <p class="en">I can give you a small discount.</p><p class="bn">আমি আপনাকে সামান্য ছাড় দিতে পারি।</p>
+      <p class="en">This is my last price, sir.</p><p class="bn">এটাই আমার শেষ দাম, স্যার।</p>
+    </div>
+    <h3>৪) ডেলিভারির তথ্য (Delivery info)</h3>
+    <div class="script">
+      <p class="en">Delivery charge is 60 taka inside Dhaka and 120 taka outside Dhaka.</p><p class="bn">ঢাকার ভেতরে ডেলিভারি চার্জ ৬০ টাকা, বাইরে ১২০ টাকা।</p>
+      <p class="en">You will get it in 2–3 days.</p><p class="bn">২–৩ দিনের মধ্যে পেয়ে যাবেন।</p>
+      <p class="en">Please send your name, address and phone number.</p><p class="bn">নাম, ঠিকানা আর ফোন নম্বর পাঠান।</p>
+    </div>
+    <h3>৫) ধন্যবাদ ও শেষ কথা (Thank-you / Closing)</h3>
+    <div class="script">
+      <p class="en">Thank you for buying from us.</p><p class="bn">আমাদের থেকে কেনার জন্য ধন্যবাদ।</p>
+      <p class="en">Please check the product carefully.</p><p class="bn">পণ্যটি ভালো করে চেক করে নেবেন।</p>
+      <p class="en">If you have any problem, message me anytime.</p><p class="bn">কোনো সমস্যা হলে যেকোনো সময় মেসেজ করুন।</p>
+    </div>
+    <div class="tip">💡 <b>টিপস:</b> ক্রেতাকে রাগ করে উত্তর দেবেন না। ছোট, ভদ্র আর পরিষ্কার বাক্যই ভালো বিক্রেতার পরিচয়।</div>
+  </section>
+
+  <!-- অধ্যায় ৪ -->
+  <section class="chapter locked-ch" id="ch4">
+    <span class="tag lock">🔒 ENROLL</span>
+    <h2>অধ্যায় ৪ — বানান মাস্টারি ২</h2>
+    <p class="sub">কাজে প্রতিদিন লাগে এমন আরও ২৫টি শব্দ — অংশে ভাগ করে শিখুন, তারপর অনুশীলনীতে যাচাই করুন।</p>
+    <div class="lockbox"></div>
+    <div class="chbody">
+      <div id="words4"></div>
+      <h3>✍️ বানান অনুশীলনী</h3>
+      <div class="word">
+        <div class="w" id="sp4Word">—</div>
+        <div class="use" id="sp4Hint">—</div>
+        <input type="text" id="sp4Input" placeholder="এখানে শব্দটি লিখুন…" autocomplete="off" autocapitalize="none">
+        <button class="pill ghost" onclick="sp4Hide()">🙈 লুকাও</button>
+        <button class="pill" onclick="sp4Check()">✔ চেক</button>
+        <button class="pill ghost" onclick="sp4Next()">➡ পরের শব্দ</button>
+        <div class="feedback" id="sp4Msg"></div>
+        <div class="progress" id="sp4Prog"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- অধ্যায় ৫ -->
+  <section class="chapter locked-ch" id="ch5">
+    <span class="tag lock">🔒 ENROLL</span>
+    <h2>অধ্যায় ৫ — Fiverr / Upwork English</h2>
+    <p class="sub">বিদেশি ক্লায়েন্টের সঙ্গে কাজের ৫টি তৈরি টেমপ্লেট মেসেজ। নিজের কাজ অনুযায়ী সামান্য বদলে ব্যবহার করুন।</p>
+    <div class="lockbox"></div>
+    <div class="chbody">
+      <h3>১) Gig inquiry — ক্লায়েন্ট প্রথমে জিজ্ঞেস করলে</h3>
+      <div class="script">
+        <p class="en">Hello, thank you for contacting me. Yes, I can do this work. Please send me your file and tell me the size you need. I will reply with the price and delivery time.</p>
+        <p class="bn">কখন: কেউ কাজের ব্যাপারে প্রথম মেসেজ দিলে। file আর size জানতে চান — এতে পরে ভুল বোঝাবুঝি হয় না।</p>
+      </div>
+      <h3>২) Order start — অর্ডার শুরু হলে</h3>
+      <div class="script">
+        <p class="en">Thank you for your order! I have received your file. I am starting the work now and will deliver before the deadline.</p>
+        <p class="bn">কখন: অর্ডার পাওয়ার সঙ্গে সঙ্গে। ক্লায়েন্ট নিশ্চিন্ত হয় যে কাজ শুরু হয়েছে।</p>
+      </div>
+      <h3>৩) Delivery — কাজ জমা দেওয়ার সময়</h3>
+      <div class="script">
+        <p class="en">Hello, your work is ready. I have attached the final files. Please check them. If you need any change, please tell me — revision is free.</p>
+        <p class="bn">কখন: ফাইনাল ফাইল পাঠানোর সময়। কোন ফরম্যাটে পাঠালেন (DXF, SVG, STL) তা নাম ধরে লিখে দিন।</p>
+      </div>
+      <h3>৪) Revision — ক্লায়েন্ট সংশোধন চাইলে</h3>
+      <div class="script">
+        <p class="en">No problem! I will fix it and send the updated file within a few hours. Thank you for explaining clearly.</p>
+        <p class="bn">কখন: সংশোধনের অনুরোধ এলে। রাগ না করে দ্রুত সাড়া দিন — ভালো রিভিউ এখান থেকেই আসে।</p>
+      </div>
+      <h3>৫) Follow-up — পুরনো লিডকে ভদ্রভাবে মনে করানো</h3>
+      <div class="script">
+        <p class="en">Hello, I hope you are well. Last week I sent you a proposal about design work. If you still need help, I am ready to start with a small test order.</p>
+        <p class="bn">কখন: প্রস্তাব পাঠানোর ৫–৭ দিন পর একবার মাত্র। বারবার পাঠালে ক্লায়েন্ট বিরক্ত হয়।</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- অধ্যায় ৬ -->
+  <section class="chapter locked-ch" id="ch6">
+    <span class="tag lock">🔒 ENROLL</span>
+    <h2>অধ্যায় ৬ — শুদ্ধ বাংলা বানান</h2>
+    <p class="sub">বাংলায় সবচেয়ে বেশি ভুল হয় এমন ১৫টি বানান — ভুল রূপ, শুদ্ধ রূপ আর এক লাইনের নিয়ম।</p>
+    <div class="lockbox"></div>
+    <div class="chbody">
+      <table>
+        <tr><th>✗ ভুল</th><th>✓ শুদ্ধ</th><th>নিয়ম</th></tr>
+        <tr><td>তুমি কি চাও? (বস্তু বোঝালে)</td><td class="en">কী</td><td class="use">হ্যাঁ/না উত্তরের প্রশ্নে "কি"; কোন জিনিস জানতে চাইলে "কী"।</td></tr>
+        <tr><td>হয় নি</td><td class="en">হয়নি</td><td class="use">"নি" সবসময় ক্রিয়ার সঙ্গে জুড়ে লিখতে হয়।</td></tr>
+        <tr><td>করিনা</td><td class="en">করি না</td><td class="use">"না" আলাদা লিখতে হয় (কিন্তু "নি" জুড়ে)।</td></tr>
+        <tr><td>ব্যাবহার</td><td class="en">ব্যবহার</td><td class="use">ব্য + বহার নয় — "ব্যবহার" (ব্ + য)।</td></tr>
+        <tr><td>মুহুর্ত</td><td class="en">মুহূর্ত</td><td class="use">শেষে র-ফলা ঊ-কার: মূ।</td></tr>
+        <tr><td>দায়ীত্ব</td><td class="en">দায়িত্ব</td><td class="use">দায়ি + ত্ব — ঈ নয়, ই।</td></tr>
+        <tr><td>পর্য্যন্ত</td><td class="en">পর্যন্ত</td><td class="use">য-ফলা একবারই: র্য।</td></tr>
+        <tr><td>উচিৎ</td><td class="en">উচিত</td><td class="use">শেষে ত, ৎ নয়।</td></tr>
+        <tr><td>কারন</td><td class="en">কারণ</td><td class="use">তৎসম শব্দে মূর্ধন্য ণ হয়।</td></tr>
+        <tr><td>অভিযোগ (য-ফলা দিয়ে)</td><td class="en">অভিযোগ</td><td class="use">অভি + যোগ — য-ফলা নেই।</td></tr>
+        <tr><td>স্বাগত</td><td class="en">স্বাগতম</td><td class="use">পুরো রূপ "স্বাগতম"।</td></tr>
+        <tr><td>বেশী</td><td class="en">বেশি</td><td class="use">আধুনিক রীতিতে হ্রস্ব ই।</td></tr>
+        <tr><td>কোন (অনির্দিষ্ট বোঝালে)</td><td class="en">কোনো</td><td class="use">"যেকোনো একটা" বোঝালে কোনো।</td></tr>
+        <tr><td>দুর</td><td class="en">দূর</td><td class="use">দীর্ঘ ঊ-কার।</td></tr>
+        <tr><td>বইগুলি</td><td class="en">বইগুলো</td><td class="use">চলতি বাংলায় বহুবচনে "গুলো" লিখুন।</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- অধ্যায় ৭ -->
+  <section class="chapter locked-ch" id="ch7">
+    <span class="tag lock">🔒 ENROLL</span>
+    <h2>অধ্যায় ৭ — বাক্য গঠন</h2>
+    <p class="sub">মাত্র ৬টি প্যাটার্ন শিখলেই শত শত বাক্য নিজে বানাতে পারবেন। প্রতিটি প্যাটার্নে নিজে একটি বাক্য বানানোর চেষ্টা করুন।</p>
+    <div class="lockbox"></div>
+    <div class="chbody">
+      <div class="word"><div class="w">I am …</div><p>নিজের পরিচয় বা অবস্থা বলতে।</p>
+        <p class="en">I am a seller. · I am busy today.</p>
+        <p class="use">নিজে বানান: I am ready. (আমি তৈরি।)</p></div>
+      <div class="word"><div class="w">I have …</div><p>নিজের কাছে কিছু আছে বলতে।</p>
+        <p class="en">I have this laptop in stock. · I have two designs.</p>
+        <p class="use">নিজে বানান: I have your address. (আপনার ঠিকানা আমার কাছে আছে।)</p></div>
+      <div class="word"><div class="w">Can you …?</div><p>ভদ্রভাবে কিছু চাইতে বা জিজ্ঞেস করতে।</p>
+        <p class="en">Can you send your address? · Can you wait one day?</p>
+        <p class="use">নিজে বানান: Can you pay today? (আজ টাকা দিতে পারবেন?)</p></div>
+      <div class="word"><div class="w">Please …</div><p>ভদ্রভাবে অনুরোধ করতে — বাক্যের শুরুতে বসে।</p>
+        <p class="en">Please check the file. · Please confirm the order.</p>
+        <p class="use">নিজে বানান: Please send the payment. (অনুগ্রহ করে টাকাটা পাঠান।)</p></div>
+      <div class="word"><div class="w">How much …?</div><p>দাম বা পরিমাণ জানতে।</p>
+        <p class="en">How much is this? · How much do you want to pay?</p>
+        <p class="use">নিজে বানান: How much is the delivery charge? (ডেলিভারি চার্জ কত?)</p></div>
+      <div class="word"><div class="w">I will …</div><p>ভবিষ্যতে কিছু করবেন বলতে।</p>
+        <p class="en">I will deliver tomorrow. · I will send the file today.</p>
+        <p class="use">নিজে বানান: I will call you tonight. (রাতে ফোন করব।)</p></div>
+    </div>
+  </section>
+
+  <!-- অধ্যায় ৮ -->
+  <section class="chapter locked-ch" id="ch8">
+    <span class="tag lock">🔒 ENROLL</span>
+    <h2>অধ্যায় ৮ — ফাইনাল চ্যালেঞ্জ</h2>
+    <p class="sub">১৫টি প্রশ্নে পুরো কোর্সের যাচাই। সব উত্তর দিয়ে "রেজাল্ট দেখুন" চাপুন। সেরা স্কোর এই ফোনে সেভ থাকে।</p>
+    <div class="lockbox"></div>
+    <div class="chbody">
+      <div id="quizBox"></div>
+      <button class="pill" onclick="gradeQuiz()">🏆 রেজাল্ট দেখুন</button>
+      <div class="feedback" id="quizMsg"></div>
+      <div class="progress" id="quizBest"></div>
+    </div>
+  </section>
+</main>
+<footer>
+  <a href="https://toolbari.github.io/" class="backlink">← ToolBari হোমপেজ</a><br>
+  English Learning Course · ToolBari
+</footer>
+
+<style>
+.chbody{display:none}
+body.enrolled .chbody{display:block}
+body.enrolled .lockbox{display:none}
+body.enrolled .tag.lock{background:#dcfce7;color:#166534}
+</style>
+<script>
+"use strict";
+var UNLOCK_HASH="10586367a58db298638a08734c1674f4ff1ab8e3f4125b3c347ab3cd374ead7f";
+
+/* ---------- Language toggle ---------- */
+var I18N={
+hero_badge:{bn:"প্রথম ৩টি অধ্যায় ফ্রি",en:"First 3 chapters FREE"},
+hero_h:{bn:"English Learning Course",en:"English Learning Course"},
+hero_p1:{bn:"কাজের জন্য ইংরেজি — বানান, ক্রেতার সঙ্গে চ্যাট, Fiverr/Upwork-এর মেসেজ। সহজ বাংলায়, ছোট ছোট পাঠে।",en:"Work English made simple — spelling, customer chats, Fiverr/Upwork messages. In easy Bengali, in small lessons."},
+hero_p2:{bn:"প্রতিদিন মাত্র ১০ মিনিট অনুশীলন করলেই চলবে।",en:"Just 10 minutes of practice a day is enough."},
+chapters_h:{bn:"অধ্যায়সমূহ",en:"Chapters"},
+en_h:{bn:"🎓 Enrollment — সব অধ্যায় খুলুন",en:"🎓 Enrollment — Unlock all chapters"},
+en_once:{bn:"একবার পেমেন্ট — সব অধ্যায় চিরদিনের জন্য খোলা। কোনো মাসিক ফি নেই।",en:"One-time payment — all chapters unlocked forever. No monthly fee."},
+en_s1t:{bn:"ধাপ ১:",en:"Step 1:"},
+en_s1:{bn:"নিচের bKash নম্বরে ৳৪৯৯ Send Money করুন (bKash Personal):",en:"Send ৳499 by bKash Send Money to this number (bKash Personal):"},
+en_s2t:{bn:"ধাপ ২:",en:"Step 2:"},
+en_s2:{bn:"পেমেন্টের Transaction ID (TrxID) টি WhatsApp-এ পাঠান। আমরা যাচাই করে আপনাকে Unlock Code পাঠিয়ে দেব।",en:"Send the payment Transaction ID (TrxID) on WhatsApp. We will verify it and send you the Unlock Code."},
+en_wa:{bn:"WhatsApp-এ TrxID পাঠান",en:"Send TrxID on WhatsApp"},
+en_s3t:{bn:"ধাপ ৩:",en:"Step 3:"},
+en_s3:{bn:"পাওয়া Unlock Code টি নিচে লিখুন — এই ফোনে/ব্রাউজারে সব অধ্যায় স্থায়ীভাবে খুলে যাবে।",en:"Enter the Unlock Code below — all chapters will stay unlocked on this phone/browser."},
+en_unlock:{bn:"🔓 Unlock করুন",en:"🔓 Unlock"},
+en_note:{bn:"আগে থেকেই enroll করে থাকলে শুধু ধাপ ৩-এর কোডটি দিলেই হবে।",en:"Already enrolled? Just do Step 3 with your code."}
+};
+var LANG=localStorage.getItem("learn_lang")||"bn";
+function applyLang(){
+  document.querySelectorAll("[data-i18n]").forEach(function(el){
+    var k=el.getAttribute("data-i18n");
+    if(I18N[k]&&I18N[k][LANG]) el.textContent=I18N[k][LANG];
+  });
+  document.getElementById("langBtn").textContent=(LANG==="bn")?"English":"বাংলা";
+  document.documentElement.lang=LANG;
+}
+function toggleLang(){LANG=(LANG==="bn")?"en":"bn";localStorage.setItem("learn_lang",LANG);applyLang();}
+
+/* ---------- Chapter cards ---------- */
+var CHAPTERS=[
+ ["ch1","অধ্যায় ১ — প্রতিদিনের দরকারি বাক্য","১৫টি কাজের বাক্য, অর্থ ও ব্যবহার",true],
+ ["ch2","অধ্যায় ২ — বানান মাস্টারি ১","Chunking পদ্ধতি + ১০টি শব্দ + অনুশীলনী",true],
+ ["ch3","অধ্যায় ৩ — ক্রেতার সঙ্গে কথা","Greeting, দাম, দরদাম, ডেলিভারি — তৈরি স্ক্রিপ্ট",true],
+ ["ch4","অধ্যায় ৪ — বানান মাস্টারি ২","আরও ২৫টি কাজের শব্দ + অনুশীলনী",false],
+ ["ch5","অধ্যায় ৫ — Fiverr/Upwork English","৫টি তৈরি ক্লায়েন্ট টেমপ্লেট",false],
+ ["ch6","অধ্যায় ৬ — শুদ্ধ বাংলা বানান","১৫টি প্রচলিত ভুল ও নিয়ম",false],
+ ["ch7","অধ্যায় ৭ — বাক্য গঠন","৬টি প্যাটার্নে নিজে বাক্য বানান",false],
+ ["ch8","অধ্যায় ৮ — ফাইনাল চ্যালেঞ্জ","১৫ প্রশ্নের কুইজ ও স্কোর",false]
+];
+(function(){
+  var g=document.getElementById("chGrid");
+  CHAPTERS.forEach(function(c){
+    var d=document.createElement("div");d.className="card";
+    d.innerHTML='<span class="tag '+(c[3]?"free":"lock")+'">'+(c[3]?"FREE · ফ্রি":"🔒 ENROLL")+'</span><h3>'+c[1]+'</h3><p>'+c[2]+'</p>';
+    d.onclick=function(){document.getElementById(c[0]).scrollIntoView({behavior:"smooth"});};
+    g.appendChild(d);
+  });
+})();
+
+/* ---------- Locking ---------- */
+function isEnrolled(){return localStorage.getItem("learn_enrolled")==="1";}
+function showEnroll(){var e=document.getElementById("enroll");e.classList.remove("hidden");e.scrollIntoView({behavior:"smooth"});}
+function applyLock(){
+  document.querySelectorAll(".lockbox").forEach(function(b){
+    b.innerHTML='<div class="big">🔒</div><p><b>এই অধ্যায়টি Enrolled শিক্ষার্থীদের জন্য।</b><br>মাত্র ৳৪৯৯ একবারের enrollment-এ অধ্যায় ৪–৮ সব খুলে যাবে।</p><button class="pill" onclick="showEnroll()">🎓 Enroll করুন — ৳৪৯৯</button>';
+  });
+  if(isEnrolled()){
+    document.body.classList.add("enrolled");
+    document.getElementById("enroll").classList.add("hidden");
+    document.querySelectorAll(".tag.lock").forEach(function(t){t.textContent="✔ ENROLLED";});
+  }
+}
+async function sha256(str){
+  var buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,"0");}).join("");
+}
+async function tryUnlock(){
+  var v=document.getElementById("codeInput").value.trim().toUpperCase();
+  var m=document.getElementById("unlockMsg");
+  if(!v){m.textContent="আগে কোডটি লিখুন।";m.className="feedback bad";return;}
+  try{
+    var h=await sha256(v);
+    if(h===UNLOCK_HASH){
+      localStorage.setItem("learn_enrolled","1");
+      m.textContent="✅ সঠিক কোড! সব অধ্যায় খুলে গেছে।";m.className="feedback ok";
+      applyLock();window.scrollTo({top:0,behavior:"smooth"});
+    }else{m.textContent="❌ কোডটি মিলছে না। আবার দেখে লিখুন।";m.className="feedback bad";}
+  }catch(e){m.textContent="এই ব্রাউজারে যাচাই করা যাচ্ছে না — Chrome ব্যবহার করুন।";m.className="feedback bad";}
+}
+
+/* ---------- Word lists ---------- */
+var WORDS2=[
+ ["beside","be + side","পাশে","Sit beside me."],
+ ["besides","be + sides","এছাড়াও","Besides this design, we have more."],
+ ["available","a + vail + able","পাওয়া যায়","Home delivery is available."],
+ ["interested","in + ter + est + ed","আগ্রহী","Are you interested in this laptop?"],
+ ["delivery","de + liv + ery","ডেলিভারি","Delivery takes two days."],
+ ["discount","dis + count","ছাড়","I can give you a small discount."],
+ ["guarantee","gua + ran + tee","গ্যারান্টি","We give a 7-day replacement guarantee."],
+ ["enrolling","en + roll + ing","ভর্তি হওয়া","Thank you for enrolling in this course."],
+ ["learning","learn + ing","শেখা","I am learning English every day."],
+ ["fluent","flu + ent","সাবলীল / অনর্গল","She speaks fluent English."]
+];
+var WORDS4=[
+ ["payment","pay + ment","টাকা পরিশোধ","Please send the payment today."],
+ ["received","re + ceived","পেয়েছি","I have received your file. (মনে রাখুন: c-এর পরে ei হয়)"],
+ ["address","ad + dress","ঠিকানা","Please send your full address. (d দুবার, s দুবার)"],
+ ["confirm","con + firm","নিশ্চিত করা","Please confirm the order."],
+ ["quality","qua + li + ty","মান","We check the quality first."],
+ ["original","o + ri + gi + nal","আসল","This is an original product."],
+ ["warranty","war + ran + ty","ওয়ারেন্টি","The laptop has a one-year warranty."],
+ ["tomorrow","to + mor + row","আগামীকাল","I will deliver tomorrow. (r দুবার)"],
+ ["yesterday","yes + ter + day","গতকাল","He called me yesterday."],
+ ["because","be + cause","কারণ","I am late because of traffic."],
+ ["important","im + por + tant","গুরুত্বপূর্ণ","This file is very important."],
+ ["different","dif + fer + ent","আলাদা","This is a different design. (f দুবার)"],
+ ["service","ser + vice","সেবা","We give good service."],
+ ["customer","cus + tom + er","ক্রেতা","The customer is happy."],
+ ["message","mes + sage","বার্তা","Please read my message. (s দুবার)"],
+ ["reply","re + ply","উত্তর","I will reply soon."],
+ ["order","or + der","অর্ডার","Your order is ready."],
+ ["cancel","can + cel","বাতিল","Do not cancel the order."],
+ ["refund","re + fund","টাকা ফেরত","We will refund your money."],
+ ["sample","sam + ple","নমুনা","Please check the sample first."],
+ ["design","de + sign","ডিজাইন","This design is new. (g উচ্চারণ হয় না)"],
+ ["file","file","ফাইল","Send me the file."],
+ ["ready","rea + dy","তৈরি","Your product is ready."],
+ ["send","send","পাঠানো","Please send your address."],
+ ["price","price","দাম","The price is fixed."]
+];
+function renderWords(elId,words){
+  var box=document.getElementById(elId);if(!box)return;
+  words.forEach(function(w){
+    var d=document.createElement("div");d.className="word";
+    d.innerHTML='<span class="w">'+w[0]+'</span> &nbsp;<span class="chunks">'+w[1]+'</span><br>অর্থ: <b>'+w[2]+'</b><br><span class="en">'+w[3]+'</span>';
+    box.appendChild(d);
+  });
+}
+renderWords("words2",WORDS2);
+renderWords("words4",WORDS4);
+
+/* ---------- Spelling practice factory ---------- */
+function makePractice(P,words,storeKey){
+  var idx=0,hidden=false;
+  var mastered=new Set(JSON.parse(localStorage.getItem(storeKey)||"[]"));
+  function cur(){return words[idx];}
+  function show(){
+    document.getElementById(P+"Word").textContent=hidden?"••••••":cur()[0];
+    document.getElementById(P+"Hint").textContent="অর্থ: "+cur()[2];
+    upd();
+  }
+  function upd(){
+    document.getElementById(P+"Prog").textContent="শেখা হয়েছে: "+mastered.size+" / "+words.length+" টি শব্দ";
+  }
+  window[P+"Hide"]=function(){hidden=true;show();document.getElementById(P+"Input").focus();};
+  window[P+"Next"]=function(){idx=(idx+1)%words.length;hidden=false;document.getElementById(P+"Input").value="";document.getElementById(P+"Msg").textContent="";show();};
+  window[P+"Check"]=function(){
+    var v=document.getElementById(P+"Input").value.trim().toLowerCase();
+    var m=document.getElementById(P+"Msg");
+    if(v===cur()[0]){
+      mastered.add(cur()[0]);localStorage.setItem(storeKey,JSON.stringify(Array.from(mastered)));
+      m.textContent="✅ সঠিক হয়েছে!";m.className="feedback ok";hidden=false;show();
+    }else{
+      m.innerHTML="❌ হয়নি। সঠিক বানান: <b>"+cur()[0]+"</b> &nbsp;(<span class='chunks'>"+cur()[1]+"</span>) — অংশগুলো বলে আবার লিখুন।";
+      m.className="feedback bad";hidden=false;show();
+    }
+  };
+  show();
+}
+makePractice("sp2",WORDS2,"learn_sp2");
+makePractice("sp4",WORDS4,"learn_sp4");
+
+/* ---------- Quiz ---------- */
+var QUIZ=[
+ ["সঠিক বানান কোনটি?",["avaible","available","availible"],1],
+ ["সঠিক বানান কোনটি?",["tomorow","tommorow","tomorrow"],2],
+ ["শূন্যস্থান পূরণ করুন: The price is ___.",["fix","fixed","fixing"],1],
+ ["সঠিক বানান কোনটি?",["adress","addres","address"],2],
+ ["সঠিক বানান কোনটি?",["guarantee","garanty","garrantee"],0],
+ ["কোন বাক্যটি শুদ্ধ?",["Please send your address.","Please send you address.","Please sends your address."],0],
+ ["সঠিক বানান কোনটি?",["recieved","received","reseived"],1],
+ ["শুদ্ধ বাংলা বানান কোনটি?",["মুহুর্ত","মুহূর্ত","মুহূরত"],1],
+ ["সঠিক বানান কোনটি?",["mesage","messsage","message"],2],
+ ["শূন্যস্থান পূরণ করুন: Can you ___ your phone number?",["send","sent","sending"],0],
+ ["সঠিক বানান কোনটি?",["different","diffrent","diferent"],0],
+ ["শুদ্ধ বাংলা বানান কোনটি?",["উচিৎ","উচিত","উচিত্‍"],1],
+ ["সঠিক বানান কোনটি?",["becouse","becuase","because"],2],
+ ["শূন্যস্থান পূরণ করুন: I will ___ your order today.",["confirm","conferm","cansel"],0],
+ ["সঠিক বানান কোনটি?",["intersted","interested","intrested"],1]
+];
+(function(){
+  var box=document.getElementById("quizBox");
+  QUIZ.forEach(function(q,qi){
+    var d=document.createElement("div");d.className="word";
+    var h='<div class="w" style="font-size:16.5px">'+(qi+1)+'. '+q[0]+'</div>';
+    q[1].forEach(function(o,oi){
+      h+='<button type="button" class="pill ghost qopt" data-q="'+qi+'" data-o="'+oi+'" onclick="pickOpt(this)">'+o+'</button>';
+    });
+    d.innerHTML=h;box.appendChild(d);
+  });
+  showBest();
+})();
+var PICKS={};
+function pickOpt(b){
+  var q=b.getAttribute("data-q");
+  document.querySelectorAll('.qopt[data-q="'+q+'"]').forEach(function(x){x.classList.remove("sel");});
+  b.classList.add("sel");PICKS[q]=parseInt(b.getAttribute("data-o"),10);
+}
+function showBest(){
+  var best=localStorage.getItem("learn_quiz_best");
+  document.getElementById("quizBest").textContent=best?("আপনার সেরা স্কোর: "+best+" / ১৫"):"";
+}
+function gradeQuiz(){
+  var score=0,answered=0;
+  QUIZ.forEach(function(q,qi){if(PICKS[qi]!==undefined){answered++;if(PICKS[qi]===q[2])score++;}});
+  var m=document.getElementById("quizMsg");
+  if(answered<QUIZ.length){m.textContent="সবগুলো প্রশ্নের উত্তর দিন — বাকি আছে "+(QUIZ.length-answered)+"টি।";m.className="feedback bad";return;}
+  var best=parseInt(localStorage.getItem("learn_quiz_best")||"0",10);
+  if(score>best){localStorage.setItem("learn_quiz_best",String(score));}
+  m.textContent="🏆 আপনার স্কোর: "+score+" / ১৫"+(score>=12?" — চমৎকার!":score>=8?" — ভালো, আরেকবার চেষ্টা করুন।":" — অধ্যায়গুলো আবার পড়ে চেষ্টা করুন।");
+  m.className="feedback "+(score>=8?"ok":"bad");
+  showBest();
+}
+
+/* ---------- Init ---------- */
+applyLang();
+applyLock();
+</script>
+</body>
+</html>
