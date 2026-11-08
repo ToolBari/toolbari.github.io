@@ -51,6 +51,38 @@ input[type=text]::placeholder{color:#bdb6e8}
 .share a,.share button{border:none;text-decoration:none;color:#fff;font-weight:800;padding:11px 17px;border-radius:999px;font-size:14px;cursor:pointer}
 .fb{background:#1877f2}.wa{background:#25d366}.tg{background:#229ed9}.cp{background:#6d28d9}
 .follow{display:inline-block;background:#1877f2;color:#fff;font-weight:800;padding:12px 22px;border-radius:999px;text-decoration:none;box-shadow:0 6px 18px rgba(24,119,242,.4)}
+.wtabs{display:flex;gap:7px;flex-wrap:wrap;margin-top:4px}
+.wtabs button{padding:9px 14px;border-radius:999px;border:1.5px solid rgba(255,255,255,.3);background:transparent;color:#fff;font-weight:800;cursor:pointer;font-size:13.5px}
+.wtabs button.on{background:#ffd400;color:#111;border-color:#ffd400}
+.stk{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.stk button{font-size:21px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.25);border-radius:12px;padding:6px 9px;cursor:pointer}
+.stk .rm{font-size:12.5px;color:#fff;font-weight:700}
+.panel{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:16px 13px;margin-top:26px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.panel h2{margin-top:0}
+.panel input[type=text],.panel input[type=date],.panel textarea{width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid rgba(255,255,255,.3);background:rgba(255,255,255,.09);color:#fff;font-size:16px;margin-top:10px;font-family:inherit}
+.panel textarea{min-height:64px;resize:vertical}
+.giftlink{display:flex;gap:7px;margin-top:10px}
+.giftlink input{flex:1;margin-top:0!important;font-size:13.5px!important}
+.giftlink button{background:#6d28d9;color:#fff;border:none;border-radius:12px;padding:0 16px;font-weight:800;cursor:pointer}
+#gift{display:none;text-align:center;padding:26px 14px}
+#giftBox{font-size:110px;background:none;border:none;cursor:pointer;animation:bob 1.2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-10px) scale(1.05)}}
+#giftReveal{display:none}
+#giftReveal img{width:100%;max-width:340px;border-radius:16px;box-shadow:0 14px 40px rgba(0,0,0,.55)}
+#giftReveal .gname{font-size:26px;font-weight:900;color:#ffd400;margin-top:14px}
+#giftReveal .gmsg{font-size:16.5px;color:#f3f0ff;margin-top:8px;line-height:1.55;white-space:pre-wrap}
+#giftReveal .gfrom{color:#bdb6e8;margin-top:8px;font-size:14px}
+.gbtn{display:inline-block;margin:12px 5px 0;background:linear-gradient(135deg,#ff00a8,#7c00ff);color:#fff;font-weight:800;padding:12px 20px;border-radius:999px;text-decoration:none;border:none;cursor:pointer;font-size:15px}
+.gbtn.alt{background:linear-gradient(135deg,#00c853,#00d1ff);color:#062b16}
+#factsOut{display:none;margin-top:12px;background:rgba(255,212,0,.1);border:1px solid rgba(255,212,0,.4);border-radius:14px;padding:13px 15px;font-size:15px;line-height:1.65}
+.toolrow{display:flex;gap:8px;margin:16px 0 4px;flex-wrap:wrap}
+.toolrow input{flex:1;min-width:150px;padding:12px 14px;border-radius:999px;border:1.5px solid rgba(255,255,255,.3);background:rgba(255,255,255,.09);color:#fff;font-size:15px;margin-top:0}
+.toolrow button{padding:12px 16px;border-radius:999px;border:none;font-weight:800;cursor:pointer;font-size:14px;color:#fff;background:#6d28d9}
+.toolrow button.favb{background:#3f3d6e}
+.toolrow button.favb.on{background:#e11d48}
+.card{position:relative}
+.heart{position:absolute;top:7px;right:7px;z-index:3;background:rgba(0,0,0,.5);border-radius:999px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:16px;padding:0}
+#toTop{position:fixed;right:14px;bottom:16px;z-index:40;background:linear-gradient(135deg,#ff00a8,#7c00ff);color:#fff;border:none;width:46px;height:46px;border-radius:999px;font-size:19px;box-shadow:0 8px 20px rgba(0,0,0,.5);cursor:pointer;display:none}
 footer{text-align:center;color:#8f89b8;font-size:12.5px;padding:18px 10px 26px}
 </style>
 </head>
@@ -62,7 +94,32 @@ footer{text-align:center;color:#8f89b8;font-size:12.5px;padding:18px 10px 26px}
 </header>
 <nav id="nav"></nav>
 <main>
+<section id="gift" class="panel">
+<div id="giftIntro">
+<div style="font-size:19px;font-weight:900">🎁 A surprise gift for you!</div>
+<p style="color:#bdb6e8;margin-top:8px">Someone made this just for you. Tap the gift to open it!</p>
+<button id="giftBox" aria-label="Open your gift">🎁</button>
+<p style="color:#ffd400;font-weight:800">👆 Tap to open</p>
+</div>
+<div id="giftReveal">
+<img id="giftImg" alt="Your birthday frame">
+<div class="gname" id="giftName"></div>
+<div class="gmsg" id="giftMsg"></div>
+<div class="gfrom" id="giftFrom"></div>
+<div>
+<button class="gbtn alt" id="giftPhoto">📷 Add Your Photo to This Frame</button>
+<button class="gbtn" id="giftOwn">🎁 Create Your Own Gift</button>
+</div>
+<p style="margin-top:14px"><a class="follow" href="https://www.facebook.com/profile.php?id=1494634914134599" target="_blank" rel="noopener">👍 Follow Birthday Cake PhotO</a></p>
+</div>
+</section>
+<div class="toolrow">
+<input type="text" id="q" placeholder="🔍 Search frames… (try: royal, mom, pink)">
+<button id="randBtn">🎲 Surprise Me</button>
+<button class="favb" id="favBtn">🤍 My Favorites</button>
+</div>
 <div id="gallery"></div>
+<button id="toTop" aria-label="Back to top">⬆️</button>
 
 <section id="editor">
 <h2>🎨 Your Frame</h2>
@@ -75,9 +132,20 @@ footer{text-align:center;color:#8f89b8;font-size:12.5px;padding:18px 10px 26px}
 <div class="seg" id="winSeg" style="display:none"></div>
 <div class="seg"><button id="fillBtn" class="on">Fill Frame</button><button id="fitBtn">Fit Whole Photo</button></div>
 <input type="range" id="zoom" min="30" max="300" value="100">
+<div class="stk" id="stkRow"><span style="font-size:13px;color:#bdb6e8;font-weight:700">Stickers:</span></div>
 <input type="text" id="nm" placeholder="✍️ Type the birthday name here" maxlength="30">
 <button class="dl" id="dl">⬇️ Download Your Photo</button>
 <p class="priv">🔒 Your photo is processed on your own phone — it is never uploaded anywhere.</p>
+<div style="margin-top:16px;border-top:1px dashed rgba(255,255,255,.25);padding-top:13px">
+<div style="font-weight:900;font-size:16.5px">🎁 Send as a Surprise Gift Link</div>
+<p style="color:#bdb6e8;font-size:13.5px;margin-top:5px">Uses the frame you picked above. Your friend taps a gift box — and your wish opens with confetti!</p>
+<input type="text" id="gName" placeholder="Friend's name" maxlength="40">
+<textarea id="gMsg" placeholder="Your birthday message…" maxlength="220"></textarea>
+<input type="text" id="gFrom" placeholder="Your name (From…)" maxlength="40">
+<button class="dl" id="gMake" style="background:linear-gradient(135deg,#ff00a8,#7c00ff);color:#fff;box-shadow:0 6px 18px rgba(255,0,168,.35)">🎁 Create Gift Link</button>
+<div class="giftlink" id="gOut" style="display:none"><input type="text" id="gLink" readonly><button id="gCopy">Copy</button></div>
+<a class="gbtn" id="gWa" style="display:none;background:#25d366" target="_blank" rel="noopener">📲 Send on WhatsApp</a>
+</div>
 </div>
 </section>
 
@@ -86,7 +154,17 @@ footer{text-align:center;color:#8f89b8;font-size:12.5px;padding:18px 10px 26px}
 <p style="color:#fbcfe8;font-size:13px;margin-top:7px">New frames &amp; birthday photos every day on our Page 🎉</p>
 </div>
 
-<h2>💌 Birthday Wishes — Tap to Copy</h2>
+<section class="panel">
+<h2>🎂 Birthday Facts &amp; Countdown</h2>
+<p style="color:#bdb6e8;font-size:14px">Pick a birth date — see the countdown, the day you were born, your zodiac, birthstone &amp; more!</p>
+<input type="date" id="dob">
+<button class="dl" id="factsBtn">✨ Show My Birthday Facts</button>
+<div id="factsOut"></div>
+<button class="gbtn" id="factsCopy" style="display:none">📋 Copy My Facts to Share</button>
+</section>
+
+<h2>💌 Birthday Wishes by Country — Tap to Copy</h2>
+<div class="wtabs" id="wtabs"></div>
 <div id="wishes"></div>
 
 <div class="share"><b style="width:100%;text-align:center">📢 Share this page:</b>
@@ -103,6 +181,27 @@ footer{text-align:center;color:#8f89b8;font-size:12.5px;padding:18px 10px 26px}
 var FRAMES=[{"s": "royal-blue", "n": "Royal Blue Crown", "c": "royal", "shape": "rect", "wins": [[0.438, 0.251, 0.975, 0.734]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "royal-pink", "n": "Royal Pink Crown", "c": "royal", "shape": "rect", "wins": [[0.089, 0.372, 0.613, 0.816]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "royal-red", "n": "Royal Red Crown", "c": "royal", "shape": "rect", "wins": [[0.525, 0.36, 0.895, 0.72]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "royal-rosepink", "n": "Royal Rose Pink Crown", "c": "royal", "shape": "rect", "wins": [[0.448, 0.258, 0.927, 0.705]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "royal-pink-circle", "n": "Royal Pink Circle", "c": "royal", "shape": "circle", "wins": [[0.373, 0.327, 0.987, 0.747]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "blue-scrapbook-duo", "n": "Blue Scrapbook Duo", "c": "scrapbook", "shape": "rect", "wins": [[0.135, 0.338, 0.455, 0.552], [0.539, 0.336, 0.859, 0.546]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "ocean-v2", "n": "Ocean Scrapbook", "c": "scrapbook", "shape": "rect", "wins": [[0.012, 0.262, 0.688, 0.738]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "pink-scrapbook-duo", "n": "Pink Scrapbook Duo", "c": "scrapbook", "shape": "rect", "wins": [[0.082, 0.188, 0.502, 0.54], [0.48, 0.43, 0.965, 0.845]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "lavender-trio", "n": "Lavender Trio", "c": "scrapbook", "shape": "rect", "wins": [[0.108, 0.222, 0.498, 0.541], [0.535, 0.202, 0.944, 0.548], [0.4, 0.585, 0.829, 0.924]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "vintage-trio", "n": "Vintage Trio", "c": "scrapbook", "shape": "rect", "wins": [[0.018, 0.058, 0.464, 0.31], [0.443, 0.292, 0.89, 0.548], [0.1, 0.594, 0.557, 0.885]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "mom-exact-v2", "n": "For Mom", "c": "family", "shape": "rect", "wins": [[0.498, 0.263, 0.903, 0.775]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "dad-v2", "n": "For Dad", "c": "family", "shape": "rect", "wins": [[0.505, 0.255, 0.96, 0.752]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "brother-v2", "n": "For Brother", "c": "family", "shape": "rect", "wins": [[0.457, 0.382, 0.958, 0.858]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "sister-v2", "n": "For Sister", "c": "family", "shape": "rect", "wins": [[0.42, 0.395, 0.95, 0.845]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "husband-v2", "n": "For Husband", "c": "family", "shape": "rect", "wins": [[0.44, 0.28, 0.955, 0.715]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "navy-girl-board", "n": "Navy Birthday Girl Board", "c": "for-her", "shape": "rect", "wins": [[0.272, 0.378, 0.718, 0.7]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "roses-party-exact", "n": "Roses Party", "c": "for-her", "shape": "rect", "wins": [[0.2819, 0.3212, 0.7375, 0.6669]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "blush-trio", "n": "Blush Trio", "c": "for-her", "shape": "rect", "wins": [[0.09, 0.2, 0.53, 0.46], [0.505, 0.418, 0.915, 0.7], [0.055, 0.655, 0.445, 0.93]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "plum-butterflies", "n": "Plum Butterflies", "c": "for-her", "shape": "circle", "wins": [[0.155, 0.259, 0.848, 0.749]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "pink-gold-classic", "n": "Pink Gold Classic", "c": "for-her", "shape": "rect", "wins": [[0.2736, 0.2558, 0.8806, 0.7918]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "black-gold-men", "n": "Black Gold Men", "c": "for-him", "shape": "circle", "wins": [[0.1792, 0.2738, 0.8333, 0.6885]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "navy-gold-boys", "n": "Navy Gold Boys", "c": "for-him", "shape": "circle", "wins": [[0.365, 0.238, 0.975, 0.684]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "black-orange-bold", "n": "Black Orange Bold", "c": "for-him", "shape": "circle", "wins": [[0.2903, 0.4643, 0.7319, 0.7708]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "neon-boys", "n": "Neon Boys", "c": "for-him", "shape": "rect", "wins": [[0.1847, 0.3101, 0.8222, 0.7603]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "maroon-luxury", "n": "Maroon Luxury", "c": "for-him", "shape": "circle", "wins": [[0.227, 0.298, 0.777, 0.668]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "pink-garden-circle", "n": "Pink Garden Circle", "c": "pink-collection", "shape": "circle", "wins": [[0.452, 0.306, 0.956, 0.62]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "pink-clouds", "n": "Pink Clouds", "c": "pink-collection", "shape": "rect", "wins": [[0.052, 0.048, 0.508, 0.47]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "all-pink-rect", "n": "All Pink", "c": "pink-collection", "shape": "rect", "wins": [[0.079, 0.363, 0.602, 0.832]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "pink-scallop-trio", "n": "Pink Scallop Trio", "c": "pink-collection", "shape": "rect", "wins": [[0.58, 0.144, 0.874, 0.393], [0.106, 0.344, 0.433, 0.618], [0.575, 0.582, 0.897, 0.856]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "blush-roses-polaroid", "n": "Blush Roses Polaroid", "c": "pink-collection", "shape": "rect", "wins": [[0.322, 0.372, 0.918, 0.858]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "skyblue-circle", "n": "Sky Blue Circle Wishlist", "c": "blue-collection", "shape": "circle", "wins": [[0.5153, 0.2997, 0.9222, 0.5696]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "blue-wishing-circle", "n": "Blue Wishing Circle", "c": "blue-collection", "shape": "circle", "wins": [[0.159, 0.356, 0.675, 0.7]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "blue-brush-oval", "n": "Blue Brush Oval", "c": "blue-collection", "shape": "oval", "wins": [[0.474, 0.184, 0.98, 0.68]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "blue-dashed-card", "n": "Blue Dashed Card", "c": "blue-collection", "shape": "rect", "wins": [[0.068, 0.319, 0.47, 0.647]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "sunflower-polaroid", "n": "Sunflower Polaroid", "c": "bright", "shape": "rect", "wins": [[0.078, 0.172, 0.478, 0.418]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "orange-circle", "n": "Orange Circle", "c": "bright", "shape": "circle", "wins": [[0.528, 0.1, 0.938, 0.378]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "orange-white-sunflower", "n": "Orange Sunflower", "c": "bright", "shape": "circle", "wins": [[0.2181, 0.2885, 0.7458, 0.63]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "redpink-square", "n": "Red Pink Square", "c": "bright", "shape": "rect", "wins": [[0.531, 0.37, 0.963, 0.705]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "kitten-duo", "n": "Kitten Duo", "c": "bright", "shape": "rect", "wins": [[0.085, 0.199, 0.447, 0.482], [0.552, 0.194, 0.91, 0.474]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "maroon-rect-roses", "n": "Maroon Roses", "c": "elegant", "shape": "rect", "wins": [[0.455, 0.339, 0.941, 0.718]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "silver-grey", "n": "Silver Grey", "c": "elegant", "shape": "rect", "wins": [[0.484, 0.346, 0.974, 0.726]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "chocolate-gold", "n": "Chocolate Gold", "c": "elegant", "shape": "circle", "wins": [[0.04, 0.245, 0.49, 0.545]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "beige-gold-collage", "n": "Beige Gold Collage", "c": "elegant", "shape": "rect", "wins": [[0.6181, 0.0532, 0.9444, 0.3408], [0.0792, 0.3922, 0.6306, 0.6415], [0.548, 0.638, 0.862, 0.852]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "red-neon-roses", "n": "Red Neon Roses", "c": "elegant", "shape": "rect", "wins": [[0.15, 0.19, 0.848, 0.812]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "wife-calendar", "n": "For Wife Calendar", "c": "blessings", "shape": "rect", "wins": [[0.518, 0.07, 0.918, 0.374], [0.547, 0.368, 0.898, 0.644], [0.562, 0.648, 0.902, 0.815]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "son-v2", "n": "For Son", "c": "blessings", "shape": "rect", "wins": [[0.027, 0.204, 0.505, 0.632], [0.354, 0.603, 0.911, 0.923]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "dad-scrapbook", "n": "Dad Scrapbook", "c": "blessings", "shape": "rect", "wins": [[0.625, 0.208, 0.972, 0.408], [0.045, 0.365, 0.475, 0.595], [0.532, 0.663, 0.895, 0.852]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "christian-blackgold", "n": "Christian Black Gold", "c": "blessings", "shape": "rect", "wins": [[0.218, 0.288, 0.734, 0.713]], "band": "rgba(17,16,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffffff"}, {"s": "rose-gold-circle", "n": "Rose Gold Circle", "c": "pink", "shape": "circle", "wins": [[0.2146, 0.2516, 0.7854, 0.6535]], "band": "rgba(255,240,246,0.94)", "t": "#db2777", "nm": "#9d174d", "br": "#ffffff"}, {"s": "pink-polaroid-party", "n": "Pink Polaroid Party", "c": "pink", "shape": "rect", "wins": [[0.2594, 0.2619, 0.7441, 0.591]], "band": "rgba(255,255,255,0.93)", "t": "#db2777", "nm": "#831843", "br": "#ffffff"}, {"s": "cloud-dream-oval", "n": "Cloud Dream Oval", "c": "pink", "shape": "oval", "wins": [[0.27, 0.2413, 0.7264, 0.6527]], "band": "rgba(255,255,255,0.93)", "t": "#7c3aed", "nm": "#4c1d95", "br": "#7c3aed"}, {"s": "golden-wreath-duo", "n": "Golden Wreath Duo", "c": "pink", "shape": "rect", "wins": [[0.2252, 0.379, 0.4599, 0.5403], [0.5413, 0.3782, 0.7759, 0.5403]], "band": "rgba(255,248,225,0.95)", "t": "#b45309", "nm": "#92400e", "br": "#ffffff"}, {"s": "pink-scrapbook-classic", "n": "Pink Scrapbook", "c": "pink", "shape": "rect", "wins": [[0.27, 0.3252, 0.7429, 0.6661]], "band": "rgba(255,255,255,0.93)", "t": "#db2777", "nm": "#831843", "br": "#ffffff"}, {"s": "blue-scrapbook-circle", "n": "Blue Scrapbook Circle", "c": "blue", "shape": "circle", "wins": [[0.2642, 0.3283, 0.7535, 0.6582]], "band": "rgba(219,234,254,0.94)", "t": "#1d4ed8", "nm": "#1e3a8a", "br": "#ffffff"}, {"s": "royal-blue-crown-classic", "n": "Royal Blue Crown", "c": "blue", "shape": "rect", "wins": [[0.191, 0.3299, 0.8078, 0.644]], "band": "rgba(13,20,56,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffd34d"}, {"s": "sky-blue-roses", "n": "Sky Blue Roses", "c": "blue", "shape": "circle", "wins": [[0.1393, 0.2951, 0.8724, 0.7137]], "band": "rgba(255,255,255,0.93)", "t": "#0369a1", "nm": "#0c4a6e", "br": "#0369a1"}, {"s": "blue-duo-windows", "n": "Blue Duo Windows", "c": "blue", "shape": "rect", "wins": [[0.1016, 0.3924, 0.4583, 0.6119], [0.5469, 0.3924, 0.9036, 0.6119]], "band": "rgba(219,234,254,0.94)", "t": "#1d4ed8", "nm": "#1e3a8a", "br": "#ffffff"}, {"s": "blue-scrapbook-polaroid", "n": "Blue Scrapbook Polaroid", "c": "blue", "shape": "rect", "wins": [[0.2461, 0.3263, 0.8099, 0.6788]], "band": "rgba(255,255,255,0.93)", "t": "#1d4ed8", "nm": "#172554", "br": "#ffffff"}, {"s": "royal-emerald", "n": "Royal Emerald", "c": "royal", "shape": "rect", "wins": [[0.478, 0.275, 0.938, 0.722]], "band": "rgba(4,47,36,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffd34d"}, {"s": "royal-blackgold", "n": "Royal Black Gold", "c": "royal", "shape": "rect", "wins": [[0.468, 0.272, 0.938, 0.718]], "band": "rgba(10,10,14,0.88)", "t": "#ffd34d", "nm": "#ffffff", "br": "#ffd34d"}, {"s": "scrapbook-mint-duo", "n": "Mint Scrapbook Duo", "c": "scrapbook", "shape": "rect", "wins": [[0.205, 0.292, 0.578, 0.568], [0.472, 0.598, 0.898, 0.848]], "band": "rgba(20,60,50,0.88)", "t": "#d1fae5", "nm": "#ffffff", "br": "#ffffff"}, {"s": "mom-blue", "n": "Mom Sky Blue", "c": "family", "shape": "rect", "wins": [[0.505, 0.236, 0.943, 0.797]], "band": "rgba(219,234,254,0.94)", "t": "#1d4ed8", "nm": "#1e3a8a", "br": "#1d4ed8"}];
 var COLLS=[["royal", "👑 Royal"], ["family", "❤️ For Family"], ["for-her", "🌸 For Her"], ["for-him", "🕶️ For Him"], ["scrapbook", "📒 Scrapbook"], ["pink", "💗 Pink"], ["blue", "💙 Blue"], ["purple", "💜 Purple"], ["bright", "🌻 Bright & Fun"], ["elegant", "✨ Elegant"], ["blessings", "🤲 Blessings"]];
 var nav=document.getElementById('nav'),gal=document.getElementById('gallery');
+var FAVS={};try{FAVS=JSON.parse(localStorage.getItem('bcp_favs')||'{}');}catch(e){}
+var ALL_CARDS=[];
+function saveFavs(){try{localStorage.setItem('bcp_favs',JSON.stringify(FAVS));}catch(e){}}
+function mkCard(fr,i){
+  var b=document.createElement('button');b.className='card';b.dataset.i=i;b.dataset.slug=fr.s;b.dataset.name=fr.n.toLowerCase();
+  b.innerHTML='<span class="im"><img loading="lazy" alt="'+fr.n+' birthday frame"></span><span>'+fr.n+'</span>';
+  b.querySelector('img').src=(window.THUMBS&&THUMBS[fr.s])||'';
+  var ht=document.createElement('span');ht.className='heart';ht.textContent=FAVS[fr.s]?'❤️':'🤍';
+  ht.onclick=function(ev){ev.stopPropagation();if(FAVS[fr.s])delete FAVS[fr.s];else FAVS[fr.s]=1;saveFavs();
+   document.querySelectorAll('.card').forEach(function(c){if(c.dataset.slug===fr.s)c.querySelector('.heart').textContent=FAVS[fr.s]?'❤️':'🤍';});applyFilter();};
+  b.appendChild(ht);
+  b.onclick=function(){selectFrame(i,b);};
+  ALL_CARDS.push(b);return b;}
+(function(){
+ var sec=document.createElement('section');
+ var h=document.createElement('div');h.className='catbanner';h.style.background='linear-gradient(90deg,#dc2626,#f59e0b)';
+ h.innerHTML='<span>🔥 Most Loved Frames</span><span class="cnt">top picks</span>';sec.appendChild(h);
+ var g=document.createElement('div');g.className='grid';
+ ['royal-blue','royal-emerald','mom-blue','blue-scrapbook-duo','pink-scallop-trio','christian-blackgold'].forEach(function(s){
+  var i=FRAMES.findIndex(function(f){return f.s===s;});if(i>=0)g.appendChild(mkCard(FRAMES[i],i));});
+ sec.appendChild(g);gal.appendChild(sec);})();
 COLLS.forEach(function(c){
  var a=document.createElement('a');a.href='#sec-'+c[0];a.textContent=c[1];nav.appendChild(a);
  var sec=document.createElement('section');sec.id='sec-'+c[0];
@@ -112,15 +211,11 @@ COLLS.forEach(function(c){
  h.innerHTML='<span>'+c[1]+' Frames</span><span class="cnt">'+cnt+' frames</span>';sec.appendChild(h);
  var g=document.createElement('div');g.className='grid';
  FRAMES.forEach(function(fr,i){if(fr.c!==c[0])return;
-  var b=document.createElement('button');b.className='card';b.dataset.i=i;
-  b.innerHTML='<span class="im"><img loading="lazy" alt="'+fr.n+' birthday frame"></span><span>'+fr.n+'</span>';
-  b.querySelector('img').src=(window.THUMBS&&THUMBS[fr.s])||'';
-  b.onclick=function(){selectFrame(i,b);};
-  g.appendChild(b);});
+  g.appendChild(mkCard(fr,i));});
  sec.appendChild(g);gal.appendChild(sec);});
 
 var cv=document.getElementById('cv'),ctx=cv.getContext('2d');
-var W=1080,H=1610,cur=-1,frameImg=new Image(),states=[],active=0,fitMode=false,loading=false;
+var W=1080,H=1610,cur=-1,frameImg=new Image(),states=[],active=0,fitMode=false,loading=false,stickers=[];
 function winRect(i){var w=FRAMES[cur].wins[i];return{x:w[0]*W,y:w[1]*H,w:(w[2]-w[0])*W,h:(w[3]-w[1])*H};}
 function clipWin(i){var r=winRect(i),sh=FRAMES[cur].shape;ctx.beginPath();
  if(sh==='circle'||sh==='oval'){ctx.ellipse(r.x+r.w/2,r.y+r.h/2,r.w/2,r.h/2,0,0,Math.PI*2);}
@@ -133,15 +228,15 @@ function markActive(){
   b.onclick=function(){active=i;markActive();draw();};seg.appendChild(b);});
  document.getElementById('upLabel').textContent=multi?('📷 Choose Photo '+(active+1)):'📷 Choose Your Photo';
  if(states[active])document.getElementById('zoom').value=Math.round(states[active].scale*100);}
-function selectFrame(i,btn){
+function selectFrame(i,btn,noScroll){
  document.querySelectorAll('.card').forEach(function(x){x.classList.remove('on');});
  if(btn)btn.classList.add('on');
  cur=i;var fr=FRAMES[cur];
- document.getElementById('editor').scrollIntoView({behavior:'smooth',block:'start'});
+ if(!noScroll)document.getElementById('editor').scrollIntoView({behavior:'smooth',block:'start'});
  var varname='FD_'+fr.s.replace(/-/g,'_');
  function ready(){frameImg=new Image();frameImg.onload=function(){
    W=1080;H=Math.round(1080*frameImg.naturalHeight/frameImg.naturalWidth);cv.width=W;cv.height=H;
-   states=fr.wins.map(function(){return{img:null,scale:1,dx:0,dy:0};});active=0;fitMode=false;setSeg();markActive();draw();};
+   states=fr.wins.map(function(){return{img:null,scale:1,dx:0,dy:0};});active=0;fitMode=false;stickers=[];setSeg();markActive();draw();};
   frameImg.src=window[varname];}
  if(window[varname]){ready();return;}
  if(loading)return;loading=true;
@@ -185,6 +280,7 @@ function draw(){
  ctx.save();ctx.font='700 '+Math.round(W*0.021)+'px Arial';ctx.textAlign='center';
  ctx.shadowColor='rgba(0,0,0,0.5)';ctx.shadowBlur=5;ctx.fillStyle=fr.br;ctx.globalAlpha=0.9;
  ctx.fillText('🎂 BirthdayCakePhotO',W/2,H-Math.round(H*0.008));ctx.restore();
+ stickers.forEach(function(s){ctx.save();ctx.font=s.z+'px serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.shadowColor='rgba(0,0,0,.45)';ctx.shadowBlur=6;ctx.fillText(s.e,s.x,s.y);ctx.restore();});
 }
 document.getElementById('file').addEventListener('change',function(e){
  var file=e.target.files[0];if(!file||cur<0)return;
@@ -210,7 +306,43 @@ cv.addEventListener('pointerup',function(){drag=null;});
 cv.addEventListener('pointercancel',function(){drag=null;});
 document.getElementById('dl').onclick=function(){if(cur<0){alert('Pick a frame first!');return;}
  cv.toBlob(function(b){var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='happy-birthday-frame.jpg';a.click();setTimeout(function(){URL.revokeObjectURL(a.href);},4000);},'image/jpeg',0.92);};
-var WISHES=[
+var WLIB={
+'🇲🇲 Myanmar':[
+'မွေးနေ့မှာ ပျော်ရွှင်ပါစေ! 🎂',
+'မွေးနေ့မှစ၍ စိတ်ချမ်းသာ ကိုယ်ကျန်းမာပြီး လိုရာဆန္ဒအားလုံး ပြည့်ဝပါစေ။ 🙏',
+'ပျော်ရွှင်ဖွယ် မွေးနေ့ဖြစ်ပါစေ! အမြဲတမ်း ပြုံးရွှင်နိုင်ပါစေ။ 🎉',
+'သက်ရှည်ကျန်းမာပြီး အောင်မြင်မှုတွေ အများကြီး ရရှိပါစေ။ ✨',
+'ဒီနေ့ကစပြီး ကံကောင်းခြင်းတွေ အမြဲလိုက်ပါလာပါစေ။ 🍀',
+'ချစ်ခင်ရသူတွေနဲ့ အမြဲပျော်ရွှင်နိုင်ပါစေ။ မွေးနေ့မှာ ပျော်ရွှင်ပါစေ! 💝'],
+'🇵🇭 Philippines':[
+'Maligayang Kaarawan! 🎂',
+'Pagpalain ka nawa ng Diyos ng mabuting kalusugan, saya at tagumpay. Maligayang Kaarawan! 🙏',
+'Sana matupad lahat ng pangarap mo ngayong bagong taon ng buhay mo. 🎉',
+'Maligayang bati sa iyong kaarawan! Mahal ka namin! ❤️',
+"Nawa'y maging puno ng tawa at pagmamahal ang espesyal mong araw. 🥳",
+'Isang taon na naman ng biyaya! Maligayang Kaarawan sa iyo! ✨'],
+'🇮🇳 India':[
+'जन्मदिन की हार्दिक शुभकामनाएँ! 🎂',
+'आपका हर दिन खुशियों, सेहत और सफलता से भरा हो। जन्मदिन मुबारक! 🎉',
+'भगवान आपको लंबी उम्र और ढेर सारी खुशियाँ दें। 🙏',
+'आपके सपने सच हों और आप हमेशा मुस्कुराते रहें। ✨',
+'जन्मदिन मुबारक हो! केक काटो, पार्टी करो! 🥳',
+'यह साल आपके लिए नई ऊँचाइयाँ लेकर आए। जन्मदिन की शुभकामनाएँ! 💝'],
+'🇵🇰 Pakistan':[
+'سالگرہ مبارک ہو! 🎂',
+'اللہ آپ کو لمبی عمر، صحت اور خوشیاں عطا فرمائے۔ آمین 🤲',
+'آپ کی زندگی کا ہر دن خوشیوں سے بھر جائے۔ سالگرہ مبارک! 🎉',
+'اللہ آپ کے تمام خواب پورے کرے۔ ✨',
+'جنم دن کی دلی مبارکباد! ہمیشہ مسکراتے رہیں۔ 🥳',
+'آپ کی زندگی میں ہمیشہ بہار رہے۔ سالگرہ مبارک ہو! 💝'],
+'🇧🇩 Bangladesh':[
+'শুভ জন্মদিন! 🎂',
+'তোমার জীবনের প্রতিটা দিন হোক সুখ আর সাফল্যে ভরা। শুভ জন্মদিন! 🎉',
+'আল্লাহ তোমাকে সুস্থ, সুখী ও দীর্ঘজীবী করুন। 🤲',
+'তোমার সব স্বপ্ন পূরণ হোক — শুভ জন্মদিন প্রিয়! ✨',
+'শুভ জন্মদিন! আজকের দিনটা শুধু তোমার — মন ভরে উপভোগ করো! 🥳',
+'জন্মদিনের অনেক অনেক শুভেচ্ছা আর ভালোবাসা রইলো। 💝'],
+'🌍 English':[
 'Happy Birthday! 🎂 May your day be filled with love, laughter and cake!',
 'Wishing you a year full of success, health and happiness. Happy Birthday! 🎉',
 'Happy Birthday to the most amazing person! May all your dreams come true. ✨',
@@ -220,14 +352,126 @@ var WISHES=[
 'Happy Birthday! 🎈 Stay blessed, stay happy, keep shining!',
 'On your special day, I wish you endless joy and unforgettable moments. Happy Birthday! 🎁',
 'Counting my blessings and you are one of them. Happy Birthday, dear! ❤️',
-'Happy Birthday! May Allah bless you with a long, healthy and happy life. 🤲'];
-var wbox=document.getElementById('wishes');
-WISHES.forEach(function(t){
- var d=document.createElement('div');d.className='wish';
- d.innerHTML='<span></span><button>Copy</button>';
- d.querySelector('span').textContent=t;
- d.querySelector('button').onclick=function(){var b=this;if(navigator.clipboard)navigator.clipboard.writeText(t);b.textContent='✅ Copied';setTimeout(function(){b.textContent='Copy';},1500);};
- wbox.appendChild(d);});
+'Happy Birthday! May God bless you with a long, healthy and happy life. 🙏',
+'⏰ Belated: Sorry I missed your day — but my wish is right on time: Happy Belated Birthday! 🎂',
+'⏰ Belated: Late but full of love — Happy Belated Birthday! 💝']};
+var wbox=document.getElementById('wishes'),wtabs=document.getElementById('wtabs');
+function showWishes(key){
+ wtabs.querySelectorAll('button').forEach(function(b){b.className=b.textContent===key?'on':'';});
+ wbox.innerHTML='';
+ WLIB[key].forEach(function(t){
+  var d=document.createElement('div');d.className='wish';
+  d.innerHTML='<span></span><button>Copy</button>';
+  d.querySelector('span').textContent=t;
+  d.querySelector('button').onclick=function(){var b=this;if(navigator.clipboard)navigator.clipboard.writeText(t);b.textContent='✅ Copied';setTimeout(function(){b.textContent='Copy';},1500);};
+  wbox.appendChild(d);});}
+Object.keys(WLIB).forEach(function(k){var b=document.createElement('button');b.textContent=k;b.onclick=function(){showWishes(k);};wtabs.appendChild(b);});
+showWishes('🌍 English');
+/* search + favorites filter + random + top */
+var favOnly=false;
+function applyFilter(){
+ var q=(document.getElementById('q').value||'').toLowerCase().trim();
+ ALL_CARDS.forEach(function(b){
+  var ok=(!q||b.dataset.name.indexOf(q)>=0)&&(!favOnly||FAVS[b.dataset.slug]);
+  b.style.display=ok?'':'none';});
+ document.querySelectorAll('#gallery section').forEach(function(s){
+  var any=false;s.querySelectorAll('.card').forEach(function(c){if(c.style.display!=='none')any=true;});
+  s.style.display=any?'':'none';});}
+document.getElementById('q').addEventListener('input',applyFilter);
+document.getElementById('favBtn').onclick=function(){favOnly=!favOnly;this.className='favb'+(favOnly?' on':'');this.textContent=favOnly?'❤️ My Favorites':'🤍 My Favorites';applyFilter();};
+document.getElementById('randBtn').onclick=function(){var i=Math.floor(Math.random()*FRAMES.length);selectFrame(i,null);};
+var toTop=document.getElementById('toTop');
+window.addEventListener('scroll',function(){toTop.style.display=window.scrollY>700?'block':'none';},{passive:true});
+toTop.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
+/* stickers */
+var STK=['🎉','🎈','🎂','👑','🥳','🎁','⭐','❤️','🌸','🦋','🍰','🎊'];
+var stkRow=document.getElementById('stkRow');
+STK.forEach(function(e){var b=document.createElement('button');b.textContent=e;b.onclick=function(){if(cur<0){alert('Pick a frame first!');return;}stickers.push({e:e,x:W/2,y:H*0.16,z:Math.round(W*0.11)});draw();};stkRow.appendChild(b);});
+var rmB=document.createElement('button');rmB.className='rm';rmB.textContent='↩️ Remove last';rmB.onclick=function(){stickers.pop();draw();};stkRow.appendChild(rmB);
+var sDrag=null;
+document.getElementById('editor').addEventListener('pointerdown',function(e){
+ if(cur<0||!stickers.length)return;var r=cv.getBoundingClientRect();
+ var px=(e.clientX-r.left)*W/r.width,py=(e.clientY-r.top)*H/r.height;
+ for(var i=stickers.length-1;i>=0;i--){var s=stickers[i];
+  if(Math.abs(px-s.x)<s.z*0.62&&Math.abs(py-s.y)<s.z*0.62){sDrag={s:s,dx:px-s.x,dy:py-s.y};e.stopPropagation();e.preventDefault();break;}}},true);
+window.addEventListener('pointermove',function(e){if(!sDrag)return;var r=cv.getBoundingClientRect();
+ sDrag.s.x=(e.clientX-r.left)*W/r.width-sDrag.dx;sDrag.s.y=(e.clientY-r.top)*H/r.height-sDrag.dy;draw();});
+window.addEventListener('pointerup',function(){sDrag=null;});
+/* confetti */
+function confetti(){var c=document.createElement('canvas');c.style.cssText='position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:99';
+ document.body.appendChild(c);var x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;
+ var P=[],cols=['#ff00a8','#7c00ff','#00d1ff','#ffd400','#00c853','#ff5722'];
+ for(var i=0;i<160;i++)P.push({x:innerWidth/2,y:innerHeight*0.35,vx:(Math.random()-0.5)*15,vy:-Math.random()*13-4,g:0.35,s:Math.random()*9+4,col:cols[i%6],r:Math.random()*Math.PI,vr:(Math.random()-0.5)*0.3});
+ var t=0;(function anim(){x.clearRect(0,0,c.width,c.height);t++;
+  P.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.vy+=p.g;p.r+=p.vr;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.col;x.fillRect(-p.s/2,-p.s/2,p.s,p.s*0.62);x.restore();});
+  if(t<190)requestAnimationFrame(anim);else c.remove();})();}
+/* surprise gift */
+function encGift(o){return btoa(unescape(encodeURIComponent(JSON.stringify(o))));}
+function decGift(s){return JSON.parse(decodeURIComponent(escape(atob(s))));}
+document.getElementById('gMake').onclick=function(){
+ if(cur<0){alert('Pick a frame above first!');return;}
+ var gn=document.getElementById('gName').value.trim()||'Dear Friend';
+ var gm=document.getElementById('gMsg').value.trim()||'Happy Birthday! 🎂 May your day be filled with love, laughter and cake!';
+ var gf=document.getElementById('gFrom').value.trim();
+ var link=location.origin+location.pathname+'#g='+encGift({n:gn,m:gm,f:FRAMES[cur].s,s:gf});
+ document.getElementById('gOut').style.display='flex';document.getElementById('gLink').value=link;
+ var wa=document.getElementById('gWa');wa.style.display='inline-block';
+ wa.href='https://wa.me/?text='+encodeURIComponent('🎁 I made a surprise birthday gift for you! Tap to open it: '+link);};
+document.getElementById('gCopy').onclick=function(){var i=document.getElementById('gLink');i.select();if(navigator.clipboard)navigator.clipboard.writeText(i.value);this.textContent='✅';var b=this;setTimeout(function(){b.textContent='Copy';},1500);};
+var GIFT=null;
+if(location.hash.indexOf('#g=')===0){try{GIFT=decGift(location.hash.slice(3));}catch(e){}}
+if(GIFT){
+ document.getElementById('gift').style.display='block';
+ document.getElementById('gallery').style.display='none';
+ document.querySelector('.toolrow').style.display='none';
+ var gi=FRAMES.findIndex(function(f){return f.s===GIFT.f;});if(gi<0)gi=0;
+ document.getElementById('giftBox').onclick=function(){
+  document.getElementById('giftIntro').style.display='none';
+  var rv=document.getElementById('giftReveal');rv.style.display='block';
+  document.getElementById('giftImg').src=(window.THUMBS&&THUMBS[FRAMES[gi].s])||'';
+  document.getElementById('giftName').textContent='🎂 Happy Birthday, '+GIFT.n+'!';
+  document.getElementById('giftMsg').textContent=GIFT.m;
+  document.getElementById('giftFrom').textContent=GIFT.s?('With love, from '+GIFT.s):'';
+  confetti();};
+ document.getElementById('giftPhoto').onclick=function(){
+  document.getElementById('gift').style.display='none';
+  document.getElementById('gallery').style.display='';
+  document.querySelector('.toolrow').style.display='';
+  selectFrame(gi,null);};
+ document.getElementById('giftOwn').onclick=function(){
+  document.getElementById('gift').style.display='none';
+  document.getElementById('gallery').style.display='';
+  document.querySelector('.toolrow').style.display='';
+  window.scrollTo({top:0,behavior:'smooth'});};}
+/* birthday facts */
+var STONES=['Garnet','Amethyst','Aquamarine','Diamond','Emerald','Pearl','Ruby','Peridot','Sapphire','Opal','Topaz','Turquoise'];
+var FLOWERS=['Carnation','Violet','Daffodil','Daisy','Lily of the Valley','Rose','Larkspur','Gladiolus','Aster','Marigold','Chrysanthemum','Poinsettia'];
+var ZOD=[['Capricorn ♑',19],['Aquarius ♒',18],['Pisces ♓',20],['Aries ♈',19],['Taurus ♉',20],['Gemini ♊',20],['Cancer ♋',22],['Leo ♌',22],['Virgo ♍',22],['Libra ♎',22],['Scorpio ♏',21],['Sagittarius ♐',21]];
+var DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+var factsText='';
+document.getElementById('factsBtn').onclick=function(){
+ var v=document.getElementById('dob').value;if(!v){alert('Pick a birth date first!');return;}
+ var d=new Date(v+'T12:00:00'),now=new Date();if(d>now){alert('That date is in the future!');return;}
+ var next=new Date(now.getFullYear(),d.getMonth(),d.getDate());
+ if(next<new Date(now.getFullYear(),now.getMonth(),now.getDate()))next.setFullYear(now.getFullYear()+1);
+ var daysLeft=Math.round((next-new Date(now.getFullYear(),now.getMonth(),now.getDate()))/86400000);
+ var ageDays=Math.floor((now-d)/86400000);
+ var turning=next.getFullYear()-d.getFullYear();
+ var zod=(d.getDate()<ZOD[d.getMonth()][1])?ZOD[(d.getMonth()+11)%12][0]:ZOD[d.getMonth()][0];
+ var lines=[];
+ lines.push(daysLeft===0?'🎉 TODAY is the birthday!':'⏳ Next birthday in '+daysLeft+' day'+(daysLeft===1?'':'s')+' — turning '+turning+'!');
+ lines.push('📅 Born on a '+DAYS[d.getDay()]);
+ lines.push('🎂 Age in days: '+ageDays.toLocaleString()+' days young');
+ lines.push('⭐ Zodiac: '+zod);
+ lines.push('💎 Birthstone: '+STONES[d.getMonth()]);
+ lines.push('🌸 Birth flower: '+FLOWERS[d.getMonth()]);
+ var out=document.getElementById('factsOut');out.style.display='block';
+ out.innerHTML=lines.map(function(l){return '<div>'+l+'</div>';}).join('');
+ factsText='🎂 My Birthday Facts 🎂\n'+lines.join('\n')+'\nMade free at BirthdayCakePhotO';
+ document.getElementById('factsCopy').style.display='inline-block';};
+document.getElementById('factsCopy').onclick=function(){if(navigator.clipboard)navigator.clipboard.writeText(factsText);this.textContent='✅ Copied!';var b=this;setTimeout(function(){b.textContent='📋 Copy My Facts to Share';},1600);};
+/* start with a frame ready in the editor */
+setTimeout(function(){var i=FRAMES.findIndex(function(f){return f.s==='royal-blue';});if(i>=0)selectFrame(i,null,true);},60);
 var U=encodeURIComponent(location.href),T=encodeURIComponent(document.title);
 document.getElementById('shFb').href='https://www.facebook.com/sharer/sharer.php?u='+U;
 document.getElementById('shWa').href='https://wa.me/?text='+T+'%20'+U;
