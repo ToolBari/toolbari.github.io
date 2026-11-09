@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>গণিত পাইলট — অধ্যায় ১: বাস্তব সংখ্যা | ToolBari</title>
+<meta name="theme-color" content="#2563eb">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔢</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:"Noto Sans Bengali","Hind Siliguri",system-ui,sans-serif;background:#f4f7fc;color:#17233b;line-height:1.7}
+header{position:sticky;top:0;z-index:20;background:#2563eb;color:#fff;box-shadow:0 2px 10px rgba(20,40,90,.25)}
+.hwrap{max-width:860px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px}
+.logo{font-weight:800;font-size:19px;color:#fff;text-decoration:none}
+.logo span{color:#ffb020}
+main{max-width:860px;margin:0 auto;padding:18px 14px 60px}
+.hero{background:linear-gradient(135deg,#2563eb,#0ea5e9);color:#fff;border-radius:20px;padding:24px 20px;margin-bottom:18px}
+.hero h1{margin:0 0 8px;font-size:26px;line-height:1.35}
+.hero p{margin:4px 0;opacity:.96}
+.badge{display:inline-block;background:#ffb020;color:#3a2703;font-weight:800;border-radius:999px;padding:3px 12px;font-size:13px;margin-bottom:8px}
+section.chapter{background:#fff;border-radius:18px;padding:20px 18px;margin:0 0 18px;box-shadow:0 2px 10px rgba(30,50,100,.07)}
+section.chapter h2{margin:0 0 6px;font-size:21px}
+.sub{color:#5b6b8c;margin:0 0 14px;font-size:15px}
+.lesson{background:#f8fafc;border:1px solid #e7edf7;border-radius:14px;padding:14px 16px;margin:12px 0}
+.lesson h3{margin:0 0 6px;font-size:17px;color:#2563eb}
+.lesson p{margin:6px 0}
+.rule{background:#eef4ff;border-left:4px solid #2563eb;border-radius:10px;padding:10px 14px;margin:10px 0}
+.tip{background:#fff7ed;border:1px solid #fed7aa;border-radius:14px;padding:12px 14px;margin:12px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid #e7edf7;vertical-align:top;font-size:15px}
+th{color:#2563eb;font-size:13px}
+.worked{background:#f8fafc;border:1px solid #e7edf7;border-radius:14px;padding:14px 16px;margin:14px 0}
+.worked h3{margin:0 0 8px;font-size:17px}
+.step{margin:8px 0;padding-left:6px}
+.why{color:#9a6a00;background:#fff7ed;border-radius:8px;padding:3px 10px;display:inline-block;font-size:14px;margin:2px 0}
+.ans{font-weight:800;color:#166534}
+.practice{border:1px solid #e7edf7;border-radius:14px;padding:14px 16px;margin:12px 0;background:#fff}
+.practice p{margin:4px 0}
+.revealbtn{background:#e8eefc;color:#2563eb;border:0;border-radius:999px;padding:9px 18px;font-weight:700;font-size:15px;cursor:pointer;min-height:44px}
+.revealbtn:hover{background:#2563eb;color:#fff}
+.answerbox{display:none;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:10px 14px;margin-top:10px}
+.qbox{border:1px solid #e7edf7;border-radius:14px;padding:14px 16px;margin:12px 0}
+.qbox p.q{font-weight:700;margin:0 0 8px}
+.qopt{display:block;width:100%;text-align:left;margin:6px 0;background:#f1f5ff;border:2px solid transparent;border-radius:12px;padding:11px 14px;font-size:15.5px;font-family:inherit;cursor:pointer;min-height:48px}
+.qopt:hover{border-color:#c9d6f2}
+.qopt.ok{background:#dcfce7;border-color:#22c55e;color:#14532d;font-weight:700}
+.qopt.wrong{background:#fee2e2;border-color:#ef4444;color:#7f1d1d}
+.qopt:disabled{cursor:default;opacity:.92}
+.qnote{font-size:14px;min-height:22px;margin:4px 0 0;font-weight:700}
+.scorebar{background:#eef4ff;border-radius:12px;padding:10px 14px;font-weight:700;color:#2563eb;margin:10px 0}
+.finalmsg{display:none;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac;border-radius:14px;padding:16px;margin-top:14px;text-align:center;font-size:17px}
+.pill{display:inline-block;background:#2563eb;color:#fff;border:0;border-radius:999px;padding:12px 22px;font-size:16px;font-weight:700;cursor:pointer;min-height:48px}
+.feedbackbox{background:linear-gradient(135deg,#fff7ed,#ffedd5);border:2px solid #fdba74;border-radius:18px;padding:20px 18px}
+.feedbackbox h2{margin-top:0}
+footer{text-align:center;color:#5b6b8c;font-size:13.5px;padding:20px 12px 34px}
+.num{font-weight:700}
+svg text{font-family:"Noto Sans Bengali",sans-serif}
+</style>
+</head>
+<body>
+<header>
+  <div class="hwrap">
+    <a class="logo" href="https://toolbari.github.io/">Tool<span>Bari</span></a>
+  </div>
+</header>
+<main>
+  <div class="hero">
+    <span class="badge">⭐ পাইলট অধ্যায় — শুধু তোমার জন্য</span>
+    <h1>গণিত · অধ্যায় ১: বাস্তব সংখ্যা</h1>
+    <p>শ্রেণি ৯–১০ · সাধারণ গণিত · NCTB পাঠ্যবইয়ের প্রথম অধ্যায়</p>
+    <p>ভয় পাওয়ার কিছু নেই — আমরা একদম ছোট ছোট ধাপে, সহজ বাংলায় আগাব। পড়ো, নিজে চেষ্টা করো, শেষে ছোট্ট একটা পরীক্ষা দাও। 🙂</p>
+  </div>
+
+  <section class="chapter" id="dharon">
+    <h2>১ · ধারণা — ছোট ছোট পাঠ</h2>
+    <p class="sub">একটা পাঠে একটাই নিয়ম। ধীরে ধীরে পড়ো, উদাহরণগুলো মন দিয়ে দেখো।</p>
+
+    <div class="lesson">
+      <h3>পাঠ ১ · সংখ্যার পরিবার</h3>
+      <p>ছোটবেলায় গুনতে শেখা সংখ্যাগুলোই সব সংখ্যার শুরু:</p>
+      <table>
+        <tr><th>পরিবার</th><th>কাদের নিয়ে</th><th>উদাহরণ</th></tr>
+        <tr><td class="num">স্বাভাবিক সংখ্যা</td><td>গোনার সংখ্যা</td><td>১, ২, ৩, ৪, …</td></tr>
+        <tr><td class="num">০-সহ সংখ্যা</td><td>০ যোগ হলে</td><td>০, ১, ২, ৩, …</td></tr>
+        <tr><td class="num">পূর্ণসংখ্যা</td><td>ঋণাত্মক, ০ আর ধনাত্মক — সবাই</td><td>…, −৩, −২, −১, ০, ১, ২, ৩, …</td></tr>
+      </table>
+      <div class="rule">📌 মনে রাখো: প্রতিটি স্বাভাবিক সংখ্যাই পূর্ণসংখ্যা, কিন্তু প্রতিটি পূর্ণসংখ্যা স্বাভাবিক নয় (যেমন −৫ পূর্ণসংখ্যা, স্বাভাবিক নয়)।</div>
+    </div>
+
+    <div class="lesson">
+      <h3>পাঠ ২ · মূলদ সংখ্যা — ভগ্নাংশের ছাঁচে ফেলা যায়</h3>
+      <p>কোনো সংখ্যাকে যদি <span class="num">p/q</span> আকারে লেখা যায় (যেখানে p আর q পূর্ণসংখ্যা এবং q ≠ ০), তাকে বলে <span class="num">মূলদ সংখ্যা</span>।</p>
+      <p>যেমন: ৫ = ৫/১ · −৩ = −৩/১ · ০.৭৫ = ৩/৪ · ১/৩ নিজেই ভগ্নাংশ।</p>
+      <div class="rule">📌 সোনালী নিয়ম: <b>সব পূর্ণসংখ্যাই মূলদ</b> — কারণ যেকোনো পূর্ণসংখ্যা n-কে n/১ লেখা যায়।</div>
+    </div>
+
+    <div class="lesson">
+      <h3>পাঠ ৩ · অমূলদ সংখ্যা — ছাঁচে ফেলা যায় না</h3>
+      <p>কিছু সংখ্যা আছে যেগুলোকে কিছুতেই p/q আকারে লেখা যায় না — এরা <span class="num">অমূলদ</span>।</p>
+      <p>যেমন: √২ ≈ ১.৪১৪২১৩৫৬… · √৩ ≈ ১.৭৩২০৫০৮… · π ≈ ৩.১৪১৫৯২৬৫…</p>
+      <p>এদের দশমিক রূপ <b>কখনো শেষ হয় না, আর একই ধাঁচে বারবার ফিরেও আসে না</b>।</p>
+      <div class="tip">💡 সতর্ক: √৯ কিন্তু অমূলদ নয়! কারণ √৯ = ৩, যা পূর্ণসংখ্যা, তাই মূলদ। বর্গমূল থাকলেই অমূলদ হয় না — ফলটা দেখতে হয়।</div>
+    </div>
+
+    <div class="lesson">
+      <h3>পাঠ ৪ · দশমিকের দুই স্বভাব</h3>
+      <table>
+        <tr><th>রূপ</th><th>চেনার উপায়</th><th>উদাহরণ</th></tr>
+        <tr><td class="num">সসীম দশমিক</td><td>এক সময় থেমে যায়</td><td>০.৫ · ২.৩৫ · ০.৩৭৫</td></tr>
+        <tr><td class="num">অসীম — আবৃত</td><td>শেষ হয় না, কিন্তু একই সংখ্যা/দল বারবার ফিরে আসে</td><td>০.৩৩৩… · ০.১৪২৮৫৭১৪২৮৫৭…</td></tr>
+        <tr><td class="num">অসীম — অনাবৃত</td><td>শেষও হয় না, ধাঁচও ফেরে না</td><td>√২ = ১.৪১৪২১৩৫৬… · π</td></tr>
+      </table>
+      <div class="rule">📌 মূলদ সংখ্যার দশমিক রূপ হয় <b>সসীম</b>, না হয় <b>অসীম আবৃত</b>। অসীম অনাবৃত মানেই অমূলদ।</div>
+    </div>
+
+    <div class="lesson">
+      <h3>পাঠ ৫ · আবৃত দশমিক চেনা ও লেখা</h3>
+      <p>১ ÷ ৩ করলে পাই ০.৩৩৩… — এখানে ৩ বারবার আসছে, তাই এটি আবৃত। আবৃত অংশের ওপর ছোট্ট বিন্দু/দাগ দিয়ে লেখা হয়: ০.৩̇ মানে ০.৩৩৩…</p>
+      <p>আবার ৫/১১ = ০.৪৫৪৫৪৫… — এখানে "৪৫" জোড়াটা বারবার ফিরে আসে, তাই এটি আবৃত, আবৃত অংশ "৪৫"।</p>
+      <div class="rule">📌 আবৃত অংশ হতে পারে একটা সংখ্যা (০.৩৩৩…) বা একদল সংখ্যা (০.৪৫৪৫…, ০.১৪২৮৫৭ ১৪২৮৫৭…)।</div>
+    </div>
+
+    <div class="lesson">
+      <h3>পাঠ ৬ · ভগ্নাংশ ↔ দশমিক রূপান্তর</h3>
+      <p><b>ভগ্নাংশ → দশমিক:</b> লবকে হর দিয়ে ভাগ করো। ভাগ শেষ হলে সসীম, না হলে দেখো কোন অংশ বারবার ফিরছে — সেটাই আবৃত অংশ। (৩/৮ আর ৫/৬-এর হিসাব নিচের উদাহরণ আর অনুশীলনীতে ধাপে ধাপে আছে।)</p>
+      <p><b>আবৃত দশমিক → ভগ্নাংশ:</b> কৌশলটা একটাই — সংখ্যাটাকে x ধরে ১০, ১০০… দিয়ে গুণ করে এমন দুটো রূপ বানাও যাদের আবৃত অংশ হুবহু এক, তারপর বিয়োগ করলে আবৃত অংশ কেটে যাবে। নিচের উদাহরণ ৩ ও ৪-এ হাতে-কলমে দেখানো আছে।</p>
+    </div>
+
+    <div class="lesson">
+      <h3>পাঠ ৭ · সংখ্যারেখায় বাস্তব সংখ্যা</h3>
+      <p>একটা সোজা রেখা টানো, মাঝে ০ বসাও; ডানে ধনাত্মক, বামে ঋণাত্মক। মূলদ আর অমূলদ — <b>প্রতিটি বাস্তব সংখ্যারই এই রেখায় নিজের একটা নির্দিষ্ট জায়গা আছে</b>।</p>
+      <svg viewBox="0 0 640 70" width="100%" role="img" aria-label="সংখ্যারেখা">
+        <line x1="20" y1="38" x2="620" y2="38" stroke="#2563eb" stroke-width="2.5"/>
+        <g font-size="14" fill="#17233b" text-anchor="middle">
+          <line x1="60" y1="32" x2="60" y2="44" stroke="#17233b" stroke-width="2"/><text x="60" y="64">−২</text>
+          <line x1="160" y1="32" x2="160" y2="44" stroke="#17233b" stroke-width="2"/><text x="160" y="64">−১</text>
+          <line x1="260" y1="32" x2="260" y2="44" stroke="#17233b" stroke-width="2"/><text x="260" y="64">০</text>
+          <line x1="310" y1="32" x2="310" y2="44" stroke="#f97316" stroke-width="2.5"/><text x="310" y="18" fill="#c2410c" font-weight="700">১/২</text>
+          <line x1="360" y1="32" x2="360" y2="44" stroke="#17233b" stroke-width="2"/><text x="360" y="64">১</text>
+          <line x1="401" y1="32" x2="401" y2="44" stroke="#16a34a" stroke-width="2.5"/><text x="401" y="18" fill="#166534" font-weight="700">√২≈১.৪১</text>
+          <line x1="460" y1="32" x2="460" y2="44" stroke="#17233b" stroke-width="2"/><text x="460" y="64">২</text>
+          <line x1="560" y1="32" x2="560" y2="44" stroke="#17233b" stroke-width="2"/><text x="560" y="64">৩</text>
+        </g>
+        <circle cx="310" cy="38" r="4" fill="#f97316"/><circle cx="401" cy="38" r="4" fill="#16a34a"/>
+      </svg>
+      <p>দেখো: ১/২ আছে ০ আর ১-এর ঠিক মাঝে; √২ আছে ১.৪-এর ঠিক একটু ডানে (কারণ √২ ≈ ১.৪১)।</p>
+    </div>
+  </section>
+
+  <section class="chapter" id="shomadhan">
+    <h2>২ · ধাপে ধাপে সমাধান</h2>
+    <p class="sub">প্রতিটা ধাপের পাশে "💡 কেন করলাম" — কারণটা বুঝলেই অঙ্কটা তোমার হয়ে যাবে।</p>
+
+    <div class="worked">
+      <h3>উদাহরণ ১ · কে মূলদ, কে অমূলদ?</h3>
+      <p><b>প্রশ্ন:</b> ৭, −৪, ৩/৫, √৯, √৫ — কোনটা মূলদ, কোনটা অমূলদ?</p>
+      <p class="step">ধাপ ১: ৭ = ৭/১ লেখা যায় → <span class="ans">মূলদ</span>।<br><span class="why">💡 কেন করলাম: মূলদের পরীক্ষাই হলো p/q আকারে লেখা যায় কিনা।</span></p>
+      <p class="step">ধাপ ২: −৪ = −৪/১ → <span class="ans">মূলদ</span>।<br><span class="why">💡 কেন করলাম: পূর্ণসংখ্যা হলে সরাসরি /১ — সোনালী নিয়ম।</span></p>
+      <p class="step">ধাপ ৩: ৩/৫ নিজেই ভগ্নাংশ → <span class="ans">মূলদ</span>।</p>
+      <p class="step">ধাপ ৪: √৯ = ৩ (কারণ ৩ × ৩ = ৯), আর ৩ মূলদ → <span class="ans">√৯ মূলদ</span>।<br><span class="why">💡 কেন করলাম: বর্গমূলের ফলটা আগে বের করতে হয় — চিহ্ন দেখে সিদ্ধান্ত নয়।</span></p>
+      <p class="step">ধাপ ৫: √৫ ≈ ২.২৩৬০৬৭৯… — দশমিক অসীম ও অনাবৃত → <span class="ans">√৫ অমূলদ</span>।</p>
+    </div>
+
+    <div class="worked">
+      <h3>উদাহরণ ২ · ভগ্নাংশকে দশমিকে নাও: ৩/৮</h3>
+      <p class="step">ধাপ ১: ৩-কে ৮ দিয়ে ভাগ করা যায় না, তাই ৩.০০০ লিখি।<br><span class="why">💡 কেন করলাম: দশমিক বিন্দু বসিয়ে শূন্য নামালে ভাগ এগিয়ে যায়, মান বদলায় না।</span></p>
+      <p class="step">ধাপ ২: ৩০ ÷ ৮ = ৩ (৩ × ৮ = ২৪), অবশিষ্ট ৬ → দশমিকের পর প্রথম অঙ্ক <b>৩</b>।</p>
+      <p class="step">ধাপ ৩: ৬০ ÷ ৮ = ৭ (৭ × ৮ = ৫৬), অবশিষ্ট ৪ → দ্বিতীয় অঙ্ক <b>৭</b>।</p>
+      <p class="step">ধাপ ৪: ৪০ ÷ ৮ = ৫, অবশিষ্ট ০ → তৃতীয় অঙ্ক <b>৫</b>, ভাগ শেষ।</p>
+      <p class="step">✅ <span class="ans">৩/৮ = ০.৩৭৫</span> — সসীম দশমিক।</p>
+    </div>
+
+    <div class="worked">
+      <h3>উদাহরণ ৩ · আবৃত দশমিককে ভগ্নাংশে নাও: ০.৫৫৫…</h3>
+      <p class="step">ধাপ ১: মনে করি, x = ০.৫৫৫…<br><span class="why">💡 কেন করলাম: অজানা সংখ্যাকে x নাম দিলে তার ওপর গুণ-বিয়োগের খেলা খেলা যায়।</span></p>
+      <p class="step">ধাপ ২: ১০x = ৫.৫৫৫…<br><span class="why">💡 কেন করলাম: ১০ দিয়ে গুণে দশমিক বিন্দু এক ঘর ডানে সরালাম, যাতে দুটো সংখ্যার দশমিকের পরের অংশ হুবহু এক হয়।</span></p>
+      <p class="step">ধাপ ৩: ১০x − x = ৫.৫৫৫… − ০.৫৫৫… → ৯x = ৫<br><span class="why">💡 কেন করলাম: বিয়োগে আবৃত অংশ (৫৫৫…) পুরোপুরি কেটে গেল — এটাই কৌশলটার প্রাণ।</span></p>
+      <p class="step">✅ <span class="ans">x = ৫/৯</span> — অর্থাৎ ০.৫̇ = ৫/৯। যাচাই: ৫ ÷ ৯ = ০.৫৫৫… ✔</p>
+    </div>
+
+    <div class="worked">
+      <h3>উদাহরণ ৪ · একটু কঠিনটা: ০.১৮৮৮… (১-এর পর ৮ আবৃত)</h3>
+      <p class="step">ধাপ ১: মনে করি, x = ০.১৮৮৮…</p>
+      <p class="step">ধাপ ২: ১০x = ১.৮৮৮… এবং ১০০x = ১৮.৮৮৮…<br><span class="why">💡 কেন করলাম: দশমিকের পর প্রথম অঙ্কটা (১) আবৃত নয়, তাই দুইবার গুণ করে এমন জায়গায় এলাম যেখানে দুটোরই দশমিক অংশ হুবহু এক (.৮৮৮…)।</span></p>
+      <p class="step">ধাপ ৩: ১০০x − ১০x = ১৮.৮৮৮… − ১.৮৮৮… → ৯০x = ১৭</p>
+      <p class="step">✅ <span class="ans">x = ১৭/৯০</span> — যাচাই: ১৭ ÷ ৯০ = ০.১৮৮৮… ✔</p>
+    </div>
+
+    <div class="worked">
+      <h3>উদাহরণ ৫ · √২ কত বড়? সংখ্যারেখায় বসাও</h3>
+      <p class="step">ধাপ ১: ১.৪ × ১.৪ = ১.৯৬, যা ২-এর চেয়ে ছোট → √২, ১.৪-এর চেয়ে বড়।</p>
+      <p class="step">ধাপ ২: ১.৪২ × ১.৪২ = ২.০১৬৪, যা ২-এর চেয়ে বড় → √২, ১.৪২-এর চেয়ে ছোট।<br><span class="why">💡 কেন করলাম: বর্গ করে ২-এর সঙ্গে তুলনা করলেই বোঝা যায় √২ কোন দুটো সংখ্যার মাঝে আটকে আছে।</span></p>
+      <p class="step">✅ <span class="ans">১.৪ &lt; √২ &lt; ১.৪২, অর্থাৎ √২ ≈ ১.৪১</span> — রেখায় ১ আর ২-এর মাঝে, ১.৪-এর ঠিক একটু ডানে (ওপরে পাঠ ৭-এর ছবিতে দেখো)।</p>
+    </div>
+  </section>
+
+  <section class="chapter" id="nije">
+    <h2>৩ · নিজে করো</h2>
+    <p class="sub">আগে নিজে চেষ্টা করো — তারপর "উত্তর দেখো" চাপ দিয়ে মিলিয়ে নাও। আটকালে লজ্জা নেই, উদাহরণে ফিরে যাও।</p>
+
+    <div class="practice"><p><b>১.</b> √১৬ মূলদ নাকি অমূলদ? কেন?</p><button class="revealbtn" onclick="toggleAns(this)">উত্তর দেখো</button><div class="answerbox">✅ <b>মূলদ</b> — কারণ √১৬ = ৪ (৪ × ৪ = ১৬), আর ৪ একটি পূর্ণসংখ্যা।</div></div>
+
+    <div class="practice"><p><b>২.</b> ৫/৬-কে দশমিকে প্রকাশ করো। সসীম নাকি আবৃত?</p><button class="revealbtn" onclick="toggleAns(this)">উত্তর দেখো</button><div class="answerbox">৫০ ÷ ৬ = ৮ (অবশিষ্ট ২), ২০ ÷ ৬ = ৩ (অবশিষ্ট ২), আবার ২০ ÷ ৬ = ৩… — অবশিষ্ট ২ বারবার ফিরছে, তাই ✅ <b>৫/৬ = ০.৮৩৩৩…</b> — অসীম <b>আবৃত</b> (৩ আবৃত)।</div></div>
+
+    <div class="practice"><p><b>৩.</b> ০.২৭২৭২৭…-কে ভগ্নাংশে প্রকাশ করো।</p><button class="revealbtn" onclick="toggleAns(this)">উত্তর দেখো</button><div class="answerbox">x = ০.২৭২৭… ধরলে ১০০x = ২৭.২৭২৭…; বিয়োগে ৯৯x = ২৭ → ✅ <b>x = ২৭/৯৯ = ৩/১১</b>। (দুই অঙ্ক আবৃত বলে ১০০ দিয়ে গুণ — তাই হরে ৯৯।)</div></div>
+
+    <div class="practice"><p><b>৪.</b> −৭ কি মূলদ সংখ্যা? যুক্তি দাও।</p><button class="revealbtn" onclick="toggleAns(this)">উত্তর দেখো</button><div class="answerbox">✅ <b>হ্যাঁ</b> — কারণ −৭ = −৭/১, অর্থাৎ p/q আকারে লেখা যায়। সব পূর্ণসংখ্যাই মূলদ।</div></div>
+
+    <div class="practice"><p><b>৫.</b> ০.১০১০০১০০০১০০০০১… (এভাবে চলতে থাকলে) — মূলদ নাকি অমূলদ?</p><button class="revealbtn" onclick="toggleAns(this)">উত্তর দেখো</button><div class="answerbox">✅ <b>অমূলদ</b> — দশমিকটা শেষ হয় না, আবার একই অংশ বারবার ফিরেও আসে না (শূন্যের দল প্রতিবার বড় হচ্ছে) — এটি অনাবৃত।</div></div>
+
+    <div class="practice"><p><b>৬.</b> কোনটা বড়: ০.৫ নাকি ৫/৯?</p><button class="revealbtn" onclick="toggleAns(this)">উত্তর দেখো</button><div class="answerbox">৫/৯ = ০.৫৫৫…, যা ০.৫-এর চেয়ে বড় → ✅ <b>৫/৯ বড়</b>।</div></div>
+
+    <div class="practice"><p><b>৭.</b> ৭/১১-এর দশমিক রূপ কেমন হবে — সসীম, আবৃত, না অনাবৃত?</p><button class="revealbtn" onclick="toggleAns(this)">উত্তর দেখো</button><div class="answerbox">৭০ ÷ ১১ = ৬ (অবশিষ্ট ৪), ৪০ ÷ ১১ = ৩ (অবশিষ্ট ৭) — অবশিষ্ট ৭ আবার ফিরে এল → ✅ <b>৭/১১ = ০.৬৩৬৩৬৩…</b> — অসীম <b>আবৃত</b> ("৬৩" আবৃত)।</div></div>
+  </section>
+
+  <section class="chapter" id="porikkha">
+    <h2>৪ · অধ্যায়-পরীক্ষা</h2>
+    <p class="sub">মোট ১০টা প্রশ্ন। অপশনে চাপ দিলেই সঙ্গে সঙ্গে জানতে পারবে ঠিক হলো কিনা। <b>প্রথম চেষ্টার</b> উত্তরেই নম্বর গোনা হয় — ভেবে চাপ দাও, তাড়াহুড়া নেই। আবার দিতে চাইলে পেজটা রিফ্রেশ করো।</p>
+    <div class="scorebar">⭐ তোমার নম্বর: <span id="scoreNow">০</span> / ১০ &nbsp;·&nbsp; 🏆 আগের সেরা: <span id="scoreBest">—</span></div>
+    <div id="quiz"></div>
+    <div class="finalmsg" id="finalMsg"></div>
+  </section>
+
+  <section class="feedbackbox" id="motamot">
+    <h2>💬 তোমার মতামত — মামাকে জানিও</h2>
+    <p>এই অধ্যায়টা তোমার জন্যই প্রথম পরীক্ষা করা হচ্ছে। মামাকে (যিনি তোমাকে এই লিংকটা পাঠিয়েছেন) ফোনে বা মেসেজে এই তিনটা প্রশ্নের উত্তর জানিয়ে দিও — তোমার মতামত দিয়েই পরের অধ্যায়গুলো আরও ভালো হবে:</p>
+    <p>১ · <b>কোথায় আটকালে?</b> কোন পাঠ বা কোন অঙ্কটা বুঝতে কষ্ট হলো?<br>
+    ২ · <b>কোনটা সহজ লাগল?</b> কোন অংশটা একবার পড়েই পরিষ্কার হয়ে গেল?<br>
+    ৩ · <b>সব মিলিয়ে কেমন লাগল?</b> এমন করে পড়তে তোমার ভালো লাগবে কিনা?</p>
+  </section>
+</main>
+<footer>ToolBari · গণিত পাইলট অধ্যায় — বাস্তব সংখ্যা (শ্রেণি ৯–১০, NCTB)</footer>
+
+<script>
+function toggleAns(btn){
+  var box = btn.nextElementSibling;
+  var open = box.style.display === 'block';
+  box.style.display = open ? 'none' : 'block';
+  btn.textContent = open ? 'উত্তর দেখো' : 'উত্তর লুকাও';
+}
+
+var QUESTIONS = [
+  {q:'নিচের কোন সংখ্যাটি অমূলদ?', opts:['২২/৭','√৭','৩.১৪','√২৫'], a:1, note:'√৭ = ২.৬৪৫৭৫… — অসীম অনাবৃত, তাই অমূলদ। (√২৫ = ৫, মূলদ।)'},
+  {q:'৩/৪-এর দশমিক রূপ কোনটি?', opts:['০.৭৫ — সসীম','০.৭৫ — আবৃত','০.৭৪ — সসীম','অসীম অনাবৃত'], a:0, note:'৩ ÷ ৪ = ০.৭৫ — ভাগ শেষ হয়ে যায়, তাই সসীম।'},
+  {q:'০.৬৬৬… (০.৬̇) ভগ্নাংশে কত?', opts:['৩/৫','২/৩','৫/৯','৭/৯'], a:1, note:'x = ০.৬৬৬… হলে ৯x = ৬, অর্থাৎ x = ৬/৯ = ২/৩।'},
+  {q:'সংখ্যারেখায় √২ কোথায় বসে?', opts:['০ ও ১-এর মাঝে','১.৪-এর ঠিক একটু ডানে','২ ও ৩-এর মাঝে','ঠিক ১.৫-এ'], a:1, note:'√২ ≈ ১.৪১ — ১.৪-এর একটু ডানে।'},
+  {q:'সব পূর্ণসংখ্যাই কি মূলদ সংখ্যা?', opts:['হ্যাঁ','না'], a:0, note:'হ্যাঁ — যেকোনো পূর্ণসংখ্যা n-কে n/১ লেখা যায়।'},
+  {q:'১/৬-এর দশমিক রূপ কোনটি?', opts:['০.১৬ — সসীম','০.১৬৬৬… — আবৃত','০.৬','১.৬'], a:1, note:'১ ÷ ৬ = ০.১৬৬৬… — ৬ বারবার ফিরে আসে, তাই আবৃত।'},
+  {q:'নিচের কোনটি মূলদ নয়?', opts:['০','−৫','π','০.১২১২…'], a:2, note:'π-এর দশমিক অসীম অনাবৃত — অমূলদ। বাকিরা সবাই মূলদ।'},
+  {q:'০.২৭৭৭… (১-অঙ্কের পর ৭ আবৃত) ভগ্নাংশে কত?', opts:['৫/১৮','২৭/৯৯','৩/১১','২৭/৯০'], a:0, note:'x = ০.২৭৭৭… হলে ১০০x − ১০x = ২৭.৭৭৭… − ২.৭৭৭… → ৯০x = ২৫, x = ২৫/৯০ = ৫/১৮।'},
+  {q:'কোনটি বড় — ৫/৯ নাকি ০.৫৫?', opts:['৫/৯ বড়','০.৫৫ বড়','দুটো সমান'], a:0, note:'৫/৯ = ০.৫৫৫…, যা ০.৫৫-এর চেয়ে বড়।'},
+  {q:'০.০৯৯৯… (০.০৯̇) এর মান কত?', opts:['১/১১','১/১০','৯/১০০','১/৯'], a:1, note:'৯০x = ৯ থেকে x = ৯/৯০ = ১/১০। অবাক কাণ্ড — ০.০৯৯৯… আসলে ঠিক ০.১-ই!'}
+];
+var bnDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+function toBn(n){ return String(n).split('').map(function(c){ return /\d/.test(c) ? bnDigits[+c] : c; }).join(''); }
+var answered = 0, score = 0;
+var best = parseInt(localStorage.getItem('mathpilot_best') || '-1', 10);
+document.getElementById('scoreBest').textContent = best >= 0 ? toBn(best) : '—';
+
+var quizEl = document.getElementById('quiz');
+QUESTIONS.forEach(function(item, qi){
+  var box = document.createElement('div');
+  box.className = 'qbox';
+  var p = document.createElement('p');
+  p.className = 'q';
+  p.textContent = toBn(qi + 1) + ' · ' + item.q;
+  box.appendChild(p);
+  var note = document.createElement('p');
+  note.className = 'qnote';
+  item.opts.forEach(function(opt, oi){
+    var b = document.createElement('button');
+    b.className = 'qopt';
+    b.type = 'button';
+    b.textContent = opt;
+    b.addEventListener('click', function(){
+      if (box.dataset.done) return;
+      box.dataset.done = '1';
+      answered++;
+      var btns = box.querySelectorAll('.qopt');
+      btns.forEach(function(x){ x.disabled = true; });
+      btns[item.a].classList.add('ok');
+      if (oi === item.a){
+        score++;
+        note.textContent = '✅ ঠিক হয়েছে! ' + item.note;
+        note.style.color = '#16a34a';
+      } else {
+        b.classList.add('wrong');
+        note.textContent = '🌱 এবার হলো না — ঠিক উত্তরটা সবুজ করে দেওয়া হলো। ' + item.note;
+        note.style.color = '#b45309';
+      }
+      document.getElementById('scoreNow').textContent = toBn(score);
+      if (answered === QUESTIONS.length) finish();
+    });
+    box.appendChild(b);
+  });
+  box.appendChild(note);
+  quizEl.appendChild(box);
+});
+
+function finish(){
+  if (score > best){
+    best = score;
+    localStorage.setItem('mathpilot_best', String(best));
+    document.getElementById('scoreBest').textContent = toBn(best);
+  }
+  var msg;
+  if (score >= 8) msg = '🌟 দারুণ! ১০-এর মধ্যে ' + toBn(score) + ' — এই অধ্যায়টা তুমি ভালোই আয়ত্ত করেছ। নিচের মতামতটা মামাকে জানাতে ভুলো না!';
+  else if (score >= 5) msg = '👏 ভালো চেষ্টা! ১০-এর মধ্যে ' + toBn(score) + ' — যেগুলোতে আটকালে, উদাহরণগুলো আরেকবার দেখে আবার চেষ্টা করো।';
+  else msg = '💪 কোনো ব্যাপার না! ১০-এর মধ্যে ' + toBn(score) + ' — শুরুতে এমন হতেই পারে। ধারণার পাঠগুলো আরেকবার ধীরে পড়ে আবার পরীক্ষা দাও, দেখবে এবার অনেক সহজ লাগছে।';
+  var fm = document.getElementById('finalMsg');
+  fm.textContent = msg;
+  fm.style.display = 'block';
+  if (fm.scrollIntoView) fm.scrollIntoView({behavior:'smooth', block:'center'});
+}
+</script>
+</body>
+</html>
