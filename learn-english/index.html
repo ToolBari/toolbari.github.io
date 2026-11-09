@@ -99,6 +99,15 @@ footer{text-align:center;color:#5b6b8c;font-size:13.5px;padding:20px 12px 34px}
     <div id="dayBody"></div>
   </section>
 
+  <!-- আমার অগ্রগতি -->
+  <section class="chapter" id="myProgress">
+    <span class="tag free">PROGRESS · অগ্রগতি</span>
+    <h2>📈 আমার অগ্রগতি</h2>
+    <p class="sub">তুমি কতটা এগিয়ে গেছ — সব এক জায়গায়। প্রতিটি অধ্যায়ের কুইজে পাস (কমপক্ষে ৬০%) আর চূড়ান্ত পরীক্ষায় পাস করলেই তোমার নামে সার্টিফিকেট তৈরি হবে।</p>
+    <div id="progBody"></div>
+    <div id="certArea"></div>
+  </section>
+
   <h2 data-i18n="chapters_h" style="margin:6px 0 0">অধ্যায়সমূহ</h2>
   <div class="grid" id="chGrid"></div>
 
@@ -321,8 +330,8 @@ footer{text-align:center;color:#5b6b8c;font-size:13.5px;padding:20px 12px 34px}
   <!-- অধ্যায় ৮ -->
   <section class="chapter locked-ch" id="ch8">
     <span class="tag lock">🔒 ENROLL</span>
-    <h2>অধ্যায় ৮ — ফাইনাল চ্যালেঞ্জ</h2>
-    <p class="sub">১৫টি প্রশ্নে পুরো কোর্সের যাচাই। সব উত্তর দিয়ে "রেজাল্ট দেখুন" চাপুন। সেরা স্কোর এই ফোনে সেভ থাকে।</p>
+    <h2>অধ্যায় ৮ — চূড়ান্ত পরীক্ষা (Final Exam)</h2>
+    <p class="sub">🏆 এটি কোর্সের <b>চূড়ান্ত পরীক্ষা</b> — ১৫টি প্রশ্নে পুরো কোর্সের যাচাই। পাস নম্বর ৬০% (১৫-তে কমপক্ষে ৯)। সব উত্তর দিয়ে "রেজাল্ট দেখুন" চাপুন। সেরা স্কোর এই ফোনে সেভ থাকে।</p>
     <div class="lockbox"></div>
     <div class="chbody">
       <div id="quizBox"></div>
@@ -352,6 +361,15 @@ footer{text-align:center;color:#5b6b8c;font-size:13.5px;padding:20px 12px 34px}
 .testbox{border-top:2px dashed #e7edf7;margin-top:20px;padding-top:8px}
 #dayFinale{background:linear-gradient(135deg,#dcfce7,#bbf7d0);border:2px solid #4ade80;border-radius:16px;padding:16px;margin:0 0 16px;font-size:15.5px}
 .chbody{display:none}
+.quizbox{border-top:2px dashed #e7edf7;margin-top:18px;padding-top:6px}
+.pbar{background:#e7edf7;border-radius:999px;height:18px;overflow:hidden;margin:8px 0}
+.pbar>div{background:linear-gradient(90deg,#2563eb,#22c55e);height:100%;border-radius:999px;transition:width .4s}
+.prow{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #eef2f9}
+.prow .st{margin-left:auto;font-weight:700;white-space:nowrap;text-align:right}
+.certlock{background:#fffbeb;border:2px dashed #fbbf24;border-radius:14px;padding:16px;margin-top:16px}
+.certok{background:linear-gradient(135deg,#dcfce7,#f0fdf4);border:2px solid #4ade80;border-radius:14px;padding:16px;margin-top:16px;text-align:center}
+#certCanvas{max-width:100%;height:auto;border:1px solid #e7edf7;border-radius:10px;margin-top:12px;background:#fffdf4}
+.bigpct{font-size:32px;font-weight:900;color:#2563eb;line-height:1.1}
 body.enrolled .chbody{display:block}
 body.enrolled .lockbox{display:none}
 body.enrolled .tag.lock{background:#dcfce7;color:#166534}
@@ -434,7 +452,7 @@ var CHAPTERS=[
  ["ch5","অধ্যায় ৫ — Fiverr/Upwork English","৫টি তৈরি ক্লায়েন্ট টেমপ্লেট",false],
  ["ch6","অধ্যায় ৬ — শুদ্ধ বাংলা বানান","১৫টি প্রচলিত ভুল ও নিয়ম",false],
  ["ch7","অধ্যায় ৭ — বাক্য গঠন","৬টি প্যাটার্নে নিজে বাক্য বানান",false],
- ["ch8","অধ্যায় ৮ — ফাইনাল চ্যালেঞ্জ","১৫ প্রশ্নের কুইজ ও স্কোর",false]
+ ["ch8","অধ্যায় ৮ — চূড়ান্ত পরীক্ষা","১৫ প্রশ্নের ফাইনাল পরীক্ষা · পাস ৬০%",false]
 ];
 (function(){
   var g=document.getElementById("chGrid");
@@ -597,7 +615,7 @@ function pickOpt(b){
 }
 function showBest(){
   var best=localStorage.getItem("learn_quiz_best");
-  document.getElementById("quizBest").textContent=best?("আপনার সেরা স্কোর: "+best+" / ১৫"):"";
+  document.getElementById("quizBest").textContent=best?("আপনার সেরা স্কোর: "+best+" / ১৫"+(parseInt(best,10)>=9?" · ✔ পাস":" · পাস করতে লাগবে ৯")):"";
 }
 function gradeQuiz(){
   var score=0,answered=0;
@@ -606,8 +624,8 @@ function gradeQuiz(){
   if(answered<QUIZ.length){m.textContent="সবগুলো প্রশ্নের উত্তর দিন — বাকি আছে "+(QUIZ.length-answered)+"টি।";m.className="feedback bad";return;}
   var best=parseInt(localStorage.getItem("learn_quiz_best")||"0",10);
   if(score>best){localStorage.setItem("learn_quiz_best",String(score));}
-  m.textContent="🏆 আপনার স্কোর: "+score+" / ১৫"+(score>=12?" — চমৎকার!":score>=8?" — ভালো, আরেকবার চেষ্টা করুন।":" — অধ্যায়গুলো আবার পড়ে চেষ্টা করুন।");
-  m.className="feedback "+(score>=8?"ok":"bad");
+  m.textContent="🏆 আপনার স্কোর: "+score+" / ১৫"+(score>=9?" — ✅ পাস! অভিনন্দন।":score>=6?" — প্রায় হয়ে গেছে! আরেকটু ঝালিয়ে আবার চেষ্টা করুন।":" — অধ্যায়গুলো আরেকবার পড়ে চেষ্টা করুন, ঠিক পারবেন।");
+  m.className="feedback "+(score>=9?"ok":"bad");
   showBest();
 }
 
@@ -616,5 +634,6 @@ applyLang();
 applyLock();
 </script>
 <script src="days.js"></script>
+<script src="exam.js"></script>
 </body>
 </html>
