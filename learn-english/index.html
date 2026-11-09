@@ -86,6 +86,19 @@ footer{text-align:center;color:#5b6b8c;font-size:13.5px;padding:20px 12px 34px}
     <p data-i18n="hero_p2">প্রতিদিন মাত্র ১০ মিনিট অনুশীলন করলেই চলবে।</p>
   </div>
 
+  <div class="banner hidden" id="dayReminder"></div>
+  <div class="hidden" id="dayFinale"></div>
+
+  <!-- প্রথম ৫ দিন -->
+  <section class="chapter" id="fiveDays">
+    <span class="tag free">NEW · নতুনদের জন্য</span>
+    <h2>🌅 প্রথম ৫ দিন — প্রতিদিন মাত্র ৮টি শব্দ</h2>
+    <p class="sub">একদম নতুন? এখান থেকে শুরু করো। প্রতিদিন ৮টি করে কাজের ইংরেজি শব্দ — শোনো 🔊, অর্থ শেখো, শেষে ছোট্ট যাচাই। ৫ দিনেই ৪০টি শব্দ তোমার হাতে!</p>
+    <div class="dots" id="dayDots"></div>
+    <div class="daytabs" id="dayTabs"></div>
+    <div id="dayBody"></div>
+  </section>
+
   <h2 data-i18n="chapters_h" style="margin:6px 0 0">অধ্যায়সমূহ</h2>
   <div class="grid" id="chGrid"></div>
 
@@ -325,6 +338,19 @@ footer{text-align:center;color:#5b6b8c;font-size:13.5px;padding:20px 12px 34px}
 </footer>
 
 <style>
+.spk{margin-left:8px;background:#e8eefc;border:1px solid #c9d6f2;border-radius:999px;padding:2px 9px;font-size:15px;cursor:pointer;vertical-align:middle}
+.spk:active{background:#2563eb}
+.banner{background:linear-gradient(135deg,#fff7ed,#ffedd5);border:2px solid #fdba74;border-radius:16px;padding:14px 16px;margin:0 0 16px;font-size:15.5px}
+.dots{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px}
+.dot{background:#eef2ff;color:#5b6b8c;border-radius:999px;padding:5px 13px;font-size:13.5px;font-weight:700}
+.dot.done{background:#dcfce7;color:#166534}
+.daytabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px}
+.dtab{padding:9px 18px;min-height:42px;font-size:15px}
+.qopt.right{background:#22c55e!important;color:#fff!important}
+.qopt.wrong{background:#fecaca!important;color:#7f1d1d!important}
+.qopt:disabled{opacity:.85;cursor:default}
+.testbox{border-top:2px dashed #e7edf7;margin-top:20px;padding-top:8px}
+#dayFinale{background:linear-gradient(135deg,#dcfce7,#bbf7d0);border:2px solid #4ade80;border-radius:16px;padding:16px;margin:0 0 16px;font-size:15.5px}
 .chbody{display:none}
 body.enrolled .chbody{display:block}
 body.enrolled .lockbox{display:none}
@@ -554,5 +580,6 @@ function gradeQuiz(){
 applyLang();
 applyLock();
 </script>
+<script src="days.js"></script>
 </body>
 </html>
