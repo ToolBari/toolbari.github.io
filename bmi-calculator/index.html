@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BMI Calculator — Your Number, and What the Range Actually Means | ToolBari</title>
+<meta name="description" content="Calculate your Body Mass Index (BMI) from your weight and height, and see the standard WHO ranges it falls into. Free, no sign-up, information only — on ToolBari.">
+<link rel="canonical" href="https://toolbari.github.io/bmi-calculator/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BMI Calculator — Your Number, and What the Range Actually Means">
+<meta property="og:description" content="Your BMI from weight and height, explained against the standard WHO adult ranges. Free and information-only, on ToolBari.">
+<meta property="og:url" content="https://toolbari.github.io/bmi-calculator/">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc,.warn{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+table{border-collapse:collapse;width:100%;margin:10px 0;background:rgba(255,255,255,.8);border-radius:10px;overflow:hidden}
+td,th{border:1px solid #e2e8f0;padding:8px 12px;text-align:left;font-size:15.5px}
+.warn{border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is BMI?", "acceptedAnswer": {"@type": "Answer", "text": "BMI (Body Mass Index) is a screening number from your weight and height: weight in kilograms divided by height in metres squared. It sorts adults into broad weight ranges, but it does not measure body fat directly."}}, {"@type": "Question", "name": "What are the standard BMI ranges?", "acceptedAnswer": {"@type": "Answer", "text": "The World Health Organization (WHO) adult classification: below 18.5 is underweight, 18.5–24.9 is the normal range, 25.0–29.9 is overweight, and 30.0 or above is obese."}}, {"@type": "Question", "name": "Is a BMI result a medical diagnosis?", "acceptedAnswer": {"@type": "Answer", "text": "No. BMI is a general information and screening measure only. It can mislead for children, pregnant women, older people and very muscular people. For anything about your own health, talk to a doctor."}}, {"@type": "Question", "name": "Is the BMI Calculator free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — free, with no sign-up, and it runs in your browser."}}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>BMI Calculator</h1>
+<p class="answer"><strong>Short answer:</strong> type your weight and height below — you get your <strong>BMI number</strong> and the <strong>standard WHO range</strong> it falls into. The formula is <code>weight (kg) ÷ height (m)²</code>. BMI is a rough screening measure, not a diagnosis.</p>
+<div class="calc">
+<label for="unit">Units</label>
+<select id="unit"><option value="m">Kilograms &amp; centimetres</option><option value="i">Pounds &amp; inches</option></select>
+<label for="w" id="lw">Weight (kg)</label>
+<input id="w" type="number" inputmode="decimal" value="70">
+<label for="h" id="lh">Height (cm)</label>
+<input id="h" type="number" inputmode="decimal" value="170">
+<div class="out" id="out"></div>
+</div>
+<a class="cta" href="https://toolbari.github.io/#/tool/bmi-calculator">Open the full BMI Calculator on ToolBari</a>
+
+<section class="block" id="tbAdBlock" aria-label="Advertisement">
+<p style="font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.65;margin:18px 0 8px">Advertisement</p>
+<style>.tb-adwrap{display:flex;justify-content:center}.tb-ad-d{display:none}@media(min-width:761px){.tb-ad-d{display:flex}.tb-ad-m{display:none}}</style>
+<div class="tb-adwrap tb-ad-d"><script>atOptions={'key':'7d98dae8e64b6c98e3175afc32a03e37','format':'iframe','height':90,'width':728,'params':{}};</script><script src="https://bauval.org/22/7d98dae8e64b6c98e3175afc32a03e37"></script></div>
+<div class="tb-adwrap tb-ad-m"><script>atOptions={'key':'923f85d3e96b9ca4c2736578dd23c430','format':'iframe','height':50,'width':320,'params':{}};</script><script src="https://bauval.org/22/923f85d3e96b9ca4c2736578dd23c430"></script></div>
+</section>
+<h2>The standard ranges (WHO, adults)</h2>
+<table>
+<tr><th>BMI</th><th>Range</th></tr>
+<tr><td>Below 18.5</td><td>Underweight</td></tr>
+<tr><td>18.5 – 24.9</td><td>Normal</td></tr>
+<tr><td>25.0 – 29.9</td><td>Overweight</td></tr>
+<tr><td>30.0 and above</td><td>Obese</td></tr>
+</table>
+<p class="note">Ranges: World Health Organization (WHO) adult BMI classification. A worked example: 70 kg at 170 cm → 70 ÷ 1.70² = <strong>24.22</strong>, inside the normal range.</p>
+<div class="warn"><strong>Information only — not medical advice.</strong> BMI does not measure body fat, muscle, or overall health, and it can mislead for children, pregnant women, older people and athletes. If you are worried about your weight or health, please talk to a doctor — this page cannot diagnose anything.</div>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>What is BMI?</h3><p>BMI (Body Mass Index) is a screening number from your weight and height: weight in kilograms divided by height in metres squared. It sorts adults into broad weight ranges, but it does not measure body fat directly.</p></div>
+<div class="faq"><h3>What are the standard BMI ranges?</h3><p>The World Health Organization (WHO) adult classification: below 18.5 is underweight, 18.5–24.9 is the normal range, 25.0–29.9 is overweight, and 30.0 or above is obese.</p></div>
+<div class="faq"><h3>Is a BMI result a medical diagnosis?</h3><p>No. BMI is a general information and screening measure only. It can mislead for children, pregnant women, older people and very muscular people. For anything about your own health, talk to a doctor.</p></div>
+<div class="faq"><h3>Is the BMI Calculator free?</h3><p>Yes — free, with no sign-up, and it runs in your browser.</p></div>
+<h2>More free tools on ToolBari</h2>
+<p class="links">
+<a href="https://toolbari.github.io/#/tool/bmr-calculator">BMR Calculator</a> ·
+<a href="https://toolbari.github.io/#/tool/ideal-weight-calculator">Ideal Weight Calculator</a> ·
+<a href="https://toolbari.github.io/#/tool/body-fat-calculator">Body Fat Calculator</a> ·
+<a href="https://toolbari.github.io/#/tool/water-intake-calculator">Water Intake Calculator</a> ·
+<a href="https://toolbari.github.io/percentage-calculator/">Percentage Calculator</a> ·
+<a href="https://toolbari.github.io/workout-plan-generator/">Workout Plan Generator</a> ·
+<a href="https://toolbari.github.io/meal-plan-generator/">Meal Plan Generator</a> ·
+<a href="https://toolbari.github.io/low-data-tools/">Tools for Slow Connections</a>
+</p>
+<p class="note">ToolBari is a free tools hub — every tool works in your browser with no sign-up.</p>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<script>
+var unit=document.getElementById('unit'),w=document.getElementById('w'),h=document.getElementById('h'),out=document.getElementById('out'),lw=document.getElementById('lw'),lh=document.getElementById('lh');
+function cat(b){if(b<18.5)return 'Underweight range';if(b<25)return 'Normal range';if(b<30)return 'Overweight range';return 'Obese range'}
+function calc(){
+  var imp=unit.value==='i';
+  lw.textContent=imp?'Weight (lb)':'Weight (kg)';lh.textContent=imp?'Height (inches)':'Height (cm)';
+  var W=parseFloat(w.value),H=parseFloat(h.value);
+  if(isNaN(W)||isNaN(H)||W<=0||H<=0){out.textContent='Type your weight and height.';return}
+  var bmi=imp?(W/(H*H)*703):(W/Math.pow(H/100,2));
+  out.textContent='Your BMI: '+(Math.round(bmi*100)/100)+' — '+cat(bmi);
+}
+[unit,w,h].forEach(function(el){el.addEventListener('input',calc);el.addEventListener('change',calc)});
+calc();
+</script>
+<!-- Monetag In-Page Push (zone 12092266) -->
+<script>(function(s){s.dataset.zone='12092266',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+</body>
+</html>

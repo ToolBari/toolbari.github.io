@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workout Plan Generator — A Week of Training Matched to Your Goal | ToolBari</title>
+<meta name="description" content="Free workout plan generator: pick a goal — general fitness, strength or cardio — and your level, and get the exact 7-day bodyweight week ToolBari builds. No equipment, no sign-up.">
+<link rel="canonical" href="https://toolbari.github.io/workout-plan-generator/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Workout Plan Generator">
+<meta property="og:description" content="Free workout plan generator: pick a goal — general fitness, strength or cardio — and your level, and get the exact 7-day bodyweight week ToolBari builds. No equipment, no sign-up.">
+<meta property="og:url" content="https://toolbari.github.io/workout-plan-generator/">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:16.5px;margin-top:14px;line-height:1.8}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+.warn{background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:12px 16px;margin:14px 0;font-size:15px}</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What goals can the Workout Plan Generator build for?","acceptedAnswer":{"@type":"Answer","text":"Three goals: General fitness, Strength and Cardio. For each goal you also choose a level — Beginner or Intermediate — and the generator returns a fixed 7-day week built for that combination."}},{"@type":"Question","name":"Do I need gym equipment for these plans?","acceptedAnswer":{"@type":"Answer","text":"No. Every plan the generator produces is bodyweight and walking based — push-ups, squats, lunges, planks, brisk walks and stretching. There is no equipment, gym or weights version in the tool."}},{"@type":"Question","name":"What changes if I pick Intermediate instead of Beginner?","acceptedAnswer":{"@type":"Answer","text":"The 7 days stay the same; the plan adds one instruction: increase time or repetitions gradually. Beginner plans carry no such note."}},{"@type":"Question","name":"Is this workout plan medical advice?","acceptedAnswer":{"@type":"Answer","text":"No. It is general information only, not medical advice. Stop if you feel pain, and talk to a doctor before starting if you have a health condition, an injury, or you are pregnant."}}]}</script>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Workout Plan Generator</h1>
+<p class="answer"><strong>Short answer:</strong> choose your goal — <strong>general fitness, strength or cardio</strong> — and your level, and the generator hands you a complete <strong>7-day bodyweight week</strong>. No equipment, no sign-up. Try it right here:</p>
+<div class="calc">
+<label for="goal">Your goal</label>
+<select id="goal"><option value="general">General fitness</option><option value="strength">Strength</option><option value="cardio">Cardio</option></select>
+<label for="level">Your level</label>
+<select id="level"><option value="beginner">Beginner</option><option value="intermediate">Intermediate</option></select>
+<div class="btnrow"><button class="cta" id="go" type="button">Generate Plan</button></div>
+<div class="out" id="out"></div>
+</div>
+<a class="cta" href="https://toolbari.github.io/#/tool/workout-plan-generator">Open the full Workout Plan Generator</a>
+<section class="block" id="tbAdBlock" aria-label="Advertisement">
+<p style="font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.65;margin:18px 0 8px">Advertisement</p>
+<style>.tb-adwrap{display:flex;justify-content:center}.tb-ad-d{display:none}@media(min-width:761px){.tb-ad-d{display:flex}.tb-ad-m{display:none}}</style>
+<div class="tb-adwrap tb-ad-d"><script>atOptions={'key':'7d98dae8e64b6c98e3175afc32a03e37','format':'iframe','height':90,'width':728,'params':{}};</script><script src="https://bauval.org/22/7d98dae8e64b6c98e3175afc32a03e37"></script></div>
+<div class="tb-adwrap tb-ad-m"><script>atOptions={'key':'923f85d3e96b9ca4c2736578dd23c430','format':'iframe','height':50,'width':320,'params':{}};</script><script src="https://bauval.org/22/923f85d3e96b9ca4c2736578dd23c430"></script></div>
+</section>
+<h2>What each goal's week actually looks like</h2>
+<p>The generator is honest and simple: it does not invent a new plan on every click. Each goal has one fixed, sensible week, written for home training:</p>
+<ul>
+<li><strong>General fitness:</strong> two 20-minute walks plus stretching, two bodyweight-basics days, and built-in rest days.</li>
+<li><strong>Strength:</strong> push-ups, squats and planks on Monday; squats, lunges and planks on Wednesday; a full-body bodyweight day on Friday — rest between sessions.</li>
+<li><strong>Cardio:</strong> brisk walks of 20, 20 and 30 minutes across the week, with rest days between them.</li>
+</ul>
+<p>Pick <strong>Intermediate</strong> and the same week gains one extra instruction: increase time or repetitions gradually. That is the whole difference — the page and the tool both say so plainly.</p>
+<div class="warn"><strong>Please read:</strong> this is general information only, <strong>not medical advice</strong>. Stop if you feel pain. If you have a health condition, an injury, are pregnant, or have not exercised in a long time, talk to a doctor before starting any new exercise routine.</div>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>What goals can the Workout Plan Generator build for?</h3><p>Three goals: General fitness, Strength and Cardio. For each goal you also choose a level — Beginner or Intermediate — and the generator returns a fixed 7-day week built for that combination.</p></div>
+<div class="faq"><h3>Do I need gym equipment for these plans?</h3><p>No. Every plan the generator produces is bodyweight and walking based — push-ups, squats, lunges, planks, brisk walks and stretching. There is no equipment, gym or weights version in the tool.</p></div>
+<div class="faq"><h3>What changes if I pick Intermediate instead of Beginner?</h3><p>The 7 days stay the same; the plan adds one instruction: increase time or repetitions gradually. Beginner plans carry no such note.</p></div>
+<div class="faq"><h3>Is this workout plan medical advice?</h3><p>No. It is general information only, not medical advice. Stop if you feel pain, and talk to a doctor before starting if you have a health condition, an injury, or you are pregnant.</p></div>
+<h2>More free tools on ToolBari</h2>
+<p class="links">
+<a href="https://toolbari.github.io/meal-plan-generator/">Meal Plan Generator</a> ·
+<a href="https://toolbari.github.io/bmi-calculator/">BMI Calculator</a> ·
+<a href="https://toolbari.github.io/#/tool/bmr-calculator">BMR Calculator</a> ·
+<a href="https://toolbari.github.io/#/tool/water-intake-calculator">Water Intake Calculator</a>
+</p>
+<p class="note">ToolBari is a free tools hub — every tool works in your browser with no sign-up.</p>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<script>
+var PLANS={
+strength:'Mon: Push-ups, squats, planks<br>Tue: Rest or light walk<br>Wed: Squats, lunges, planks<br>Thu: Rest<br>Fri: Full body bodyweight<br>Sat: Light walk<br>Sun: Rest',
+cardio:'Mon: Brisk walk 20 min<br>Tue: Rest<br>Wed: Brisk walk or jog 20 min<br>Thu: Rest<br>Fri: Brisk walk 30 min<br>Sat: Light activity<br>Sun: Rest',
+general:'Mon: Walk 20 min + stretching<br>Tue: Bodyweight basics<br>Wed: Rest<br>Thu: Walk 20 min<br>Fri: Bodyweight basics<br>Sat: Stretching<br>Sun: Rest'};
+function buildPlan(goal,level){var plan=PLANS[goal]||PLANS.general;if(level==='intermediate')plan+='<br><small>Intermediate: increase time or repetitions gradually.</small>';return plan;}
+document.getElementById('go').addEventListener('click',function(){document.getElementById('out').innerHTML=buildPlan(document.getElementById('goal').value,document.getElementById('level').value);});
+</script>
+<!-- Monetag In-Page Push (zone 12092266) -->
+<script>(function(s){s.dataset.zone='12092266',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+</body>
+</html>
