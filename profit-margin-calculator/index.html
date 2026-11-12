@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profit Margin Calculator — Margin, Markup and Profit | ToolBari</title>
+<meta name="description" content="Work out profit, margin and markup from cost and selling price: type two numbers and see all three answers with the working shown. Free, no sign-up, on ToolBari.">
+<link rel="canonical" href="https://toolbari.github.io/profit-margin-calculator/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Profit Margin Calculator — Margin, Markup and Profit">
+<meta property="og:description" content="Type cost and selling price and see profit, margin and markup with the working shown. Free on ToolBari.">
+<meta property="og:url" content="https://toolbari.github.io/profit-margin-calculator/">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc,.warn{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the difference between profit margin and markup?", "acceptedAnswer": {"@type": "Answer", "text": "Margin divides the profit by the selling price; markup divides the profit by the cost. On a cost of 800 and a selling price of 1,000, the profit is 200, the margin is 20%, and the markup is 25%."}}, {"@type": "Question", "name": "How is profit margin calculated?", "acceptedAnswer": {"@type": "Answer", "text": "Subtract the cost from the selling price to get the profit, then divide the profit by the selling price and multiply by 100. For example, (1,000 − 800) ÷ 1,000 × 100 = 20%."}}, {"@type": "Question", "name": "What is a good profit margin?", "acceptedAnswer": {"@type": "Answer", "text": "There is no single good number — it depends on delivery costs, fees, returns, taxes and the market. This calculator only shows the arithmetic; it does not advise what to charge."}}, {"@type": "Question", "name": "Is the Profit Margin Calculator free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — free, with no sign-up, and it runs in your browser on any phone or computer."}}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Profit Margin Calculator</h1>
+<p class="answer"><strong>Short answer:</strong> type the cost and the selling price below — the calculator shows the <strong>profit</strong>, the <strong>margin</strong> and the <strong>markup</strong>, with the working steps.</p>
+<div class="calc">
+<label for="a">Cost</label>
+<input id="a" type="number" inputmode="decimal" value="800">
+<label for="b">Selling price</label>
+<input id="b" type="number" inputmode="decimal" value="1000">
+<div class="out" id="out"></div>
+<div class="steps" id="steps"></div>
+</div>
+<a class="cta" href="https://toolbari.github.io/#/tool/profit-margin-calculator">Open the full Profit Margin Calculator on ToolBari</a>
+<div class="warn"><strong>Information only — not financial advice.</strong> This page shows the standard margin and markup formulas. Real selling has delivery costs, fees, returns and taxes that change the final result. Nothing here promises a profit or advises what to charge.</div>
+
+<section class="block" id="tbAdBlock" aria-label="Advertisement">
+<p style="font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.65;margin:18px 0 8px">Advertisement</p>
+<style>.tb-adwrap{display:flex;justify-content:center}.tb-ad-d{display:none}@media(min-width:761px){.tb-ad-d{display:flex}.tb-ad-m{display:none}}</style>
+<div class="tb-adwrap tb-ad-d"><script>atOptions={'key':'7d98dae8e64b6c98e3175afc32a03e37','format':'iframe','height':90,'width':728,'params':{}};</script><script src="https://bauval.org/22/7d98dae8e64b6c98e3175afc32a03e37"></script></div>
+<div class="tb-adwrap tb-ad-m"><script>atOptions={'key':'923f85d3e96b9ca4c2736578dd23c430','format':'iframe','height':50,'width':320,'params':{}};</script><script src="https://bauval.org/22/923f85d3e96b9ca4c2736578dd23c430"></script></div>
+</section>
+<h2>The three formulas</h2>
+<ul>
+<li><strong>Profit</strong> = selling price − cost</li>
+<li><strong>Margin</strong> = profit ÷ selling price × 100</li>
+<li><strong>Markup</strong> = profit ÷ cost × 100</li>
+</ul>
+<h2>Worked examples</h2>
+<ol>
+<li><strong>Cost 800, price 1,000:</strong> profit 200 → margin <strong>20%</strong>, markup <strong>25%</strong>.</li>
+<li><strong>Cost 1,500, price 2,000:</strong> profit 500 → margin <strong>25%</strong>, markup <strong>33.33%</strong>.</li>
+<li><strong>Cost 250, price 400:</strong> profit 150 → margin <strong>37.5%</strong>, markup <strong>60%</strong>.</li>
+</ol>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>What is the difference between profit margin and markup?</h3><p>Margin divides the profit by the selling price; markup divides the profit by the cost. On a cost of 800 and a selling price of 1,000, the profit is 200, the margin is 20%, and the markup is 25%.</p></div>
+<div class="faq"><h3>How is profit margin calculated?</h3><p>Subtract the cost from the selling price to get the profit, then divide the profit by the selling price and multiply by 100. For example, (1,000 − 800) ÷ 1,000 × 100 = 20%.</p></div>
+<div class="faq"><h3>What is a good profit margin?</h3><p>There is no single good number — it depends on delivery costs, fees, returns, taxes and the market. This calculator only shows the arithmetic; it does not advise what to charge.</p></div>
+<div class="faq"><h3>Is the Profit Margin Calculator free?</h3><p>Yes — free, with no sign-up, and it runs in your browser on any phone or computer.</p></div>
+<h2>More free tools on ToolBari</h2>
+<p class="links">
+<a href="https://toolbari.github.io/percentage-calculator/">Percentage Calculator</a> ·
+<a href="https://toolbari.github.io/emi-calculator/">EMI Calculator</a> ·
+<a href="https://toolbari.github.io/compound-interest-calculator/">Compound Interest Calculator</a> ·
+<a href="https://toolbari.github.io/salary-calculator/">Salary Calculator</a> ·
+<a href="https://toolbari.github.io/invoice-generator/">Invoice Generator</a> ·
+<a href="https://toolbari.github.io/dokan-stock-manager/">Dokan Stock Manager</a> ·
+<a href="https://toolbari.github.io/currency-converter/">Currency Converter</a>
+</p>
+<p class="note">ToolBari is a free tools hub — every tool works in your browser with no sign-up.</p>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<script>
+function fmt(n){return Math.round(n*100)/100}
+var a=document.getElementById('a'),b=document.getElementById('b'),out=document.getElementById('out'),steps=document.getElementById('steps');
+function calc(){
+  var c=parseFloat(a.value),p=parseFloat(b.value);
+  if(isNaN(c)||isNaN(p)){out.textContent='';steps.textContent='Type both numbers to see the answer.';return}
+  if(c===0||p===0){out.textContent='Cannot divide by zero.';steps.textContent='';return}
+  var profit=p-c,margin=profit/p*100,markup=profit/c*100;
+  out.textContent='Profit '+fmt(profit)+' · Margin '+fmt(margin)+'% · Markup '+fmt(markup)+'%';
+  steps.textContent='Step 1: profit = '+p+' − '+c+' = '+fmt(profit)+'\nStep 2: margin = '+fmt(profit)+' ÷ '+p+' × 100 = '+fmt(margin)+'%\nStep 3: markup = '+fmt(profit)+' ÷ '+c+' × 100 = '+fmt(markup)+'%';
+}
+[a,b].forEach(function(el){el.addEventListener('input',calc);el.addEventListener('change',calc)});
+calc();
+</script>
+<!-- Monetag In-Page Push (zone 12092266) -->
+<script>(function(s){s.dataset.zone='12092266',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+</body>
+</html>
