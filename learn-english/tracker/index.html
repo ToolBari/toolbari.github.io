@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>পড়ার ট্র্যাকার — ToolBari স্কুল</title>
+<meta name="description" content="ToolBari স্কুলের পড়ার ট্র্যাকার: পড়ার সেশনের টাইমার, আজকের মোট পড়া, ধারাবাহিকতা আর সপ্তাহের হিসাব — সব তোমার নিজের ফোনেই থাকে।">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⏱️</text></svg>">
+<style>*{box-sizing:border-box}
+body{margin:0;font-family:"Noto Sans Bengali","Hind Siliguri",system-ui,sans-serif;background:#f4f7fc;color:#17233b;line-height:1.75;font-size:16.5px}
+a{color:#2563eb}
+header{position:sticky;top:0;z-index:20;background:#2563eb;color:#fff;box-shadow:0 2px 10px rgba(20,40,90,.25)}
+.hwrap{max-width:860px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px}
+.logo{font-weight:800;font-size:19px;color:#fff;text-decoration:none}
+.logo span{color:#ffb020}
+.sp{flex:1}
+.backlink{color:#fff;font-size:14.5px;text-decoration:none;background:rgba(255,255,255,.16);padding:7px 13px;border-radius:999px}
+main{max-width:860px;margin:0 auto;padding:18px 14px 56px}
+.hero{background:linear-gradient(135deg,#2563eb,#0ea5e9);color:#fff;border-radius:20px;padding:24px 20px;margin-bottom:16px;text-align:center}
+.hero h1{margin:0 0 6px;font-size:26px;line-height:1.35}
+.hero p{margin:3px 0;opacity:.96}
+section.blk{background:#fff;border-radius:18px;padding:20px 18px;margin:0 0 16px;box-shadow:0 2px 10px rgba(30,50,100,.07)}
+section.blk h2{margin:0 0 10px;font-size:20px}
+section.blk p{margin:6px 0}
+.pill{display:inline-block;background:#2563eb;color:#fff;border:0;border-radius:999px;padding:12px 22px;font-size:16px;font-weight:700;cursor:pointer;min-height:48px;text-decoration:none;text-align:center}
+.pill.green{background:#22c55e;color:#06280f}
+.pill.grey{background:#e8eefc;color:#2563eb}
+.pill:disabled{opacity:.45;cursor:default}
+#clock{font-size:56px;font-weight:900;letter-spacing:2px;line-height:1.15;margin:8px 0 2px;font-variant-numeric:tabular-nums}
+#sessState{font-size:15px;opacity:.92;min-height:26px}
+.btnrow{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:12px 0}
+@media(max-width:560px){.stats{grid-template-columns:1fr 1fr 1fr}}
+.stat{background:#f8fafc;border:1px solid #e7edf7;border-radius:14px;padding:12px 8px;text-align:center}
+.stat b{display:block;font-size:21px;color:#2563eb;line-height:1.3}
+.stat span{font-size:13.5px;color:#5b6b8c}
+#doneMsg{display:none;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:14px;padding:12px 14px;margin:12px 0}
+.week{display:flex;align-items:flex-end;gap:8px;height:150px;margin:14px 0 4px;padding:0 2px}
+.wcol{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end}
+.wbar{width:100%;max-width:44px;background:linear-gradient(180deg,#38bdf8,#2563eb);border-radius:8px 8px 3px 3px;min-height:4px}
+.wcol.today .wbar{background:linear-gradient(180deg,#4ade80,#16a34a)}
+.wmin{font-size:12px;color:#5b6b8c;line-height:1.2;text-align:center}
+.wday{font-size:13px;font-weight:700}
+footer{text-align:center;color:#5b6b8c;font-size:14px;padding:16px 12px 30px}
+footer a{margin:0 6px}</style>
+</head>
+<body>
+<header><div class="hwrap"><a class="logo" href="https://toolbari.github.io/">Tool<span>Bari</span></a><div class="sp"></div><a class="backlink" href="../school/">স্কুল হোম</a></div></header>
+<main>
+<div class="hero">
+<h1>⏱️ পড়ার ট্র্যাকার</h1>
+<p>পড়া শুরুর আগে টাইমার চালাও, শেষ হলে “শেষ করলাম” চাপ দাও। কতক্ষণ পড়লে, কত দিন ধারাবাহিক থাকলে — সব হিসাব এখানেই।</p>
+<div id="clock">00:00</div>
+<div id="sessState">এখনো সেশন শুরু হয়নি</div>
+<div class="btnrow">
+<button id="btnStart" class="pill green">▶ শুরু করো</button>
+<button id="btnPause" class="pill grey" disabled>⏸ থামাও</button>
+<button id="btnFinish" class="pill" disabled>✔ শেষ করলাম</button>
+</div>
+</div>
+
+<div id="doneMsg"></div>
+
+<section class="blk">
+<h2>তোমার হিসাব</h2>
+<div class="stats">
+<div class="stat"><b id="stToday">০ মিনিট</b><span>আজ মোট পড়া</span></div>
+<div class="stat"><b id="stStreak">০ দিন</b><span>ধারাবাহিকতা</span></div>
+<div class="stat"><b id="stWeek">০ মিনিট</b><span>এই সপ্তাহে মোট</span></div>
+</div>
+<p style="font-size:14.5px;color:#5b6b8c">৫ মিনিট হোক বা ৫০ — প্রতিদিনের ছোট পড়াই ধারাবাহিকতা বানায়। একদিন ছুটে গেলে কোনো লজ্জা নেই, পরের দিন আবার শুরু করলেই হবে।</p>
+</section>
+
+<section class="blk">
+<h2>গত ৭ দিন</h2>
+<div class="week" id="week"></div>
+<p style="font-size:14.5px;color:#5b6b8c">সবুজ দাগটি আজকের দিন। দাগের উপরে ওই দিনের মোট পড়ার সময়।</p>
+</section>
+
+<section class="blk">
+<h2>জেনে রাখো</h2>
+<p>✔️ সেশন শেষ করলেই আজকের দিনটা “পড়া হয়েছে” বলে গোনা হয় — তাই স্কুলের সন্ধ্যার রিমাইন্ডার সেদিন আর বিরক্ত করবে না। রিমাইন্ডারের নিয়ম (দিনে সর্বোচ্চ ২টি) আর বন্ধের সুইচ <a href="../school/#reminders">স্কুল হোমেই</a> আছে।</p>
+<p>✔️ এই হিসাব শুধু <b>তোমার এই ফোনের ব্রাউজারেই</b> থাকে — কোনো সার্ভারে যায় না, কেউ দেখতেও পায় না। ফোন বদলালে হিসাব সঙ্গে যাবে না — এই সীমাটা আমরা আগেই পরিষ্কার করে বলছি।</p>
+<p>✔️ পেজ বন্ধ করে রাখলেও চলমান সেশনের সময় হারায় না — ফিরে এলেই ঘড়ি ঠিক জায়গা থেকে চলতে থাকে।</p>
+</section>
+</main>
+<footer><a href="../school/">স্কুল হোম</a> · <a href="../">EnglishBari কোর্স</a> · <a href="../help/">সাহায্য</a><br>ToolBari স্কুল — সহজ বাংলায়, ধাপে ধাপে।</footer>
+
+<script id="trk-logic">
+/* ---- পড়ার ট্র্যাকার — pure logic (unit-tested) + DOM wiring ----
+   Storage: ONE key "school_tracker_v1" = {days:{"YYYY-MM-DD":seconds}, live:{acc,running,since,startDate}|null}
+   The key prefix school_tracker_ does not collide with school_done_* / school_quiz_*.
+   Finishing a session also sets the existing school_studied_<date>="1" flag,
+   which is exactly what the school home's reminder layer 1 reads — so the
+   tracker rides the existing reminder dosage (max 2/day) with NO new
+   notification machinery of its own. */
+var TRK_KEY="school_tracker_v1";
+function trkDateStr(d){return d.toISOString().slice(0,10);}
+function trkLoad(store){try{var v=JSON.parse(store.getItem(TRK_KEY)||"null");if(v&&typeof v==="object"&&v.days&&typeof v.days==="object")return v;}catch(e){}return{days:{},live:null};}
+function trkSave(store,v){try{store.setItem(TRK_KEY,JSON.stringify(v));}catch(e){}}
+function trkAddSeconds(days,dateStr,secs){var out={};for(var k in days)out[k]=days[k];out[dateStr]=(out[dateStr]||0)+Math.max(0,Math.round(secs));return out;}
+function trkHas(days,ds){return (days[ds]||0)>0;}
+function trkStreak(days,todayStr){var d=new Date(todayStr+"T00:00:00Z");var cur=trkDateStr(d);
+if(!trkHas(days,cur)){d=new Date(d.getTime()-86400000);cur=trkDateStr(d);if(!trkHas(days,cur))return 0;}
+var n=0;while(trkHas(days,cur)){n++;d=new Date(d.getTime()-86400000);cur=trkDateStr(d);}return n;}
+function trkWeek(days,todayStr){var out=[];var base=new Date(todayStr+"T00:00:00Z");
+for(var i=6;i>=0;i--){var d=new Date(base.getTime()-i*86400000);var ds=trkDateStr(d);out.push({date:ds,secs:days[ds]||0});}return out;}
+function trkLiveSeconds(live,nowMs){if(!live)return 0;var s=live.acc||0;if(live.running&&live.since)s+=(nowMs-live.since)/1000;return Math.max(0,Math.floor(s));}
+function trkFmtClock(totalSecs){totalSecs=Math.max(0,Math.floor(totalSecs));var h=Math.floor(totalSecs/3600),m=Math.floor((totalSecs%3600)/60),s=totalSecs%60;function p(n){return String(n).padStart(2,"0");}return (h>0?p(h)+":":"")+p(m)+":"+p(s);}
+function trkFmtDur(secs){secs=Math.round(secs||0);if(secs<60)return secs+" সেকেন্ড";var m=Math.floor(secs/60);if(m<60)return m+" মিনিট";var h=Math.floor(m/60),r=m%60;return r?h+" ঘণ্টা "+r+" মিনিট":h+" ঘণ্টা";}
+var TRK_WDAYS=["রবি","সোম","মঙ্গল","বুধ","বৃহস্পতি","শুক্র","শনি"];
+</script>
+<script>
+(function(){
+var store=window.localStorage;
+var state=trkLoad(store);
+var clockEl=document.getElementById("clock"),stateEl=document.getElementById("sessState");
+var bStart=document.getElementById("btnStart"),bPause=document.getElementById("btnPause"),bFinish=document.getElementById("btnFinish");
+function todayStr(){return trkDateStr(new Date());}
+function save(){trkSave(store,state);}
+function liveSecs(){return trkLiveSeconds(state.live,Date.now());}
+function render(){
+var ls=liveSecs();
+clockEl.textContent=trkFmtClock(ls);
+var live=state.live;
+if(!live){stateEl.textContent="এখনো সেশন শুরু হয়নি";bStart.disabled=false;bStart.textContent="▶ শুরু করো";bPause.disabled=true;bFinish.disabled=true;}
+else if(live.running){stateEl.textContent="সেশন চলছে… মন দিয়ে পড়ো 📚";bStart.disabled=true;bPause.disabled=false;bFinish.disabled=false;}
+else{stateEl.textContent="সেশন থামানো আছে — আবার শুরু বা শেষ করতে পারো";bStart.disabled=false;bStart.textContent="▶ আবার শুরু";bPause.disabled=true;bFinish.disabled=false;}
+var t=todayStr();
+var todayTotal=(state.days[t]||0)+((live&&live.startDate===t)?ls:0);
+document.getElementById("stToday").textContent=trkFmtDur(todayTotal);
+document.getElementById("stStreak").textContent=trkStreak(state.days,t)+" দিন";
+var wk=trkWeek(state.days,t);var wsum=0,mx=0,i;
+for(i=0;i<wk.length;i++){wsum+=wk[i].secs;if(wk[i].secs>mx)mx=wk[i].secs;}
+if(live&&live.startDate===t)wsum+=ls;
+document.getElementById("stWeek").textContent=trkFmtDur(wsum);
+var wkEl=document.getElementById("week");var html="";
+for(i=0;i<wk.length;i++){var d=new Date(wk[i].date+"T00:00:00Z");var secs=wk[i].secs+((live&&live.startDate===wk[i].date)?ls:0);
+var h=mx>0?Math.max(4,Math.round(secs/mx*100)):4;
+html+='<div class="wcol'+(wk[i].date===t?" today":"")+'"><div class="wmin">'+(secs>0?trkFmtDur(secs):"—")+'</div><div class="wbar" style="height:'+h+'%"></div><div class="wday">'+TRK_WDAYS[d.getUTCDay()]+'</div></div>';}
+wkEl.innerHTML=html;
+}
+bStart.addEventListener("click",function(){
+var now=Date.now();
+if(!state.live)state.live={acc:0,running:true,since:now,startDate:todayStr()};
+else{state.live.running=true;state.live.since=now;}
+save();render();});
+bPause.addEventListener("click",function(){
+if(!state.live)return;state.live.acc=liveSecs();state.live.running=false;state.live.since=null;save();render();});
+bFinish.addEventListener("click",function(){
+if(!state.live)return;
+var total=liveSecs();var dstr=state.live.startDate||todayStr();
+if(total>0){state.days=trkAddSeconds(state.days,dstr,total);
+try{store.setItem("school_studied_"+dstr,"1");}catch(e){}}
+state.live=null;save();
+var dm=document.getElementById("doneMsg");
+if(total>0){dm.style.display="block";dm.innerHTML="🎉 খুব ভালো! এই সেশনে তুমি <b>"+trkFmtDur(total)+"</b> পড়েছ। আজকের মোট পড়া এখন <b>"+trkFmtDur(state.days[todayStr()]||0)+"</b>। ছোট ছোট দিনের পড়াই একদিন বড় ফল আনে।";}
+else{dm.style.display="block";dm.textContent="সেশন শেষ — পরেরবার একটু বসেই দেখো, ৫ মিনিট হলেই চলবে।";}
+render();});
+render();
+setInterval(render,500);
+document.addEventListener("visibilitychange",function(){if(!document.hidden)render();});
+})();
+</script>
+<script>
+if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("/learn-english/sw.js").catch(function(){});});}
+</script>
+</body>
+</html>

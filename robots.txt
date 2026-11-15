@@ -1,3 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /learn-english/mentor/
+Disallow: /learn-english/tracker/
 Sitemap: https://toolbari.github.io/sitemap.xml
+Sitemap: https://toolbari.github.io/learn-english/sitemap.xml

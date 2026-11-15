@@ -1,0 +1,9 @@
+# ToolBari School — robots rules for the /learn-english/ subtree.
+# IMPORTANT: crawlers only honour robots.txt at the DOMAIN ROOT.
+# At publish time, merge these lines into https://toolbari.github.io/robots.txt
+# (the subtree copy below is kept for reference and travels with the repo).
+User-agent: *
+Allow: /learn-english/
+Disallow: /learn-english/mentor/
+Disallow: /learn-english/tracker/
+Sitemap: https://toolbari.github.io/learn-english/sitemap.xml
