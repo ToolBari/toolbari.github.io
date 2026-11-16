@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Label Maker: Design Printable Address and Product Labels | ToolBari</title>
+<meta name="description" content="Design printable label sheets in your browser. Type up to four lines per label, pick an Avery preset or a custom layout, and print at actual size.">
+<link rel="canonical" href="https://toolbari.github.io/label-maker/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Label Maker: Design Printable Address and Product Labels">
+<meta property="og:description" content="Type your label text, pick a sheet layout, and print matching labels at actual size.">
+<meta property="og:url" content="https://toolbari.github.io/label-maker/">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+button{background:#0b7a4b;color:#fff;border:none;padding:11px 18px;border-radius:8px;font-size:15.5px;font-weight:700;cursor:pointer;margin-top:12px}
+button:hover{background:#096a41}
+button:focus{outline:2px solid #ff9f2e;outline-offset:2px}
+.calc textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;font-family:inherit;min-height:150px;resize:vertical}
+.sheet-wrap{margin:14px 0;overflow:hidden}
+.sheet{position:relative;background:#fff;box-shadow:0 4px 14px rgba(30,41,59,.18);border:1px solid #cbd5e1}
+.label{position:absolute;overflow:hidden;border:1px dashed #94a3b8;padding:2mm;box-sizing:border-box;font-size:3.5mm;line-height:1.35;word-break:break-word}
+.msg{font-size:15px;color:#334155;margin-top:10px}
+@media print{
+body{background:#fff}
+.wrap{max-width:none;padding:0;margin:0}
+.brand,h1,.answer,.warn,h2,p,ol,ul,.faq,.links,footer{display:none !important}
+.calc{border:none;box-shadow:none;padding:0;margin:0;background:none}
+.calc label,.calc input,.calc select,.calc textarea,.calc button{display:none !important}
+.sheet-wrap{margin:0;overflow:visible;height:auto !important;width:auto !important}
+.sheet{transform:none !important;border:none;box-shadow:none;page-break-after:always}
+.sheet-wrap:last-child .sheet{page-break-after:auto}
+.label{border:none}
+}
+</style>
+<style id="pageSizeStyle">@page{size:A4;margin:0}</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many lines can each label have?","acceptedAnswer":{"@type":"Answer","text":"Each label can have up to 4 lines of text. Type one label per group and leave a blank line between labels. Lines after the fourth in a group are left out."}},{"@type":"Question","name":"Which label sheets does this work with?","acceptedAnswer":{"@type":"Answer","text":"Two presets are built in: Avery L7160, an A4 sheet with 21 labels of 63.5 by 38.1 millimetres, and Avery 5160, a US Letter sheet with 30 labels of 2.625 by 1 inch. The custom layout lets you set your own rows, columns, label size and page size."}},{"@type":"Question","name":"Why should I print a test sheet first?","acceptedAnswer":{"@type":"Answer","text":"Printer scaling shifts alignment, so print one test sheet on plain paper and hold it against a label sheet before printing the real labels. Print at 100 percent, or actual size, with no scaling."}},{"@type":"Question","name":"How many sheets will my labels need?","acceptedAnswer":{"@type":"Answer","text":"The tool shows the sheet count as you type. For example, 25 labels on the L7160 preset need 2 sheets: 21 labels on sheet 1 and 4 on sheet 2."}}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Label Maker</h1>
+<p class="answer">Type the text for each label, pick a sheet layout, and print a sheet of matching labels from your browser. The preview shows exactly how the labels sit on the page before you print.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="labelText">Label text (one label per group, blank line between labels, up to 4 lines per label)</label>
+<textarea id="labelText" placeholder="Type one label per group, with a blank line between labels. Each label can have up to 4 lines."></textarea>
+<label for="preset">Sheet preset</label>
+<select id="preset">
+<option value="l7160">Avery L7160 (A4, 21 labels per sheet)</option>
+<option value="a5160">Avery 5160 (US Letter, 30 labels per sheet)</option>
+<option value="custom">Custom layout</option>
+</select>
+<div id="customFields" style="display:none">
+<label for="customCols">Columns (1 to 6)</label>
+<input type="number" id="customCols" min="1" max="6" step="1" value="3">
+<label for="customRows">Rows (1 to 12)</label>
+<input type="number" id="customRows" min="1" max="12" step="1" value="7">
+<label for="customW">Label width (mm)</label>
+<input type="number" id="customW" min="1" step="0.1" value="63.5">
+<label for="customH">Label height (mm)</label>
+<input type="number" id="customH" min="1" step="0.1" value="38.1">
+<label for="customPage">Page size</label>
+<select id="customPage">
+<option value="A4">A4 (210 by 297 mm)</option>
+<option value="Letter">US Letter (215.9 by 279.4 mm)</option>
+</select>
+</div>
+<p class="out" id="labelOut">Type your labels to see the sheet preview.</p>
+<p class="steps" id="labelSteps">Avery L7160 holds 21 labels per sheet (3 across × 7 down).</p>
+<p class="msg" id="labelMsg"></p>
+<button type="button" id="printBtn">Print labels</button>
+<div id="sheetArea"></div>
+</div>
+<div class="warn">Print one test sheet first, because printer scaling shifts alignment. Print at 100 percent, or actual size, with no scaling, and check the test sheet against a label sheet before printing the real labels. The preview shows the layout at screen scale; the printed sheet uses exact millimetre sizing.</div>
+<h2>How to make labels</h2>
+<p>Type the text for each label in the box. One label per group, with a blank line between labels. Each label can have up to 4 lines of text; lines after the fourth in a group are left out, and the tool says so.</p>
+<p>Pick a sheet preset or set a custom layout. The preview shows the labels laid out on each sheet, and the tool tells you how many sheets the labels need. For example, 25 labels on the L7160 preset need 2 sheets: 21 labels on sheet 1 and 4 on sheet 2.</p>
+<p>When the preview looks right, use the Print button. Print at 100 percent, or actual size, with no scaling, so the labels line up with the sheet. This tool makes label sheets, which is different from business cards.</p>
+<h2>Sheet sizes: Avery L7160 and Avery 5160</h2>
+<p>Avery L7160 is an A4 sheet with 21 labels, 3 across and 7 down. Each label measures 63.5 by 38.1 millimetres. The top margin is 15.15 millimetres and the left margin is 7.25 millimetres.</p>
+<p>Avery 5160 is a US Letter sheet with 30 labels, 3 across and 10 down. Each label measures 2.625 by 1 inch. The preset centres the label grid on the page.</p>
+<p>The custom layout lets you set your own rows, columns, label width and height, and page size. The grid is centred on the page. If the labels do not fit on the page, the tool says so instead of drawing a broken layout.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>How many lines can each label have?</h3><p>Each label can have up to 4 lines of text. Type one label per group and leave a blank line between labels. Lines after the fourth in a group are left out.</p></div>
+<div class="faq"><h3>Which label sheets does this work with?</h3><p>Two presets are built in: Avery L7160, an A4 sheet with 21 labels of 63.5 by 38.1 millimetres, and Avery 5160, a US Letter sheet with 30 labels of 2.625 by 1 inch. The custom layout lets you set your own rows, columns, label size and page size.</p></div>
+<div class="faq"><h3>Why should I print a test sheet first?</h3><p>Printer scaling shifts alignment, so print one test sheet on plain paper and hold it against a label sheet before printing the real labels. Print at 100 percent, or actual size, with no scaling.</p></div>
+<div class="faq"><h3>How many sheets will my labels need?</h3><p>The tool shows the sheet count as you type. For example, 25 labels on the L7160 preset need 2 sheets: 21 labels on sheet 1 and 4 on sheet 2.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/business-card-maker/">Business Card Maker</a> · <a href="https://toolbari.github.io/invoice-generator/">Invoice Generator</a> · <a href="https://toolbari.github.io/cv-builder/">CV Builder</a> · <a href="https://toolbari.github.io/word-counter/">Word Counter</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<script>
+var PAGE_SIZES = { A4: { w: 210, h: 297 }, Letter: { w: 215.9, h: 279.4 } };
+var PRESETS = {
+  l7160: { name: 'Avery L7160', page: 'A4', cols: 3, rows: 7, labelW: 63.5, labelH: 38.1, marginL: 7.25, marginT: 15.15, gapX: 2.5, gapY: 0 },
+  a5160: { name: 'Avery 5160', page: 'Letter', cols: 3, rows: 10, labelW: 66.675, labelH: 25.4, marginL: 7.9375, marginT: 12.7, gapX: 0, gapY: 0 }
+};
+function mmToPx(mm) { return mm * 96 / 25.4; }
+function parseLabels(text) {
+  var groups = text.split(/\n\s*\n/);
+  var labels = [];
+  var truncated = 0;
+  for (var i = 0; i < groups.length; i++) {
+    var rawLines = groups[i].split('\n');
+    var lines = [];
+    for (var j = 0; j < rawLines.length; j++) {
+      var line = rawLines[j].replace(/^\s+|\s+$/g, '');
+      if (line.length > 0) { lines.push(line); }
+    }
+    if (lines.length === 0) { continue; }
+    if (lines.length > 4) { truncated++; lines = lines.slice(0, 4); }
+    labels.push(lines);
+  }
+  return { labels: labels, truncated: truncated };
+}
+function sheetsNeeded(count, perSheet) {
+  if (count <= 0) { return 0; }
+  return Math.ceil(count / perSheet);
+}
+function sheetBreakdown(count, perSheet) {
+  var out = [];
+  var left = count;
+  while (left > 0) {
+    var n = Math.min(perSheet, left);
+    out.push(n);
+    left -= n;
+  }
+  return out;
+}
+function computeLabelRects(layout) {
+  var rects = [];
+  for (var r = 0; r < layout.rows; r++) {
+    for (var c = 0; c < layout.cols; c++) {
+      rects.push({
+        x: layout.marginL + c * (layout.labelW + layout.gapX),
+        y: layout.marginT + r * (layout.labelH + layout.gapY),
+        w: layout.labelW,
+        h: layout.labelH
+      });
+    }
+  }
+  return rects;
+}
+function customLayout(rows, cols, labelW, labelH, page) {
+  var size = PAGE_SIZES[page] || PAGE_SIZES.A4;
+  var marginL = (size.w - cols * labelW) / 2;
+  var marginT = (size.h - rows * labelH) / 2;
+  if (marginL < 0 || marginT < 0) {
+    return { error: 'The labels do not fit on the page. Reduce the label size or the number of rows and columns.' };
+  }
+  return { name: 'Custom', page: page, cols: cols, rows: rows, labelW: labelW, labelH: labelH, marginL: marginL, marginT: marginT, gapX: 0, gapY: 0 };
+}
+function clampInt(n, min, max, fallback) {
+  n = parseInt(n, 10);
+  if (isNaN(n)) { return fallback; }
+  if (n < min) { return min; }
+  if (n > max) { return max; }
+  return n;
+}
+if (typeof document !== 'undefined') {
+  var textEl = document.getElementById('labelText');
+  var presetEl = document.getElementById('preset');
+  var customFieldsEl = document.getElementById('customFields');
+  var customColsEl = document.getElementById('customCols');
+  var customRowsEl = document.getElementById('customRows');
+  var customWEl = document.getElementById('customW');
+  var customHEl = document.getElementById('customH');
+  var customPageEl = document.getElementById('customPage');
+  var outEl = document.getElementById('labelOut');
+  var stepsEl = document.getElementById('labelSteps');
+  var msgEl = document.getElementById('labelMsg');
+  var sheetAreaEl = document.getElementById('sheetArea');
+  var pageSizeStyleEl = document.getElementById('pageSizeStyle');
+  function updatePageSize(page) {
+    pageSizeStyleEl.textContent = '@page{size:' + (page === 'Letter' ? 'Letter' : 'A4') + ';margin:0}';
+  }
+  function currentLayout() {
+    if (presetEl.value !== 'custom') { return PRESETS[presetEl.value]; }
+    var cols = clampInt(customColsEl.value, 1, 6, 3);
+    var rows = clampInt(customRowsEl.value, 1, 12, 7);
+    customColsEl.value = cols;
+    customRowsEl.value = rows;
+    var lw = parseFloat(customWEl.value);
+    var lh = parseFloat(customHEl.value);
+    if (isNaN(lw) || lw <= 0 || isNaN(lh) || lh <= 0) {
+      msgEl.textContent = 'Label width and height must be numbers above 0.';
+      return null;
+    }
+    return customLayout(rows, cols, lw, lh, customPageEl.value);
+  }
+  function rescale() {
+    var wraps = sheetAreaEl.querySelectorAll('.sheet-wrap');
+    var avail = sheetAreaEl.clientWidth;
+    for (var i = 0; i < wraps.length; i++) {
+      var sheet = wraps[i].firstChild;
+      var pageW = parseFloat(sheet.style.width);
+      var pageH = parseFloat(sheet.style.height);
+      var s = Math.min(1, avail / mmToPx(pageW));
+      sheet.style.transform = 'scale(' + s + ')';
+      sheet.style.transformOrigin = 'top left';
+      wraps[i].style.width = (mmToPx(pageW) * s) + 'px';
+      wraps[i].style.height = (mmToPx(pageH) * s) + 'px';
+    }
+  }
+  function render() {
+    var parsed = parseLabels(textEl.value);
+    var labels = parsed.labels;
+    var layout = currentLayout();
+    sheetAreaEl.innerHTML = '';
+    if (!layout) {
+      outEl.textContent = '';
+      stepsEl.textContent = '';
+      return;
+    }
+    if (layout.error) {
+      msgEl.textContent = layout.error;
+      outEl.textContent = '';
+      stepsEl.textContent = '';
+      return;
+    }
+    var perSheet = layout.rows * layout.cols;
+    var count = labels.length;
+    var sheets = sheetsNeeded(count, perSheet);
+    var breakdown = sheetBreakdown(count, perSheet);
+    updatePageSize(layout.page);
+    if (count === 0) {
+      outEl.textContent = 'Type your labels to see the sheet preview.';
+      stepsEl.textContent = layout.name + ' holds ' + perSheet + ' labels per sheet (' + layout.cols + ' across × ' + layout.rows + ' down).';
+      msgEl.textContent = '';
+      return;
+    }
+    outEl.textContent = count + (count === 1 ? ' label needs ' : ' labels need ') + sheets + (sheets === 1 ? ' sheet.' : ' sheets.');
+    var stepLines = [layout.name + ' holds ' + perSheet + ' labels per sheet (' + layout.cols + ' across × ' + layout.rows + ' down).'];
+    breakdown.forEach(function (n, i) {
+      stepLines.push('Sheet ' + (i + 1) + ': ' + n + (n === 1 ? ' label.' : ' labels.'));
+    });
+    stepsEl.textContent = stepLines.join('\n');
+    var rects = computeLabelRects(layout);
+    var size = PAGE_SIZES[layout.page];
+    breakdown.forEach(function (n, si) {
+      var wrap = document.createElement('div');
+      wrap.className = 'sheet-wrap';
+      var sheet = document.createElement('div');
+      sheet.className = 'sheet';
+      sheet.style.width = size.w + 'mm';
+      sheet.style.height = size.h + 'mm';
+      for (var i = 0; i < n; i++) {
+        var rect = rects[i];
+        var lab = document.createElement('div');
+        lab.className = 'label';
+        lab.style.left = rect.x + 'mm';
+        lab.style.top = rect.y + 'mm';
+        lab.style.width = rect.w + 'mm';
+        lab.style.height = rect.h + 'mm';
+        var lines = labels[si * perSheet + i];
+        lines.forEach(function (line) {
+          var d = document.createElement('div');
+          d.textContent = line;
+          lab.appendChild(d);
+        });
+        sheet.appendChild(lab);
+      }
+      wrap.appendChild(sheet);
+      sheetAreaEl.appendChild(wrap);
+    });
+    if (parsed.truncated > 0) {
+      msgEl.textContent = parsed.truncated + (parsed.truncated === 1 ? ' label' : ' labels') + ' had more than 4 lines; only the first 4 lines are shown.';
+    } else {
+      msgEl.textContent = 'Preview ready. Use the Print button when the labels look right.';
+    }
+    rescale();
+  }
+  textEl.addEventListener('input', render);
+  presetEl.addEventListener('change', function () {
+    customFieldsEl.style.display = presetEl.value === 'custom' ? 'block' : 'none';
+    render();
+  });
+  customColsEl.addEventListener('change', render);
+  customRowsEl.addEventListener('change', render);
+  customWEl.addEventListener('change', render);
+  customHEl.addEventListener('change', render);
+  customPageEl.addEventListener('change', render);
+  document.getElementById('printBtn').addEventListener('click', function () {
+    var parsed = parseLabels(textEl.value);
+    if (parsed.labels.length === 0) {
+      msgEl.textContent = 'Type at least one label before printing.';
+      return;
+    }
+    window.print();
+  });
+  window.addEventListener('resize', rescale);
+  render();
+}
+</script>
+<!-- TB-MONETAG -->
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sunrise and Sunset Calculator: Sunrise, Sunset, Solar Noon and Day Length | ToolBari</title>
+<meta name="description" content="Find sunrise, sunset, solar noon and day length for any place and date. Enter latitude, longitude, date and UTC offset — the NOAA solar algorithm does the rest.">
+<link rel="canonical" href="https://toolbari.github.io/sunrise-sunset-calculator/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sunrise and Sunset Calculator: Sunrise, Sunset, Solar Noon and Day Length">
+<meta property="og:description" content="Sunrise, sunset, solar noon and day length for any place and date, using the NOAA solar algorithm.">
+<meta property="og:url" content="https://toolbari.github.io/sunrise-sunset-calculator/">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+button{background:#0b7a4b;color:#fff;font-weight:700;border:none;padding:11px 20px;border-radius:999px;font-size:15.5px;cursor:pointer;margin:10px 6px 0 0}
+button:hover{opacity:.92}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How accurate is this sunrise and sunset calculator?","acceptedAnswer":{"@type":"Answer","text":"The results are accurate to about 1 minute for a flat sea-level horizon with standard refraction. The NOAA algorithm is the same method used by almanacs, but hills, buildings and weather can shift the times you actually see."}},{"@type":"Question","name":"What does the zenith of 90.833 degrees mean?","acceptedAnswer":{"@type":"Answer","text":"Sunrise and sunset are timed when the Sun's upper edge touches the horizon. The zenith of 90.833 degrees allows for the Sun's apparent radius and for refraction bending sunlight near the horizon."}},{"@type":"Question","name":"Why does the Sun never rise or never set on some dates?","acceptedAnswer":{"@type":"Answer","text":"Near the poles the Sun can stay below the horizon all day in winter or above it all day in summer. When that happens for your latitude and date, this calculator says so instead of showing a time."}},{"@type":"Question","name":"What is solar noon?","acceptedAnswer":{"@type":"Answer","text":"Solar noon is the moment the Sun crosses your local meridian and reaches its highest point for the day. It falls halfway between sunrise and sunset and is rarely at 12:00 on the clock."}}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Sunrise and Sunset Calculator</h1>
+<p class="answer">Enter a latitude, longitude, date and UTC offset to get sunrise, sunset, solar noon and day length for that place and day. The calculation follows the NOAA solar-calculator algorithm, including its second-pass refinement for extra accuracy.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="lat">Latitude (degrees, -90 to 90)</label>
+<input id="lat" type="number" min="-90" max="90" step="any" value="23.8103">
+<label for="lon">Longitude (degrees, -180 to 180)</label>
+<input id="lon" type="number" min="-180" max="180" step="any" value="90.4125">
+<label for="date">Date</label>
+<input id="date" type="date" value="2026-11-16">
+<label for="tz">UTC offset (hours)</label>
+<input id="tz" type="number" min="-12" max="14" step="0.5" value="6">
+<button type="button" id="calcBtn">Calculate sunrise and sunset</button>
+<p class="out" id="sunOut">Sunrise 06:13 · Sunset 17:12 · Solar noon 11:43 · Day length 10 hours 59 minutes</p>
+<p class="steps" id="sunSteps">Julian day: 2461360.5
+Julian century: 0.2687
+Solar declination: -18.68 degrees
+Equation of time: 15.36 minutes
+Hour angle: 82.39 degrees
+Second pass: declination and equation of time recomputed at each event time
+Day length: 659 minutes = 10 hours 59 minutes</p>
+</div>
+<div class="warn">These times are accurate to about 1 minute for a flat sea-level horizon with standard atmospheric refraction. Hills, buildings, high altitude and unusual weather can shift the real sunrise and sunset by a few minutes.</div>
+<h2>How to use the sunrise and sunset calculator</h2>
+<ol>
+<li>Enter the latitude and longitude of the place. Latitude runs from -90 at the South Pole to 90 at the North Pole; longitude runs from -180 to 180, with east of Greenwich positive.</li>
+<li>Pick the date you want times for.</li>
+<li>Enter the UTC offset of the place in hours — for example 6 for Bangladesh, which is 6 hours ahead of UTC.</li>
+<li>Press Calculate sunrise and sunset. The tool shows sunrise, sunset, solar noon and day length, with the working underneath.</li>
+</ol>
+<h2>How the calculation works</h2>
+<p>The tool follows the NOAA solar-calculator algorithm. It converts the date to a Julian day and Julian century, then works out the Sun's geometric mean longitude and anomaly, applies the equation of center to get the true and apparent longitude, and finds the obliquity of the ecliptic. From those it gets the solar declination and the equation of time, then the hour angle at the standard zenith of 90.833 degrees — the point where the Sun's upper edge meets the horizon, with refraction included. Solar noon is 720 minutes minus 4 minutes per degree of longitude minus the equation of time, and sunrise and sunset are solar noon minus and plus 4 minutes per degree of hour angle. A second pass recomputes the declination and equation of time at each first-pass event time, which tightens the result.</p>
+<h2>Worked example</h2>
+<p>Dhaka, Bangladesh: latitude 23.8103, longitude 90.4125, UTC offset +6, date 16 November 2026. The tool gives sunrise 06:13, sunset 17:12, solar noon 11:43 and a day length of 10 hours 59 minutes. These values are already filled in when the page loads, so you can press Calculate and check them at once.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>How accurate is this sunrise and sunset calculator?</h3><p>The results are accurate to about 1 minute for a flat sea-level horizon with standard refraction. The NOAA algorithm is the same method used by almanacs, but hills, buildings and weather can shift the times you actually see.</p></div>
+<div class="faq"><h3>What does the zenith of 90.833 degrees mean?</h3><p>Sunrise and sunset are timed when the Sun's upper edge touches the horizon. The zenith of 90.833 degrees allows for the Sun's apparent radius and for refraction bending sunlight near the horizon.</p></div>
+<div class="faq"><h3>Why does the Sun never rise or never set on some dates?</h3><p>Near the poles the Sun can stay below the horizon all day in winter or above it all day in summer. When that happens for your latitude and date, this calculator says so instead of showing a time.</p></div>
+<div class="faq"><h3>What is solar noon?</h3><p>Solar noon is the moment the Sun crosses your local meridian and reaches its highest point for the day. It falls halfway between sunrise and sunset and is rarely at 12:00 on the clock.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/bmi-calculator/">BMI Calculator</a> · <a href="https://toolbari.github.io/emi-calculator/">EMI Calculator</a> · <a href="https://toolbari.github.io/currency-converter/">Currency Converter</a> · <a href="https://toolbari.github.io/word-counter/">Word Counter</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<script>
+function degToRad(d){return d*Math.PI/180;}
+function radToDeg(r){return r*180/Math.PI;}
+function calcJD(year,month,day){
+if(month<=2){year-=1;month+=12;}
+var A=Math.floor(year/100);
+var B=2-A+Math.floor(A/4);
+return Math.floor(365.25*(year+4716))+Math.floor(30.6001*(month+1))+day+B-1524.5;
+}
+function calcTimeJulianCent(jd){return (jd-2451545.0)/36525.0;}
+function calcGeomMeanLongSun(t){
+var L0=280.46646+t*(36000.76983+0.0003032*t);
+while(L0>360)L0-=360;
+while(L0<0)L0+=360;
+return L0;
+}
+function calcGeomMeanAnomalySun(t){return 357.52911+t*(35999.05029-0.0001537*t);}
+function calcEccentricityEarthOrbit(t){return 0.016708634-t*(0.000042037+0.0000001267*t);}
+function calcSunEqOfCenter(t){
+var m=calcGeomMeanAnomalySun(t);
+var mrad=degToRad(m);
+var sinm=Math.sin(mrad),sin2m=Math.sin(2*mrad),sin3m=Math.sin(3*mrad);
+return sinm*(1.914602-t*(0.004817+0.000014*t))+sin2m*(0.019993-0.000101*t)+sin3m*0.000289;
+}
+function calcSunTrueLong(t){return calcGeomMeanLongSun(t)+calcSunEqOfCenter(t);}
+function calcSunApparentLong(t){
+var o=calcSunTrueLong(t);
+var omega=125.04-1934.136*t;
+return o-0.00569-0.00478*Math.sin(degToRad(omega));
+}
+function calcMeanObliquityOfEcliptic(t){
+var seconds=21.448-t*(46.8150+t*(0.00059-t*(0.001813)));
+return 23.0+(26.0+(seconds/60.0))/60.0;
+}
+function calcObliquityCorrection(t){
+var e0=calcMeanObliquityOfEcliptic(t);
+var omega=125.04-1934.136*t;
+return e0+0.00256*Math.cos(degToRad(omega));
+}
+function calcSunDeclination(t){
+var e=calcObliquityCorrection(t);
+var lambda=calcSunApparentLong(t);
+return radToDeg(Math.asin(Math.sin(degToRad(e))*Math.sin(degToRad(lambda))));
+}
+function calcEquationOfTime(t){
+var epsilon=calcObliquityCorrection(t);
+var l0=calcGeomMeanLongSun(t);
+var e=calcEccentricityEarthOrbit(t);
+var m=calcGeomMeanAnomalySun(t);
+var y=Math.tan(degToRad(epsilon)/2.0);y*=y;
+var sin2l0=Math.sin(2.0*degToRad(l0));
+var sinm=Math.sin(degToRad(m));
+var cos2l0=Math.cos(2.0*degToRad(l0));
+var sin4l0=Math.sin(4.0*degToRad(l0));
+var sin2m=Math.sin(2.0*degToRad(m));
+var Etime=y*sin2l0-2.0*e*sinm+4.0*e*y*sinm*cos2l0-0.5*y*y*sin4l0-1.25*e*e*sin2m;
+return radToDeg(Etime)*4.0;
+}
+function calcHourAngleSunrise(lat,solarDec){
+var latRad=degToRad(lat);
+var sdRad=degToRad(solarDec);
+var HAarg=(Math.cos(degToRad(90.833))/(Math.cos(latRad)*Math.cos(sdRad))-Math.tan(latRad)*Math.tan(sdRad));
+return {cosH:HAarg,ha:Math.acos(HAarg)};
+}
+function wrapMinutes(m){m=m%1440;if(m<0)m+=1440;return m;}
+function formatTime(minutes){
+var m=Math.round(minutes)%1440;if(m<0)m+=1440;
+var h=Math.floor(m/60);var mm=m%60;
+return (h<10?'0':'')+h+':'+(mm<10?'0':'')+mm;
+}
+function formatDayLength(minutes){
+var m=Math.round(minutes);
+var h=Math.floor(m/60);var mm=m%60;
+return h+' hours '+mm+' minutes';
+}
+function computeSunTimes(lat,lon,year,month,day,tz){
+var jd=calcJD(year,month,day);
+var t=calcTimeJulianCent(jd);
+var eqTime=calcEquationOfTime(t);
+var solarDec=calcSunDeclination(t);
+var ha=calcHourAngleSunrise(lat,solarDec);
+var result={jd:jd,t:t,eqTime:eqTime,decl:solarDec};
+if(ha.cosH>1){result.polar='night';return result;}
+if(ha.cosH<-1){result.polar='day';return result;}
+var hourAngle=radToDeg(ha.ha);
+result.hourAngle=hourAngle;
+var noonUTC=720-4*lon-eqTime;
+var riseUTC=720-4*(lon+hourAngle)-eqTime;
+var setUTC=720-4*(lon-hourAngle)-eqTime;
+var tNoon=calcTimeJulianCent(jd+noonUTC/1440);
+noonUTC=720-4*lon-calcEquationOfTime(tNoon);
+var tRise=calcTimeJulianCent(jd+riseUTC/1440);
+var eqRise=calcEquationOfTime(tRise);
+var decRise=calcSunDeclination(tRise);
+var haRise=calcHourAngleSunrise(lat,decRise);
+if(Math.abs(haRise.cosH)<=1)riseUTC=720-4*(lon+radToDeg(haRise.ha))-eqRise;
+var tSet=calcTimeJulianCent(jd+setUTC/1440);
+var eqSet=calcEquationOfTime(tSet);
+var decSet=calcSunDeclination(tSet);
+var haSet=calcHourAngleSunrise(lat,decSet);
+if(Math.abs(haSet.cosH)<=1)setUTC=720-4*(lon-radToDeg(haSet.ha))-eqSet;
+result.riseLocal=wrapMinutes(riseUTC+tz*60);
+result.setLocal=wrapMinutes(setUTC+tz*60);
+result.noonLocal=wrapMinutes(noonUTC+tz*60);
+result.dayLength=setUTC-riseUTC;
+return result;
+}
+function sunStepsText(r){
+return 'Julian day: '+r.jd.toFixed(1)+
+'\nJulian century: '+r.t.toFixed(4)+
+'\nSolar declination: '+r.decl.toFixed(2)+' degrees'+
+'\nEquation of time: '+r.eqTime.toFixed(2)+' minutes'+
+'\nHour angle: '+r.hourAngle.toFixed(2)+' degrees'+
+'\nSecond pass: declination and equation of time recomputed at each event time'+
+'\nDay length: '+Math.round(r.dayLength)+' minutes = '+formatDayLength(r.dayLength);
+}
+if(typeof document!=='undefined'){
+var latEl=document.getElementById('lat');
+var lonEl=document.getElementById('lon');
+var dateEl=document.getElementById('date');
+var tzEl=document.getElementById('tz');
+var out=document.getElementById('sunOut');
+var steps=document.getElementById('sunSteps');
+function run(){
+var lat=parseFloat(latEl.value);
+var lon=parseFloat(lonEl.value);
+var tz=parseFloat(tzEl.value);
+var parts=(dateEl.value||'').split('-');
+if(isNaN(lat)||lat<-90||lat>90){out.textContent='Enter a latitude between -90 and 90.';steps.textContent='';return;}
+if(isNaN(lon)||lon<-180||lon>180){out.textContent='Enter a longitude between -180 and 180.';steps.textContent='';return;}
+if(parts.length!==3||!parts[0]||!parts[1]||!parts[2]){out.textContent='Pick a date.';steps.textContent='';return;}
+if(isNaN(tz)||tz<-12||tz>14){out.textContent='Enter a UTC offset between -12 and 14 hours.';steps.textContent='';return;}
+var r=computeSunTimes(lat,lon,parseInt(parts[0],10),parseInt(parts[1],10),parseInt(parts[2],10),tz);
+if(r.polar==='night'){out.textContent='The Sun does not rise on this date at this latitude (polar night).';steps.textContent='';return;}
+if(r.polar==='day'){out.textContent='The Sun does not set on this date at this latitude (polar day).';steps.textContent='';return;}
+out.textContent='Sunrise '+formatTime(r.riseLocal)+' · Sunset '+formatTime(r.setLocal)+' · Solar noon '+formatTime(r.noonLocal)+' · Day length '+formatDayLength(r.dayLength);
+steps.textContent=sunStepsText(r);
+}
+document.getElementById('calcBtn').addEventListener('click',run);
+run();
+}
+</script>
+<!-- TB-MONETAG -->
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sitemap XML Generator: Turn a List of URLs into a Valid Sitemap | ToolBari</title>
+<meta name="description" content="Paste a list of URLs and get a valid XML sitemap with lastmod, changefreq and priority. Copy the result or download it as sitemap.xml — free, in your browser.">
+<link rel="canonical" href="https://toolbari.github.io/sitemap-xml-generator/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sitemap XML Generator: Turn a List of URLs into a Valid Sitemap">
+<meta property="og:description" content="Paste a list of URLs and get a valid XML sitemap, ready to copy or download.">
+<meta property="og:url" content="https://toolbari.github.io/sitemap-xml-generator/">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+button{background:#0b7a4b;color:#fff;font-weight:700;padding:11px 18px;border:0;border-radius:999px;font-size:15.5px;cursor:pointer;margin:12px 6px 0 0}
+button:hover{opacity:.92}
+.calc textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:15px;background:#fff;font-family:inherit;min-height:150px}
+pre{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:14px;white-space:pre-wrap;word-break:break-all;overflow-x:auto}
+.msg{font-size:15px;margin-top:10px}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is an XML sitemap?","acceptedAnswer":{"@type":"Answer","text":"An XML sitemap is a file that lists the pages of a website in a format search engines can read. It helps them find and crawl pages they might otherwise miss, especially on large sites or sites with pages that few other pages link to."}},{"@type":"Question","name":"Which fields does a sitemap entry need?","acceptedAnswer":{"@type":"Answer","text":"Only the loc field is required, and it must be the full absolute URL of the page. The lastmod, changefreq and priority fields are optional, and this generator adds each one only when you fill it in."}},{"@type":"Question","name":"Does Google use changefreq and priority?","acceptedAnswer":{"@type":"Answer","text":"No. Google ignores changefreq and priority values. It uses lastmod only when it is consistently accurate, so only add a lastmod date when it is the real date the page last changed."}},{"@type":"Question","name":"How large can a sitemap be?","acceptedAnswer":{"@type":"Answer","text":"One sitemap file can hold at most 50,000 URLs and must be no larger than 50 MB. Larger sites split their URLs across more than one sitemap file."}}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Sitemap XML Generator</h1>
+<p class="answer">Paste your page URLs, one per line, add an optional lastmod date, changefreq and priority, and get a valid XML sitemap. Copy the result or download it as sitemap.xml.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="sitemap-urls">URLs (one per line)</label>
+<textarea id="sitemap-urls" placeholder="https://example.com/"></textarea>
+<label for="sitemap-lastmod">Last modified date (optional)</label>
+<input type="date" id="sitemap-lastmod">
+<p class="note">Only add a lastmod date when it is the real date the page last changed.</p>
+<label for="sitemap-freq">Change frequency (optional)</label>
+<select id="sitemap-freq">
+<option value="">None (leave out)</option>
+<option value="always">always</option>
+<option value="hourly">hourly</option>
+<option value="daily">daily</option>
+<option value="weekly">weekly</option>
+<option value="monthly">monthly</option>
+<option value="yearly">yearly</option>
+<option value="never">never</option>
+</select>
+<label for="sitemap-priority">Priority, 0.0 to 1.0 (optional)</label>
+<input type="number" id="sitemap-priority" min="0" max="1" step="0.1" value="0.5">
+<p class="note">The protocol default is 0.5. Clear the field to leave priority out.</p>
+<button id="sitemap-generate" type="button">Generate sitemap</button>
+<button id="sitemap-copy" type="button">Copy</button>
+<button id="sitemap-download" type="button">Download sitemap.xml</button>
+<p class="msg" id="sitemap-msg"></p>
+<pre id="sitemap-out"></pre>
+</div>
+<div class="warn">Google ignores changefreq and priority values and uses lastmod only when it is consistently accurate, so only add a lastmod date when it is the real date the page last changed. A single sitemap file holds at most 50,000 URLs and 50 MB.</div>
+<h2>How to use the generator</h2>
+<p>Paste your page URLs into the box, one per line. Every URL must be complete, starting with http:// or https:// — a relative address such as /about/ will not work. Then add an optional lastmod date, pick a changefreq, and set a priority between 0.0 and 1.0 if you want one. Press Generate sitemap, then copy the result or download it as sitemap.xml.</p>
+<p>If a line is blank or is not a full URL, the generator stops and names the bad line, so you can fix it and try again. The characters &amp; &lt; and &gt; in a URL are escaped automatically, as the protocol requires.</p>
+<h2>The sitemap protocol, in brief</h2>
+<p>A sitemap is an XML file whose root element is urlset, with the namespace http://www.sitemaps.org/schemas/sitemap/0.9. Each page is one url entry, and the loc element inside it is required and must hold the page's absolute URL. The optional elements are lastmod, in YYYY-MM-DD form, changefreq, which must be one of always, hourly, daily, weekly, monthly, yearly or never, and priority, a decimal from 0.0 to 1.0 where 0.5 is the default.</p>
+<p>One sitemap file holds at most 50,000 URLs and must be no larger than 50 MB. Google ignores changefreq and priority values, and it uses lastmod only when it is consistently accurate — so only add a lastmod date when it is the real date the page last changed.</p>
+<h2>Worked example</h2>
+<p>Two URLs, no lastmod, changefreq weekly and priority 0.5 give this sitemap:</p>
+<pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+&lt;url&gt;&lt;loc&gt;https://example.com/&lt;/loc&gt;&lt;changefreq&gt;weekly&lt;/changefreq&gt;&lt;priority&gt;0.5&lt;/priority&gt;&lt;/url&gt;
+&lt;url&gt;&lt;loc&gt;https://example.com/about/&lt;/loc&gt;&lt;changefreq&gt;weekly&lt;/changefreq&gt;&lt;priority&gt;0.5&lt;/priority&gt;&lt;/url&gt;
+&lt;/urlset&gt;</pre>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>What is an XML sitemap?</h3><p>An XML sitemap is a file that lists the pages of a website in a format search engines can read. It helps them find and crawl pages they might otherwise miss, especially on large sites or sites with pages that few other pages link to.</p></div>
+<div class="faq"><h3>Which fields does a sitemap entry need?</h3><p>Only the loc field is required, and it must be the full absolute URL of the page. The lastmod, changefreq and priority fields are optional, and this generator adds each one only when you fill it in.</p></div>
+<div class="faq"><h3>Does Google use changefreq and priority?</h3><p>No. Google ignores changefreq and priority values. It uses lastmod only when it is consistently accurate, so only add a lastmod date when it is the real date the page last changed.</p></div>
+<div class="faq"><h3>How large can a sitemap be?</h3><p>One sitemap file can hold at most 50,000 URLs and must be no larger than 50 MB. Larger sites split their URLs across more than one sitemap file.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/code-formatter/">Code Formatter</a> · <a href="https://toolbari.github.io/hashtag-generator/">Hashtag Generator</a> · <a href="https://toolbari.github.io/word-counter/">Word Counter</a> · <a href="https://toolbari.github.io/how-to-start-freelancing/">How to Start Freelancing</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<script>
+var CHANGEFREQS = ["always", "hourly", "daily", "weekly", "monthly", "yearly", "never"];
+
+function escapeXml(s) {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function isAbsoluteUrl(s) {
+  if (!/^https?:\/\/\S+$/.test(s)) return false;
+  try {
+    var u = new URL(s);
+    return u.protocol === "http:" || u.protocol === "https:";
+  } catch (e) {
+    return false;
+  }
+}
+
+function buildSitemap(lines, lastmod, changefreq, priority) {
+  if (lastmod && !/^\d{4}-\d{2}-\d{2}$/.test(lastmod)) {
+    return { error: "The lastmod date must be a real date in YYYY-MM-DD form." };
+  }
+  if (changefreq && CHANGEFREQS.indexOf(changefreq) === -1) {
+    return { error: "Changefreq must be one of: always, hourly, daily, weekly, monthly, yearly, never." };
+  }
+  var pri = null;
+  if (priority !== null && priority !== undefined && String(priority).trim() !== "") {
+    pri = parseFloat(priority);
+    if (isNaN(pri) || pri < 0 || pri > 1) {
+      return { error: "Priority must be a number from 0.0 to 1.0." };
+    }
+  }
+  var urls = [];
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i].trim();
+    if (line === "") {
+      return { error: "Line " + (i + 1) + " is blank. Remove blank lines and try again." };
+    }
+    if (!isAbsoluteUrl(line)) {
+      return { error: "Line " + (i + 1) + " is not a full URL starting with http:// or https://: " + line };
+    }
+    urls.push(line);
+  }
+  if (urls.length === 0) {
+    return { error: "Paste at least one URL, one per line." };
+  }
+  var out = [];
+  out.push('<?xml version="1.0" encoding="UTF-8"?>');
+  out.push('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
+  for (var j = 0; j < urls.length; j++) {
+    var entry = "<url><loc>" + escapeXml(urls[j]) + "</loc>";
+    if (lastmod) entry += "<lastmod>" + lastmod + "</lastmod>";
+    if (changefreq) entry += "<changefreq>" + changefreq + "</changefreq>";
+    if (pri !== null) entry += "<priority>" + String(pri) + "</priority>";
+    entry += "</url>";
+    out.push(entry);
+  }
+  out.push("</urlset>");
+  return { xml: out.join("\n") };
+}
+
+if (typeof document !== "undefined") {
+  var urlsEl = document.getElementById("sitemap-urls");
+  var lastmodEl = document.getElementById("sitemap-lastmod");
+  var freqEl = document.getElementById("sitemap-freq");
+  var priEl = document.getElementById("sitemap-priority");
+  var outEl = document.getElementById("sitemap-out");
+  var msgEl = document.getElementById("sitemap-msg");
+  var currentXml = "";
+  function generate() {
+    var raw = urlsEl.value.replace(/^\s+|\s+$/g, "");
+    var lines = raw === "" ? [] : raw.split("\n");
+    var res = buildSitemap(lines, lastmodEl.value || "", freqEl.value || "", priEl.value);
+    if (res.error) {
+      currentXml = "";
+      outEl.textContent = "";
+      msgEl.textContent = res.error;
+      return;
+    }
+    currentXml = res.xml;
+    outEl.textContent = res.xml;
+    msgEl.textContent = "Sitemap ready: " + lines.length + (lines.length === 1 ? " URL." : " URLs.");
+  }
+  document.getElementById("sitemap-generate").addEventListener("click", generate);
+  document.getElementById("sitemap-copy").addEventListener("click", function () {
+    if (!currentXml) { msgEl.textContent = "Generate a sitemap first."; return; }
+    function fallbackCopy() {
+      var ta = document.createElement("textarea");
+      ta.value = currentXml;
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand("copy");
+        msgEl.textContent = "Copied to the clipboard.";
+      } catch (e) {
+        msgEl.textContent = "Copy did not work in this browser. Select the text and copy it by hand.";
+      }
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(currentXml).then(function () {
+        msgEl.textContent = "Copied to the clipboard.";
+      }, function () { fallbackCopy(); });
+    } else {
+      fallbackCopy();
+    }
+  });
+  document.getElementById("sitemap-download").addEventListener("click", function () {
+    if (!currentXml) { msgEl.textContent = "Generate a sitemap first."; return; }
+    var blob = new Blob([currentXml], { type: "application/xml" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "sitemap.xml";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    msgEl.textContent = "sitemap.xml downloaded.";
+  });
+}
+</script>
+<!-- TB-MONETAG -->
+</body>
+</html>

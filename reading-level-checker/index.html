@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reading Level Checker: Flesch Reading Ease and Grade Level | ToolBari</title>
+<meta name="description" content="Paste any text to get its word, sentence and syllable counts plus the Flesch Reading Ease score, the Flesch-Kincaid Grade Level and a plain reading band.">
+<link rel="canonical" href="https://toolbari.github.io/reading-level-checker/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reading Level Checker: Flesch Reading Ease and Grade Level">
+<meta property="og:description" content="Check how easy any text is to read, with Flesch Reading Ease and Flesch-Kincaid Grade Level scores.">
+<meta property="og:url" content="https://toolbari.github.io/reading-level-checker/">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+.calc textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;font-family:inherit;min-height:140px}
+.calc button{background:#0b7a4b;color:#fff;font-weight:700;padding:11px 20px;border:none;border-radius:999px;font-size:15.5px;cursor:pointer;margin:10px 6px 0 0}
+.calc button.secondary{background:#fff;color:#0b7a4b;border:1px solid #0b7a4b}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the Flesch Reading Ease score?","acceptedAnswer":{"@type":"Answer","text":"It is a score from 0 to 100 that estimates how easy a passage is to read, from the average sentence length and the average number of syllables per word. A higher score means easier reading: 90 and above is Very Easy, while below 30 is Very Confusing."}},{"@type":"Question","name":"What does the Flesch-Kincaid Grade Level mean?","acceptedAnswer":{"@type":"Answer","text":"It estimates the school grade level needed to understand the text. A grade level of 7.6 means a reader around the seventh or eighth grade should be able to follow it."}},{"@type":"Question","name":"How does this tool count syllables?","acceptedAnswer":{"@type":"Answer","text":"It counts groups of vowels in each word, treats a trailing silent e as no syllable, and counts every word as at least one syllable. Syllable counting is estimated, so the scores are a guide rather than an exact measure."}},{"@type":"Question","name":"How long should my text be for a useful score?","acceptedAnswer":{"@type":"Answer","text":"Longer passages give steadier scores. The scores measure surface complexity only and are noisy on very short passages, so paste at least a paragraph when you can."}}]}</script>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Reading Level Checker</h1>
+<p class="answer">Paste any text to see its word, sentence and syllable counts, its Flesch Reading Ease score and its Flesch-Kincaid Grade Level. The tool also shows the reading band, from Very Easy to Very Confusing, and the working behind each score.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="text">Text to check</label>
+<textarea id="text" placeholder="Paste your text here..."></textarea>
+<button type="button" id="checkBtn">Check reading level</button>
+<button type="button" id="sampleBtn" class="secondary">Load worked example</button>
+<button type="button" id="clearBtn" class="secondary">Clear</button>
+<div class="out" id="out"></div>
+<div class="steps" id="steps"></div>
+</div>
+<div class="warn">These scores measure surface complexity only — sentence length and syllable counts — and they are noisy on very short passages. They say nothing about whether the ideas in the text are clear or correct.</div>
+<h2>How the scores are worked out</h2>
+<p>The tool counts the words, sentences and syllables in your text, then applies the two published Flesch formulas exactly:</p>
+<ul>
+<li><strong>Reading Ease</strong> = 206.835 - 1.015 x (words / sentences) - 84.6 x (syllables / words)</li>
+<li><strong>Grade Level</strong> = 0.39 x (words / sentences) + 11.8 x (syllables / words) - 15.59</li>
+</ul>
+<p>Syllables are counted with one stated vowel-group heuristic, applied the same way to every word: count groups of vowels (a, e, i, o, u, y); a trailing silent e counts as no syllable; every word counts at least 1 syllable. Syllable counting is estimated, so treat the scores as a guide rather than an exact measure.</p>
+<p>The Reading Ease score falls into one of seven bands: 90 and above is Very Easy, 80-89 is Easy, 70-79 is Fairly Easy, 60-69 is Standard, 50-59 is Fairly Difficult, 30-49 is Difficult, and below 30 is Very Confusing.</p>
+<p>Worked example: a text of 100 words, 5 sentences and 130 syllables has an average sentence length of 20 and an average of 1.3 syllables per word, giving a Reading Ease of 76.6 (Fairly Easy) and a Grade Level of 7.6. Load the worked example above to see the tool reproduce it.</p>
+<h2>How to use your result</h2>
+<p>Use the two scores together. The Reading Ease score tells you at a glance how demanding the text feels, while the Grade Level tells you roughly how much schooling a reader needs to follow it. If a passage scores lower than you want, the usual fixes are shorter sentences and simpler words — but keep the meaning intact, because these scores measure surface complexity only, not clarity or correctness. This tool measures reading difficulty, which is different from reading time.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>What is the Flesch Reading Ease score?</h3><p>It is a score from 0 to 100 that estimates how easy a passage is to read, from the average sentence length and the average number of syllables per word. A higher score means easier reading: 90 and above is Very Easy, while below 30 is Very Confusing.</p></div>
+<div class="faq"><h3>What does the Flesch-Kincaid Grade Level mean?</h3><p>It estimates the school grade level needed to understand the text. A grade level of 7.6 means a reader around the seventh or eighth grade should be able to follow it.</p></div>
+<div class="faq"><h3>How does this tool count syllables?</h3><p>It counts groups of vowels in each word, treats a trailing silent e as no syllable, and counts every word as at least one syllable. Syllable counting is estimated, so the scores are a guide rather than an exact measure.</p></div>
+<div class="faq"><h3>How long should my text be for a useful score?</h3><p>Longer passages give steadier scores. The scores measure surface complexity only and are noisy on very short passages, so paste at least a paragraph when you can.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/word-counter/">Word Counter</a> · <a href="https://toolbari.github.io/cover-letter-generator/">Cover Letter Generator</a> · <a href="https://toolbari.github.io/cv-builder/">CV Builder</a> · <a href="https://toolbari.github.io/how-to-start-freelancing/">How to Start Freelancing</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<script>
+function countSyllables(word) {
+  var w = word.toLowerCase().replace(/[^a-z]/g, "");
+  if (!w) return 0;
+  if (w.length > 1 && w.charAt(w.length - 1) === "e") w = w.slice(0, -1);
+  var groups = w.match(/[aeiouy]+/g);
+  var n = groups ? groups.length : 0;
+  return Math.max(1, n);
+}
+function analyseText(text) {
+  var words = text.match(/[A-Za-z]+(?:'[A-Za-z]+)?/g) || [];
+  var parts = text.split(/[.!?]+/).filter(function (s) { return s.trim().length > 0; });
+  var sentences = parts.length;
+  if (words.length > 0 && sentences === 0) sentences = 1;
+  var syllables = 0;
+  for (var i = 0; i < words.length; i++) syllables += countSyllables(words[i]);
+  return { words: words.length, sentences: sentences, syllables: syllables };
+}
+function fleschScores(words, sentences, syllables) {
+  var asl = words / sentences;
+  var asw = syllables / words;
+  var re = 206.835 - 1.015 * asl - 84.6 * asw;
+  var gl = 0.39 * asl + 11.8 * asw - 15.59;
+  return { asl: asl, asw: asw, re: re, gl: gl };
+}
+function readingBand(re) {
+  if (re >= 90) return "Very Easy";
+  if (re >= 80) return "Easy";
+  if (re >= 70) return "Fairly Easy";
+  if (re >= 60) return "Standard";
+  if (re >= 50) return "Fairly Difficult";
+  if (re >= 30) return "Difficult";
+  return "Very Confusing";
+}
+var SAMPLE = "The clever brown dog runs quickly past the old red barn while the two happy cats sleep well every morning. The clever brown dog runs quickly past the old red barn while the two happy cats sleep well every morning. The clever brown dog runs quickly past the old red barn while the two happy cats sleep well every morning. The clever brown dog runs quickly past the old red barn while the two happy cats sleep well every morning. The clever brown dog runs quickly past the old red barn while the two happy cats sleep well every morning.";
+function runCheck() {
+  var text = document.getElementById("text").value;
+  var out = document.getElementById("out");
+  var steps = document.getElementById("steps");
+  var counts = analyseText(text);
+  if (counts.words === 0) {
+    out.textContent = "Paste some text first, then press Check reading level.";
+    steps.textContent = "";
+    return;
+  }
+  var s = fleschScores(counts.words, counts.sentences, counts.syllables);
+  out.textContent = "Reading Ease " + s.re.toFixed(1) + " (" + readingBand(s.re) + ") — Grade Level " + s.gl.toFixed(1);
+  steps.textContent =
+    "Words: " + counts.words + " · Sentences: " + counts.sentences + " · Syllables: " + counts.syllables +
+    "\nAverage sentence length: " + counts.words + " / " + counts.sentences + " = " + s.asl.toFixed(1) +
+    "\nAverage syllables per word: " + counts.syllables + " / " + counts.words + " = " + s.asw.toFixed(2) +
+    "\nReading Ease = 206.835 - 1.015 x " + s.asl.toFixed(1) + " - 84.6 x " + s.asw.toFixed(2) + " = " + s.re.toFixed(1) +
+    "\nGrade Level = 0.39 x " + s.asl.toFixed(1) + " + 11.8 x " + s.asw.toFixed(2) + " - 15.59 = " + s.gl.toFixed(1);
+}
+document.getElementById("checkBtn").addEventListener("click", runCheck);
+document.getElementById("sampleBtn").addEventListener("click", function () {
+  document.getElementById("text").value = SAMPLE;
+  runCheck();
+});
+document.getElementById("clearBtn").addEventListener("click", function () {
+  document.getElementById("text").value = "";
+  document.getElementById("out").textContent = "";
+  document.getElementById("steps").textContent = "";
+});
+</script>
+<!-- TB-MONETAG -->
+</body>
+</html>

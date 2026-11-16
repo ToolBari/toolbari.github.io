@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Video Trimmer: Trim a Video in the Browser, Download the Cut | ToolBari</title>
+<meta name="description" content="Trim a video in your browser: pick a file, set the start and end times, and download the cut as a WebM file. Nothing is uploaded — the file never leaves your device.">
+<link rel="canonical" href="https://toolbari.github.io/video-trimmer/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Video Trimmer: Trim a Video in the Browser, Download the Cut">
+<meta property="og:description" content="Pick a video, set the start and end times, and download the trimmed clip as a WebM file.">
+<meta property="og:url" content="https://toolbari.github.io/video-trimmer/">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+button{background:#0b7a4b;color:#fff;border:none;padding:11px 18px;border-radius:8px;font-size:15.5px;font-weight:700;cursor:pointer;margin-top:12px}
+button:hover{background:#096a41}
+button:focus{outline:2px solid #ff9f2e;outline-offset:2px}
+button:disabled{background:#94a3b8;cursor:default}
+button.secondary{background:#64748b}
+video{width:100%;border-radius:8px;background:#0f172a;display:block;margin-top:12px}
+.calc input[type="range"]{padding:0;border:none}
+.time-line{font-size:14.5px;color:#334155;margin-top:8px}
+.progress{height:14px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin-top:12px}
+.progress-fill{height:100%;background:#0b7a4b;width:0%}
+.note-line{font-size:14px;color:#64748b;margin-top:8px}
+#downloadLink{color:#0b7a4b;font-weight:700}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What format is the trimmed video?","acceptedAnswer":{"@type":"Answer","text":"The trimmed clip is downloaded as a WebM file. The video is re-encoded while it plays, so the download is not the original file or format, and a small amount of quality loss is possible."}},{"@type":"Question","name":"How long does an export take?","acceptedAnswer":{"@type":"Answer","text":"Export runs in real time: a 20-second clip takes about 20 seconds to export, and a 60-second clip takes about 60 seconds. The progress bar shows how far the export has got."}},{"@type":"Question","name":"Is my video uploaded anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. The file stays in your browser the whole time. It is played and recorded locally on your device, and nothing is sent to a server."}},{"@type":"Question","name":"Why does the trimmer need a modern browser?","acceptedAnswer":{"@type":"Answer","text":"Trimming uses MediaRecorder and the video element's captureStream, which older browsers do not support. If your browser does not support them, the page shows a plain message instead of starting an export."}}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Video Trimmer</h1>
+<p class="answer">Pick a video file, preview it, and set the start and end times of the part you want to keep. The page records that range in your browser and gives you a WebM file to download, with nothing uploaded anywhere.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="videoFile">Choose a video file</label>
+<input type="file" id="videoFile" accept="video/*">
+<p class="note-line" id="fileInfo"></p>
+<video id="preview" preload="metadata" style="display:none"></video>
+<p class="time-line" id="timeDisplay">0:00 / 0:00</p>
+<label for="seekSlider">Seek through the video</label>
+<input type="range" id="seekSlider" min="0" max="0" step="0.1" value="0">
+<button type="button" id="playBtn">Play</button>
+<label for="startTime">Start time in seconds</label>
+<input type="number" id="startTime" min="0" step="0.1" value="0">
+<label for="endTime">End time in seconds</label>
+<input type="number" id="endTime" min="0" step="0.1" value="0">
+<button type="button" id="exportBtn">Trim and export (.webm)</button>
+<button type="button" id="cancelBtn" class="secondary" style="display:none">Cancel export</button>
+<div id="progressWrap" style="display:none">
+<div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+<p class="time-line" id="progressText">Exporting: 0%</p>
+</div>
+<p class="steps" id="message"></p>
+<p id="downloadWrap" style="display:none"><a id="downloadLink">Download trimmed video (.webm)</a></p>
+</div>
+<div class="warn">The download is a re-encoded WebM file, not the original file or format, so some quality loss is possible. Export runs in real time — a 60-second clip takes about 60 seconds to export. This page needs a modern browser that supports MediaRecorder; older browsers show a plain message instead of starting an export.</div>
+<h2>How to use the Video Trimmer</h2>
+<p>Press Choose video file and pick a video from your device. The preview appears with a Play button and a seek slider, so you can watch the video and find the part you want to keep. The time display shows where you are in the video and how long the video is.</p>
+<p>Type the start time and the end time in seconds. Decimals are allowed, so 10.5 means ten and a half seconds. The end time must be after the start time, and it cannot be later than the end of the video. Press Trim and export: the page plays the selected range and records it as it plays, and the progress bar shows how far the export has got. When the export finishes, a download link appears — press it to save the trimmed clip as a WebM file.</p>
+<p>For example, a 60-second video clip with a start time of 10 seconds and an end time of 30 seconds gives a 20-second WebM download.</p>
+<h2>What happens during export</h2>
+<p>Export uses MediaRecorder with the video element's captureStream. The browser plays the selected range and records the picture and sound as they play, which is why export runs in real time: a 60-second clip takes about 60 seconds to export. The recording is saved as a WebM file, which is a different format from most original video files.</p>
+<p>Because the clip is re-encoded, a small amount of quality loss is possible. The file never leaves your browser: it is played and recorded on your device, and nothing is uploaded. If your browser does not support MediaRecorder, the page shows a plain message instead of starting an export. Trimming cuts a time range out of a video, which is different from compressing a video to a smaller file.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>What format is the trimmed video?</h3><p>The trimmed clip is downloaded as a WebM file. The video is re-encoded while it plays, so the download is not the original file or format, and a small amount of quality loss is possible.</p></div>
+<div class="faq"><h3>How long does an export take?</h3><p>Export runs in real time: a 20-second clip takes about 20 seconds to export, and a 60-second clip takes about 60 seconds. The progress bar shows how far the export has got.</p></div>
+<div class="faq"><h3>Is my video uploaded anywhere?</h3><p>No. The file stays in your browser the whole time. It is played and recorded locally on your device, and nothing is sent to a server.</p></div>
+<div class="faq"><h3>Why does the trimmer need a modern browser?</h3><p>Trimming uses MediaRecorder and the video element's captureStream, which older browsers do not support. If your browser does not support them, the page shows a plain message instead of starting an export.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/word-counter/">Word Counter</a> · <a href="https://toolbari.github.io/hashtag-generator/">Hashtag Generator</a> · <a href="https://toolbari.github.io/invoice-generator/">Invoice Generator</a> · <a href="https://toolbari.github.io/how-to-start-freelancing/">How to Start Freelancing</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<script>
+function formatTime(sec) {
+  if (!isFinite(sec) || sec < 0) sec = 0;
+  var m = Math.floor(sec / 60);
+  var s = Math.floor(sec % 60);
+  return m + ':' + (s < 10 ? '0' + s : s);
+}
+function baseName(name) {
+  var i = name.lastIndexOf('.');
+  return i > 0 ? name.slice(0, i) : name;
+}
+function isVideoFile(file) {
+  if (file.type && file.type.indexOf('video/') === 0) return true;
+  return /\.(mp4|m4v|webm|mov|mkv|avi|ogv|3gp)$/i.test(file.name);
+}
+function pickMimeType() {
+  var types = ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm'];
+  if (typeof MediaRecorder !== 'undefined' && MediaRecorder.isTypeSupported) {
+    for (var i = 0; i < types.length; i++) {
+      if (MediaRecorder.isTypeSupported(types[i])) return types[i];
+    }
+  }
+  return '';
+}
+if (typeof document !== 'undefined') {
+  var fileEl = document.getElementById('videoFile');
+  var videoEl = document.getElementById('preview');
+  var playBtn = document.getElementById('playBtn');
+  var seekEl = document.getElementById('seekSlider');
+  var timeEl = document.getElementById('timeDisplay');
+  var fileInfoEl = document.getElementById('fileInfo');
+  var startEl = document.getElementById('startTime');
+  var endEl = document.getElementById('endTime');
+  var exportBtn = document.getElementById('exportBtn');
+  var cancelBtn = document.getElementById('cancelBtn');
+  var msgEl = document.getElementById('message');
+  var progressWrap = document.getElementById('progressWrap');
+  var progressFill = document.getElementById('progressFill');
+  var progressText = document.getElementById('progressText');
+  var downloadWrap = document.getElementById('downloadWrap');
+  var downloadLink = document.getElementById('downloadLink');
+  var state = { file: null, duration: 0, exporting: false, cancelled: false, playFailed: false, recError: false, recorder: null, chunks: [], start: 0, end: 0 };
+  var dragging = false;
+  var exportSeq = 0;
+
+  function showMessage(text) { msgEl.textContent = text; }
+  function updateTimeDisplay() {
+    timeEl.textContent = formatTime(videoEl.currentTime || 0) + ' / ' + formatTime(state.duration);
+  }
+  function setProgress(p) {
+    var pct = Math.round(Math.max(0, Math.min(1, p)) * 100);
+    progressFill.style.width = pct + '%';
+    progressText.textContent = 'Exporting: ' + pct + '%';
+  }
+  function resetExportUI() {
+    state.exporting = false;
+    state.recorder = null;
+    exportBtn.disabled = false;
+    fileEl.disabled = false;
+    cancelBtn.style.display = 'none';
+    progressWrap.style.display = 'none';
+  }
+  function hideDownload() {
+    downloadWrap.style.display = 'none';
+    downloadLink.removeAttribute('href');
+    downloadLink.removeAttribute('download');
+  }
+  function finishRecording() {
+    var cancelled = state.cancelled;
+    var playFailed = state.playFailed;
+    var recError = state.recError;
+    var chunks = state.chunks;
+    var clipLen = state.end - state.start;
+    var fileName = state.file ? state.file.name : 'video';
+    resetExportUI();
+    if (playFailed) {
+      showMessage('The video could not be played, so the export was stopped. Press Play on the preview first, then try exporting again.');
+      return;
+    }
+    if (recError) {
+      showMessage('The recording failed. Try again, or try a different browser.');
+      return;
+    }
+    if (cancelled) {
+      showMessage('Export cancelled.');
+      return;
+    }
+    if (!chunks.length) {
+      showMessage('The export produced no video data. Try again.');
+      return;
+    }
+    var blob = new Blob(chunks, { type: 'video/webm' });
+    var url = URL.createObjectURL(blob);
+    downloadLink.href = url;
+    downloadLink.download = baseName(fileName) + '-trimmed.webm';
+    downloadWrap.style.display = 'block';
+    showMessage('Done. Your trimmed clip is ' + clipLen.toFixed(1) + ' seconds long. Press the download link below to save it as a WebM file.');
+  }
+  function checkExportEnd() {
+    if (!state.exporting || !state.recorder) return;
+    setProgress((videoEl.currentTime - state.start) / (state.end - state.start));
+    if (videoEl.currentTime >= state.end) {
+      videoEl.pause();
+      if (state.recorder.state !== 'inactive') state.recorder.stop();
+    }
+  }
+  function beginRecording() {
+    if (state.cancelled) {
+      resetExportUI();
+      showMessage('Export cancelled.');
+      return;
+    }
+    var stream;
+    try {
+      stream = videoEl.captureStream();
+    } catch (e) {
+      resetExportUI();
+      showMessage('Your browser could not capture this video for recording. Try a different browser.');
+      return;
+    }
+    var mime = pickMimeType();
+    var rec;
+    try {
+      rec = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream);
+    } catch (e) {
+      resetExportUI();
+      showMessage('Your browser could not start the recorder. Try a different browser.');
+      return;
+    }
+    state.recorder = rec;
+    rec.ondataavailable = function (e) {
+      if (e.data && e.data.size > 0) state.chunks.push(e.data);
+    };
+    rec.onstop = finishRecording;
+    rec.onerror = function () {
+      state.recError = true;
+      if (rec.state !== 'inactive') rec.stop();
+    };
+    try {
+      rec.start(250);
+    } catch (e) {
+      resetExportUI();
+      showMessage('Your browser could not start the recorder. Try a different browser.');
+      return;
+    }
+    showMessage('Exporting: playing the selected range in real time.');
+    var playPromise = videoEl.play();
+    if (playPromise && playPromise.catch) {
+      playPromise.catch(function () {
+        state.playFailed = true;
+        state.cancelled = true;
+        videoEl.pause();
+        if (state.recorder && state.recorder.state !== 'inactive') state.recorder.stop();
+      });
+    }
+  }
+  function startExport(start, end) {
+    state.exporting = true;
+    state.cancelled = false;
+    state.playFailed = false;
+    state.recError = false;
+    state.chunks = [];
+    state.start = start;
+    state.end = end;
+    exportBtn.disabled = true;
+    fileEl.disabled = true;
+    cancelBtn.style.display = 'inline-block';
+    progressWrap.style.display = 'block';
+    setProgress(0);
+    hideDownload();
+    videoEl.pause();
+    showMessage('Preparing export...');
+    var mySeq = ++exportSeq;
+    var alreadyThere = Math.abs(videoEl.currentTime - start) < 0.05;
+    if (alreadyThere) {
+      beginRecording();
+    } else {
+      var onSeeked = function () {
+        videoEl.removeEventListener('seeked', onSeeked);
+        if (mySeq !== exportSeq) return;
+        beginRecording();
+      };
+      videoEl.addEventListener('seeked', onSeeked);
+      videoEl.currentTime = start;
+    }
+  }
+  fileEl.addEventListener('change', function () {
+    var file = fileEl.files && fileEl.files[0];
+    if (!file) return;
+    if (!isVideoFile(file)) {
+      showMessage('Please choose a video file. This file does not look like a video.');
+      fileEl.value = '';
+      return;
+    }
+    if (videoEl.src) URL.revokeObjectURL(videoEl.src);
+    hideDownload();
+    state.file = file;
+    state.duration = 0;
+    videoEl.src = URL.createObjectURL(file);
+    videoEl.style.display = 'block';
+    fileInfoEl.textContent = 'File: ' + file.name;
+    startEl.value = '0';
+    endEl.value = '0';
+    seekEl.value = '0';
+    seekEl.max = '0';
+    playBtn.textContent = 'Play';
+    showMessage('');
+    updateTimeDisplay();
+  });
+  videoEl.addEventListener('loadedmetadata', function () {
+    state.duration = videoEl.duration;
+    seekEl.max = state.duration;
+    seekEl.value = '0';
+    startEl.value = '0';
+    endEl.value = state.duration.toFixed(1);
+    fileInfoEl.textContent = 'File: ' + state.file.name + ' — duration ' + formatTime(state.duration) + '.';
+    updateTimeDisplay();
+  });
+  videoEl.addEventListener('error', function () {
+    showMessage('This video could not be played in your browser. Try a different file, such as an MP4 or WebM video.');
+  });
+  playBtn.addEventListener('click', function () {
+    if (!state.file) { showMessage('Choose a video file first.'); return; }
+    if (videoEl.paused) { videoEl.play(); } else { videoEl.pause(); }
+  });
+  videoEl.addEventListener('play', function () { playBtn.textContent = 'Pause'; });
+  videoEl.addEventListener('pause', function () { playBtn.textContent = 'Play'; });
+  seekEl.addEventListener('pointerdown', function () { dragging = true; });
+  seekEl.addEventListener('pointerup', function () { dragging = false; });
+  seekEl.addEventListener('change', function () { dragging = false; });
+  seekEl.addEventListener('input', function () {
+    if (!state.duration) return;
+    videoEl.currentTime = parseFloat(seekEl.value);
+    updateTimeDisplay();
+  });
+  videoEl.addEventListener('timeupdate', function () {
+    if (!dragging && state.duration) seekEl.value = videoEl.currentTime;
+    updateTimeDisplay();
+    checkExportEnd();
+  });
+  videoEl.addEventListener('ended', function () {
+    if (state.exporting && state.recorder && state.recorder.state !== 'inactive') {
+      state.recorder.stop();
+    }
+  });
+  exportBtn.addEventListener('click', function () {
+    if (state.exporting) return;
+    if (!state.file || !state.duration) { showMessage('Choose a video file first.'); return; }
+    var start = parseFloat(startEl.value);
+    var end = parseFloat(endEl.value);
+    if (isNaN(start) || isNaN(end)) { showMessage('Type a start time and an end time in seconds.'); return; }
+    if (start < 0) start = 0;
+    if (end > state.duration) end = state.duration;
+    if (end <= start) { showMessage('The end time must be after the start time. Choose a range that is not empty.'); return; }
+    if (typeof MediaRecorder === 'undefined') { showMessage('Your browser does not support MediaRecorder, so this page cannot export a trimmed video. Try a modern browser.'); return; }
+    if (typeof videoEl.captureStream !== 'function') { showMessage('Your browser does not support capturing a video stream, so this page cannot export a trimmed video. Try a modern browser.'); return; }
+    startExport(start, end);
+  });
+  cancelBtn.addEventListener('click', function () {
+    if (!state.exporting) return;
+    state.cancelled = true;
+    exportSeq++;
+    videoEl.pause();
+    if (state.recorder && state.recorder.state !== 'inactive') {
+      state.recorder.stop();
+    } else {
+      resetExportUI();
+      showMessage('Export cancelled.');
+    }
+  });
+}
+</script>
+<!-- TB-MONETAG -->
+</body>
+</html>

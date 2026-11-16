@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audio Merger: Join Audio Files into One File, in the Browser | ToolBari</title>
+<meta name="description" content="Join two or more audio files into one WAV file in your browser: add files, arrange them in order, and download the joined file. Nothing is uploaded.">
+<link rel="canonical" href="https://toolbari.github.io/audio-merger/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Audio Merger: Join Audio Files into One File, in the Browser">
+<meta property="og:description" content="Add two or more audio files, arrange them in order, and download them joined as one WAV file.">
+<meta property="og:url" content="https://toolbari.github.io/audio-merger/">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+button{background:#0b7a4b;color:#fff;border:none;padding:11px 18px;border-radius:8px;font-size:15.5px;font-weight:700;cursor:pointer;margin-top:12px}
+button:hover{background:#096a41}
+button:focus{outline:2px solid #ff9f2e;outline-offset:2px}
+button:disabled{background:#94a3b8;cursor:default}
+.note-line{font-size:14px;color:#64748b;margin-top:8px}
+.file-row{border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px;margin-top:10px;background:rgba(255,255,255,.6)}
+.file-row .fname{font-weight:700;word-break:break-word}
+.file-row .fmeta{font-size:14px;color:#64748b}
+.file-row button{padding:7px 12px;font-size:14px;margin:8px 6px 0 0}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many files can I join?","acceptedAnswer":{"@type":"Answer","text":"Two or more. Add files in one go or pick more files later; each new file goes to the end of the list. There is no fixed limit, but every file is decoded into memory, so joining many very large files can be slow, especially on a phone."}},{"@type":"Question","name":"What sample rate does the merged file use?","acceptedAnswer":{"@type":"Answer","text":"The merged file uses the first file's sample rate and channel count. A file with a different sample rate or channel count is converted to match the first file before joining, so every part plays at the right speed."}},{"@type":"Question","name":"Is my audio uploaded anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. The files are decoded, joined and re-encoded entirely in your browser, and nothing is sent to any server. The original files on your device are never changed."}},{"@type":"Question","name":"Can I change the order of the files?","acceptedAnswer":{"@type":"Answer","text":"Yes. Use the Move up and Move down buttons beside each file to move it, or Remove to take it out of the list. The merged file follows the list order from top to bottom."}}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Audio Merger</h1>
+<p class="answer">Pick two or more audio files, arrange them in the order you want, and join them into one downloadable WAV file. The files are joined end to end, in list order, all in your browser with nothing uploaded anywhere.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="fileInput">Audio files (pick two or more)</label>
+<input type="file" id="fileInput" accept="audio/*" multiple>
+<p class="note-line">You can pick more files later; each new file goes to the end of the list. The merged file uses the first file's sample rate and channel count.</p>
+<div id="fileList"></div>
+<p class="note-line" id="emptyNote">No files added yet.</p>
+<button type="button" id="mergeBtn">Merge and download WAV</button>
+<p class="note-line" id="msg" role="status"></p>
+<p class="out" id="resultTitle" style="display:none">Your merged file</p>
+<p class="steps" id="resultSteps"></p>
+<p><a id="downloadLink" style="display:none"></a></p>
+</div>
+<div class="warn">The download is a re-encoded WAV file, not your original files or formats. Very large files may be slow on a phone, because every file is decoded into memory before joining.</div>
+<h2>How to merge audio files</h2>
+<ol>
+<li><strong>Add files.</strong> Pick two or more audio files at once, or add more files later. Each file shows its name and length once it has loaded, and each new file goes to the end of the list.</li>
+<li><strong>Arrange the order.</strong> Use the Move up and Move down buttons beside each file to change its place, or Remove to take a file out of the list. The merged file follows the list order from top to bottom.</li>
+<li><strong>Merge and download.</strong> Press Merge and download WAV. The joined file downloads as merged.wav, and the details appear below the button, including the length of each part and the total length.</li>
+</ol>
+<h2>How the joining works</h2>
+<p>Each file is decoded with the Web Audio API. The merged file uses the first file's sample rate and channel count; any file with a different sample rate or channel count is converted to match the first file before joining, so every part plays at the right speed.</p>
+<p>The decoded samples are then joined end to end in list order — one file after the other, not mixed together — and encoded as 16-bit PCM WAV in the page. For example, two files of 10 seconds and 15 seconds give one 25-second WAV download.</p>
+<p>The original files are never changed, and nothing is uploaded: decoding, joining and encoding all happen in your browser. The download is a new WAV file, whatever formats the original files were.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>How many files can I join?</h3><p>Two or more. Add files in one go or pick more files later; each new file goes to the end of the list. There is no fixed limit, but every file is decoded into memory, so joining many very large files can be slow, especially on a phone.</p></div>
+<div class="faq"><h3>What sample rate does the merged file use?</h3><p>The merged file uses the first file's sample rate and channel count. A file with a different sample rate or channel count is converted to match the first file before joining, so every part plays at the right speed.</p></div>
+<div class="faq"><h3>Is my audio uploaded anywhere?</h3><p>No. The files are decoded, joined and re-encoded entirely in your browser, and nothing is sent to any server. The original files on your device are never changed.</p></div>
+<div class="faq"><h3>Can I change the order of the files?</h3><p>Yes. Use the Move up and Move down buttons beside each file to move it, or Remove to take it out of the list. The merged file follows the list order from top to bottom.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/word-counter/">Word Counter</a> · <a href="https://toolbari.github.io/hashtag-generator/">Hashtag Generator</a> · <a href="https://toolbari.github.io/invoice-generator/">Invoice Generator</a> · <a href="https://toolbari.github.io/how-to-start-freelancing/">How to Start Freelancing</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<script>
+function formatTime(sec) {
+  var m = Math.floor(sec / 60);
+  var s = sec - m * 60;
+  return m + ':' + (s < 10 ? '0' : '') + s.toFixed(1);
+}
+function formatSize(bytes) {
+  if (bytes < 1024) return bytes + ' bytes';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+}
+function channelLabel(n) {
+  if (n === 1) return 'mono';
+  if (n === 2) return 'stereo';
+  return n + ' channels';
+}
+function concatChannels(buffers) {
+  var numChannels = buffers[0].length;
+  var total = 0;
+  for (var i = 0; i < buffers.length; i++) total += buffers[i][0].length;
+  var out = [];
+  for (var c = 0; c < numChannels; c++) {
+    var merged = new Float32Array(total);
+    var pos = 0;
+    for (var j = 0; j < buffers.length; j++) {
+      merged.set(buffers[j][c], pos);
+      pos += buffers[j][c].length;
+    }
+    out.push(merged);
+  }
+  return out;
+}
+function encodeWav(channels, sampleRate) {
+  var numChannels = channels.length;
+  var numFrames = channels[0].length;
+  var bytesPerSample = 2;
+  var blockAlign = numChannels * bytesPerSample;
+  var byteRate = sampleRate * blockAlign;
+  var dataSize = numFrames * blockAlign;
+  var buffer = new ArrayBuffer(44 + dataSize);
+  var view = new DataView(buffer);
+  function writeString(offset, str) {
+    for (var i = 0; i < str.length; i++) view.setUint8(offset + i, str.charCodeAt(i));
+  }
+  writeString(0, 'RIFF');
+  view.setUint32(4, 36 + dataSize, true);
+  writeString(8, 'WAVE');
+  writeString(12, 'fmt ');
+  view.setUint32(16, 16, true);
+  view.setUint16(20, 1, true);
+  view.setUint16(22, numChannels, true);
+  view.setUint32(24, sampleRate, true);
+  view.setUint32(28, byteRate, true);
+  view.setUint16(32, blockAlign, true);
+  view.setUint16(34, 16, true);
+  writeString(36, 'data');
+  view.setUint32(40, dataSize, true);
+  var offset = 44;
+  for (var f = 0; f < numFrames; f++) {
+    for (var c = 0; c < numChannels; c++) {
+      var s = channels[c][f];
+      if (s > 1) s = 1;
+      if (s < -1) s = -1;
+      view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+      offset += 2;
+    }
+  }
+  return buffer;
+}
+if (typeof document !== 'undefined') {
+  var fileInput = document.getElementById('fileInput');
+  var fileList = document.getElementById('fileList');
+  var emptyNote = document.getElementById('emptyNote');
+  var mergeBtn = document.getElementById('mergeBtn');
+  var msgEl = document.getElementById('msg');
+  var resultTitle = document.getElementById('resultTitle');
+  var resultSteps = document.getElementById('resultSteps');
+  var downloadLink = document.getElementById('downloadLink');
+  var files = [];
+  var audioCtx = null;
+  var merging = false;
+  var lastUrl = null;
+
+  function showMsg(text) { msgEl.textContent = text; }
+  function getCtx() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    return audioCtx;
+  }
+  function moveItem(idx, dir) {
+    var next = idx + dir;
+    if (next < 0 || next >= files.length) return;
+    var tmp = files[idx];
+    files[idx] = files[next];
+    files[next] = tmp;
+    renderList();
+  }
+  function renderList() {
+    fileList.innerHTML = '';
+    emptyNote.style.display = files.length ? 'none' : 'block';
+    files.forEach(function (item, idx) {
+      var row = document.createElement('div');
+      row.className = 'file-row';
+      var name = document.createElement('div');
+      name.className = 'fname';
+      name.textContent = (idx + 1) + '. ' + item.name;
+      row.appendChild(name);
+      var meta = document.createElement('div');
+      meta.className = 'fmeta';
+      if (item.decoding) {
+        meta.textContent = 'Loading...';
+      } else if (item.buffer) {
+        meta.textContent = item.buffer.duration.toFixed(1) + ' seconds (' + formatTime(item.buffer.duration) + '), ' + item.buffer.sampleRate + ' Hz, ' + channelLabel(item.buffer.numberOfChannels) + '.';
+      }
+      row.appendChild(meta);
+      var up = document.createElement('button');
+      up.type = 'button';
+      up.textContent = 'Move up';
+      up.disabled = idx === 0;
+      up.addEventListener('click', function () { moveItem(idx, -1); });
+      row.appendChild(up);
+      var down = document.createElement('button');
+      down.type = 'button';
+      down.textContent = 'Move down';
+      down.disabled = idx === files.length - 1;
+      down.addEventListener('click', function () { moveItem(idx, 1); });
+      row.appendChild(down);
+      var remove = document.createElement('button');
+      remove.type = 'button';
+      remove.textContent = 'Remove';
+      remove.addEventListener('click', function () { files.splice(idx, 1); renderList(); });
+      row.appendChild(remove);
+      fileList.appendChild(row);
+    });
+  }
+  function matchBuffer(buffer, targetRate, targetCh) {
+    if (buffer.sampleRate === targetRate && buffer.numberOfChannels === targetCh) return Promise.resolve(buffer);
+    var length = Math.max(1, Math.round(buffer.duration * targetRate));
+    var off = new OfflineAudioContext(targetCh, length, targetRate);
+    var src = off.createBufferSource();
+    src.buffer = buffer;
+    src.connect(off.destination);
+    src.start(0);
+    return off.startRendering();
+  }
+  fileInput.addEventListener('change', function () {
+    var picked = Array.prototype.slice.call(fileInput.files);
+    fileInput.value = '';
+    picked.forEach(function (file) {
+      if (file.type && file.type.indexOf('audio/') !== 0) {
+        showMsg(file.name + ' is not an audio file, so it was not added.');
+        return;
+      }
+      var item = { name: file.name, buffer: null, decoding: true };
+      files.push(item);
+      renderList();
+      file.arrayBuffer().then(function (ab) {
+        return getCtx().decodeAudioData(ab);
+      }).then(function (buf) {
+        item.buffer = buf;
+        item.decoding = false;
+        renderList();
+      }).catch(function () {
+        var idx = files.indexOf(item);
+        if (idx >= 0) files.splice(idx, 1);
+        renderList();
+        showMsg(file.name + ' could not be read as audio, so it was not added.');
+      });
+    });
+  });
+  mergeBtn.addEventListener('click', function () {
+    if (merging) return;
+    if (files.some(function (f) { return f.decoding; })) { showMsg('Some files are still loading. Wait a moment, then try again.'); return; }
+    var ready = files.filter(function (f) { return f.buffer; });
+    if (ready.length < 2) { showMsg('Add at least two audio files to merge them.'); return; }
+    merging = true;
+    mergeBtn.textContent = 'Merging...';
+    showMsg('');
+    var first = ready[0].buffer;
+    var targetRate = first.sampleRate;
+    var targetCh = first.numberOfChannels;
+    var converted = [];
+    var chain = Promise.resolve([]);
+    ready.forEach(function (item) {
+      chain = chain.then(function (list) {
+        return matchBuffer(item.buffer, targetRate, targetCh).then(function (buf) {
+          if (buf !== item.buffer) converted.push(item.name);
+          var channels = [];
+          for (var c = 0; c < buf.numberOfChannels; c++) channels.push(buf.getChannelData(c));
+          list.push(channels);
+          return list;
+        });
+      });
+    });
+    chain.then(function (list) {
+      var merged = concatChannels(list);
+      var wav = encodeWav(merged, targetRate);
+      var blob = new Blob([wav], { type: 'audio/wav' });
+      if (lastUrl) URL.revokeObjectURL(lastUrl);
+      var url = URL.createObjectURL(blob);
+      lastUrl = url;
+      downloadLink.href = url;
+      downloadLink.download = 'merged.wav';
+      downloadLink.textContent = 'Download merged.wav again';
+      downloadLink.style.display = 'inline-block';
+      downloadLink.click();
+      var total = merged[0].length / targetRate;
+      var lines = ['Joined ' + ready.length + ' files in list order:'];
+      ready.forEach(function (item, i) {
+        lines.push((i + 1) + '. ' + item.name + ' — ' + item.buffer.duration.toFixed(1) + ' seconds');
+      });
+      lines.push('Total: ' + total.toFixed(1) + ' seconds, ' + targetRate + ' Hz, ' + channelLabel(targetCh) + '.');
+      lines.push('WAV size: ' + formatSize(wav.byteLength) + '.');
+      if (converted.length) lines.push('Converted to match the first file: ' + converted.join(', ') + '.');
+      resultTitle.style.display = 'block';
+      resultSteps.textContent = lines.join('\n');
+      showMsg('Your merged WAV download has started.');
+    }).catch(function () {
+      showMsg('Something went wrong while merging. Try again, or remove a file and retry.');
+    }).finally(function () {
+      merging = false;
+      mergeBtn.textContent = 'Merge and download WAV';
+    });
+  });
+  renderList();
+}
+</script>
+<!-- TB-MONETAG -->
+</body>
+</html>

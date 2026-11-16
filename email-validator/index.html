@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Email Validator: Check Email Address Syntax and Catch Typos | ToolBari</title>
+<meta name="description" content="Check email address syntax one at a time or as a list, get the exact problem named for each address, and catch common domain typos before you send.">
+<link rel="canonical" href="https://toolbari.github.io/email-validator/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Email Validator: Check Email Address Syntax and Catch Typos">
+<meta property="og:description" content="Paste email addresses and get a verdict for each one, with the exact problem named and common typos flagged.">
+<meta property="og:url" content="https://toolbari.github.io/email-validator/">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+button{background:#0b7a4b;color:#fff;border:none;padding:11px 18px;border-radius:8px;font-size:15.5px;font-weight:700;cursor:pointer;margin-top:12px;margin-right:8px}
+button:hover{background:#096a41}
+button:focus{outline:2px solid #ff9f2e;outline-offset:2px}
+.calc textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;font-family:inherit;min-height:120px}
+.result{border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px;margin-top:8px;background:rgba(255,255,255,.7);font-size:15px;word-break:break-word}
+.result .bad{color:#b91c1c;font-weight:700}
+.result .good{color:#0b7a4b;font-weight:700}
+.result .suggest{color:#334155}
+.note-line{font-size:14px;color:#64748b;margin-top:8px}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does a valid result mean the address exists?","acceptedAnswer":{"@type":"Answer","text":"No. This tool checks syntax only and never contacts a mail server, so a valid result means the address is written correctly, not that the mailbox exists or accepts mail. Only the owner of the domain can confirm that an address is real."}},{"@type":"Question","name":"Why does the validator flag gamil.com?","acceptedAnswer":{"@type":"Answer","text":"Because gamil.com is close to gmail.com, a very common domain, so it is usually a typing mistake. The validator suggests the likely domain when the typed domain is one or two edits away from gmail.com, yahoo.com, outlook.com or hotmail.com."}},{"@type":"Question","name":"Can I check more than one address at a time?","acceptedAnswer":{"@type":"Answer","text":"Yes. Paste a list with one address per line and press Validate. Each address gets its own verdict, with the specific problem named for any address that fails."}},{"@type":"Question","name":"Is any address sent anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. Every check runs in your browser on your own device and nothing is uploaded or stored. The addresses you paste never leave the page."}}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Email Validator</h1>
+<p class="answer">Paste one email address or a list, one per line, and get a verdict for each one: valid syntax, or the exact problem, such as a missing @ or a missing dot in the domain. Common domain typos are flagged too, with a suggestion for the domain you probably meant.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="emails">Email addresses, one per line</label>
+<textarea id="emails" rows="6" placeholder="name@gmail.com"></textarea>
+<button type="button" id="checkBtn">Validate</button>
+<button type="button" id="sampleBtn">Load examples</button>
+<button type="button" id="clearBtn">Clear</button>
+<p class="out" id="summary"></p>
+<div id="results"></div>
+<p class="note-line" id="toolNote"></p>
+</div>
+<div class="warn">This tool checks syntax only, with no mailbox check, so a valid result does NOT mean the address exists or accepts mail. No address is ever sent anywhere; all checks run in your browser.</div>
+<h2>How to use the Email Validator</h2>
+<p>Paste one email address, or a list with one address on each line, into the box above, then press Validate. Every address gets its own verdict below the buttons: either valid syntax, or the specific problem that was found, so you can fix it and check again.</p>
+<p>Press Load examples to try the three worked examples below and see what each verdict looks like. Press Clear to empty the box and the results and start over. Nothing you paste is sent anywhere: every check runs in your browser, and the page stores nothing.</p>
+<p>A valid result means the address is written in the right shape. It does not mean the mailbox exists, so always double-check an address with its owner before you rely on it for something important.</p>
+<h2>What the validator checks</h2>
+<p>Each address is checked against the shape of a normal email address: a local part, one @ sign, and a domain with at least one dot. When an address fails, the verdict names the exact problem so you know what to fix:</p>
+<ul>
+<li>missing @ — the address has no @ sign at all</li>
+<li>more than one @ — the address has two or more @ signs</li>
+<li>spaces — the address contains a space</li>
+<li>consecutive dots — two dots in a row, in the local part or the domain</li>
+<li>missing domain — nothing after the @ sign</li>
+<li>missing dot in the domain — the domain has no dot, so there is no top-level domain</li>
+<li>top-level domain shorter than 2 characters — the part after the last dot is only one character</li>
+<li>empty local part — nothing before the @ sign</li>
+</ul>
+<p>When the syntax is valid, the validator also checks the domain against four very common domains — gmail.com, yahoo.com, outlook.com and hotmail.com. If the typed domain is one or two edits away from one of them, the validator suggests the likely domain, because that is usually a typing mistake rather than a real domain.</p>
+<h2>Worked examples</h2>
+<ul>
+<li><code>name@gmail.com</code> — valid syntax.</li>
+<li><code>name@gamil.com</code> — valid syntax, with the suggestion "Did you mean name@gmail.com?"</li>
+<li><code>name@domain</code> — invalid, missing dot in the domain.</li>
+</ul>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>Does a valid result mean the address exists?</h3><p>No. This tool checks syntax only and never contacts a mail server, so a valid result means the address is written correctly, not that the mailbox exists or accepts mail. Only the owner of the domain can confirm that an address is real.</p></div>
+<div class="faq"><h3>Why does the validator flag gamil.com?</h3><p>Because gamil.com is close to gmail.com, a very common domain, so it is usually a typing mistake. The validator suggests the likely domain when the typed domain is one or two edits away from gmail.com, yahoo.com, outlook.com or hotmail.com.</p></div>
+<div class="faq"><h3>Can I check more than one address at a time?</h3><p>Yes. Paste a list with one address per line and press Validate. Each address gets its own verdict, with the specific problem named for any address that fails.</p></div>
+<div class="faq"><h3>Is any address sent anywhere?</h3><p>No. Every check runs in your browser on your own device and nothing is uploaded or stored. The addresses you paste never leave the page.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/word-counter/">Word Counter</a> · <a href="https://toolbari.github.io/cover-letter-generator/">Cover Letter Generator</a> · <a href="https://toolbari.github.io/cv-builder/">CV Builder</a> · <a href="https://toolbari.github.io/how-to-start-freelancing/">How to Start Freelancing</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<script>
+var COMMON_DOMAINS = ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com"];
+function levenshtein(a, b) {
+  var m = a.length;
+  var n = b.length;
+  var prev = [];
+  var curr = [];
+  var i, j;
+  for (j = 0; j <= n; j++) prev[j] = j;
+  for (i = 1; i <= m; i++) {
+    curr[0] = i;
+    for (j = 1; j <= n; j++) {
+      var cost = a.charAt(i - 1) === b.charAt(j - 1) ? 0 : 1;
+      curr[j] = Math.min(prev[j] + 1, curr[j - 1] + 1, prev[j - 1] + cost);
+    }
+    var tmp = prev;
+    prev = curr;
+    curr = tmp;
+  }
+  return prev[n];
+}
+function validateEmail(raw) {
+  var addr = raw.trim();
+  if (addr === "") return { address: addr, valid: false, problem: "empty address", suggestion: null };
+  if (/\s/.test(addr)) return { address: addr, valid: false, problem: "spaces", suggestion: null };
+  var atCount = (addr.match(/@/g) || []).length;
+  if (atCount === 0) return { address: addr, valid: false, problem: "missing @", suggestion: null };
+  if (atCount > 1) return { address: addr, valid: false, problem: "more than one @", suggestion: null };
+  var parts = addr.split("@");
+  var local = parts[0];
+  var domain = parts[1];
+  if (local === "") return { address: addr, valid: false, problem: "empty local part", suggestion: null };
+  if (domain === "") return { address: addr, valid: false, problem: "missing domain", suggestion: null };
+  if (local.indexOf("..") !== -1 || domain.indexOf("..") !== -1) return { address: addr, valid: false, problem: "consecutive dots", suggestion: null };
+  if (domain.indexOf(".") === -1) return { address: addr, valid: false, problem: "missing dot in the domain", suggestion: null };
+  var tld = domain.slice(domain.lastIndexOf(".") + 1);
+  if (tld.length < 2) return { address: addr, valid: false, problem: "top-level domain shorter than 2 characters", suggestion: null };
+  var d = domain.toLowerCase();
+  var suggestion = null;
+  for (var i = 0; i < COMMON_DOMAINS.length; i++) {
+    var dist = levenshtein(d, COMMON_DOMAINS[i]);
+    if (dist >= 1 && dist <= 2) {
+      suggestion = "Did you mean " + local + "@" + COMMON_DOMAINS[i] + "?";
+      break;
+    }
+  }
+  return { address: addr, valid: true, problem: null, suggestion: suggestion };
+}
+function validateList(text) {
+  var lines = text.split("\n");
+  var results = [];
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i].replace(/\r/g, "").trim();
+    if (line === "") continue;
+    results.push(validateEmail(line));
+  }
+  return results;
+}
+if (typeof document !== "undefined") {
+  var emailsEl = document.getElementById("emails");
+  var checkBtnEl = document.getElementById("checkBtn");
+  var sampleBtnEl = document.getElementById("sampleBtn");
+  var clearBtnEl = document.getElementById("clearBtn");
+  var summaryEl = document.getElementById("summary");
+  var resultsEl = document.getElementById("results");
+  var noteEl = document.getElementById("toolNote");
+  function render(results) {
+    resultsEl.innerHTML = "";
+    var validCount = 0;
+    results.forEach(function (r) {
+      if (r.valid) validCount++;
+      var row = document.createElement("div");
+      row.className = "result";
+      var head = document.createElement("div");
+      head.textContent = r.address;
+      row.appendChild(head);
+      var verdict = document.createElement("div");
+      if (r.valid) {
+        verdict.className = "good";
+        verdict.textContent = "Valid syntax.";
+      } else {
+        verdict.className = "bad";
+        verdict.textContent = "Invalid: " + r.problem + ".";
+      }
+      row.appendChild(verdict);
+      if (r.suggestion) {
+        var sug = document.createElement("div");
+        sug.className = "suggest";
+        sug.textContent = r.suggestion;
+        row.appendChild(sug);
+      }
+      resultsEl.appendChild(row);
+    });
+    summaryEl.textContent = results.length + " checked: " + validCount + " valid, " + (results.length - validCount) + " invalid.";
+  }
+  checkBtnEl.addEventListener("click", function () {
+    var results = validateList(emailsEl.value);
+    if (results.length === 0) {
+      summaryEl.textContent = "";
+      resultsEl.innerHTML = "";
+      noteEl.textContent = "Paste at least one email address, then press Validate.";
+      return;
+    }
+    noteEl.textContent = "";
+    render(results);
+  });
+  sampleBtnEl.addEventListener("click", function () {
+    emailsEl.value = "name@gmail.com\nname@gamil.com\nname@domain";
+    noteEl.textContent = "Examples loaded. Press Validate to check them.";
+  });
+  clearBtnEl.addEventListener("click", function () {
+    emailsEl.value = "";
+    summaryEl.textContent = "";
+    resultsEl.innerHTML = "";
+    noteEl.textContent = "";
+  });
+}
+</script>
+<!-- TB-MONETAG -->
+</body>
+</html>
