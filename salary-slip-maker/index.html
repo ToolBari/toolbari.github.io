@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Salary Slip Maker | ToolBari</title>
+<meta name="description" content="Make a printable salary slip in your browser, free. Add employee details, earnings and deductions, then print the slip with net pay or download it.">
+<link rel="canonical" href="https://toolbari.github.io/salary-slip-maker/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Salary Slip Maker">
+<meta property="og:description" content="Make a printable salary slip with net pay in your browser, free.">
+<meta property="og:url" content="https://toolbari.github.io/salary-slip-maker/">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+.calc textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:15px;background:#fff;font-family:inherit}
+.calc button{background:#0b7a4b;color:#fff;font-weight:700;border:none;padding:11px 18px;border-radius:999px;font-size:15px;margin:8px 6px 0 0;cursor:pointer}
+.calc button.secondary{background:#fff;color:#0b7a4b;border:1px solid #0b7a4b}
+.calc .msg{font-size:15px;color:#b45309;margin-top:10px}
+.calc pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:12px;margin-top:12px;font-size:14px;max-height:320px;overflow:auto}
+.calc .info{font-size:14.5px;color:#334155;margin-top:8px}
+.calc .hashrow{display:flex;gap:8px;margin-top:10px;align-items:center}
+.calc .hashrow label{flex:0 0 90px;margin:0}
+.calc .hashrow input{flex:1}
+.calc .hashrow button{flex:0 0 auto;margin:0;padding:9px 14px}
+.item-row{display:flex;gap:8px;margin-top:8px}
+.item-row input{flex:1;min-width:0}
+.item-row input.wide{flex:2}
+.item-row button{flex:0 0 auto}
+.doc{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px;margin:14px 0}
+.doc .doctitle{font-size:22px;font-weight:800;margin-bottom:2px}
+.doc .docsub{font-size:14.5px;color:#475569}
+.doc table{width:100%;border-collapse:collapse;margin:12px 0;font-size:15px}
+.doc th,.doc td{border-bottom:1px solid #e2e8f0;padding:6px 4px;text-align:left;vertical-align:top}
+.doc th.n,.doc td.n{text-align:right}
+.doc .tot{font-weight:700}
+.doc .steps{font-size:14.5px;color:#334155;margin-top:8px}
+.qrbox{text-align:center;margin-top:12px}
+.qrbox canvas{max-width:100%;height:auto}
+@media print{body *{visibility:hidden}#doc,#doc *{visibility:visible}#doc{position:absolute;left:0;top:0;width:100%;border:none}}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is net pay worked out?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Net pay is total earnings minus total deductions. Both totals are shown on the slip with the working beside them."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I add more earnings or deductions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Use the Add buttons under each list to add more lines, and Remove on any line to take it out."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What should I put as the pay month?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the month the slip covers, for example the month the salary was paid for. The slip shows it exactly as you pick it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I print or keep the slip?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the Print button to open the print dialog with just the slip, or download the slip as a file to keep or send."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Salary Slip Maker</h1>
+<p class="answer">Fill in the employee details, earnings and deductions to build a printable salary slip with net pay worked out. Everything is made in your browser, so the figures never leave the page.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="employer">Employer name</label>
+<input type="text" id="employer" placeholder="Employer name">
+<label for="employee-name">Employee name</label>
+<input type="text" id="employee-name" placeholder="Employee name">
+<label for="employee-id">Employee ID</label>
+<input type="text" id="employee-id" placeholder="Employee ID (optional)">
+<label for="pay-month">Pay month</label>
+<input type="month" id="pay-month">
+<label>Earnings</label>
+<div id="earnings"></div>
+<button type="button" id="add-earning" class="secondary">Add earning</button>
+<label>Deductions</label>
+<div id="deductions"></div>
+<button type="button" id="add-deduction" class="secondary">Add deduction</button>
+<button type="button" id="generate-btn">Generate salary slip</button>
+<p class="msg" id="sl-msg"></p>
+<button type="button" id="print-btn" class="secondary">Print</button>
+<button type="button" id="download-btn" class="secondary">Download</button>
+</div>
+<div class="doc" id="doc"></div>
+<div class="warn">This maker builds a simple salary slip document from the figures you type. It is not payroll or tax advice.</div>
+<h2>What goes on a salary slip</h2>
+<p>A salary slip names the employer and the employee, states the pay month, and lists earnings and deductions with their totals. The net pay at the bottom is what the employee takes home for that month.</p><p>This maker works out both totals and the net pay for you, and prints the working on the slip so the figures can be checked at a glance. Earnings and deductions are kept in separate lists, each with its own total.</p>
+<h2>Checking the figures</h2>
+<p>Net pay is total earnings minus total deductions. If the deductions are larger than the earnings, the net pay will be negative, which usually means a figure was typed wrong, so check the lines before you print.</p><p>All figures on the slip are the numbers you type. This maker never suggests salary amounts or deduction rates, and it does not check your figures against any payroll rules.</p>
+<h2>Keeping slips</h2>
+<p>Give the employee a copy of each slip and keep one for your own records, in order by month. A slip is a record of what was paid and what was taken off, so it is worth keeping even after the pay has gone through.</p><p>If a slip has a mistake, make a corrected slip for the same month and keep both, so the record shows what changed. Do not throw away the old slip, because the two together explain the correction.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>How is net pay worked out?</h3><p>Net pay is total earnings minus total deductions. Both totals are shown on the slip with the working beside them.</p></div>
+<div class="faq"><h3>Can I add more earnings or deductions?</h3><p>Yes. Use the Add buttons under each list to add more lines, and Remove on any line to take it out.</p></div>
+<div class="faq"><h3>What should I put as the pay month?</h3><p>Use the month the slip covers, for example the month the salary was paid for. The slip shows it exactly as you pick it.</p></div>
+<div class="faq"><h3>How do I print or keep the slip?</h3><p>Use the Print button to open the print dialog with just the slip, or download the slip as a file to keep or send.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/salary-calculator/">Salary Calculator</a> · <a href="https://toolbari.github.io/invoice-generator/">Invoice Generator</a> · <a href="https://toolbari.github.io/receipt-maker/">Receipt Maker</a> · <a href="https://toolbari.github.io/emi-calculator/">Emi Calculator</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<script>
+
+function esc(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+function downloadFile(name, text, type) {
+  var blob = new Blob([text], { type: type || "text/plain" });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url;
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+function copyText(text, msgEl) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function () {
+      msgEl.textContent = "Copied.";
+    }, function () { fallbackCopy(text, msgEl); });
+  } else {
+    fallbackCopy(text, msgEl);
+  }
+}
+function fallbackCopy(text, msgEl) {
+  var ta = document.createElement("textarea");
+  ta.value = text;
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand("copy");
+    msgEl.textContent = "Copied.";
+  } catch (e) {
+    msgEl.textContent = "Copy did not work in this browser. Select the text and copy it by hand.";
+  }
+  ta.remove();
+}
+function fmtNum(n) {
+  if (!isFinite(n)) return "";
+  return (Math.round(n * 100) / 100).toString();
+}
+function fmtMoney(n) {
+  return (Math.round(n * 100) / 100).toFixed(2);
+}
+
+function makeRow(container, fields) {
+  var row = document.createElement("div");
+  row.className = "item-row";
+  fields.forEach(function (f) {
+    var inp = document.createElement("input");
+    inp.type = f.type || "text";
+    if (f.cls) inp.className = f.cls;
+    inp.setAttribute("aria-label", f.aria);
+    inp.placeholder = f.ph;
+    if (f.min !== undefined) inp.min = f.min;
+    if (f.step) inp.step = f.step;
+    row.appendChild(inp);
+  });
+  var rm = document.createElement("button");
+  rm.type = "button";
+  rm.className = "secondary";
+  rm.textContent = "Remove";
+  rm.addEventListener("click", function () { row.remove(); });
+  row.appendChild(rm);
+  container.appendChild(row);
+  return row;
+}
+function downloadDoc(filename, title, bodyHtml) {
+  var doc = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>" + esc(title) + "</title>\n<style>body{font-family:Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;color:#1e293b}table{width:100%;border-collapse:collapse}td,th{border-bottom:1px solid #e2e8f0;padding:6px 4px;text-align:left}td.n,th.n{text-align:right}</style>\n</head>\n<body>\n" + bodyHtml + "\n</body>\n</html>";
+  downloadFile(filename, doc, "text/html");
+}
+
+var earnBox = document.getElementById("earnings");
+var dedBox = document.getElementById("deductions");
+var moneyFields = [
+  { ph: "Description", aria: "Description", cls: "wide" },
+  { ph: "Amount", aria: "Amount", type: "number", min: "0", step: "any" }
+];
+makeRow(earnBox, moneyFields);
+makeRow(earnBox, moneyFields);
+makeRow(dedBox, moneyFields);
+makeRow(dedBox, moneyFields);
+document.getElementById("add-earning").addEventListener("click", function () { makeRow(earnBox, moneyFields); });
+document.getElementById("add-deduction").addEventListener("click", function () { makeRow(dedBox, moneyFields); });
+var monthIn = document.getElementById("pay-month");
+(function () {
+  var d = new Date();
+  var m = (d.getMonth() + 1).toString();
+  if (m.length === 1) m = "0" + m;
+  monthIn.value = d.getFullYear() + "-" + m;
+})();
+var slMsg = document.getElementById("sl-msg");
+var slDoc = document.getElementById("doc");
+var lastSlipHtml = "";
+function collectMoney(box, label, errors) {
+  var rows = box.querySelectorAll(".item-row");
+  var lines = [];
+  for (var i = 0; i < rows.length; i++) {
+    var ins = rows[i].querySelectorAll("input");
+    var desc = ins[0].value.trim();
+    var amtS = ins[1].value.trim();
+    if (!desc && !amtS) continue;
+    var amt = parseFloat(amtS);
+    if (!desc) errors.push(label + " row " + (i + 1) + ": enter a description.");
+    else if (isNaN(amt) || amt < 0) errors.push(label + " row " + (i + 1) + ": amount must be a number, zero or more.");
+    else lines.push({ desc: desc, amt: amt });
+  }
+  return lines;
+}
+document.getElementById("generate-btn").addEventListener("click", function () {
+  var errors = [];
+  var earnings = collectMoney(earnBox, "Earnings", errors);
+  var deductions = collectMoney(dedBox, "Deductions", errors);
+  if (earnings.length === 0 && errors.length === 0) errors.push("Add at least one earnings line.");
+  if (errors.length) {
+    slMsg.textContent = errors.join(" ");
+    slDoc.innerHTML = "";
+    lastSlipHtml = "";
+    return;
+  }
+  var employer = document.getElementById("employer").value.trim();
+  var empName = document.getElementById("employee-name").value.trim();
+  var empId = document.getElementById("employee-id").value.trim();
+  var month = monthIn.value;
+  var totEarn = 0, totDed = 0, earnHtml = "", dedHtml = "", eSteps = [], dSteps = [];
+  earnings.forEach(function (l) {
+    totEarn += l.amt;
+    eSteps.push(fmtMoney(l.amt));
+    earnHtml += "<tr><td>" + esc(l.desc) + "</td><td class=\"n\">" + fmtMoney(l.amt) + "</td></tr>";
+  });
+  deductions.forEach(function (l) {
+    totDed += l.amt;
+    dSteps.push(fmtMoney(l.amt));
+    dedHtml += "<tr><td>" + esc(l.desc) + "</td><td class=\"n\">" + fmtMoney(l.amt) + "</td></tr>";
+  });
+  var net = totEarn - totDed;
+  var html = "<div class=\"doctitle\">Salary Slip</div>";
+  if (employer) html += "<div class=\"docsub\">" + esc(employer) + "</div>";
+  html += "<p>" + (empName ? "Employee: " + esc(empName) + ". " : "") + (empId ? "ID: " + esc(empId) + ". " : "") + (month ? "Pay month: " + esc(month) + "." : "") + "</p>";
+  html += "<p class=\"tot\">Earnings</p><table><tr><th>Description</th><th class=\"n\">Amount</th></tr>" + earnHtml + "<tr><td class=\"tot\">Total earnings</td><td class=\"n tot\">" + fmtMoney(totEarn) + "</td></tr></table>";
+  html += "<p class=\"tot\">Deductions</p><table><tr><th>Description</th><th class=\"n\">Amount</th></tr>" + dedHtml + "<tr><td class=\"tot\">Total deductions</td><td class=\"n tot\">" + fmtMoney(totDed) + "</td></tr></table>";
+  html += "<p class=\"tot\">Net pay: " + fmtMoney(net) + "</p>";
+  html += "<div class=\"steps\">Working: total earnings " + eSteps.join(" + ") + " = " + fmtMoney(totEarn) + "; total deductions " + (dSteps.length ? dSteps.join(" + ") + " = " + fmtMoney(totDed) : "0") + "; net pay " + fmtMoney(totEarn) + " - " + fmtMoney(totDed) + " = " + fmtMoney(net) + ".</div>";
+  slDoc.innerHTML = html;
+  lastSlipHtml = html;
+  slMsg.textContent = "";
+});
+document.getElementById("print-btn").addEventListener("click", function () {
+  if (!lastSlipHtml) { slMsg.textContent = "Generate the salary slip first, then print it."; return; }
+  window.print();
+});
+document.getElementById("download-btn").addEventListener("click", function () {
+  if (!lastSlipHtml) { slMsg.textContent = "Generate the salary slip first, then download it."; return; }
+  downloadDoc("salary-slip.html", "Salary Slip", lastSlipHtml);
+});
+
+</script>
+<!-- TB-MONETAG -->
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calendar Maker | ToolBari</title>
+<meta name="description" content="Make a printable monthly or yearly calendar for any year. Choose the month, the first day of the week, and add your own notes to any date.">
+<link rel="canonical" href="https://toolbari.github.io/calendar-maker/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Calendar Maker">
+<meta property="og:description" content="Build a printable monthly or yearly calendar with your own notes on any date.">
+<meta property="og:url" content="https://toolbari.github.io/calendar-maker/">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+.calc button{background:#0b7a4b;color:#fff;font-weight:700;border:0;padding:11px 18px;border-radius:999px;font-size:15.5px;cursor:pointer;margin:8px 6px 0 0}
+.calc button.secondary{background:#e2e8f0;color:#1e293b}
+.calc textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;font-family:inherit}
+.calc input[type="checkbox"]{width:auto}
+.calc .msg{font-size:15px;color:#b45309;margin-top:10px}
+.calc .big{font-size:30px;font-weight:800;text-align:center;margin:8px 0}
+.cal-month{font-weight:700;font-size:18px;margin:16px 0 4px}
+table.grid{border-collapse:collapse;width:100%;margin-top:12px}
+table.grid th,table.grid td{border:1px solid #cbd5e1;padding:6px;text-align:center;font-size:14px;vertical-align:top}
+table.grid td.today{background:#fef3c7}
+.kb-board{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+.kb-col{flex:1;min-width:170px;background:rgba(255,255,255,.6);border:1px solid #e2e8f0;border-radius:12px;padding:10px}
+.kb-head{font-weight:700;margin-bottom:8px}
+.kb-card{background:#fff;border:1px solid #cbd5e1;border-radius:8px;padding:8px;margin:6px 0;cursor:grab;font-size:14.5px}
+.kb-card button{padding:3px 9px;font-size:13px;margin:3px 3px 0 0}
+.bracket{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px}
+.bracket .round{min-width:165px;flex:1}
+.match{background:#fff;border:1px solid #cbd5e1;border-radius:8px;padding:8px;margin:8px 0}
+.match button{display:block;width:100%;text-align:left;background:#f1f5f9;color:#1e293b;font-weight:600;border:0;border-radius:6px;padding:7px 9px;margin:3px 0;cursor:pointer;font-size:14.5px}
+.match button.winner{background:#0b7a4b;color:#fff}
+.match .bye{font-size:13px;color:#64748b}
+.tp-window{height:320px;overflow:auto;background:#0f172a;color:#f8fafc;border-radius:12px;padding:20px;margin-top:12px}
+.tp-text{white-space:pre-line;line-height:1.8}
+.hl-row{border:1px solid #e2e8f0;border-radius:8px;padding:10px;margin:10px 0;background:rgba(255,255,255,.5)}
+.sb-row{display:flex;gap:12px;flex-wrap:wrap}
+.sb-team{flex:1;min-width:150px;text-align:center}
+@media print{.calc button{display:none!important}}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Which years can I make a calendar for?", "acceptedAnswer": {"@type": "Answer", "text": "Any year from 1900 to 2100. Type the year, choose a month or the full year, and press Make calendar."}}, {"@type": "Question", "name": "How do I add a note to a date?", "acceptedAnswer": {"@type": "Answer", "text": "Write one note per line with the date first, then a colon, then the note, for example 2026-03-14: Family dinner. The note appears under that date on the calendar."}}, {"@type": "Question", "name": "Can I start the week on Monday?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Choose Monday or Sunday as the first day of the week before you make the calendar."}}, {"@type": "Question", "name": "How do I print the calendar?", "acceptedAnswer": {"@type": "Answer", "text": "Press Print to open your browser print dialog, then choose your printer or save as PDF."}}]}</script>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Calendar Maker</h1>
+<p class="answer">Make a printable calendar for any month or any full year. Pick the year, the month and the first day of the week, add notes to the dates that matter, then print it or download it.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="cal-year">Year</label>
+<input type="number" id="cal-year" min="1900" max="2100" value="2026">
+<label for="cal-month">Month</label>
+<select id="cal-month">
+<option value="0">January</option>
+<option value="1">February</option>
+<option value="2">March</option>
+<option value="3">April</option>
+<option value="4">May</option>
+<option value="5">June</option>
+<option value="6">July</option>
+<option value="7">August</option>
+<option value="8">September</option>
+<option value="9">October</option>
+<option value="10">November</option>
+<option value="11">December</option>
+</select>
+<label for="cal-view">View</label>
+<select id="cal-view">
+<option value="month">Monthly calendar</option>
+<option value="year">Yearly calendar (all 12 months)</option>
+</select>
+<label for="cal-start">First day of the week</label>
+<select id="cal-start">
+<option value="0">Sunday</option>
+<option value="1">Monday</option>
+</select>
+<label for="cal-notes">Notes (optional, one per line)</label>
+<textarea id="cal-notes" rows="3" placeholder="2026-03-14: Family dinner"></textarea>
+<button type="button" id="cal-make">Make calendar</button>
+<button type="button" class="secondary" id="cal-print">Print</button>
+<button type="button" class="secondary" id="cal-download">Download</button>
+<p class="msg" id="cal-msg"></p>
+<div id="cal-out"></div>
+</div>
+<div class="warn">This calendar shows dates only. It does not include public holidays, so add any holidays you need as notes.</div>
+<h2>How to make your calendar</h2>
+<p>Start by typing the year you want, then choose a month if you only need one page, or pick the yearly view to see all twelve months at once. The week can start on Sunday or Monday, whichever matches the calendars you normally use. When you press Make calendar, the grid is drawn with the correct number of days for that month, including 29 February in a leap year, and today is highlighted when the calendar shows the current month.</p>
+<p>Notes turn a plain calendar into your own. Each note sits under the date it belongs to, so birthdays, appointments, deadlines and reminders are visible at a glance. You can add as many notes as you like, and several notes can share the same date. If a line does not follow the date format, it is skipped and the message under the buttons tells you how many lines were skipped, so nothing is silently lost.</p>
+<h2>Notes and printing tips</h2>
+<p>Write each note on its own line, starting with the full date, then a colon, then the note itself. For example, the line 2026-03-14: Family dinner puts the words Family dinner under 14 March 2026. Dates must be real calendar dates, so 2026-02-30 would be skipped because February never has 30 days. Notes work in both views: in the yearly view each note appears in its own month.</p>
+<p>To print, press Print and use your browser print dialog. A monthly calendar fits on one page, and the yearly view prints month by month. The Download button saves the calendar as a file you can open in any browser and print later. The calendar is made entirely on this page, so your notes never leave your device.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>Which years can I make a calendar for?</h3><p>Any year from 1900 to 2100. Type the year, choose a month or the full year, and press Make calendar.</p></div>
+<div class="faq"><h3>How do I add a note to a date?</h3><p>Write one note per line with the date first, then a colon, then the note, for example 2026-03-14: Family dinner. The note appears under that date on the calendar.</p></div>
+<div class="faq"><h3>Can I start the week on Monday?</h3><p>Yes. Choose Monday or Sunday as the first day of the week before you make the calendar.</p></div>
+<div class="faq"><h3>How do I print the calendar?</h3><p>Press Print to open your browser print dialog, then choose your printer or save as PDF.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/date-difference-calculator/">Date Difference Calculator</a> · <a href="https://toolbari.github.io/expiry-date-tracker/">Expiry Date Tracker</a> · <a href="https://toolbari.github.io/moon-phase-calendar/">Moon Phase Calendar</a> · <a href="https://toolbari.github.io/sunrise-sunset-calculator/">Sunrise Sunset Calculator</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<script>
+var CAL_MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+var calNotes = {};
+function calDaysInMonth(y, m) { return new Date(y, m + 1, 0).getDate(); }
+function calEscape(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+function calParseNotes(text) {
+  var map = {}, added = 0, skipped = 0;
+  var lines = (text || "").split("\n");
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i].trim();
+    if (!line) continue;
+    var m = line.match(/^(\d{4})-(\d{2})-(\d{2}):\s*(.+)$/);
+    if (!m) { skipped++; continue; }
+    var y = parseInt(m[1], 10), mo = parseInt(m[2], 10), d = parseInt(m[3], 10);
+    if (mo < 1 || mo > 12 || d < 1 || d > calDaysInMonth(y, mo - 1)) { skipped++; continue; }
+    var key = m[1] + "-" + m[2] + "-" + m[3];
+    if (!map[key]) map[key] = [];
+    map[key].push(m[4]);
+    added++;
+  }
+  return { map: map, added: added, skipped: skipped };
+}
+function calMonthHtml(y, m, startDay) {
+  var days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  if (startDay === 1) days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+  var first = new Date(y, m, 1).getDay();
+  var offset = (first - startDay + 7) % 7;
+  var dim = calDaysInMonth(y, m);
+  var now = new Date();
+  var todayKey = now.getFullYear() + "-" + ("0" + (now.getMonth() + 1)).slice(-2) + "-" + ("0" + now.getDate()).slice(-2);
+  var h = '<p class="cal-month">' + CAL_MONTHS[m] + " " + y + "</p>";
+  h += '<table class="grid"><tr>';
+  for (var d = 0; d < 7; d++) h += "<th>" + days[d] + "</th>";
+  h += "</tr><tr>";
+  for (var i = 0; i < offset; i++) h += "<td></td>";
+  for (var day = 1; day <= dim; day++) {
+    var key = y + "-" + ("0" + (m + 1)).slice(-2) + "-" + ("0" + day).slice(-2);
+    var cls = (key === todayKey) ? ' class="today"' : "";
+    h += "<td" + cls + "><strong>" + day + "</strong>";
+    var notes = calNotes[key];
+    if (notes) {
+      for (var n = 0; n < notes.length; n++) h += "<br><span class=\"note\">" + calEscape(notes[n]) + "</span>";
+    }
+    h += "</td>";
+    if ((offset + day) % 7 === 0 && day < dim) h += "</tr><tr>";
+  }
+  var filled = (offset + dim) % 7;
+  if (filled !== 0) { for (var r = filled; r < 7; r++) h += "<td></td>"; }
+  h += "</tr></table>";
+  return h;
+}
+function calMake() {
+  var msg = document.getElementById("cal-msg");
+  var year = parseInt(document.getElementById("cal-year").value, 10);
+  if (isNaN(year) || year < 1900 || year > 2100) {
+    msg.textContent = "Enter a year from 1900 to 2100.";
+    return;
+  }
+  var month = parseInt(document.getElementById("cal-month").value, 10);
+  var view = document.getElementById("cal-view").value;
+  var startDay = parseInt(document.getElementById("cal-start").value, 10);
+  var parsed = calParseNotes(document.getElementById("cal-notes").value || "");
+  calNotes = parsed.map;
+  var out = document.getElementById("cal-out");
+  var tail = " " + parsed.added + " note(s) added." + (parsed.skipped ? " " + parsed.skipped + " line(s) skipped (use YYYY-MM-DD: Note)." : "");
+  if (view === "year") {
+    var html = "";
+    for (var m = 0; m < 12; m++) html += calMonthHtml(year, m, startDay);
+    out.innerHTML = html;
+    msg.textContent = "Year calendar for " + year + " is ready." + tail;
+  } else {
+    out.innerHTML = calMonthHtml(year, month, startDay);
+    msg.textContent = CAL_MONTHS[month] + " " + year + " calendar is ready." + tail;
+  }
+}
+function calDownload() {
+  var msg = document.getElementById("cal-msg");
+  var out = document.getElementById("cal-out");
+  if (!out.innerHTML) { msg.textContent = "Make a calendar first, then download it."; return; }
+  var doc = "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>Calendar</title><style>table{border-collapse:collapse;width:100%}th,td{border:1px solid #999;padding:6px;text-align:center;vertical-align:top}body{font-family:Arial,sans-serif}</style></head><body>" + out.innerHTML + "</body></html>";
+  var blob = new Blob([doc], { type: "text/html" });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url;
+  a.download = "calendar.html";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  msg.textContent = "Calendar downloaded.";
+}
+document.getElementById("cal-make").addEventListener("click", calMake);
+document.getElementById("cal-print").addEventListener("click", function () { window.print(); });
+document.getElementById("cal-download").addEventListener("click", calDownload);
+(function () {
+  var now = new Date();
+  document.getElementById("cal-year").value = String(now.getFullYear());
+  document.getElementById("cal-month").value = String(now.getMonth());
+})();
+</script>
+<!-- TB-MONETAG -->
+</body>
+</html>

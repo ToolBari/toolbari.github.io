@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coordinates Converter | ToolBari</title>
+<meta name="description" content="Convert coordinates between degrees-minutes-seconds and decimal degrees, both ways, with the working shown, copy buttons and a map link for the result.">
+<link rel="canonical" href="https://toolbari.github.io/coordinates-converter/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Coordinates Converter">
+<meta property="og:description" content="Convert DMS coordinates to decimal degrees and back, with a map link.">
+<meta property="og:url" content="https://toolbari.github.io/coordinates-converter/">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+.calc button{background:#0b7a4b;color:#fff;font-weight:700;padding:11px 18px;border:none;border-radius:8px;font-size:16px;margin:12px 6px 0 0;cursor:pointer}
+.calc button.secondary{background:#64748b}
+.calc button:active{transform:translateY(1px)}
+.calc .out{white-space:pre-line}
+.frow{display:flex;gap:8px;flex-wrap:wrap}
+.frow>div{flex:1;min-width:70px}
+.side{display:flex;gap:10px;flex-wrap:wrap}
+.side figure{flex:1;min-width:150px;margin:0}
+.side canvas{width:100%;height:auto;background:#fff;border:1px solid #e2e8f0;border-radius:8px}
+.side figcaption{font-size:14px;color:#64748b;text-align:center}
+.clockbtn{width:100%;padding:18px;font-size:26px;font-weight:800;background:#0b7a4b;color:#fff;border:none;border-radius:12px;margin:8px 0;cursor:pointer;white-space:pre-line}
+.clockbtn.two{background:#334155}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I convert DMS to decimal degrees?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Add degrees + minutes/60 + seconds/3600. South and west are negative, north and east are positive."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I convert decimal degrees back to DMS?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Take the whole degrees, multiply the remainder by 60 for minutes, then multiply the new remainder by 60 for seconds."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What do N, S, E and W mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "N and E are positive, S and W are negative. Latitude runs 0 to 90 north or south; longitude runs 0 to 180 east or west."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the map link share my location?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The link only contains the numbers you typed. Nothing is sent anywhere until you click it."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Coordinates Converter</h1>
+<p class="answer">Enter a latitude and longitude in degrees, minutes and seconds to get decimal degrees, or enter decimal degrees to get DMS back. The working is shown for every conversion, and the result comes with a copy button and a map link.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<p><strong>DMS to decimal degrees</strong></p>
+<label for="dms-lat-d">Latitude degrees (0-90)</label>
+<input id="dms-lat-d" type="number" inputmode="decimal" placeholder="e.g. 51">
+<label for="dms-lat-m">Latitude minutes (0-59)</label>
+<input id="dms-lat-m" type="number" inputmode="decimal" placeholder="e.g. 30">
+<label for="dms-lat-s">Latitude seconds (0-59)</label>
+<input id="dms-lat-s" type="number" inputmode="decimal" placeholder="e.g. 26">
+<label for="dms-lat-h">Latitude hemisphere</label>
+<select id="dms-lat-h"><option value="N">North (N)</option><option value="S">South (S)</option></select>
+<label for="dms-lon-d">Longitude degrees (0-180)</label>
+<input id="dms-lon-d" type="number" inputmode="decimal" placeholder="e.g. 0">
+<label for="dms-lon-m">Longitude minutes (0-59)</label>
+<input id="dms-lon-m" type="number" inputmode="decimal" placeholder="e.g. 7">
+<label for="dms-lon-s">Longitude seconds (0-59)</label>
+<input id="dms-lon-s" type="number" inputmode="decimal" placeholder="e.g. 39">
+<label for="dms-lon-h">Longitude hemisphere</label>
+<select id="dms-lon-h"><option value="E">East (E)</option><option value="W">West (W)</option></select>
+<button id="dms-btn" type="button">Convert to decimal</button>
+<button id="dms-copy" type="button" class="secondary">Copy result</button>
+<p class="out" id="dms-out"></p>
+<p class="steps" id="dms-steps"></p>
+<p class="note" id="dms-msg"></p>
+<div id="cc-maplink"></div>
+</div>
+<div class="calc">
+<p><strong>Decimal degrees to DMS</strong></p>
+<label for="dec-lat">Latitude in decimal degrees (-90 to 90)</label>
+<input id="dec-lat" type="number" inputmode="decimal" placeholder="e.g. 51.50722">
+<label for="dec-lon">Longitude in decimal degrees (-180 to 180)</label>
+<input id="dec-lon" type="number" inputmode="decimal" placeholder="e.g. -0.1275">
+<button id="dec-btn" type="button">Convert to DMS</button>
+<button id="dec-copy" type="button" class="secondary">Copy result</button>
+<p class="out" id="dec-out"></p>
+<p class="steps" id="dec-steps"></p>
+<p class="note" id="dec-msg"></p>
+<div id="cc-maplink2"></div>
+</div>
+<div class="warn">The map link opens an external map site with the coordinates you typed. This page only converts numbers and never stores your coordinates.</div>
+<h2>Degrees, minutes and seconds</h2>
+<p>One degree is 60 minutes and one minute is 60 seconds, so one degree is 3600 seconds. To turn DMS into decimal degrees, add the degrees, the minutes divided by 60 and the seconds divided by 3600. North and east are positive; south and west are negative, so a latitude of 51 degrees 30 minutes north is positive and a longitude of 0 degrees 7 minutes west is negative.</p>
+<p>Latitude runs from 0 to 90 in each hemisphere and longitude from 0 to 180. Minutes and seconds are always below 60. The converter checks every value you type and shows a plain message if a number is outside its range, instead of producing a wrong answer.</p>
+<h2>Worked example</h2>
+<p>51 degrees 30 minutes 26 seconds north becomes 51 + 30/60 + 26/3600 = 51 + 0.5 + 0.00722 = 51.50722 degrees. A longitude of 0 degrees 7 minutes 39 seconds west becomes 0 + 7/60 + 39/3600 = 0.1275 degrees, negative because it is west: -0.1275 degrees.</p>
+<p>Going the other way, 51.50722 degrees gives 51 whole degrees, then 0.50722 x 60 = 30.4332 minutes, so 30 minutes, then 0.4332 x 60 = 25.99 seconds: 51 degrees 30 minutes 25.99 seconds north. The small difference from 26 seconds comes from rounding the decimal to five places.</p>
+
+<h2>Questions people ask</h2>
+<div class="faq">
+<h3>How do I convert DMS to decimal degrees?</h3>
+<p>Add degrees + minutes/60 + seconds/3600. South and west are negative, north and east are positive.</p>
+</div>
+<div class="faq">
+<h3>How do I convert decimal degrees back to DMS?</h3>
+<p>Take the whole degrees, multiply the remainder by 60 for minutes, then multiply the new remainder by 60 for seconds.</p>
+</div>
+<div class="faq">
+<h3>What do N, S, E and W mean?</h3>
+<p>N and E are positive, S and W are negative. Latitude runs 0 to 90 north or south; longitude runs 0 to 180 east or west.</p>
+</div>
+<div class="faq">
+<h3>Does the map link share my location?</h3>
+<p>The link only contains the numbers you typed. Nothing is sent anywhere until you click it.</p>
+</div>
+
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/angle-converter/">Angle Converter</a> · <a href="https://toolbari.github.io/unit-converter/">Unit Converter</a> · <a href="https://toolbari.github.io/gps-speedometer/">GPS Speedometer</a> · <a href="https://toolbari.github.io/isbn-converter/">ISBN Converter</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<script>
+
+function setText(id,t){ var el=document.getElementById(id); if(el) el.textContent=t; }
+function numVal(id){
+  var el=document.getElementById(id);
+  if(!el) return null;
+  var v=el.value.trim();
+  if(v==="") return null;
+  var n=Number(v);
+  return isFinite(n)?n:null;
+}
+
+function copyText(t,msgId){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(function(){ setText(msgId,"Copied."); },function(){ setText(msgId,"Copy did not work in this browser."); });
+  } else {
+    setText(msgId,"Copy is not available in this browser.");
+  }
+}
+
+function fmtDec(n){ return String(parseFloat(n.toFixed(5))); }
+function dmsPart(d,m,s,hemi,maxDeg,label){
+  if(d===null||m===null||s===null) return {error:"Enter "+label+" degrees, minutes and seconds."};
+  if(d<0||d>maxDeg) return {error:label+" degrees must be between 0 and "+maxDeg+"."};
+  if(m<0||m>=60) return {error:label+" minutes must be between 0 and 59."};
+  if(s<0||s>=60) return {error:label+" seconds must be between 0 and 59."};
+  var dec=d+m/60+s/3600;
+  if(hemi==="S"||hemi==="W") dec=-dec;
+  return {value:dec};
+}
+function showMapLink(boxId,lat,lon){
+  var box=document.getElementById(boxId);
+  box.innerHTML="";
+  var url="https://www.openstreetmap.org/?mlat="+lat.toFixed(5)+"&mlon="+lon.toFixed(5)+"#map=12/"+lat.toFixed(5)+"/"+lon.toFixed(5);
+  var a=document.createElement("a");
+  a.href=url;
+  a.textContent="Open this point on OpenStreetMap";
+  a.target="_blank";
+  box.appendChild(a);
+}
+var dmsLast="", decLast="";
+document.getElementById("dms-btn").addEventListener("click",function(){
+  var lat=dmsPart(numVal("dms-lat-d"),numVal("dms-lat-m"),numVal("dms-lat-s"),document.getElementById("dms-lat-h").value,90,"Latitude");
+  var lon=dmsPart(numVal("dms-lon-d"),numVal("dms-lon-m"),numVal("dms-lon-s"),document.getElementById("dms-lon-h").value,180,"Longitude");
+  if(lat.error){ setText("dms-out",lat.error); setText("dms-steps",""); return; }
+  if(lon.error){ setText("dms-out",lon.error); setText("dms-steps",""); return; }
+  var ld=numVal("dms-lat-d"),lm=numVal("dms-lat-m"),ls=numVal("dms-lat-s");
+  var od=numVal("dms-lon-d"),om=numVal("dms-lon-m"),os=numVal("dms-lon-s");
+  dmsLast=fmtDec(lat.value)+", "+fmtDec(lon.value);
+  setText("dms-out","Latitude: "+fmtDec(lat.value)+"\u00b0\nLongitude: "+fmtDec(lon.value)+"\u00b0");
+  setText("dms-steps","Latitude: "+ld+" + "+lm+"/60 + "+ls+"/3600 = "+ld+" + "+fmtDec(lm/60)+" + "+fmtDec(ls/3600)+" = "+fmtDec(lat.value)+"\u00b0"+(document.getElementById("dms-lat-h").value==="S"?" (south, negative)":"")+".\nLongitude: "+od+" + "+om+"/60 + "+os+"/3600 = "+od+" + "+fmtDec(om/60)+" + "+fmtDec(os/3600)+" = "+fmtDec(lon.value)+"\u00b0"+(document.getElementById("dms-lon-h").value==="W"?" (west, negative)":"")+".");
+  setText("dms-msg","");
+  showMapLink("cc-maplink",lat.value,lon.value);
+});
+function decToDms(dec,isLat){
+  var hemi=dec<0?(isLat?"S":"W"):(isLat?"N":"E");
+  var a=Math.abs(dec);
+  var d=Math.floor(a);
+  var rem=(a-d)*60;
+  var mi=Math.floor(rem);
+  var sec=Math.round((rem-mi)*60*100)/100;
+  if(sec>=60){ sec=0; mi+=1; }
+  if(mi>=60){ mi=0; d+=1; }
+  return {d:d,m:mi,s:sec,hemi:hemi};
+}
+function fmtDms(p){ return p.d+"\u00b0 "+p.m+"\u2032 "+p.s+"\u2033 "+p.hemi; }
+document.getElementById("dec-btn").addEventListener("click",function(){
+  var lat=numVal("dec-lat"), lon=numVal("dec-lon");
+  if(lat===null||lon===null){ setText("dec-out","Enter a latitude and a longitude in decimal degrees."); setText("dec-steps",""); return; }
+  if(lat<-90||lat>90){ setText("dec-out","Latitude must be between -90 and 90."); setText("dec-steps",""); return; }
+  if(lon<-180||lon>180){ setText("dec-out","Longitude must be between -180 and 180."); setText("dec-steps",""); return; }
+  var la=decToDms(lat,true), lo=decToDms(lon,false);
+  decLast=fmtDms(la)+", "+fmtDms(lo);
+  setText("dec-out","Latitude: "+fmtDms(la)+"\nLongitude: "+fmtDms(lo));
+  var latRem=Math.abs(lat)-Math.floor(Math.abs(lat));
+  var lonRem=Math.abs(lon)-Math.floor(Math.abs(lon));
+  setText("dec-steps","Latitude: "+Math.floor(Math.abs(lat))+" whole degrees; "+fmtDec(latRem)+" x 60 = "+fmtDec(latRem*60)+" minutes, so "+la.m+" minutes; remainder x 60 = "+la.s+" seconds.\nLongitude: "+Math.floor(Math.abs(lon))+" whole degrees; "+fmtDec(lonRem)+" x 60 = "+fmtDec(lonRem*60)+" minutes, so "+lo.m+" minutes; remainder x 60 = "+lo.s+" seconds.");
+  setText("dec-msg","");
+  showMapLink("cc-maplink2",lat,lon);
+});
+document.getElementById("dms-copy").addEventListener("click",function(){
+  if(!dmsLast){ setText("dms-msg","Convert a coordinate first, then copy it."); return; }
+  copyText(dmsLast,"dms-msg");
+});
+document.getElementById("dec-copy").addEventListener("click",function(){
+  if(!decLast){ setText("dec-msg","Convert a coordinate first, then copy it."); return; }
+  copyText(decLast,"dec-msg");
+});
+
+</script>
+<!-- TB-MONETAG -->
+</body>
+</html>
