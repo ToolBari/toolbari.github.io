@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Decision Matrix Maker | ToolBari</title>
+<meta name="description" content="Compare options with a weighted decision matrix. Enter options and criteria, set weights that total 100, score 1 to 5 and see the winner.">
+<link rel="canonical" href="https://toolbari.github.io/ai-decision-matrix-maker/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI Decision Matrix Maker">
+<meta property="og:description" content="Build a weighted decision matrix and find the winning option.">
+<meta property="og:url" content="https://toolbari.github.io/ai-decision-matrix-maker/">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+.calc button{background:#0b7a4b;color:#fff;font-weight:700;padding:11px 18px;border:none;border-radius:8px;font-size:16px;margin:12px 6px 0 0;cursor:pointer}
+.calc button.secondary{background:#64748b}
+.calc textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;font-family:inherit}
+.calc table{border-collapse:collapse;margin-top:10px;font-size:15px;width:100%}
+.calc table td,.calc table th{border:1px solid #cbd5e1;padding:6px 8px;text-align:left;vertical-align:top}
+.calc table th{background:#eef2ff}
+.calc .row{display:flex;gap:8px}
+.calc .row>span{flex:1}
+.tmpl-note{font-size:13.5px;color:#64748b;margin-top:8px}
+.checkrow{margin:6px 0}
+.checkrow label{display:inline;font-weight:400;margin:0 0 0 6px}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why must the weights total 100?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Weights are shares of the decision, so they must add up to the whole. A weight of 50 means half the decision, and 100 in total keeps every share honest and comparable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What do the scores 1 to 5 mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "1 means poor, 2 means below average, 3 means average, 4 means good, and 5 means excellent. Score every option against the same bar so the totals mean something."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if two options tie?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The tool tells you it is a tie and names the tied options. A tie means the numbers cannot separate them, so look at the one criterion that matters most to you."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this tool make the decision for me?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It does the arithmetic on the weights and scores you enter. The judgement behind those numbers, and the final decision, are yours."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>AI Decision Matrix Maker</h1>
+<p class="answer">This tool compares two to four options against two to five criteria you name, with weights that must total 100. Score each option from 1 to 5, and it shows the weighted totals with the working, highlights the winner, and tells you when two options tie.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+
+<label for="opt1">Option 1</label>
+<input id="opt1" type="text" placeholder="For example: take the train">
+<label for="opt2">Option 2</label>
+<input id="opt2" type="text" placeholder="For example: drive">
+<label for="opt3">Option 3 (optional)</label>
+<input id="opt3" type="text" placeholder="Optional third option">
+<label for="opt4">Option 4 (optional)</label>
+<input id="opt4" type="text" placeholder="Optional fourth option">
+
+<label for="crit1">Criterion 1 name</label>
+<div class="row"><span><input id="crit1" type="text" placeholder="For example: cost, quality, speed"></span><span><input id="w1" type="number" min="0" max="100" placeholder="Weight (0-100)"></span></div>
+
+
+<label for="crit2">Criterion 2 name</label>
+<div class="row"><span><input id="crit2" type="text" placeholder="For example: cost, quality, speed"></span><span><input id="w2" type="number" min="0" max="100" placeholder="Weight (0-100)"></span></div>
+
+
+<label for="crit3">Criterion 3 name</label>
+<div class="row"><span><input id="crit3" type="text" placeholder="For example: cost, quality, speed"></span><span><input id="w3" type="number" min="0" max="100" placeholder="Weight (0-100)"></span></div>
+
+
+<label for="crit4">Criterion 4 name</label>
+<div class="row"><span><input id="crit4" type="text" placeholder="For example: cost, quality, speed"></span><span><input id="w4" type="number" min="0" max="100" placeholder="Weight (0-100)"></span></div>
+
+
+<label for="crit5">Criterion 5 name</label>
+<div class="row"><span><input id="crit5" type="text" placeholder="For example: cost, quality, speed"></span><span><input id="w5" type="number" min="0" max="100" placeholder="Weight (0-100)"></span></div>
+
+<p class="tmpl-note">Weights must add up to 100 across the criteria you name. Leave a criterion blank to skip it.</p>
+<label>Scores — rate each option from 1 (poor) to 5 (excellent) for each criterion</label>
+<table><tr><th>Option</th><th>Criterion 1</th><th>Criterion 2</th><th>Criterion 3</th><th>Criterion 4</th><th>Criterion 5</th></tr>
+<tr><td>Option 1</td><td><select id="sc-o1-c1" aria-label="Option 1 score for criterion 1"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></td><td><select id="sc-o1-c2" aria-label="Option 1 score for criterion 2"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></td><td><select id="sc-o1-c3" aria-label="Option 1 score for criterion 3"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></td><td><select id="sc-o1-c4" aria-label="Option 1 score for criterion 4"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></td><td><select id="sc-o1-c5" aria-label="Option 1 score for criterion 5"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></td></tr>
+<tr><td>Option 2</td><td><select id="sc-o2-c1" aria-label="Option 2 score for criterion 1"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></td><td><select id="sc-o2-c2" aria-label="Option 2 score for criterion 2"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></td><td><select id="sc-o2-c3" aria-label="Option 2 score for criterion 3"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></td><td><select id="sc-o2-c4" aria-label="Option 2 score for criterion 4"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></td><td><select id="sc-o2-c5" aria-label="Option 2 score for criterion 5"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></td></tr>
+<tr><td>Option 3</td><td><select id="sc-o3-c1" aria-label="Option 3 score for criterion 1"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></td><td><select id="sc-o3-c2" aria-label="Option 3 score for criterion 2"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></td><td><select id="sc-o3-c3" aria-label="Option 3 score for criterion 3"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></td><td><select id="sc-o3-c4" aria-label="Option 3 score for criterion 4"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></td><td><select id="sc-o3-c5" aria-label="Option 3 score for criterion 5"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></td></tr>
+<tr><td>Option 4</td><td><select id="sc-o4-c1" aria-label="Option 4 score for criterion 1"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></td><td><select id="sc-o4-c2" aria-label="Option 4 score for criterion 2"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></td><td><select id="sc-o4-c3" aria-label="Option 4 score for criterion 3"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></td><td><select id="sc-o4-c4" aria-label="Option 4 score for criterion 4"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></td><td><select id="sc-o4-c5" aria-label="Option 4 score for criterion 5"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></td></tr>
+</table>
+<button type="button" onclick="calcMatrix()">Calculate weighted totals</button>
+<div class="out" id="dm-winner"></div>
+<div id="dm-table"></div>
+<div class="steps" id="dm-steps"></div>
+<p class="tmpl-note" id="dm-label"></p>
+
+</div>
+<div class="warn">Scores are your judgement, not measurements, so a close result means the choice is genuinely close. This tool works fully in your browser and calls no AI service, API, or backend. It does the arithmetic; the decision is yours.</div>
+<h2>How to use this maker</h2>
+<p>Name two to four options, then name two to five criteria and give each one a weight. The weights must add up to 100, so a weight of 50 means that criterion counts for half of the decision. Leave any criterion you do not need blank and it is skipped.</p>
+<p>Score each option from 1 to 5 for every criterion, then press the button. The tool shows the weighted total for each option, the working behind it, and the winner. If two options tie, it says so plainly instead of picking one.</p>
+<h2>How the weighted total is worked out</h2>
+<p>Each score is multiplied by its criterion's weight as a share of 100, and the results are added. For example, with weights of 50, 30 and 20 and scores of 5, 3 and 4, the total is 5 times 0.5 plus 3 times 0.3 plus 4 times 0.2, which is 2.5 plus 0.9 plus 0.8, which is 4.2 out of 5.</p>
+<p>The working is shown for every option, so you can check the arithmetic yourself. A total of 5 means the option scored top marks on every criterion; a total of 1 means it scored the lowest everywhere. Most real options land somewhere in between.</p>
+<h2>Picking honest weights and scores</h2>
+<p>Set the weights before you score, and set them by what matters most to you, not by which option you already favour. If one criterion clearly dominates the decision, give it a big weight and say so. The matrix is only as honest as the numbers you put in.</p>
+<p>Score every option against the same bar. A 4 for one option should mean the same as a 4 for another, or the totals will mislead you. If you cannot score an option fairly, find out more about it before you decide.</p>
+<h2>Honest limits</h2>
+<p>A decision matrix organises your judgement; it does not replace it. If the winner feels wrong, the weights or the scores probably are, and the right move is to fix the inputs rather than to trust the output.</p>
+<p>The tool cannot tell you which criteria matter, whether your scores are fair, or whether an option you left out would have won. Use the result as a clear summary of your own thinking, then decide.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>Why must the weights total 100?</h3><p>Weights are shares of the decision, so they must add up to the whole. A weight of 50 means half the decision, and 100 in total keeps every share honest and comparable.</p></div>
+<div class="faq"><h3>What do the scores 1 to 5 mean?</h3><p>1 means poor, 2 means below average, 3 means average, 4 means good, and 5 means excellent. Score every option against the same bar so the totals mean something.</p></div>
+<div class="faq"><h3>What if two options tie?</h3><p>The tool tells you it is a tie and names the tied options. A tie means the numbers cannot separate them, so look at the one criterion that matters most to you.</p></div>
+<div class="faq"><h3>Does this tool make the decision for me?</h3><p>No. It does the arithmetic on the weights and scores you enter. The judgement behind those numbers, and the final decision, are yours.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/ai-swot-analysis-generator/">AI SWOT Analysis Generator</a> · <a href="https://toolbari.github.io/ai-smart-goal-builder/">AI SMART Goal Builder</a> · <a href="https://toolbari.github.io/ai-keyword-cluster-tool/">AI Keyword Cluster Tool</a> · <a href="https://toolbari.github.io/matrix-calculator/">Matrix Calculator</a> · <a href="https://toolbari.github.io/ai-content-brief-generator/">AI Content Brief Generator</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a> · <a href="https://toolbari.github.io/about/">About</a> · <a href="https://toolbari.github.io/contact/">Contact</a> · <a href="https://toolbari.github.io/privacy-policy/">Privacy Policy</a> · <a href="https://toolbari.github.io/disclaimer/">Disclaimer</a> · <a href="https://toolbari.github.io/terms-and-conditions/">Terms</a></footer>
+</div>
+<script>
+
+function el(id){return document.getElementById(id);}
+function val(id){var e=el(id);return e?e.value:"";}
+function setText(id,t){var e=el(id);if(e){e.textContent=t;}}
+function setHtml(id,h){var e=el(id);if(e){e.innerHTML=h;}}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function copyText(t,noteId){
+  var done=function(){if(noteId){setText(noteId,"Copied to clipboard.");}};
+  var fail=function(){if(noteId){setText(noteId,"Copy did not work here. Select the text and copy it by hand.");}};
+  if(typeof navigator!=="undefined"&&navigator.clipboard&&navigator.clipboard.writeText){
+    try{navigator.clipboard.writeText(t).then(done,fail);}catch(e){fail();}
+  }else if(typeof document!=="undefined"&&document.execCommand){
+    var ta=document.createElement("textarea");ta.value=t;document.body.appendChild(ta);ta.select();
+    try{document.execCommand("copy");done();}catch(e){fail();}
+    document.body.removeChild(ta);
+  }else{fail();}
+}
+function downloadText(name,text){
+  var a=document.createElement("a");
+  a.href = "data:text/plain;charset=utf-8," + encodeURIComponent(text);
+  a.download=name;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+function calcMatrix(){
+  var opts=[];
+  for(var o=1;o<=4;o++){
+    var n=val("opt"+o).trim();
+    if(n){opts.push({name:n,idx:o});}
+  }
+  if(opts.length<2){
+    setText("dm-winner","Name at least two options first.");
+    setHtml("dm-table","");setText("dm-steps","");setText("dm-label","");
+    return;
+  }
+  var crits=[];
+  for(var c=1;c<=5;c++){
+    var cn=val("crit"+c).trim();
+    if(!cn){continue;}
+    var wRaw=val("w"+c).trim();
+    var w=Number(wRaw);
+    if(wRaw===""||isNaN(w)||w<0){
+      setText("dm-winner","The weight for \u201c"+cn+"\u201d needs to be a number of 0 or more. Fix it and calculate again.");
+      setHtml("dm-table","");setText("dm-steps","");setText("dm-label","");
+      return;
+    }
+    crits.push({name:cn,idx:c,weight:w});
+  }
+  if(crits.length<2){
+    setText("dm-winner","Name at least two criteria first, with a weight for each.");
+    setHtml("dm-table","");setText("dm-steps","");setText("dm-label","");
+    return;
+  }
+  var sum=0;
+  for(var i=0;i<crits.length;i++){sum+=crits[i].weight;}
+  if(Math.abs(sum-100)>0.001){
+    setText("dm-winner","Your weights add up to "+sum+", not 100. Adjust them so they total 100, then calculate again.");
+    setHtml("dm-table","");setText("dm-steps","");setText("dm-label","");
+    return;
+  }
+  var results=[];
+  for(var j=0;j<opts.length;j++){
+    var total=0, parts=[];
+    for(var k=0;k<crits.length;k++){
+      var sc=parseInt(val("sc-o"+opts[j].idx+"-c"+crits[k].idx),10);
+      if(isNaN(sc)||sc<1||sc>5){sc=3;}
+      total+=sc*crits[k].weight/100;
+      parts.push(sc+" x "+crits[k].weight+"%");
+    }
+    results.push({name:opts[j].name,total:total,working:parts.join(" + ")+" = "+total.toFixed(2)});
+  }
+  var best=results[0].total;
+  for(var m=1;m<results.length;m++){if(results[m].total>best){best=results[m].total;}}
+  var winners=results.filter(function(r){return Math.abs(r.total-best)<0.001;});
+  var winMsg="";
+  if(winners.length===1){winMsg="Winner: "+winners[0].name+" with "+best.toFixed(2)+" out of 5.";}
+  else{
+    var names=winners.map(function(r){return r.name;});
+    winMsg="It is a tie between "+names.join(" and ")+" at "+best.toFixed(2)+" out of 5. Look at the criterion that matters most to you to break it.";
+  }
+  setText("dm-winner",winMsg);
+  var rows=["<table><tr><th>Option</th><th>Weighted total</th><th>Result</th></tr>"];
+  for(var n=0;n<results.length;n++){
+    var isWin=Math.abs(results[n].total-best)<0.001;
+    rows.push("<tr><td>"+esc(results[n].name)+"</td><td>"+results[n].total.toFixed(2)+"</td><td>"+(isWin?(winners.length===1?"Winner":"Tied winner"):"")+"</td></tr>");
+  }
+  rows.push("</table>");
+  setHtml("dm-table",rows.join(""));
+  var steps=[];
+  for(var p=0;p<results.length;p++){steps.push(results[p].name+": "+results[p].working);}
+  setText("dm-steps",steps.join("\n"));
+  setText("dm-label","Working shown above for every option, so you can check the arithmetic yourself.");
+}
+
+</script>
+<!-- TB-MONETAG -->
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Sentence Expander | ToolBari</title>
+<meta name="description" content="Turn a short sentence into a fuller one. Pick a style: add detail, add an example, add a reason, or add a contrast. Three versions each time, free, no sign-up.">
+<link rel="canonical" href="https://toolbari.github.io/ai-sentence-expander/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI Sentence Expander">
+<meta property="og:description" content="Three fuller versions of any short sentence, in the style you pick.">
+<meta property="og:url" content="https://toolbari.github.io/ai-sentence-expander/">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+.calc textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;font-family:inherit}
+.calc button{margin-top:12px;margin-right:8px;padding:11px 18px;border:0;border-radius:999px;font-size:16px;font-weight:700;background:#0b7a4b;color:#fff;cursor:pointer}
+.calc button.secondary{background:#64748b}
+.calc button.small{padding:7px 14px;font-size:14px;margin-top:6px}
+.calc .msg{font-size:15px;color:#b45309;margin-top:10px}
+.calc .small{font-size:14px;color:#64748b;margin-top:10px}
+.outbox{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px;margin-top:12px}
+.outbox p{margin:8px 0}
+.qa{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px;margin:10px 0}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How many versions does the tool write?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Three versions each time, all in the style you picked. Change the style and press the button again to see three more."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the tool add facts to my sentence?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The expansions add general wording from fixed patterns. They never invent facts, names, or numbers about your topic."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I edit the expanded versions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Every version is a starting point. Add your own details and examples, and cut any wording that does not fit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the tool save my sentences?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Everything runs in your browser, and nothing you type is sent anywhere or stored."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>AI Sentence Expander</h1>
+<p class="answer">Type a short sentence, pick an expansion style, and this tool writes three longer versions for you. Each version follows an explicit pattern, so you can see exactly how the sentence grew.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="ex-sentence">Your short sentence</label>
+<input id="ex-sentence" type="text" placeholder="For example: Practice makes progress.">
+<label for="ex-style">Expansion style</label>
+<select id="ex-style">
+<option value="detail">Add detail</option>
+<option value="example">Add an example</option>
+<option value="reason">Add a reason</option>
+<option value="contrast">Add a contrast</option>
+</select>
+<button type="button" onclick="expandSentence()">Expand it</button>
+<p class="msg" id="ex-msg"></p>
+<div id="ex-out"></div>
+<p class="small">These expansions are pattern-built: each version follows a fixed wording pattern. Edit any version before you use it.</p>
+</div>
+<div class="warn">This tool works fully in your browser and calls no AI service, API, or backend. The expansions are built from fixed wording patterns, so they add general detail rather than facts about your topic. Check each version and add your own specifics before you use it.</div>
+<h2>How to use the sentence expander</h2>
+<p>Type a short sentence into the box, then pick how you want it to grow. Add detail opens the sentence up with a closer look at its parts. Add an example attaches a concrete case. Add a reason explains why the sentence matters. Add a contrast sets the sentence against the opposite view. Press the button and you get three versions in the style you picked, each with its own copy button.</p><p>Each version is built from a fixed pattern, so you can see the shape of the expansion and reuse it yourself. The tool does not invent facts: it adds general wording around your sentence. That keeps the output safe, and it means the best results come when you take a version and add one real detail of your own.</p>
+<h2>When to expand a sentence</h2>
+<p>Short sentences are good for impact and for instructions. But a page made only of short sentences feels choppy, and a bare claim can sound unsupported. Expanding a sentence helps when a reader needs a reason to believe it, an example to picture it, or a detail to understand it. One expanded sentence in a paragraph can carry the whole paragraph.</p><p>Do not expand everything. If every sentence grows, the writing becomes heavy and the reader loses the thread. Pick the sentences that carry your main points, expand those, and leave the rest short. Variety in sentence length is what makes writing pleasant to read.</p>
+<h2>The four expansion patterns</h2>
+<p>Adding detail works by naming the parts of an idea: what it includes, how it works, and why each part counts. Adding an example works by moving from the general claim to one concrete case the reader can picture. Adding a reason works by answering the silent question why, which turns a claim into an argument. Adding a contrast works by showing the other side, which makes the original sentence look considered rather than one-sided.</p><p>Once you know the patterns, you can use them without the tool. Read a short sentence you wrote, ask which pattern fits, and write the longer version yourself. The tool is a fast way to see the patterns in action, and a useful starting point when you are stuck.</p>
+<h2>Questions people ask</h2>
+<div class="faq">
+<h3>How many versions does the tool write?</h3>
+<p>Three versions each time, all in the style you picked. Change the style and press the button again to see three more.</p>
+</div>
+<div class="faq">
+<h3>Does the tool add facts to my sentence?</h3>
+<p>No. The expansions add general wording from fixed patterns. They never invent facts, names, or numbers about your topic.</p>
+</div>
+<div class="faq">
+<h3>Can I edit the expanded versions?</h3>
+<p>Yes. Every version is a starting point. Add your own details and examples, and cut any wording that does not fit.</p>
+</div>
+<div class="faq">
+<h3>Does the tool save my sentences?</h3>
+<p>No. Everything runs in your browser, and nothing you type is sent anywhere or stored.</p>
+</div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/ai-prompt-improver/">AI Prompt Improver</a> · <a href="https://toolbari.github.io/ai-readability-checker/">AI Readability Checker</a> · <a href="https://toolbari.github.io/ai-bullet-to-paragraph-converter/">AI Bullet Points to Paragraph Converter</a> · <a href="https://toolbari.github.io/word-counter/">Word Counter</a> · <a href="https://toolbari.github.io/ai-cover-letter-generator/">AI Cover Letter Generator</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a> · <a href="https://toolbari.github.io/about/">About</a> · <a href="https://toolbari.github.io/contact/">Contact</a> · <a href="https://toolbari.github.io/privacy-policy/">Privacy Policy</a> · <a href="https://toolbari.github.io/disclaimer/">Disclaimer</a> · <a href="https://toolbari.github.io/terms-and-conditions/">Terms</a></footer>
+</div>
+<script>
+
+function $(id){return document.getElementById(id);}
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function trimPunct(s){return String(s).trim().replace(/[.!?]+$/,'');}
+function capFirst(s){s=String(s);return s.length?s.charAt(0).toUpperCase()+s.slice(1):s;}
+function lowFirst(s){s=String(s);return s.length?s.charAt(0).toLowerCase()+s.slice(1):s;}
+function copyText(text,statusEl){
+  function done(){if(statusEl){statusEl.textContent='Copied.';}}
+  if(typeof navigator!=='undefined'&&navigator.clipboard&&navigator.clipboard.writeText){
+    var r=navigator.clipboard.writeText(text);
+    if(r&&r.then){r.then(done,function(){fallbackCopy(text,statusEl);});}else{done();}
+  }else{fallbackCopy(text,statusEl);}
+}
+function fallbackCopy(text,statusEl){
+  var ta=document.createElement('textarea');
+  ta.value=text;document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');}catch(e){}
+  document.body.removeChild(ta);
+  if(statusEl){statusEl.textContent='Copied.';}
+}
+function downloadText(filename,text){
+  var blob=new Blob([text],{type:'text/plain'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;a.download=filename;
+  document.body.appendChild(a);a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+var EXPANSIONS={
+detail:["{S}. The details matter here: look at what it includes, how it works, and why each part counts.","{S} — and behind that simple statement sits a fuller picture worth a closer look.","To put it more fully: {s}, with all the small details that give it meaning."],
+example:["{S}. For example, think of a moment when this happened in everyday life.","{S}. A clear example is the way small daily habits shape bigger results over time.","Take one example: {s}. That single case shows the idea in action."],
+reason:["{S}. This matters because small choices add up over time.","{S}. The reason is simple: what happens now shapes what comes next.","{S}, because the cause behind it is worth understanding."],
+contrast:["{S}. Yet the opposite view is worth hearing too.","{S} — but it is not always that simple, and the other side has a point.","Some people would agree that {s}; others would argue the reverse."]
+};
+var exLines=[];
+function expandSentence(){
+  var raw=$('ex-sentence').value.trim();
+  var msg=$('ex-msg');var out=$('ex-out');
+  if(!raw){msg.textContent='Please type a short sentence first.';out.innerHTML='';exLines=[];return;}
+  msg.textContent='';
+  var base=trimPunct(raw);
+  var full=capFirst(base);
+  var low=lowFirst(base);
+  var style=$('ex-style').value;
+  var list=EXPANSIONS[style];
+  exLines=[];
+  for(var i=0;i<list.length;i++){
+    exLines.push(list[i].split('{S}').join(full).split('{s}').join(low));
+  }
+  var html='<div class="outbox">';
+  for(var j=0;j<exLines.length;j++){
+    html+='<p><strong>'+(j+1)+'.</strong> '+escHtml(exLines[j])+' <button type="button" class="small" onclick="copyEx('+j+')">Copy</button></p>';
+  }
+  html+='</div>';
+  out.innerHTML=html;
+}
+function copyEx(i){
+  if(exLines[i]){copyText(exLines[i],$('ex-msg'));}
+}
+
+</script>
+<!-- TB-MONETAG -->
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI User Story Generator | ToolBari</title>
+<meta name="description" content="Write user stories in the As a, I want, so that format with Given When Then acceptance criteria. Add several stories and export them as text.">
+<link rel="canonical" href="https://toolbari.github.io/ai-user-story-generator/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI User Story Generator">
+<meta property="og:description" content="Build user stories with acceptance criteria and export them as a list.">
+<meta property="og:url" content="https://toolbari.github.io/ai-user-story-generator/">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+.calc button{background:#0b7a4b;color:#fff;font-weight:700;padding:11px 18px;border:none;border-radius:8px;font-size:16px;margin:12px 6px 0 0;cursor:pointer}
+.calc button.secondary{background:#64748b}
+.calc textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;font-family:inherit}
+.calc table{border-collapse:collapse;margin-top:10px;font-size:15px;width:100%}
+.calc table td,.calc table th{border:1px solid #cbd5e1;padding:6px 8px;text-align:left;vertical-align:top}
+.calc table th{background:#eef2ff}
+.calc .row{display:flex;gap:8px}
+.calc .row>span{flex:1}
+.tmpl-note{font-size:13.5px;color:#64748b;margin-top:8px}
+.checkrow{margin:6px 0}
+.checkrow label{display:inline;font-weight:400;margin:0 0 0 6px}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the As a, I want, so that format?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is a short sentence with three parts: who the user is, what they want to do, and why it matters to them. The format keeps the focus on the user instead of on the feature."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many acceptance criteria should a story have?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Three is a good starting point: one for the main path, one for checking the result, and one for the unhappy path. Add more if the story has extra rules worth testing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I edit a story after adding it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The list keeps the stories you add in this session, in order. To change one, clear the list and add it again, or edit the exported text in your own document."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this tool save my stories anywhere?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Your stories stay in this browser tab and disappear when you close the page. Copy or export the list before you leave if you want to keep it."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>AI User Story Generator</h1>
+<p class="answer">This tool turns three short inputs into a user story in the classic As a, I want, so that format, with three acceptance criteria in Given, When, Then form. Add as many stories as you need, then copy or export the whole list as text.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+
+<label for="user23">User type — who is this story for?</label>
+<input id="user23" type="text" placeholder="For example: shopper, admin, new member">
+<label for="goal23">Goal — what do they want to do?</label>
+<input id="goal23" type="text" placeholder="For example: reset my password">
+<label for="ben23">Benefit — why do they want it?</label>
+<input id="ben23" type="text" placeholder="For example: I can log in again">
+<button type="button" onclick="addStory()">Add story</button>
+<div class="steps" id="story-msg">No stories yet. Fill in the three boxes above and add your first story.</div>
+<div id="story-list"></div>
+<p class="tmpl-note" id="story-label"></p>
+<button type="button" class="secondary" onclick="copyStories()">Copy all stories</button>
+<button type="button" class="secondary" onclick="exportStories()">Export as text</button>
+<button type="button" class="secondary" onclick="clearStories()">Clear list</button>
+<p class="tmpl-note" id="story-copy"></p>
+
+</div>
+<div class="warn">Template-built stories are starting points, not finished requirements. Check each story against what users actually need, and rewrite the criteria in your team's own words. This tool works fully in your browser and calls no AI service, API, or backend.</div>
+<h2>How to use this generator</h2>
+<p>Fill in the three boxes: who the story is for, what they want to do, and why it matters to them. Press Add story and the tool writes the story in the As a, I want, so that format, plus three acceptance criteria in Given, When, Then form.</p>
+<p>Add as many stories as you need. Each one appears in the list below the form, numbered in the order you added them. When the list is complete, copy it into your tracker or export it as a plain text file. To start over, press Clear list.</p>
+<h2>What makes a good user story</h2>
+<p>A good story names one user, one goal, and one benefit. If the goal contains the word and twice, it is probably two stories hiding in one sentence, and splitting them will make the work easier to plan. Keep the user specific: a new member behaves differently from an admin, and the story should show it.</p>
+<p>The benefit is the part people skip, and it is the part that matters most. It explains why the work is worth doing, and it helps the team choose between two ways of building the same thing. Write the benefit from the user's point of view, not the business's.</p>
+<h2>Writing acceptance criteria that help</h2>
+<p>Acceptance criteria describe how you will know the story is done. The Given, When, Then form works well because it names a starting point, an action, and an expected result. A criterion you cannot test is a wish, not a check, so prefer concrete results over vague ones.</p>
+<p>Always include the unhappy path: what should happen when something goes wrong. This tool adds one criterion for that case automatically. Read all three criteria after each story and rewrite any that do not match what your team would actually test.</p>
+<h2>Honest limits</h2>
+<p>This tool assembles stories from the words you enter. It cannot tell whether the goal is realistic, whether the benefit is real, or whether the criteria cover everything the story needs. Use the output as a draft, then discuss it with the people who will build and test it.</p>
+<p>Stories are saved only in this browser tab. They disappear when you close the page, so copy or export the list before you leave.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>What is the As a, I want, so that format?</h3><p>It is a short sentence with three parts: who the user is, what they want to do, and why it matters to them. The format keeps the focus on the user instead of on the feature.</p></div>
+<div class="faq"><h3>How many acceptance criteria should a story have?</h3><p>Three is a good starting point: one for the main path, one for checking the result, and one for the unhappy path. Add more if the story has extra rules worth testing.</p></div>
+<div class="faq"><h3>Can I edit a story after adding it?</h3><p>The list keeps the stories you add in this session, in order. To change one, clear the list and add it again, or edit the exported text in your own document.</p></div>
+<div class="faq"><h3>Does this tool save my stories anywhere?</h3><p>No. Your stories stay in this browser tab and disappear when you close the page. Copy or export the list before you leave if you want to keep it.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/ai-bug-report-generator/">AI Bug Report Generator</a> · <a href="https://toolbari.github.io/ai-commit-message-generator/">AI Commit Message Generator</a> · <a href="https://toolbari.github.io/ai-content-brief-generator/">AI Content Brief Generator</a> · <a href="https://toolbari.github.io/kanban-board/">Kanban Board</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a> · <a href="https://toolbari.github.io/about/">About</a> · <a href="https://toolbari.github.io/contact/">Contact</a> · <a href="https://toolbari.github.io/privacy-policy/">Privacy Policy</a> · <a href="https://toolbari.github.io/disclaimer/">Disclaimer</a> · <a href="https://toolbari.github.io/terms-and-conditions/">Terms</a></footer>
+</div>
+<script>
+
+function el(id){return document.getElementById(id);}
+function val(id){var e=el(id);return e?e.value:"";}
+function setText(id,t){var e=el(id);if(e){e.textContent=t;}}
+function setHtml(id,h){var e=el(id);if(e){e.innerHTML=h;}}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function copyText(t,noteId){
+  var done=function(){if(noteId){setText(noteId,"Copied to clipboard.");}};
+  var fail=function(){if(noteId){setText(noteId,"Copy did not work here. Select the text and copy it by hand.");}};
+  if(typeof navigator!=="undefined"&&navigator.clipboard&&navigator.clipboard.writeText){
+    try{navigator.clipboard.writeText(t).then(done,fail);}catch(e){fail();}
+  }else if(typeof document!=="undefined"&&document.execCommand){
+    var ta=document.createElement("textarea");ta.value=t;document.body.appendChild(ta);ta.select();
+    try{document.execCommand("copy");done();}catch(e){fail();}
+    document.body.removeChild(ta);
+  }else{fail();}
+}
+function downloadText(name,text){
+  var a=document.createElement("a");
+  a.href = "data:text/plain;charset=utf-8," + encodeURIComponent(text);
+  a.download=name;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+var stories=[];
+var lastExport="";
+function storyText(s){
+  return "As a "+s.user+", I want to "+s.goal+" so that "+s.benefit+".";
+}
+function storyCriteria(s){
+  return [
+    "Given I am a "+s.user+", when I "+s.goal+", then "+s.benefit+".",
+    "Given I have started to "+s.goal+", when I finish, then I can see that "+s.benefit+".",
+    "Given I am a "+s.user+", when I cannot "+s.goal+", then I get a clear message explaining what to do next."
+  ];
+}
+function renderStories(){
+  if(stories.length===0){
+    setHtml("story-list","");
+    setText("story-msg","No stories yet. Fill in the three boxes above and add your first story.");
+    setText("story-label","");
+    lastExport="";
+    return;
+  }
+  var h="", t="";
+  for(var i=0;i<stories.length;i++){
+    var s=stories[i], c=storyCriteria(s), n=i+1;
+    h+="<p><strong>Story "+n+".</strong> "+esc(storyText(s))+"<br>Acceptance criteria:<br>1. "+esc(c[0])+"<br>2. "+esc(c[1])+"<br>3. "+esc(c[2])+"</p>";
+    t+="Story "+n+". "+storyText(s)+"\nAcceptance criteria:\n1. "+c[0]+"\n2. "+c[1]+"\n3. "+c[2]+"\n\n";
+  }
+  setHtml("story-list",h);
+  setText("story-msg",stories.length+" "+(stories.length===1?"story":"stories")+" in the list.");
+  setText("story-label","Template-built: each story was assembled from your words using built-in templates. Edit the wording to match your team before you share it.");
+  lastExport=t;
+}
+function addStory(){
+  var user=val("user23").trim(), goal=val("goal23").trim(), ben=val("ben23").trim();
+  var missing=[];
+  if(!user){missing.push("user type");}
+  if(!goal){missing.push("goal");}
+  if(!ben){missing.push("benefit");}
+  if(missing.length>0){
+    setText("story-msg","Almost there. Add the "+missing.join(", ")+" before adding the story.");
+    return;
+  }
+  goal=goal.replace(/^to\s+/i,"");
+  stories.push({user:user,goal:goal,benefit:ben});
+  renderStories();
+}
+function copyStories(){if(stories.length===0){setText("story-copy","Add a story first, then copy the list.");return;}copyText(lastExport,"story-copy");}
+function exportStories(){if(stories.length===0){setText("story-copy","Add a story first, then export the list.");return;}downloadText("user-stories.txt",lastExport);setText("story-copy","Download started as user-stories.txt.");}
+function clearStories(){stories=[];renderStories();setText("story-copy","");}
+
+</script>
+<!-- TB-MONETAG -->
+</body>
+</html>

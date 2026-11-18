@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Survey Question Generator | ToolBari</title>
+<meta name="description" content="Write a ten-question survey in minutes. Enter your goal and audience, pick a question type, and get questions with suggested answer scales. Free, no sign-up.">
+<link rel="canonical" href="https://toolbari.github.io/ai-survey-question-generator/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI Survey Question Generator">
+<meta property="og:description" content="Ten survey questions with suggested answer scales, for any goal.">
+<meta property="og:url" content="https://toolbari.github.io/ai-survey-question-generator/">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+.calc textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;font-family:inherit}
+.calc button{margin-top:12px;margin-right:8px;padding:11px 18px;border:0;border-radius:999px;font-size:16px;font-weight:700;background:#0b7a4b;color:#fff;cursor:pointer}
+.calc button.secondary{background:#64748b}
+.calc button.small{padding:7px 14px;font-size:14px;margin-top:6px}
+.calc .msg{font-size:15px;color:#b45309;margin-top:10px}
+.calc .small{font-size:14px;color:#64748b;margin-top:10px}
+.outbox{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px;margin-top:12px}
+.outbox p{margin:8px 0}
+.qa{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px;margin:10px 0}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How many questions does the tool write?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Exactly ten questions each time, each with a suggested answer scale. Pick a different question type to see a different set of ten."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I change the answer scales?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The scales are suggestions. Use the scale that matches what you want to learn from each question, and change any that do not fit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which question type should I pick?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Satisfaction suits products and services, feedback suits general opinions, usability suits websites and tools, and learning suits courses and training. Mixed takes questions from all four."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the tool save my survey?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Everything runs in your browser, and nothing you type is sent anywhere or stored. Copy the questions before you leave the page."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>AI Survey Question Generator</h1>
+<p class="answer">Type your survey goal and audience, pick a question type, and this tool writes exactly ten survey questions with a suggested answer scale for each. Copy the whole set when it fits your survey.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="sq-goal">Survey goal (what are you asking about?)</label>
+<input id="sq-goal" type="text" placeholder="For example: our new online shop">
+<label for="sq-audience">Audience</label>
+<input id="sq-audience" type="text" placeholder="For example: first-time customers">
+<label for="sq-type">Question type</label>
+<select id="sq-type">
+<option value="satisfaction">Satisfaction</option>
+<option value="feedback">Feedback</option>
+<option value="usability">Usability</option>
+<option value="learning">Learning</option>
+<option value="mixed">Mixed</option>
+</select>
+<button type="button" onclick="generateSurvey()">Generate 10 questions</button>
+<button type="button" class="secondary" onclick="copySurvey()">Copy all</button>
+<p class="msg" id="sq-msg"></p>
+<div id="sq-out"></div>
+<p class="small">The questions are template-built from built-in survey patterns. Test them on a small group before you send the survey out.</p>
+</div>
+<div class="warn">This tool works fully in your browser and calls no AI service, API, or backend. Test the questions on a small group first. A short test run shows which questions confuse people before you send the survey to everyone.</div>
+<h2>How to use the survey question generator</h2>
+<p>Type what the survey is about and who will answer it, then pick a question type. Satisfaction suits products and services. Feedback suits general opinions. Usability suits websites and tools. Learning suits courses and training. Mixed takes questions from all four types. Press the button and you get exactly ten questions, each with a suggested answer scale. Copy the whole set when it fits your survey.</p><p>The scales are suggestions, not rules. A five-point scale suits opinions and ratings. A yes or no scale suits facts. Open text suits anything you cannot predict. Use the scale that matches what you want to learn from each question, and change any scale that does not fit.</p>
+<h2>Writing questions people answer honestly</h2>
+<p>One question should ask one thing. A question that asks two things at once, such as how fast and how friendly a service was, cannot be answered with one rating. Keep questions short, use plain words, and avoid leading phrases that push the reader toward a nice answer. If a question sounds like it wants praise, it will get praise, and you will learn nothing.</p><p>Put the easy questions first and the open questions last. Early wins keep people going, and open questions at the end catch anything the earlier questions missed. Ten questions is a good length: enough to learn from, short enough to finish. Longer surveys get abandoned halfway, and the answers you lose are the ones from your busiest readers.</p>
+<h2>Testing before you send</h2>
+<p>Always test a survey on a small group first. Give it to five people who match your audience and watch where they pause, reread, or ask what a question means. Those pauses mark the questions to rewrite. A question that confuses one tester in five will confuse many more in the full survey.</p><p>After the test run, check the answers as well as the questions. If everyone picks the same answer, the question may be too easy or too leading. If answers spread across the whole scale, the question is doing its job. Fix the weak questions, then send the survey out with confidence.</p>
+<h2>Questions people ask</h2>
+<div class="faq">
+<h3>How many questions does the tool write?</h3>
+<p>Exactly ten questions each time, each with a suggested answer scale. Pick a different question type to see a different set of ten.</p>
+</div>
+<div class="faq">
+<h3>Can I change the answer scales?</h3>
+<p>Yes. The scales are suggestions. Use the scale that matches what you want to learn from each question, and change any that do not fit.</p>
+</div>
+<div class="faq">
+<h3>Which question type should I pick?</h3>
+<p>Satisfaction suits products and services, feedback suits general opinions, usability suits websites and tools, and learning suits courses and training. Mixed takes questions from all four.</p>
+</div>
+<div class="faq">
+<h3>Does the tool save my survey?</h3>
+<p>No. Everything runs in your browser, and nothing you type is sent anywhere or stored. Copy the questions before you leave the page.</p>
+</div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/ai-course-outline-generator/">AI Course Outline Generator</a> · <a href="https://toolbari.github.io/ai-faq-generator/">AI FAQ Generator</a> · <a href="https://toolbari.github.io/ai-interview-answer-builder/">AI Interview Answer Builder</a> · <a href="https://toolbari.github.io/ai-content-brief-generator/">AI Content Brief Generator</a> · <a href="https://toolbari.github.io/ai-chatbot-script-builder/">AI Chatbot Script Builder</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a> · <a href="https://toolbari.github.io/about/">About</a> · <a href="https://toolbari.github.io/contact/">Contact</a> · <a href="https://toolbari.github.io/privacy-policy/">Privacy Policy</a> · <a href="https://toolbari.github.io/disclaimer/">Disclaimer</a> · <a href="https://toolbari.github.io/terms-and-conditions/">Terms</a></footer>
+</div>
+<script>
+
+function $(id){return document.getElementById(id);}
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function trimPunct(s){return String(s).trim().replace(/[.!?]+$/,'');}
+function capFirst(s){s=String(s);return s.length?s.charAt(0).toUpperCase()+s.slice(1):s;}
+function lowFirst(s){s=String(s);return s.length?s.charAt(0).toLowerCase()+s.slice(1):s;}
+function copyText(text,statusEl){
+  function done(){if(statusEl){statusEl.textContent='Copied.';}}
+  if(typeof navigator!=='undefined'&&navigator.clipboard&&navigator.clipboard.writeText){
+    var r=navigator.clipboard.writeText(text);
+    if(r&&r.then){r.then(done,function(){fallbackCopy(text,statusEl);});}else{done();}
+  }else{fallbackCopy(text,statusEl);}
+}
+function fallbackCopy(text,statusEl){
+  var ta=document.createElement('textarea');
+  ta.value=text;document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');}catch(e){}
+  document.body.removeChild(ta);
+  if(statusEl){statusEl.textContent='Copied.';}
+}
+function downloadText(filename,text){
+  var blob=new Blob([text],{type:'text/plain'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;a.download=filename;
+  document.body.appendChild(a);a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+var SQ_BANKS={
+satisfaction:[
+{q:"How satisfied are you with {goal}?",s:"5-point scale (Very dissatisfied to Very satisfied)"},
+{q:"How likely are you to recommend {goal} to someone else?",s:"1–10 rating"},
+{q:"What did you like most about {goal}?",s:"Open text"},
+{q:"What would you change about {goal}?",s:"Open text"},
+{q:"How easy was it to use {goal}?",s:"5-point scale (Very difficult to Very easy)"},
+{q:"Did {goal} meet your expectations?",s:"Yes / No / Partly"},
+{q:"How would you rate the quality of {goal}?",s:"5-point scale (Poor to Excellent)"},
+{q:"How often do you use {goal}?",s:"Multiple choice (Daily / Weekly / Monthly / Rarely)"},
+{q:"What is the main reason you use {goal}?",s:"Open text"},
+{q:"Is there anything else you want to tell us about {goal}?",s:"Open text"}
+],
+feedback:[
+{q:"What is your overall impression of {goal}?",s:"5-point scale (Very negative to Very positive)"},
+{q:"Which part of {goal} works best for you?",s:"Open text"},
+{q:"Which part of {goal} needs the most improvement?",s:"Open text"},
+{q:"How clear is the information about {goal}?",s:"5-point scale (Very unclear to Very clear)"},
+{q:"How quickly did you get what you needed from {goal}?",s:"5-point scale (Very slow to Very fast)"},
+{q:"Would you use {goal} again?",s:"Yes / No / Maybe"},
+{q:"What one change would improve {goal} most?",s:"Open text"},
+{q:"How does {goal} compare with what you expected?",s:"5-point scale (Much worse to Much better)"},
+{q:"How likely are you to return to {goal}?",s:"1–10 rating"},
+{q:"Any other comments about {goal}?",s:"Open text"}
+],
+usability:[
+{q:"How easy was it to find what you needed in {goal}?",s:"5-point scale (Very difficult to Very easy)"},
+{q:"How clear were the steps in {goal}?",s:"5-point scale (Very unclear to Very clear)"},
+{q:"Did anything in {goal} confuse you? If so, what?",s:"Open text"},
+{q:"How long did it take you to complete your task with {goal}?",s:"Multiple choice (Under 5 minutes / 5–15 minutes / Over 15 minutes)"},
+{q:"How would you rate the design of {goal}?",s:"5-point scale (Poor to Excellent)"},
+{q:"Did {goal} work well on your device?",s:"Yes / No / Partly"},
+{q:"What was the hardest part of using {goal}?",s:"Open text"},
+{q:"How likely are you to use {goal} again?",s:"1–10 rating"},
+{q:"What would make {goal} easier to use?",s:"Open text"},
+{q:"Anything else about using {goal}?",s:"Open text"}
+],
+learning:[
+{q:"How much did you learn about {goal}?",s:"5-point scale (Nothing to A great deal)"},
+{q:"How clear were the explanations in {goal}?",s:"5-point scale (Very unclear to Very clear)"},
+{q:"Which part of {goal} helped you most?",s:"Open text"},
+{q:"Which part of {goal} was hardest to follow?",s:"Open text"},
+{q:"How confident do you feel about {goal} now?",s:"5-point scale (Not at all to Very confident)"},
+{q:"Was the pace of {goal} right for you?",s:"Multiple choice (Too slow / About right / Too fast)"},
+{q:"Did the examples in {goal} help you understand?",s:"Yes / No / Partly"},
+{q:"How likely are you to use what you learned from {goal}?",s:"1–10 rating"},
+{q:"What would help you learn {goal} better?",s:"Open text"},
+{q:"Any other thoughts about {goal}?",s:"Open text"}
+]
+};
+SQ_BANKS.mixed=[
+SQ_BANKS.satisfaction[0],SQ_BANKS.feedback[0],SQ_BANKS.usability[0],SQ_BANKS.learning[0],
+SQ_BANKS.satisfaction[2],SQ_BANKS.feedback[2],SQ_BANKS.usability[2],SQ_BANKS.learning[2],
+SQ_BANKS.satisfaction[1],SQ_BANKS.feedback[1]
+];
+var surveyItems=[];
+function generateSurvey(){
+  var goal=trimPunct($('sq-goal').value);
+  var audience=$('sq-audience').value.trim();
+  var msg=$('sq-msg');var out=$('sq-out');
+  if(!goal){msg.textContent='Please type a survey goal first.';out.innerHTML='';surveyItems=[];return;}
+  msg.textContent='';
+  var type=$('sq-type').value;
+  var bank=SQ_BANKS[type];
+  surveyItems=[];
+  for(var i=0;i<bank.length;i++){
+    surveyItems.push({q:bank[i].q.split('{goal}').join(goal),s:bank[i].s});
+  }
+  var html='<div class="outbox"><p><strong>Survey about:</strong> '+escHtml(capFirst(goal))+'</p>';
+  if(audience){html+='<p><strong>Audience:</strong> '+escHtml(audience)+'</p>';}
+  for(var j=0;j<surveyItems.length;j++){
+    html+='<p><strong>'+(j+1)+'. '+escHtml(surveyItems[j].q)+'</strong><br>Suggested scale: '+escHtml(surveyItems[j].s)+'</p>';
+  }
+  html+='</div>';
+  out.innerHTML=html;
+}
+function copySurvey(){
+  var msg=$('sq-msg');
+  if(!surveyItems.length){msg.textContent='Generate the questions first, then copy them.';return;}
+  var parts=[];
+  for(var i=0;i<surveyItems.length;i++){
+    parts.push((i+1)+'. '+surveyItems[i].q+'\n   Suggested scale: '+surveyItems[i].s);
+  }
+  copyText(parts.join('\n\n'),msg);
+}
+
+</script>
+<!-- TB-MONETAG -->
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Sales Pitch Generator | ToolBari</title>
+<meta name="description" content="Build a short sales pitch script in 30 seconds, 60 seconds or 2 minutes: hook, problem, solution, proof and call to action, from your own details.">
+<link rel="canonical" href="https://toolbari.github.io/ai-sales-pitch-generator/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI Sales Pitch Generator">
+<meta property="og:description" content="Build a pitch script with a hook, problem, solution, proof and call to action.">
+<meta property="og:url" content="https://toolbari.github.io/ai-sales-pitch-generator/">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>.calc textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;font-family:inherit}
+.calc button{margin-top:14px;padding:11px 20px;border:0;border-radius:999px;font-size:16px;font-weight:700;background:#0b7a4b;color:#fff;cursor:pointer}
+.calc button.secondary{background:#64748b}
+.calc .outbox{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px;margin-top:14px;font-size:15px;white-space:pre-line}
+.calc .msg{margin-top:12px;font-size:14.5px;color:#334155}
+mark{background:#fde68a;padding:0 2px;border-radius:3px}
+.swot-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.swot-grid{grid-template-columns:1fr}}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How long should my pitch be?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Match the setting. Thirty seconds fits a quick introduction or a short video; sixty seconds fits a meeting opener; two minutes fits a demo or a stall visit. When in doubt, pick the shorter version — a short pitch that lands beats a long one that wanders."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if I have no proof yet?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Leave the proof box empty and the script offers a short trial instead of a claim. Never invent a result, a number or a customer story — one false claim can undo the whole pitch."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I change the wording?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Copy the script and edit it freely. The template gives you the shape; your own words, your own examples and your own voice are what make it yours."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the tool write the pitch for me?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It assembles your own details into template sentences in your browser. The ideas, the facts and the proof all come from you — the tool only arranges them into the five-part shape."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>AI Sales Pitch Generator</h1>
+<p class="answer">This tool builds a sales pitch script from your own details — product, audience, problem, benefit and proof — in three lengths: 30 seconds, 60 seconds or 2 minutes. Every script follows the same five-part shape: hook, problem, solution, proof and call to action.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="pitch-product">Product or service</label>
+<input id="pitch-product" type="text" placeholder="Example: a weekly meal-planning app">
+<label for="pitch-audience">Audience</label>
+<input id="pitch-audience" type="text" placeholder="Example: busy parents">
+<label for="pitch-problem">Problem your audience faces</label>
+<input id="pitch-problem" type="text" placeholder="Example: deciding what to cook every evening">
+<label for="pitch-benefit">Main benefit</label>
+<input id="pitch-benefit" type="text" placeholder="Example: planning a whole week of meals in ten minutes">
+<label for="pitch-proof">Proof (a result, a number, or a customer story — optional)</label>
+<input id="pitch-proof" type="text" placeholder="Example: 500 families plan their week with it already">
+<label for="pitch-length">Pitch length</label>
+<select id="pitch-length">
+<option value="30">30 seconds</option>
+<option value="60">60 seconds</option>
+<option value="120">2 minutes</option>
+</select>
+<button type="button" onclick="buildPitch()">Build pitch</button>
+<button type="button" class="secondary" onclick="copyPitch()">Copy pitch</button>
+<div id="pitch-out" class="outbox"></div>
+<p id="pitch-words" class="msg"></p>
+<p class="msg">Template-built text — the script is assembled from your own details using built-in templates.</p>
+<p id="pitch-status" class="msg"></p>
+</div>
+<div class="warn">Use only true claims in your pitch. Check every fact, number and promise before you say it to a customer. This tool works fully in your browser and calls no AI service, API, or backend.</div>
+<h2>How to use the pitch generator</h2>
+<p>Fill in the five boxes with your own details. The product, audience, problem and benefit boxes are required; the proof box is optional — if you leave it empty, the script offers a short trial instead of a claim. Then pick a length and press "Build pitch".</p><p>The tool shows the word count and an approximate speaking time for the finished script, so you can see whether it fits the slot you have. Copy the script and read it aloud at least once: any line that feels long when spoken should be trimmed, and any line that sounds like someone else should be rewritten in your own words.</p>
+<h2>The five parts of a pitch</h2>
+<p>Every script follows the same shape. The hook is a question that makes the listener picture life without the problem. The problem names the pain in the listener's own terms. The solution shows what your product does about it, in one line. The proof gives a reason to believe you — a result, a number, or a customer story. The call to action says what to do next, in one clear step.</p><p>The longer versions add detail to each part instead of adding new parts. A 60-second pitch has two lines per part; a 2-minute pitch has four. The shape stays the same, so the pitch still sounds like one story, not five separate ones.</p>
+<h2>How long is 30 seconds of talking?</h2>
+<p>At a natural speaking pace, most people say about 150 words a minute — so 30 seconds is about 75 words, 60 seconds about 150, and 2 minutes about 300. Those are rough guides, not exact counts: a nervous speaker goes faster, and a careful speaker goes slower.</p><p>That is why the tool shows the actual word count and an approximate speaking time for your script. If the time is longer than the slot you have, cut the middle lines first and keep the hook, the proof and the call to action — those are the parts the listener remembers.</p>
+<h2>Questions people ask</h2>
+<div class="faq">
+<h3>How long should my pitch be?</h3>
+<p>Match the setting. Thirty seconds fits a quick introduction or a short video; sixty seconds fits a meeting opener; two minutes fits a demo or a stall visit. When in doubt, pick the shorter version — a short pitch that lands beats a long one that wanders.</p>
+</div>
+<div class="faq">
+<h3>What if I have no proof yet?</h3>
+<p>Leave the proof box empty and the script offers a short trial instead of a claim. Never invent a result, a number or a customer story — one false claim can undo the whole pitch.</p>
+</div>
+<div class="faq">
+<h3>Can I change the wording?</h3>
+<p>Yes. Copy the script and edit it freely. The template gives you the shape; your own words, your own examples and your own voice are what make it yours.</p>
+</div>
+<div class="faq">
+<h3>Does the tool write the pitch for me?</h3>
+<p>It assembles your own details into template sentences in your browser. The ideas, the facts and the proof all come from you — the tool only arranges them into the five-part shape.</p>
+</div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/ai-hook-generator/">AI Hook Generator for Videos and Posts</a> · <a href="https://toolbari.github.io/ai-cta-generator/">AI Call-to-Action Generator</a> · <a href="https://toolbari.github.io/ai-negotiation-script-generator/">AI Negotiation Script Generator</a> · <a href="https://toolbari.github.io/ai-freelance-proposal-generator/">AI Freelance Proposal Generator</a> · <a href="https://toolbari.github.io/ai-email-sequence-builder/">AI Email Sequence Builder</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a> · <a href="https://toolbari.github.io/about/">About</a> · <a href="https://toolbari.github.io/contact/">Contact</a> · <a href="https://toolbari.github.io/privacy-policy/">Privacy Policy</a> · <a href="https://toolbari.github.io/disclaimer/">Disclaimer</a> · <a href="https://toolbari.github.io/terms-and-conditions/">Terms</a></footer>
+</div>
+<script>
+
+function el(id){return document.getElementById(id);}
+function setText(id,t){var e=el(id);if(e){e.textContent=t;}}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function copyText(text,statusId){
+  if(typeof navigator!=='undefined'&&navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){setText(statusId,'Copied to clipboard.');},function(){fallbackCopy(text,statusId);});
+  }else{fallbackCopy(text,statusId);}
+}
+function fallbackCopy(text,statusId){
+  try{
+    var ta=document.createElement('textarea');
+    ta.value=text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    setText(statusId,'Copied to clipboard.');
+  }catch(e){setText(statusId,'Copy did not work here. Select the text and copy it by hand.');}
+}
+function downloadText(filename,text,statusId){
+  try{
+    var blob=new Blob([text],{type:'text/plain'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;a.download=filename;
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    setText(statusId,'Download started.');
+  }catch(e){setText(statusId,'Download is not available here. Copy the text instead.');}
+}
+
+var PITCH_LINES = {
+  hook: [
+    'Here is a question for {audience}: what would change if {problem} stopped getting in the way?',
+    'Most {audience} say the same thing: {problem} slows them down every single week.',
+    'Picture a normal week without that problem. That is the week {product} is built for.',
+    'This is not about working harder. It is about removing the one thing that keeps getting in the way.'
+  ],
+  problem: [
+    '{Audience} often struggle with {problem}. It costs time, and it costs patience.',
+    'The usual fixes take too long, and they rarely stick past the first week.',
+    'Left alone, the problem grows: small delays turn into missed chances and lost customers.',
+    'Ask anyone in the room and you will hear the same story, told in different words.'
+  ],
+  solution: [
+    '{Product} fixes that by {benefit}.',
+    'It is built for {audience}, so getting started takes minutes, not days.',
+    'You stay in control the whole way: nothing changes unless you choose it.',
+    'There is no long setup and no learning curve — you start with the problem you already have.'
+  ],
+  proof: [
+    '{proof}',
+    'That is the result people notice first, and it is the reason they stay.',
+    'It holds up week after week, not just on day one.',
+    'You do not have to take my word for it — the numbers speak for themselves.'
+  ],
+  cta: [
+    'Try {product} today and see the difference for yourself.',
+    'If it is not for you, you will know within the first week.',
+    'Start today — the first step takes less than a minute.',
+    'Your future self will thank you for starting now instead of next month.'
+  ]
+};
+function capFirst(s){ return s.length ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+function fillPitch(tpl, d){
+  return tpl.split('{product}').join(d.product).split('{Product}').join(capFirst(d.product))
+    .split('{audience}').join(d.audience).split('{Audience}').join(capFirst(d.audience))
+    .split('{problem}').join(d.problem).split('{benefit}').join(d.benefit).split('{proof}').join(d.proof);
+}
+function buildPitch(){
+  var d = {
+    product: el('pitch-product').value.trim(),
+    audience: el('pitch-audience').value.trim(),
+    problem: el('pitch-problem').value.trim(),
+    benefit: el('pitch-benefit').value.trim(),
+    proof: el('pitch-proof').value.trim()
+  };
+  var missing = [];
+  if (!d.product) missing.push('product');
+  if (!d.audience) missing.push('audience');
+  if (!d.problem) missing.push('problem');
+  if (!d.benefit) missing.push('benefit');
+  if (missing.length > 0){
+    setText('pitch-out','');
+    setText('pitch-words','');
+    setText('pitch-status','Fill in these fields first: ' + missing.join(', ') + '.');
+    return;
+  }
+  if (!d.proof) d.proof = 'Try it for a short trial and judge the result for yourself.';
+  var len = el('pitch-length').value;
+  var take = len === '30' ? 1 : (len === '60' ? 2 : 4);
+  var secs = len === '30' ? '30 seconds' : (len === '60' ? '60 seconds' : '2 minutes');
+  var out = '';
+  var sections = [['HOOK','hook'],['PROBLEM','problem'],['SOLUTION','solution'],['PROOF','proof'],['CALL TO ACTION','cta']];
+  sections.forEach(function(sec){
+    out += sec[0] + '\n';
+    PITCH_LINES[sec[1]].slice(0, take).forEach(function(line){ out += fillPitch(line, d) + '\n'; });
+    out += '\n';
+  });
+  out = out.trim();
+  el('pitch-out').textContent = out;
+  var words = out.split(/\s+/).length;
+  var speak = Math.round(words / 150 * 60);
+  setText('pitch-words', words + ' words — about ' + speak + ' seconds at a natural speaking pace (about 150 words a minute). Target length: ' + secs + '.');
+  setText('pitch-status','Pitch script built. Read it aloud and trim any line that feels long.');
+}
+function copyPitch(){
+  var text = el('pitch-out').textContent;
+  if (!text){ setText('pitch-status','Build a pitch first, then copy it.'); return; }
+  copyText(text, 'pitch-status');
+}
+
+</script>
+<!-- TB-MONETAG -->
+</body>
+</html>
