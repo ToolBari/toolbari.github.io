@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ramadan Iftar Time Calculator | ToolBari</title>
+<meta name="description" content="Enter your sunset time from your local prayer timetable and see your iftar time and the time left until it. Iftar is at sunset — this tool organises the time you enter and never invents one.">
+<link rel="canonical" href="https://toolbari.github.io/ramadan-iftar-time-calculator/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ramadan Iftar Time Calculator">
+<meta property="og:description" content="Your iftar time and the time left until it, from the sunset time you enter.">
+<meta property="og:url" content="https://toolbari.github.io/ramadan-iftar-time-calculator/">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+.calc button{margin-top:14px;padding:11px 20px;border:0;border-radius:999px;font-size:16px;font-weight:700;background:#0b7a4b;color:#fff;cursor:pointer}
+.calc button:hover{background:#09653e}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:15px}
+th,td{border:1px solid #e2e8f0;padding:8px 10px;text-align:left}
+th{background:#e8f7ef}
+.calc .row{display:flex;gap:10px;flex-wrap:wrap}
+.calc .row>div{flex:1 1 140px}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What time is iftar today?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends on your city and the date, because iftar is at sunset and sunset changes from place to place. Enter the sunset time from your local prayer timetable into the calculator above, and it will show your iftar time and the time left until it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does the tool ask me to enter the time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This page holds no prayer-time data of its own, and sunset times vary by city and by day. Asking you to enter the time from your local timetable is the honest way to work: the answer can only ever be as good as the time you trust enough to type in."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is iftar exactly at sunset?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, iftar is at sunset, which is the time of the Maghrib prayer. Some timetables add a minute or two for caution, so always follow the time your own local timetable gives rather than a sunset time from a general weather page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if I enter the wrong time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The result follows the time you entered, so a wrong entry gives a wrong answer. Re-check the time against your local timetable and enter it again. If the calculator says iftar has already passed when it clearly has not, the entered time is almost certainly the problem."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the countdown update by itself?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Once you have entered a time, the countdown refreshes every 30 seconds using the clock on your device. Leave the page open and the minutes left will keep falling without you pressing anything."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When does Ramadan 2027 start?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ramadan 2027 is expected to begin on Monday 8 February 2027. The date depends on the sighting of the new moon, so the confirmed start may move by a day. Check with your local mosque as the month approaches."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Ramadan Iftar Time Calculator</h1>
+<p class="answer">Iftar is at sunset, so this calculator starts with the sunset time from your own local prayer timetable and shows it back to you as your iftar time, together with the time left until it. It adds nothing and invents nothing: the only time it knows is the one you type in.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="iftarTime">Your iftar time today (sunset, from your local timetable)</label>
+<input type="time" id="iftarTime">
+<label for="iftarDate">Date (leave blank for today)</label>
+<input type="date" id="iftarDate">
+<button id="iftarBtn" type="button">Show my iftar time</button>
+<p class="out" id="iftarOut"></p>
+<p class="steps" id="iftarSteps"></p>
+<p class="steps">Take the sunset time from your local prayer timetable, your mosque, or your usual prayer app. This page has no prayer-time data of its own.</p>
+</div>
+<div class="warn">This tool works fully in your browser and calls no external service or live data. Iftar times here come only from the time you enter. This page has no prayer-time data, so always take your sunset time from your local prayer timetable, and remember that Ramadan 2027 dates are expected until the moon is sighted.</div>
+<h2>How this calculator works</h2>
+<p>This calculator does one simple job. You type in the sunset time for your city and your day, taken from your local prayer timetable, and it shows that time back to you as your iftar time, together with the time left until it arrives. The countdown reads the clock on your own device, so the hours and minutes left are always counted in your local time.</p><p>Nothing here comes from a database. This page holds no prayer times for any city, because sunset times change from place to place and from day to day, and a wrong time on a fasting page would be worse than no time at all. The tool organises what you enter, and the only time it can show is the one you trust enough to type in.</p>
+<h2>Where to find your sunset time</h2>
+<p>The best source for your sunset time is the prayer timetable for your own town or city, usually published by a local mosque or an Islamic centre. Many people keep a printed timetable on the fridge during Ramadan, or use a prayer app set to their exact location. Either way, the number you want is the Maghrib time, which is the time of sunset.</p><p>Check the date as well as the city. Sunset moves a little every day, so a time that was right last week is already out of date. Get into the habit of looking at the timetable each morning, or at least once a week, and type the fresh time into this calculator whenever it changes.</p>
+<h2>What iftar means</h2>
+<p>Iftar is the meal that breaks the fast at sunset, and it is one of the most looked-forward-to moments of the day in Ramadan. The fast begins at dawn and runs until the sun goes down, so iftar marks both the end of the day's fast and the start of the evening, when families gather, mosques fill, and the night prayers begin.</p><p>Many people break the fast with dates and water, following a long tradition, and then pray before sitting down to a fuller meal. Others eat lightly first and save the main meal for later in the evening. There is no single right way to arrange it: the point is to break the fast with gratitude and to share the moment with the people around you.</p>
+<h2>Planning the hour before iftar</h2>
+<p>The last hour before iftar is often the busiest hour of the day. Food needs finishing, the table needs laying, and children are usually hungry and restless. Knowing exactly how long is left helps you pace the work: this calculator's countdown is a small thing, but it stops the repeated question of how many minutes remain.</p><p>A little planning in the morning makes the evening easier. Decide the menu early, prepare what you can in advance, and leave only the last cooking for the final hour. If you are hosting guests, set the table before the countdown reaches the last thirty minutes, so the moment of iftar itself is calm rather than rushed.</p>
+<h2>When the time has already passed</h2>
+<p>If the iftar time you entered has already gone by today, the calculator says so plainly and tells you how long ago it was. That is not an error: it is the tool doing its job with the numbers you gave it. Check whether you typed the right time, and whether you meant today or another day.</p><p>You can also use the date box to plan ahead. Enter tomorrow's date and tomorrow's sunset time, and the calculator shows how far away tomorrow's iftar is. It is a handy way to plan an iftar gathering a day or two in advance, or to see how the times are shifting through the week.</p><p>One more thing worth knowing: the calculator never remembers your time. Close the page and it is gone, so enter the fresh time from your timetable each day. That is deliberate. A remembered time from last week would be wrong today, and a tool that silently reused it would be worse than a tool that asks again.</p>
+<h2>Iftar times change through Ramadan</h2>
+<p>Sunset does not stay still during Ramadan. In the northern hemisphere, where Ramadan 2027 falls in February and March, the days are lengthening, so sunset comes a little later each evening and the fast grows a little longer day by day. In the southern hemisphere the opposite happens, and the days shorten as the month goes on.</p><p>The change is small, often only a minute or two a day, but over thirty days it adds up to a noticeable shift. That is why a single iftar time cannot serve the whole month, and why this calculator asks you to enter a fresh time rather than remembering an old one. A minute matters when you are hungry. If you travel during Ramadan, the change is bigger still: a new city means a new sunset time, sometimes by half an hour or more, so always look up the local timetable when you arrive somewhere new.</p>
+<h2>A worked example</h2>
+<p>Suppose your local timetable says sunset today is 6:30 in the evening, and the clock on your device says 4:15 in the afternoon. Type 6:30 PM into the calculator, and it shows your iftar time as 6:30 PM, with 2 hours 15 minutes left. The working is simple subtraction: 6:30 PM minus 4:15 PM is 2 hours 15 minutes.</p><p>If you come back to the page at 6:00 PM, the same iftar time shows 30 minutes left, because the countdown has kept ticking. And if you check at 7:00 PM, the calculator tells you iftar was 30 minutes ago. The answer always follows from the two numbers in front of it: the time you entered, and the time right now.</p>
+<h2>Questions people ask</h2>
+<div class="faq">
+<h3>What time is iftar today?</h3>
+<p>It depends on your city and the date, because iftar is at sunset and sunset changes from place to place. Enter the sunset time from your local prayer timetable into the calculator above, and it will show your iftar time and the time left until it.</p>
+</div>
+<div class="faq">
+<h3>Why does the tool ask me to enter the time?</h3>
+<p>This page holds no prayer-time data of its own, and sunset times vary by city and by day. Asking you to enter the time from your local timetable is the honest way to work: the answer can only ever be as good as the time you trust enough to type in.</p>
+</div>
+<div class="faq">
+<h3>Is iftar exactly at sunset?</h3>
+<p>Yes, iftar is at sunset, which is the time of the Maghrib prayer. Some timetables add a minute or two for caution, so always follow the time your own local timetable gives rather than a sunset time from a general weather page.</p>
+</div>
+<div class="faq">
+<h3>What if I enter the wrong time?</h3>
+<p>The result follows the time you entered, so a wrong entry gives a wrong answer. Re-check the time against your local timetable and enter it again. If the calculator says iftar has already passed when it clearly has not, the entered time is almost certainly the problem.</p>
+</div>
+<div class="faq">
+<h3>Does the countdown update by itself?</h3>
+<p>Yes. Once you have entered a time, the countdown refreshes every 30 seconds using the clock on your device. Leave the page open and the minutes left will keep falling without you pressing anything.</p>
+</div>
+<div class="faq">
+<h3>When does Ramadan 2027 start?</h3>
+<p>Ramadan 2027 is expected to begin on Monday 8 February 2027. The date depends on the sighting of the new moon, so the confirmed start may move by a day. Check with your local mosque as the month approaches.</p>
+</div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/ramadan-fasting-hours-calculator/">Ramadan Fasting Hours Calculator</a> · <a href="https://toolbari.github.io/ramadan-timetable-generator/">Ramadan Timetable Generator</a> · <a href="https://toolbari.github.io/hijri-to-gregorian-converter/">Hijri to Gregorian Converter</a> · <a href="https://toolbari.github.io/sunrise-sunset-calculator/">Sunrise Sunset Calculator</a> · <a href="https://toolbari.github.io/moon-phase-calendar/">Moon Phase Calendar</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a> · <a href="https://toolbari.github.io/about/">About</a> · <a href="https://toolbari.github.io/contact/">Contact</a> · <a href="https://toolbari.github.io/privacy-policy/">Privacy Policy</a> · <a href="https://toolbari.github.io/disclaimer/">Disclaimer</a> · <a href="https://toolbari.github.io/terms-and-conditions/">Terms</a></footer>
+</div>
+<script>
+
+(function(){
+  function parseTime(v){
+    if(!v) return null;
+    var m = /^(\d{1,2}):(\d{2})$/.exec(v.trim());
+    if(!m) return null;
+    var h = parseInt(m[1],10), mi = parseInt(m[2],10);
+    if(h < 0 || h > 23 || mi < 0 || mi > 59) return null;
+    return h*60 + mi;
+  }
+  function fmt12(min){
+    min = ((min % 1440) + 1440) % 1440;
+    var h = Math.floor(min/60), m = min % 60;
+    var ap = h >= 12 ? "PM" : "AM";
+    var h12 = h % 12; if(h12 === 0) h12 = 12;
+    return h12 + ":" + (m < 10 ? "0" : "") + m + " " + ap;
+  }
+  function fmtHM(totalMin){
+    var h = Math.floor(totalMin/60), m = totalMin % 60;
+    var parts = [];
+    if(h) parts.push(h + (h === 1 ? " hour" : " hours"));
+    if(m || !h) parts.push(m + (m === 1 ? " minute" : " minutes"));
+    return parts.join(" ");
+  }
+  function timeLeft(now, iftar){
+    var diffMin = Math.round((iftar.getTime() - now.getTime()) / 60000);
+    return {passed: diffMin < 0, minutes: Math.abs(diffMin)};
+  }
+  function compute(){
+    var t = document.getElementById("iftarTime");
+    var d = document.getElementById("iftarDate");
+    var out = document.getElementById("iftarOut");
+    var steps = document.getElementById("iftarSteps");
+    var mins = parseTime(t.value);
+    if(mins === null){
+      out.textContent = "Please enter your iftar time first — the sunset time from your local timetable.";
+      steps.textContent = "";
+      return;
+    }
+    var now = new Date();
+    var day;
+    if(d.value){
+      day = new Date(d.value + "T00:00:00");
+      if(isNaN(day.getTime())) day = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    } else {
+      day = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    }
+    var iftar = new Date(day.getFullYear(), day.getMonth(), day.getDate(), Math.floor(mins/60), mins % 60, 0, 0);
+    var tl = timeLeft(now, iftar);
+    var when = d.value ? " on " + day.toDateString() : " today";
+    out.textContent = "Iftar is at " + fmt12(mins) + when + ".";
+    if(tl.passed){
+      steps.textContent = "That time has passed — it was " + fmtHM(tl.minutes) + " ago. Enter tomorrow's sunset time to plan ahead.";
+    } else if(tl.minutes === 0){
+      steps.textContent = "It is iftar time now.";
+    } else {
+      steps.textContent = "Time left until iftar: " + fmtHM(tl.minutes) + ". The countdown refreshes every 30 seconds.";
+    }
+  }
+  var btn = document.getElementById("iftarBtn");
+  if(btn && btn.addEventListener) btn.addEventListener("click", compute);
+  if(typeof setInterval === "function") setInterval(function(){
+    var t = document.getElementById("iftarTime");
+    if(t && t.value) compute();
+  }, 30000);
+  window.TB = {parseTime: parseTime, fmt12: fmt12, fmtHM: fmtHM, timeLeft: timeLeft, compute: compute};
+})();
+
+</script>
+<!-- TB-MONETAG -->
+</body>
+</html>
