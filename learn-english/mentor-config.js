@@ -4,4 +4,4 @@
 // dedicated school key is set as the Worker's SCHOOL_GEMINI_API_KEY
 // secret (see ~/workspace/learning/school-ai/worker/README.md).
 // NEVER put any API key in this file — the key lives only in the Worker.
-window.SCHOOL_AI = { endpoint: "" };
+window.SCHOOL_AI = { endpoint: "https://englishbari-mentor.faysalb60k.workers.dev" };
