@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Income Tax Calculator — Old vs New Regime, Which Saves You More | ToolBari</title>
+<meta name="description" content="Compare old vs new income tax regime on your own figures — slabs, deductions, rebate and which regime wins. FY 2025-26 rules, estimate only.">
+<link rel="canonical" href="https://toolbari.github.io/tools/income-tax-calculator.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Income Tax Calculator — Old vs New Regime, Which Saves You More">
+<meta property="og:description" content="Compare the old and new income tax regimes on your own figures and see which one saves you more.">
+<meta property="og:url" content="https://toolbari.github.io/tools/income-tax-calculator.html">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+.calc textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;font-family:inherit}
+.calc button{margin-top:14px;margin-right:8px;padding:11px 20px;border:0;border-radius:999px;font-size:16px;font-weight:700;background:#0b7a4b;color:#fff;cursor:pointer}
+.calc button.secondary{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+.calc button:disabled{opacity:.55;cursor:default}
+.calc pre{white-space:pre-wrap;word-wrap:break-word;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:12px;font-size:14.5px;margin-top:10px;font-family:'Segoe UI',Arial,sans-serif;line-height:1.6}
+pre.ex{white-space:pre-wrap;word-wrap:break-word;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:12px;font-size:14.5px;margin:10px 0;font-family:'Segoe UI',Arial,sans-serif;line-height:1.6}
+.preview{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:16px;margin-top:10px;font-size:14.5px;line-height:1.6;white-space:pre-wrap;word-wrap:break-word}
+.calc table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14.5px;background:#fff}
+.calc th,.calc td{border:1px solid #e2e8f0;padding:6px 8px;text-align:right}
+.calc th:first-child,.calc td:first-child{text-align:left}
+.calc th{background:#e8f7ef}
+.msg{font-size:15px;color:#b45309;margin-top:8px}
+@media print{body{background:#fff}.brand,.answer,.warn,.links,footer,h2,.faq{display:none!important}.wrap{max-width:100%;padding:0}.calc{border:0;box-shadow:none}.calc label,.calc input,.calc select,.calc textarea,.calc button,.calc .msg{display:none!important}.preview{border:0;padding:0}}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Which regime is better, old or new?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on your deductions. The new regime usually wins when total deductions are small, because its slabs are lower and the rebate covers taxable income up to 12 lakh. The old regime can win when deductions are large, especially with a home loan. Run your own figures in the calculator above — the answer changes with income and deductions."}}, {"@type": "Question", "name": "How much income is tax-free under the new regime?", "acceptedAnswer": {"@type": "Answer", "text": "Under the new regime for FY 2025-26, taxable income up to 12 lakh pays no tax because of the Section 87A rebate of up to 60,000. With the 75,000 standard deduction, a salaried person earning up to 12.75 lakh gross pays nothing."}}, {"@type": "Question", "name": "What is the standard deduction under each regime?", "acceptedAnswer": {"@type": "Answer", "text": "For salaried people, the standard deduction is 75,000 under the new regime and 50,000 under the old regime. It is taken off your gross salary before the tax slabs apply, and you do not need to claim it — it is automatic."}}, {"@type": "Question", "name": "Can I claim 80C deductions under the new regime?", "acceptedAnswer": {"@type": "Answer", "text": "No. The new regime does not allow 80C, HRA or 80D deductions — that is the trade for its lower slab rates. Those deductions only reduce tax under the old regime, which is why the calculator asks for them separately."}}, {"@type": "Question", "name": "What is marginal relief?", "acceptedAnswer": {"@type": "Answer", "text": "Marginal relief stops a small pay rise from producing a tax bill bigger than the rise. Under the new regime, just above 12 lakh of taxable income, your tax cannot exceed the amount by which your income is above 12 lakh. The calculator applies it automatically."}}, {"@type": "Question", "name": "Does this calculator include surcharge?", "acceptedAnswer": {"@type": "Answer", "text": "No. Surcharge applies to incomes above 50 lakh and is not included here, so this tool covers incomes up to 50 lakh. If your income is above that, use this result as a starting point and get the full figure from a proper tax computation."}}]}</script>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Income Tax Calculator — Old vs New Regime, Which Saves You More</h1>
+<p class="answer">Compare the old and new income tax regimes on your own figures. Enter your annual income and deductions, and the calculator works out the tax under each regime, slab by slab, and tells you which one saves you more.</p>
+<div class="calc"><label for="tax-income">Annual income (₹)</label>
+<input id="tax-income" type="number" min="0" step="1" placeholder="e.g. 1200000">
+<label for="tax-80c">Deduction under 80C (₹) — old regime only</label>
+<input id="tax-80c" type="number" min="0" step="1" placeholder="e.g. 150000 (max 1,50,000)">
+<label for="tax-hra">HRA exemption (₹) — old regime only</label>
+<input id="tax-hra" type="number" min="0" step="1" placeholder="e.g. 120000">
+<label for="tax-80d">Deduction under 80D (₹) — old regime only</label>
+<input id="tax-80d" type="number" min="0" step="1" placeholder="e.g. 25000">
+<label for="tax-view">What do you want to see?</label>
+<select id="tax-view">
+<option value="both" selected>Compare both regimes</option>
+<option value="new">New regime only</option>
+<option value="old">Old regime only</option>
+</select>
+<button id="tax-calc" type="button">Calculate</button>
+<button id="tax-copy" type="button" class="secondary">Copy result</button>
+<div class="msg" id="tax-msg"></div>
+<div class="out" id="tax-out"></div>
+<div class="steps" id="tax-steps"></div></div>
+<div class="warn">An estimate, not tax advice — rates follow FY 2025-26 rules. Surcharge (above ₹50 lakh) is not included, so this tool covers incomes up to ₹50 lakh.</div>
+<h2>How to use the income tax calculator</h2><p>Enter your annual income — your gross yearly salary before any deduction — then enter the deductions you claim under the old regime: 80C, HRA exemption, and 80D. Press Calculate and the tool works out your tax under both regimes, slab by slab, and tells you which one wins on your figures. The Copy button copies the full comparison as plain text.</p>
+<p>The deduction boxes matter only for the old regime. The new regime does not allow 80C, HRA or 80D deductions — that is the trade it makes for lower slab rates. If you leave the deduction boxes at zero, you are comparing the new regime against an old regime with no deductions, which is the honest comparison for someone who claims nothing. If you do claim deductions, enter them, because they are the whole reason the old regime can still win.</p>
+<p>Enter the HRA figure as the exemption amount, not the full HRA in your salary slip. Your employer works out the exemption from your rent, your salary and your city — it is usually much smaller than the HRA you receive. If you do not know the exemption, your Form 16 or your employer's tax worksheet will show it. Entering the full HRA would understate your old-regime tax and make the comparison wrong.</p>
+<p>The 80C box is capped at 1,50,000 in the calculation, because that is the most the law allows under 80C in a year. If you type more, the tool uses 1,50,000. The view selector lets you see both regimes side by side, or one regime on its own if you only want to check a single number.</p><h2>Old vs new regime in plain words</h2><p>India has two income tax regimes, and every salaried person picks one each year. The old regime has higher slab rates but lets you reduce your taxable income with deductions — 80C for investments like PPF and ELSS, HRA for house rent, 80D for health insurance, and more. The new regime has lower slab rates and a bigger standard deduction, but it takes almost all deductions away. Neither is better for everyone; the right one depends on how much you deduct.</p>
+<p>The new regime has been the default since Budget 2023-24, which means it applies unless you actively choose the old one when you file. That matters, because many people who would save money under the old regime never notice — they file under the default and pay more than they needed to. The comparison this calculator does is the check that catches that.</p>
+<p>The new regime's big change came in Budget 2025, for the financial year 2025-26. The slabs were widened, the zero-tax limit rose to 4 lakh, and the rebate under Section 87A was raised so that taxable income up to 12 lakh pays no tax at all. With the standard deduction of 75,000, a salaried person earning up to 12.75 lakh gross pays nothing under the new regime. That is why the new regime wins for most middle incomes now — but not for everyone, as the worked examples below show.</p>
+<p>The old regime still wins when deductions are large. Someone with a home loan, a full 80C, a big HRA exemption and 80D can pull their taxable income down far enough that the old regime's higher rates still produce a smaller bill. The only way to know is to run your own numbers, which is what this page does.</p><h2>The slabs for FY 2025-26</h2><p>Under the new regime, the slabs for FY 2025-26 are: up to 4 lakh, no tax; 4 to 8 lakh, 5 percent; 8 to 12 lakh, 10 percent; 12 to 16 lakh, 15 percent; 16 to 20 lakh, 20 percent; 20 to 24 lakh, 25 percent; and above 24 lakh, 30 percent. The standard deduction for salaried people is 75,000, taken off the gross salary before the slabs apply. The Section 87A rebate then wipes out the tax entirely when taxable income is 12 lakh or less, up to a rebate of 60,000.</p>
+<p>Under the old regime, the slabs are: up to 2.5 lakh, no tax; 2.5 to 5 lakh, 5 percent; 5 to 10 lakh, 20 percent; and above 10 lakh, 30 percent. The standard deduction is 50,000, and the deductions you enter — 80C, HRA, 80D — come off before the slabs apply. The Section 87A rebate under the old regime is up to 12,500, and it applies only when taxable income is 5 lakh or less.</p>
+<p>Both regimes add a 4 percent health and education cess on the tax after the rebate. That is the last step in the calculation, and it is easy to forget — a tax of 1,00,000 becomes 1,04,000 after cess. The calculator includes it automatically.</p>
+<p>One more rule protects people just above a rebate limit. Under the new regime, if your taxable income is just above 12 lakh, the tax cannot be more than the amount by which your income exceeds 12 lakh — this is marginal relief, and it stops a small pay rise from producing a tax bill bigger than the rise itself. The same idea applies just above 5 lakh under the old regime. The calculator applies marginal relief in both cases.</p>
+<p>Surcharge is not part of this calculator. It applies to incomes above 50 lakh, at rates that rise with income, and it would make the tool far more complicated. If your income is above 50 lakh, treat the result here as a starting point only and get the full figure from a proper tax computation.</p><h2>Worked example: a ₹12 lakh salary</h2><p>Take a salary of 12 lakh a year with no deductions. Under the new regime, the standard deduction of 75,000 brings taxable income to 11,25,000. The slab tax is 20,000 on the 4-to-8-lakh part and 32,500 on the 8-to-11.25-lakh part — 52,500 in total. Because taxable income is below 12 lakh, the Section 87A rebate of 52,500 wipes it out, and the tax is nil. Under the old regime, the same salary gives a taxable income of 11,50,000 after the 50,000 standard deduction, and the tax comes to 1,63,800 including cess. Here is the calculator's full output:</p>
+<pre class="ex" id="ex1">New regime (FY 2025-26)
+  Taxable income: ₹11,25,000
+  Up to ₹4,00,000 at Nil: ₹0
+  ₹4,00,001 to ₹8,00,000 at 5%: ₹20,000
+  ₹8,00,001 to ₹11,25,000 at 10%: ₹32,500
+  Tax on slabs: ₹52,500
+  Less: Section 87A rebate: ₹52,500
+  Add: Health and education cess (4%): ₹0
+  Total tax: ₹0
+  Effective rate: 0.00%
+Old regime (FY 2025-26)
+  Taxable income: ₹11,50,000
+  Up to ₹2,50,000 at Nil: ₹0
+  ₹2,50,001 to ₹5,00,000 at 5%: ₹12,500
+  ₹5,00,001 to ₹10,00,000 at 20%: ₹1,00,000
+  ₹10,00,001 to ₹11,50,000 at 30%: ₹45,000
+  Tax on slabs: ₹1,57,500
+  Less: Section 87A rebate: ₹0
+  Add: Health and education cess (4%): ₹6,300
+  Total tax: ₹1,63,800
+  Effective rate: 13.65%
+The new regime saves ₹1,63,800 on these figures.</pre>
+<p>This is the case Budget 2025 was aimed at: a middle salary, no deductions, and the new regime wins by the whole tax bill. Anyone earning up to 12.75 lakh gross with no deductions pays nothing under the new regime.</p><h2>Worked example: ₹25 lakh with deductions</h2><p>Now take a salary of 25 lakh with the full 80C of 1,50,000, an HRA exemption of 1,20,000, and 80D of 25,000 — total deductions of 2,95,000. The new regime ignores all of them: taxable income is 24,25,000 after the 75,000 standard deduction, and the tax comes to 3,19,800. The old regime uses the deductions, bringing taxable income down to 21,55,000, but its higher rates still produce a tax of 4,77,360. Even with nearly 3 lakh of deductions, the new regime wins here — by 1,57,560:</p>
+<pre class="ex" id="ex2">New regime (FY 2025-26)
+  Taxable income: ₹24,25,000
+  Up to ₹4,00,000 at Nil: ₹0
+  ₹4,00,001 to ₹8,00,000 at 5%: ₹20,000
+  ₹8,00,001 to ₹12,00,000 at 10%: ₹40,000
+  ₹12,00,001 to ₹16,00,000 at 15%: ₹60,000
+  ₹16,00,001 to ₹20,00,000 at 20%: ₹80,000
+  ₹20,00,001 to ₹24,00,000 at 25%: ₹1,00,000
+  ₹24,00,001 to ₹24,25,000 at 30%: ₹7,500
+  Tax on slabs: ₹3,07,500
+  Less: Section 87A rebate: ₹0
+  Add: Health and education cess (4%): ₹12,300
+  Total tax: ₹3,19,800
+  Effective rate: 12.79%
+Old regime (FY 2025-26)
+  Taxable income: ₹21,55,000
+  Up to ₹2,50,000 at Nil: ₹0
+  ₹2,50,001 to ₹5,00,000 at 5%: ₹12,500
+  ₹5,00,001 to ₹10,00,000 at 20%: ₹1,00,000
+  ₹10,00,001 to ₹21,55,000 at 30%: ₹3,46,500
+  Tax on slabs: ₹4,59,000
+  Less: Section 87A rebate: ₹0
+  Add: Health and education cess (4%): ₹18,360
+  Total tax: ₹4,77,360
+  Effective rate: 19.09%
+The new regime saves ₹1,57,560 on these figures.</pre>
+<p>The lesson is that deductions have to be very large to make the old regime win at this income level — a home loan's interest deduction is usually what tips it, and this calculator does not cover home loan interest. If you have one, add its effect to the old-regime side before you decide.</p><h2>Which regime usually wins</h2><p>For most salaried people in FY 2025-26, the new regime wins. The widened slabs and the 12-lakh rebate are generous, and the old regime needs a lot of deductions to catch up. As a rough guide, if your total deductions are under about 3 lakh, the new regime almost always wins. If they are above 5 lakh — usually because of a home loan — the old regime is worth a careful look. Between those figures, run the numbers; the answer depends on your income and the exact mix.</p>
+<p>There is one more consideration that has nothing to do with the tax bill: the new regime is simpler. No receipts to keep, no investment proofs to submit, no HRA paperwork. Some people choose it for that reason alone even when the old regime would save a small amount. That is a fair choice — a few thousand saved is not worth hours of paperwork to everyone. But it should be a choice made knowing the difference, not by accident.</p>
+<p>Remember that you choose the regime each year when you file. A choice that was right last year may not be right this year if your salary or your deductions changed. Run the comparison every year, with that year's figures, before you file.</p><h2>Common mistakes</h2><p>The most common mistake is forgetting the standard deduction. It is 75,000 under the new regime and 50,000 under the old regime, and it comes off before the slabs apply. Leaving it out overstates the tax under both regimes, and it can wrongly push someone over the 12-lakh rebate limit under the new regime.</p>
+<p>The second mistake is mixing the regimes: applying new-regime slabs to old-regime taxable income, or claiming 80C under the new regime. The regimes are complete packages — slabs, standard deduction, rebate and deductions all belong together. This calculator keeps them separate, so use its two outputs as they stand.</p>
+<p>The third mistake is entering the full HRA instead of the exemption, which understates old-regime tax and can make the old regime look better than it is. The fourth is forgetting the 4 percent cess, which adds up to a noticeable amount on a large bill. The fifth is comparing a new-regime figure that already includes the rebate with an old-regime figure that does not — always compare the final totals, after rebate and cess, which is what the calculator shows.</p>
+<p>Finally, do not treat the result as a filing. This is an estimate based on the figures you entered and the FY 2025-26 rules. Capital gains, rental income, business income and several other items have their own rules that this tool does not cover. If your income has any of those, use this page for the salary comparison and get the rest of the computation done properly.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>Which regime is better, old or new?</h3><p>It depends on your deductions. The new regime usually wins when total deductions are small, because its slabs are lower and the rebate covers taxable income up to 12 lakh. The old regime can win when deductions are large, especially with a home loan. Run your own figures in the calculator above — the answer changes with income and deductions.</p></div><div class="faq"><h3>How much income is tax-free under the new regime?</h3><p>Under the new regime for FY 2025-26, taxable income up to 12 lakh pays no tax because of the Section 87A rebate of up to 60,000. With the 75,000 standard deduction, a salaried person earning up to 12.75 lakh gross pays nothing.</p></div><div class="faq"><h3>What is the standard deduction under each regime?</h3><p>For salaried people, the standard deduction is 75,000 under the new regime and 50,000 under the old regime. It is taken off your gross salary before the tax slabs apply, and you do not need to claim it — it is automatic.</p></div><div class="faq"><h3>Can I claim 80C deductions under the new regime?</h3><p>No. The new regime does not allow 80C, HRA or 80D deductions — that is the trade for its lower slab rates. Those deductions only reduce tax under the old regime, which is why the calculator asks for them separately.</p></div><div class="faq"><h3>What is marginal relief?</h3><p>Marginal relief stops a small pay rise from producing a tax bill bigger than the rise. Under the new regime, just above 12 lakh of taxable income, your tax cannot exceed the amount by which your income is above 12 lakh. The calculator applies it automatically.</p></div><div class="faq"><h3>Does this calculator include surcharge?</h3><p>No. Surcharge applies to incomes above 50 lakh and is not included here, so this tool covers incomes up to 50 lakh. If your income is above that, use this result as a starting point and get the full figure from a proper tax computation.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/gst-calculator.html">GST Calculator</a> · <a href="https://toolbari.github.io/tools/ppf-calculator.html">PPF Calculator</a> · <a href="https://toolbari.github.io/tools/gratuity-calculator.html">Gratuity Calculator</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<script>
+// Pure logic + DOM wiring for the Income Tax Calculator (ToolBari, Mix Pack).
+// FY 2025-26 rules (Finance Act 2025). New regime slabs: 0-4L nil, 4-8L 5%,
+// 8-12L 10%, 12-16L 15%, 16-20L 20%, 20-24L 25%, above 24L 30%.
+// Standard deduction: new Rs 75,000 / old Rs 50,000. Section 87A rebate:
+// new up to Rs 60,000 (taxable income <= Rs 12 lakh), old up to Rs 12,500
+// (taxable income <= Rs 5 lakh). Cess 4% after rebate. No surcharge.
+(function () {
+  "use strict";
+
+  var NEW_SLABS = [[400000, 0], [800000, 0.05], [1200000, 0.10], [1600000, 0.15],
+                   [2000000, 0.20], [2400000, 0.25], [Infinity, 0.30]];
+  var OLD_SLABS = [[250000, 0], [500000, 0.05], [1000000, 0.20], [Infinity, 0.30]];
+
+  function round0(x) { return Math.round(x); }
+
+  // Indian digit grouping, whole rupees: 1234567 -> "₹12,34,567"
+  function fmtINR0(x) {
+    var neg = x < 0;
+    var intPart = String(Math.abs(round0(x)));
+    var last3 = intPart.slice(-3);
+    var rest = intPart.slice(0, -3);
+    var grouped = rest ? rest.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + last3 : last3;
+    return (neg ? "-₹" : "₹") + grouped;
+  }
+
+  function slabTax(taxable, slabs) {
+    var tax = 0, prev = 0, rows = [];
+    for (var i = 0; i < slabs.length; i++) {
+      var limit = slabs[i][0], rate = slabs[i][1];
+      if (taxable <= prev) break;
+      var to = Math.min(taxable, limit);
+      var portion = to - prev;
+      var t = portion * rate;
+      tax += t;
+      rows.push({ from: prev, to: to, rate: rate, tax: t });
+      prev = limit;
+    }
+    return { tax: tax, rows: rows };
+  }
+
+  function calcNew(income) {
+    var taxable = Math.max(0, income - 75000);
+    var s = slabTax(taxable, NEW_SLABS);
+    var tax = s.tax, rebate = 0;
+    if (taxable <= 1200000) rebate = Math.min(tax, 60000);
+    var afterRebate = tax - rebate;
+    // Marginal relief: just above Rs 12 lakh, tax cannot exceed income above Rs 12 lakh.
+    if (taxable > 1200000 && afterRebate > taxable - 1200000) afterRebate = taxable - 1200000;
+    var cess = afterRebate * 0.04;
+    var total = afterRebate + cess;
+    return { regime: "new", taxable: taxable, slabTax: tax, rows: s.rows,
+             rebate: rebate, cess: cess, total: total,
+             effective: income > 0 ? total / income * 100 : 0 };
+  }
+
+  function calcOld(income, d80c, hra, d80d) {
+    var c80 = Math.min(Math.max(0, d80c || 0), 150000);
+    var taxable = Math.max(0, income - 50000 - c80 - Math.max(0, hra || 0) - Math.max(0, d80d || 0));
+    var s = slabTax(taxable, OLD_SLABS);
+    var tax = s.tax, rebate = 0;
+    if (taxable <= 500000) rebate = Math.min(tax, 12500);
+    var afterRebate = tax - rebate;
+    // Marginal relief: just above Rs 5 lakh, tax cannot exceed income above Rs 5 lakh.
+    if (taxable > 500000 && afterRebate > taxable - 500000) afterRebate = taxable - 500000;
+    var cess = afterRebate * 0.04;
+    var total = afterRebate + cess;
+    return { regime: "old", taxable: taxable, slabTax: tax, rows: s.rows,
+             rebate: rebate, cess: cess, total: total,
+             effective: income > 0 ? total / income * 100 : 0 };
+  }
+
+  function compareTax(income, d80c, hra, d80d) {
+    if (!(income > 0)) return { error: "Enter an annual income greater than zero." };
+    if (income > 5000000) return { error: "This tool covers incomes up to Rs 50 lakh — above that, surcharge applies and is not included here." };
+    var n = calcNew(income);
+    var o = calcOld(income, d80c, hra, d80d);
+    var winner = n.total <= o.total ? "new" : "old";
+    return { income: income, newRegime: n, oldRegime: o, winner: winner,
+             saving: Math.abs(n.total - o.total) };
+  }
+
+  function slabRowText(row) {
+    var pct = (row.rate * 100).toString();
+    if (row.from === 0 && row.rate === 0) {
+      return "  Up to " + fmtINR0(row.to) + " at Nil: " + fmtINR0(row.tax);
+    }
+    if (row.to === Infinity) {
+      return "  Above " + fmtINR0(row.from) + " at " + pct + "%: " + fmtINR0(row.tax);
+    }
+    return "  " + fmtINR0(row.from + 1) + " to " + fmtINR0(row.to) + " at " + pct + "%: " + fmtINR0(row.tax);
+  }
+
+  function formatRegime(r, label) {
+    var lines = [];
+    lines.push(label + " (FY 2025-26)");
+    lines.push("  Taxable income: " + fmtINR0(r.taxable));
+    r.rows.forEach(function (row) { lines.push(slabRowText(row)); });
+    lines.push("  Tax on slabs: " + fmtINR0(r.slabTax));
+    lines.push("  Less: Section 87A rebate: " + fmtINR0(r.rebate));
+    lines.push("  Add: Health and education cess (4%): " + fmtINR0(r.cess));
+    lines.push("  Total tax: " + fmtINR0(r.total));
+    lines.push("  Effective rate: " + (Math.round(r.effective * 100) / 100).toFixed(2) + "%");
+    return lines.join("\n");
+  }
+
+  // view: "both" | "new" | "old"
+  function formatTax(c, view) {
+    if (c.error) return c.error;
+    var parts = [];
+    if (view === "new" || view === "both") parts.push(formatRegime(c.newRegime, "New regime"));
+    if (view === "old" || view === "both") parts.push(formatRegime(c.oldRegime, "Old regime"));
+    if (view === "both") {
+      if (round0(c.saving) === 0) {
+        parts.push("Both regimes give the same tax on these figures.");
+      } else if (c.winner === "new") {
+        parts.push("The new regime saves " + fmtINR0(c.saving) + " on these figures.");
+      } else {
+        parts.push("The old regime saves " + fmtINR0(c.saving) + " on these figures.");
+      }
+    }
+    return parts.join("\n");
+  }
+
+  function copyText(text, btn, label) {
+    function done(ok) {
+      if (btn) {
+        btn.textContent = ok ? "Copied!" : "Copy failed — select the text and copy it yourself";
+        setTimeout(function () { btn.textContent = label; }, 2500);
+      }
+    }
+    if (typeof navigator !== "undefined" && navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, function () { fallback(); });
+    } else { fallback(); }
+    function fallback() {
+      try {
+        var ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed"; ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        var ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+        done(ok);
+      } catch (e) { done(false); }
+    }
+  }
+
+  var TB = { compareTax: compareTax, formatTax: formatTax, calcNew: calcNew,
+             calcOld: calcOld, fmtINR0: fmtINR0 };
+  if (typeof window !== "undefined") window.TB = TB;
+  if (typeof module !== "undefined" && module.exports) module.exports = TB;
+
+  // ---- DOM wiring (browser only) ----
+  if (typeof document !== "undefined" && document.getElementById) {
+    var incomeEl = document.getElementById("tax-income");
+    var c80El = document.getElementById("tax-80c");
+    var hraEl = document.getElementById("tax-hra");
+    var d80El = document.getElementById("tax-80d");
+    var viewEl = document.getElementById("tax-view");
+    var outEl = document.getElementById("tax-out");
+    var stepsEl = document.getElementById("tax-steps");
+    var msgEl = document.getElementById("tax-msg");
+    var calcBtn = document.getElementById("tax-calc");
+    var copyBtn = document.getElementById("tax-copy");
+    function num(el) {
+      var v = el ? parseFloat(el.value) : NaN;
+      return isNaN(v) ? 0 : v;
+    }
+    function run() {
+      var income = incomeEl ? parseFloat(incomeEl.value) : NaN;
+      var view = viewEl ? viewEl.value : "both";
+      var c = compareTax(income, num(c80El), num(hraEl), num(d80El));
+      if (c.error) {
+        if (msgEl) msgEl.textContent = c.error;
+        if (outEl) outEl.textContent = "";
+        if (stepsEl) stepsEl.textContent = "";
+        return;
+      }
+      if (msgEl) msgEl.textContent = "";
+      var head;
+      if (view === "new") head = "New regime total tax: " + fmtINR0(c.newRegime.total);
+      else if (view === "old") head = "Old regime total tax: " + fmtINR0(c.oldRegime.total);
+      else head = (c.winner === "new" ? "New regime wins: " : "Old regime wins: ") +
+        fmtINR0(Math.min(c.newRegime.total, c.oldRegime.total)) +
+        (Math.round(c.saving) === 0 ? " (both the same)" : " — saves " + fmtINR0(c.saving));
+      if (outEl) outEl.textContent = head;
+      if (stepsEl) stepsEl.textContent = formatTax(c, view);
+    }
+    if (calcBtn) calcBtn.addEventListener("click", run);
+    if (copyBtn) copyBtn.addEventListener("click", function () {
+      var t = stepsEl ? stepsEl.textContent : "";
+      if (!t) {
+        if (msgEl) msgEl.textContent = "Calculate first, then copy the result.";
+        return;
+      }
+      copyText(t, copyBtn, "Copy result");
+    });
+  }
+})();
+
+</script>
+</body>
+</html>
