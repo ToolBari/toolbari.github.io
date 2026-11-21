@@ -186,10 +186,32 @@ if(ib){var standalone=window.matchMedia("(display-mode: standalone)").matches||w
 if(standalone){ib.style.display="inline-block";ib.textContent="✓ অ্যাপ বসানো হয়ে গেছে";ib.disabled=true;}
 ib.addEventListener("click",function(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(function(){deferredPrompt=null;});}else{var g=document.getElementById("installGuide");if(g)g.style.display="block";}});}
 window.addEventListener("appinstalled",function(){if(ib){ib.textContent="✓ অ্যাপ বসানো হয়ে গেছে";ib.disabled=true;}});
+/* ---- Periodic install suggestion: small bar every 3 days until installed ---- */
+(function(){var bar=document.getElementById("installBar");if(!bar)return;
+var standalone=window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone;
+if(standalone)return;
+try{if(localStorage.getItem("sb_install_done")==="1")return;
+var last=parseInt(localStorage.getItem("sb_install_snooze")||"0",10);
+if(Date.now()-last<3*24*60*60*1000)return;}catch(x){}
+function snooze(){try{localStorage.setItem("sb_install_snooze",String(Date.now()));}catch(x){}}
+setTimeout(function(){bar.style.display="block";},1500);
+document.getElementById("installBarBtn").addEventListener("click",function(){
+bar.style.display="none";snooze();
+if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(function(){deferredPrompt=null;});}
+else{var g=document.getElementById("installGuide");if(g){g.style.display="block";g.scrollIntoView();}}});
+document.getElementById("installBarX").addEventListener("click",function(){bar.style.display="none";snooze();});
+window.addEventListener("appinstalled",function(){try{localStorage.setItem("sb_install_done","1");}catch(x){}bar.style.display="none";});
+})();
 window.addEventListener("load",function(){rpRender();var t=document.getElementById("rpTime");var x=document.getElementById("rpExam");if(t)t.addEventListener("change",rpSave);if(x)x.addEventListener("change",rpSave);rpCheck();});
 </script>
 <script>
 if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("/learn-english/sw.js").catch(function(){});});}
 </script>
+<div id="installBar" style="display:none;position:fixed;left:12px;right:12px;bottom:12px;z-index:60;background:#1e40af;color:#fff;border-radius:16px;padding:12px 14px;box-shadow:0 10px 28px rgba(0,0,0,.3)">
+<div style="display:flex;align-items:center;gap:10px">
+<div style="flex:1;font-size:15px;line-height:1.35"><b>📲 SchoolBari অ্যাপ বসাও</b><br><span style="opacity:.9">হোম স্ক্রিনে থাকলে এক চাপেই খুলবে — অফলাইনেও পড়া যাবে।</span></div>
+<button id="installBarBtn" class="pill" style="background:#fff;color:#1e40af;padding:10px 16px;min-height:44px;flex:none">বসাও</button>
+<button id="installBarX" aria-label="বন্ধ করো" style="background:none;border:0;color:#fff;font-size:20px;cursor:pointer;padding:6px;flex:none">✕</button>
+</div></div>
 </body>
 </html>
