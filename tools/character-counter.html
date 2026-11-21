@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Character Counter — Count Characters, Words and Lines Free | ToolBari</title>
+<meta name="description" content="Free character counter in your browser — count characters with and without spaces, words, sentences and lines as you type. No signup, works on phone.">
+<link rel="canonical" href="https://toolbari.github.io/tools/character-counter.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Character Counter — Count Characters, Words and Lines Free">
+<meta property="og:description" content="Free character counter in your browser — count characters with and without spaces, words, sentences and lines as you type. No signup, works on phone.">
+<meta property="og:url" content="https://toolbari.github.io/tools/character-counter.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does this character counter count spaces?","acceptedAnswer":{"@type":"Answer","text":"Yes. The main character count includes every space, line break, digit and punctuation mark in your text, because that is what most limits mean by characters. A separate count shows characters without spaces, so you can use whichever number the site you are filling in asks for."}},{"@type":"Question","name":"How does it count emoji?","acceptedAnswer":{"@type":"Answer","text":"One emoji counts as one character. Some sites count an emoji as two characters, so if your text is full of emoji and the limit is tight, check the count on the site itself after you paste your text in."}},{"@type":"Question","name":"Is my text sent to a server?","acceptedAnswer":{"@type":"Answer","text":"No. Everything runs in your browser on your own device, and your text never leaves the page. Nothing is stored, nothing is uploaded, and closing the page erases the text from the box."}},{"@type":"Question","name":"What is the difference between characters and words?","acceptedAnswer":{"@type":"Answer","text":"A character is a single letter, digit, space or punctuation mark, while a word is a group of characters separated by spaces. A limit in characters and a limit in words are different limits, and only the character count answers a character limit."}},{"@type":"Question","name":"Why does another site show a different count for the same text?","acceptedAnswer":{"@type":"Answer","text":"Different sites count differently. Some count spaces and some do not, some count a line break as one character and some as two, and some count an emoji as two characters. Always read the limit wording on the site you are filling in and use the matching number from this counter."}},{"@type":"Question","name":"Can I use this counter on my phone?","acceptedAnswer":{"@type":"Answer","text":"Yes. It works in any modern browser on a phone, tablet or computer, with no app to install and no signup. Type or paste your text and the counts update as you type."}}]}</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+.calc textarea{min-height:120px;width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;font-family:inherit}
+.calc button{min-height:72px;border-radius:999px;background:#0b7a4b;color:#fff;font-weight:700;font-size:16px;border:2px solid #0b7a4b;padding:12px 24px;cursor:pointer}
+.calc button.secondary{background:#fff;color:#0b7a4b}
+.calc .btnrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.calc .btnrow button{flex:1 1 140px}
+.counts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.stat{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px;min-width:0}
+.stat .num{font-size:22px;font-weight:800;color:#0b7a4b;word-break:break-word}
+.stat .lbl{font-size:13.5px;color:#64748b}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Character Counter</h1>
+<p class="answer">Paste or type your text and this free character counter counts it as you type, showing characters with and without spaces, words, sentences, lines and paragraphs. It works in your browser on phone and desktop, with no signup and no upload, so your words stay on your device.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="cc-text">Your text</label>
+<textarea id="cc-text" placeholder="Type or paste your text here..."></textarea>
+<div class="counts">
+<div class="stat"><div class="num"><span id="out-chars">0</span></div><div class="lbl">Characters</div></div>
+<div class="stat"><div class="num"><span id="out-chars-nospaces">0</span></div><div class="lbl">Characters without spaces</div></div>
+<div class="stat"><div class="num"><span id="out-words">0</span></div><div class="lbl">Words</div></div>
+<div class="stat"><div class="num"><span id="out-sentences">0</span></div><div class="lbl">Sentences</div></div>
+<div class="stat"><div class="num"><span id="out-lines">0</span></div><div class="lbl">Lines</div></div>
+<div class="stat"><div class="num"><span id="out-paragraphs">0</span></div><div class="lbl">Paragraphs</div></div>
+<div class="stat"><div class="num"><span id="out-reading">0 min</span></div><div class="lbl">Reading time</div></div>
+</div>
+<div class="btnrow">
+<button id="cc-copy" type="button">Copy counts</button>
+<button id="cc-clear" type="button" class="secondary">Clear</button>
+</div>
+</div>
+<div class="warn">Different sites count differently. Some count spaces, some do not, and some count a line break or an emoji as two characters. Always read the limit wording on the site you are filling in before you trust a number.</div>
+<h2>What this character counter does</h2>
+<p>A character is the smallest piece of text you can type: a letter, a digit, a space, a punctuation mark, a line break. When you type in the box above, this page counts all of them as you type, and shows the total at the top of the results. It also counts characters without spaces, words, sentences, lines and paragraphs, and it works out a rough reading time, so one paste answers every counting question at once.</p>
+<p>The main count is the one most people need. A form that says maximum 500 characters almost always means every character you typed, spaces included, and the number at the top of the results is exactly that number. The count without spaces sits next to it for the forms and jobs that ask for it, so you never have to count twice or guess which number a site wants.</p>
+<p>Everything runs in your browser. Your text is never sent anywhere, never stored and never seen by anyone else, because there is no server involved at all. You can paste a private letter, a job application or a school essay and count it with the same confidence as counting a shopping list, and you can close the page knowing nothing was kept.</p>
+<h2>How to use it on your phone and on a computer</h2>
+<p>Type or paste your text into the box. The counts update with every keystroke, so there is no button to press and no waiting. On a phone, tap the box, type or paste, and scroll down a little to see the results. On a computer, click the box and do the same, and the counts sit just below it.</p>
+<p>Use the copy button when you want to keep the counts. It copies a short summary of every number — characters, characters without spaces, words, sentences, lines, paragraphs and reading time — so you can paste it into a note, a message or a document. Use the clear button when you want to start over with a fresh piece of text. Clearing empties the box and returns every count to zero.</p>
+<p>A few habits make the tool more useful. Paste the exact text you plan to submit, not a rough draft, because a single extra space can push you over a limit. Count the whole piece at once rather than in pieces, because a limit applies to the whole text. And if you are filling in a form on another site, count here first, then paste there, so you are never surprised by a red error message after you have already written your answer.</p>
+<h2>Why character limits exist, and the common ones</h2>
+<p>Character limits exist because short text is easier to read, store and display. A profile bio has to fit in a small box on a phone screen. A form field has to fit in a database. A text message has to travel over a phone network in one piece. Limits also keep writers honest in a good way: they force a writer to say the important part first and cut the rest.</p>
+<p>Social media bios are the most common place to meet a limit. Many profile bios allow around 150 characters, which is only two or three short sentences, and every letter, space and line break counts. Post captions and comments often have much larger limits, but the first line still matters most, because that is what people see before they tap to read more.</p>
+<p>Forms are the second place. Job applications, school forms, grant applications and support tickets often cap a field at 200, 250, 500 or 1000 characters, and they usually reject anything longer. The limit is often written next to the box, in small print, and it is easy to miss until the form refuses to submit. Counting first saves a frustrating round of cutting and pasting.</p>
+<p>Text messages are the third place. A single SMS message holds 160 characters when it uses plain Latin letters, and longer messages are split into parts, which can arrive out of order or cost more on some plans. Messages written in other scripts, or with emoji, hold fewer characters per part, because those characters take more room. If you are writing a message that must arrive as one piece, count it first.</p>
+<p>A few other limits are worth knowing. Search result titles are usually cut off after about 60 characters, and search descriptions after about 160, so writers who want their words seen keep them short. Email subject lines are best kept under about 50 characters, because phone screens cut them off. None of these numbers is a rule written in stone, and every site sets its own limit, so the habit that matters is counting, not memorising numbers.</p>
+<h2>Worked example: a 150-character bio, counted out</h2>
+<p>Here is a short bio, written to fit a 150-character limit exactly. Read it, then look at the counts below it.</p>
+<p><em>Hi, I am Maya. I bake cakes, grow roses and teach piano on Sundays. New recipes every Friday. Come say hello. I live in a small town by the sea today.</em></p>
+<p>Paste that bio into the counter and you will see 150 characters, 120 characters without spaces, 31 words and 5 sentences. The difference between the two character counts is 30, and those 30 are the spaces between the words. The reading time shows as 0.2 min, because 31 words take only a few seconds to read.</p>
+<p>Now imagine Maya wants to add one more sentence: I also paint. With the space before it, that sentence is 14 characters, so the total would become 164, and the bio would no longer fit. To stay inside 150 she would have to cut 14 characters somewhere else, for example by shortening one of the longer sentences. This is how a character limit shapes writing: every addition has to be paid for with a cut somewhere else.</p>
+<p>The lesson is that a character limit is a budget. Every space is a character, every full stop is a character, and a long word costs more than a short one. Counting as you write, instead of writing first and counting later, is the difference between a bio that fits and one that has to be cut at the last minute.</p>
+<h2>Common mistakes when counting characters</h2>
+<p>The most common mistake is counting the wrong thing. A limit that says 150 characters usually includes spaces, but a limit that says 150 characters excluding spaces does not, and the two counts for the same text can differ by a fifth or more. Always read the wording next to the limit, and use the matching number from the counter.</p>
+<p>The second mistake is forgetting line breaks. Every time you press Enter, you add a character, and on some sites a line break counts as two. A bio written over five lines can be several characters longer than the same words written as one paragraph. If a limit is tight, count the text exactly as it will be submitted, line breaks and all.</p>
+<p>The third mistake is trusting a word count when the limit is in characters. Two pieces of text can have the same number of words and very different numbers of characters, because long words cost more. A 30-word bio full of short words might be 140 characters, while a 30-word bio full of long words might be 220. Words and characters measure different things, and only the character count answers a character limit.</p>
+<p>The fourth mistake is copying text from another app and counting the copy. Text pasted from a word processor often brings extra spaces at the ends of lines, or smart quotes that count differently from plain ones. Paste into the counter first, read the numbers, and if the count looks wrong, clear the box and type the text again by hand. A clean paste is the only paste worth trusting.</p>
+<p>The fifth mistake is counting once and forgetting. Text changes as you edit it, and a bio that fit yesterday may not fit after you add a word today. Count again after every edit, especially the last one, and count the final version, not the draft.</p>
+<h2>What this counter cannot do</h2>
+<p>This counter counts the text you give it, and nothing else. It cannot count the text on another website, inside a document on your computer, or in an app you have open. To count that text, copy it and paste it here. It also cannot tell you what limit a site will apply to your text, because every site sets its own rules, and some count characters in ways this page does not.</p>
+<p>It cannot check spelling, grammar or meaning. A bio can be exactly 150 characters and still have a spelling mistake, a missing word or a sentence that reads badly. Counting is only one step of writing well. Read your text aloud once before you submit it, and ask a friend to read it if the text matters.</p>
+<p>It cannot save your work. When you close the page or refresh it, the text in the box is gone, because nothing is stored anywhere. That is deliberate: it is what keeps your words private. If you want to keep a counted piece of text, copy it into a note or a document before you leave the page.</p>
+<p>Finally, it cannot promise that another site will count the same way. Some sites count an emoji as one character and some count it as two. Some count a line break as one character and some as two. This page counts one emoji as one character and one line break as one character, which matches most sites, but the site you are filling in has the final say. When a limit is strict, check the number there too, after you paste.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>Does this character counter count spaces?</h3><p>Yes. The main character count includes every space, line break, digit and punctuation mark in your text, because that is what most limits mean by characters. A separate count shows characters without spaces, so you can use whichever number the site you are filling in asks for.</p></div>
+<div class="faq"><h3>How does it count emoji?</h3><p>One emoji counts as one character. Some sites count an emoji as two characters, so if your text is full of emoji and the limit is tight, check the count on the site itself after you paste your text in.</p></div>
+<div class="faq"><h3>Is my text sent to a server?</h3><p>No. Everything runs in your browser on your own device, and your text never leaves the page. Nothing is stored, nothing is uploaded, and closing the page erases the text from the box.</p></div>
+<div class="faq"><h3>What is the difference between characters and words?</h3><p>A character is a single letter, digit, space or punctuation mark, while a word is a group of characters separated by spaces. A limit in characters and a limit in words are different limits, and only the character count answers a character limit.</p></div>
+<div class="faq"><h3>Why does another site show a different count for the same text?</h3><p>Different sites count differently. Some count spaces and some do not, some count a line break as one character and some as two, and some count an emoji as two characters. Always read the limit wording on the site you are filling in and use the matching number from this counter.</p></div>
+<div class="faq"><h3>Can I use this counter on my phone?</h3><p>Yes. It works in any modern browser on a phone, tablet or computer, with no app to install and no signup. Type or paste your text and the counts update as you type.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/grammar-checker.html">Grammar Checker</a> · <a href="https://toolbari.github.io/tools/paraphrasing-tool.html">Paraphrasing Tool</a> · <a href="https://toolbari.github.io/tools/fancy-text-generator.html">Fancy Text Generator</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+function countAll(text) {
+  text = text || '';
+  var chars = [...text].length;
+  var charsNoSpaces = [...text.replace(/\s/g, '')].length;
+  var trimmed = text.trim();
+  var words = trimmed ? trimmed.split(/\s+/).length : 0;
+  var sentences = text.split(/[.!?]+/).filter(function (p) { return p.trim(); }).length;
+  var lines = text ? text.split('\n').length : 0;
+  var paragraphs = trimmed ? trimmed.split(/\n\s*\n/).filter(function (p) { return p.trim(); }).length : 0;
+  var readingTime = Math.round(words / 200 * 10) / 10;
+  return {chars: chars, charsNoSpaces: charsNoSpaces, words: words, sentences: sentences, lines: lines, paragraphs: paragraphs, readingTime: readingTime};
+}
+var TB = { countAll: countAll };
+if (typeof window !== 'undefined') { window.TB = TB; }
+if (typeof module !== 'undefined' && module.exports) { module.exports = TB; }
+if (typeof document !== 'undefined' && document.getElementById) {
+  var ta = document.getElementById('cc-text');
+  var copyBtn = document.getElementById('cc-copy');
+  var clearBtn = document.getElementById('cc-clear');
+  function setText(id, value) {
+    var el = document.getElementById(id);
+    if (el) { el.textContent = value; }
+  }
+  function update() {
+    var c = countAll(ta ? ta.value : '');
+    setText('out-chars', String(c.chars));
+    setText('out-chars-nospaces', String(c.charsNoSpaces));
+    setText('out-words', String(c.words));
+    setText('out-sentences', String(c.sentences));
+    setText('out-lines', String(c.lines));
+    setText('out-paragraphs', String(c.paragraphs));
+    setText('out-reading', c.readingTime + ' min');
+  }
+  function summary() {
+    var c = countAll(ta ? ta.value : '');
+    return 'Characters: ' + c.chars + '\n' +
+      'Characters without spaces: ' + c.charsNoSpaces + '\n' +
+      'Words: ' + c.words + '\n' +
+      'Sentences: ' + c.sentences + '\n' +
+      'Lines: ' + c.lines + '\n' +
+      'Paragraphs: ' + c.paragraphs + '\n' +
+      'Reading time: ' + c.readingTime + ' min';
+  }
+  function fallbackCopy(text, done) {
+    var tmp = document.createElement('textarea');
+    tmp.value = text;
+    document.body.appendChild(tmp);
+    tmp.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(tmp);
+    done();
+  }
+  function copySummary() {
+    var text = summary();
+    function done() {
+      if (copyBtn) {
+        var old = copyBtn.textContent;
+        copyBtn.textContent = 'Copied!';
+        setTimeout(function () { copyBtn.textContent = old; }, 2000);
+      }
+    }
+    if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text, done); });
+    } else {
+      fallbackCopy(text, done);
+    }
+  }
+  if (ta) {
+    ta.addEventListener('input', update);
+    update();
+  }
+  if (copyBtn) { copyBtn.addEventListener('click', copySummary); }
+  if (clearBtn) {
+    clearBtn.addEventListener('click', function () {
+      if (ta) { ta.value = ''; }
+      update();
+    });
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Study Planner — Plan Your Study Week Free in Your Browser | ToolBari</title>
+<meta name="description" content="Free study planner — enter your subjects and hours, and get a weekly study timetable you can print. No signup, works on phone.">
+<link rel="canonical" href="https://toolbari.github.io/tools/study-planner.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Study Planner — Plan Your Study Week Free in Your Browser">
+<meta property="og:description" content="Free study planner — enter your subjects and hours, and get a weekly study timetable you can print. No signup, works on phone.">
+<meta property="og:url" content="https://toolbari.github.io/tools/study-planner.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is this study planner really free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The planner runs entirely in your browser, with no account, no signup, and nothing to download. Your subjects are saved on your own device, and nothing you type is sent to a server."}}, {"@type": "Question", "name": "How does the planner spread my hours across the week?", "acceptedAnswer": {"@type": "Answer", "text": "It deals your hours out one at a time across your study days, in turn, so each subject lands on several different days instead of piling onto one. A subject never gets more than four hours on a single day, and your free days are always left empty."}}, {"@type": "Question", "name": "What happens if I mark every day as a free day?", "acceptedAnswer": {"@type": "Answer", "text": "The timetable comes back empty, because there is no day left to study on. Untick at least one day and build the timetable again, and your subjects will be spread across the days that are left."}}, {"@type": "Question", "name": "Does the planner save my subjects?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, on the device you are using. Your subjects and free days are stored in your browser, so they are still there next time you open the page on the same device. They are not saved to an account, so clearing your browser data will remove them."}}, {"@type": "Question", "name": "Can I print my timetable?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Press the print button to open your usual print sheet, where you can print the timetable on paper or save it as a file. The copy button gives you the same timetable as plain text, ready to paste into a note or a message."}}, {"@type": "Question", "name": "How many hours should I study each week?", "acceptedAnswer": {"@type": "Answer", "text": "There is no single number that suits everyone, because it depends on your subjects, your exams, and the hours you genuinely have. Start with fewer hours than you think you need, keep sessions short and regular, and add more only when the plan is easy to follow for a full week."}}]}</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+.calc button{min-height:72px;padding:14px 20px;border-radius:999px;background:#0b7a4b;color:#fff;font-weight:700;font-size:17px;border:none;cursor:pointer;width:100%;margin:8px 0}
+.calc button.secondary{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+.calc input,.calc select{min-height:72px}
+.calc textarea{min-height:120px;width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;font-family:inherit}
+.calc .out{overflow-wrap:break-word;word-break:break-word}
+.calc .row{display:flex;gap:10px;flex-wrap:wrap}
+.calc .row button{flex:1 1 140px}
+.calc .free-days{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
+.calc .free-days label{display:flex;align-items:center;gap:8px;margin:0;font-weight:600;font-size:15.5px}
+.calc .free-days input{width:24px;height:24px;min-height:24px;flex:none}
+.subject-item{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px;margin:8px 0}
+.subject-item span{overflow-wrap:break-word;word-break:break-word}
+.calc .subject-remove{width:auto;min-height:72px;margin:0;padding:10px 16px;flex:none}
+.tt-day{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px 14px;margin:10px 0}
+.tt-day strong{display:block;font-size:17px;margin-bottom:4px}
+.tt-day ul{margin:4px 0 4px 20px}
+.tt-day li{overflow-wrap:break-word;word-break:break-word}
+#timetable{overflow-wrap:break-word;word-break:break-word}
+@media print{body{background:#fff}.brand,.answer,.warn,.prose,.faq,.links,footer,h2{display:none!important}.planner-form,.row,.note{display:none!important}.calc{box-shadow:none;border:1px solid #ccc}.tt-day{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Study Planner</h1>
+<p class="answer">This free study planner turns your subjects and weekly hours into a balanced timetable you can print or copy. Add each subject, choose your free days, and it spreads the hours across the week so no subject takes over a single day.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<div class="planner-form">
+<label for="subject-name">Subject name</label>
+<input type="text" id="subject-name" placeholder="For example: Maths">
+<label for="subject-hours">Hours per week</label>
+<input type="number" id="subject-hours" min="1" max="40" step="1" placeholder="For example: 5">
+<button id="add-subject-btn" type="button">Add subject</button>
+<div id="subject-list"></div>
+<p class="note" style="margin-top:14px;font-size:15.5px;color:#334155"><strong>Free days</strong> — tick the days you do not want to study at all.</p>
+<div class="free-days">
+<label><input type="checkbox" class="free-day" value="Monday"> Monday</label>
+<label><input type="checkbox" class="free-day" value="Tuesday"> Tuesday</label>
+<label><input type="checkbox" class="free-day" value="Wednesday"> Wednesday</label>
+<label><input type="checkbox" class="free-day" value="Thursday"> Thursday</label>
+<label><input type="checkbox" class="free-day" value="Friday"> Friday</label>
+<label><input type="checkbox" class="free-day" value="Saturday"> Saturday</label>
+<label><input type="checkbox" class="free-day" value="Sunday"> Sunday</label>
+</div>
+<button id="build-btn" type="button">Build my timetable</button>
+</div>
+<div id="timetable"></div>
+<div class="row">
+<button id="copy-btn" class="secondary" type="button">Copy timetable</button>
+<button id="print-btn" class="secondary" type="button">Print timetable</button>
+</div>
+<p class="note">Your subjects and free days are saved on this device only, so the planner remembers them next time you visit.</p>
+</div>
+<div class="warn">A planner only works if it is followed. This tool spreads your hours across the week and keeps each subject to four hours a day at most, but the plan itself cannot make you sit down and study, so start with fewer hours than you think you need and add more once the habit holds.</div>
+<div class="prose">
+<h2>What this study planner does</h2>
+<p>A study plan is a promise you make to yourself about when you will study, and this planner turns that promise into a timetable you can actually see. You type in your subjects and how many hours a week you want to give each one, you mark the days you want free, and the planner spreads the hours across the rest of the week. The result is a simple day-by-day list: Monday gets this much of one subject, Tuesday gets a little of another, and no subject ever takes over a single day.</p>
+<p>The planner is deliberately simple. It does not ask for your exam dates, your grades, or your school, and it does not try to guess how clever you are. It only does one job: it takes the hours you said you would study and turns them into a fair week. That simplicity is the point. A plan you can read in ten seconds is a plan you might actually follow, and a plan buried under charts and settings is a plan you will open once and never look at again.</p>
+<p>Everything runs in your browser, on your own device. There is no account to create and nothing to download, and your subjects are saved on the device you are using, so the planner remembers them the next time you open the page. If you share a device with someone else, remember that they will see the same saved plan, because the plan lives in the browser, not in an account.</p>
+<h2>How to use the planner on your phone or computer</h2>
+<p>Start by adding your subjects one at a time. Type the subject name, type how many hours a week you want to spend on it, and press the add button. The subject appears in a list below, and you can remove it at any time if you change your mind. Add every subject you need to study, including the ones you enjoy and the ones you keep putting off, because a plan that leaves out the hard subject is not a plan at all.</p>
+<p>Next, tick your free days. These are the days you do not want to study at all, and the planner will leave them completely empty. Most people keep at least one full day free each week, and that is a good instinct. A week with no rest day looks productive on paper and falls apart by Wednesday, because rest is not the opposite of studying; it is the thing that makes the next study session possible.</p>
+<p>Press the build button and your timetable appears below, one block per day. Each day lists the subjects for that day and how long each one lasts. The hours are spread round the week in turn, so a subject with six hours a week lands on several different days instead of piling onto one. You can copy the timetable as plain text to paste into a note or a message, or print it and pin it where you study. On a phone, the print button opens your usual print sheet, where you can save the timetable as a file or send it to a printer. On a computer, the same button opens the print dialog you already know.</p>
+<p>When your week changes, change the plan. Remove a subject you have finished with, add a new one, tick an extra free day before a busy weekend, and build the timetable again. A study plan is not a contract carved in stone; it is a tool you adjust as life moves.</p>
+<h2>How many hours are enough</h2>
+<p>The honest answer is that there is no single number that works for everyone. A student revising for one exam needs different hours from a student keeping up with six subjects at once, and a tired student gets less from three hours than a rested student gets from one. Anyone who tells you there is a magic number of hours per week is selling you something, and this page will not do that. What matters far more than the total is the shape of the hours: regular short sessions beat one long night, almost every time.</p>
+<p>The reason is simple. Attention fades. The first hour of a session is usually the best hour, and after two or three hours of the same subject, most people are reading the same line twice and remembering nothing. Short sessions also give your memory time to settle between them. Studying a little on Monday, a little on Wednesday, and a little on Friday leaves more behind than the same hours crammed into Sunday evening, because each return to the subject is a small test of what you still remember.</p>
+<p>So when you fill in your hours, start smaller than your ambition suggests. If you think you should study four hours a day, try two, and see whether you actually do them for a full week. A small plan you follow is worth far more than a grand plan you abandon by Tuesday. You can always add hours later, once the habit of sitting down at the planned time feels normal. The planner helps here by capping each subject at four hours in a single day, which keeps any one day from becoming a marathon.</p>
+<p>Pay attention to your own week as you choose the numbers. Count the hours you genuinely have, not the hours you wish you had. School, work, travel, meals, sleep, and family all take time first, and study hours have to fit into what is left. A plan built on hours that do not exist is not a plan; it is a wish list, and wish lists do not get followed.</p>
+<h2>Building your timetable step by step</h2>
+<p>A good timetable is built in a particular order, and the planner follows it. First, you name your subjects and your hours, because the plan has to know what it is planning. Second, you protect your free days, because rest must be decided before the work fills the week, not after. Third, the planner spreads the hours, one hour at a time, round the study days in turn, so each subject visits several days and no day carries too much of one thing.</p>
+<ol>
+<li>Name your subjects and the hours you will give each one.</li>
+<li>Protect your free days before the work fills the week.</li>
+<li>Build the timetable and read the whole week before you accept it.</li>
+</ol>
+<p>The spreading matters more than it looks. If all six hours of one subject landed on Monday, Monday would be miserable and the subject would not be touched again until next Monday. Spread across the week, the same six hours keep the subject fresh in your mind, and each day has a mix instead of a single long slog. That mix is what makes a timetable feel possible on a tired evening: you are not facing three hours of the same thing, you are facing an hour of this and an hour of that.</p>
+<p>Once the timetable is built, read it as a whole week before you accept it. Look for days that feel heavy and days that feel light, and ask whether the heavy day is really a day you will study. If Friday is always busy in your life, make Friday a free day and let the planner spread those hours elsewhere. The timetable is a draft until you have lived with it for a week, and the first week is a test, not a verdict.</p>
+<p>Keep the printed copy where you study, and mark each session as you finish it. A tick on a printed timetable is a small thing, but it turns the plan from a piece of paper into a record of what you actually did, and that record is what tells you whether the hours you chose were honest.</p>
+<h2>Breaks and rest are part of the plan</h2>
+<p>Breaks are not a reward you earn by studying; they are part of studying itself. A short break after a focused session lets your mind settle what it has just learned, and a student who takes a real break comes back sharper than a student who pushes on until the words blur. Plan your breaks the way you plan your sessions: decide in advance when you will stop, step away from the desk, and do something that is not study.</p>
+<p>The same is true of rest days. A free day in your timetable is not a wasted day; it is the day that keeps the other six days possible. Without it, tiredness builds quietly until the whole plan collapses at once, and the collapse usually looks like giving up, when really it was just exhaustion catching up. Mark your free days first, defend them, and do not feel guilty about them. A plan with rest built in is a plan that can last a whole term.</p>
+<p>Sleep belongs in this conversation too, because a timetable that steals from sleep is a timetable that steals from memory. Late-night study feels productive while you are doing it, and the cost arrives the next day, when focus is gone and the hours you studied are hard to recall. A study plan that ends at a sensible hour every night will beat a plan that runs past midnight, even if the midnight plan has more hours on paper.</p>
+<h2>Common mistakes that break a study plan</h2>
+<p>The most common mistake is planning far too many hours. Twelve hours a day looks brave on Sunday night and impossible by Monday afternoon, and once the plan is broken, most people throw the whole thing away instead of fixing it. If your plan keeps failing, the plan is too big, not you. Cut the hours until the plan is easy to follow, then grow them slowly.</p>
+<p>The second mistake is planning with no rest day. A week with seven study days has no room for life: no room for a late bus, a family visit, a bad night, or a day when you simply cannot focus. The first time life interrupts, the plan is behind, and being behind feels like failure. A free day is slack in the rope, and slack is what keeps the rope from snapping.</p>
+<p>The third mistake is making a plan nobody follows, including its author. A timetable built for a perfect version of yourself, the version that wakes at dawn and never gets distracted, will be ignored by the real version of you. Build the plan for the person you actually are: the one with a busy week, a tired evening, and a phone full of distractions. Put study sessions at times you are usually free, keep them short, and leave room for the day to go wrong.</p>
+<p>The last mistake is never looking at the plan again. A timetable pinned to a wall and ignored is decoration, not a plan. Check it each morning, even for ten seconds, and tick off what you finish. If a week goes badly, do not start over from scratch; change one thing, fewer hours, a different free day, or a shorter session, and try again. The best study plan is not the first one you make; it is the one you keep adjusting until it fits your real week.</p>
+</div>
+<h2>Questions people ask</h2>
+<div class="faq">
+<h3>Is this study planner really free?</h3>
+<p>Yes. The planner runs entirely in your browser, with no account, no signup, and nothing to download. Your subjects are saved on your own device, and nothing you type is sent to a server.</p>
+</div>
+<div class="faq">
+<h3>How does the planner spread my hours across the week?</h3>
+<p>It deals your hours out one at a time across your study days, in turn, so each subject lands on several different days instead of piling onto one. A subject never gets more than four hours on a single day, and your free days are always left empty.</p>
+</div>
+<div class="faq">
+<h3>What happens if I mark every day as a free day?</h3>
+<p>The timetable comes back empty, because there is no day left to study on. Untick at least one day and build the timetable again, and your subjects will be spread across the days that are left.</p>
+</div>
+<div class="faq">
+<h3>Does the planner save my subjects?</h3>
+<p>Yes, on the device you are using. Your subjects and free days are stored in your browser, so they are still there next time you open the page on the same device. They are not saved to an account, so clearing your browser data will remove them.</p>
+</div>
+<div class="faq">
+<h3>Can I print my timetable?</h3>
+<p>Yes. Press the print button to open your usual print sheet, where you can print the timetable on paper or save it as a file. The copy button gives you the same timetable as plain text, ready to paste into a note or a message.</p>
+</div>
+<div class="faq">
+<h3>How many hours should I study each week?</h3>
+<p>There is no single number that suits everyone, because it depends on your subjects, your exams, and the hours you genuinely have. Start with fewer hours than you think you need, keep sessions short and regular, and add more only when the plan is easy to follow for a full week.</p>
+</div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/online-quiz-maker.html">Online Quiz Maker</a> · <a href="https://toolbari.github.io/tools/flashcard-creator.html">Flashcard Creator</a> · <a href="https://toolbari.github.io/tools/todo-list-app.html">To-Do List App</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+var DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+function buildTimetable(subjects, freeDays) {
+  var result = {};
+  DAYS.forEach(function (d) { result[d] = []; });
+  var free = {};
+  (freeDays || []).forEach(function (d) { free[String(d)] = true; });
+  var studyDays = DAYS.filter(function (d) { return !free[d]; });
+  if (studyDays.length === 0) return result;
+  var list = (subjects || []).map(function (s) {
+    var name = s && s.name !== undefined ? String(s.name).trim() : '';
+    var hours = s ? Math.round(Number(s.hours) || 0) : 0;
+    return { name: name || 'Subject', hours: hours < 0 ? 0 : hours };
+  }).filter(function (s) { return s.hours > 0; });
+  if (list.length === 0) return result;
+  list.forEach(function (sub, si) {
+    var start = si % studyDays.length;
+    for (var h = 0; h < sub.hours; h++) {
+      var day = studyDays[(start + h) % studyDays.length];
+      var blocks = result[day];
+      var last = blocks[blocks.length - 1];
+      if (last && last.subject === sub.name && last.hours < 4) {
+        last.hours += 1;
+      } else {
+        blocks.push({ subject: sub.name, hours: 1 });
+      }
+    }
+  });
+  return result;
+}
+
+function timetableToText(plan) {
+  var lines = ['My study timetable'];
+  DAYS.forEach(function (d) {
+    var blocks = (plan && plan[d]) || [];
+    if (blocks.length === 0) {
+      lines.push(d + ': Rest day');
+    } else {
+      var parts = blocks.map(function (b) {
+        return b.subject + ' ' + b.hours + (b.hours === 1 ? ' hour' : ' hours');
+      });
+      lines.push(d + ': ' + parts.join(', '));
+    }
+  });
+  return lines.join('\n');
+}
+
+function escapeHtml(text) {
+  return String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+window.TB = { buildTimetable: buildTimetable, timetableToText: timetableToText };
+
+if (typeof document !== 'undefined') {
+  var KEY = 'tb-study-planner';
+  var state = { subjects: [], freeDays: [] };
+  var currentPlan = null;
+
+  function loadState() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (!raw) return;
+      var parsed = JSON.parse(raw);
+      if (parsed && Array.isArray(parsed.subjects)) state.subjects = parsed.subjects;
+      if (parsed && Array.isArray(parsed.freeDays)) state.freeDays = parsed.freeDays;
+    } catch (e) {}
+  }
+
+  function saveState() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  function renderSubjects() {
+    var list = document.getElementById('subject-list');
+    if (!list) return;
+    if (state.subjects.length === 0) {
+      list.innerHTML = '<p class="note">No subjects yet. Add your first subject above.</p>';
+      return;
+    }
+    var html = '';
+    state.subjects.forEach(function (s, i) {
+      html += '<div class="subject-item"><span>' + escapeHtml(s.name) + ' — ' + s.hours + (s.hours === 1 ? ' hour' : ' hours') + ' a week</span><button type="button" class="secondary subject-remove" data-index="' + i + '">Remove</button></div>';
+    });
+    list.innerHTML = html;
+    list.querySelectorAll('.subject-remove').forEach(function (b) {
+      b.addEventListener('click', function () {
+        state.subjects.splice(Number(b.getAttribute('data-index')), 1);
+        saveState();
+        renderSubjects();
+        renderTimetable();
+      });
+    });
+  }
+
+  function readFreeDays() {
+    var days = [];
+    document.querySelectorAll('.free-day').forEach(function (box) {
+      if (box.checked) days.push(box.value);
+    });
+    return days;
+  }
+
+  function renderTimetable() {
+    var out = document.getElementById('timetable');
+    if (!out) return;
+    if (!currentPlan) {
+      out.innerHTML = '';
+      return;
+    }
+    var html = '';
+    DAYS.forEach(function (d) {
+      var blocks = currentPlan[d] || [];
+      html += '<div class="tt-day"><strong>' + d + '</strong>';
+      if (blocks.length === 0) {
+        html += '<p class="note">Rest day — nothing planned.</p>';
+      } else {
+        html += '<ul>';
+        blocks.forEach(function (b) {
+          html += '<li>' + escapeHtml(b.subject) + ' — ' + b.hours + (b.hours === 1 ? ' hour' : ' hours') + '</li>';
+        });
+        html += '</ul>';
+      }
+      html += '</div>';
+    });
+    out.innerHTML = html;
+  }
+
+  function build() {
+    state.freeDays = readFreeDays();
+    saveState();
+    currentPlan = buildTimetable(state.subjects, state.freeDays);
+    renderTimetable();
+  }
+
+  function copyTimetable(btn) {
+    if (!currentPlan) {
+      btn.textContent = 'Build a timetable first';
+      setTimeout(function () { btn.textContent = 'Copy timetable'; }, 2000);
+      return;
+    }
+    var text = timetableToText(currentPlan);
+    function done() {
+      var old = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(function () { btn.textContent = old; }, 2000);
+    }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else {
+      fallback();
+    }
+  }
+
+  loadState();
+  document.querySelectorAll('.free-day').forEach(function (box) {
+    box.checked = state.freeDays.indexOf(box.value) !== -1;
+    box.addEventListener('change', function () {
+      state.freeDays = readFreeDays();
+      saveState();
+    });
+  });
+  renderSubjects();
+  document.getElementById('add-subject-btn').addEventListener('click', function () {
+    var nameEl = document.getElementById('subject-name');
+    var hoursEl = document.getElementById('subject-hours');
+    var name = nameEl.value.trim();
+    var hours = Math.round(Number(hoursEl.value) || 0);
+    if (!name || hours < 1) return;
+    state.subjects.push({ name: name, hours: hours });
+    saveState();
+    renderSubjects();
+    nameEl.value = '';
+    hoursEl.value = '';
+    nameEl.focus();
+  });
+  document.getElementById('build-btn').addEventListener('click', build);
+  document.getElementById('copy-btn').addEventListener('click', function () { copyTimetable(this); });
+  document.getElementById('print-btn').addEventListener('click', function () { window.print(); });
+  if (state.subjects.length > 0) {
+    currentPlan = buildTimetable(state.subjects, state.freeDays);
+    renderTimetable();
+  }
+}
+</script>
+</body>
+</html>

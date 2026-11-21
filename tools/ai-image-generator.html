@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Image Generator — Free AI Image Prompt Builder and Guide | ToolBari</title>
+<meta name="description" content="Make better AI images free — build a detailed image prompt in seconds, then use it in any free AI image generator. Prompt builder + guide, no signup.">
+<link rel="canonical" href="https://toolbari.github.io/tools/ai-image-generator.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI Image Generator — Free AI Image Prompt Builder and Guide">
+<meta property="og:description" content="Make better AI images free — build a detailed image prompt in seconds, then use it in any free AI image generator. Prompt builder + guide, no signup.">
+<meta property="og:url" content="https://toolbari.github.io/tools/ai-image-generator.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does this page make images?", "acceptedAnswer": {"@type": "Answer", "text": "No. This page builds the prompt — the words you give to an image generator. It does not draw or generate any picture itself, and it never pretends to. Take your prompt to a free AI image generator and paste it there."}}, {"@type": "Question", "name": "Where do I use my prompt?", "acceptedAnswer": {"@type": "Answer", "text": "Paste it into any free AI image generator in your browser. The guide on this page names several and explains what each one does well, so you can pick the one that fits your job."}}, {"@type": "Question", "name": "What makes a good prompt?", "acceptedAnswer": {"@type": "Answer", "text": "A good prompt names a clear subject, a style, a mood and a few details — light, colours and setting. One word is rarely enough. The builder on this page walks you through each part so you do not forget one."}}, {"@type": "Question", "name": "Can I use the images for free?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on the generator you use. Most free generators let you use the images you make for personal projects, and some allow wider use. Check the rules of the tool you use before you put an image on a product or an advert."}}, {"@type": "Question", "name": "Why do faces and hands look wrong?", "acceptedAnswer": {"@type": "Answer", "text": "Image generators still struggle with faces, hands and text inside a picture. Short prompts make it worse. Asking for a clear style, a simple pose and a small number of people usually gives a cleaner result."}}, {"@type": "Question", "name": "Which style should I pick?", "acceptedAnswer": {"@type": "Answer", "text": "Pick the style that matches where the picture will be used. A photo style suits a realistic scene, illustration suits a story or a post, and a logo style suits a simple mark. Try the same subject in two styles and compare."}}]}</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>.calc button{min-height:72px;border-radius:999px;background:#0b7a4b;color:#fff;font-weight:700;font-size:17px;border:0;padding:12px 22px;width:100%;margin-top:12px;cursor:pointer}
+.calc button.secondary{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+.calc input,.calc select{min-height:72px}
+.calc textarea{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;font-family:inherit;min-height:120px}
+.calc .out{word-wrap:break-word;overflow-wrap:break-word}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>AI Image Generator</h1>
+<p class="answer">This page helps you write a strong prompt for any AI image generator. Describe your subject, pick a style and a mood, and copy a detailed prompt in seconds.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="ig-subject">Subject — what is in the picture?</label>
+<input type="text" id="ig-subject" placeholder="A red bicycle leaning against a blue wall">
+<label for="ig-style">Style</label>
+<select id="ig-style">
+<option value="photo">Photo — realistic</option>
+<option value="illustration">Illustration — drawn</option>
+<option value="3d">3D — rendered</option>
+<option value="anime">Anime — animated style</option>
+<option value="logo">Logo — simple mark</option>
+</select>
+<label for="ig-mood">Mood</label>
+<select id="ig-mood">
+<option value="">No special mood</option>
+<option value="calm">Calm</option>
+<option value="dramatic">Dramatic</option>
+<option value="cheerful">Cheerful</option>
+<option value="mysterious">Mysterious</option>
+<option value="bright and sunny">Bright and sunny</option>
+<option value="soft and dreamy">Soft and dreamy</option>
+</select>
+<label for="ig-colours">Colours (optional)</label>
+<input type="text" id="ig-colours" placeholder="Warm sunset orange and deep blue">
+<label for="ig-aspect">Shape</label>
+<select id="ig-aspect">
+<option value="1:1">Square (1:1) — posts and profile pictures</option>
+<option value="3:4">Portrait (3:4) — tall, for stories</option>
+<option value="16:9">Landscape (16:9) — wide, for covers and slides</option>
+<option value="21:9">Ultra-wide (21:9) — banners</option>
+</select>
+<button type="button" id="ig-run">Build my prompt</button>
+<label for="ig-full">Full prompt — paste this into an image generator</label>
+<textarea id="ig-full" readonly placeholder="Your detailed prompt appears here."></textarea>
+<button type="button" class="secondary" id="ig-copy-full">Copy the full prompt</button>
+<label for="ig-short">Short version — for generators that like brief prompts</label>
+<textarea id="ig-short" readonly placeholder="A shorter version appears here."></textarea>
+<button type="button" class="secondary" id="ig-copy-short">Copy the short prompt</button>
+<p class="note">This page builds prompts — it does not generate images. Paste your prompt into a free AI image generator.</p>
+</div>
+<div class="warn">This page builds prompts — it does not generate images. Use your prompt in a free AI image generator.</div>
+<h2>What this page does</h2>
+<p>This page helps you write a strong prompt for an AI image generator. A prompt is the description you type into an image generator to tell it what picture to make. The better the prompt, the closer the picture comes to what you imagined — and the difference between a weak prompt and a good one is usually the difference between a strange, muddled image and one you are happy to share.</p>
+<p>The builder on this page walks you through the parts of a good prompt: the subject, the style, the mood, the colours and the shape. You fill in each part, tap the button, and get two versions to copy — a full detailed prompt and a shorter one for generators that work better with brief wording. Then you paste the prompt into any free AI image generator in your browser.</p>
+<p>One thing this page does not do, said plainly at the top: it does not generate images itself. There is no picture hidden behind the button. Building a prompt is a writing job, and that is what this page is for. The drawing happens in the image generator you choose, and the guide below names several free ones and explains what each does well.</p>
+<h2>How to use the prompt builder</h2>
+<p>Start with the subject. Write what is in the picture, in plain words, as if you were describing it to a friend: not "dog" but "a small brown dog sitting on a wooden bench". The more specific you are, the more the generator has to work with. One clear subject beats three vague ones.</p>
+<p>Next, pick a style. Photo gives a realistic look, illustration gives a drawn look, 3D gives a rendered look, anime gives an animated look, and logo gives a simple mark. The style changes the whole picture, so it is worth trying the same subject in two styles and comparing the results.</p>
+<p>Then add a mood and, if you like, colours. Mood is the feeling of the picture — calm, dramatic, cheerful, mysterious. Colours narrow the picture down further: "warm sunset orange and deep blue" gives a very different image from "soft pastel pink and white". If you are not sure, leave the colours blank — the generator will choose.</p>
+<p>Finally, pick a shape. Square suits posts and profile pictures. Portrait suits stories and phone wallpapers. Landscape suits covers and slides. Ultra-wide suits banners. The shape matters more than people think: a wide scene squeezed into a square loses its edges, and a tall subject in a wide frame floats in empty space. Pick the shape that matches where the picture will be used.</p>
+<h2>What makes a prompt work</h2>
+<p>A good prompt has four parts: a clear subject, a style, some light or mood, and a few details. Subject plus style plus light plus detail — that is the whole recipe. Miss one part and the generator guesses, and its guesses are often not yours.</p>
+<p>Here are three worked examples, from weak to strong.</p>
+<ul>
+<li><strong>A cat.</strong> Weak: "cat". Strong: "A realistic photograph of a small orange cat sitting on a sunny windowsill, calm mood, warm morning light, square format, highly detailed, sharp focus, professional quality." The strong version names the cat, the place, the light and the shape — the generator has almost nothing left to guess.</li>
+<li><strong>A birthday poster.</strong> Weak: "birthday". Strong: "A detailed illustration of a birthday table with a cake, balloons and paper flags, cheerful mood, bright red and yellow colours, wide landscape format, highly detailed, sharp focus, professional quality." The strong version gives the scene, the objects, the feeling and the colours.</li>
+<li><strong>A shop logo.</strong> Weak: "logo for a bakery". Strong: "A clean minimalist logo of a wheat stalk above the word Rise, warm brown and cream colours, square format, highly detailed, sharp focus, professional quality." The strong version names the mark, the word and the colours — and it asks for a logo, not a photograph of a bakery.</li>
+</ul>
+<p>Notice what the strong prompts do not do: they do not ramble, they do not list twenty details, and they do not use fancy words. Each part is short and concrete. That is the habit to copy — concrete words, one idea per part, and nothing the generator has to interpret.</p>
+<h2>Free image generators, compared</h2>
+<p>There are several free AI image generators you can open in a browser, and they differ in what they do well. Microsoft Designer, also known as Image Creator, is a straightforward place to start: it runs in the browser, it is easy to use, and it suits everyday pictures and social posts. Adobe Firefly is built for design work and tends to give clean, polished results, especially for illustrations and graphics. Ideogram is known for handling words inside pictures better than most — useful when your image needs a sign, a label or a short title.</p>
+<p>Leonardo AI offers more control over styles and settings, which suits people who want to fine-tune a result rather than take the first picture. Craiyon is the simplest of the group — it runs in the browser with no fuss and is a good place to try a prompt quickly and see what comes back. Midjourney is the best known for striking, artistic images, but it works through a chat app rather than a simple web page, which makes it harder for a first-time user.</p>
+<p>Most of these tools ask you to make a free account before you can generate, and most give you a limited number of free pictures — the exact limits change often, so check the tool's own page before you start a big project. The honest rule is the same for all of them: try the free version first, see whether the pictures suit your job, and only then decide whether you need more. For a single picture, the free version of any of these is usually enough.</p>
+<h2>Common mistakes</h2>
+<p>The most common mistake is a one-word prompt. "Dog" gives you a dog, but not your dog, not in your setting, not in your style. The generator fills the gaps with its own guesses, and the result looks generic because the prompt was generic. Write at least one full sentence about the subject, then add a style and a mood.</p>
+<p>The second mistake is expecting photoreal faces. Image generators still struggle with faces, hands and text inside a picture. A close-up portrait often comes back with something slightly wrong — eyes that do not match, fingers that bend the wrong way, letters that spell nothing. The fix is to ask for simpler scenes: a person seen from a distance, a side view, a small number of people, a clear pose. Or pick an illustration style, where small errors look like style instead of mistakes.</p>
+<p>The third mistake is ignoring the shape. A wide landscape prompt in a square frame loses its sides. A tall portrait in a wide frame floats in space. Pick the shape first, then write the prompt for it.</p>
+<p>The fourth mistake is giving up after one try. Image generators are random — the same prompt gives a different picture each time. If the first result is wrong, run the same prompt again, or change one part at a time: the style first, then the mood, then a detail. Changing everything at once teaches you nothing about what went wrong.</p>
+<h2>Using your images well</h2>
+<p>When you share an AI-made image, say so. A short note — "made with an AI image generator" — costs nothing and keeps you honest with your audience. People are fine with AI pictures when they know; they feel tricked when they find out later.</p>
+<p>Check the rules of the generator you use before you put an image on a product, an advert or anything you sell. Most free generators let you use the images for personal projects, and some allow wider use, but the rules differ from tool to tool and they change. The tool's own page is the only reliable source.</p>
+<p>Finally, keep your prompts. When a prompt gives you a picture you love, save the words — in a note, in a document, anywhere you will find them again. A good prompt is reusable: change the subject, keep the style and the structure, and you have a new picture in the same look. That is how people build a consistent style across many pictures, one saved prompt at a time.</p>
+<h2>Questions people ask</h2>
+<div class="faq">
+<h3>Does this page make images?</h3>
+<p>No. This page builds the prompt — the words you give to an image generator. It does not draw or generate any picture itself, and it never pretends to. Take your prompt to a free AI image generator and paste it there.</p>
+</div>
+<div class="faq">
+<h3>Where do I use my prompt?</h3>
+<p>Paste it into any free AI image generator in your browser. The guide on this page names several and explains what each one does well, so you can pick the one that fits your job.</p>
+</div>
+<div class="faq">
+<h3>What makes a good prompt?</h3>
+<p>A good prompt names a clear subject, a style, a mood and a few details — light, colours and setting. One word is rarely enough. The builder on this page walks you through each part so you do not forget one.</p>
+</div>
+<div class="faq">
+<h3>Can I use the images for free?</h3>
+<p>It depends on the generator you use. Most free generators let you use the images you make for personal projects, and some allow wider use. Check the rules of the tool you use before you put an image on a product or an advert.</p>
+</div>
+<div class="faq">
+<h3>Why do faces and hands look wrong?</h3>
+<p>Image generators still struggle with faces, hands and text inside a picture. Short prompts make it worse. Asking for a clear style, a simple pose and a small number of people usually gives a cleaner result.</p>
+</div>
+<div class="faq">
+<h3>Which style should I pick?</h3>
+<p>Pick the style that matches where the picture will be used. A photo style suits a realistic scene, illustration suits a story or a post, and a logo style suits a simple mark. Try the same subject in two styles and compare.</p>
+</div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/ai-logo-maker.html">AI Logo Maker</a> · <a href="https://toolbari.github.io/tools/ai-writing-assistant.html">AI Writing Assistant</a> · <a href="https://toolbari.github.io/ai-tools/">AI Tools</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+var STYLES = {
+  photo: {label: 'photograph', open: 'A realistic photograph of'},
+  illustration: {label: 'illustration', open: 'A detailed illustration of'},
+  '3d': {label: '3D render', open: 'A clean 3D render of'},
+  anime: {label: 'anime style', open: 'An anime-style illustration of'},
+  logo: {label: 'logo', open: 'A clean minimalist logo of'}
+};
+var ASPECTS = {'1:1': 'square format (1:1)', '3:4': 'vertical portrait format (3:4)', '16:9': 'wide landscape format (16:9)', '21:9': 'ultra-wide format (21:9)'};
+function buildPrompt(inp) {
+  var subject = ((inp && inp.subject) || '').trim();
+  if (!subject) return {full: '', short: ''};
+  var style = STYLES[(inp && inp.style) || ''] || STYLES.photo;
+  var mood = ((inp && inp.mood) || '').trim();
+  var colours = ((inp && inp.colours) || '').trim();
+  var aspect = ASPECTS[(inp && inp.aspect) || ''] || ASPECTS['1:1'];
+  var parts = [style.open + ' ' + subject];
+  if (mood) parts.push(mood + ' mood');
+  if (colours) parts.push(colours + ' colours');
+  parts.push(aspect);
+  var full = parts.join(', ') + ', highly detailed, sharp focus, professional quality';
+  var shortParts = [subject, style.label];
+  if (mood) shortParts.push(mood);
+  if (colours) shortParts.push(colours);
+  return {full: full, short: shortParts.join(', ')};
+}
+window.TB = { buildPrompt: buildPrompt };
+
+if (typeof document !== 'undefined') {
+  var subEl = document.getElementById('ig-subject');
+  var styleEl = document.getElementById('ig-style');
+  var moodEl = document.getElementById('ig-mood');
+  var colEl = document.getElementById('ig-colours');
+  var aspEl = document.getElementById('ig-aspect');
+  var fullEl = document.getElementById('ig-full');
+  var shortEl = document.getElementById('ig-short');
+  document.getElementById('ig-run').addEventListener('click', function () {
+    var r = buildPrompt({subject: subEl.value, style: styleEl.value, mood: moodEl.value, colours: colEl.value, aspect: aspEl.value});
+    if (!r.full) {
+      fullEl.value = '';
+      shortEl.value = '';
+      fullEl.placeholder = 'Type a subject first — for example, a red bicycle leaning against a blue wall.';
+      return;
+    }
+    fullEl.value = r.full;
+    shortEl.value = r.short;
+  });
+  document.getElementById('ig-copy-full').addEventListener('click', function () {
+    if (!fullEl.value) { fullEl.placeholder = 'Nothing to copy yet — build a prompt first.'; return; }
+    copyText(fullEl.value, document.getElementById('ig-copy-full'));
+  });
+  document.getElementById('ig-copy-short').addEventListener('click', function () {
+    if (!shortEl.value) { shortEl.placeholder = 'Nothing to copy yet — build a prompt first.'; return; }
+    copyText(shortEl.value, document.getElementById('ig-copy-short'));
+  });
+}
+
+function copyText(text, btn) {
+  function done() {
+    var old = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(function () { btn.textContent = old; }, 2000);
+  }
+  function fallback() {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) { /* plain failure: leave the label alone */ }
+    document.body.removeChild(ta);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(fallback);
+  } else { fallback(); }
+}
+</script>
+</body>
+</html>

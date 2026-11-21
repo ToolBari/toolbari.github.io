@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flashcard Creator — Make Flashcards Free in Your Browser | ToolBari</title>
+<meta name="description" content="Free flashcard creator — make your own flashcards, flip through them, and study anywhere. Saved on your device, no signup, works on phone.">
+<link rel="canonical" href="https://toolbari.github.io/tools/flashcard-creator.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flashcard Creator — Make Flashcards Free in Your Browser">
+<meta property="og:description" content="Free flashcard creator — make your own flashcards, flip through them, and study anywhere. Saved on your device, no signup, works on phone.">
+<meta property="og:url" content="https://toolbari.github.io/tools/flashcard-creator.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Are my flashcards saved if I close the tab?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Your cards are saved in your browser on this device, so they will still be here when you come back and open this page again. They are saved only in this browser on this device, so they will not appear on another phone or computer."}}, {"@type": "Question", "name": "How many flashcards can I make?", "acceptedAnswer": {"@type": "Answer", "text": "You can make as many as you want. There is no limit set by this page. For studying, a small deck of cards you actually use beats a huge deck you never finish, so start with the cards you need most and add more over time."}}, {"@type": "Question", "name": "Can I use this flashcard creator on my phone?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The page works on a phone, a tablet and a computer. The buttons are large enough to tap, and you can flip a card by tapping it. Your cards are saved in the browser you use on that phone."}}, {"@type": "Question", "name": "Can I print my flashcards?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Use the print button to print your deck. Your browser will show its normal print view, where you can choose your printer or save the page as a PDF file."}}, {"@type": "Question", "name": "Can I share my deck with a friend?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Use the copy button to copy your whole deck as plain text, with each card on its own line. You can paste that text into a message or a document and send it to anyone."}}, {"@type": "Question", "name": "Do I need to sign up or download anything?", "acceptedAnswer": {"@type": "Answer", "text": "No. There is no account, no signup and nothing to download. Open the page, type your first card, and start studying right away."}}]}</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+.calc button{min-height:72px;padding:14px 20px;border-radius:999px;background:#0b7a4b;color:#fff;font-weight:700;font-size:17px;border:none;cursor:pointer;width:100%;margin:8px 0}
+.calc button.secondary{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+.calc input,.calc select{min-height:72px}
+.calc textarea{min-height:120px;width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;font-family:inherit}
+.calc .out{overflow-wrap:break-word;word-break:break-word}
+.calc .row{display:flex;gap:10px;flex-wrap:wrap}
+.calc .row button{flex:1 1 140px}
+#flashcard{min-height:220px;border:2px solid #0b7a4b;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px 16px;cursor:pointer;margin:14px 0;overflow-wrap:break-word;word-break:break-word}
+#flashcard p{font-size:20px;font-weight:600;overflow-wrap:break-word;word-break:break-word}
+#flashcard .side-label{font-size:13px;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+#flashcard.flipped{background:#e8f7ef}
+#card-back-text{display:none}
+#flashcard.flipped #card-front-text{display:none}
+#flashcard.flipped #card-back-text{display:block}
+#flashcard .front-label{display:block}
+#flashcard .back-label{display:none}
+#flashcard.flipped .front-label{display:none}
+#flashcard.flipped .back-label{display:block}
+.counts{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+.counts div{flex:1 1 140px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px;text-align:center;font-weight:700;overflow-wrap:break-word;word-break:break-word}
+.deck-list{margin-top:14px}
+.deck-item{border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px;margin:6px 0;background:#fff;overflow-wrap:break-word;word-break:break-word}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Flashcard Creator</h1>
+<p class="answer">This free flashcard creator lets you make your own flashcards right in your browser and flip through them whenever you want to study. Type a question on the front of a card and the answer on the back, then study, shuffle, and mark the cards you know. Your cards are saved on your device, so you can come back and keep studying without signing up or downloading anything.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="card-front">Card front (question or word)</label>
+<input id="card-front" type="text" placeholder="Type the question or word">
+<label for="card-back">Card back (answer or meaning)</label>
+<input id="card-back" type="text" placeholder="Type the answer or meaning">
+<button id="add-card-btn" type="button">Add card</button>
+<p class="note" id="card-count">0 cards in your deck</p>
+<div id="flashcard" role="button" tabindex="0" aria-label="Flashcard, tap to flip">
+<div>
+<p class="side-label front-label">Front</p>
+<p class="side-label back-label">Back</p>
+<p id="card-front-text">Add a card to start studying</p>
+<p id="card-back-text"></p>
+</div>
+</div>
+<div class="row">
+<button id="flip-btn" type="button" class="secondary">Flip card</button>
+<button id="prev-btn" type="button" class="secondary">Previous</button>
+<button id="next-btn" type="button" class="secondary">Next</button>
+<button id="shuffle-btn" type="button" class="secondary">Shuffle deck</button>
+</div>
+<div class="row">
+<button id="know-btn" type="button">Know it</button>
+<button id="learning-btn" type="button" class="secondary">Still learning</button>
+</div>
+<div class="counts">
+<div>Known: <span id="known-count">0</span></div>
+<div>Still learning: <span id="learning-count">0</span></div>
+</div>
+<div class="row">
+<button id="copy-btn" type="button" class="secondary">Copy deck as text</button>
+<button id="print-btn" type="button" class="secondary">Print flashcards</button>
+</div>
+<button id="clear-btn" type="button" class="secondary">Clear all cards</button>
+<div class="deck-list" id="deck-list"></div>
+</div>
+<div class="warn">Your cards are saved only in this browser on this device. If you clear your browser data, switch browsers, or move to another phone or computer, your cards will not follow you, so use the copy button to keep a backup of any deck you care about.</div>
+<h2>What this flashcard creator is</h2>
+<p>A flashcard is one of the simplest study tools ever made. It is a small card with a question on one side and the answer on the other side. You look at the question, try to remember the answer in your head, and then turn the card over to check yourself. That small act of trying to remember before you look is what makes flashcards work. It turns reading into practice, and practice is what moves facts from short term memory into long term memory.</p>
+<p>This page gives you that same tool without paper, pens, or a stack of cards to carry around. You type the front and the back of each card, and the page keeps your deck safe in your browser. When you are ready to study, you flip through the cards one at a time, mark the ones you know, and keep working on the ones you still find hard. Everything happens in your browser, and nothing you type leaves your device.</p>
+<p>This flashcard creator is free to use, and there is no account to make and nothing to install. It works on a phone, a tablet, and a computer, so you can study on the bus, in a waiting room, or at your desk. Students use flashcards for exams, for vocabulary, for formulas, and for dates and names. Language learners use them for new words. Anyone learning anything new can use them, because the idea is the same whatever the subject: one question, one answer, and an honest test of what you really remember.</p>
+<p>Unlike a paper deck, this one never gets lost under a pile of books, never runs out of cards, and never needs a rubber band to hold it together. You can shuffle it with one tap, jump to any card, and copy the whole deck as plain text whenever you want a backup. And because your cards live in your browser, you can close the tab, come back tomorrow, and pick up exactly where you left off.</p>
+<h2>How to use it on your phone and on your desktop</h2>
+<p>Start by typing your first card. In the front box, write the question, the word, or the prompt you want to test yourself on. In the back box, write the answer, the meaning, or the fact you want to remember. Tap the Add card button, and your card joins your deck. Add as many cards as you need, one at a time, and watch the card count grow. Your deck is saved automatically every time you add a card, so there is no save button to remember.</p>
+<p>When you are ready to study, look at the card in the middle of the page. Read the front, try to answer it in your head, and then tap the card or the Flip card button to see the back. If you got it right, tap Know it. If you got it wrong or you were not sure, tap Still learning. The page keeps a count of both, so you can see at a glance how much of the deck you have mastered and how much still needs work.</p>
+<p>Use the Previous and Next buttons to move through your deck in order, or tap Shuffle deck to mix the cards into a new random order. Shuffling matters, because studying in the same order every time teaches you the order of the cards instead of the cards themselves. When the order changes, you have to know each card on its own, and that is the real test.</p>
+<p>On a phone, everything works with taps, and the buttons are large enough to use comfortably with one hand. On a desktop, you can use the mouse or the keyboard: tab to a button and press Enter, or click the card to flip it. The copy button copies your whole deck as plain text, with each card on its own line, which is handy for a backup or for sharing. The print button opens your browser print view, so you can print your deck on paper if you ever want a physical copy.</p>
+<h2>Writing a good flashcard</h2>
+<p>The best flashcards follow one simple rule: one fact per card. A card should ask one thing and expect one answer. If a card tries to hold a whole paragraph, it stops being a flashcard and becomes a page of notes that happens to be small. A card that asks for one capital city, one word meaning, or one formula is easy to test yourself on. A card that asks for five things at once is hard to answer, hard to mark, and hard to remember.</p>
+<p>Keep the front short. The front is a prompt, not a lesson. A single word, a short question, or a brief phrase is usually enough. If the front is long, you spend your study time reading instead of remembering. Keep the back short too. The answer should be the fact itself, in as few words as you can manage, so that checking takes a second and you can move on to the next card without losing your rhythm.</p>
+<p>Write the cards in your own words. Copying a sentence straight from a textbook makes a card that is hard to remember, because the words are not yours. When you rewrite a fact in words you would actually use, you have already started learning it. If a card feels confusing when you read it back, rewrite it until it is clear. A confusing card teaches confusion, so it is better to fix the card than to keep failing it.</p>
+<p>It also helps to make the front ask for something specific. A front that says a topic name leaves you unsure what you are supposed to remember about it. A front that asks a real question tells you exactly what to reach for in your memory. If you cannot tell whether your answer was right or wrong, the card needs a better front. Good cards make the answer clear, so marking yourself honestly is easy.</p>
+<h2>Studying with flashcards</h2>
+<p>Short sessions beat long ones. Ten or fifteen minutes of focused study, repeated often, does more for your memory than hours of staring at cards once in a while. Your attention fades during a long session, and tired studying teaches very little. Set a small goal for each session, such as going through one deck once, and stop while you are still fresh. You will remember more, and you will come back to your cards willingly instead of dreading them.</p>
+<p>Shuffle before every session. When the cards come in the same order, your brain learns the sequence, and you start answering from the card before instead of from your own memory. A shuffled deck forces you to know each card by itself, which is exactly what an exam or a real conversation demands. The shuffle button mixes your deck in one tap, so there is no reason to study in the same order twice.</p>
+<p>Spend most of your time on the cards you get wrong. The cards you already know need only a quick pass now and then to stay fresh. The cards marked still learning are the ones that deserve your attention. Go through them again, slowly, and try to say the answer out loud before you flip. Saying the answer aloud makes the memory stronger than thinking it silently, because you hear it as well as think it.</p>
+<p>Space your sessions out. Studying the same deck today, again tomorrow, and again in a few days works better than studying it five times in one evening. The gap between sessions is where the learning settles. If you have an exam coming up, start your deck early and visit it a little each day. Your future self will be glad you did, because a deck built over days is far stronger than a deck built in a panic the night before.</p>
+<h2>Common mistakes to avoid</h2>
+<p>The most common mistake is putting a whole paragraph on one card. A card is not a page of notes. When the back of a card holds a long explanation, you cannot tell whether you knew it or not, because part of it will always feel familiar. Split long facts into several small cards, each asking one thing. Ten small cards teach more than one giant card, and they are much easier to shuffle, mark, and review.</p>
+<p>The second mistake is never shuffling. Studying the same deck in the same order feels comfortable, because the cards start to flow into each other. That comfort is a trick. You are remembering the order, not the facts. The first time the cards appear in a different order, the gaps in your memory show up. Shuffle every time, and let the deck surprise you.</p>
+<p>The third mistake is making two hundred cards the night before an exam. A huge deck made in a hurry is full of rushed, unclear cards, and there is no time left to study them properly. A small deck of clear cards, made early and studied a little each day, will always beat a mountain of cards made at the last minute. If you are short on time, make fewer cards and make them well.</p>
+<p>The fourth mistake is marking yourself too kindly. It is tempting to tap Know it when your answer was close, or when the back of the card looked familiar. Familiar is not the same as known. If you could not say the answer before you flipped, the card is still learning, and marking it honestly is the only way the counts mean anything. Honest marking is what turns a deck of cards into a true picture of what you know.</p>
+<h2>What this tool cannot do</h2>
+<p>This page is a simple flashcard maker, and it is honest about its limits. It does not sync your cards between devices, because it has no account and no server. It does not quiz you with timers or track your progress over weeks. It does not check your answers for you, because only you know whether the answer in your head matched the back of the card. What it does is give you a clean, fast place to make cards, flip them, shuffle them, and mark what you know. For many learners, that is exactly enough.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>Are my flashcards saved if I close the tab?</h3><p>Yes. Your cards are saved in your browser on this device, so they will still be here when you come back and open this page again. They are saved only in this browser on this device, so they will not appear on another phone or computer.</p></div>
+<div class="faq"><h3>How many flashcards can I make?</h3><p>You can make as many as you want. There is no limit set by this page. For studying, a small deck of cards you actually use beats a huge deck you never finish, so start with the cards you need most and add more over time.</p></div>
+<div class="faq"><h3>Can I use this flashcard creator on my phone?</h3><p>Yes. The page works on a phone, a tablet and a computer. The buttons are large enough to tap, and you can flip a card by tapping it. Your cards are saved in the browser you use on that phone.</p></div>
+<div class="faq"><h3>Can I print my flashcards?</h3><p>Yes. Use the print button to print your deck. Your browser will show its normal print view, where you can choose your printer or save the page as a PDF file.</p></div>
+<div class="faq"><h3>Can I share my deck with a friend?</h3><p>Yes. Use the copy button to copy your whole deck as plain text, with each card on its own line. You can paste that text into a message or a document and send it to anyone.</p></div>
+<div class="faq"><h3>Do I need to sign up or download anything?</h3><p>No. There is no account, no signup and nothing to download. Open the page, type your first card, and start studying right away.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/online-quiz-maker.html">Online Quiz Maker</a> · <a href="https://toolbari.github.io/tools/english-vocabulary-trainer.html">English Vocabulary Trainer</a> · <a href="https://toolbari.github.io/tools/language-learning-tools.html">Language Learning Tools</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+function shuffleDeck(cards) {
+  var copy = cards.slice();
+  for (var i = copy.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = copy[i];
+    copy[i] = copy[j];
+    copy[j] = tmp;
+  }
+  return copy;
+}
+function markCard(state, id, known) {
+  var knownList = state.known.filter(function (x) { return x !== id; });
+  var learningList = state.learning.filter(function (x) { return x !== id; });
+  if (known) { knownList.push(id); } else { learningList.push(id); }
+  return { known: knownList, learning: learningList };
+}
+window.TB = { shuffleDeck: shuffleDeck, markCard: markCard };
+if (typeof document !== 'undefined') {
+(function () {
+  var KEY = 'tb-flashcard-creator';
+  var cards = [];
+  var state = { known: [], learning: [] };
+  var index = 0;
+  var flipped = false;
+  var frontInput = document.getElementById('card-front');
+  var backInput = document.getElementById('card-back');
+  var addBtn = document.getElementById('add-card-btn');
+  var countEl = document.getElementById('card-count');
+  var flashcardEl = document.getElementById('flashcard');
+  var frontTextEl = document.getElementById('card-front-text');
+  var backTextEl = document.getElementById('card-back-text');
+  var flipBtn = document.getElementById('flip-btn');
+  var prevBtn = document.getElementById('prev-btn');
+  var nextBtn = document.getElementById('next-btn');
+  var shuffleBtn = document.getElementById('shuffle-btn');
+  var knowBtn = document.getElementById('know-btn');
+  var learningBtn = document.getElementById('learning-btn');
+  var knownCountEl = document.getElementById('known-count');
+  var learningCountEl = document.getElementById('learning-count');
+  var copyBtn = document.getElementById('copy-btn');
+  var printBtn = document.getElementById('print-btn');
+  var clearBtn = document.getElementById('clear-btn');
+  var deckListEl = document.getElementById('deck-list');
+  function load() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (raw) {
+        var data = JSON.parse(raw);
+        if (data && Array.isArray(data.cards)) { cards = data.cards; }
+        if (data && data.state && Array.isArray(data.state.known) && Array.isArray(data.state.learning)) { state = data.state; }
+      }
+    } catch (e) { cards = []; state = { known: [], learning: [] }; }
+    if (index >= cards.length) { index = 0; }
+  }
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify({ cards: cards, state: state })); } catch (e) {}
+  }
+  function render() {
+    var n = cards.length;
+    countEl.textContent = n + (n === 1 ? ' card in your deck' : ' cards in your deck');
+    var ids = {};
+    cards.forEach(function (c) { ids[c.id] = true; });
+    var knownN = state.known.filter(function (id) { return ids[id]; }).length;
+    var learningN = state.learning.filter(function (id) { return ids[id]; }).length;
+    knownCountEl.textContent = String(knownN);
+    learningCountEl.textContent = String(learningN);
+    if (n === 0) {
+      frontTextEl.textContent = 'Add a card to start studying';
+      backTextEl.textContent = '';
+      flipped = false;
+      flashcardEl.classList.remove('flipped');
+    } else {
+      if (index >= n) { index = 0; }
+      frontTextEl.textContent = cards[index].front;
+      backTextEl.textContent = cards[index].back;
+      if (flipped) { flashcardEl.classList.add('flipped'); } else { flashcardEl.classList.remove('flipped'); }
+    }
+    deckListEl.innerHTML = '';
+    cards.forEach(function (c) {
+      var div = document.createElement('div');
+      div.className = 'deck-item';
+      div.textContent = c.front + ' - ' + c.back;
+      deckListEl.appendChild(div);
+    });
+  }
+  function addCard() {
+    var front = frontInput.value.trim();
+    var back = backInput.value.trim();
+    if (!front || !back) { return; }
+    var id = 'c' + Date.now() + '-' + cards.length + '-' + Math.floor(Math.random() * 100000);
+    cards.push({ id: id, front: front, back: back });
+    frontInput.value = '';
+    backInput.value = '';
+    save();
+    render();
+    frontInput.focus();
+  }
+  function flipCard() {
+    if (cards.length === 0) { return; }
+    flipped = !flipped;
+    render();
+  }
+  function step(dir) {
+    if (cards.length === 0) { return; }
+    index = (index + dir + cards.length) % cards.length;
+    flipped = false;
+    render();
+  }
+  function markCurrent(known) {
+    if (cards.length === 0) { return; }
+    state = markCard(state, cards[index].id, known);
+    save();
+    if (cards.length > 1) { index = (index + 1) % cards.length; }
+    flipped = false;
+    render();
+  }
+  function deckText() {
+    return cards.map(function (c) { return c.front + ' - ' + c.back; }).join('\n');
+  }
+  function copyDeck() {
+    var text = deckText();
+    function done() {
+      var old = copyBtn.textContent;
+      copyBtn.textContent = 'Copied!';
+      setTimeout(function () { copyBtn.textContent = old; }, 2000);
+    }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(fallback);
+    } else {
+      fallback();
+    }
+  }
+  addBtn.addEventListener('click', addCard);
+  frontInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); backInput.focus(); } });
+  backInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); addCard(); } });
+  flashcardEl.addEventListener('click', flipCard);
+  flashcardEl.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flipCard(); } });
+  flipBtn.addEventListener('click', flipCard);
+  prevBtn.addEventListener('click', function () { step(-1); });
+  nextBtn.addEventListener('click', function () { step(1); });
+  shuffleBtn.addEventListener('click', function () {
+    if (cards.length === 0) { return; }
+    cards = shuffleDeck(cards);
+    index = 0;
+    flipped = false;
+    save();
+    render();
+  });
+  knowBtn.addEventListener('click', function () { markCurrent(true); });
+  learningBtn.addEventListener('click', function () { markCurrent(false); });
+  copyBtn.addEventListener('click', copyDeck);
+  printBtn.addEventListener('click', function () { window.print(); });
+  clearBtn.addEventListener('click', function () {
+    if (cards.length === 0) { return; }
+    if (window.confirm('Clear all cards? This cannot be undone.')) {
+      cards = [];
+      state = { known: [], learning: [] };
+      index = 0;
+      flipped = false;
+      save();
+      render();
+    }
+  });
+  load();
+  render();
+})();
+}
+</script>
+</body>
+</html>

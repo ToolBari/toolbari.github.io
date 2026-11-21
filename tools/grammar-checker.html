@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grammar Checker — Check Basic Grammar Free in Your Browser | ToolBari</title>
+<meta name="description" content="Free grammar checker in your browser — catch common mistakes in your writing before you send it. No signup, works on phone and desktop.">
+<link rel="canonical" href="https://toolbari.github.io/tools/grammar-checker.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Grammar Checker — Check Basic Grammar Free in Your Browser">
+<meta property="og:description" content="Free grammar checker in your browser — catch common mistakes in your writing before you send it. No signup, works on phone and desktop.">
+<meta property="og:url" content="https://toolbari.github.io/tools/grammar-checker.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this grammar checker really free?","acceptedAnswer":{"@type":"Answer","text":"Yes. This grammar checker is free to use, with no signup, no account and no limit on how many times you can check a piece of text. It runs in your browser, so there is nothing to download and nothing to pay for."}},{"@type":"Question","name":"Does this checker send my text to a server?","acceptedAnswer":{"@type":"Answer","text":"No. Everything runs on your own device, in your browser. Your text is never uploaded, never stored and never read by anyone else. When you close the page, your text is gone."}},{"@type":"Question","name":"What kinds of mistakes does it catch?","acceptedAnswer":{"@type":"Answer","text":"It catches common mechanical mistakes: double spaces, repeated words, confused pairs such as their and there, your and you are, and its and it is, missing capitals, missing spaces after a full stop, a small letter i, and a list of common misspellings."}},{"@type":"Question","name":"Will it fix my grammar for me?","acceptedAnswer":{"@type":"Answer","text":"No. It points out each issue with a short explanation and shows you the exact words that caused it, but you make the fix yourself in your own document. That way you stay in control of what your writing says."}},{"@type":"Question","name":"Why does it miss some mistakes?","acceptedAnswer":{"@type":"Answer","text":"This checker uses simple rules, so it only sees the shape of your words, not their meaning. It cannot catch a wrong word that is spelled correctly, a wrong verb tense, or a sentence that says the wrong thing. Always read your work once yourself after the check."}},{"@type":"Question","name":"Can I use it on my phone?","acceptedAnswer":{"@type":"Answer","text":"Yes. The checker works on phones, tablets and computers. On a phone, tap the box to type or paste your text, then tap Check grammar. The buttons are large enough to tap, and the results fit a small screen."}}]}</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+.calc button{min-height:72px;width:100%;border-radius:999px;background:#0b7a4b;color:#fff;font-weight:700;font-size:16.5px;border:none;padding:14px 22px;margin:12px 0 0;cursor:pointer}
+.calc button.secondary{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+.calc textarea{min-height:120px;width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;font-family:inherit}
+#gc-results{margin-top:14px;font-size:15.5px;word-wrap:break-word;overflow-wrap:break-word}
+#gc-results .summary{font-weight:700;font-size:18px;margin-bottom:10px}
+#gc-results .issue{background:#fff;border:1px solid #e2e8f0;border-left:4px solid #f59e0b;border-radius:8px;padding:10px 12px;margin:8px 0;word-wrap:break-word;overflow-wrap:break-word}
+#gc-results .issue .found{color:#64748b;font-size:14.5px;margin-top:2px;word-wrap:break-word;overflow-wrap:break-word}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Grammar Checker</h1>
+<p class="answer">Paste your text into the box below and this free grammar checker flags common mistakes right in your browser, with no signup and nothing to install. It catches double spaces, repeated words, confused words such as their and there, and common misspellings, then shows each issue with a plain explanation. Your words stay on your own device, so you can check a message, an email draft, or a school assignment in seconds.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="gc-text">Paste or type your text</label>
+<textarea id="gc-text" placeholder="Type or paste your text here..."></textarea>
+<button id="gc-check" type="button">Check grammar</button>
+<div id="gc-results" aria-live="polite"></div>
+<button id="gc-copy" class="secondary" type="button">Copy report</button>
+<p class="note">Your text never leaves this page. Nothing is uploaded or stored.</p>
+</div>
+<div class="warn">This checker catches common mechanical mistakes. It is not a full grammar engine and it does not understand what your words mean. Read each suggestion before you accept it, because only you know what you meant to say.</div>
+<h2>What this grammar checker is</h2>
+<p>This grammar checker is a free tool that runs entirely in your browser. You paste in a piece of writing, press one button, and it points out the small mechanical mistakes that are easy to miss when you read your own words. It looks for double spaces, words typed twice, confused word pairs such as their and there, missing capitals at the start of a sentence, and a long list of common misspellings. Each problem is shown with a short, plain explanation, so you can see what is wrong and decide how to fix it.</p>
+<p>It is built for everyday writing. That means school homework, job applications, messages to friends, emails to a teacher or a manager, captions for a post, and the first draft of anything longer. The checker does not judge your ideas, and it does not rewrite your sentences for you. It simply marks the slips that make writing look careless, so you can send it with more confidence.</p>
+<p>Everything happens on your own device. Your text is never sent to a server, never stored, and never read by anyone else. There is no account to create, no file to download, and no limit on how many times you can check. If you close the page, your text is gone, so copy your corrected version before you leave.</p>
+<h2>How to use it on your phone and on a computer</h2>
+<p>Using the checker takes less than a minute. First, copy the text you want to check, or type it straight into the box at the top of this page. The box accepts anything from a single sentence to several paragraphs, so a short message and a long essay both work. When your text is in place, press the Check grammar button. The results appear right under the box, starting with a count of how many issues were found, followed by one card for each issue. Each card names the problem in plain words and shows you the exact piece of text that caused it.</p>
+<p>On a phone, the same steps work with touch alone. Tap the box to open your keyboard, paste with a long press, and tap Check grammar. The buttons are large enough to tap comfortably, and the results fit the screen without sideways scrolling. On a computer, you can paste with your keyboard and check a longer document in the same way. There is no difference between the two: the checker runs the same rules on both.</p>
+<p>After the check, read through the list and fix the issues in your own document, one by one. When you are done, press Copy report to copy the full list of issues, which is handy if you want to keep a record or share the list with a teacher or a friend. Then paste your corrected text back into the box and check it once more, because fixing one mistake sometimes reveals another.</p>
+<h2>What it checks</h2>
+<p>The checker runs nine simple rules over your text. Each rule looks for one kind of slip, and each one is explained below with an example of the mistake and the fix. Knowing what the rules look for helps you write more carefully next time, because you start to notice the same slips yourself.</p>
+<ul>
+<li><strong>Double spaces.</strong> Two spaces in a row, often left behind after deleting a word. Example: 'I went  to the shop.' The fix is one space between words, and the checker flags every extra space it finds.</li>
+<li><strong>Repeated words.</strong> The same word typed twice, which happens when you pause in the middle of a sentence. Example: 'I went to the the shop.' Delete the extra word and the sentence reads normally again.</li>
+<li><strong>Their, there and they are.</strong> The word their followed by is, are, going or a similar word usually means they are, written with an apostrophe. Example: 'Their going to the market.' should be 'They are going to the market.' The checker also flags theyre written without the apostrophe.</li>
+<li><strong>Your and you are.</strong> The word your followed by going, welcome or a similar word usually means you are. Example: 'Your going to love this.' should be 'You are going to love this.' The checker also flags youre written without the apostrophe.</li>
+<li><strong>Its and it is.</strong> The word its followed by a, is, raining or a similar word usually means it is. Example: 'Its raining today.' should be 'It is raining today.' Remember that its without an apostrophe shows possession, as in 'The dog wagged its tail.'</li>
+<li><strong>Capitals after a full stop.</strong> A sentence that starts with a small letter, including the very first sentence on the page. Example: 'We went home. then we ate.' The second sentence should start with a capital letter.</li>
+<li><strong>The word I.</strong> The word I is always a capital letter in English, even in the middle of a sentence. Example: 'My friend and i went home.' should use a capital I.</li>
+<li><strong>Space after a full stop.</strong> A full stop joined straight to the next word, with no space between them. Example: 'We went home.We ate dinner.' Every full stop needs a space after it before the next sentence begins.</li>
+<li><strong>Common misspellings.</strong> A table of words that are often spelled wrong, such as recieve for receive, seperate for separate, and definately for definitely. Each flagged word comes with the correct spelling, so you can fix it at once.</li>
+</ul>
+<p>Every rule is deliberately simple. The checker does not guess at your meaning or rewrite your sentences, so it will never invent a correction that changes what you wanted to say. That is a strength, not a weakness: a suggestion you can understand is a suggestion you can trust.</p>
+<h2>What it cannot check</h2>
+<p>This checker catches common mechanical mistakes. It is not a full grammar engine and it does not understand what your words mean. That limit matters, so it is worth knowing exactly where it stops.</p>
+<p>First, it cannot check meaning. A sentence can pass every rule and still say the wrong thing. 'I am going to the bank to catch a fish' has no spelling or grammar mistake, but it is probably not what the writer meant. Only a human reader can catch that kind of error, so always read your work once yourself after the check.</p>
+<p>Second, it cannot judge tone or style. It will not tell you whether a message sounds rude, whether an essay sounds formal enough, or whether a paragraph flows well. It cannot tell you that a sentence is too long, that a word is repeated too often across a whole page, or that your argument is weak. Those are matters of judgement, and no simple rule can make them for you.</p>
+<p>Third, it does not know the deeper rules of grammar. It will not catch a wrong verb tense, a misplaced modifier, or a sentence that is technically correct but hard to follow. For that kind of help, free full grammar checkers exist that read your whole sentence and suggest deeper fixes. <a href="https://www.grammarly.com">Grammarly</a> checks grammar, spelling and tone in longer pieces of writing. <a href="https://languagetool.org">LanguageTool</a> checks grammar in many languages and explains each rule it flags. <a href="https://hemingwayapp.com">Hemingway</a> highlights long sentences and hard-to-read passages so you can simplify them. Use this page for a fast first pass, and one of those tools when a piece of writing really matters.</p>
+<h2>Fixing the flagged issues</h2>
+<p>When the checker flags an issue, start by reading the explanation and the piece of text it shows you. Most fixes take a second: delete an extra space, remove a repeated word, swap their for they are, or correct a spelling. Fix the issues in your own document rather than in the checker box, because the checker does not save your text, and any change you make in the box is lost when you leave the page.</p>
+<p>Not every flag needs the same response. A double space is always a mistake, so delete it. A confused word pair usually needs the swap the checker suggests, but read the sentence first to make sure the suggestion fits what you meant. A flagged spelling is usually wrong, but a name, a brand, or a word from another language can look like a misspelling when it is not. If the word is correct, leave it alone.</p>
+<p>After you fix everything, check the text one more time. A second pass often finds a mistake you created while fixing the first one, such as a new double space where a word was deleted. Two short passes catch far more than one long stare at the screen.</p>
+<h2>Common mistakes when using a grammar checker</h2>
+<p>The most common mistake is accepting every suggestion without reading it. A checker is a helper, not a judge. If a suggestion changes your meaning, ignore it. If you are unsure, read the sentence aloud: your ear often catches what your eye misses.</p>
+<p>The second mistake is checking only once. Writing changes as you fix it, and a single pass rarely catches everything. Check, fix, and check again, especially before you send something important.</p>
+<p>The third mistake is checking only the words and skipping the read-through. A checker cannot tell you that you forgot to attach a file, that you used the wrong name, or that a date is wrong. Read your message once from start to finish after the check, slowly, as if you were the person receiving it.</p>
+<p>The fourth mistake is using a checker as a substitute for learning. If the same issue keeps appearing, such as their and there, spend a minute learning the difference. A checker that you understand makes you a better writer; a checker that you obey blindly only makes you dependent on it. The goal is not a clean report. The goal is writing you can trust.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>Is this grammar checker really free?</h3><p>Yes. This grammar checker is free to use, with no signup, no account and no limit on how many times you can check a piece of text. It runs in your browser, so there is nothing to download and nothing to pay for.</p></div>
+<div class="faq"><h3>Does this checker send my text to a server?</h3><p>No. Everything runs on your own device, in your browser. Your text is never uploaded, never stored and never read by anyone else. When you close the page, your text is gone.</p></div>
+<div class="faq"><h3>What kinds of mistakes does it catch?</h3><p>It catches common mechanical mistakes: double spaces, repeated words, confused pairs such as their and there, your and you are, and its and it is, missing capitals, missing spaces after a full stop, a small letter i, and a list of common misspellings.</p></div>
+<div class="faq"><h3>Will it fix my grammar for me?</h3><p>No. It points out each issue with a short explanation and shows you the exact words that caused it, but you make the fix yourself in your own document. That way you stay in control of what your writing says.</p></div>
+<div class="faq"><h3>Why does it miss some mistakes?</h3><p>This checker uses simple rules, so it only sees the shape of your words, not their meaning. It cannot catch a wrong word that is spelled correctly, a wrong verb tense, or a sentence that says the wrong thing. Always read your work once yourself after the check.</p></div>
+<div class="faq"><h3>Can I use it on my phone?</h3><p>Yes. The checker works on phones, tablets and computers. On a phone, tap the box to type or paste your text, then tap Check grammar. The buttons are large enough to tap, and the results fit a small screen.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/character-counter.html">Character Counter</a> · <a href="https://toolbari.github.io/tools/paraphrasing-tool.html">Paraphrasing Tool</a> · <a href="https://toolbari.github.io/tools/plagiarism-checker.html">Plagiarism Checker</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+(function () {
+  'use strict';
+
+  var MISSPELLINGS = {
+    recieve: 'receive', adress: 'address', seperate: 'separate',
+    occured: 'occurred', untill: 'until', writting: 'writing',
+    definately: 'definitely', grammer: 'grammar', enviroment: 'environment',
+    goverment: 'government', libary: 'library', febuary: 'February',
+    neccessary: 'necessary', accomodate: 'accommodate', begginer: 'beginner',
+    buisness: 'business', calender: 'calendar', freind: 'friend',
+    tommorow: 'tomorrow', wierd: 'weird', acheive: 'achieve',
+    beleive: 'believe', alot: 'a lot', thier: 'their', wich: 'which',
+    harrass: 'harass', millenium: 'millennium', noticable: 'noticeable',
+    publically: 'publicly', refering: 'referring', writen: 'written'
+  };
+
+  function checkGrammar(text) {
+    var issues = [];
+    if (!text) { return issues; }
+    function add(rule, message, found) {
+      issues.push({ rule: rule, message: message, found: found });
+    }
+    var m;
+    var re;
+
+    re = / {2,}/g;
+    while ((m = re.exec(text)) !== null) {
+      add('double-space', 'Double space found.', m[0]);
+    }
+
+    re = /\b([A-Za-z]+)[ \t]+\1\b/gi;
+    while ((m = re.exec(text)) !== null) {
+      add('repeated-word', 'Repeated word.', m[0]);
+    }
+
+    re = /\btheir\s+(is|are|was|were|going|coming|doing|getting)\b/gi;
+    while ((m = re.exec(text)) !== null) {
+      add('their-there', "Did you mean 'they're'?", m[0]);
+    }
+    re = /\btheyre\b/gi;
+    while ((m = re.exec(text)) !== null) {
+      add('their-there', "Did you mean 'they're'?", m[0]);
+    }
+
+    re = /\byour\s+(going|coming|doing|getting|making|taking|welcome)\b/gi;
+    while ((m = re.exec(text)) !== null) {
+      add('your-youre', "Did you mean 'you're'?", m[0]);
+    }
+    re = /\byoure\b/gi;
+    while ((m = re.exec(text)) !== null) {
+      add('your-youre', "Did you mean 'you're'?", m[0]);
+    }
+
+    re = /\bits\s+(a|an|the|is|was|not|going|raining|been|time|okay|ok)\b/gi;
+    while ((m = re.exec(text)) !== null) {
+      add('its-its', "Did you mean 'it's'?", m[0]);
+    }
+
+    re = /\.\s+([a-z])/g;
+    while ((m = re.exec(text)) !== null) {
+      add('capital-after-period', 'A sentence starts with a small letter.', m[0]);
+    }
+    var startMatch = text.match(/^\s*[a-z]/);
+    if (startMatch) {
+      add('capital-after-period', 'A sentence starts with a small letter.', startMatch[0]);
+    }
+
+    re = /\bi\b/g;
+    while ((m = re.exec(text)) !== null) {
+      add('lowercase-i', "The word 'I' is always a capital letter.", m[0]);
+    }
+
+    re = /\.([A-Z])/g;
+    while ((m = re.exec(text)) !== null) {
+      add('space-after-period', 'Add a space after the full stop.', m[0]);
+    }
+
+    var words = Object.keys(MISSPELLINGS);
+    for (var w = 0; w < words.length; w++) {
+      var word = words[w];
+      re = new RegExp('\\b' + word + '\\b', 'gi');
+      while ((m = re.exec(text)) !== null) {
+        add('misspelling', "Did you mean '" + MISSPELLINGS[word] + "'?", m[0]);
+      }
+    }
+
+    return issues;
+  }
+
+  if (typeof window !== 'undefined') {
+    window.TB = { checkGrammar: checkGrammar };
+  }
+
+  var lastReport = '';
+
+  function renderResults(issues) {
+    if (typeof document === 'undefined' || !document.getElementById) { return; }
+    var box = document.getElementById('gc-results');
+    if (!box) { return; }
+    while (box.firstChild) { box.removeChild(box.firstChild); }
+    if (issues.length === 0) {
+      box.textContent = 'No issues found.';
+      lastReport = 'No issues found.';
+      return;
+    }
+    var summary = document.createElement('div');
+    summary.className = 'summary';
+    summary.textContent = issues.length + ' issues found.';
+    box.appendChild(summary);
+    var lines = [issues.length + ' issues found.'];
+    for (var i = 0; i < issues.length; i++) {
+      var div = document.createElement('div');
+      div.className = 'issue';
+      var msg = document.createElement('div');
+      msg.textContent = issues[i].message;
+      var found = document.createElement('div');
+      found.className = 'found';
+      found.textContent = 'Found: ' + issues[i].found;
+      div.appendChild(msg);
+      div.appendChild(found);
+      box.appendChild(div);
+      lines.push('- ' + issues[i].message + ' Found: ' + issues[i].found);
+    }
+    lastReport = lines.join('\n');
+  }
+
+  function fallbackCopy(text, done) {
+    if (typeof document === 'undefined' || !document.createElement || !document.body) { return; }
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) { /* copy not available */ }
+    document.body.removeChild(ta);
+    done();
+  }
+
+  function copyReport() {
+    if (typeof document === 'undefined' || !document.getElementById) { return; }
+    var btn = document.getElementById('gc-copy');
+    var text = lastReport || 'No report yet. Press Check grammar first.';
+    function done() {
+      if (btn) {
+        var old = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = old; }, 2000);
+      }
+    }
+    if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text, done); });
+    } else {
+      fallbackCopy(text, done);
+    }
+  }
+
+  if (typeof document !== 'undefined' && document.getElementById) {
+    var checkBtn = document.getElementById('gc-check');
+    if (checkBtn) {
+      checkBtn.addEventListener('click', function () {
+        var ta = document.getElementById('gc-text');
+        var text = ta ? ta.value : '';
+        renderResults(checkGrammar(text));
+      });
+    }
+    var copyBtn = document.getElementById('gc-copy');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', copyReport);
+    }
+  }
+})();
+</script>
+</body>
+</html>

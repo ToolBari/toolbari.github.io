@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Website Audit Tool — Audit Your Website Free in Your Browser | ToolBari</title>
+<meta name="description" content="Free website audit tool — answer 20 plain questions about your site and get a scored report with what to fix first. No signup, works on phone.">
+<link rel="canonical" href="https://toolbari.github.io/tools/website-audit-tool.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Website Audit Tool — Audit Your Website Free in Your Browser">
+<meta property="og:description" content="Free website audit tool — answer 20 plain questions about your site and get a scored report with what to fix first. No signup, works on phone.">
+<meta property="og:url" content="https://toolbari.github.io/tools/website-audit-tool.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What does this audit tool check?","acceptedAnswer":{"@type":"Answer","text":"It asks 20 plain questions in four areas: content, technical setup, mobile use and links. You tick the boxes that are true for your site, and the tool scores each area and lists the fixes in order of impact."}},
+{"@type":"Question","name":"Does this tool crawl my website?","acceptedAnswer":{"@type":"Answer","text":"No. This is a guided self-audit. It scores what you report about your site, and it does not crawl your site or visit your pages. For a full automated crawl, use a free crawler tool listed in the guide below."}},
+{"@type":"Question","name":"How long does the audit take?","acceptedAnswer":{"@type":"Answer","text":"About ten minutes. Most questions you can answer from memory, and a few need a quick look at your site on your phone. Answer honestly, because the report is only as good as your answers."}},
+{"@type":"Question","name":"What is a good audit score?","acceptedAnswer":{"@type":"Answer","text":"A score of 80 or more means the basics are in good shape. A score under 50 means several important things need fixing. The number matters less than the fix list, so start with the high impact fixes at the top."}},
+{"@type":"Question","name":"What should I fix first?","acceptedAnswer":{"@type":"Answer","text":"Fix the high impact items first: missing titles, no HTTPS, slow loading on phones and broken links. Those four affect every visitor and every search result, so they matter more than small polish jobs."}},
+{"@type":"Question","name":"Do I need to sign up or share my site address?","acceptedAnswer":{"@type":"Answer","text":"No. You never type your site address, and nothing leaves your browser. There is no account, no signup and no upload, and the report stays on your own device until you copy it."}}
+]}
+</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+.calc button{min-height:72px;border-radius:999px;background:#0b7a4b;color:#fff;font-weight:700;font-size:16px;padding:14px 22px;border:none;cursor:pointer;width:100%}
+.calc button.secondary{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+.calc input,.calc select{min-height:72px}
+.calc textarea{width:100%;min-height:120px;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;font-family:inherit}
+.calc .outbox{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin-top:14px;word-wrap:break-word;overflow-wrap:anywhere}
+.calc .warnline{font-size:15px;color:#92400e;margin-top:8px}
+.calc input[type=checkbox]{width:22px;height:22px;min-height:0;padding:0;flex:none;margin-top:3px}
+.calc label.chkrow{display:flex;gap:12px;align-items:flex-start;font-weight:400;font-size:15.5px;margin:12px 0;line-height:1.5}
+.grouptitle{font-weight:700;font-size:16px;margin:20px 0 4px}
+.arealine{font-size:15px;color:#334155;margin-top:4px}
+.fixlist{margin:10px 0 8px 22px}
+.fixlist li{margin:6px 0;font-size:15.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Website Audit Tool</h1>
+<p class="answer">This free website audit tool asks you 20 plain questions about your own site and turns your answers into a scored report. You get an overall score, a score for each of four areas, and a fix list ordered by impact, so you know what to repair first.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<p class="note">Tick each box that is true for your site. Answer honestly — the report is only as good as your answers.</p>
+<p class="grouptitle">Content — questions 1 to 5</p>
+<label class="chkrow"><input type="checkbox" class="audit-chk"> 1. Does every page on your site have its own title?</label>
+<label class="chkrow"><input type="checkbox" class="audit-chk"> 2. Does every page have its own description, different from the other pages?</label>
+<label class="chkrow"><input type="checkbox" class="audit-chk"> 3. Do your pages use headings in the right order, with one main heading and then subheadings?</label>
+<label class="chkrow"><input type="checkbox" class="audit-chk"> 4. Does each page answer the question the visitor came with?</label>
+<label class="chkrow"><input type="checkbox" class="audit-chk"> 5. Do your images have alt text that says what the image shows?</label>
+<p class="grouptitle">Technical — questions 6 to 10</p>
+<label class="chkrow"><input type="checkbox" class="audit-chk"> 6. Does your site use HTTPS, so the address starts with https and the browser shows a lock?</label>
+<label class="chkrow"><input type="checkbox" class="audit-chk"> 7. Have you submitted your sitemap to Google Search Console?</label>
+<label class="chkrow"><input type="checkbox" class="audit-chk"> 8. Does your site have a robots file that tells search engines which pages they may visit?</label>
+<label class="chkrow"><input type="checkbox" class="audit-chk"> 9. Do your pages return the right status, so real pages load and removed pages show a proper not-found page?</label>
+<label class="chkrow"><input type="checkbox" class="audit-chk"> 10. Do you have no duplicate pages, with the same content at two different addresses?</label>
+<p class="grouptitle">Mobile — questions 11 to 15</p>
+<label class="chkrow"><input type="checkbox" class="audit-chk"> 11. Does your site load fast on a phone?</label>
+<label class="chkrow"><input type="checkbox" class="audit-chk"> 12. Can visitors read your pages on a phone without zooming in?</label>
+<label class="chkrow"><input type="checkbox" class="audit-chk"> 13. Are your buttons and links big enough to tap with a finger?</label>
+<label class="chkrow"><input type="checkbox" class="audit-chk"> 14. Can visitors use your site without scrolling sideways?</label>
+<label class="chkrow"><input type="checkbox" class="audit-chk"> 15. Do your forms work on a phone, so they are easy to fill in and send?</label>
+<p class="grouptitle">Links — questions 16 to 20</p>
+<label class="chkrow"><input type="checkbox" class="audit-chk"> 16. Do the links inside your pages work, opening the page they promise?</label>
+<label class="chkrow"><input type="checkbox" class="audit-chk"> 17. Are there no broken links on your site?</label>
+<label class="chkrow"><input type="checkbox" class="audit-chk"> 18. Can a visitor reach every page from another page on your site, with no orphan pages?</label>
+<label class="chkrow"><input type="checkbox" class="audit-chk"> 19. Do your links use clear words that say where they lead?</label>
+<label class="chkrow"><input type="checkbox" class="audit-chk"> 20. Do you have no links pointing to pages you deleted?</label>
+<p style="margin-top:18px"><button type="button" id="audit-btn">Get my audit report</button></p>
+<div class="outbox" id="audit-out"><p class="note">Your report will appear here after you tick the boxes and tap the button.</p></div>
+<p style="margin-top:14px"><button type="button" class="secondary" id="copy-btn">Copy report summary</button></p>
+</div>
+<div class="warn">This is a guided self-audit — it scores what YOU report about your site. It does not crawl your site.</div>
+<h2>How to use this tool</h2>
+<p>Work through the 20 questions in order, and tick each box that is true for your site. A tick means yes, this is true for my site. An empty box means no, or I am not sure. If you are not sure about a question, leave it unticked. An honest no is far more useful than a hopeful yes, because the report can only point you at problems you admit to. The whole audit takes about ten minutes, and most questions you can answer from memory.</p>
+<p>A few questions are worth checking on your phone before you answer them. Open your own site on your phone, the way a visitor would, and look at it with fresh eyes. Does it load quickly? Can you read the text without pinching to zoom? Are the buttons easy to tap? Try filling in a form. This two-minute visit will answer half of the mobile questions better than your memory will, because you know your own site too well to see it the way a stranger does.</p>
+<p>When all 20 questions are answered, tap the button to get your report. The report shows your overall score out of 100, a separate score for each of the four areas, and a fix list ordered by impact, with the most important fixes at the top. The copy button copies a short summary of the report, so you can paste it into your notes or send it to whoever looks after your site.</p>
+<h2>What is a website audit?</h2>
+<p>A website audit is a health check for your site, not a grade. A grade says whether you passed or failed. A health check says what is working, what needs attention, and what to fix first. Nobody scores 100 on their first audit, and that is fine. The point of the audit is not the number. The point is the fix list, and the order it is in.</p>
+<p>Most site owners know their site has problems, but they do not know which problems matter. They fix the easy things first, because the easy things feel like progress, and the serious problems stay broken for months. An audit turns that around. It checks the basics in a fixed order, scores each area separately, and puts the fixes that help the most visitors at the top of the list. You still have to do the fixing, but you no longer have to guess where to start.</p>
+<p>This tool audits by asking you questions, because a page like this cannot crawl your site for you. That sounds like a weakness, but it has a real advantage: you know your site. You know which pages matter, which forms people use, and what has changed lately. A crawler can count your pages, but it cannot tell you whether a page answers the visitor's question. Your answers, given honestly, are a better guide to what needs fixing than any automatic count.</p>
+<h2>The four areas explained</h2>
+<p>Content is what your visitors actually read. The five content questions check the basics: every page has its own title, every page has its own description, headings are used in the right order, each page answers the question the visitor came with, and images have alt text. These are simple things, but they are the things visitors notice first, and they are the things most small sites get wrong. A page with no title looks unfinished in the search results. A page with the same description as every other page tells the searcher nothing. Alt text matters twice: it helps visitors who cannot see the image, and it tells search engines what the image shows.</p>
+<p>Technical is the part visitors never see, but it decides whether they can reach your site at all. The five technical questions check HTTPS, your sitemap, your robots file, your status codes, and duplicate pages. HTTPS matters because browsers warn visitors away from sites that do not have it. A sitemap helps search engines find your pages. A robots file tells them which pages they may visit. Status codes are the quiet signals your site sends: a real page should load, and a removed page should say so properly instead of loading a broken page. Duplicate pages split your visitors between two addresses for the same content, which helps nobody.</p>
+<p>Mobile is how most of your visitors actually see your site. The five mobile questions check loading speed on a phone, reading without zooming, buttons big enough to tap, no sideways scrolling, and forms that work on a phone. These questions matter more every year, because the share of visitors on phones keeps growing. A site that works beautifully on a desktop and badly on a phone is a site that fails most of its visitors. Test on a real phone, on a real mobile connection, not only on fast Wi-Fi.</p>
+<p>Links are the paths through your site. The five link questions check that internal links work, that there are no broken links, that every page can be reached from another page, that links use clear words, and that no link points to a page you deleted. Links break quietly: a page moves, a file is deleted, a spelling mistake creeps in, and the link keeps sitting there, promising a page that no longer exists. Every broken link is a visitor who hit a dead end. Fixing them is unglamorous work, but it is some of the most valuable work you can do.</p>
+<h2>Fixing the top 5 issues first</h2>
+<p>When the report comes back with a long fix list, do not try to fix everything at once. Start with the top five, because the list is ordered by impact, and the top five will help more visitors than the other fifteen put together. The high-impact fixes are the ones that affect every visitor and every search result: a missing title, no HTTPS, slow loading on a phone, and broken links. Fix those first, even if they are the hardest jobs on the list.</p>
+<p>A missing title is the cheapest fix of all. Every page needs a title that says what the page is about, in plain words, under 60 characters. If several pages share one title, or have no title at all, fix the pages that get the most visits first. HTTPS is usually a one-time job: most hosting providers offer it free, and turning it on takes minutes once you find the setting. Slow loading on a phone is almost always about images: shrink the big ones, and the site speeds up at once.</p>
+<p>Broken links take longer, because you have to find them first. Start with the pages that matter most: the homepage, the main menu, and the pages you link to from elsewhere. Click every link on those pages, and fix or remove the ones that fail. Then work through the rest of the site a few pages at a time. It is slow work, but every fixed link is a dead end removed from a visitor's path.</p>
+<p>After the top five, work down the list in order, one fix at a time, and re-run the audit when you finish. Watching the score climb is satisfying, but the real reward is quieter: fewer visitors hitting dead ends, fewer pages that look unfinished, and a site that works the way you always meant it to. Small sites rarely need a redesign. They need the basics done properly, and the audit tells you exactly which basics are missing.</p>
+<h2>How often should you audit your site?</h2>
+<p>A small site that changes rarely needs an audit every three to six months. A site that changes often, with new pages added every week, needs one every month. And any site needs a fresh audit after a big change: a redesign, a move to a new host, a new set of pages, or a change to the menu. Big changes break things in quiet ways, and the audit catches the breaks before your visitors do.</p>
+<p>Between audits, keep a simple habit: every time you add or change a page, check its title, its description and its links before you publish. That takes two minutes, and it stops most new problems from ever reaching the live site. The audit is the deep check. The two-minute habit is the daily one. Together they keep a site healthy without much effort.</p>
+<p>It also helps to audit on a schedule you can keep. Put a reminder in your calendar for the first day of every third month, and treat it like any other appointment. An audit that happens regularly is worth far more than a perfect audit that happens once and is never repeated. Sites drift: links break, pages go stale, forms stop working after an update. The drift is slow, which is why it is easy to miss, and a regular audit is the only thing that catches it.</p>
+<h2>Common mistakes</h2>
+<p>The most common mistake is fixing the easy one-point items and ignoring the broken pages. It feels good to tick off ten small fixes in an afternoon, but if the homepage still has no title and three links on it are broken, the site is still failing its visitors. The fix list is ordered by impact for a reason. Work from the top, even when the top items are the hardest jobs. Impact matters more than the number of items fixed.</p>
+<p>The second mistake is answering the questions the way you wish your site was, instead of the way it is. It is tempting to tick a box because you think the answer should be yes, or because you fixed it once, months ago, and assume it is still fixed. The report is only as honest as your answers. If you are not sure, leave the box unticked and check the site. A low score with an honest fix list is far more useful than a high score built on guesses.</p>
+<p>The third mistake is treating the score as a grade to show off. A score of 95 on a site with one broken checkout page is worse than a score of 70 on a site where everything important works. The number is a summary, not a verdict. What matters is the fix list, and whether the things at the top of it get fixed. Do not chase the number. Chase the fixes.</p>
+<p>The fourth mistake is auditing once and never again. A site is not a finished object. Pages get added, links move, images get replaced with bigger ones, and a form that worked last year stops working after an update. An audit from six months ago tells you nothing about the site as it is today. Run the audit again after every big change, and at least every few months even when nothing has changed.</p>
+<h2>What it cannot do</h2>
+<p>This is a guided self-audit — it scores what YOU report about your site. It does not crawl your site. That is the honest limit of this tool, and it is worth understanding clearly. The tool cannot visit your pages, cannot count your links, and cannot measure your loading speed. It can only work with the answers you give it. If you answer honestly, the report is a useful map of what to fix. If you guess, the report will be wrong, and no tool can fix that.</p>
+<p>For the jobs this tool cannot do, use the free tools that really do them. For a real speed measurement of your site, use PageSpeed Insights, the official speed tool from Google, at <a href="https://pagespeed.web.dev">pagespeed.web.dev</a>. For a full automated crawl of a whole site, with every link and every page checked, use Screaming Frog SEO Spider, the official crawler, at <a href="https://www.screamingfrog.co.uk">screamingfrog.co.uk</a>. Those tools do the measuring. This tool does the thinking about what the measurements mean and what to fix first.</p>
+<p>The best way to use this page is together with those tools: run the self-audit here to get your fix list in order, then use the speed tool and the crawler to check the answers you were unsure about. Between them, you get the full picture — the honest self-check, the real measurements, and a fix list ordered by what helps your visitors most.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>What does this audit tool check?</h3><p>It asks 20 plain questions in four areas: content, technical setup, mobile use and links. You tick the boxes that are true for your site, and the tool scores each area and lists the fixes in order of impact.</p></div>
+<div class="faq"><h3>Does this tool crawl my website?</h3><p>No. This is a guided self-audit. It scores what you report about your site, and it does not crawl your site or visit your pages. For a full automated crawl, use a free crawler tool listed in the guide below.</p></div>
+<div class="faq"><h3>How long does the audit take?</h3><p>About ten minutes. Most questions you can answer from memory, and a few need a quick look at your site on your phone. Answer honestly, because the report is only as good as your answers.</p></div>
+<div class="faq"><h3>What is a good audit score?</h3><p>A score of 80 or more means the basics are in good shape. A score under 50 means several important things need fixing. The number matters less than the fix list, so start with the high impact fixes at the top.</p></div>
+<div class="faq"><h3>What should I fix first?</h3><p>Fix the high impact items first: missing titles, no HTTPS, slow loading on phones and broken links. Those four affect every visitor and every search result, so they matter more than small polish jobs.</p></div>
+<div class="faq"><h3>Do I need to sign up or share my site address?</h3><p>No. You never type your site address, and nothing leaves your browser. There is no account, no signup and no upload, and the report stays on your own device until you copy it.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/website-speed-checker.html">Website Speed Checker</a> · <a href="https://toolbari.github.io/tools/broken-link-checker.html">Broken Link Checker</a> · <a href="https://toolbari.github.io/seo-tools/">SEO Tools</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+(function () {
+  var QUESTIONS = [
+    { fix: "Add a unique title to every page that has none.", impact: 3 },
+    { fix: "Write a different description for each page.", impact: 2 },
+    { fix: "Fix your headings: one main heading per page, then subheadings in order.", impact: 2 },
+    { fix: "Rewrite the page so it answers the visitor's question in the first lines.", impact: 2 },
+    { fix: "Add alt text to every image that has none.", impact: 1 },
+    { fix: "Move your site to HTTPS so the address starts with https.", impact: 3 },
+    { fix: "Submit your sitemap to Google Search Console.", impact: 2 },
+    { fix: "Add a robots file that tells search engines which pages they may visit.", impact: 1 },
+    { fix: "Fix your status codes: real pages should load, removed pages should show a proper not-found page.", impact: 1 },
+    { fix: "Remove or redirect duplicate pages so each piece of content lives at one address.", impact: 1 },
+    { fix: "Speed up your site on phones: shrink images first, then cut heavy scripts.", impact: 3 },
+    { fix: "Make your pages readable on a phone without zooming.", impact: 2 },
+    { fix: "Make buttons and links big enough to tap with a finger.", impact: 2 },
+    { fix: "Fix the layout so visitors never have to scroll sideways.", impact: 1 },
+    { fix: "Test every form on a phone and fix the ones that are hard to fill in.", impact: 1 },
+    { fix: "Fix the internal links that do not open the page they promise.", impact: 2 },
+    { fix: "Find and fix every broken link on your site.", impact: 3 },
+    { fix: "Link to every orphan page from another page on your site.", impact: 2 },
+    { fix: "Rewrite vague link words so each link says where it leads.", impact: 1 },
+    { fix: "Remove links that point to pages you deleted.", impact: 2 }
+  ];
+  var AREAS = ["content", "content", "content", "content", "content",
+               "technical", "technical", "technical", "technical", "technical",
+               "mobile", "mobile", "mobile", "mobile", "mobile",
+               "links", "links", "links", "links", "links"];
+  function auditScore(answers) {
+    var yes = 0;
+    var areaYes = { content: 0, technical: 0, mobile: 0, links: 0 };
+    var pending = [];
+    for (var i = 0; i < 20; i++) {
+      if (answers[i]) {
+        yes++;
+        areaYes[AREAS[i]]++;
+      } else {
+        pending.push({ impact: QUESTIONS[i].impact, order: i, text: QUESTIONS[i].fix });
+      }
+    }
+    pending.sort(function (a, b) {
+      if (b.impact !== a.impact) return b.impact - a.impact;
+      return a.order - b.order;
+    });
+    var fixes = pending.map(function (p) { return p.text; });
+    return {
+      overall: Math.round(yes / 20 * 100),
+      areas: {
+        content: Math.round(areaYes.content / 5 * 100),
+        technical: Math.round(areaYes.technical / 5 * 100),
+        mobile: Math.round(areaYes.mobile / 5 * 100),
+        links: Math.round(areaYes.links / 5 * 100)
+      },
+      fixes: fixes
+    };
+  }
+  window.TB = { auditScore: auditScore };
+  if (typeof document === "undefined") return;
+  var out = document.getElementById("audit-out");
+  var summaryText = "";
+  function runAudit() {
+    var boxes = document.querySelectorAll(".audit-chk");
+    var answers = [];
+    for (var i = 0; i < boxes.length; i++) answers.push(!!boxes[i].checked);
+    var r = auditScore(answers);
+    out.innerHTML = "";
+    var head = document.createElement("p");
+    head.className = "out";
+    head.textContent = "Your overall score: " + r.overall + " out of 100";
+    out.appendChild(head);
+    var areas = document.createElement("p");
+    areas.className = "arealine";
+    areas.textContent = "Content: " + r.areas.content + "  |  Technical: " + r.areas.technical + "  |  Mobile: " + r.areas.mobile + "  |  Links: " + r.areas.links;
+    out.appendChild(areas);
+    var listTitle = document.createElement("p");
+    listTitle.className = "arealine";
+    listTitle.textContent = r.fixes.length === 0 ? "No fixes needed — every box is ticked. Well done." : "Fixes, in order of impact:";
+    out.appendChild(listTitle);
+    if (r.fixes.length > 0) {
+      var ol = document.createElement("ol");
+      ol.className = "fixlist";
+      r.fixes.forEach(function (f) {
+        var li = document.createElement("li");
+        li.textContent = f;
+        ol.appendChild(li);
+      });
+      out.appendChild(ol);
+    }
+    summaryText = "Website audit score: " + r.overall + " out of 100. " +
+      "Content " + r.areas.content + ", Technical " + r.areas.technical +
+      ", Mobile " + r.areas.mobile + ", Links " + r.areas.links + ". " +
+      (r.fixes.length === 0 ? "No fixes needed." : "Top fixes: " + r.fixes.slice(0, 5).join(" "));
+  }
+  function fallbackCopy(text, done) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta);
+    done();
+  }
+  function copyText(text, btn) {
+    function done() {
+      var old = btn.textContent;
+      btn.textContent = "Copied!";
+      setTimeout(function () { btn.textContent = old; }, 2000);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text, done); });
+    } else {
+      fallbackCopy(text, done);
+    }
+  }
+  document.getElementById("audit-btn").addEventListener("click", runAudit);
+  document.getElementById("copy-btn").addEventListener("click", function () {
+    if (!summaryText) runAudit();
+    copyText(summaryText, this);
+  });
+})();
+</script>
+</body>
+</html>

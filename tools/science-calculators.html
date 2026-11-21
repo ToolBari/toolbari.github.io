@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Science Calculators — Physics and Chemistry Calculators, Free | ToolBari</title>
+<meta name="description" content="Free science calculators — speed, force, density, pressure and molarity, with the formula shown for every answer. No signup, works on phone.">
+<link rel="canonical" href="https://toolbari.github.io/tools/science-calculators.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Science Calculators — Physics and Chemistry Calculators, Free">
+<meta property="og:description" content="Free science calculators — speed, force, density, pressure and molarity, with the formula shown for every answer. No signup, works on phone.">
+<meta property="og:url" content="https://toolbari.github.io/tools/science-calculators.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Speed equals distance divided by time. If a car travels 100 metres in 10 seconds, its speed is 10 metres per second, because 100 divided by 10 equals 10."},"name":"What is the formula for speed?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Force equals mass multiplied by acceleration. A 2 kilogram mass accelerating at 3 metres per second squared gives a force of 6 newtons, because 2 multiplied by 3 equals 6."},"name":"How do I calculate force?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Use metres for distance, seconds for time, kilograms for mass in the force calculator, grams and cubic centimetres in the density calculator, newtons and square metres for pressure, and moles and litres for molarity. If your numbers are in other units, convert them first, because mixing units gives a wrong answer."},"name":"What units should I use in these calculators?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"The most common reason is a unit mistake, such as entering kilometres where the calculator expects metres. Check that every number is in the unit shown on the label, then check that you have not rounded a number in the middle of the working."},"name":"Why does my answer look wrong?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Molarity tells you how many moles of a substance are dissolved in each litre of solution. Chemists use it to describe how strong a solution is, and this calculator divides the number of moles by the volume in litres."},"name":"What is molarity, and when do I use it?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Yes. Each calculator shows the formula and the working step by step, so you can copy the steps into your homework and check that you understand them. The answers are only as good as the numbers you enter, so always check your units and your working before you hand anything in."},"name":"Can I use these calculators for homework?"}]}</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+.calc button{min-height:72px;padding:14px 20px;border-radius:999px;background:#0b7a4b;color:#fff;font-weight:700;font-size:17px;border:none;cursor:pointer;width:100%;margin:8px 0}
+.calc button.secondary{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+.calc input,.calc select{min-height:72px}
+.calc textarea{min-height:120px;width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;font-family:inherit}
+.calc .out{overflow-wrap:break-word;word-break:break-word}
+.calc .row{display:flex;gap:10px;flex-wrap:wrap}
+.calc .row button{flex:1 1 140px}
+.calc .sub{font-size:17.5px;margin-top:24px}
+.calc .sub:first-child{margin-top:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Science Calculators</h1>
+<p class="answer">Five free science calculators in one place: speed, force, density, pressure and molarity. Type in your numbers, tap calculate, and each answer comes with the formula and the working shown step by step so you can check it yourself. Everything runs in your browser with no signup, on a phone or a desktop.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<p class="sub"><strong>Speed calculator</strong></p>
+<p class="note">Speed equals distance divided by time. Answer in metres per second.</p>
+<label for="speed-d">Distance in metres</label>
+<input id="speed-d" type="number" inputmode="decimal" placeholder="100">
+<label for="speed-t">Time in seconds</label>
+<input id="speed-t" type="number" inputmode="decimal" placeholder="10">
+<button id="speed-btn" type="button">Calculate speed</button>
+<div class="out" id="speed-out"></div>
+<p class="sub"><strong>Force calculator</strong></p>
+<p class="note">Force equals mass multiplied by acceleration. Answer in newtons.</p>
+<label for="force-m">Mass in kilograms</label>
+<input id="force-m" type="number" inputmode="decimal" placeholder="2">
+<label for="force-a">Acceleration in metres per second squared</label>
+<input id="force-a" type="number" inputmode="decimal" placeholder="3">
+<button id="force-btn" type="button">Calculate force</button>
+<div class="out" id="force-out"></div>
+<p class="sub"><strong>Density calculator</strong></p>
+<p class="note">Density equals mass divided by volume. Answer in grams per cubic centimetre.</p>
+<label for="density-m">Mass in grams</label>
+<input id="density-m" type="number" inputmode="decimal" placeholder="10">
+<label for="density-v">Volume in cubic centimetres</label>
+<input id="density-v" type="number" inputmode="decimal" placeholder="2">
+<button id="density-btn" type="button">Calculate density</button>
+<div class="out" id="density-out"></div>
+<p class="sub"><strong>Pressure calculator</strong></p>
+<p class="note">Pressure equals force divided by area. Answer in pascals.</p>
+<label for="pressure-f">Force in newtons</label>
+<input id="pressure-f" type="number" inputmode="decimal" placeholder="20">
+<label for="pressure-a">Area in square metres</label>
+<input id="pressure-a" type="number" inputmode="decimal" placeholder="4">
+<button id="pressure-btn" type="button">Calculate pressure</button>
+<div class="out" id="pressure-out"></div>
+<p class="sub"><strong>Molarity calculator</strong></p>
+<p class="note">Molarity equals moles divided by volume. Answer in moles per litre.</p>
+<label for="molarity-n">Amount in moles</label>
+<input id="molarity-n" type="number" inputmode="decimal" placeholder="2">
+<label for="molarity-v">Volume in litres</label>
+<input id="molarity-v" type="number" inputmode="decimal" placeholder="4">
+<button id="molarity-btn" type="button">Calculate molarity</button>
+<div class="out" id="molarity-out"></div>
+<button id="copy-btn" class="secondary" type="button">Copy all results</button>
+<p class="note">If you have not calculated anything yet, the copy button copies the list of the five formulas instead.</p>
+</div>
+<div class="warn">These calculators use the standard school formulas, and each answer is only as good as the numbers and units you type in. If the distance is in kilometres and you enter it as metres, the answer will be wrong by a factor of a thousand, so always check your units before you trust a result.</div>
+<h2>What these science calculators do</h2>
+<p>Five small calculators live on this page, and each one answers a question that comes up again and again in school science. The speed calculator turns a distance and a time into a speed. The force calculator turns a mass and an acceleration into a force. The density calculator turns a mass and a volume into a density. The pressure calculator turns a force and an area into a pressure. The molarity calculator turns a number of moles and a volume into a concentration. Each one is a single formula, worked out for you, with the working shown so you can follow it.</p>
+<p>The working matters as much as the answer. A calculator that only shows a number teaches you nothing, and it gives you no way to spot a mistake. These calculators show the formula first, then the numbers put into the formula, then the result with its unit. If you are doing homework, you can copy the steps into your book and check that each line makes sense. If you are revising for a test, you can cover the answer, work it out on paper, and then use the calculator to check yourself. If a teacher asks you to show your working, the steps on this page show you what good working looks like: formula, substitution, answer with a unit.</p>
+<p>Everything runs in your browser. There is no account to make, no app to download, and no file to upload. Your numbers never leave your device, because the sums are done by the page itself. That also means the page works wherever a browser works: on a phone on the bus, on a shared computer in a library, or on a laptop at home. The buttons are large enough to tap with a thumb, and the inputs are large enough to read on a small screen.</p>
+<h2>How to use them on a phone or a desktop</h2>
+<p>Pick the calculator you need and scroll to it. Each calculator has two boxes to fill in, one button to tap, and one place where the answer appears. Type the first number into the first box and the second number into the second box, then tap the calculate button. The answer appears below the button, with the steps underneath it. If you want to try another set of numbers, change the boxes and tap the button again. There is nothing to save and nothing to reset.</p>
+<p>On a phone, tap a box and the number keyboard appears. Type the number, tap the next box, and type the second number. The calculate button is wide and easy to hit, and the answer stays on the screen so you can read it without scrolling. On a desktop, you can click a box or press the Tab key to move between boxes, type the numbers, and press Enter or click the button. The page works the same way in both places, and the answers are the same.</p>
+<p>At the bottom of the tool there is a copy button. Tap it and every answer you have calculated is copied as plain text, ready to paste into notes, a message, or a document. If you have not calculated anything yet, the same button copies the list of the five formulas instead, which is handy if you want a quick reference sheet. The copied text is plain, so it pastes cleanly anywhere.</p>
+<p>Read the label above each box before you type. The label tells you the unit the calculator expects, and that unit is part of the answer. The speed calculator expects metres and seconds. The force calculator expects kilograms and metres per second squared. The density calculator expects grams and cubic centimetres. The pressure calculator expects newtons and square metres. The molarity calculator expects moles and litres. If your numbers are in different units, convert them before you type them in. A later section on this page explains why this step matters so much.</p>
+<h2>The five calculators, with a worked example each</h2>
+<p>Each calculator below is described in plain words, with one worked example using the same numbers the calculator itself uses. Work through the example on paper first if you like, then check it with the tool.</p>
+<p><strong>Speed.</strong> Speed tells you how fast something is moving, and it comes from dividing the distance travelled by the time taken. The formula is speed equals distance divided by time. Take a car that travels 100 metres in 10 seconds. Put the numbers into the formula and you get 100 divided by 10, which equals 10, and the unit is metres per second, so the car is moving at 10 metres per second. Speed is one of the first formulas most students meet, and it is worth learning well, because the same pattern of dividing one quantity by another turns up in density and pressure too. Remember that the answer is an average speed over the whole journey. The car might have gone faster at some points and slower at others, but the formula only sees the total distance and the total time.</p>
+<p><strong>Force.</strong> Force tells you how hard something is being pushed or pulled, and it comes from multiplying mass by acceleration. The formula is force equals mass multiplied by acceleration. Take a mass of 2 kilograms accelerating at 3 metres per second squared. Put the numbers in and you get 2 multiplied by 3, which equals 6, and the unit is the newton, so the force is 6 newtons. The newton is named after Isaac Newton, whose laws of motion describe how forces change the way things move. A bigger mass needs a bigger force to accelerate at the same rate, and that is why a loaded trolley is harder to push than an empty one. Keep the mass in kilograms, because the newton is defined with kilograms, and grams will give you an answer a thousand times too small.</p>
+<p><strong>Density.</strong> Density tells you how much mass is packed into a given volume, and it comes from dividing mass by volume. The formula is density equals mass divided by volume. Take 10 grams of a material that fills 2 cubic centimetres. Put the numbers in and you get 10 divided by 2, which equals 5, and the unit is grams per cubic centimetre, so the density is 5 grams per cubic centimetre. Density explains why some things float and others sink. A material with a lower density than water floats on water, and a material with a higher density sinks. It also explains why a small block of metal can weigh more than a large block of wood. The two blocks have different densities, so the same volume holds a different mass.</p>
+<p><strong>Pressure.</strong> Pressure tells you how spread out a force is, and it comes from dividing force by the area it acts on. The formula is pressure equals force divided by area. Take a force of 20 newtons spread over an area of 4 square metres. Put the numbers in and you get 20 divided by 4, which equals 5, and the unit is the pascal, so the pressure is 5 pascals. The same force gives a much higher pressure when it acts on a smaller area, which is why a sharp knife cuts and a blunt one does not, and why snowshoes stop you sinking into snow. The pascal is a small unit, so everyday pressures are often large numbers of pascals, but the formula stays the same whatever the size of the numbers.</p>
+<p><strong>Molarity.</strong> Molarity tells you how strong a solution is, and it comes from dividing the number of moles of a substance by the volume of the solution in litres. The formula is molarity equals moles divided by volume. Take 2 moles of a substance dissolved to make 4 litres of solution. Put the numbers in and you get 2 divided by 4, which equals 0.5, and the unit is moles per litre, so the molarity is 0.5 moles per litre. Chemists use molarity whenever they need to describe a solution exactly, because it says how much of the substance is in each litre. If you add more water to a solution without adding more of the substance, the volume grows, the number of moles stays the same, and the molarity falls. That is dilution, and it follows straight from the formula.</p>
+<h2>Units and why they matter</h2>
+<p>A number without a unit is only half an answer. Ten metres per second is a speed. Ten on its own could be anything: ten metres, ten seconds, ten kilograms, or ten of anything else. That is why every answer on this page comes with its unit attached, and why the steps show the unit at the end. In school science, an answer without a unit often loses the mark even when the number is right, so get into the habit of writing the unit every time.</p>
+<p>Units matter even more before the calculation starts, because the formulas only work when the numbers are in the right units. The speed formula expects metres and seconds. If the distance is given in kilometres, you must turn it into metres first, by multiplying by one thousand. If the time is given in minutes, you must turn it into seconds first, by multiplying by sixty. Skip that step and the answer will be wrong, sometimes wildly wrong. A car travelling 100 kilometres in 1 hour is not moving at 100 metres per second. It is moving at about 28 metres per second, because 100 kilometres is 100,000 metres and 1 hour is 3,600 seconds. The formula is the same, but the numbers going in have to be in metres and seconds.</p>
+<p>The same trap waits in the other calculators. The force calculator expects kilograms, so a mass given in grams must be divided by one thousand first. The density calculator expects grams and cubic centimetres, so a volume given in litres or in cubic metres must be converted before it goes in. The pressure calculator expects square metres, so an area given in square centimetres must be divided by ten thousand first, because there are ten thousand square centimetres in one square metre. The molarity calculator expects litres, so a volume given in millilitres must be divided by one thousand first. Each of these conversions is simple on its own, but skipping one is the single most common reason for a wrong answer in school science.</p>
+<p>There is a quick habit that catches most unit mistakes. Before you tap calculate, read the label above each box and say the unit out loud. Then look at the number you are about to type and ask whether it is already in that unit. If it is not, convert it first. After the answer appears, ask whether it is sensible. A walking speed of 400 metres per second is not sensible, and it usually means a kilometre was typed in as metres. A density of 0.005 grams per cubic centimetre for a metal is not sensible either, and it usually means grams and kilograms were mixed up. The calculator will happily divide whatever numbers you give it, so the checking is your job.</p>
+<h2>Common mistakes to avoid</h2>
+<p>The first mistake is the one described above: wrong units. It is the most common, and it is the easiest to avoid once you build the habit of checking the label before you type. The second mistake is rounding in the middle of the working. If a division gives a long decimal, keep the full number while you work and round only the final answer. Rounding early can shift the final answer by enough to matter, especially when the rounded number is used in another step. These calculators keep the full number through the calculation and show the answer rounded to four decimal places, which is more precision than school work usually needs.</p>
+<p>The third mistake is forgetting to square a unit, or squaring a number that should not be squared. Acceleration is measured in metres per second squared, which means the seconds are squared, not the whole number. Area is measured in square metres, which means the length and the width are both in metres before they are multiplied. If an area is given as a length and a width, multiply them first and then use the result in the pressure formula. Putting a single length into the area box is a common slip, and the answer will be wrong even though the arithmetic is right.</p>
+<p>The fourth mistake is mixing up which number goes on top. Speed is distance divided by time, not time divided by distance. Density is mass divided by volume, not volume divided by mass. Pressure is force divided by area, not area divided by force. If the answer looks upside down, check that the numbers went into the right boxes. The steps shown under each answer make this easy to check, because they show the numbers in the order they were divided.</p>
+<p>The fifth mistake is trusting an answer without asking whether it makes sense. A calculator never knows whether your numbers were sensible. It divides what you give it and shows the result. You are the one who knows that a person cannot run at 90 metres per second, that water cannot have a density of 90 grams per cubic centimetre, and that a school experiment is unlikely to produce a pressure of a million pascals. When an answer surprises you, the first thing to check is the numbers you typed in, and the second is the units. Nine times out of ten, the mistake is there.</p>
+<h2>What these calculators cannot do</h2>
+<p>These calculators work with the standard school formulas, and they do not go beyond them. The speed calculator gives an average speed, not the speed at any single moment, and it cannot tell you anything about the direction of travel. The force calculator assumes the mass stays the same and the acceleration is steady, which is true for most school problems but not for every real situation. The density calculator assumes the material is uniform all the way through, which is not true for a hollow object or a mixture. The pressure calculator assumes the force is spread evenly over the whole area. The molarity calculator assumes the substance is fully dissolved and the volume is measured after dissolving, not before. None of these limits matters for ordinary school work, but it is honest to name them, so you know where the formulas stop.</p>
+<p>The calculators also cannot convert units for you, and they cannot tell you whether the numbers you typed are right. They cannot read a question and decide which formula to use. That part is yours, and it is the part that matters most in an exam. If you can look at a question, pick the right formula, get the units right, and check that the answer makes sense, you have the skill. The calculator is only a fast way to do the arithmetic.</p>
+<h2>Questions people ask</h2>
+<div class="faq">
+<h3>What is the formula for speed?</h3>
+<p>Speed equals distance divided by time. If a car travels 100 metres in 10 seconds, its speed is 10 metres per second, because 100 divided by 10 equals 10.</p>
+</div>
+<div class="faq">
+<h3>How do I calculate force?</h3>
+<p>Force equals mass multiplied by acceleration. A 2 kilogram mass accelerating at 3 metres per second squared gives a force of 6 newtons, because 2 multiplied by 3 equals 6.</p>
+</div>
+<div class="faq">
+<h3>What units should I use in these calculators?</h3>
+<p>Use metres for distance, seconds for time, kilograms for mass in the force calculator, grams and cubic centimetres in the density calculator, newtons and square metres for pressure, and moles and litres for molarity. If your numbers are in other units, convert them first, because mixing units gives a wrong answer.</p>
+</div>
+<div class="faq">
+<h3>Why does my answer look wrong?</h3>
+<p>The most common reason is a unit mistake, such as entering kilometres where the calculator expects metres. Check that every number is in the unit shown on the label, then check that you have not rounded a number in the middle of the working.</p>
+</div>
+<div class="faq">
+<h3>What is molarity, and when do I use it?</h3>
+<p>Molarity tells you how many moles of a substance are dissolved in each litre of solution. Chemists use it to describe how strong a solution is, and this calculator divides the number of moles by the volume in litres.</p>
+</div>
+<div class="faq">
+<h3>Can I use these calculators for homework?</h3>
+<p>Yes. Each calculator shows the formula and the working step by step, so you can copy the steps into your homework and check that you understand them. The answers are only as good as the numbers you enter, so always check your units and your working before you hand anything in.</p>
+</div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/all-in-one-calculator.html">All-in-One Calculator</a> · <a href="https://toolbari.github.io/tools/educational-worksheets.html">Educational Worksheets</a> · <a href="https://toolbari.github.io/tools/study-planner.html">Study Planner</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+function fmt(n){return Math.round(n*10000)/10000;}
+function num(x){if(x===null||x===undefined||x==='')return NaN;var n=Number(x);return isFinite(n)?n:NaN;}
+function speed(d,t){
+  d=num(d);t=num(t);
+  if(isNaN(d)||isNaN(t))return {error:'Enter a distance in metres and a time in seconds.'};
+  if(t===0)return {error:'Time cannot be zero. Enter a time greater than zero.'};
+  var a=fmt(d/t);
+  return {answer:a,steps:'Speed = distance / time\nSpeed = '+d+' / '+t+'\nSpeed = '+a+' m/s'};
+}
+function force(m,a){
+  m=num(m);a=num(a);
+  if(isNaN(m)||isNaN(a))return {error:'Enter a mass in kilograms and an acceleration in metres per second squared.'};
+  var f=fmt(m*a);
+  return {answer:f,steps:'Force = mass x acceleration\nForce = '+m+' x '+a+'\nForce = '+f+' N'};
+}
+function density(m,v){
+  m=num(m);v=num(v);
+  if(isNaN(m)||isNaN(v))return {error:'Enter a mass in grams and a volume in cubic centimetres.'};
+  if(v===0)return {error:'Volume cannot be zero. Enter a volume greater than zero.'};
+  var d=fmt(m/v);
+  return {answer:d,steps:'Density = mass / volume\nDensity = '+m+' / '+v+'\nDensity = '+d+' g/cm3'};
+}
+function pressure(f,a){
+  f=num(f);a=num(a);
+  if(isNaN(f)||isNaN(a))return {error:'Enter a force in newtons and an area in square metres.'};
+  if(a===0)return {error:'Area cannot be zero. Enter an area greater than zero.'};
+  var p=fmt(f/a);
+  return {answer:p,steps:'Pressure = force / area\nPressure = '+f+' / '+a+'\nPressure = '+p+' Pa'};
+}
+function molarity(n,v){
+  n=num(n);v=num(v);
+  if(isNaN(n)||isNaN(v))return {error:'Enter an amount in moles and a volume in litres.'};
+  if(v===0)return {error:'Volume cannot be zero. Enter a volume greater than zero.'};
+  var c=fmt(n/v);
+  return {answer:c,steps:'Molarity = moles / volume\nMolarity = '+n+' / '+v+'\nMolarity = '+c+' mol/L'};
+}
+window.TB={speed:speed,force:force,density:density,pressure:pressure,molarity:molarity};
+if(typeof document!=='undefined'){
+  var results={};
+  function show(outId,res,unit){
+    var el=document.getElementById(outId);
+    if(!el)return;
+    if(res.error){el.textContent=res.error;return;}
+    el.textContent=res.answer+' '+unit;
+    var st=document.createElement('div');
+    st.className='steps';
+    st.textContent=res.steps;
+    el.appendChild(st);
+  }
+  function wire(btnId,fn,inputs,outId,unit,key,label){
+    var btn=document.getElementById(btnId);
+    if(!btn)return;
+    btn.addEventListener('click',function(){
+      var vals=inputs.map(function(id){return document.getElementById(id).value;});
+      var r=fn(vals[0],vals[1]);
+      show(outId,r,unit);
+      if(r.error){delete results[key];}
+      else{results[key]=label+': '+r.answer+' '+unit+'\n'+r.steps;}
+    });
+  }
+  wire('speed-btn',speed,['speed-d','speed-t'],'speed-out','m/s','speed','Speed');
+  wire('force-btn',force,['force-m','force-a'],'force-out','N','force','Force');
+  wire('density-btn',density,['density-m','density-v'],'density-out','g/cm3','density','Density');
+  wire('pressure-btn',pressure,['pressure-f','pressure-a'],'pressure-out','Pa','pressure','Pressure');
+  wire('molarity-btn',molarity,['molarity-n','molarity-v'],'molarity-out','mol/L','molarity','Molarity');
+  function fallbackCopy(text){
+    var ta=document.createElement('textarea');
+    ta.value=text;
+    ta.style.position='fixed';
+    ta.style.opacity='0';
+    document.body.appendChild(ta);
+    ta.select();
+    try{document.execCommand('copy');}catch(e){}
+    document.body.removeChild(ta);
+  }
+  var copyBtn=document.getElementById('copy-btn');
+  if(copyBtn){
+    copyBtn.addEventListener('click',function(){
+      var keys=Object.keys(results);
+      var text;
+      if(keys.length){text=keys.map(function(k){return results[k];}).join('\n\n');}
+      else{text='Science formulas:\nSpeed = distance / time (m/s)\nForce = mass x acceleration (N)\nDensity = mass / volume (g/cm3)\nPressure = force / area (Pa)\nMolarity = moles / volume (mol/L)';}
+      function done(){
+        var old=copyBtn.textContent;
+        copyBtn.textContent='Copied!';
+        setTimeout(function(){copyBtn.textContent=old;},2000);
+      }
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(done,function(){fallbackCopy(text);done();});
+      }else{fallbackCopy(text);done();}
+    });
+  }
+}
+</script>
+</body>
+</html>

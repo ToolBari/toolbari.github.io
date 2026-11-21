@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English Vocabulary Trainer — Learn New Words Free in Your Browser | ToolBari</title>
+<meta name="description" content="Free English vocabulary trainer — learn real words with meanings, examples and a quick quiz. No signup, works on phone and desktop.">
+<link rel="canonical" href="https://toolbari.github.io/tools/english-vocabulary-trainer.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="English Vocabulary Trainer — Learn New Words Free in Your Browser">
+<meta property="og:description" content="Free English vocabulary trainer — learn real words with meanings, examples and a quick quiz. No signup, works on phone and desktop.">
+<meta property="og:url" content="https://toolbari.github.io/tools/english-vocabulary-trainer.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How many words does this trainer teach?", "acceptedAnswer": {"@type": "Answer", "text": "The trainer has 63 words in three sets of 21 words each, and every word comes with a plain meaning and one example sentence."}}, {"@type": "Question", "name": "Do I need to sign up or pay to use it?", "acceptedAnswer": {"@type": "Answer", "text": "No, the trainer is free and it works in your browser with no account and no download, on a phone or a computer."}}, {"@type": "Question", "name": "Does the trainer remember my progress?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, your progress is saved in your own browser, so when you come back you can see how many words you have seen and your best quiz score."}}, {"@type": "Question", "name": "How does the quiz work?", "acceptedAnswer": {"@type": "Answer", "text": "The quiz picks five words from the set you chose and asks about their meanings and their spelling, with four choices for each question, and it shows your score at the end."}}, {"@type": "Question", "name": "How many words should I learn in one day?", "acceptedAnswer": {"@type": "Answer", "text": "Five to ten new words a day is a good target for most learners, because a small set is easier to remember and to use in your own sentences."}}, {"@type": "Question", "name": "Can I copy the word list to study somewhere else?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, the copy button puts the whole word list for the set you chose onto your clipboard, so you can paste it into a note or print it."}}]}</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+.calc button{min-height:72px;padding:14px 20px;border-radius:999px;background:#0b7a4b;color:#fff;font-weight:700;font-size:17px;border:none;cursor:pointer;width:100%;margin:8px 0}
+.calc button.secondary{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+.calc input,.calc select{min-height:72px}
+.calc textarea{min-height:120px;width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;font-family:inherit}
+.calc .out{overflow-wrap:break-word;word-break:break-word}
+.calc .row{display:flex;gap:10px;flex-wrap:wrap}
+.calc .row button{flex:1 1 140px}
+#word-card{background:#fff;border:1px solid #cbd5e1;border-radius:12px;padding:18px 16px;margin:14px 0;overflow-wrap:break-word}
+#word-text{font-size:26px;font-weight:800;color:#0b7a4b;overflow-wrap:break-word}
+#word-meaning{font-size:17px;margin-top:8px;overflow-wrap:break-word}
+#word-example{font-size:16px;color:#475569;margin-top:8px;font-style:italic;overflow-wrap:break-word}
+#progress-text{font-size:15px;color:#475569;margin:8px 0;overflow-wrap:break-word}
+#quiz-area{margin:12px 0}
+#quiz-area .quiz-q{font-size:17px;font-weight:700;margin:10px 0;overflow-wrap:break-word}
+#quiz-area .quiz-opt{background:#fff;color:#1e293b;border:2px solid #cbd5e1}
+#quiz-area .quiz-opt.correct{border-color:#0b7a4b;background:#e8f7ef}
+#quiz-area .quiz-opt.wrong{border-color:#dc2626;background:#fef2f2}
+#quiz-score{font-size:17px;font-weight:700;margin:8px 0;overflow-wrap:break-word}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>English Vocabulary Trainer</h1>
+<p class="answer">This free English vocabulary trainer helps you learn real words with a plain meaning and an example sentence for each one. Pick a word set, work through one word at a time, and test yourself with a short quiz that asks about meanings and spelling. Everything runs in your browser with no signup and no download.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="word-set">Choose a word set</label>
+<select id="word-set">
+<option value="everyday">Everyday words</option>
+<option value="school">School words</option>
+<option value="work">Work words</option>
+</select>
+<div id="word-card">
+<p id="word-text"></p>
+<p id="word-meaning"></p>
+<p id="word-example"></p>
+</div>
+<p id="progress-text"></p>
+<div class="row">
+<button id="next-word-btn" type="button">Next word</button>
+<button id="quiz-btn" type="button" class="secondary">Start quiz</button>
+</div>
+<div id="quiz-area"></div>
+<p id="quiz-score"></p>
+<button id="copy-btn" type="button" class="secondary">Copy this word list</button>
+</div>
+<div class="warn">This trainer teaches common words with short, plain meanings. It is a starting point for learning, not a full dictionary, so check a dictionary when you need every meaning of a word or how it is used in a formal text.</div>
+<h2>What this trainer does</h2>
+<p>Learning a new language starts with words. Grammar rules help you build sentences, and listening practice helps you understand people, but without words you have nothing to build with. A learner who knows a few hundred common words can already ask for directions, read a simple notice, follow a short conversation, and write a short message. This trainer is built around that simple idea: learn real words, one at a time, with a clear meaning and a real example sentence, and then test yourself.</p>
+<p>This page is a small vocabulary trainer that works entirely in your browser. It holds three sets of words: everyday words for home, travel and daily life, school words for lessons and study, and work words for the office and the job. Every word in the trainer comes with a short meaning in plain English and one example sentence that shows the word in use. There are no word lists to download and no account to create. You open the page, pick a set, and start learning.</p>
+<p>The trainer shows you one word at a time. That is a deliberate choice. A long list of fifty words looks impressive, but most learners remember very little of it an hour later. One word at a time forces you to slow down and pay attention to the spelling, the meaning and the example. When you feel ready, you move on to the next word. When you have worked through a few words, you can press the quiz button and test yourself with a short round of questions about meanings and spelling.</p>
+<p>Your progress is saved on your own device, in your browser. The trainer remembers which words you have seen in each set and your best quiz score, so you can see how far you have come when you return. Nothing is sent anywhere and nothing is stored on a server, because there is no server involved at all. The whole trainer is this one page.</p>
+<h2>How to use the trainer</h2>
+<p>Using the trainer is simple, and it works the same way on a phone and on a desktop computer. On a phone, you tap the buttons with your finger. On a desktop, you click them with the mouse. The buttons are large on purpose, so they are easy to tap on a small screen, and the word card is wide enough to read comfortably at any size.</p>
+<p>Start by choosing a word set from the list at the top of the trainer. If you are not sure where to begin, start with the everyday set. Those are the words you will meet most often in daily life, and they make the other sets easier later. The school set is useful if you are a student or you help a child with schoolwork. The work set is useful if you use English in an office or you are preparing for a job.</p>
+<p>Once you pick a set, the trainer shows you the first word. Read the word, then read its meaning, then read the example sentence slowly. Try to picture the meaning in your mind. If the word is kitchen, picture your own kitchen. If the word is journey, think of a trip you have taken. A picture in your mind makes the word much easier to remember than a plain definition alone.</p>
+<p>When you are ready, press the Next word button. The trainer shows the words in a mixed order, so you never know which word is coming next. That is good for learning, because it stops you from memorising the order of a list instead of the words themselves. You can go through the whole set, or stop after a few words and come back later. Your progress is saved either way.</p>
+<p>After you have seen some words, press the Start quiz button to test yourself. The quiz asks five questions from the set you chose. Some questions ask what a word means, and some ask how to spell a word. Each question gives you four choices. Pick the one you think is right, and the trainer tells you at once whether you were correct. At the end of the quiz you see your score, and your best score for that set is saved.</p>
+<p>If you want to study away from the screen, press the Copy this word list button. It copies the whole word list for the set you chose, with meanings and examples, onto your clipboard. You can paste it into a note, send it to yourself, or print it and study it on paper. Some learners like to keep a paper list beside their desk and glance at it during the day.</p>
+<h2>How to remember a word</h2>
+<p>Seeing a word once is not the same as knowing it. Most learners need to meet a word several times before it stays in memory, and the way you meet it matters more than the number of times. Three simple steps make a word stick: see it, say it, and use it in your own sentence.</p>
+<p>See it means looking at the word carefully. Notice how it is spelled, especially the parts that surprise you. English spelling is full of silent letters and unexpected patterns, and the only way to learn them is to look. Read the meaning and the example sentence too, and think about how the word fits into the sentence. A word in a sentence is much easier to remember than a word on its own, because the sentence gives it a place to live.</p>
+<p>Say it means reading the word out loud. Whisper it if you are in a quiet place, or say it in a normal voice if you can. Hearing your own voice say the word gives your memory a second way in. Many learners only ever read words silently, and then find they cannot say them when they need to speak. Saying each word out loud as you learn it is a small habit that pays off every time you open your mouth in English.</p>
+<p>Use it means making your own sentence with the word. This is the step most learners skip, and it is the most important one. A sentence you made yourself is yours in a way that a sentence from a book never is. If you learn the word neighbour, make a sentence about your own neighbour. If you learn the word deadline, make a sentence about a real deadline you have. It does not need to be a long or clever sentence. One honest sentence about your own life is worth more than ten sentences copied from somewhere else.</p>
+<p>Come back to the words later. Memory fades fast, and the best cure is a short review the next day, then again a few days after that. The trainer helps here because the words appear in a mixed order each time, so a review never feels like reading the same list twice. Five minutes of review a day will do more for your memory than one long session a week.</p>
+<h2>The three word sets</h2>
+<p>The everyday set holds words for home, travel, shopping and daily life. These are words like kitchen, neighbour, journey, umbrella and wallet. They are the words you need to talk about your own day: where you live, what you eat, how you travel, what you buy. If you can use these words comfortably, you can handle a large part of everyday conversation in English, from asking for help in a shop to describing your home to a new friend.</p>
+<p>The school set holds words for lessons and study. These are words like lesson, library, exam, homework, teacher and notebook. They are useful for students, for parents who talk to teachers, and for anyone who is taking a course in English. School words also show up in everyday life more than you might expect, in notices, in forms, and in conversations about children and their studies.</p>
+<p>The work set holds words for the office and the job. These are words like meeting, deadline, colleague, manager, salary and interview. They are useful if you work in English, if you are looking for a job, or if you want to understand work emails and notices. Many of these words are also used outside work, so learning them pays off in more than one place. An appointment, for example, can be with a manager or with a dentist.</p>
+<p>Each set has twenty one words, so the whole trainer holds sixty three words. That may sound like a small number, and it is small on purpose. A trainer with thousands of words is a dictionary, not a trainer, and a dictionary does not teach you anything by itself. Sixty three well chosen words, learned properly and used in your own sentences, will do more for your English than a thousand words you glanced at once and forgot.</p>
+<p>You can work through the sets in any order, but starting with the everyday set is the best choice for most learners. The words there are the most common, and they give you the most chances to practise in real life. When you know most of them, move on to the school set or the work set, whichever fits your life better.</p>
+<h2>How the quiz mode works</h2>
+<p>The quiz mode turns learning into a short test. When you press the Start quiz button, the trainer picks five words from the set you chose and asks you five questions. The questions come in two kinds. A meaning question shows you a word and asks what it means, with four meanings to choose from. A spelling question shows you a meaning and asks you to pick the correct spelling of the word, again with four choices.</p>
+<p>Four choices is enough to make you think without making the quiz feel like a guessing game. The wrong answers are always real meanings or real looking spellings from the same set, so you have to know the word to pick the right one. If you guess, you will sometimes be right by luck, but over five questions luck does not carry you far. That is the point: the quiz shows you honestly which words you know and which ones you still need to practise.</p>
+<p>After each answer, the trainer tells you at once whether you were right. If you were wrong, it shows you the correct answer so you can learn from the mistake straight away. There is no reason to wait until the end to find out. Learning from a mistake is easiest in the moment when the question is still fresh in your mind.</p>
+<p>At the end of the quiz you see your score out of five. The trainer saves your best score for each set, so you can try to beat it next time. A perfect score does not mean you know the words forever. It means you knew them today. Come back tomorrow and try again. If the score holds up, the words are really starting to stick.</p>
+<p>The quiz is practice, not an exam. Nobody sees your score but you, and there is no pass mark. A low score is useful information, not a failure. It tells you which words need another look. Go back to the word card, read those words again, make a sentence with each one, and take the quiz again when you feel ready.</p>
+<h2>Common mistakes to avoid</h2>
+<p>The most common mistake is trying to learn too many words in one sitting. Fifty new words in an evening feels productive, but most of them will be gone by the morning. Memory works better with small amounts repeated often. Five to ten new words a day is a good target for most learners. That is enough to make real progress over a month, and small enough that each word gets the attention it deserves.</p>
+<p>The second mistake is learning words and never using them. A word you have only read is a word you only half know. You need to say it out loud and write it in your own sentence before it becomes truly yours. If you cannot think of a sentence for a word, that is a sign you do not understand it well enough yet. Read the example again, look at the meaning once more, and think of a person or a place in your own life that the word fits.</p>
+<p>The third mistake is studying only from a list in the same order every time. When the words always appear in the same order, you start to remember the order instead of the words. You know the third word because it comes after the second one, not because you know the word itself. The trainer avoids this by mixing the order every time you choose a set, and the quiz picks its words at random for the same reason.</p>
+<p>The fourth mistake is skipping the review. Learners often move on to new words and never look back, and then wonder why the old words have faded. Review is not wasted time. It is the part of learning that turns a new word into a known word. A quick run through a set you finished last week takes only a few minutes, and it will save you from having to learn the same words twice.</p>
+<p>The fifth mistake is treating spelling as unimportant. In English, spelling matters, because many words sound alike but are spelled differently, and a misspelled word can change the meaning of a sentence. The quiz asks about spelling for a reason. When you learn a word, look at its spelling as carefully as you look at its meaning, and write the word down at least once by hand if you can.</p>
+<h2>What this trainer cannot do</h2>
+<p>This trainer teaches common words with short meanings, and that is all it tries to do. It does not teach grammar, so it will not show you how to build sentences or when to use one tense rather than another. It does not teach pronunciation, because there is no sound on this page, so you will need to hear the words spoken somewhere else if you are unsure how they sound. And it does not cover every meaning of a word. Many English words have several meanings, and this trainer gives you the most common one to start with.</p>
+<p>That is why the trainer is a starting point, not a dictionary. When you meet a word in a book or a conversation and the short meaning here does not fit, look it up in a dictionary and see its other meanings. That is normal, and it is part of learning. No trainer can replace reading, listening and talking to real people, but a solid set of words makes all of those things easier.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>How many words does this trainer teach?</h3><p>The trainer has 63 words in three sets of 21 words each, and every word comes with a plain meaning and one example sentence.</p></div>
+<div class="faq"><h3>Do I need to sign up or pay to use it?</h3><p>No, the trainer is free and it works in your browser with no account and no download, on a phone or a computer.</p></div>
+<div class="faq"><h3>Does the trainer remember my progress?</h3><p>Yes, your progress is saved in your own browser, so when you come back you can see how many words you have seen and your best quiz score.</p></div>
+<div class="faq"><h3>How does the quiz work?</h3><p>The quiz picks five words from the set you chose and asks about their meanings and their spelling, with four choices for each question, and it shows your score at the end.</p></div>
+<div class="faq"><h3>How many words should I learn in one day?</h3><p>Five to ten new words a day is a good target for most learners, because a small set is easier to remember and to use in your own sentences.</p></div>
+<div class="faq"><h3>Can I copy the word list to study somewhere else?</h3><p>Yes, the copy button puts the whole word list for the set you chose onto your clipboard, so you can paste it into a note or print it.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/flashcard-creator.html">Flashcard Creator</a> · <a href="https://toolbari.github.io/tools/language-learning-tools.html">Language Learning Tools</a> · <a href="https://toolbari.github.io/tools/online-quiz-maker.html">Online Quiz Maker</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+var WORDS = {
+  everyday: [
+    {word: "kitchen", meaning: "A room where food is cooked.", example: "She is making soup in the kitchen."},
+    {word: "neighbour", meaning: "A person who lives next to you or near you.", example: "My neighbour gave me a bag of apples."},
+    {word: "journey", meaning: "A trip from one place to another.", example: "The journey to the village took three hours."},
+    {word: "breakfast", meaning: "The first meal of the day.", example: "We eat bread and eggs for breakfast."},
+    {word: "umbrella", meaning: "Something you hold over your head to stay dry in the rain.", example: "Take an umbrella, it looks like rain."},
+    {word: "wallet", meaning: "A small flat case for money and cards.", example: "He put his bus ticket in his wallet."},
+    {word: "pillow", meaning: "A soft cushion you rest your head on in bed.", example: "She bought a new pillow for her bed."},
+    {word: "market", meaning: "A place where people buy and sell food and other goods.", example: "We buy fresh vegetables at the market every week."},
+    {word: "bicycle", meaning: "A two-wheeled vehicle you ride by pushing pedals.", example: "He rides his bicycle to school every morning."},
+    {word: "towel", meaning: "A cloth used to dry your hands or body.", example: "Dry your hands with the towel by the sink."},
+    {word: "mirror", meaning: "A piece of glass that shows your reflection.", example: "She looked in the mirror before she left the house."},
+    {word: "garden", meaning: "A piece of land where you grow plants or flowers.", example: "We grow tomatoes in our garden."},
+    {word: "blanket", meaning: "A thick cover that keeps you warm in bed.", example: "He pulled the blanket over his shoulders."},
+    {word: "button", meaning: "A small round thing used to fasten clothes.", example: "One button on my shirt is missing."},
+    {word: "envelope", meaning: "A paper cover for a letter or card.", example: "She put the letter in an envelope and sealed it."},
+    {word: "luggage", meaning: "The bags you carry when you travel.", example: "We left our luggage at the hotel desk."},
+    {word: "recipe", meaning: "A set of instructions for cooking a dish.", example: "This recipe needs two cups of flour."},
+    {word: "shampoo", meaning: "A liquid you use to wash your hair.", example: "She bought a bottle of shampoo at the shop."},
+    {word: "staircase", meaning: "A set of steps inside a building.", example: "Walk up the staircase to the second floor."},
+    {word: "basket", meaning: "A container made of woven material, used to carry things.", example: "She carried the apples in a basket."},
+    {word: "toothbrush", meaning: "A small brush you use to clean your teeth.", example: "Use a toothbrush twice a day to keep your teeth clean."}
+  ],
+  school: [
+    {word: "lesson", meaning: "A period of learning or teaching.", example: "Our English lesson starts at nine o'clock."},
+    {word: "library", meaning: "A place where you can borrow books to read.", example: "She borrowed a story book from the library."},
+    {word: "exam", meaning: "A test that checks what you have learned.", example: "We have a maths exam on Friday."},
+    {word: "homework", meaning: "School work that you do at home.", example: "He finished his homework before dinner."},
+    {word: "teacher", meaning: "A person who teaches.", example: "Our teacher explained the new words on the board."},
+    {word: "classroom", meaning: "A room where lessons are taught.", example: "The classroom has twenty desks."},
+    {word: "notebook", meaning: "A book of blank pages for writing notes.", example: "Write the new words in your notebook."},
+    {word: "pencil", meaning: "A thin tool for writing or drawing, made of wood with a dark centre.", example: "Use a pencil so you can correct your mistakes."},
+    {word: "dictionary", meaning: "A book or list that explains the meaning of words.", example: "Look up the word in a dictionary."},
+    {word: "subject", meaning: "An area of study, such as history or science.", example: "Her favourite subject is geography."},
+    {word: "grade", meaning: "A mark or level given for school work.", example: "She got a good grade in her spelling test."},
+    {word: "student", meaning: "A person who is learning at a school or college.", example: "Every student in the class read one page aloud."},
+    {word: "principal", meaning: "The person in charge of a school.", example: "The principal spoke to us at the morning assembly."},
+    {word: "timetable", meaning: "A list that shows when each lesson happens.", example: "Check the timetable to see when the art class is."},
+    {word: "assignment", meaning: "A piece of work given to a student to complete.", example: "The assignment is due on Monday."},
+    {word: "knowledge", meaning: "What you know about something.", example: "Reading books gives you knowledge about the world."},
+    {word: "question", meaning: "A sentence that asks for information.", example: "Raise your hand if you have a question."},
+    {word: "answer", meaning: "What you say or write in reply to a question.", example: "She knew the answer to every question."},
+    {word: "spelling", meaning: "The way a word is spelled with letters in the right order.", example: "Check your spelling before you hand in your work."},
+    {word: "chapter", meaning: "A part of a book.", example: "Read chapter five before the next lesson."},
+    {word: "research", meaning: "Careful study to find out more about a subject.", example: "They did research about bees for their project."}
+  ],
+  work: [
+    {word: "meeting", meaning: "A time when people come together to talk about work.", example: "We have a team meeting every Monday morning."},
+    {word: "deadline", meaning: "The latest time by which something must be finished.", example: "The deadline for the report is Friday."},
+    {word: "colleague", meaning: "A person you work with.", example: "My colleague showed me how to use the new system."},
+    {word: "office", meaning: "A room or building where people work at desks.", example: "She works in an office near the station."},
+    {word: "manager", meaning: "A person who is in charge of a team or a department.", example: "The manager asked for the weekly report."},
+    {word: "salary", meaning: "The money you are paid for your job, usually every month.", example: "Her salary is paid on the last day of the month."},
+    {word: "interview", meaning: "A meeting where someone asks you questions about a job.", example: "He had an interview for a teaching job yesterday."},
+    {word: "project", meaning: "A piece of work that is planned and done over a period of time.", example: "Our team is working on a project to improve the website."},
+    {word: "schedule", meaning: "A plan of things to do and when to do them.", example: "The delivery schedule is on the notice board."},
+    {word: "presentation", meaning: "A talk you give to show or explain something to a group.", example: "She gave a presentation about the new product."},
+    {word: "customer", meaning: "A person who buys goods or services from a business.", example: "Every customer gets a receipt after paying."},
+    {word: "invoice", meaning: "A bill that asks for payment for goods or services.", example: "Please pay the invoice within two weeks."},
+    {word: "contract", meaning: "A written agreement between people or organisations.", example: "Read the contract carefully before you sign it."},
+    {word: "promotion", meaning: "A move to a higher or more important job.", example: "She got a promotion after three years in the team."},
+    {word: "employee", meaning: "A person who works for a company or organisation.", example: "Every new employee gets training in the first week."},
+    {word: "employer", meaning: "A person or company that pays people to work for them.", example: "Her employer gives her ten days of holiday a year."},
+    {word: "department", meaning: "One part of a company that does a particular kind of work.", example: "The sales department handles orders from customers."},
+    {word: "resignation", meaning: "The act of leaving a job, usually by telling your employer in writing.", example: "He handed in his resignation last week."},
+    {word: "training", meaning: "The process of learning the skills you need for a job.", example: "The training lasts for two weeks."},
+    {word: "budget", meaning: "A plan for how much money you will spend.", example: "We need to check the budget before we order new chairs."},
+    {word: "appointment", meaning: "An arrangement to meet someone at a particular time.", example: "I have an appointment with the dentist at ten o'clock."}
+  ]
+};
+
+function shuffleCopy(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+
+function quizRound(set, n) {
+  var list = WORDS[set] || [];
+  if (n >= list.length) return list.slice();
+  return shuffleCopy(list).slice(0, n);
+}
+
+window.TB = { WORDS: WORDS, quizRound: quizRound };
+
+if (typeof document !== 'undefined') {
+  var LS_KEY = "tb-vocabulary-trainer";
+  var progress = { seen: { everyday: [], school: [], work: [] }, best: {}, played: 0 };
+  try {
+    var saved = JSON.parse(localStorage.getItem(LS_KEY));
+    if (saved && saved.seen && saved.seen.everyday && saved.seen.school && saved.seen.work) progress = saved;
+  } catch (e) {
+    progress = { seen: { everyday: [], school: [], work: [] }, best: {}, played: 0 };
+  }
+  function saveProgress() {
+    try { localStorage.setItem(LS_KEY, JSON.stringify(progress)); } catch (e) {}
+  }
+
+  var setSelect = document.getElementById("word-set");
+  var wordText = document.getElementById("word-text");
+  var wordMeaning = document.getElementById("word-meaning");
+  var wordExample = document.getElementById("word-example");
+  var progressText = document.getElementById("progress-text");
+  var quizArea = document.getElementById("quiz-area");
+  var quizScore = document.getElementById("quiz-score");
+  var nextBtn = document.getElementById("next-word-btn");
+  var quizBtn = document.getElementById("quiz-btn");
+  var copyBtn = document.getElementById("copy-btn");
+
+  var order = [];
+  var index = 0;
+  var currentSet = "everyday";
+  var quizWords = [];
+  var quizIndex = 0;
+  var quizPoints = 0;
+  var quizAnswered = 0;
+
+  function updateProgressText() {
+    var seen = (progress.seen[currentSet] || []).length;
+    var total = WORDS[currentSet].length;
+    var text = "You have seen " + seen + " of " + total + " words in this set.";
+    var best = progress.best[currentSet];
+    if (typeof best === "number") text += " Your best quiz score in this set is " + best + " out of 5.";
+    progressText.textContent = text;
+  }
+
+  function showWord() {
+    var w = order[index];
+    wordText.textContent = w.word;
+    wordMeaning.textContent = w.meaning;
+    wordExample.textContent = w.example;
+    var seen = progress.seen[currentSet];
+    if (seen.indexOf(w.word) === -1) {
+      seen.push(w.word);
+      saveProgress();
+    }
+    updateProgressText();
+  }
+
+  function startSet(set) {
+    currentSet = set;
+    order = shuffleCopy(WORDS[set]);
+    index = 0;
+    quizArea.innerHTML = "";
+    quizScore.textContent = "";
+    showWord();
+  }
+
+  function wrongSpellings(word) {
+    var out = [];
+    function add(v) {
+      if (v && v !== word && out.indexOf(v) === -1) out.push(v);
+    }
+    var mid = Math.floor(word.length / 2);
+    if (word.length > 3) {
+      add(word.slice(0, mid) + word.charAt(mid + 1) + word.charAt(mid) + word.slice(mid + 2));
+      add(word.slice(0, mid) + word.slice(mid + 1));
+    }
+    add(word.slice(0, mid) + word.charAt(mid) + word.slice(mid));
+    var vowels = "aeiou";
+    for (var k = 0; k < word.length && out.length < 3; k++) {
+      if (vowels.indexOf(word.charAt(k)) !== -1) {
+        var repl = word.charAt(k) === "a" ? "e" : "a";
+        add(word.slice(0, k) + repl + word.slice(k + 1));
+      }
+    }
+    add(word + "e");
+    add(word.slice(0, word.length - 1));
+    add("x" + word);
+    return out.slice(0, 3);
+  }
+
+  function renderQuestion() {
+    var w = quizWords[quizIndex];
+    var isSpelling = (quizIndex % 2 === 1);
+    quizArea.innerHTML = "";
+    var qText = document.createElement("p");
+    qText.className = "quiz-q";
+    var options = [];
+    var correct = "";
+    if (isSpelling) {
+      qText.textContent = "Question " + (quizIndex + 1) + " of " + quizWords.length + ": how do you spell the word that means " + w.meaning;
+      correct = w.word;
+      options = shuffleCopy([w.word].concat(wrongSpellings(w.word)));
+    } else {
+      qText.textContent = "Question " + (quizIndex + 1) + " of " + quizWords.length + ": what does " + w.word + " mean?";
+      correct = w.meaning;
+      var others = shuffleCopy(WORDS[currentSet].filter(function (x) { return x.word !== w.word; })).slice(0, 3);
+      options = shuffleCopy([w.meaning].concat(others.map(function (x) { return x.meaning; })));
+    }
+    quizArea.appendChild(qText);
+    options.forEach(function (opt) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "quiz-opt";
+      b.textContent = opt;
+      b.addEventListener("click", function () {
+        var buttons = quizArea.querySelectorAll(".quiz-opt");
+        for (var i = 0; i < buttons.length; i++) buttons[i].disabled = true;
+        quizAnswered++;
+        if (opt === correct) {
+          quizPoints++;
+          b.className = "quiz-opt correct";
+          quizScore.textContent = "Correct! Score: " + quizPoints + " out of " + quizAnswered + ".";
+        } else {
+          b.className = "quiz-opt wrong";
+          for (var j = 0; j < buttons.length; j++) {
+            if (buttons[j].textContent === correct) buttons[j].className = "quiz-opt correct";
+          }
+          quizScore.textContent = "Not quite. The right answer is shown in green. Score: " + quizPoints + " out of " + quizAnswered + ".";
+        }
+        setTimeout(function () {
+          quizIndex++;
+          if (quizIndex < quizWords.length) {
+            renderQuestion();
+          } else {
+            finishQuiz();
+          }
+        }, 900);
+      });
+      quizArea.appendChild(b);
+    });
+  }
+
+  function finishQuiz() {
+    quizArea.innerHTML = "";
+    var done = document.createElement("p");
+    done.className = "quiz-q";
+    done.textContent = "Quiz finished. Press Start quiz to try again.";
+    quizArea.appendChild(done);
+    quizScore.textContent = "Quiz finished. You scored " + quizPoints + " out of " + quizWords.length + ".";
+    progress.played = (progress.played || 0) + 1;
+    var prev = progress.best[currentSet];
+    if (typeof prev !== "number" || quizPoints > prev) progress.best[currentSet] = quizPoints;
+    saveProgress();
+    updateProgressText();
+  }
+
+  setSelect.addEventListener("change", function () { startSet(setSelect.value); });
+
+  nextBtn.addEventListener("click", function () {
+    index = (index + 1) % order.length;
+    showWord();
+  });
+
+  quizBtn.addEventListener("click", function () {
+    quizWords = quizRound(currentSet, 5);
+    quizIndex = 0;
+    quizPoints = 0;
+    quizAnswered = 0;
+    quizScore.textContent = "Quiz started. Good luck!";
+    renderQuestion();
+  });
+
+  copyBtn.addEventListener("click", function () {
+    var text = WORDS[currentSet].map(function (w) {
+      return w.word + " - " + w.meaning + " Example: " + w.example;
+    }).join("\n");
+    function done() {
+      copyBtn.textContent = "Copied!";
+      setTimeout(function () { copyBtn.textContent = "Copy this word list"; }, 2000);
+    }
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); done(); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else {
+      fallback();
+    }
+  });
+
+  startSet("everyday");
+}
+</script>
+</body>
+</html>
