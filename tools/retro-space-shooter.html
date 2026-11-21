@@ -160,6 +160,7 @@ table.controls th{background:#e8f7ef}
 <div class="game-controls">
 <button id="btn-boost" class="game-btn" type="button">FIRE BOOST</button>
 <button id="btn-mute" class="mute-btn" type="button">Sound: Off</button>
+<button class="mute-btn" type="button" onclick="toggleFS()">Fullscreen</button>
 </div>
 </div>
 <div class="warn">This is an original game inspired by the classics of that era. It is not affiliated with Nokia or any original publisher. Fire is automatic on phone — drag to fly, tap FIRE BOOST for the spread shot.</div>
@@ -565,6 +566,9 @@ if(typeof document!=='undefined'){
   updateBar();
 }
 })();
+</script>
+<script>
+function toggleFS(){var d=document;if(d.fullscreenElement){d.exitFullscreen();return;}var e=d.documentElement;var f=e.requestFullscreen||e.webkitRequestFullscreen;if(f){try{var p=f.call(e);if(p&&p.catch){p.catch(function(){});}}catch(err){}}}
 </script>
 </body>
 </html>

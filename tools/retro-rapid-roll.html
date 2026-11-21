@@ -101,7 +101,8 @@ th{background:#e8f7ef}
 </div>
 </div>
 <div class="game-controls"><button class="game-btn" id="btn-left">Left</button><button class="game-btn" id="btn-right">Right</button></div>
-<div class="game-controls"><button class="mute-btn" id="btn-mute">Sound: Off</button></div>
+<div class="game-controls"><button class="mute-btn" id="btn-mute">Sound: Off</button>
+<button class="mute-btn" type="button" onclick="toggleFS()">Fullscreen</button></div>
 </div>
 <div class="warn">This is an original game inspired by the classics of that era. It is not affiliated with Nokia or any original publisher. There is no jump button — the ball rolls, it does not jump.</div>
 <h2>What Retro Rapid Roll is</h2>
@@ -586,6 +587,9 @@ th{background:#e8f7ef}
   }
 })();
 
+</script>
+<script>
+function toggleFS(){var d=document;if(d.fullscreenElement){d.exitFullscreen();return;}var e=d.documentElement;var f=e.requestFullscreen||e.webkitRequestFullscreen;if(f){try{var p=f.call(e);if(p&&p.catch){p.catch(function(){});}}catch(err){}}}
 </script>
 </body>
 </html>

@@ -167,6 +167,7 @@ table.controls th{background:#e8f7ef}
 <button id="btn-right" class="game-btn" type="button" style="min-height:100px">RIGHT</button>
 <button id="btn-jump" class="game-btn" type="button" style="min-height:100px">JUMP</button>
 <button id="btn-mute" class="mute-btn" type="button">Sound: Off</button>
+<button class="mute-btn" type="button" onclick="toggleFS()">Fullscreen</button>
 </div>
 <div class="level-row"><span class="level-label">Level:</span><button class="level-btn sel" data-level="1" type="button">1</button><button class="level-btn" data-level="2" type="button">2</button><button class="level-btn" data-level="3" type="button">3</button><button class="level-btn" data-level="4" type="button">4</button><button class="level-btn" data-level="5" type="button">5</button><button class="level-btn" data-level="6" type="button">6</button><button class="level-btn" data-level="7" type="button">7</button><button class="level-btn" data-level="8" type="button">8</button><button class="level-btn" data-level="9" type="button">9</button><button class="level-btn" data-level="10" type="button">10</button></div>
 </div>
@@ -585,6 +586,9 @@ if(typeof document!=='undefined'){
   updateBar();updateLevelBtns();
 }
 })();
+</script>
+<script>
+function toggleFS(){var d=document;if(d.fullscreenElement){d.exitFullscreen();return;}var e=d.documentElement;var f=e.requestFullscreen||e.webkitRequestFullscreen;if(f){try{var p=f.call(e);if(p&&p.catch){p.catch(function(){});}}catch(err){}}}
 </script>
 </body>
 </html>
