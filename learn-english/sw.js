@@ -9,10 +9,10 @@
 //    sender (Worker + cron). No notification is ever generated here from
 //    nothing — reminders fire only from the student's own device logic or
 //    from a future real push message.
-var CACHE = "school-v1";
+var CACHE = "school-v2";
 var CORE = ["/learn-english/school/", "/learn-english/", "/learn-english/ssc/",
   "/learn-english/hsc/", "/learn-english/parents/", "/learn-english/help/",
-  "/learn-english/manifest.webmanifest", "/learn-english/icon-192.png"];
+  "/learn-english/manifest.json", "/learn-english/icon-192.png"];
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(CORE); }).then(function () { return self.skipWaiting(); }));
 });
@@ -36,7 +36,7 @@ self.addEventListener("fetch", function (e) {
 self.addEventListener("push", function (e) {
   var d = {};
   try { d = e.data ? e.data.json() : {}; } catch (x) {}
-  var title = d.title || "ToolBari স্কুল";
+  var title = d.title || "SchoolBari";
   e.waitUntil(self.registration.showNotification(title, {
     body: d.body || "পড়ার সময় হয়েছে — আজকের ছোট্ট ধাপটা শেষ করো।",
     icon: "/learn-english/icon-192.png",
