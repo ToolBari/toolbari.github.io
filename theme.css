@@ -323,7 +323,7 @@ code,kbd{font-family:"JetBrains Mono",ui-monospace,monospace}
 .faq p{color:var(--muted);font-size:15.5px;line-height:1.6}
 .links{margin-top:20px}
 .links a{color:var(--green);font-weight:600}
-.note{font-size:14px;color:var(--muted2)}
+.note{font-size:14px;color:#9db0a4}
 .countdown{font-size:26px;font-weight:800;text-align:center;margin:8px 0}
 code{background:rgba(47,227,138,.12);color:#b7f5d3;padding:1px 6px;border-radius:6px;font-size:.9em}
 table{width:100%;border-collapse:collapse;margin:14px 0;font-size:15px}
