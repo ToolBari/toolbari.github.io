@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Watercraft Maintenance Tracker — Keep Your Boat Maintained Free | ToolBari</title>
+<meta name="description" content="Track your boat maintenance free — log services, set reminders, and never miss an engine check. Stored only on your device.">
+<link rel="canonical" href="https://toolbari.github.io/tools/watercraft-maintenance-tracker.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Watercraft Maintenance Tracker — Keep Your Boat Maintained Free">
+<meta property="og:description" content="Track your boat maintenance free — log services, set reminders, and never miss an engine check. Stored only on your device.">
+<meta property="og:url" content="https://toolbari.github.io/tools/watercraft-maintenance-tracker.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What maintenance does a boat need?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Engine services, impeller changes, hull checks and antifouling, electrical checks, and safety-gear checks — lifejackets, flares, fire extinguishers and the bilge pump. The maker's manual for your engine lists the exact schedule for your boat."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How often should I service the engine?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Follow the engine manual — most makers give a schedule by hours run or by time, whichever comes first. Log the dates in this tracker so the next service is never a guess."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is an impeller?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A small rubber part inside the engine's water pump that moves cooling water through the engine. It wears out silently, and a failed impeller can overheat an engine in minutes. It is the most-forgotten item on a boat."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I set a reminder?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Add the job with its next due date, and the tracker flags it as due soon when it falls within 30 days and overdue when the date passes. Check the tracker before each trip to see what needs attention."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my data uploaded anywhere?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Your jobs are saved only in this browser using local storage. Nothing is uploaded, synced or shared, and clearing your browser data will remove them — so copy the history if you want a lasting record."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I track more than one boat?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — include the boat's name in each job name, such as Seagull engine oil change, and the list keeps them apart. The tracker does not separate boats into groups, so clear names are the way to tell them apart."
+      }
+    }
+  ]
+}
+</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>.calc button{min-height:72px;padding:14px 22px;border:0;border-radius:999px;font-size:17px;font-weight:700;background:#0b7a4b;color:#fff;cursor:pointer;margin:12px 6px 0 0}
+.calc button.sec{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+.calc button.danger{background:#b91c1c}
+.calc input,.calc select,.calc textarea{min-height:72px;padding:14px 12px;font-size:17px}
+.calc textarea{width:100%;border:1px solid #cbd5e1;border-radius:8px;background:#fff;min-height:110px;resize:vertical}
+.calc .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:12px 14px;margin:10px 0}
+.calc .row .grow{flex:1 1 160px}
+.calc .row button{min-height:72px;padding:14px 18px;font-size:16px;margin:0}
+.calc .chip{display:inline-block;background:#e8f7ef;border:1px solid #bfe6cf;border-radius:999px;padding:6px 12px;font-size:14px;font-weight:600;margin:2px 4px 2px 0}
+.calc .chip.bad{background:#fef2f2;border-color:#fecaca}
+.calc .chip.warnchip{background:#fffbeb;border-color:#fde68a}
+.calc .colhead{font-weight:800;font-size:16px;margin:18px 0 4px}
+.calc .hint{font-size:14.5px;color:#475569;margin-top:8px}
+.calc .err{color:#b91c1c;font-weight:700}
+.calc table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0}
+.calc th,.calc td{border:1px solid #e2e8f0;padding:10px 8px;text-align:left;vertical-align:top}
+.calc th{background:#e8f7ef}
+.scrollwrap{overflow-x:auto}
+.calc pre{white-space:pre-wrap;word-wrap:break-word;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;font-size:15px;margin:10px 0;font-family:inherit}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Watercraft Maintenance Tracker</h1>
+<p class="answer">Keep your boat maintained: log engine, hull, electrics and safety-gear jobs with their dates, and see at a glance what is overdue, what is due soon, and what you have already done. Your service history is saved only in this browser.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+
+<label for="job-name">Job name</label>
+<input id="job-name" type="text" placeholder="e.g. Engine oil change">
+<label for="job-cat">Category</label>
+<select id="job-cat"><option value="Engine">Engine</option><option value="Hull">Hull</option><option value="Electrics">Electrics</option><option value="Safety gear">Safety gear</option><option value="Other">Other</option></select>
+<label for="job-last">Last done date</label>
+<input id="job-last" type="date">
+<label for="job-due">Next due date</label>
+<input id="job-due" type="date">
+<button type="button" id="calc-btn">Add job</button>
+<p class="err" id="form-err" role="status"></p>
+<div class="out" id="out" role="status"></div>
+<div class="steps" id="steps"></div>
+<div id="job-list"></div>
+<button type="button" class="sec" id="copy-btn">Copy service history</button>
+<button type="button" class="sec danger" id="clear-btn">Clear all jobs</button>
+<p class="hint">Jobs are saved only in this browser. A job is overdue when its due date has passed, and due soon when it falls within the next 30 days.</p>
+
+</div>
+<div class="warn">This tracker records the jobs and dates you enter — it cannot check whether the work was done properly, and it does not replace the maker's service schedule or a qualified marine mechanic. Follow the engine manual and local safety rules for anything that affects the boat's safety, and get a professional to check work you are unsure about.</div>
+<h2>What this tracker does and who it is for</h2><p>A boat needs regular care — engine services, hull checks, electrical checks, safety-gear checks — and the jobs come round on different schedules, which makes them easy to forget. This tracker keeps them all in one place: each job recorded with the date it was last done and the date it is next due, with overdue jobs flagged so nothing slips by unnoticed.</p><p>It is built for anyone who owns or looks after a boat: a weekend sailor, a fishing boat owner, or a small charter operator with one or two boats. You do not need mechanical knowledge to use it — just the jobs your boat needs and the dates they fall due.</p><p>What it will not do is service the boat for you or tell you what the maker requires. The jobs and dates come from you, from the engine manual and from your own experience. Use the tracker to remember; use the manual and a qualified mechanic for the work itself.</p><h2>How to use the tracker on your phone or computer</h2><p>Add one job at a time. Type the job name — Engine oil change, Hull antifouling, Lifejacket check — then pick the category, the date it was last done and the date it is next due. Tap Add job and it joins the list, sorted by next due date with the soonest first.</p><p>Each job carries a label: On track when its due date is more than 30 days away, Due soon when it falls within the next 30 days, and Overdue when the due date has passed. The summary at the top names every overdue job and every job due soon, so a quick glance tells you what needs attention.</p><p>Your jobs are saved only in this browser, so they are still here when you come back. Nothing is uploaded or shared. The copy button copies the whole service history as plain text. When a job is done, delete it and add it again with the new dates — or keep the old entry as part of the history and add a fresh one.</p><h2>The jobs a boat needs</h2><p>The engine needs the most regular care: oil changes, filter changes, cooling system checks and the impeller — the small rubber pump part that moves cooling water through the engine. The impeller wears out silently, and a failed impeller can overheat an engine in minutes. It is the single most-forgotten item on a boat, and the one this tracker exists to remind you about.</p><p>The hull needs checking for damage, fouling and osmosis blisters, and antifouling paint needs renewing on schedule. A fouled hull is slower, uses more fuel and handles worse, and the cost of ignoring it grows with every season. Check the hull whenever the boat is out of the water, and record what you find.</p><p>Electrics need checking for corrosion, loose connections and battery condition — salt water and electricity are a bad combination, and a dead battery or a corroded connection can leave you stranded. Safety gear needs its own checks: lifejackets for damage and expiry, flares for their expiry dates, fire extinguishers for pressure, and the bilge pump for working order. Safety gear that fails when you need it is worse than no safety gear at all, because it gives false confidence.</p><p>Beyond the engine, hull, electrics and safety gear, the boat's ropes, fenders and anchor need checking too. Ropes chafe and weaken, fenders crack and lose air, and an anchor with a damaged chain or a bent fluke will not hold when you need it. They are cheap items, but a failed rope or a dragging anchor can cause a serious problem — log them alongside the bigger jobs.</p><h2>The seasonal routine</h2><p>At the start of the season, work through the whole list: engine service, impeller, hull check, electrics, safety gear, and a check of ropes, fenders and the anchor. A boat that has sat all winter needs more than a quick look — seals dry out, batteries drain, and things that were fine in autumn may not be fine in spring.</p><p>During the season, check the engine and safety gear regularly and log anything you do. Small jobs done often — checking the oil, looking at the bilge, testing the bilge pump — catch problems while they are small. A five-minute check after every trip is worth more than a full day of repairs after a failure.</p><p>At the end of the season, winterise properly: drain the water systems, protect the engine, cover the boat, and log everything you did so the spring routine starts from a known state. The tracker keeps the winterising jobs in the same list as the rest, so nothing is forgotten between seasons.</p><p>Keep a note of the hours the engine has run, not just the dates. Most makers set service intervals by hours as well as by time, and a boat used every weekend reaches the hour limit long before the date limit. A simple hour-meter reading at each service makes the next due date far more accurate than a calendar alone.</p><h2>A worked example: a year of maintenance</h2><p>Imagine a small motorboat. In March the owner logs an engine oil change, last done in October, next due in September. In April the impeller is changed, last done last April, next due next April. In May the lifejackets are checked and one is replaced, and the flares are checked — they expire in August, so a reminder is logged for July.</p><p>By July the tracker shows the flares due soon, and the owner buys new ones before the August expiry. In September the oil change comes due and is done on time. In October the boat is winterised, and the winterising jobs are logged with next-due dates in March. Nothing was forgotten, because every job was on the list with a date.</p><p>The same year without a tracker often goes differently: the impeller is forgotten until the engine overheats, the flares expire unnoticed, and the oil change slips by two months. The tracker does not do the work — but it makes sure the work is remembered.</p><h2>Common mistakes that cost boat owners</h2><p>The first mistake is forgetting the impeller. It is small, cheap and hidden inside the engine, and it wears out on a schedule that has nothing to do with how the engine sounds. An impeller that fails at sea can overheat the engine before you notice. Log it, date it, and change it on schedule.</p><p>The second mistake is no record of the last service. Without a record, every job is a guess: was the oil changed last year or the year before? Was the hull antifouled in spring or autumn? The tracker exists to answer those questions, but only if you log the dates when the work is done — not months later from memory.</p><p>The third mistake is ignoring safety gear until it is needed. Lifejackets, flares and fire extinguishers sit unused for years, and their expiry dates pass quietly. Check them on the same schedule as the engine, log the expiry dates, and replace anything that is out of date before the season starts.</p><h2>Keeping the service history useful</h2><p>A service history is only useful if it is complete and honest. Log every job when it is done, with the real date, and note anything unusual — a part that was worn, a leak that was found, a noise that was new. The notes are what turn a list of dates into a record a mechanic can use.</p><p>Keep the history when you sell the boat. A buyer who can see a full service history — oil changes, impeller changes, hull work, safety checks, all dated — trusts the boat more than one with no records at all. The copy button makes a plain-text history you can hand over with the boat.</p><p>Review the history once a year. Look for jobs that keep coming due early, parts that keep wearing out, and costs that keep rising. A pattern in the history — the same repair twice in a year — is a warning that something deeper needs attention, and catching it early is cheaper than fixing it late.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>What maintenance does a boat need?</h3><p>Engine services, impeller changes, hull checks and antifouling, electrical checks, and safety-gear checks — lifejackets, flares, fire extinguishers and the bilge pump. The maker&#x27;s manual for your engine lists the exact schedule for your boat.</p></div><div class="faq"><h3>How often should I service the engine?</h3><p>Follow the engine manual — most makers give a schedule by hours run or by time, whichever comes first. Log the dates in this tracker so the next service is never a guess.</p></div><div class="faq"><h3>What is an impeller?</h3><p>A small rubber part inside the engine&#x27;s water pump that moves cooling water through the engine. It wears out silently, and a failed impeller can overheat an engine in minutes. It is the most-forgotten item on a boat.</p></div><div class="faq"><h3>How do I set a reminder?</h3><p>Add the job with its next due date, and the tracker flags it as due soon when it falls within 30 days and overdue when the date passes. Check the tracker before each trip to see what needs attention.</p></div><div class="faq"><h3>Is my data uploaded anywhere?</h3><p>No. Your jobs are saved only in this browser using local storage. Nothing is uploaded, synced or shared, and clearing your browser data will remove them — so copy the history if you want a lasting record.</p></div><div class="faq"><h3>Can I track more than one boat?</h3><p>Yes — include the boat&#x27;s name in each job name, such as Seagull engine oil change, and the list keeps them apart. The tracker does not separate boats into groups, so clear names are the way to tell them apart.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/fishing-trip-logbook.html">Fishing Trip Logbook</a> · <a href="https://toolbari.github.io/tools/pet-grooming-cost-calculator.html">Pet Grooming Cost Calculator</a> · <a href="https://toolbari.github.io/tools/exhibition-booth-cost-calculator.html">Exhibition Booth Cost Calculator</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+
+window.TB = window.TB || {};
+(function () {
+  var api = window.TB;
+  var KEY = "tb-watercraft-maintenance";
+  function daysBetween(aISO, bISO) {
+    var a = new Date(aISO + "T00:00:00");
+    var b = new Date(bISO + "T00:00:00");
+    return Math.round((b - a) / 86400000);
+  }
+  function jobStatus(job, todayISO) {
+    var d = daysBetween(todayISO, job.due);
+    if (d < 0) return "overdue";
+    if (d <= 30) return "due-soon";
+    return "ok";
+  }
+  function sortedJobs(jobs) {
+    return jobs.slice().sort(function (a, b) { return a.due < b.due ? -1 : 1; });
+  }
+  function jobSummary(jobs) {
+    var lines = ["Watercraft maintenance — service history:"];
+    sortedJobs(jobs).forEach(function (j) {
+      lines.push("- " + j.name + " (" + j.category + "): last done " + (j.last || "not recorded") + ", next due " + j.due + ".");
+    });
+    return lines.join("\n");
+  }
+  api.jobStatus = jobStatus;
+  api.sortedJobs = sortedJobs;
+  api.jobSummary = jobSummary;
+  function el(id) { return document.getElementById(id); }
+  var jobs = [];
+  var currentText = "";
+  function todayISO() { return new Date().toISOString().slice(0, 10); }
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(jobs)); } catch (e) {}
+  }
+  function restore() {
+    var raw = null;
+    try { raw = localStorage.getItem(KEY); } catch (e) {}
+    if (!raw) return;
+    try { jobs = JSON.parse(raw) || []; } catch (e) { jobs = []; }
+  }
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function render() {
+    var today = todayISO();
+    if (!jobs.length) {
+      el("out").textContent = "No maintenance jobs yet. Add your first job above.";
+      el("steps").textContent = "";
+      el("job-list").innerHTML = "";
+      currentText = "";
+      return;
+    }
+    var overdue = jobs.filter(function (j) { return jobStatus(j, today) === "overdue"; });
+    var soon = jobs.filter(function (j) { return jobStatus(j, today) === "due-soon"; });
+    var msg = jobs.length + " job(s) tracked.";
+    if (overdue.length) msg += " " + overdue.length + " overdue: " + overdue.map(function (j) { return j.name; }).join(", ") + ".";
+    if (soon.length) msg += " " + soon.length + " due within 30 days: " + soon.map(function (j) { return j.name; }).join(", ") + ".";
+    if (!overdue.length && !soon.length) msg += " Nothing is overdue or due within 30 days.";
+    el("out").textContent = msg;
+    el("steps").textContent = "Jobs are listed by next due date, soonest first. Mark a job done by deleting it and adding it again with the new dates, or edit the dates when the work is finished.";
+    var html = "";
+    sortedJobs(jobs).forEach(function (j) {
+      var gi = jobs.indexOf(j);
+      var st = jobStatus(j, today);
+      var chip = st === "overdue" ? "<span class=\"chip bad\">Overdue</span>" : st === "due-soon" ? "<span class=\"chip warnchip\">Due soon</span>" : "<span class=\"chip\">On track</span>";
+      html += "<div class=\"row\"><div class=\"grow\"><strong>" + esc(j.name) + "</strong><br>" + esc(j.category) + " · Last done: " + esc(j.last || "not recorded") + " · Next due: " + esc(j.due) + "<br>" + chip + "</div><button type=\"button\" class=\"danger\" data-del=\"" + gi + "\">Delete</button></div>";
+    });
+    el("job-list").innerHTML = html;
+    var btns = el("job-list").querySelectorAll("[data-del]");
+    btns.forEach(function (b) {
+      b.addEventListener("click", function () {
+        jobs.splice(parseInt(b.getAttribute("data-del"), 10), 1);
+        save();
+        render();
+      });
+    });
+    currentText = jobSummary(jobs);
+  }
+  el("calc-btn").addEventListener("click", function () {
+    el("form-err").textContent = "";
+    var name = el("job-name").value.trim();
+    var due = el("job-due").value;
+    if (!name) { el("form-err").textContent = "Give the job a name first."; return; }
+    if (!due) { el("form-err").textContent = "Pick a next due date for the job."; return; }
+    jobs.push({name: name, category: el("job-cat").value, last: el("job-last").value, due: due});
+    el("job-name").value = "";
+    el("job-last").value = "";
+    el("job-due").value = "";
+    save();
+    render();
+  });
+  el("clear-btn").addEventListener("click", function () {
+    jobs = [];
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    render();
+  });
+  el("copy-btn").addEventListener("click", function () {
+    if (!currentText) { el("form-err").textContent = "Add a job first, then copy the history."; return; }
+    copyText(currentText, el("copy-btn"));
+  });
+
+  function copyText(text, btn) {
+    function done() {
+      var old = btn.textContent;
+      btn.textContent = "Copied!";
+      setTimeout(function () { btn.textContent = old; }, 2000);
+    }
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(ta);
+      done();
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else {
+      fallback();
+    }
+  }
+
+  restore();
+  render();
+})();
+
+</script>
+</body>
+</html>

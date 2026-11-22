@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bookmark Organization Dashboard — Organize Your Saved Links Free | ToolBari</title>
+<meta name="description" content="Organize your bookmarks free — save links, tag them, search them, and find any page in seconds. Stored only on your device.">
+<link rel="canonical" href="https://toolbari.github.io/tools/bookmark-organization-dashboard.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bookmark Organization Dashboard — Organize Your Saved Links Free">
+<meta property="og:description" content="Organize your bookmarks free — save links, tag them, search them, and find any page in seconds. Stored only on your device.">
+<meta property="og:url" content="https://toolbari.github.io/tools/bookmark-organization-dashboard.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is my data uploaded anywhere?", "acceptedAnswer": {"@type": "Answer", "text": "No. Your bookmarks stay in this browser only, on your own device, and this page does not connect to any server. If you clear your browser data, your bookmarks will be removed, so use the copy button to keep a backup."}}, {"@type": "Question", "name": "Can this read my browser bookmarks?", "acceptedAnswer": {"@type": "Answer", "text": "No — and no web page can. Browsers keep your bookmarks private, so this dashboard can only work with the links you add here yourself. Adding them by hand is also a good chance to throw away the ones you no longer need."}}, {"@type": "Question", "name": "How many bookmarks can I save?", "acceptedAnswer": {"@type": "Answer", "text": "There is no fixed limit on this page — your browser's storage is the only constraint, and for ordinary bookmark lists you will not reach it. A few hundred links is comfortable; if your list grows into the thousands, consider splitting it by topic."}}, {"@type": "Question", "name": "How do I find a link fast?", "acceptedAnswer": {"@type": "Answer", "text": "Type a distinctive word into the search box, or tap a tag to see only the links with that tag. Good titles help most of all: a title in your own words, saying what the page is for, is the easiest thing to search for later."}}, {"@type": "Question", "name": "What is a good tagging system?", "acceptedAnswer": {"@type": "Answer", "text": "A small one you actually use: a handful of short, lowercase tags covering your real topics, applied every time you save. Add a new tag only when several links clearly belong to it, and merge tags that mean the same thing."}}, {"@type": "Question", "name": "Will my bookmarks survive if I clear my browser data?", "acceptedAnswer": {"@type": "Answer", "text": "No. Clearing your browser data removes everything stored in this browser, including your bookmarks here. Copy your list with the copy button and paste it into a note or document you keep, as a backup."}}]}</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>
+.calc button{min-height:72px;padding:14px 22px;font-size:17px;font-weight:700;background:#0b7a4b;color:#fff;border:none;border-radius:999px;cursor:pointer;width:100%;margin-top:12px}
+.calc button.secondary{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+.calc button.small{width:auto}
+.calc input,.calc select,.calc textarea{min-height:72px}
+.calc textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;font-family:inherit}
+.calc .btnrow{display:flex;gap:10px;flex-wrap:wrap}
+.calc .btnrow button{flex:1 1 140px}
+.calc table{width:100%;border-collapse:collapse;font-size:15px;margin-top:10px}
+.calc th,.calc td{border:1px solid #e2e8f0;padding:8px;text-align:left;word-break:break-word}
+.calc .item{border:1px solid #e2e8f0;border-radius:8px;padding:12px;margin:8px 0;background:#fff;word-break:break-word}
+.calc .muted{font-size:14px;color:#64748b}
+.calc pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:12px;font-size:14px;margin-top:10px}
+.calc .bar-row{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:14px}
+.calc .bar-label{flex:0 0 110px;word-break:break-word}
+.calc .bar-track{flex:1;background:#e2e8f0;border-radius:6px;height:22px;overflow:hidden}
+.calc .bar-fill{height:22px;background:#0b7a4b;border-radius:6px}
+.calc .bar-val{flex:0 0 70px;text-align:right}
+.calc canvas{width:100%;border:1px solid #e2e8f0;border-radius:8px;background:#fff;display:block}
+.calc .tagbtn{display:inline-block;min-height:72px;padding:12px 16px;margin:4px 4px 4px 0;font-size:15px;font-weight:600;background:#fff;color:#0b7a4b;border:2px solid #0b7a4b;border-radius:999px;cursor:pointer;width:auto}
+.calc .tagbtn.on{background:#0b7a4b;color:#fff}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Bookmark Organization Dashboard</h1>
+<p class="answer">A bookmark you cannot find is a bookmark you have lost. This dashboard keeps your saved links in one searchable, tag-filterable list, so any page is seconds away. Save a link with a title and a few tags, and find it later by searching or by tapping a tag.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<p class="muted">Save links with titles and tags. Everything stays in this browser only — this page does not sync and does not read your browser's bookmarks.</p>
+<label for="bm-title">Link title</label>
+<input id="bm-title" type="text" placeholder="e.g. How to prune roses">
+<label for="bm-url">Link address (URL)</label>
+<input id="bm-url" type="text" inputmode="url" placeholder="e.g. example.com/roses">
+<label for="bm-tags">Tags (separate with commas)</label>
+<input id="bm-tags" type="text" placeholder="e.g. garden, how-to">
+<button id="bm-add" type="button">Save bookmark</button>
+<label for="bm-search">Search your bookmarks</label>
+<input id="bm-search" type="text" placeholder="Type to search titles, links and tags">
+<div id="bm-tagrow" style="margin-top:10px"></div>
+<div id="bm-list" class="muted" style="margin-top:12px">No bookmarks saved yet. Add your first link above.</div>
+<div class="btnrow"><button id="bm-copy" type="button" class="secondary">Copy my list</button><button id="bm-clear" type="button" class="secondary">Clear all bookmarks</button></div>
+</div>
+<h2>How to use the dashboard</h2>
+<p>Saving a bookmark takes seconds. Type a title that will mean something to you later — not the page's own headline, but what the page is for you — paste the link address, and add one or two tags. Tap save, and the link joins your list. The dashboard keeps your links in the order you saved them, newest last, so the list reads like a diary of what you have been finding.</p>
+<p>Finding a link is just as quick. Type any word into the search box and the list narrows to links whose title, address or tags contain it. Or tap a tag to see only the links with that tag. Tap the tag again to clear the filter. There is nothing to install, no account to create, and no sync to set up — the dashboard is a single page that works in your browser.</p>
+<p>Everything stays in this browser only, on this device. This page does not sync your links to another device, it does not back them up anywhere, and it cannot read the bookmarks already saved in your browser — browsers do not let web pages see your bookmarks, and that is a good thing. If you want your list somewhere else, use the copy button to copy it as plain text.</p>
+<h2>A tagging system that actually works</h2>
+<p>The secret to tagging is fewer tags, used every time. A system with six tags you always use beats a system with sixty tags you use once and forget. Start with the handful of topics your links actually fall into — work, garden, cooking, reading, travel, to-buy — and add a new tag only when several links clearly belong to it.</p>
+<p>Tag by what you will search for later, not by what the page is about in the abstract. A page about pruning roses could be tagged "garden" — but if you will look for it when you are planning spring jobs, "spring-jobs" is the tag that will find it. Think about the future version of yourself, standing in the garden with secateurs in hand, and tag for that person.</p>
+<p>Keep tag names short, lowercase, and single words where you can. Two tags that mean the same thing — "recipe" and "recipes", "diy" and "do-it-yourself" — will split your links into two piles that never meet. Pick one spelling and stick to it. The dashboard lowercases your tags automatically, which removes one source of duplicates, but the choice of words is still yours.</p>
+<p>Review your tags now and then. If a tag has one link in it after six months, it is not a tag — it is a label on a single page, and it is not helping you find anything. Either merge it into a broader tag or delete it. A tagging system is a living thing, and a small tidy-up twice a year keeps it honest.</p>
+<h2>Finding a link in seconds</h2>
+<p>Search is the fastest route when you remember a word from the page. The search box looks through titles, addresses and tags at the same time, so a word you remember from any of them will find the link. Search for the most distinctive word you remember — a plant name, a tool name, a place — rather than a common word like "how" that appears everywhere.</p>
+<p>Tags are the fastest route when you remember the topic but not the words. Tap "garden" and every garden link appears, ready to scan. This is why tagging at save time matters: a link saved with no tags can only be found by search, and search needs you to remember a word from it.</p>
+<p>Titles matter more than either. A title like "How to prune roses — spring" will be found by searching "roses", "prune" or "spring", while a title like "Interesting article" will be found by nothing. When you save a link, spend five seconds on the title. Those five seconds save you five minutes later.</p>
+<h2>Cleaning up dead links</h2>
+<p>Links die. Pages move, sites close, and addresses change, and a bookmark list slowly fills with links that lead nowhere. A dead link is not just useless — it wastes your time every time you tap it, and it clutters the list around the links that still work.</p>
+<p>The honest way to clean up is to open your links now and then and delete the dead ones. There is no shortcut: only opening a link tells you whether it still works. Do a few at a time — five links while waiting for a kettle to boil — rather than trying to check the whole list in one sitting, which nobody finishes.</p>
+<p>When you find a dead link, ask whether the page moved before you delete it. Sometimes a site has reorganised and the same page lives at a new address; searching the site for the title will find it, and you can update the bookmark instead of losing it. But if the page is truly gone, delete the bookmark. A list you trust is worth more than a list that is long.</p>
+<p>Prevention helps too. When you save a link, the title you write is a record of what the page was — so even if the link dies, the title tells you what you lost, and you can search for it again. A bookmark with a good title is a note as well as a link.</p>
+<h2>Saving links well</h2>
+<p>The moment of saving is the moment that decides whether a link will ever be found again. Save it with a title in your own words, one or two tags, and — if the page matters — a note to yourself in the title about why you saved it. "Rose pruning — do in March" is a bookmark; "article" is a mystery.</p>
+<p>Save sparingly. A list of twenty links you actually return to is more useful than a list of two hundred you never open. Before you save a link, ask whether you will genuinely want it again. If the answer is "maybe, one day", the honest answer is usually no — and the web will still be there if the day comes.</p>
+<p>Save the right address. Some pages have a short, stable address and a long one full of tracking codes; the short one is the one to save, because it is the one that will still work in a year. If the address bar shows a long string of characters after a question mark, try trimming it back to the page itself before you save.</p>
+<h2>What this dashboard cannot do</h2>
+<p>This dashboard is a simple list in your browser, and it is honest about that. It cannot read the bookmarks already saved in your browser — no web page can, because browsers keep your bookmarks private. If you want those links here, you will need to add them by hand, one at a time, which is also a good chance to throw away the ones you no longer need.</p>
+<p>It cannot sync between your phone and your computer. A bookmark saved on your phone stays on your phone, and one saved on your computer stays on your computer. That is the price of a tool with no account and no server — and for many people it is a fair price, because there is nothing to sign up for, nothing to pay, and nothing that can leak.</p>
+<p>It cannot check whether your links still work. Only opening a link tells you that, and this page will not open links on your behalf. It cannot back your list up either — the copy button is your backup, and it is worth using now and then, pasting the list into a note or a document you keep.</p>
+<h2>Common mistakes</h2>
+<p>The most common mistake is twenty tags for ten links. Tags only work when several links share them; a tag used once is not organising anything. Start with a handful of tags, and add a new one only when a real pile of links needs it.</p>
+<p>The second is saving a link and never tagging it. An untagged link can only be found by search, and search needs you to remember a word from the title or address. Take the two seconds to add a tag when you save — it is the cheapest insurance a bookmark can have.</p>
+<p>The third is trusting the page's own title. Web pages have titles written to attract clicks, not to help you find them later. "You won't believe what happened next" is a terrible bookmark title. Write your own, in your own words, saying what the page is for.</p>
+<p>The fourth is never deleting anything. A bookmark list grows by itself and shrinks only when you prune it. Delete links you no longer need, links that are dead, and links you saved "just in case" and never opened. A short list you trust beats a long list you dread opening.</p>
+<p>The fifth is treating bookmarks as a reading list. A link saved to read later is rarely read later — it joins a pile that grows faster than anyone can read it. If you want to read something, read it now, or save it with a tag like "read-this-week" and a deadline you actually keep.</p>
+<div class="warn">This dashboard stores your links only in this browser, on this device. It does not sync, it does not back up, and it cannot read the bookmarks already saved in your browser. If you clear your browser data, your saved links go with it — use the copy button to keep a backup of your list.</div>
+<h2>Questions people ask</h2>
+<div class="faq">
+<h3>Is my data uploaded anywhere?</h3>
+<p>No. Your bookmarks stay in this browser only, on your own device, and this page does not connect to any server. If you clear your browser data, your bookmarks will be removed, so use the copy button to keep a backup.</p>
+</div>
+<div class="faq">
+<h3>Can this read my browser bookmarks?</h3>
+<p>No — and no web page can. Browsers keep your bookmarks private, so this dashboard can only work with the links you add here yourself. Adding them by hand is also a good chance to throw away the ones you no longer need.</p>
+</div>
+<div class="faq">
+<h3>How many bookmarks can I save?</h3>
+<p>There is no fixed limit on this page — your browser&#x27;s storage is the only constraint, and for ordinary bookmark lists you will not reach it. A few hundred links is comfortable; if your list grows into the thousands, consider splitting it by topic.</p>
+</div>
+<div class="faq">
+<h3>How do I find a link fast?</h3>
+<p>Type a distinctive word into the search box, or tap a tag to see only the links with that tag. Good titles help most of all: a title in your own words, saying what the page is for, is the easiest thing to search for later.</p>
+</div>
+<div class="faq">
+<h3>What is a good tagging system?</h3>
+<p>A small one you actually use: a handful of short, lowercase tags covering your real topics, applied every time you save. Add a new tag only when several links clearly belong to it, and merge tags that mean the same thing.</p>
+</div>
+<div class="faq">
+<h3>Will my bookmarks survive if I clear my browser data?</h3>
+<p>No. Clearing your browser data removes everything stored in this browser, including your bookmarks here. Copy your list with the copy button and paste it into a note or document you keep, as a backup.</p>
+</div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/personal-wiki-builder.html">Personal Wiki Builder</a> · <a href="https://toolbari.github.io/tools/knowledge-graph-visualizer.html">Knowledge Graph Visualizer</a> · <a href="https://toolbari.github.io/tools/idea-capture-organization-tool.html">Idea Capture &amp; Organization Tool</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+
+function tbCopy(text, btn){
+  function done(){ if(btn){ var o=btn.textContent; btn.textContent='Copied!'; setTimeout(function(){ btn.textContent=o; }, 2000); } }
+  function fallback(){
+    var ta=document.createElement('textarea');
+    ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta); done();
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(); });
+  } else { fallback(); }
+}
+function tbEsc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function tbFmt(n){ return Number(n).toLocaleString('en-US', {maximumFractionDigits: 2}); }
+
+
+window.TB = window.TB || {};
+(function(){
+  var KEY = 'tb-bookmarks-v1';
+  TB.normUrl = function(u){
+    var s = String(u || '').trim();
+    if(!s) return '';
+    if(/^[a-z][a-z0-9+.-]*:\/\//i.test(s)) return s;
+    return 'https://' + s;
+  };
+  TB.bookmarkTags = function(list){
+    var seen = {};
+    list.forEach(function(b){ (b.tags || []).forEach(function(t){ seen[t] = true; }); });
+    return Object.keys(seen).sort();
+  };
+  TB.bookmarkFilter = function(list, query, tag){
+    var q = (query || '').trim().toLowerCase();
+    return list.filter(function(b){
+      if(tag && (b.tags || []).indexOf(tag) < 0) return false;
+      if(!q) return true;
+      var hay = ((b.title || '') + ' ' + (b.url || '') + ' ' + (b.tags || []).join(' ')).toLowerCase();
+      return hay.indexOf(q) >= 0;
+    });
+  };
+  function load(){ try{ return JSON.parse(localStorage.getItem(KEY)) || []; }catch(e){ return []; } }
+  function save(l){ try{ localStorage.setItem(KEY, JSON.stringify(l)); }catch(e){} }
+  var marks = load();
+  var activeTag = '';
+  var titleEl = document.getElementById('bm-title');
+  var urlEl = document.getElementById('bm-url');
+  var tagsEl = document.getElementById('bm-tags');
+  var searchEl = document.getElementById('bm-search');
+  var tagRow = document.getElementById('bm-tagrow');
+  var listEl = document.getElementById('bm-list');
+  function render(){
+    var tags = TB.bookmarkTags(marks);
+    tagRow.innerHTML = '';
+    if(tags.length){
+      var all = document.createElement('button');
+      all.type = 'button'; all.className = 'tagbtn' + (activeTag === '' ? ' on' : ''); all.textContent = 'All';
+      all.addEventListener('click', function(){ activeTag = ''; render(); });
+      tagRow.appendChild(all);
+      tags.forEach(function(t){
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'tagbtn' + (activeTag === t ? ' on' : ''); b.textContent = t;
+        b.addEventListener('click', function(){ activeTag = (activeTag === t) ? '' : t; render(); });
+        tagRow.appendChild(b);
+      });
+    }
+    var shown = TB.bookmarkFilter(marks, searchEl.value, activeTag);
+    if(!marks.length){
+      listEl.textContent = 'No bookmarks saved yet. Add your first link above.';
+      return;
+    }
+    if(!shown.length){
+      listEl.textContent = 'No bookmarks match your search or tag. Try a different word, or clear the search.';
+      return;
+    }
+    listEl.innerHTML = '';
+    shown.forEach(function(b){
+      var wrap = document.createElement('div');
+      wrap.className = 'item';
+      var t = document.createElement('strong');
+      t.textContent = b.title;
+      wrap.appendChild(t);
+      wrap.appendChild(document.createElement('br'));
+      var u = document.createElement('span');
+      u.className = 'muted';
+      u.textContent = b.url + (b.tags.length ? ' — tags: ' + b.tags.join(', ') : '');
+      wrap.appendChild(u);
+      wrap.appendChild(document.createElement('br'));
+      var open = document.createElement('a');
+      open.textContent = 'Open link';
+      open.href = b.url;
+      open.target = '_blank';
+      open.rel = 'noopener';
+      open.style.cssText = 'display:inline-block;min-height:72px;line-height:72px;padding:0 16px;margin:8px 8px 0 0;font-weight:700;color:#0b7a4b';
+      wrap.appendChild(open);
+      var del = document.createElement('button');
+      del.type = 'button';
+      del.className = 'small secondary';
+      del.style.cssText = 'min-height:72px;padding:8px 16px;font-size:15px';
+      del.textContent = 'Delete';
+      del.addEventListener('click', function(){
+        marks = marks.filter(function(m){ return m !== b; });
+        save(marks); render();
+      });
+      wrap.appendChild(del);
+      listEl.appendChild(wrap);
+    });
+  }
+  document.getElementById('bm-add').addEventListener('click', function(){
+    var title = titleEl.value.trim();
+    var url = TB.normUrl(urlEl.value);
+    if(!title){ listEl.textContent = 'Please give the bookmark a title.'; return; }
+    if(!url){ listEl.textContent = 'Please enter the link address.'; return; }
+    var tags = tagsEl.value.split(',').map(function(s){ return s.trim().toLowerCase(); }).filter(Boolean);
+    marks.push({title: title, url: url, tags: tags, added: new Date().toISOString().slice(0,10)});
+    save(marks);
+    titleEl.value = ''; urlEl.value = ''; tagsEl.value = '';
+    render();
+  });
+  searchEl.addEventListener('input', render);
+  document.getElementById('bm-copy').addEventListener('click', function(){
+    var lines = marks.map(function(b){ return b.title + ' — ' + b.url + (b.tags.length ? ' [' + b.tags.join(', ') + ']' : ''); });
+    tbCopy(lines.length ? lines.join('\n') : 'No bookmarks saved yet.', document.getElementById('bm-copy'));
+  });
+  document.getElementById('bm-clear').addEventListener('click', function(){
+    marks = []; activeTag = ''; save(marks); render();
+  });
+  render();
+})();
+
+</script>
+</body>
+</html>
