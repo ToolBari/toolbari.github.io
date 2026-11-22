@@ -15,6 +15,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="dark" />
+<script>try{var _tbT=localStorage.getItem('tb_dark');if(_tbT==='0'){document.documentElement.setAttribute('data-tb-theme','light');}else{document.documentElement.removeAttribute('data-tb-theme');}var _m=document.querySelector('meta[name="color-scheme"]');if(_m){_m.setAttribute('content',_tbT==='0'?'light':'dark');}}catch(e){}</script>
 <meta name="description" content="ToolBari: 597 free online tools — video downloader, image to PDF, QR, calculators, CV & more. No sign-up." />
 <link rel="canonical" href="https://toolbari.github.io/" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -913,6 +914,156 @@ body.hub .m-menu{background:rgba(13,22,17,.94);border:1px solid var(--line);bord
 body.hub .btn:not(.warn),body.hub .btn:not(.warn):link{background:linear-gradient(180deg,var(--green2),var(--green))!important;color:#04150b!important;border-color:transparent!important}
 body.hub .btn:not(.warn):hover{background:var(--amber)!important;color:#04150b!important;border-color:var(--amber)!important}
 body.hub footer{background:transparent!important;border-top:1px solid var(--line-soft)}
+
+/* =====================================================================
+   LIGHT MODE (toggle) — appended 2026-11-22 (toggle restore)
+   Dark is the default: nothing below applies unless
+   <html data-tb-theme="light"> is set by the theme toggle.
+   These overrides restore the pre-theme light look (white panels, dark
+   text, the old brand green #0b7a4b). Dark mode is untouched.
+   ===================================================================== */
+
+/* --- light tokens (both variable sets) --- */
+html[data-tb-theme="light"]{
+  --bg:#f4f6f4; --bg2:#eef2ee; --panel:#ffffff; --panel2:#eef2ee;
+  --line:#dbe3dc; --line-soft:#e8eee9;
+  --text:#14231b; --muted:#4b5a51; --muted2:#6f7d74;
+  --green:#0b7a4b; --green2:#0e9f5c; --green-deep:#065c38; --amber:#ff9f2e;
+  --surface:#ffffff; --surface2:#eef2ee; --ink:#14231b; --ink2:#4b5a51;
+  --brand:#0b7a4b; --brand-d:#065c38; --accent:#ff9f2e; --accent-soft:#fdf3d7;
+  --danger:#c0392b; --shadow:0 2px 14px rgba(10,40,25,.08);
+  color-scheme:light;
+}
+html[data-tb-theme="light"] ::selection{background:#0b7a4b;color:#fff}
+
+/* --- background art: soften the dark glows on a light page --- */
+html[data-tb-theme="light"] .bg-art::before{
+  background:
+    radial-gradient(900px 600px at 88% -10%, rgba(47,227,138,.14), transparent 60%),
+    radial-gradient(700px 500px at 55% 45%, rgba(47,227,138,.08), transparent 65%),
+    radial-gradient(600px 500px at -10% 90%, rgba(47,227,138,.10), transparent 60%);
+}
+html[data-tb-theme="light"] .bg-line{opacity:.35}
+html[data-tb-theme="light"] .bg-dots{opacity:.25}
+
+/* --- nav --- */
+html[data-tb-theme="light"] .nav{background:rgba(255,255,255,.78);box-shadow:0 18px 40px rgba(10,40,25,.12)}
+html[data-tb-theme="light"] .nav-links a{color:#3d4f44}
+html[data-tb-theme="light"] .nav-links a:hover{color:#14231b}
+html[data-tb-theme="light"] .btn-ghost{background:rgba(20,35,27,.04);border-color:#dbe3dc;color:#14231b}
+html[data-tb-theme="light"] .btn-ghost:hover{background:rgba(20,35,27,.08)}
+html[data-tb-theme="light"] .menu-btn{background:rgba(20,35,27,.04);color:#14231b}
+html[data-tb-theme="light"] .mobile-menu{background:rgba(255,255,255,.96)}
+html[data-tb-theme="light"] .mobile-menu a{color:#14231b}
+html[data-tb-theme="light"] .mobile-menu a:hover{background:rgba(20,35,27,.05)}
+/* keep the bright green CTA readable: dark text on the bright gradient */
+html[data-tb-theme="light"] .btn-green{background:linear-gradient(180deg,#5cf2a6,#2fe38a);color:#04150b}
+
+/* --- theme toggle button (in the demo nav) --- */
+.tb-theme-toggle{
+  display:inline-flex;align-items:center;gap:8px;flex:none;
+  min-height:46px;padding:0 18px;border-radius:999px;
+  border:1px solid var(--line);background:rgba(255,255,255,.04);color:#eef4ef;
+  font-weight:600;font-size:14.5px;font-family:inherit;cursor:pointer;white-space:nowrap;
+}
+.tb-theme-toggle:hover{background:rgba(255,255,255,.08)}
+html[data-tb-theme="light"] .tb-theme-toggle{background:rgba(20,35,27,.05);color:#14231b;border-color:#dbe3dc}
+html[data-tb-theme="light"] .tb-theme-toggle:hover{background:rgba(20,35,27,.09)}
+@media(max-width:560px){
+  .tb-theme-toggle{padding:0 12px}
+  .tb-theme-toggle .tb-lbl{display:none}
+}
+
+/* --- hero / glass cards --- */
+html[data-tb-theme="light"] .glass-card{
+  background:linear-gradient(150deg, rgba(255,255,255,.92), rgba(238,242,238,.96));
+  border-color:rgba(11,122,75,.20);
+  box-shadow:0 30px 60px rgba(10,40,25,.10), inset 0 1px 0 rgba(255,255,255,.9);
+}
+html[data-tb-theme="light"] .glass-card .k{color:#0b7a4b}
+html[data-tb-theme="light"] .glass-card .sub{color:#4b5a51}
+html[data-tb-theme="light"] .live-card{background:rgba(255,255,255,.88);box-shadow:0 24px 50px rgba(10,40,25,.10)}
+html[data-tb-theme="light"] .live-card .k{color:#0b7a4b}
+html[data-tb-theme="light"] .chip{background:rgba(20,35,27,.05);color:#3d4f44}
+html[data-tb-theme="light"] .trust-names span{color:#4b5a51}
+html[data-tb-theme="light"] .plat{color:#3d4f44;background:rgba(20,35,27,.03)}
+
+/* --- tools grid --- */
+html[data-tb-theme="light"] .tool-card .tag{color:#0b7a4b}
+html[data-tb-theme="light"] .tool-card .explore{color:#14231b}
+html[data-tb-theme="light"] .tool-search input{background:#ffffff;color:#14231b}
+html[data-tb-theme="light"] .tool-card{background:linear-gradient(180deg, rgba(20,35,27,.02), rgba(20,35,27,0)), #ffffff}
+html[data-tb-theme="light"] .full-link{background:rgba(20,35,27,.02)}
+
+/* --- stats / work / process --- */
+html[data-tb-theme="light"] .stats-panel{background:linear-gradient(140deg, #e3f5e9, #f4f6f4 70%);border-color:rgba(11,122,75,.20)}
+html[data-tb-theme="light"] .stats-panel .k{color:#0b7a4b}
+html[data-tb-theme="light"] .stat .l{color:#4b5a51}
+html[data-tb-theme="light"] .work-vis .mock{background:rgba(255,255,255,.94);border-color:rgba(20,35,27,.12)}
+html[data-tb-theme="light"] .mock .bar{background:rgba(20,35,27,.14)}
+html[data-tb-theme="light"] .mock .cell{background:rgba(20,35,27,.06);border-color:rgba(20,35,27,.07)}
+html[data-tb-theme="light"] .vis-a{background:linear-gradient(140deg,#d9f2e3,#f4f6f4)}
+html[data-tb-theme="light"] .vis-b{background:linear-gradient(140deg,#fdf3d7,#f4f6f4)}
+html[data-tb-theme="light"] .vis-c{background:linear-gradient(140deg,#dbeeff,#f4f6f4)}
+html[data-tb-theme="light"] .step{background:rgba(20,35,27,.02)}
+
+/* --- footer --- */
+html[data-tb-theme="light"] .foot-links a{color:#3d4f44}
+
+/* --- shared content components (Type A) --- */
+html[data-tb-theme="light"] .answer,
+html[data-tb-theme="light"] .calc,
+html[data-tb-theme="light"] .faq{background:linear-gradient(160deg,#ffffff,#eef2ee)}
+html[data-tb-theme="light"] .calc input,
+html[data-tb-theme="light"] .calc select,
+html[data-tb-theme="light"] .calc textarea{background:#ffffff}
+html[data-tb-theme="light"] .calc button.secondary,
+html[data-tb-theme="light"] .clear-btn{background:rgba(20,35,27,.04)}
+html[data-tb-theme="light"] .note{color:#4b5a51}
+html[data-tb-theme="light"] code{background:rgba(11,122,75,.10);color:#0b7a4b}
+
+/* --- Type B doorway pages --- */
+html[data-tb-theme="light"] body.tbpage h1{
+  background:linear-gradient(140deg,#e3f5e9,#f4f6f4)!important;
+  border-color:rgba(11,122,75,.25)!important;
+  box-shadow:0 4px 18px rgba(10,40,25,.08)!important;
+}
+
+/* --- hub header/footer (theme part 2) --- */
+html[data-tb-theme="light"] body.hub .top-in{background:rgba(255,255,255,.78);box-shadow:0 18px 40px rgba(10,40,25,.12)}
+html[data-tb-theme="light"] body.hub .m-menu{background:rgba(255,255,255,.96)}
+html[data-tb-theme="light"] body.hub .btn:not(.warn),
+html[data-tb-theme="light"] body.hub .btn:not(.warn):link{background:linear-gradient(180deg,#5cf2a6,#2fe38a)!important;color:#04150b!important}
+
+/* TB footer contact links (fix pass 2026-11-22): inline links beside the
+   existing Share row (hub #footShare) / in the footer (samples). Brand
+   backgrounds kept, DARK text (#04150b) so they read in dark AND light
+   mode. No fixed positioning — never a floating bubble. */
+#footShare a.shwa.tb-contact, a.tb-contact.shwa{background:#25D366!important;color:#04150b!important;border-color:#25D366!important}
+#footShare a.shtg.tb-contact, a.tb-contact.shtg{background:#229ED9!important;color:#04150b!important;border-color:#229ED9!important}
+a.tb-contact{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 14px;border-radius:12px;text-decoration:none;font-weight:700;line-height:1.2}
+.tb-contact-line{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}
+.tb-contact-label{font-weight:700}
+
+/* TB LIGHT-MODE contrast repairs (fix pass 2026-11-22, audit tb_theme_contrast2):
+   elements the pre-theme light layer left unreadable in light mode.
+   Scoped under html[data-tb-theme="light"] — dark mode untouched.
+   Left as-is by design: logotype "Bari" orange (WCAG logotype-exempt),
+   white-on-brand SHARE buttons + "Join Telegram Group" (pre-existing). */
+html[data-tb-theme="light"] #gst-calc{color:#fff!important}
+html[data-tb-theme="light"] .tb-mobile-bar a:first-child{color:#fff!important}
+html[data-tb-theme="light"] a.tb-skip{background:#0b7a4b!important;color:#fff!important}
+html[data-tb-theme="light"] body.tbpage .site-nav-wrap .nav-links a{color:#14231b!important}
+html[data-tb-theme="light"] .site-foot .small,html[data-tb-theme="light"] .site-foot .small a{color:#55645b!important}
+html[data-tb-theme="light"] button.star:not(.on){color:#4b5a51!important}
+html[data-tb-theme="light"] a.backlink{color:#065c38!important}
+html[data-tb-theme="light"] .tb-spon-lab{color:#4d4d4d!important}
+html[data-tb-theme="light"] .foot-stats .chip b{color:#065c38!important}
+html[data-tb-theme="light"] .tb-spon-line a{color:#065c38!important}
+html[data-tb-theme="light"] .btn.warn{color:#04150b!important}
+
+html[data-tb-theme="light"] .tb-spon-view a{color:#065c38!important}
+html[data-tb-theme="light"] .hero-stats .chip b{color:#065c38!important}
 </style>
 <meta name="ba000294d405d36097dfef378bda10447a504a2e" content="ba000294d405d36097dfef378bda10447a504a2e" />
 
@@ -934,6 +1085,348 @@ body.hub footer{background:transparent!important;border-top:1px solid var(--line
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"ToolBari","url":"https://toolbari.github.io/","description":"ToolBari: 597 free online tools — video downloader, image to PDF, QR, calculators, CV and more. No sign-up.","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://toolbari.github.io/"},"about":"Free Online Tools","audience":{"@type":"Audience","audienceType":"General public"},"datePublished":"2026-10-27","dateModified":"2026-10-27"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Yes. Every tool on ToolBari is free to use, with no sign-up and no download."},"name":"Is ToolBari really free?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Open the Image to PDF tool, add your JPG or PNG photos, arrange them in order and download the combined PDF. See the step-by-step guide at https://toolbari.github.io/how-to-convert-image-to-pdf/"},"name":"How do I convert an image to a PDF?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Use the Image Compressor and lower the quality step by step until the file is under the form's size limit. A full guide is at https://toolbari.github.io/how-to-compress-an-image/"},"name":"How can I compress a photo so an application form accepts it?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Yes — the Word Counter counts words, characters, sentences and reading time as you type. See https://toolbari.github.io/word-counter/"},"name":"Does ToolBari have a word counter?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Yes. The QR Code Generator turns any link or text into a QR code you can download and print."},"name":"Can I make a QR code on ToolBari?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Yes. ToolBari runs in the browser on phones, tablets and computers — nothing to install, though you can add it to your home screen as an app."},"name":"Do the tools work on a phone?"}]}</script>
 
+<style>
+
+/* ToolBari LIGHT MODE layer (toggle restore 2026-11-22): the pre-theme
+   light look, re-scoped under html[data-tb-theme="light"]. Applies
+   ONLY in light mode; dark mode is untouched. Source: the pre-theme
+   backup hub style blocks 0+1, dark-only selectors dropped. */
+/* Critical layout: paints the page already styled, no broken flash on reload */
+html[data-tb-theme="light"] *{box-sizing:border-box}
+html[data-tb-theme="light"]{-webkit-text-size-adjust:100%}
+html[data-tb-theme="light"] body{margin:0;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:#f6f8f6;color:#14231b}
+html[data-tb-theme="light"] .wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+html[data-tb-theme="light"] header.top{position:sticky;top:0;z-index:50;background:#cfe8f5;border-bottom:1px solid #dbe3dc}
+html[data-tb-theme="light"] .hero{padding:26px 0 8px;text-align:center}
+html[data-tb-theme="light"] .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:600px){
+html[data-tb-theme="light"] .grid{grid-template-columns:repeat(2,1fr);gap:10px}
+html[data-tb-theme="light"] .wrap{padding:0 12px}
+}
+html[data-tb-theme="light"] .card{display:block;border:1px solid #dbe3dc;border-radius:16px;padding:16px 14px;background:#ffffff;min-height:118px}
+html[data-tb-theme="light"] #popularGrid{min-height:260px}
+html[data-tb-theme="light"] #catalog{min-height:600px}
+html[data-tb-theme="light"] .tb-small-slide{min-height:64px}
+html[data-tb-theme="light"] img{max-width:100%}
+html[data-tb-theme="light"] #tbPageLoading{display:none!important}
+html[data-tb-theme="light"].tb-pre #view-home{display:none!important}
+html[data-tb-theme="light"] .card .ic{border-radius:15px!important;background-image:linear-gradient(135deg,rgba(45,212,191,.35),rgba(34,211,238,.30) 45%,rgba(153,246,228,.35))!important;background-blend-mode:overlay;box-shadow:0 0 16px rgba(56,189,248,.5),inset 0 2px 3px rgba(255,255,255,.75),inset 0 -4px 7px rgba(0,0,0,.2)!important}
+html[data-tb-theme="light"] body{background:linear-gradient(135deg,#c7d2fe,#ddd6fe 30%,#fbcfe8 58%,#bbf7d0)!important;background-attachment:fixed}
+html[data-tb-theme="light"] header.top{background:rgba(255,255,255,.65)!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1.5px solid rgba(255,255,255,.85)!important;box-shadow:0 10px 26px rgba(99,102,241,.16)}
+html[data-tb-theme="light"] section.block, html[data-tb-theme="light"] .panel, html[data-tb-theme="light"] .notice-area, html[data-tb-theme="light"] .tb-how-site, html[data-tb-theme="light"] .tb-spon-view, html[data-tb-theme="light"] .m-menu{background:rgba(255,255,255,.62)!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1.5px solid rgba(255,255,255,.85)!important;box-shadow:0 22px 44px rgba(99,102,241,.2)}
+html[data-tb-theme="light"] footer{background:rgba(255,255,255,.6)!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1.5px solid rgba(255,255,255,.85)!important}
+html[data-tb-theme="light"] .card{border:1px solid rgba(255,255,255,.9)!important;border-radius:18px!important;box-shadow:0 20px 34px rgba(99,102,241,.26),0 6px 12px rgba(99,102,241,.14)!important}
+html[data-tb-theme="light"] .card:nth-child(9n+1){background:linear-gradient(150deg,#eefbf0,#dcf5e3)!important}
+html[data-tb-theme="light"] .card:nth-child(9n+2){background:linear-gradient(150deg,#eef6ff,#dbeeff)!important}
+html[data-tb-theme="light"] .card:nth-child(9n+3){background:linear-gradient(150deg,#f6f1ff,#e9e2ff)!important}
+html[data-tb-theme="light"] .card:nth-child(9n+4){background:linear-gradient(150deg,#fff7e8,#ffedd0)!important}
+html[data-tb-theme="light"] .card:nth-child(9n+5){background:linear-gradient(150deg,#fff1f6,#ffe0ec)!important}
+html[data-tb-theme="light"] .card:nth-child(9n+6){background:linear-gradient(150deg,#edfdfa,#d3f5ee)!important}
+html[data-tb-theme="light"] .card:nth-child(9n+7){background:linear-gradient(150deg,#fefce8,#fef3c3)!important}
+html[data-tb-theme="light"] .card:nth-child(9n+8){background:linear-gradient(150deg,#f0f9ff,#e0f2fe)!important}
+html[data-tb-theme="light"] .card:nth-child(9n+9){background:linear-gradient(150deg,#fdf4ff,#fae8ff)!important}
+html[data-tb-theme="light"] .card .ic{background:#ffffff!important;background-image:none!important;box-shadow:0 9px 16px rgba(15,23,42,.18),0 2px 5px rgba(15,23,42,.1)!important;border-radius:12px!important}
+html[data-tb-theme="light"] .chip{background:rgba(255,255,255,.7)!important;border:1px solid rgba(255,255,255,.9)!important;box-shadow:0 6px 14px rgba(99,102,241,.14)}
+html[data-tb-theme="light"] .chip.on{background:#0b0b0f!important;color:#ffffff!important;border-color:#0b0b0f!important}
+html[data-tb-theme="light"] .hero input{background:rgba(255,255,255,.9)!important;border:1px solid rgba(255,255,255,.95)!important;box-shadow:0 10px 22px rgba(99,102,241,.18)!important;border-radius:999px!important}
+/* ToolBari clean stylesheet 2026-10-28 — rebuilt from the current look, no stacked overrides.
+   Colours, cards, logo and layout are kept as they were: light background, dark text,
+   pastel cards, green + orange logo, wide desktop, full-width mobile. */
+html[data-tb-theme="light"]{
+  --bg:#f4f6f4; --surface:#ffffff; --surface2:#eef2ee; --ink:#14231b; --ink2:#4b5a51;
+  --line:#dbe3dc; --brand:#0b7a4b; --brand-d:#065c38; --accent:#ff9f2e; --accent-soft:#fdf3d7;
+  --danger:#c0392b; --radius:14px; --shadow:0 2px 14px rgba(10,40,25,.08);
+  color-scheme:light;
+}
+html[data-tb-theme="light"] *{box-sizing:border-box}
+html[data-tb-theme="light"]{scroll-behavior:smooth}
+html[data-tb-theme="light"] body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hind Siliguri",system-ui,sans-serif;font-size:16px;line-height:1.55}
+html[data-tb-theme="light"] h1, html[data-tb-theme="light"] h2, html[data-tb-theme="light"] h3{font-family:"Sora","Hind Siliguri",sans-serif;line-height:1.2;margin:0}
+html[data-tb-theme="light"] a{color:var(--brand)}
+html[data-tb-theme="light"] button{font-family:inherit;cursor:pointer}
+html[data-tb-theme="light"] input, html[data-tb-theme="light"] select, html[data-tb-theme="light"] textarea{font-family:inherit;font-size:16px;color:var(--ink)}
+html[data-tb-theme="light"] img{max-width:100%;height:auto}
+html[data-tb-theme="light"] .wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+/* header */
+html[data-tb-theme="light"] header.top{position:sticky;top:0;z-index:50;background:#cfe8f5;border-bottom:1px solid var(--line)}
+html[data-tb-theme="light"] .top-in{display:flex;align-items:center;gap:14px;padding:10px 0}
+html[data-tb-theme="light"] .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+html[data-tb-theme="light"] .logo-mark{width:38px;height:38px;border-radius:10px;background:#ff9f2e;display:grid;place-items:center;flex:none}
+html[data-tb-theme="light"] .logo-mark svg{width:22px;height:22px;fill:#fff}
+html[data-tb-theme="light"] .logo b{font-family:"Sora",sans-serif;font-size:19px;letter-spacing:-.2px}
+html[data-tb-theme="light"] .logo small{display:block;color:var(--ink2);font-size:12px;line-height:1.1}
+html[data-tb-theme="light"] .top nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+html[data-tb-theme="light"] .top nav a{color:var(--ink2);text-decoration:none;font-weight:600;font-size:14.5px;padding:7px 11px;border-radius:9px}
+html[data-tb-theme="light"] .top nav a:hover{background:var(--surface2);color:var(--ink)}
+html[data-tb-theme="light"] .menu-btn{display:none;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-size:19px;line-height:1;border-radius:10px;padding:8px 12px;cursor:pointer}
+html[data-tb-theme="light"] .m-menu{display:none;border-top:1px solid var(--line);background:var(--surface)}
+html[data-tb-theme="light"] .m-menu.open{display:block}
+html[data-tb-theme="light"] .m-menu .m-nav{display:flex;flex-wrap:wrap;gap:6px;padding:10px 0}
+html[data-tb-theme="light"] .m-menu .m-nav a{color:var(--ink);text-decoration:none;font-weight:600;padding:8px 10px;border-radius:9px}
+html[data-tb-theme="light"] .m-cats-t{font-weight:700;margin:8px 0 6px}
+html[data-tb-theme="light"] #mCatPills{display:flex;flex-wrap:wrap;gap:8px}
+html[data-tb-theme="light"] #mCatPills a{display:inline-block;background:#ffe9d6;color:#14231b;border:1px solid var(--line);padding:8px 12px;border-radius:999px;font-weight:700;text-decoration:none}
+html[data-tb-theme="light"] .tb-util{display:flex;gap:6px;flex-wrap:wrap;padding:6px 0 10px}
+html[data-tb-theme="light"] .tb-util button{background:var(--surface);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:6px 12px;font-weight:600}
+/* tickers + notice */
+html[data-tb-theme="light"] .ticker{display:flex;align-items:stretch;background:#ffffff;color:#14231b;font-size:13.5px;overflow:hidden;border-bottom:1px solid var(--line)}
+html[data-tb-theme="light"] .ticker2{border-top:1px solid var(--line)}
+html[data-tb-theme="light"] .tk-label{flex:none;padding:8px 12px;font-weight:700;display:flex;align-items:center;gap:6px}
+html[data-tb-theme="light"] .tk-view{overflow:hidden;flex:1}
+html[data-tb-theme="light"] .tk-track{display:flex;gap:24px;white-space:nowrap;padding:8px 0;animation:tkMove 40s linear infinite}
+@keyframes tkMove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+html[data-tb-theme="light"] .ticker:hover .tk-track{animation-play-state:paused}
+html[data-tb-theme="light"] .notice-area{background:#ffffff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:16px auto;max-width:1100px;box-shadow:var(--shadow)}
+html[data-tb-theme="light"] .tb-loading{display:none}
+/* home */
+html[data-tb-theme="light"] .view{display:none}
+html[data-tb-theme="light"] .view.active{display:block}
+html[data-tb-theme="light"] .hero{padding:34px 0 8px;text-align:center}
+html[data-tb-theme="light"] .hero h1{font-size:clamp(27px,5.4vw,44px);font-weight:800;letter-spacing:-.5px;color:var(--ink)}
+html[data-tb-theme="light"] .hero h1 .hl{color:var(--brand)}
+html[data-tb-theme="light"] .hero p{color:var(--ink2);max-width:640px;margin:12px auto 0;font-size:17px}
+html[data-tb-theme="light"] .searchbar{max-width:560px;margin:22px auto 0;position:relative}
+html[data-tb-theme="light"] .searchbar input{width:100%;padding:20px 18px 20px 48px;font-size:19px;border:2px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);outline:none;box-shadow:var(--shadow)}
+html[data-tb-theme="light"] .searchbar input:focus{border-color:var(--brand)}
+html[data-tb-theme="light"] .searchbar svg{position:absolute;left:17px;top:30px;transform:translateY(-50%);width:20px;height:20px;fill:var(--ink2)}
+html[data-tb-theme="light"] .tb-sug-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
+html[data-tb-theme="light"] button.tb-sug{background:var(--surface);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:8px 14px;font-weight:600}
+html[data-tb-theme="light"] .hero-stats{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+html[data-tb-theme="light"] .chip{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 13px;font-size:13.5px;color:var(--ink2);font-weight:600}
+html[data-tb-theme="light"] .chip b{color:var(--brand)}
+html[data-tb-theme="light"] .tb-how-site{background:#ffffff;border:1px solid var(--line);border-radius:14px;padding:16px;margin:16px 0}
+/* sections + cards — current pastel look */
+html[data-tb-theme="light"] section.block{padding:26px 0 4px}
+html[data-tb-theme="light"] .sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+html[data-tb-theme="light"] .sec-head h2{font-size:21px;font-weight:700;color:var(--ink)}
+html[data-tb-theme="light"] .sec-head span{color:var(--ink2);font-size:14px}
+html[data-tb-theme="light"] .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:12px}
+html[data-tb-theme="light"] .card{border:1px solid var(--line);border-radius:16px;padding:16px 14px;text-decoration:none;color:var(--ink);display:block;position:relative;box-shadow:0 4px 16px rgba(10,40,25,.08);transition:border-color .15s,transform .15s}
+html[data-tb-theme="light"] .card:hover{border-color:var(--brand);transform:translateY(-2px)}
+html[data-tb-theme="light"] .card:nth-child(5n+1){background:#ffe9d6}
+html[data-tb-theme="light"] .card:nth-child(5n+2){background:#d6e8d8}
+html[data-tb-theme="light"] .card:nth-child(5n+3){background:#d6e4f0}
+html[data-tb-theme="light"] .card:nth-child(5n+4){background:#ffe9b8}
+html[data-tb-theme="light"] .card:nth-child(5n+5){background:#ffd6d6}
+html[data-tb-theme="light"] .card .ic{width:44px;height:44px;border-radius:10px;background:#e6f2ea;display:grid;place-items:center;margin-bottom:10px}
+html[data-tb-theme="light"] .card .ic svg{width:23px;height:23px;fill:var(--brand)}
+html[data-tb-theme="light"] .card:nth-child(9n+1) .ic{background:#fee2e2}
+html[data-tb-theme="light"] .card:nth-child(9n+2) .ic{background:#e0f2fe}
+html[data-tb-theme="light"] .card:nth-child(9n+3) .ic{background:#ede9fe}
+html[data-tb-theme="light"] .card:nth-child(9n+4) .ic{background:#d1fae5}
+html[data-tb-theme="light"] .card:nth-child(9n+5) .ic{background:#fef3c7}
+html[data-tb-theme="light"] .card:nth-child(9n+6) .ic{background:#e2e8f0}
+html[data-tb-theme="light"] .card:nth-child(9n+7) .ic{background:#fce7f3}
+html[data-tb-theme="light"] .card:nth-child(9n+8) .ic{background:#cffafe}
+html[data-tb-theme="light"] .card:nth-child(9n+9) .ic{background:#ecfccb}
+html[data-tb-theme="light"] .card h3{font-size:15.5px;font-weight:700;color:var(--ink)}
+html[data-tb-theme="light"] .card p{margin:3px 0 0;color:var(--ink2);font-size:13px;line-height:1.4}
+html[data-tb-theme="light"] .card .star{position:absolute;top:8px;right:8px;background:none;border:none;font-size:19px;line-height:1;color:#b9c6bc;padding:5px}
+html[data-tb-theme="light"] .card .star.on{color:#ff9f2e}
+html[data-tb-theme="light"] .tb-new-badge{background:#dc2626;color:#fff;font-size:12px;font-weight:800;padding:3px 8px;border-radius:999px;margin-left:8px;vertical-align:middle}
+html[data-tb-theme="light"] .empty-note{color:var(--ink2);background:var(--surface);border:1px dashed var(--line);border-radius:var(--radius);padding:16px;text-align:center}
+html[data-tb-theme="light"] #tbCatBar{display:none}
+html[data-tb-theme="light"] .tb-trend-row{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 12px}
+html[data-tb-theme="light"] .tb-trend-card{min-width:220px;background:#ffffff;border:1px solid var(--line);border-radius:16px;padding:16px;text-decoration:none;color:var(--ink);box-shadow:0 4px 14px rgba(0,0,0,.08);display:flex;flex-direction:column;gap:8px}
+html[data-tb-theme="light"] .tb-trend-card b{color:var(--ink)}
+html[data-tb-theme="light"] .tb-trend-card span{color:#0f766e;font-weight:700}
+html[data-tb-theme="light"] .tb-recent-link{display:inline-block;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin:4px;text-decoration:none;color:var(--ink)}
+html[data-tb-theme="light"] .tb-small-slide{margin:10px 0 2px;overflow:hidden}
+html[data-tb-theme="light"] .tb-small-slide .tb-slide{display:none;align-items:center;gap:10px;height:56px;padding:0 14px;border-radius:16px;background:#ffffff;text-decoration:none;color:var(--ink)}
+html[data-tb-theme="light"] .tb-small-slide .tb-slide.on{display:flex}
+html[data-tb-theme="light"] .tb-small-slide .tb-slide b{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html[data-tb-theme="light"] .tb-small-slide .tb-slide span{margin-left:auto;font-size:13px;color:#0b5aa0;white-space:nowrap;font-weight:700}
+html[data-tb-theme="light"] .tb-small-slide .tb-dots{display:flex;gap:6px;justify-content:center;margin-top:6px}
+html[data-tb-theme="light"] .tb-small-slide .tb-dots button{width:8px;height:8px;border-radius:50%;border:0;background:#c8d4c9;padding:0;cursor:pointer}
+html[data-tb-theme="light"] .tb-small-slide .tb-dots button.on{background:#0a7a42}
+html[data-tb-theme="light"] .tb-live-sug{margin-top:10px;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;box-shadow:0 8px 22px rgba(0,0,0,.12);overflow:hidden;text-align:left}
+html[data-tb-theme="light"] .tb-live-sug button{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:12px 16px;font-size:16px;font-weight:600;cursor:pointer;color:var(--ink)}
+html[data-tb-theme="light"] .tb-spon-lab{font-size:11px;letter-spacing:1px;color:#666;text-transform:uppercase;font-weight:700}
+html[data-tb-theme="light"] .tb-spon-view{border:2px dashed #0f766e;border-radius:12px;padding:12px 14px;margin-top:14px;background:#f0fdfa}
+html[data-tb-theme="light"] .tb-spon-card{border:2px dashed #0f766e;background:#f0fdfa}
+/* tool views — base styles only */
+html[data-tb-theme="light"] .tool-head{padding:26px 0 6px}
+html[data-tb-theme="light"] .tool-head h1{font-size:clamp(23px,4.6vw,32px);font-weight:800;color:var(--ink)}
+html[data-tb-theme="light"] .tool-head p{color:var(--ink2);margin:8px 0 0;max-width:700px}
+html[data-tb-theme="light"] .backlink{display:inline-flex;align-items:center;gap:6px;color:var(--brand);text-decoration:none;font-weight:600;font-size:14.5px;margin-bottom:12px}
+html[data-tb-theme="light"] .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin:18px 0 30px}
+html[data-tb-theme="light"] .field{margin-bottom:14px}
+html[data-tb-theme="light"] .field label{display:block;font-weight:600;font-size:14.5px;margin-bottom:6px}
+html[data-tb-theme="light"] .field label small{color:var(--ink2);font-weight:400}
+html[data-tb-theme="light"] .in, html[data-tb-theme="light"] textarea.in, html[data-tb-theme="light"] select.in{width:100%;padding:12px 13px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);outline:none}
+html[data-tb-theme="light"] .in:focus{border-color:var(--brand)}
+html[data-tb-theme="light"] textarea.in{min-height:110px;resize:vertical}
+html[data-tb-theme="light"] .row{display:flex;gap:12px;flex-wrap:wrap}
+html[data-tb-theme="light"] .row>.field{flex:1;min-width:150px}
+html[data-tb-theme="light"] .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--brand);color:#fff;border:none;border-radius:10px;padding:12px 22px;font-size:16px;font-weight:700;text-decoration:none}
+html[data-tb-theme="light"] .btn:hover{background:var(--brand-d)}
+html[data-tb-theme="light"] .btn.alt{background:var(--surface2);color:var(--ink);border:1.5px solid var(--line)}
+html[data-tb-theme="light"] .btn.alt:hover{border-color:var(--brand)}
+html[data-tb-theme="light"] .btn.warn{background:var(--accent);color:#231a00}
+html[data-tb-theme="light"] .btn.sm{padding:8px 14px;font-size:14px;border-radius:8px}
+html[data-tb-theme="light"] .btn:disabled{opacity:.55;cursor:wait}
+html[data-tb-theme="light"] .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+html[data-tb-theme="light"] .result{margin-top:16px;background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:none}
+html[data-tb-theme="light"] .result.show{display:block}
+html[data-tb-theme="light"] .result b.big{font-size:22px;color:var(--brand-d)}
+html[data-tb-theme="light"] .note, html[data-tb-theme="light"] .tb-note, html[data-tb-theme="light"] .tb-example{font-size:13.5px;color:var(--ink2);background:var(--accent-soft);border-radius:10px;padding:10px 13px;margin-top:14px}
+html[data-tb-theme="light"] .err{color:var(--danger);font-weight:600;margin-top:10px;display:none}
+html[data-tb-theme="light"] canvas.stage, html[data-tb-theme="light"] img.stage{max-width:100%;border-radius:10px;border:1px solid var(--line);background:#fff}
+html[data-tb-theme="light"] .stage-wrap{margin-top:14px;display:none}
+html[data-tb-theme="light"] .stage-wrap.show{display:block}
+html[data-tb-theme="light"] table.tbl{width:100%;border-collapse:collapse;font-size:15px}
+html[data-tb-theme="light"] table.tbl td, html[data-tb-theme="light"] table.tbl th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+html[data-tb-theme="light"] table.tbl th{color:var(--ink2);font-weight:600;font-size:13.5px}
+html[data-tb-theme="light"] .kv{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dashed var(--line)}
+html[data-tb-theme="light"] .kv:last-child{border-bottom:none}
+html[data-tb-theme="light"] .thumbgrid{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+html[data-tb-theme="light"] .thumbgrid img{width:104px;height:104px;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
+html[data-tb-theme="light"] .swatchrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+html[data-tb-theme="light"] .swatch{width:52px;height:52px;border-radius:10px;border:1px solid var(--line);cursor:pointer;position:relative}
+html[data-tb-theme="light"] .mono{font-variant-numeric:tabular-nums;font-family:ui-monospace,Menlo,monospace}
+html[data-tb-theme="light"] .paper{background:#fff;color:#17251d;border:1px solid var(--line);border-radius:10px;padding:26px 22px;margin-top:16px;display:none}
+html[data-tb-theme="light"] .paper.show{display:block}
+html[data-tb-theme="light"] .sharebar{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+html[data-tb-theme="light"] .sharebar a, html[data-tb-theme="light"] .shb{border-radius:12px;border:1px solid var(--line);background:var(--surface);padding:10px 12px;text-decoration:none;display:inline-block;color:var(--ink)}
+/* footer */
+html[data-tb-theme="light"] footer{margin-top:48px;background:var(--surface);border-top:1px solid var(--line)}
+html[data-tb-theme="light"] .foot-in{padding:34px 0 12px}
+html[data-tb-theme="light"] .foot-top{display:grid;grid-template-columns:1.35fr 1fr 1fr 1fr;gap:28px 24px}
+html[data-tb-theme="light"] .foot-brand p{color:var(--ink2);font-size:14.5px;line-height:1.6;margin:0 0 12px;max-width:340px}
+html[data-tb-theme="light"] .foot-col h4{font-size:15px;font-weight:700;margin:0 0 12px;color:var(--ink)}
+html[data-tb-theme="light"] .foot-col a{color:var(--ink2);text-decoration:none;font-size:14.5px;display:block;padding:4px 0;line-height:1.45}
+html[data-tb-theme="light"] .foot-col a:hover{color:var(--brand)}
+html[data-tb-theme="light"] .foot-shop{background:var(--accent-soft);border:1px solid var(--line);border-radius:12px;padding:14px 15px;margin-top:4px}
+html[data-tb-theme="light"] .foot-shop b{color:var(--ink)}
+html[data-tb-theme="light"] .foot-shop a{display:inline-block;background:var(--brand);color:#fff;padding:8px 14px;border-radius:999px;font-weight:700;font-size:13.5px;text-decoration:none}
+html[data-tb-theme="light"] .foot-all{margin-top:28px;border:1px solid var(--line);border-radius:12px;background:var(--surface2);overflow:hidden}
+html[data-tb-theme="light"] .foot-all summary{cursor:pointer;list-style:none;padding:14px 16px;font-weight:700;font-size:15px;display:flex;justify-content:space-between;align-items:center;color:var(--ink)}
+html[data-tb-theme="light"] .foot-all summary::-webkit-details-marker{display:none}
+html[data-tb-theme="light"] .foot-all-body{padding:4px 16px 16px;border-top:1px solid var(--line);background:var(--surface)}
+html[data-tb-theme="light"] .foot-cat-links{display:flex;flex-wrap:wrap;gap:6px}
+html[data-tb-theme="light"] .foot-cat-links a{color:var(--ink2);text-decoration:none;font-size:13.5px;background:var(--surface2);border:1px solid var(--line);border-radius:999px;padding:5px 11px}
+html[data-tb-theme="light"] .foot-bottom{border-top:1px solid var(--line);margin-top:24px;padding:16px 0 22px;display:flex;gap:10px 18px;flex-wrap:wrap;justify-content:space-between;align-items:center;color:var(--ink2);font-size:13.5px}
+html[data-tb-theme="light"] .foot-bottom a{color:var(--ink2);font-weight:600;text-decoration:none}
+/* toast + bottom nav */
+html[data-tb-theme="light"] .toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(80px);background:var(--ink);color:var(--bg);padding:11px 20px;border-radius:999px;font-weight:600;font-size:14.5px;z-index:99999;transition:transform .25s,opacity .25s;box-shadow:var(--shadow);opacity:0;visibility:hidden;pointer-events:none}
+html[data-tb-theme="light"] .toast.show{transform:translateX(-50%) translateY(0);opacity:1;visibility:visible;pointer-events:auto}
+html[data-tb-theme="light"] #tbBottomNav{display:none}
+html[data-tb-theme="light"] .faqit summary{cursor:pointer;font-weight:700;padding:10px 0;color:var(--ink)}
+/* dark mode surfaces */
+/* responsive — desktop wide, mobile full width */
+@media(min-width:601px){
+html[data-tb-theme="light"] .wrap{max-width:1100px}
+html[data-tb-theme="light"] .grid{grid-template-columns:repeat(3,1fr)}
+}
+@media(min-width:900px){
+html[data-tb-theme="light"] .grid{grid-template-columns:repeat(4,1fr)}
+}
+@media(max-width:860px){
+html[data-tb-theme="light"] .foot-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+html[data-tb-theme="light"] .wrap{max-width:100%;padding:0 12px}
+html[data-tb-theme="light"] .grid{grid-template-columns:repeat(2,1fr);gap:10px}
+html[data-tb-theme="light"] .card{border-radius:12px;padding:12px 10px}
+html[data-tb-theme="light"] .card .ic{width:44px;height:44px;border-radius:10px}
+html[data-tb-theme="light"] .card h3{font-size:15px}
+html[data-tb-theme="light"] .card p{font-size:12.5px}
+html[data-tb-theme="light"] .top nav{display:none}
+html[data-tb-theme="light"] .menu-btn{display:inline-block}
+html[data-tb-theme="light"] .logo small{display:none}
+html[data-tb-theme="light"] .tb-trend-card{min-width:160px;padding:12px}
+html[data-tb-theme="light"] body{padding-bottom:80px}
+html[data-tb-theme="light"] footer{padding-bottom:80px}
+html[data-tb-theme="light"] .panel{padding:14px}
+html[data-tb-theme="light"] #tbBottomNav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:9997;background:#fff;border-top:1px solid #e5e7eb;box-shadow:0 -4px 16px rgba(0,0,0,.08)}
+html[data-tb-theme="light"] #tbBottomNav button{flex:1;border:none;background:transparent;padding:12px 4px;min-height:56px;font-size:15px;font-weight:700;cursor:pointer;color:#14231b}
+html[data-tb-theme="light"] .foot-top{grid-template-columns:1fr;gap:22px}
+}
+/* === Local fix 2026-10-28: raised / floating cards + buttons, app-icon style.
+   Layout unchanged: no .wrap width, no .grid column count, no logo, no pastel
+   card-colour changes. Light rules below; dark rules are separate and never
+   touch light mode. === */
+html[data-tb-theme="light"] .card{box-shadow:0 10px 24px rgba(10,40,25,.14),0 2px 6px rgba(10,40,25,.08)}
+html[data-tb-theme="light"] .card:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(10,40,25,.18),0 3px 8px rgba(10,40,25,.10)}
+html[data-tb-theme="light"] .card:focus-within{outline:2px solid var(--brand);outline-offset:2px}
+html[data-tb-theme="light"] .card .ic{width:52px;height:52px;border-radius:14px;box-shadow:0 6px 14px rgba(10,40,25,.16),inset 0 1px 0 rgba(255,255,255,.55)}
+html[data-tb-theme="light"] .card h3{font-weight:800;line-height:1.3}
+html[data-tb-theme="light"] .card p{font-size:13.5px;line-height:1.45}
+html[data-tb-theme="light"] .btn{box-shadow:0 6px 16px rgba(11,122,75,.25)}
+html[data-tb-theme="light"] .btn:active{transform:translateY(1px);box-shadow:0 2px 8px rgba(11,122,75,.20)}
+html[data-tb-theme="light"] .btn.alt{box-shadow:0 4px 12px rgba(10,40,25,.10)}
+html[data-tb-theme="light"] .panel, html[data-tb-theme="light"] .notice-area, html[data-tb-theme="light"] .tb-trend-card, html[data-tb-theme="light"] .tb-how-site{box-shadow:0 10px 24px rgba(10,40,25,.10),0 2px 6px rgba(10,40,25,.06)}
+/* Dark mode only: calm navy surfaces, soft readable text, neon glow ONLY on
+   icons/buttons/active elements — never on body text. */
+@media(max-width:600px){
+html[data-tb-theme="light"] .card .ic{width:48px;height:48px;border-radius:13px}
+html[data-tb-theme="light"] .card p{font-size:13px}
+}
+/* Dark-mode legibility fix 2026-10-28 (local): white-background blocks that kept white bg + white text in dark mode */
+/* Games 2026-10-29 (local): clean CSS had lost the game styles, so buttons fell back to small browser defaults */
+html[data-tb-theme="light"] .game-cv{background:#0e1511;border-radius:12px;width:100%;max-width:340px;height:auto;display:block;margin:0 auto;touch-action:none}
+html[data-tb-theme="light"] .dpad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:min(100%,340px);margin:14px auto 0;touch-action:none}
+html[data-tb-theme="light"] .dpad button{height:76px;font-size:32px;border:1px solid var(--line);border-radius:16px;background:var(--surface2);color:var(--ink);cursor:pointer;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+html[data-tb-theme="light"] .dpad button:active{background:#0a84ff;color:#ffffff}
+html[data-tb-theme="light"] .ttt-grid{display:grid;grid-template-columns:repeat(3,84px);gap:8px}
+html[data-tb-theme="light"] .ttt-cell{height:84px;font-size:36px;font-weight:700;border:1px solid var(--line);border-radius:12px;background:var(--surface2);color:var(--ink);cursor:pointer}
+html[data-tb-theme="light"] .mem-grid{display:grid;grid-template-columns:repeat(4,72px);gap:8px}
+html[data-tb-theme="light"] .mem-card{height:72px;font-size:30px;border:1px solid var(--line);border-radius:12px;background:var(--surface2);color:var(--ink);cursor:pointer}
+html[data-tb-theme="light"] .mem-card:disabled{opacity:.9;cursor:default}
+@media(max-width:600px){
+html[data-tb-theme="light"] .dpad button{height:72px;font-size:30px}
+html[data-tb-theme="light"] .ttt-grid{grid-template-columns:repeat(3,1fr)}
+html[data-tb-theme="light"] .ttt-cell{height:92px}
+html[data-tb-theme="light"] .mem-grid{grid-template-columns:repeat(4,1fr)}
+html[data-tb-theme="light"] .mem-card{height:76px}
+}
+/* Button colours 2026-10-29 (local, from user's reference image): pill buttons, state colours */
+html[data-tb-theme="light"] .btn{border-radius:999px!important;box-shadow:0 8px 20px rgba(10,132,255,.35)}
+html[data-tb-theme="light"] .btn, html[data-tb-theme="light"] .btn:link{background:#0a84ff!important;color:#ffffff!important;border:1px solid #0a84ff!important}
+html[data-tb-theme="light"] .btn:hover{background:#ff9f2e!important;color:#14231b!important;border-color:#ff9f2e!important;box-shadow:0 8px 24px rgba(255,159,46,.45)}
+html[data-tb-theme="light"] .btn:focus-visible{background:#0f172a!important;color:#ffffff!important;border-color:#0f172a!important;outline:3px solid #38bdf8;outline-offset:2px}
+html[data-tb-theme="light"] .btn:active{background:#ffffff!important;color:#14231b!important;border-color:#dbe3dc!important;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+html[data-tb-theme="light"] .btn.loading{background:#e11d48!important;color:#ffffff!important;border-color:#e11d48!important}
+html[data-tb-theme="light"] .btn.success{background:#eef2f7!important;color:#334155!important;border-color:#dbe3dc!important;box-shadow:none}
+/* Dark result text 2026-10-29 (local): JS-generated result spans with grey inline colour become readable in dark mode */
+/* Cards like user's glossy round-icon reference 2026-10-29 (local): same look in light and dark mode */
+html[data-tb-theme="light"] .card, html[data-tb-theme="light"] .card:nth-child(5n+1), html[data-tb-theme="light"] .card:nth-child(5n+2), html[data-tb-theme="light"] .card:nth-child(5n+3), html[data-tb-theme="light"] .card:nth-child(5n+4), html[data-tb-theme="light"] .card:nth-child(5n+5){background:#ffffff!important;color:#14231b!important;border-color:#e5e7eb!important}
+html[data-tb-theme="light"] .card h3{color:#14231b!important;text-shadow:none!important}
+html[data-tb-theme="light"] .card p{color:#4b5a51!important;text-shadow:none!important}
+html[data-tb-theme="light"] .card .ic{border-radius:50%!important;width:64px!important;height:64px!important;box-shadow:inset 0 2px 6px rgba(255,255,255,.7),inset 0 -4px 8px rgba(0,0,0,.12),0 8px 16px rgba(0,0,0,.18)!important}
+html[data-tb-theme="light"] .card .star.on{color:#ff9f2e!important}
+/* Raised shadow button-like style for all blocks 2026-10-29 (local, next bundle): every section/panel/card looks raised, like a button */
+html[data-tb-theme="light"] section.block, html[data-tb-theme="light"] .panel, html[data-tb-theme="light"] .notice-area, html[data-tb-theme="light"] .tb-how-site, html[data-tb-theme="light"] .tb-trend-card, html[data-tb-theme="light"] .card, html[data-tb-theme="light"] .chip, html[data-tb-theme="light"] button.tb-sug{box-shadow:0 10px 26px rgba(10,40,25,.12),0 2px 6px rgba(10,40,25,.08)!important;border-radius:16px!important}
+html[data-tb-theme="light"] section.block, html[data-tb-theme="light"] .panel, html[data-tb-theme="light"] .notice-area, html[data-tb-theme="light"] .tb-how-site{background:#ffffff!important;color:#14231b!important}
+html[data-tb-theme="light"] section.block h2, html[data-tb-theme="light"] .panel h3, html[data-tb-theme="light"] .notice-area h2, html[data-tb-theme="light"] .tb-how-site h2{color:#14231b!important}
+html[data-tb-theme="light"] section.block p, html[data-tb-theme="light"] .panel p, html[data-tb-theme="light"] .notice-area p, html[data-tb-theme="light"] .tb-how-site p{color:#4b5a51!important}
+html[data-tb-theme="light"] .card:hover, html[data-tb-theme="light"] .panel:hover, html[data-tb-theme="light"] section.block:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(10,40,25,.16),0 3px 8px rgba(10,40,25,.10)!important}
+/* All links as pill buttons 2026-10-29 (local): every link in a text block becomes a raised pill button */
+html[data-tb-theme="light"] .block a:not(.card):not(.backlink):not(.logo), html[data-tb-theme="light"] .panel a:not(.btn):not(.backlink), html[data-tb-theme="light"] .result a:not(.btn), html[data-tb-theme="light"] .tb-spon-line a{display:inline-block!important;padding:8px 14px!important;margin:3px 2px!important;border-radius:999px!important;background:var(--surface)!important;border:1px solid var(--line)!important;box-shadow:0 6px 14px rgba(10,40,25,.12)!important;text-decoration:none!important;font-weight:700!important}
+/* Buttons raised shadow system 2026-10-29 (local): buttons float above the page, lift on hover, press down on tap */
+html[data-tb-theme="light"] .btn{box-shadow:0 12px 28px rgba(10,132,255,.35),0 3px 8px rgba(0,0,0,.15)!important;transform:translateY(0)}
+html[data-tb-theme="light"] .btn:hover{transform:translateY(-2px)!important;box-shadow:0 16px 32px rgba(255,159,46,.45),0 4px 10px rgba(0,0,0,.15)!important}
+html[data-tb-theme="light"] .btn:active{transform:translateY(1px)!important;box-shadow:0 4px 12px rgba(0,0,0,.15)!important}
+/* Dark-mode buttons: navy blue background, neon lighter edge */
+/* CHOSEN THEME D9 Teal Night - dark mode only, all dark, no white */
+/* Teal Night FULL - every dark element, like the demo (whole page in teal) */
+/* Teal Night FULL2 - notice and how sections, no white in dark */
+/* Teal Night FULL3 - override the white-card rule INCLUDING nth-child selectors */
+html[data-tb-theme="light"] .m-menu.open{display:block!important}
+/* Menu category pills in theme (dark) */
+html[data-tb-theme="light"] .foot-bottom nav{display:flex;gap:8px 20px;flex-wrap:wrap;align-items:center}
+/* Social share bar: ORIGINAL brand colours, never themed (user rule 2026-10-29) */
+html[data-tb-theme="light"] .sharebar .shwa{background:#25D366!important;color:#ffffff!important;border-color:#25D366!important}
+html[data-tb-theme="light"] .sharebar .shfb{background:#1877F2!important;color:#ffffff!important;border-color:#1877F2!important}
+html[data-tb-theme="light"] .sharebar .shtg{background:#229ED9!important;color:#ffffff!important;border-color:#229ED9!important}
+html[data-tb-theme="light"] .sharebar .shx{background:#000000!important;color:#ffffff!important;border-color:#000000!important}
+html[data-tb-theme="light"] .sharebar .shin{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)!important;color:#ffffff!important;border-color:#dc2743!important}
+/* Social share bar brand colours - STRONG override, beats .block a / .panel a theme rules */
+html[data-tb-theme="light"] .sharebar a.shwa{background:#25D366!important;background-color:#25D366!important;color:#ffffff!important;border-color:#25D366!important}
+html[data-tb-theme="light"] .sharebar a.shfb{background:#1877F2!important;background-color:#1877F2!important;color:#ffffff!important;border-color:#1877F2!important}
+html[data-tb-theme="light"] .sharebar a.shtg{background:#229ED9!important;background-color:#229ED9!important;color:#ffffff!important;border-color:#229ED9!important}
+html[data-tb-theme="light"] .sharebar a.shx{background:#000000!important;background-color:#000000!important;color:#ffffff!important;border-color:#000000!important}
+</style>
 </head>
 <body class="hub">
 
@@ -985,7 +1478,7 @@ body.hub footer{background:transparent!important;border-top:1px solid var(--line
       <div class="m-cat-pills" id="mCatPills"><a href="#/cat/video">Video &amp; Social</a><a href="#/cat/image">Image Tools</a><a href="#/cat/text">Text, PDF &amp; Utility</a><a href="#/cat/calc">Calculators &amp; Converters</a><a href="#/cat/job">Jobs &amp; Business</a><a href="#/cat/dev">Developer &amp; Web Tools</a><a href="#/cat/daily">Daily Life</a><a href="#/cat/info">Info, Services &amp; Directories</a><a href="#/cat/life">Fun, Info &amp; Lifestyle</a></div>
     </div>
   </div>
-<span class="tb-util" role="group" aria-label="Display settings"><button type="button" id="tbFontDown">A− Smaller text</button><button type="button" id="tbFontUp">A+ Bigger text</button></span></header>
+<span class="tb-util" role="group" aria-label="Display settings"><button type="button" id="tbFontDown">A− Smaller text</button><button type="button" id="tbFontUp">A+ Bigger text</button><button type="button" id="tbDarkBtn">☀ Light mode</button></span></header>
 <!-- INSITE-NOTICE-2026-10-27: in-site notice area only, no push service, no OneSignal, no external code -->
 
 
@@ -4902,26 +5395,26 @@ window.__tbShare=function(el,id){
  el.appendChild(d);
 };
 document.addEventListener('click',function(e){ const b=e.target&&e.target.closest?e.target.closest('.shcp'):null; if(!b)return; const u=b.getAttribute('data-su'); if(u&&typeof copyText==='function')copyText(u,'Link copied ✓'); });
-const __fs=document.getElementById('footShare'); if(__fs)__fs.innerHTML=shareRow(location.origin+'/','ToolBari');
+const __fs=document.getElementById('footShare'); if(__fs)__fs.innerHTML=shareRow(location.origin+'/','ToolBari')+'<span class="shl tb-contact-label">💬 Contact:</span><a class="shb shwa tb-contact" target="_blank" rel="noopener" href="https://wa.me/8801677161678">WhatsApp</a><a class="shb shtg tb-contact" target="_blank" rel="noopener" href="https://t.me/+FfnlCZPeZLAwZTI1">Telegram</a>';
 /* router */
 let __tbHomeScroll=0;
 function route(){
  const h=location.hash||'#/';const parts=h.replace('#/','').split('/');
- if(document.querySelector('.view.active#view-home')&&parts[0]==='tool')__tbHomeScroll=window.scrollY||0;
+ if(document.querySelector('.view.active#view-home')&&parts[0]==='tool'){__tbHomeScroll=window.scrollY||0;try{sessionStorage.setItem('tb_home_scroll',String(__tbHomeScroll));}catch(e){}}
  $$('.view').forEach(v=>v.classList.remove('active'));
  let el=null;
  if(parts[0]==='tool'&&parts[1])el=document.getElementById('view-'+parts[1]);
- if(parts[0]==='tool'&&parts[1]&&!el&&toolById(parts[1])){location.href='tools/'+parts[1]+'.html';return;}
+ if(parts[0]==='tool'&&parts[1]&&!el&&toolById(parts[1])){location.replace('tools/'+parts[1]+'.html');return;}
  else if(parts[0]==='page'&&parts[1])el=document.getElementById('view-page-'+parts[1]);
  if(!el)el=$('#view-home');
  el.classList.add('active');
  if(window.__tbShare){ if(parts[0]==='tool'&&parts[1])__tbShare(el,parts[1]); else if(el.id==='view-home')__tbShare(el,null); }
  if(parts[0]==='cat'&&parts[1]&&CATS.some(c=>c.id===parts[1])){currentCat=parts[1];renderCatalog(currentFilter);renderCatBar();setTimeout(()=>{const ct=document.getElementById('cat-'+parts[1]);if(ct)ct.scrollIntoView({behavior:'smooth',block:'start'});},60);}
- else if(el.id==='view-home'&&__tbHomeScroll>0){const y=__tbHomeScroll;__tbHomeScroll=0;setTimeout(()=>window.scrollTo({top:y}),60);}
+ else if(el.id==='view-home'){var _y=__tbHomeScroll||0;__tbHomeScroll=0;try{var _s=sessionStorage.getItem('tb_home_scroll');if(_s!==null&&_s!==''){_y=parseInt(_s,10)||0;sessionStorage.removeItem('tb_home_scroll');}}catch(e){}if(_y>0){var _n=0;var _rs=function(){window.scrollTo({top:_y,behavior:'instant'});_n++;var _dh=document.documentElement.scrollHeight;if(_n<5&&window.scrollY<_y-2&&(window.scrollY+window.innerHeight>=_dh-2)){setTimeout(_rs,150);}};_rs();}else{window.scrollTo({top:0,behavior:'instant'});}}
  else window.scrollTo({top:0});
  const t=toolById(parts[1]);document.title=(parts[0]==='tool'&&t)?t.bn+' — ToolBari':'ToolBari — All In One Tools | 597 Free Tools';
 }
-window.addEventListener('hashchange',route);route();
+window.addEventListener('hashchange',route);route();window.addEventListener('pageshow',function(e){if(e.persisted)route();});
 
 $('#vd-go').addEventListener('click',async()=>{
  showErr('#vd-err','');const url=$('#vd-url').value.trim();
@@ -5393,8 +5886,8 @@ $('#fb-go').addEventListener('click',()=>{
 <script src="assets/js/tb-currency.js?v=20261031-snake1"></script>
 
 
-<a href="https://wa.me/8801677161678?text=%E0%A6%86%E0%A6%B8%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE" target="_blank" rel="noopener" title="WhatsApp-Message on " style="position:fixed;right:14px;bottom:72px;width:52px;height:52px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;font-size:25px;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.28);z-index:9998">💬</a>
-<!-- ToolBari App install (PWA) -->
+
+ <!-- ToolBari App install (PWA) -->
 <div id="appBar" style="display:none;position:fixed;left:10px;right:10px;bottom:76px;z-index:9990;background:var(--surface);border:1.5px solid var(--brand);border-radius:14px;padding:10px 12px;box-shadow:0 8px 28px rgba(0,0,0,.22);align-items:center;gap:10px">
   <img src="/icons/icon-192.png" alt="ToolBari" style="width:38px;height:38px;border-radius:9px"/>
   <div style="flex:1;min-width:0">
@@ -5667,6 +6160,12 @@ try{
   if(fs==='large'){document.body.classList.add('tb-fs-large');}
 }catch(e){}
 var _mb=document.getElementById('menuBtn'),_mm=document.getElementById('mobileMenu');if(_mb&&_mm){_mb.addEventListener('click',function(){_mm.classList.toggle('open');_mb.setAttribute('aria-expanded',_mm.classList.contains('open')?'true':'false');});}
+// Theme toggle: dark (default) / light — persists as tb_dark ('1' dark, '0' light)
+var tbDarkBtn=document.getElementById('tbDarkBtn');
+function tbSyncTheme(){if(!tbDarkBtn){return;}var _l=document.documentElement.getAttribute('data-tb-theme')==='light';tbDarkBtn.textContent=_l?'\u263e Dark mode':'\u2600 Light mode';var _m=document.querySelector('meta[name="color-scheme"]');if(_m){_m.setAttribute('content',_l?'light':'dark');}}
+if(tbDarkBtn){tbDarkBtn.addEventListener('click',function(){var _l=document.documentElement.getAttribute('data-tb-theme')==='light';if(_l){document.documentElement.removeAttribute('data-tb-theme');}else{document.documentElement.setAttribute('data-tb-theme','light');}try{localStorage.setItem('tb_dark',_l?'1':'0');}catch(e){}tbSyncTheme();});}
+tbSyncTheme();
+
 var ageGo=document.getElementById('age-go');
 if(ageGo){ageGo.addEventListener('click',function(){var d=document.getElementById('age-dob'),a=document.getElementById('age-at'),r=document.getElementById('age-res');if(!d||!r){return;}var dob=d.value?new Date(d.value+'T00:00:00'):null;if(!dob||isNaN(dob.getTime())){r.textContent='Please pick your date of birth.';return;}var at=(a&&a.value)?new Date(a.value+'T00:00:00'):new Date();if(at<dob){r.textContent='The "age at" date must be after the date of birth.';return;}var y=at.getFullYear()-dob.getFullYear(),m=at.getMonth()-dob.getMonth(),dd=at.getDate()-dob.getDate();if(dd<0){m--;dd+=new Date(at.getFullYear(),at.getMonth(),0).getDate();}if(m<0){y--;m+=12;}r.textContent='You are '+y+' years, '+m+' months and '+dd+' days old.';});}
 function setFs(mode){document.body.classList.remove('tb-fs-small','tb-fs-large'); if(mode==='small'){document.body.classList.add('tb-fs-small');} if(mode==='large'){document.body.classList.add('tb-fs-large');} try{localStorage.setItem('tb_fontsize',mode);}catch(e){}}

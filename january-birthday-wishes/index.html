@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark" />
+<script>try{var _tbT=localStorage.getItem('tb_dark');if(_tbT==='0'){document.documentElement.setAttribute('data-tb-theme','light');}else{document.documentElement.removeAttribute('data-tb-theme');}var _m=document.querySelector('meta[name="color-scheme"]');if(_m){_m.setAttribute('content',_tbT==='0'?'light':'dark');}}catch(e){}</script>
 <title>January Birthday Wishes: Birthday Photos for Every Day in January | ToolBari</title>
 <meta name="description" content="Free birthday wish photos for every day in January, from 1 to 31 January — download and share a beautiful birthday photo for someone born in January.">
 <link rel="canonical" href="https://toolbari.github.io/january-birthday-wishes/">
@@ -438,6 +439,156 @@ body.hub .m-menu{background:rgba(13,22,17,.94);border:1px solid var(--line);bord
 body.hub .btn:not(.warn),body.hub .btn:not(.warn):link{background:linear-gradient(180deg,var(--green2),var(--green))!important;color:#04150b!important;border-color:transparent!important}
 body.hub .btn:not(.warn):hover{background:var(--amber)!important;color:#04150b!important;border-color:var(--amber)!important}
 body.hub footer{background:transparent!important;border-top:1px solid var(--line-soft)}
+
+/* =====================================================================
+   LIGHT MODE (toggle) — appended 2026-11-22 (toggle restore)
+   Dark is the default: nothing below applies unless
+   <html data-tb-theme="light"> is set by the theme toggle.
+   These overrides restore the pre-theme light look (white panels, dark
+   text, the old brand green #0b7a4b). Dark mode is untouched.
+   ===================================================================== */
+
+/* --- light tokens (both variable sets) --- */
+html[data-tb-theme="light"]{
+  --bg:#f4f6f4; --bg2:#eef2ee; --panel:#ffffff; --panel2:#eef2ee;
+  --line:#dbe3dc; --line-soft:#e8eee9;
+  --text:#14231b; --muted:#4b5a51; --muted2:#6f7d74;
+  --green:#0b7a4b; --green2:#0e9f5c; --green-deep:#065c38; --amber:#ff9f2e;
+  --surface:#ffffff; --surface2:#eef2ee; --ink:#14231b; --ink2:#4b5a51;
+  --brand:#0b7a4b; --brand-d:#065c38; --accent:#ff9f2e; --accent-soft:#fdf3d7;
+  --danger:#c0392b; --shadow:0 2px 14px rgba(10,40,25,.08);
+  color-scheme:light;
+}
+html[data-tb-theme="light"] ::selection{background:#0b7a4b;color:#fff}
+
+/* --- background art: soften the dark glows on a light page --- */
+html[data-tb-theme="light"] .bg-art::before{
+  background:
+    radial-gradient(900px 600px at 88% -10%, rgba(47,227,138,.14), transparent 60%),
+    radial-gradient(700px 500px at 55% 45%, rgba(47,227,138,.08), transparent 65%),
+    radial-gradient(600px 500px at -10% 90%, rgba(47,227,138,.10), transparent 60%);
+}
+html[data-tb-theme="light"] .bg-line{opacity:.35}
+html[data-tb-theme="light"] .bg-dots{opacity:.25}
+
+/* --- nav --- */
+html[data-tb-theme="light"] .nav{background:rgba(255,255,255,.78);box-shadow:0 18px 40px rgba(10,40,25,.12)}
+html[data-tb-theme="light"] .nav-links a{color:#3d4f44}
+html[data-tb-theme="light"] .nav-links a:hover{color:#14231b}
+html[data-tb-theme="light"] .btn-ghost{background:rgba(20,35,27,.04);border-color:#dbe3dc;color:#14231b}
+html[data-tb-theme="light"] .btn-ghost:hover{background:rgba(20,35,27,.08)}
+html[data-tb-theme="light"] .menu-btn{background:rgba(20,35,27,.04);color:#14231b}
+html[data-tb-theme="light"] .mobile-menu{background:rgba(255,255,255,.96)}
+html[data-tb-theme="light"] .mobile-menu a{color:#14231b}
+html[data-tb-theme="light"] .mobile-menu a:hover{background:rgba(20,35,27,.05)}
+/* keep the bright green CTA readable: dark text on the bright gradient */
+html[data-tb-theme="light"] .btn-green{background:linear-gradient(180deg,#5cf2a6,#2fe38a);color:#04150b}
+
+/* --- theme toggle button (in the demo nav) --- */
+.tb-theme-toggle{
+  display:inline-flex;align-items:center;gap:8px;flex:none;
+  min-height:46px;padding:0 18px;border-radius:999px;
+  border:1px solid var(--line);background:rgba(255,255,255,.04);color:#eef4ef;
+  font-weight:600;font-size:14.5px;font-family:inherit;cursor:pointer;white-space:nowrap;
+}
+.tb-theme-toggle:hover{background:rgba(255,255,255,.08)}
+html[data-tb-theme="light"] .tb-theme-toggle{background:rgba(20,35,27,.05);color:#14231b;border-color:#dbe3dc}
+html[data-tb-theme="light"] .tb-theme-toggle:hover{background:rgba(20,35,27,.09)}
+@media(max-width:560px){
+  .tb-theme-toggle{padding:0 12px}
+  .tb-theme-toggle .tb-lbl{display:none}
+}
+
+/* --- hero / glass cards --- */
+html[data-tb-theme="light"] .glass-card{
+  background:linear-gradient(150deg, rgba(255,255,255,.92), rgba(238,242,238,.96));
+  border-color:rgba(11,122,75,.20);
+  box-shadow:0 30px 60px rgba(10,40,25,.10), inset 0 1px 0 rgba(255,255,255,.9);
+}
+html[data-tb-theme="light"] .glass-card .k{color:#0b7a4b}
+html[data-tb-theme="light"] .glass-card .sub{color:#4b5a51}
+html[data-tb-theme="light"] .live-card{background:rgba(255,255,255,.88);box-shadow:0 24px 50px rgba(10,40,25,.10)}
+html[data-tb-theme="light"] .live-card .k{color:#0b7a4b}
+html[data-tb-theme="light"] .chip{background:rgba(20,35,27,.05);color:#3d4f44}
+html[data-tb-theme="light"] .trust-names span{color:#4b5a51}
+html[data-tb-theme="light"] .plat{color:#3d4f44;background:rgba(20,35,27,.03)}
+
+/* --- tools grid --- */
+html[data-tb-theme="light"] .tool-card .tag{color:#0b7a4b}
+html[data-tb-theme="light"] .tool-card .explore{color:#14231b}
+html[data-tb-theme="light"] .tool-search input{background:#ffffff;color:#14231b}
+html[data-tb-theme="light"] .tool-card{background:linear-gradient(180deg, rgba(20,35,27,.02), rgba(20,35,27,0)), #ffffff}
+html[data-tb-theme="light"] .full-link{background:rgba(20,35,27,.02)}
+
+/* --- stats / work / process --- */
+html[data-tb-theme="light"] .stats-panel{background:linear-gradient(140deg, #e3f5e9, #f4f6f4 70%);border-color:rgba(11,122,75,.20)}
+html[data-tb-theme="light"] .stats-panel .k{color:#0b7a4b}
+html[data-tb-theme="light"] .stat .l{color:#4b5a51}
+html[data-tb-theme="light"] .work-vis .mock{background:rgba(255,255,255,.94);border-color:rgba(20,35,27,.12)}
+html[data-tb-theme="light"] .mock .bar{background:rgba(20,35,27,.14)}
+html[data-tb-theme="light"] .mock .cell{background:rgba(20,35,27,.06);border-color:rgba(20,35,27,.07)}
+html[data-tb-theme="light"] .vis-a{background:linear-gradient(140deg,#d9f2e3,#f4f6f4)}
+html[data-tb-theme="light"] .vis-b{background:linear-gradient(140deg,#fdf3d7,#f4f6f4)}
+html[data-tb-theme="light"] .vis-c{background:linear-gradient(140deg,#dbeeff,#f4f6f4)}
+html[data-tb-theme="light"] .step{background:rgba(20,35,27,.02)}
+
+/* --- footer --- */
+html[data-tb-theme="light"] .foot-links a{color:#3d4f44}
+
+/* --- shared content components (Type A) --- */
+html[data-tb-theme="light"] .answer,
+html[data-tb-theme="light"] .calc,
+html[data-tb-theme="light"] .faq{background:linear-gradient(160deg,#ffffff,#eef2ee)}
+html[data-tb-theme="light"] .calc input,
+html[data-tb-theme="light"] .calc select,
+html[data-tb-theme="light"] .calc textarea{background:#ffffff}
+html[data-tb-theme="light"] .calc button.secondary,
+html[data-tb-theme="light"] .clear-btn{background:rgba(20,35,27,.04)}
+html[data-tb-theme="light"] .note{color:#4b5a51}
+html[data-tb-theme="light"] code{background:rgba(11,122,75,.10);color:#0b7a4b}
+
+/* --- Type B doorway pages --- */
+html[data-tb-theme="light"] body.tbpage h1{
+  background:linear-gradient(140deg,#e3f5e9,#f4f6f4)!important;
+  border-color:rgba(11,122,75,.25)!important;
+  box-shadow:0 4px 18px rgba(10,40,25,.08)!important;
+}
+
+/* --- hub header/footer (theme part 2) --- */
+html[data-tb-theme="light"] body.hub .top-in{background:rgba(255,255,255,.78);box-shadow:0 18px 40px rgba(10,40,25,.12)}
+html[data-tb-theme="light"] body.hub .m-menu{background:rgba(255,255,255,.96)}
+html[data-tb-theme="light"] body.hub .btn:not(.warn),
+html[data-tb-theme="light"] body.hub .btn:not(.warn):link{background:linear-gradient(180deg,#5cf2a6,#2fe38a)!important;color:#04150b!important}
+
+/* TB footer contact links (fix pass 2026-11-22): inline links beside the
+   existing Share row (hub #footShare) / in the footer (samples). Brand
+   backgrounds kept, DARK text (#04150b) so they read in dark AND light
+   mode. No fixed positioning — never a floating bubble. */
+#footShare a.shwa.tb-contact, a.tb-contact.shwa{background:#25D366!important;color:#04150b!important;border-color:#25D366!important}
+#footShare a.shtg.tb-contact, a.tb-contact.shtg{background:#229ED9!important;color:#04150b!important;border-color:#229ED9!important}
+a.tb-contact{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 14px;border-radius:12px;text-decoration:none;font-weight:700;line-height:1.2}
+.tb-contact-line{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}
+.tb-contact-label{font-weight:700}
+
+/* TB LIGHT-MODE contrast repairs (fix pass 2026-11-22, audit tb_theme_contrast2):
+   elements the pre-theme light layer left unreadable in light mode.
+   Scoped under html[data-tb-theme="light"] — dark mode untouched.
+   Left as-is by design: logotype "Bari" orange (WCAG logotype-exempt),
+   white-on-brand SHARE buttons + "Join Telegram Group" (pre-existing). */
+html[data-tb-theme="light"] #gst-calc{color:#fff!important}
+html[data-tb-theme="light"] .tb-mobile-bar a:first-child{color:#fff!important}
+html[data-tb-theme="light"] a.tb-skip{background:#0b7a4b!important;color:#fff!important}
+html[data-tb-theme="light"] body.tbpage .site-nav-wrap .nav-links a{color:#14231b!important}
+html[data-tb-theme="light"] .site-foot .small,html[data-tb-theme="light"] .site-foot .small a{color:#55645b!important}
+html[data-tb-theme="light"] button.star:not(.on){color:#4b5a51!important}
+html[data-tb-theme="light"] a.backlink{color:#065c38!important}
+html[data-tb-theme="light"] .tb-spon-lab{color:#4d4d4d!important}
+html[data-tb-theme="light"] .foot-stats .chip b{color:#065c38!important}
+html[data-tb-theme="light"] .tb-spon-line a{color:#065c38!important}
+html[data-tb-theme="light"] .btn.warn{color:#04150b!important}
+
+html[data-tb-theme="light"] .tb-spon-view a{color:#065c38!important}
+html[data-tb-theme="light"] .hero-stats .chip b{color:#065c38!important}
 </style>
 <style>
 .gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:16px 0}
@@ -469,6 +620,7 @@ body.hub footer{background:transparent!important;border-top:1px solid var(--line
         <a href="../#how">How it works</a>
       </div>
       <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+      <button type="button" class="tb-theme-toggle" id="tbDarkBtn" aria-label="Switch colour mode"><span class="tb-ico" aria-hidden="true">☀</span><span class="tb-lbl"> Light mode</span></button>
       <a class="btn btn-green" href="../#allBlock">Browse tools</a>
     </nav>
     <div class="mobile-menu" id="mobileMenu">
@@ -550,7 +702,7 @@ body.hub footer{background:transparent!important;border-top:1px solid var(--line
       <span class="small">© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></span>
     </div>
   </div>
-</footer>
+<div class="tb-contact-line"><span class="tb-contact-label">💬 Contact:</span><a class="tb-contact shwa" target="_blank" rel="noopener" href="https://wa.me/8801677161678">WhatsApp</a><a class="tb-contact shtg" target="_blank" rel="noopener" href="https://t.me/+FfnlCZPeZLAwZTI1">Telegram</a></div></footer>
 </div>
 <!-- TB-MONETAG -->
 <script>
@@ -564,6 +716,12 @@ body.hub footer{background:transparent!important;border-top:1px solid var(--line
   mobileMenu.addEventListener('click', function (e) {
     if (e.target.tagName === 'A') mobileMenu.classList.remove('open');
   });
+// Theme toggle: dark (default) / light — persists as tb_dark ('1' dark, '0' light)
+var tbDarkBtn=document.getElementById('tbDarkBtn');
+function tbSyncTheme(){if(!tbDarkBtn){return;}var _l=document.documentElement.getAttribute('data-tb-theme')==='light';tbDarkBtn.innerHTML=_l?'<span class="tb-ico" aria-hidden="true">\u263e</span><span class="tb-lbl"> Dark mode</span>':'<span class="tb-ico" aria-hidden="true">\u2600</span><span class="tb-lbl"> Light mode</span>';var _m=document.querySelector('meta[name="color-scheme"]');if(_m){_m.setAttribute('content',_l?'light':'dark');}}
+if(tbDarkBtn){tbDarkBtn.addEventListener('click',function(){var _l=document.documentElement.getAttribute('data-tb-theme')==='light';if(_l){document.documentElement.removeAttribute('data-tb-theme');}else{document.documentElement.setAttribute('data-tb-theme','light');}try{localStorage.setItem('tb_dark',_l?'1':'0');}catch(e){}tbSyncTheme();});}
+tbSyncTheme();
+
 </script>
 </body>
 </html>
