@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baking Recipe Scaler — Double or Halve Any Recipe Free | ToolBari</title>
+<meta name="description" content="Scale any baking recipe free — double it, halve it, or make any number of servings, with ingredient amounts worked out for you. No signup, works on phone.">
+<link rel="canonical" href="https://toolbari.github.io/tools/baking-recipe-scaler.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Baking Recipe Scaler — Double or Halve Any Recipe Free">
+<meta property="og:description" content="Scale any baking recipe up or down, with yeast and baking powder adjusted honestly.">
+<meta property="og:url" content="https://toolbari.github.io/tools/baking-recipe-scaler.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can I double any cake recipe?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most sponge cakes, butter cakes and loaf cakes double well — the ingredients scale in a straight line and the result is the same cake, only bigger. Delicate recipes like souffles and meringues do not scale happily, because they depend on air and timing that change with size. If you have never baked a recipe before, bake it once at its original size first, learn how it behaves, and then scale it with confidence."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why can't I just double the yeast?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yeast is alive and multiplies as the dough rises, so doubling it makes the dough rise too fast and taste sour. For twice the dough you need only about one and a half times the yeast, and the dough takes a little longer to rise — which makes better bread anyway. This scaler applies that rule for you: at 2 times the recipe, 7 grams of yeast becomes about 11 grams instead of 14."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I scale eggs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Eggs scale in a straight line, but they are rounded to the nearest half, because you cannot easily use a third of an egg. Half an egg is real: beat an egg in a cup and pour out half. The scaler never rounds eggs down to zero — a recipe halved from 1 egg still needs half an egg, not none, because leaving the egg out entirely changes the texture of the whole bake."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What tin size do I need?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Batter should fill the tin about two thirds full. As a rough guide, a 20 centimetre round tin serves 8 to 10 people, a 25 centimetre tin serves 16 to 20, and a 30 centimetre tin serves 24 to 28. If you do not have the right tin, two smaller tins beat one tin that is too small — the cakes bake faster and more evenly, and you can stack them with filling in between."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does baking time change?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, but not by the same factor as the recipe: a cake twice as big does not take twice as long. As a rough guide, a doubled cake needs about a quarter to a third more time than the original, and the temperature usually stays the same. Start checking about 10 minutes before the original time is up, and use the skewer test — if a skewer pushed into the centre comes out clean, the cake is done."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I halve a recipe?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — tap the 0.5x button or set the wanted servings to half the original. Watch the eggs: halving a recipe that uses 1 egg gives you half an egg, so beat it in a cup and use half. Use a smaller tin, because the same tin with half the batter will bake too thin and dry out. Yeast and baking powder get their adjusted amounts automatically, so a halved loaf still rises properly."
+      }
+    }
+  ]
+}
+</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>.calc button{min-height:72px;padding:14px 22px;border:0;border-radius:999px;font-size:17px;font-weight:700;background:#0b7a4b;color:#fff;cursor:pointer;margin:12px 6px 0 0}
+.calc button.secondary{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+.calc input,.calc select,.calc textarea{min-height:72px;padding:14px 12px;font-size:17px}
+.calc textarea{min-height:110px;resize:vertical}
+.calc input[type=checkbox]{min-height:28px;width:28px;vertical-align:middle}
+.calc table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0}
+.calc th,.calc td{border:1px solid #cbd5e1;padding:8px 6px;text-align:left;vertical-align:top}
+.calc th{background:#e8f7ef}
+.twrap{overflow-x:auto;margin:10px 0}
+.twrap table{width:100%;border-collapse:collapse;font-size:15px}
+.twrap th,.twrap td{border:1px solid #cbd5e1;padding:8px 6px;text-align:left;vertical-align:top}
+.twrap th{background:#e8f7ef}
+canvas.plan{width:100%;height:auto;border:2px solid #0b7a4b;border-radius:12px;background:#fff;touch-action:none;display:block}
+.tag{display:inline-block;padding:2px 10px;border-radius:999px;font-size:14px;font-weight:700}
+.tag.red{background:#fee2e2;color:#991b1b}.tag.orange{background:#ffedd5;color:#9a3412}.tag.green{background:#dcfce7;color:#166534}.tag.grey{background:#e2e8f0;color:#334155}
+.small{font-size:14.5px;color:#475569}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Baking Recipe Scaler</h1>
+<p class="answer">Double a cake, halve a loaf, or make any number of servings — type the original and wanted servings and the calculator scales every ingredient for you. Yeast and baking powder get special treatment, because they do not scale in a straight line.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="orig">Original servings</label>
+<input id="orig" type="number" min="1" step="any" value="8">
+<label for="wanted">Wanted servings</label>
+<input id="wanted" type="number" min="1" step="any" value="20">
+<p class="small">Or tap a shortcut — it sets the wanted servings for you:</p>
+<button id="f-half" class="secondary" type="button">0.5x (halve it)</button>
+<button id="f-two" class="secondary" type="button">2x (double it)</button>
+<button id="f-three" class="secondary" type="button">3x (triple it)</button>
+<div id="rows"></div>
+<button id="add-btn" class="secondary" type="button">Add ingredient</button>
+<button id="scale-btn" type="button">Scale my recipe</button>
+<button id="copy-btn" class="secondary" type="button">Copy result</button>
+<div class="out" id="out" aria-live="polite"></div>
+<div class="steps" id="steps"></div>
+</div>
+<div class="warn">Scaling changes more than the amounts: a bigger cake needs a bigger tin and a longer bake, and yeast and baking powder do not scale in a straight line. This scaler adjusts those amounts for you, but always check the cake with a skewer before you take it out — the timer is a guide, not a promise.</div>
+<h2>How to use this scaler</h2>
+<p>Type the number of servings the recipe was written for, then the number of servings you want. If the recipe serves 8 and you want to serve 20, type 8 and 20 — the scaler works out the factor, 2.5 times, and scales every ingredient by it. Or tap one of the shortcut buttons: 0.5x halves the recipe, 2x doubles it, 3x triples it. The shortcut sets the wanted servings for you, so you can see the numbers before you scale.</p>
+<p>Then add your ingredients, one row each. Every row needs a name, an amount, a unit and a kind. The unit stays as you typed it — grams stay grams, cups stay cups, teaspoons stay teaspoons — because converting between weight and volume depends on the ingredient, and a cup of flour does not weigh the same as a cup of sugar. The kind is what makes this scaler honest: pick eggs, yeast, baking powder or salt when that is what the row is, and the scaler applies the right rule instead of scaling everything in a straight line. Tap Scale and you get every amount worked out, with a note wherever an amount was rounded or adjusted.</p>
+<p>You can add up to 8 ingredient rows. If your recipe has more ingredients than that, group the small ones — put the vanilla, the salt and the spices on one row each, or leave out a pinch of salt, which barely changes the result. The copy button copies the whole scaled list as plain text, so you can paste it into a note and take it to the kitchen.</p>
+<h2>The scaling rule and its exceptions</h2>
+<p>Most ingredients scale in a straight line. Twice the servings means twice the flour, twice the sugar, twice the butter. Three times the servings means three times everything. That is the simple rule, and for the bulk of a recipe it is exactly right. The trouble starts with the ingredients that do work in the recipe rather than just adding bulk — and the two that matter most are yeast and baking powder.</p>
+<p>Yeast is alive. It multiplies as the dough rises, so doubling the yeast does not just double the rising power — it makes the dough rise too fast, and the bread ends up tasting sour and coarse. Bakers scale yeast by a gentler rule: for twice the dough, use about one and a half times the yeast, not twice. This scaler uses that rule — the amount is multiplied by the factor to the power of 0.6 — so at 2 times the recipe, 7 grams of yeast becomes about 11 grams instead of 14. The dough still rises properly, it just takes a little longer, and the flavour stays right.</p>
+<p>Baking powder is not alive, but it has the same problem in the other direction: too much of it leaves a bitter, soapy taste, and a cake that rises fast and then sinks in the middle. So baking powder is scaled by the factor to the power of 0.8 — gentler than a straight line, but less gentle than yeast. At 2.5 times the recipe, 2 teaspoons of baking powder become about 4.2 teaspoons instead of 5. Salt scales in a straight line, like flour and sugar, but taste the batter if you can: a very large batch can taste saltier than you expect, because salt is easy to notice and hard to take back.</p>
+<p>Eggs get their own rule for a different reason: you cannot use a third of an egg easily, so eggs are rounded to the nearest half. Half an egg is real — beat an egg in a cup and pour out half. The scaler never rounds eggs down to zero: a recipe halved from 1 egg still needs half an egg, not none. Grams are rounded to whole numbers, because no kitchen scale needs you to weigh 623 grams of flour when 625 will do.</p>
+<h2>Worked example: a cake for 8 becomes a cake for 20</h2>
+<p>Here is a plain sponge cake written for 8 people, scaled up to serve 20. The factor is 2.5 — twenty divided by eight. Watch the baking powder line: it is the one that does not follow the straight rule.</p>
+<div class="twrap"><table><tr><th>Ingredient</th><th>For 8</th><th>For 20</th><th>Note</th></tr>
+<tr><td>Flour</td><td>300 g</td><td>750 g</td><td>Straight line</td></tr>
+<tr><td>Sugar</td><td>250 g</td><td>625 g</td><td>Straight line</td></tr>
+<tr><td>Butter</td><td>250 g</td><td>625 g</td><td>Straight line</td></tr>
+<tr><td>Eggs</td><td>4</td><td>10</td><td>Straight line, whole eggs</td></tr>
+<tr><td>Milk</td><td>120 ml</td><td>300 ml</td><td>Straight line</td></tr>
+<tr><td>Baking powder</td><td>2 tsp</td><td>4.2 tsp</td><td>Adjusted — not 5</td></tr>
+<tr><td>Vanilla</td><td>1 tsp</td><td>2.5 tsp</td><td>Straight line</td></tr>
+</table></div>
+<p>The straight-line rows are simple multiplication, and the scaler does them in a second. The baking powder is where the scaler earns its place: a straight 2.5 times would give 5 teaspoons, which is enough to leave a bitter taste in the finished cake. The adjusted 4.2 teaspoons still lifts the cake properly. And remember the tin: this cake was written for a 20 centimetre round tin, and two and a half times the batter will not fit in it. Use a 25 centimetre tin, or bake two smaller cakes — the pan guide below explains why two smaller cakes often bake better than one giant one.</p>
+<h2>Pan sizes when you scale up</h2>
+<p>A bigger cake needs a bigger tin. That sounds obvious, but it is the mistake people make most often when they scale a recipe: they scale the ingredients perfectly, pour the batter into the same tin, and watch it overflow in the oven. The rule is that batter should fill the tin about two thirds full. More than that and it spills over the top; much less than that and the thin layer dries out before it cooks through.</p>
+<div class="twrap"><table><tr><th>Round tin size</th><th>Serves about</th><th>Good for</th></tr>
+<tr><td>15 cm</td><td>4 to 6</td><td>A small cake, or a halved recipe</td></tr>
+<tr><td>20 cm</td><td>8 to 10</td><td>The usual family cake</td></tr>
+<tr><td>23 cm</td><td>12 to 14</td><td>A cake for a small gathering</td></tr>
+<tr><td>25 cm</td><td>16 to 20</td><td>A cake for a party</td></tr>
+<tr><td>30 cm</td><td>24 to 28</td><td>A large celebration cake</td></tr>
+</table></div>
+<p>These are rough guides — a rich, dense cake serves more people from the same tin than a light sponge, and how thick you cut the slices matters too. Square tins hold a little more than round tins of the same width, and a rectangular tray is often the best choice for a very large cake, because the batter spreads thin and bakes evenly. If you do not have the right tin, two smaller tins are better than one tin that is too small: the cakes bake faster, they bake more evenly, and you can stack them with filling in between. And if you only have the small tin, bake in two batches rather than overfilling it — the second batch takes no more effort than the first, and neither cake ends up on the floor of the oven.</p>
+<h2>Baking time and temperature when you scale</h2>
+<p>Scaling changes the baking time, but not in the way people expect. A cake twice as big does not take twice as long to bake — it takes longer, but the extra time is much less than double. Heat reaches the middle of a big cake more slowly, so the outside is done while the centre is still wet, which is why a large cake needs a little more time and sometimes a slightly lower oven so the outside does not burn while the middle catches up. As a rough guide, a cake scaled up by half needs about a third more time in the oven. A doubled cake needs roughly a quarter to a third more time than the original — but ovens vary so much that the clock is only a starting point.</p>
+<p>The temperature usually stays the same. Changing the temperature changes how the cake rises and browns, and the recipe was tested at the temperature it gives. What changes is when you start checking: begin testing about 10 minutes before the original baking time is up, and then every few minutes after that. The skewer test is the honest one — push a skewer or a thin knife into the centre of the cake, and if it comes out clean, the cake is done. If it comes out with wet batter on it, give the cake a few more minutes. A cake that is a little underdone in the middle is easy to fix with more time; a cake that is burnt on the outside is not.</p>
+<h2>Common mistakes</h2>
+<p>The most common mistake is scaling the yeast in a straight line. Doubling the yeast makes the dough rise too fast and taste sour, and the bread comes out coarse and uneven. Use the adjusted amount the scaler gives you, and give the dough a little more time to rise — slow rising makes better bread anyway. The second mistake is forgetting the tin: scaling the ingredients and pouring two and a half times the batter into the same tin, then mopping the oven. Check the pan guide before you start mixing, not after.</p>
+<p>The third mistake is rounding eggs to zero. Halving a recipe that uses 1 egg gives you half an egg, not no egg — beat the egg in a cup and use half of it. An egg left out entirely changes the texture of the whole bake, and no amount of extra milk makes up for it. The fourth mistake is scaling the baking time by the same factor as the recipe: a cake twice as big does not take twice as long, and leaving it in for double the time gives you a dry, dark brick. Add time gradually and test with a skewer.</p>
+<p>The fifth mistake is scaling up a recipe you have never baked. Every recipe has its quirks — a batter that is thicker than it looks, a tin size that matters more than the recipe admits — and those quirks are much easier to handle at the original size. Bake it once as written, learn how it behaves, and then scale it with confidence. The sixth mistake is forgetting the extras: the icing, the filling and the topping need scaling too, and a cake for 20 with icing for 8 looks unfinished.</p>
+<h2>What this scaler cannot do</h2>
+<p>This scaler cannot adjust baking time precisely, because ovens vary too much — the time guidance on this page is a starting point, and the skewer test is the real judge. It cannot tell you whether a particular recipe scales well: most sponge and butter cakes scale happily, but delicate things like souffles and meringues are fragile at any size and do not forgive being scaled up. It cannot convert between weight and volume, because a cup of flour and a cup of sugar weigh different amounts — the unit you type is the unit you get back.</p>
+<p>It also cannot scale a recipe written in handfuls and pinches, because those are not amounts it can multiply. And it cannot fix a bad recipe: scaling multiplies whatever is in the recipe, good or bad. If the original cake is dry, the scaled cake will be dry too, only bigger. Use the scaler for the arithmetic, and bring your own judgment — and a skewer — to the oven.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>Can I double any cake recipe?</h3><p>Most sponge cakes, butter cakes and loaf cakes double well — the ingredients scale in a straight line and the result is the same cake, only bigger. Delicate recipes like souffles and meringues do not scale happily, because they depend on air and timing that change with size. If you have never baked a recipe before, bake it once at its original size first, learn how it behaves, and then scale it with confidence.</p></div>
+<div class="faq"><h3>Why can't I just double the yeast?</h3><p>Yeast is alive and multiplies as the dough rises, so doubling it makes the dough rise too fast and taste sour. For twice the dough you need only about one and a half times the yeast, and the dough takes a little longer to rise — which makes better bread anyway. This scaler applies that rule for you: at 2 times the recipe, 7 grams of yeast becomes about 11 grams instead of 14.</p></div>
+<div class="faq"><h3>How do I scale eggs?</h3><p>Eggs scale in a straight line, but they are rounded to the nearest half, because you cannot easily use a third of an egg. Half an egg is real: beat an egg in a cup and pour out half. The scaler never rounds eggs down to zero — a recipe halved from 1 egg still needs half an egg, not none, because leaving the egg out entirely changes the texture of the whole bake.</p></div>
+<div class="faq"><h3>What tin size do I need?</h3><p>Batter should fill the tin about two thirds full. As a rough guide, a 20 centimetre round tin serves 8 to 10 people, a 25 centimetre tin serves 16 to 20, and a 30 centimetre tin serves 24 to 28. If you do not have the right tin, two smaller tins beat one tin that is too small — the cakes bake faster and more evenly, and you can stack them with filling in between.</p></div>
+<div class="faq"><h3>Does baking time change?</h3><p>Yes, but not by the same factor as the recipe: a cake twice as big does not take twice as long. As a rough guide, a doubled cake needs about a quarter to a third more time than the original, and the temperature usually stays the same. Start checking about 10 minutes before the original time is up, and use the skewer test — if a skewer pushed into the centre comes out clean, the cake is done.</p></div>
+<div class="faq"><h3>Can I halve a recipe?</h3><p>Yes — tap the 0.5x button or set the wanted servings to half the original. Watch the eggs: halving a recipe that uses 1 egg gives you half an egg, so beat it in a cup and use half. Use a smaller tin, because the same tin with half the batter will bake too thin and dry out. Yeast and baking powder get their adjusted amounts automatically, so a halved loaf still rises properly.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/recipe-cost-calculator.html">Recipe Cost Calculator</a> · <a href="https://toolbari.github.io/tools/food-expiry-tracker.html">Food Expiry Tracker</a> · <a href="https://toolbari.github.io/tools/flight-duration-calculator.html">Flight Duration Calculator</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+window.TB = (function () {
+  function scaleFactor(origServings, wantedServings) {
+    if (!(origServings > 0)) return 0;
+    return wantedServings / origServings;
+  }
+  function round1(n) { return Math.round(n * 10) / 10; }
+  function scaleAmount(amount, factor, kind) {
+    if (kind === "grams") {
+      return {value: Math.round(amount * factor), note: ""};
+    }
+    if (kind === "eggs") {
+      var raw = amount * factor;
+      var v = Math.round(raw * 2) / 2;
+      if (v < 0.5) v = 0.5;
+      return {value: v, note: v !== raw ? "Rounded to the nearest half egg." : ""};
+    }
+    if (kind === "yeast") {
+      return {value: round1(amount * Math.pow(factor, 0.6)),
+              note: "Yeast does not scale in a straight line — this amount is adjusted."};
+    }
+    if (kind === "bakingPowder") {
+      return {value: round1(amount * Math.pow(factor, 0.8)),
+              note: "Baking powder does not scale in a straight line — this amount is adjusted."};
+    }
+    var v2 = amount * factor;
+    return {value: v2 < 10 ? round1(v2) : Math.round(v2), note: ""};
+  }
+  function scaleRecipe(ingredients, factor) {
+    return (ingredients || []).map(function (g) {
+      var s = scaleAmount(g.amount, factor, g.kind);
+      return {name: g.name, amount: g.amount, unit: g.unit, kind: g.kind,
+              scaled: s.value, note: s.note};
+    });
+  }
+  return {scaleFactor: scaleFactor, scaleAmount: scaleAmount, scaleRecipe: scaleRecipe};
+})();
+if (typeof document !== "undefined") {
+  var MAX_ROWS = 8;
+  var rowsDiv = document.getElementById("rows");
+  var rowCount = 0;
+  var lastText = "";
+  function fmt(n) { return (Math.round(n * 100) / 100).toString(); }
+  function addRow(prefill) {
+    if (rowCount >= MAX_ROWS) return;
+    var i = rowCount++;
+    var p = prefill || {};
+    var units = ["g", "ml", "pieces", "tsp", "tbsp", "cups"];
+    var kinds = [["other", "Regular"], ["eggs", "Eggs"], ["yeast", "Yeast"],
+                 ["bakingPowder", "Baking powder"], ["salt", "Salt"]];
+    var unitOpts = units.map(function (u) {
+      return '<option value="' + u + '"' + (p.unit === u ? " selected" : "") + ">" + u + "</option>";
+    }).join("");
+    var kindOpts = kinds.map(function (k) {
+      return '<option value="' + k[0] + '"' + (p.kind === k[0] ? " selected" : "") + ">" + k[1] + "</option>";
+    }).join("");
+    var div = document.createElement("div");
+    div.innerHTML =
+      '<label for="ing-' + i + '-name">Ingredient ' + (i + 1) + ' — name</label>' +
+      '<input id="ing-' + i + '-name" type="text" value="' + (p.name || "") + '">' +
+      '<label for="ing-' + i + '-amount">Amount</label>' +
+      '<input id="ing-' + i + '-amount" type="number" min="0" step="any" value="' + (p.amount !== undefined ? p.amount : "") + '">' +
+      '<label for="ing-' + i + '-unit">Unit</label>' +
+      '<select id="ing-' + i + '-unit">' + unitOpts + "</select>" +
+      '<label for="ing-' + i + '-kind">Kind (eggs, yeast and baking powder get special rules)</label>' +
+      '<select id="ing-' + i + '-kind">' + kindOpts + "</select>";
+    rowsDiv.appendChild(div);
+    if (rowCount >= MAX_ROWS) document.getElementById("add-btn").disabled = true;
+  }
+  addRow({name: "Flour", amount: 300, unit: "g", kind: "other"});
+  addRow({name: "Sugar", amount: 250, unit: "g", kind: "other"});
+  addRow({name: "Eggs", amount: 4, unit: "pieces", kind: "eggs"});
+  document.getElementById("add-btn").addEventListener("click", function () { addRow(); });
+  function setFactor(f) {
+    var orig = parseFloat(document.getElementById("orig").value) || 0;
+    if (!(orig > 0)) return;
+    document.getElementById("wanted").value = Math.max(1, Math.round(orig * f));
+  }
+  document.getElementById("f-half").addEventListener("click", function () { setFactor(0.5); });
+  document.getElementById("f-two").addEventListener("click", function () { setFactor(2); });
+  document.getElementById("f-three").addEventListener("click", function () { setFactor(3); });
+  document.getElementById("scale-btn").addEventListener("click", function () {
+    var orig = parseFloat(document.getElementById("orig").value) || 0;
+    var wanted = parseFloat(document.getElementById("wanted").value) || 0;
+    var out = document.getElementById("out");
+    var steps = document.getElementById("steps");
+    var factor = window.TB.scaleFactor(orig, wanted);
+    if (!(factor > 0)) {
+      out.textContent = "Enter the original and wanted servings (both above zero).";
+      steps.textContent = ""; lastText = ""; return;
+    }
+    var ings = [];
+    for (var i = 0; i < rowCount; i++) {
+      var nameEl = document.getElementById("ing-" + i + "-name");
+      if (!nameEl) continue;
+      var name = nameEl.value.trim();
+      if (!name) continue;
+      var unit = document.getElementById("ing-" + i + "-unit").value;
+      var kind = document.getElementById("ing-" + i + "-kind").value;
+      if (kind === "other" && (unit === "g" || unit === "ml")) kind = "grams";
+      ings.push({name: name, amount: parseFloat(document.getElementById("ing-" + i + "-amount").value) || 0,
+                 unit: unit, kind: kind});
+    }
+    if (ings.length === 0) {
+      out.textContent = "Add at least one ingredient.";
+      steps.textContent = ""; lastText = ""; return;
+    }
+    var scaled = window.TB.scaleRecipe(ings, factor);
+    var html = '<div class="twrap"><table><tr><th>Ingredient</th><th>Was</th><th>Now</th><th>Note</th></tr>';
+    var text = "Scaled recipe (" + orig + " servings to " + wanted + " servings, factor x" + fmt(factor) + "):\n";
+    var warnings = [];
+    scaled.forEach(function (s) {
+      html += "<tr><td>" + s.name + "</td><td>" + fmt(s.amount) + " " + s.unit + "</td><td><strong>" +
+        fmt(s.scaled) + " " + s.unit + "</strong></td><td>" + (s.note || "") + "</td></tr>";
+      text += s.name + ": " + fmt(s.scaled) + " " + s.unit + (s.note ? " (" + s.note + ")" : "") + "\n";
+      if (s.note) warnings.push(s.name + ": " + s.note);
+    });
+    html += "</table></div>";
+    out.innerHTML = html;
+    var msg = "Scale factor: x" + fmt(factor) + " (" + orig + " servings to " + wanted + " servings).";
+    if (warnings.length) msg += " " + warnings.join(" ");
+    msg += " Remember the tin: a bigger cake needs a bigger tin, and the baking time goes up by roughly a quarter to a third — check with a skewer.";
+    steps.textContent = msg;
+    lastText = text;
+  });
+  document.getElementById("copy-btn").addEventListener("click", function () {
+    var btn = this;
+    if (!lastText) { btn.textContent = "Run the scaler first"; return; }
+    function done() { btn.textContent = "Copied!"; setTimeout(function () { btn.textContent = "Copy result"; }, 2000); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(lastText).then(done).catch(function () { fallback(); });
+    } else { fallback(); }
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = lastText; document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done(); }
+      catch (e) { btn.textContent = "Copy failed — select the text"; }
+      document.body.removeChild(ta);
+    }
+  });
+}
+
+</script>
+</body>
+</html>

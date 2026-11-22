@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spreadsheet Formula Helper — Find the Right Formula in Seconds | ToolBari</title>
+<meta name="description" content="Free spreadsheet formula helper — describe what you want and get the exact formula with an example. No signup, phone friendly.">
+<link rel="canonical" href="https://toolbari.github.io/tools/spreadsheet-formula-helper.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spreadsheet Formula Helper — Find the Right Formula in Seconds">
+<meta property="og:description" content="Free spreadsheet formula helper — describe what you want and get the exact formula with an example. No signup, phone friendly.">
+<meta property="og:url" content="https://toolbari.github.io/tools/spreadsheet-formula-helper.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the difference between VLOOKUP and XLOOKUP?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "VLOOKUP is the older lookup: it searches the first column of a table and returns a value from a column to the right. XLOOKUP is the newer version: you give it the column to search and the column to return separately, and it can look in any direction. XLOOKUP exists only in Excel 365 and Excel 2021 and newer; Google Sheets does not have it, so use INDEX with MATCH there."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I add only some rows?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use SUMIF for one condition, such as adding only numbers over 100, or SUMIFS for several conditions at once. The condition goes in quotes, for example greater than 100 written with quotes around it. To add numbers from one column where another column matches, put the numbers range last in SUMIF, but first in SUMIFS."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does my formula show an error?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The common causes are a missing equals sign, mismatched quotes or brackets, a wrong range, or a lookup that found no match. Read the error: dividing by zero, an unrecognised name, a value of the wrong type, a deleted cell, and no match each have their own message. IFERROR can show your own message instead of the error once you understand it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I join text from two cells?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use CONCAT with the cells and any separator, for example CONCAT with the first name, a space in quotes, and the last name. You can also join with the ampersand: first cell, ampersand, space in quotes, ampersand, last cell. For a whole range at once, TEXTJOIN joins every cell with a separator you choose."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does ＄ mean in a formula?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The dollar sign locks a row or a column in place when you copy a formula. A reference with a dollar sign before the letter and before the number stays fixed on that exact cell wherever you paste it, while a plain reference moves. A dollar sign before the letter only locks the column, and before the number only locks the row."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use these in Google Sheets and Excel?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Almost all of them, yes. The 48 formulas in this library work in both programs, with one big exception: XLOOKUP exists only in newer Excel and not in Google Sheets, so use INDEX with MATCH there. IFS, TEXTJOIN, UNIQUE, SORT and FILTER need newer Excel versions, but Google Sheets has all of them."
+      }
+    }
+  ]
+}
+</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>.calc button{min-height:72px;padding:14px 22px;border:0;border-radius:999px;font-size:17px;font-weight:700;background:#0b7a4b;color:#fff;cursor:pointer;margin:12px 6px 0 0}
+.calc button.secondary{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+.calc input,.calc select,.calc textarea{min-height:72px;padding:14px 12px;font-size:17px}
+.calc textarea{min-height:110px;resize:vertical}
+.calc input[type=checkbox]{min-height:28px;width:28px;vertical-align:middle}
+.calc table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0}
+.calc th,.calc td{border:1px solid #cbd5e1;padding:8px 6px;text-align:left;vertical-align:top}
+.calc th{background:#e8f7ef}
+.twrap{overflow-x:auto;margin:10px 0}
+.twrap table{width:100%;border-collapse:collapse;font-size:15px}
+.twrap th,.twrap td{border:1px solid #cbd5e1;padding:8px 6px;text-align:left;vertical-align:top}
+.twrap th{background:#e8f7ef}
+canvas.chart{width:100%;height:auto;border:2px solid #0b7a4b;border-radius:12px;background:#fff;display:block;margin:12px 0}
+.tag{display:inline-block;padding:2px 10px;border-radius:999px;font-size:14px;font-weight:700}
+.tag.red{background:#fee2e2;color:#991b1b}.tag.orange{background:#ffedd5;color:#9a3412}.tag.green{background:#dcfce7;color:#166534}.tag.grey{background:#e2e8f0;color:#334155}
+.small{font-size:14.5px;color:#475569}
+.chkrow{display:flex;align-items:center;gap:12px;min-height:76px;border:1px solid #cbd5e1;border-radius:12px;padding:6px 10px;margin:8px 0;background:#fff}
+.chkrow input[type=checkbox]{width:72px;height:72px;min-height:72px;flex:0 0 72px;accent-color:#0b7a4b;cursor:pointer}
+.chkrow .txt{flex:1;font-size:17px;overflow-wrap:anywhere}
+.chkrow.done .txt{text-decoration:line-through;color:#64748b}
+.chkrow button{min-height:56px;padding:8px 12px;font-size:15px;margin:0}
+.barwrap{height:28px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin:10px 0}
+.barfill{height:100%;background:#0b7a4b;width:0%;transition:width .2s}
+.fcard{border:1px solid #cbd5e1;border-radius:12px;padding:12px 14px;margin:10px 0;background:#fff}
+.fcard .fname{font-size:18px;font-weight:800}
+.fcard code{display:block;background:#eef2ff;padding:8px 10px;border-radius:8px;margin:8px 0;font-size:16px;overflow-wrap:anywhere}
+.fcard .fex{font-size:15px;color:#334155;margin:6px 0}
+.fcard button{min-height:72px;padding:10px 18px;font-size:15px;margin:4px 6px 0 0}
+a.maplink{display:inline-flex;align-items:center;min-height:72px;padding:14px 22px;border-radius:999px;font-size:17px;font-weight:700;background:#0b7a4b;color:#fff;text-decoration:none;margin:12px 6px 0 0}
+a.maplink.secondary{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Spreadsheet Formula Helper</h1>
+<p class="answer">Search a library of 48 common spreadsheet formulas, each with the exact text to copy and a worked example. Or pick what you want to do and let the picker point to the right formula for Google Sheets and Excel.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="sf-search">Search the library — try a name, or a word like average or lookup</label>
+<input id="sf-search" type="text" placeholder="Type to search 48 formulas">
+<p class="small">Or pick what you want to do:</p>
+<button id="pick-add" type="button">Add up numbers</button>
+<button id="pick-lookup" type="button">Look something up</button>
+<button id="pick-count" type="button">Count things that match</button>
+<button id="pick-join" type="button">Join text together</button>
+<button id="pick-big" type="button">Find the biggest</button>
+<div id="sf-results"></div>
+<div class="out" id="out"></div>
+</div>
+<div class="warn">This library is curated and fixed — it is not artificial intelligence, and it does not invent formulas. Every entry was written for this page and tested in a spreadsheet. If a formula does not work in your sheet, check the cell references and the quotes first: those cause most errors.</div>
+<h2>What this helper does</h2>
+<p>This helper answers one question: which formula do I need, and exactly how do I write it? It holds a library of 48 common spreadsheet formulas, each with a plain-words explanation, the exact formula text to copy, and a worked mini-example showing sample data and the result. You can search the library by name or by what you want to do, or use the picker buttons at the top: add up, look up, count if, join text, find the biggest.</p>
+<p>The library is curated and fixed. Nobody is generating formulas on the fly, and nothing here is guessed. Each entry was written for this page and checked in a spreadsheet, so the formula you copy is the formula that works. That matters, because a formula that is almost right is worse than no formula at all: it gives you a confident-looking wrong answer.</p>
+<p>The helper covers Google Sheets and Excel together. Most formulas work identically in both, and where they differ — XLOOKUP is the big one — the entry says so plainly. The guide below explains the differences that matter, so you never copy a formula that your spreadsheet cannot run.</p>
+<h2>How to use it on your phone</h2>
+<p>Type a word in the search box and the library filters as you type. Searching for "average" shows AVERAGE, AVERAGEIF and anything else that mentions averaging. Searching for a name, such as VLOOKUP, goes straight to that formula. Each result shows the formula, what it does, a worked example, and a copy button. Tap the copy button and the formula text goes to your clipboard, ready to paste into your sheet.</p>
+<p>If you do not know the name of the formula you need, use the picker buttons instead. "Add up numbers" shows SUM and SUMIF. "Look something up" shows VLOOKUP, XLOOKUP and INDEX with MATCH. "Count things that match" shows COUNTIF and COUNTIFS. "Join text together" shows CONCAT and TEXTJOIN. "Find the biggest" shows MAX and LARGE. Pick the task, read the two or three formulas it suggests, and copy the one that fits.</p>
+<p>On a phone the cards are large and easy to tap, and the formula text wraps instead of running off the screen. Nothing you type leaves your device, and there is no account and no sign-up. The library is the same on every visit: 48 formulas, fixed, checked, and ready to copy.</p>
+<h2>The ten formulas to learn first</h2>
+<p>If you learn only ten formulas, learn these: SUM, AVERAGE, COUNT, MAX, MIN, IF, COUNTIF, SUMIF, VLOOKUP and CONCAT. With those ten you can add up a column, find an average, count things, find the biggest and smallest, make a decision, add or count only the rows that match a condition, look up a price from a list, and join first and last names together. That covers most of what most people do in a spreadsheet most days.</p>
+<p>Learn them in that order, one at a time, and practise each one on real data before moving on. Type the formula yourself rather than copying it, because typing it teaches your fingers where the commas and quotes go. Make a small practice sheet with ten rows of made-up numbers and try each formula on it. Ten minutes of practice with real data teaches more than an hour of reading about formulas.</p>
+<p>Two habits make everything else easier. First, always start a formula with the equals sign: without it, the spreadsheet treats your formula as plain text. Second, use cell references instead of typing numbers into formulas: write =SUM(A1:A10), not =SUM(10,20,30), so that when the numbers change, the answer changes too. A spreadsheet that needs retyping every time the data changes is not doing its job.</p>
+<h2>Looking things up: VLOOKUP, XLOOKUP and INDEX with MATCH</h2>
+<p>Looking up is the job that confuses people most, because there are three ways to do it and they look different. VLOOKUP is the oldest: you give it the value to find, the table to search, which column to return, and FALSE for an exact match. It only searches the first column of the table, and it can only return columns to the right of that first column. Those two limits cause most VLOOKUP problems.</p>
+<p>XLOOKUP is the newer replacement, available in Excel 365 and Excel 2021 and newer. You give it the value to find, the column to search, and the column to return, and it can look in any direction. It is simpler to write and harder to break. But Google Sheets does not have XLOOKUP at all, so a sheet that uses XLOOKUP will not work if you move it to Sheets. That is the single most important difference between the two programs for lookups.</p>
+<p>INDEX with MATCH works everywhere — every version of Excel and Google Sheets — and it can look in any direction. MATCH finds the position of the value, and INDEX returns the value at that position from any column. It looks more complicated than VLOOKUP, but it is more flexible and it never breaks when you insert a column. If you share sheets between Excel and Google Sheets, INDEX with MATCH is the safe choice.</p>
+<h2>Adding and counting only some rows</h2>
+<p>SUM adds everything. SUMIF adds only the rows that match a condition. The condition goes in quotes: =SUMIF(A1:A10,"&gt;100") adds only the numbers over 100. To add numbers from one column where another column matches, put the numbers range last: =SUMIF(A1:A10,"East",B1:B10) adds the column B values for rows where column A says East. Getting the ranges in the wrong order is the most common SUMIF mistake.</p>
+<p>SUMIFS, with an S, handles several conditions at once, and the order flips: the range to add comes first, then the condition pairs. =SUMIFS(C1:C10,A1:A10,"East",B1:B10,"&gt;100") adds column C where the region is East and the amount is over 100. COUNTIF and COUNTIFS work the same way but count rows instead of adding them, and AVERAGEIF and AVERAGEIFS average them. Learn one of these families and the rest follow the same pattern.</p>
+<p>One detail catches people out: conditions that compare numbers need quotes around the whole comparison, including the number. Write "&gt;100", not &gt;100, and write "Yes" with quotes for text. Without quotes the spreadsheet reads the condition as a formula or a name and gives an error. If your SUMIF returns zero when it should not, check the quotes first.</p>
+<h2>Working with text and dates</h2>
+<p>Text formulas join, split and clean words. CONCAT joins cells together, and TEXTJOIN joins a whole range with a separator such as a comma. LEFT, RIGHT and MID take characters from the start, end or middle of a cell, which is useful for pulling codes and initials out of longer text. LEN counts characters, UPPER and LOWER change case, PROPER capitalises each word, and TRIM removes extra spaces — the invisible spaces that make lookups fail and comparisons return false.</p>
+<p>Dates are numbers in disguise: every date is stored as a count of days from a starting point, which is why you can subtract one date from another to get the number of days between them. TODAY gives the current date, NOW gives the date and time, and YEAR, MONTH and DAY pull the parts out of a date. DATEDIF counts days, months or years between two dates, and NETWORKDAYS counts working days while skipping weekends. Build dates with the DATE formula rather than typing them as text, because different regions read typed dates differently and the same text can mean two different days.</p>
+<p>The dollar sign deserves a mention, because it is the one character that confuses almost everyone. In a formula, the dollar sign locks a row or a column in place when you copy the formula to other cells. A reference like ＄A＄1 stays fixed on cell A1 no matter where you paste it, while A1 on its own moves. The character is the dollar sign on your keyboard, and the FAQ below explains exactly how it works.</p>
+<h2>Google Sheets vs Excel: what differs</h2>
+<p>For the 48 formulas in this library, almost everything works identically in Google Sheets and Excel. The differences that matter are few but real. XLOOKUP exists only in newer Excel; Google Sheets has no XLOOKUP, so use INDEX with MATCH there. IFS and TEXTJOIN need Excel 2019 or newer, though Google Sheets has both. UNIQUE, SORT and FILTER need Excel 365 or newer, and Google Sheets has all three with the same names.</p>
+<p>There are smaller differences too. Google Sheets and Excel use different date systems by default in some settings, which can shift a date by a few years when moving a file between them — if your dates suddenly look wrong after moving a sheet, check the date system setting. Error messages differ in wording but mean the same things. And a few functions have different names in other languages, though the English names in this library work in both programs set to English.</p>
+<p>The practical advice is simple: if you share sheets between the two programs, stick to the formulas that exist in both, and avoid XLOOKUP, UNIQUE, SORT and FILTER unless you know everyone uses the same program. Everything else in this library is safe in both, and each entry notes its own limits where they exist.</p>
+<h2>Common mistakes and what the error messages mean</h2>
+<p>The most common mistake is forgetting the equals sign, which makes the spreadsheet show your formula as plain text instead of running it. The second is mismatched quotes or brackets: every opening quote needs a closing quote, and every opening bracket needs a closing bracket. The third is a wrong range, such as summing A1:A9 when the data runs to A10 — always check that the range covers the data.</p>
+<p>Error messages tell you what went wrong if you read them. A hash followed by DIV/0 means you divided by zero or by an empty cell. NAME with a question mark means the spreadsheet does not recognise a word you typed, usually a misspelled formula name or a missing pair of quotes. VALUE means a formula expected a number and found text, or the other way round. REF means a cell the formula pointed to was deleted. N/A means a lookup did not find a match. None of these means the spreadsheet is broken; each one points at the exact problem, and IFERROR can hide any of them behind your own message once you understand what is happening.</p>
+<h2>What this helper cannot do</h2>
+<p>This helper cannot write a formula for your exact sheet, because it cannot see your sheet. It gives you the pattern and a worked example, and you adapt the cell references to your own data. It cannot check your data, catch a wrong range, or tell you that you summed the wrong column. Those checks are yours to make, and the best check is the simplest: does the answer look reasonable? If a total looks ten times too big, it probably is.</p>
+<p>It also cannot teach you everything about spreadsheets. It covers the 48 most-used formulas, not the hundreds that exist, and it does not cover pivot tables, charts, macros or scripting. For those, the built-in help in Google Sheets and Excel is genuinely good, and the formula names you learn here will help you search for the next thing you need. This helper is a starting point and a quick reference, not a course — and for finding the right formula in seconds, that is enough.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>What is the difference between VLOOKUP and XLOOKUP?</h3><p>VLOOKUP is the older lookup: it searches the first column of a table and returns a value from a column to the right. XLOOKUP is the newer version: you give it the column to search and the column to return separately, and it can look in any direction. XLOOKUP exists only in Excel 365 and Excel 2021 and newer; Google Sheets does not have it, so use INDEX with MATCH there.</p></div>
+<div class="faq"><h3>How do I add only some rows?</h3><p>Use SUMIF for one condition, such as adding only numbers over 100, or SUMIFS for several conditions at once. The condition goes in quotes, for example greater than 100 written with quotes around it. To add numbers from one column where another column matches, put the numbers range last in SUMIF, but first in SUMIFS.</p></div>
+<div class="faq"><h3>Why does my formula show an error?</h3><p>The common causes are a missing equals sign, mismatched quotes or brackets, a wrong range, or a lookup that found no match. Read the error: dividing by zero, an unrecognised name, a value of the wrong type, a deleted cell, and no match each have their own message. IFERROR can show your own message instead of the error once you understand it.</p></div>
+<div class="faq"><h3>How do I join text from two cells?</h3><p>Use CONCAT with the cells and any separator, for example CONCAT with the first name, a space in quotes, and the last name. You can also join with the ampersand: first cell, ampersand, space in quotes, ampersand, last cell. For a whole range at once, TEXTJOIN joins every cell with a separator you choose.</p></div>
+<div class="faq"><h3>What does ＄ mean in a formula?</h3><p>The dollar sign locks a row or a column in place when you copy a formula. A reference with a dollar sign before the letter and before the number stays fixed on that exact cell wherever you paste it, while a plain reference moves. A dollar sign before the letter only locks the column, and before the number only locks the row.</p></div>
+<div class="faq"><h3>Can I use these in Google Sheets and Excel?</h3><p>Almost all of them, yes. The 48 formulas in this library work in both programs, with one big exception: XLOOKUP exists only in newer Excel and not in Google Sheets, so use INDEX with MATCH there. IFS, TEXTJOIN, UNIQUE, SORT and FILTER need newer Excel versions, but Google Sheets has all of them.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/data-visualization-builder.html">Data Visualization Builder</a> · <a href="https://toolbari.github.io/tools/conversion-rate-calculator.html">Conversion Rate Calculator</a> · <a href="https://toolbari.github.io/tools/interactive-checklist-builder.html">Interactive Checklist Builder</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+
+window.TB = (function () {
+  var FORMULAS = [
+    { name: "SUM", formula: "=SUM(A1:A10)", what: "Adds up all the numbers in a range.", example: "A1:A5 hold 10, 20, 30, 40, 50. =SUM(A1:A5) gives 150.", note: "Works the same in Google Sheets and Excel." },
+    { name: "AVERAGE", formula: "=AVERAGE(A1:A10)", what: "Finds the average (mean) of numbers in a range.", example: "A1:A3 hold 10, 20, 30. =AVERAGE(A1:A3) gives 20.", note: "Blank cells are ignored; cells with text are ignored too." },
+    { name: "COUNT", formula: "=COUNT(A1:A10)", what: "Counts how many cells in a range hold numbers.", example: "A1:A7 hold 5 numbers and 2 words. =COUNT(A1:A7) gives 5.", note: "Use COUNTA to count cells with any content." },
+    { name: "COUNTA", formula: "=COUNTA(A1:A10)", what: "Counts how many cells in a range are not empty.", example: "A1:A7 hold 5 numbers and 2 words. =COUNTA(A1:A7) gives 7.", note: "Counts text, numbers and errors; only truly empty cells are skipped." },
+    { name: "MAX", formula: "=MAX(A1:A10)", what: "Finds the largest number in a range.", example: "A1:A3 hold 10, 20, 30. =MAX(A1:A3) gives 30.", note: "For the largest text value, MAX does not work — it only reads numbers." },
+    { name: "MIN", formula: "=MIN(A1:A10)", what: "Finds the smallest number in a range.", example: "A1:A3 hold 10, 20, 30. =MIN(A1:A3) gives 10.", note: "Empty cells are ignored; a zero in a cell counts as zero." },
+    { name: "IF", formula: '=IF(A1>100,"Big","Small")', what: "Tests something and picks one of two answers.", example: 'A1 holds 150. =IF(A1>100,"Big","Small") gives Big.', note: "Text answers need double quotes around them." },
+    { name: "IFS", formula: '=IFS(A1>90,"A",A1>70,"B",TRUE,"C")', what: "Tests several conditions in order and returns the first match.", example: 'A1 holds 80. =IFS(A1>90,"A",A1>70,"B",TRUE,"C") gives B.', note: "Excel 2019 and newer, and Google Sheets. Older Excel needs nested IF instead." },
+    { name: "IFERROR", formula: '=IFERROR(A1/B1,"Check numbers")', what: "Shows your own message instead of an error.", example: 'B1 holds 0. =IFERROR(A1/B1,"Check numbers") gives Check numbers instead of an error.', note: "Useful for lookups that may not find a match." },
+    { name: "SUMIF", formula: '=SUMIF(A1:A10,">100")', what: "Adds only the numbers that meet one condition.", example: "A1:A5 hold 50, 150, 80, 200, 90. =SUMIF(A1:A5,\">100\") gives 350.", note: "For a condition in one column and numbers in another, use =SUMIF(A1:A10,\"East\",B1:B10)." },
+    { name: "SUMIFS", formula: '=SUMIFS(C1:C10,A1:A10,"East",B1:B10,">100")', what: "Adds numbers that meet several conditions at once.", example: "Adds sales in column C where region is East and amount is over 100.", note: "The range to add comes first, then the condition pairs." },
+    { name: "COUNTIF", formula: '=COUNTIF(A1:A10,"Yes")', what: "Counts how many cells meet one condition.", example: 'A1:A10 hold 6 Yes and 4 No. =COUNTIF(A1:A10,"Yes") gives 6.', note: "Conditions with numbers need quotes too: =COUNTIF(A1:A10,\">100\")." },
+    { name: "COUNTIFS", formula: '=COUNTIFS(A1:A10,"East",B1:B10,">100")', what: "Counts rows that meet several conditions at once.", example: "Counts rows where region is East and amount is over 100.", note: "Every condition must be true for a row to be counted." },
+    { name: "AVERAGEIF", formula: '=AVERAGEIF(A1:A10,">100")', what: "Averages only the numbers that meet one condition.", example: "A1:A5 hold 50, 150, 80, 200, 90. =AVERAGEIF(A1:A5,\">100\") gives 175.", note: "AVERAGEIFS exists for several conditions." },
+    { name: "VLOOKUP", formula: '=VLOOKUP("Apple",A1:B10,2,FALSE)', what: "Looks for a value in the first column and returns a value from the same row.", example: 'Column A holds fruit names, column B holds prices. =VLOOKUP("Apple",A1:B10,2,FALSE) gives the price of Apple.', note: "FALSE means an exact match. Without it, VLOOKUP may return the wrong row." },
+    { name: "XLOOKUP", formula: '=XLOOKUP("Apple",A1:A10,B1:B10)', what: "Looks up a value and returns the matching value from another column.", example: 'Finds Apple in A1:A10 and returns the matching price from B1:B10.', note: "Excel 365 and Excel 2021 and newer only. Google Sheets does not have XLOOKUP — use INDEX and MATCH there." },
+    { name: "HLOOKUP", formula: '=HLOOKUP("Jan",A1:F2,2,FALSE)', what: "Looks across the top row and returns a value from the same column.", example: "Row 1 holds month names, row 2 holds sales. =HLOOKUP(\"Jan\",A1:F2,2,FALSE) gives January sales.", note: "The vertical version, VLOOKUP, is used far more often." },
+    { name: "INDEX", formula: "=INDEX(A1:A10,3)", what: "Returns the value at a position in a range.", example: "A1:A10 hold a list. =INDEX(A1:A10,3) gives the third item.", note: "Counting starts at 1, not 0." },
+    { name: "MATCH", formula: '=MATCH("Apple",A1:A10,0)', what: "Finds the position of a value in a range.", example: 'Apple is the fourth item in A1:A10. =MATCH("Apple",A1:A10,0) gives 4.', note: "The 0 at the end means an exact match." },
+    { name: "INDEX+MATCH", formula: '=INDEX(B1:B10,MATCH("Apple",A1:A10,0))', what: "Looks up a value and returns the matching value from any column.", example: "Finds Apple in column A and returns the price from column B — even when the price column is to the left.", note: "Works in Google Sheets and all versions of Excel. More flexible than VLOOKUP." },
+    { name: "CONCAT", formula: '=CONCAT(A1," ",B1)', what: "Joins text from cells into one cell.", example: 'A1 holds John, B1 holds Smith. =CONCAT(A1," ",B1) gives John Smith.', note: "You can also join with &: =A1&\" \"&B1 gives the same result." },
+    { name: "CONCATENATE", formula: '=CONCATENATE(A1," ",B1)', what: "Joins text from cells into one cell (the older name for CONCAT).", example: 'A1 holds John, B1 holds Smith. =CONCATENATE(A1," ",B1) gives John Smith.', note: "Still works everywhere, but CONCAT is the newer name." },
+    { name: "TEXTJOIN", formula: '=TEXTJOIN(", ",TRUE,A1:A5)', what: "Joins a whole range of cells with a separator between them.", example: 'A1:A3 hold Red, Green, Blue. =TEXTJOIN(", ",TRUE,A1:A3) gives Red, Green, Blue.', note: "TRUE skips empty cells. Excel 2019 and newer, and Google Sheets." },
+    { name: "LEFT", formula: "=LEFT(A1,3)", what: "Takes characters from the start of a text.", example: 'A1 holds London. =LEFT(A1,3) gives Lon.', note: "If you ask for more characters than the text has, you get the whole text." },
+    { name: "RIGHT", formula: "=RIGHT(A1,3)", what: "Takes characters from the end of a text.", example: 'A1 holds London. =RIGHT(A1,3) gives don.', note: "Pairs with LEFT for splitting codes and references." },
+    { name: "MID", formula: "=MID(A1,2,3)", what: "Takes characters from the middle of a text.", example: 'A1 holds London. =MID(A1,2,3) gives ond.', note: "The numbers are the starting position and how many characters to take." },
+    { name: "LEN", formula: "=LEN(A1)", what: "Counts how many characters are in a cell.", example: 'A1 holds Hello. =LEN(A1) gives 5.', note: "Spaces count as characters too." },
+    { name: "UPPER", formula: "=UPPER(A1)", what: "Turns text into capital letters.", example: 'A1 holds hello. =UPPER(A1) gives HELLO.', note: "Numbers and punctuation are left alone." },
+    { name: "LOWER", formula: "=LOWER(A1)", what: "Turns text into small letters.", example: 'A1 holds HELLO. =LOWER(A1) gives hello.', note: "Handy for making messy typed data consistent." },
+    { name: "PROPER", formula: '=PROPER("john smith")', what: "Capitalises the first letter of each word.", example: '=PROPER("john smith") gives John Smith.', note: "Useful for tidying up names typed in all capitals or all lowercase." },
+    { name: "TRIM", formula: "=TRIM(A1)", what: "Removes extra spaces from the start, end and middle of text.", example: 'A1 holds "  hello   world  ". =TRIM(A1) gives hello world with single spaces.', note: "Extra spaces are a common reason lookups fail." },
+    { name: "TEXT", formula: '=TEXT(A1,"0.00")', what: "Shows a number as text in a format you choose.", example: 'A1 holds 12.5. =TEXT(A1,"0.00") gives 12.50 as text.', note: "The result is text, not a number, so you cannot add it up afterwards." },
+    { name: "DATE", formula: "=DATE(2026,11,22)", what: "Builds a date from a year, a month and a day.", example: "=DATE(2026,11,22) gives 22 November 2026.", note: "Safer than typing dates as text, which different regions read differently." },
+    { name: "TODAY", formula: "=TODAY()", what: "Gives today's date, updating every day.", example: "On 22 November 2026, =TODAY() gives 22 November 2026.", note: "Useful for ages and deadlines: =TODAY()-A1 gives days since a date." },
+    { name: "NOW", formula: "=NOW()", what: "Gives the current date and time.", example: "On 22 November 2026 at 3 in the afternoon, =NOW() gives that date and time.", note: "Updates whenever the sheet recalculates." },
+    { name: "YEAR", formula: "=YEAR(A1)", what: "Takes the year out of a date.", example: "A1 holds 22 November 2026. =YEAR(A1) gives 2026.", note: "Pairs with MONTH and DAY for splitting dates apart." },
+    { name: "MONTH", formula: "=MONTH(A1)", what: "Takes the month number out of a date.", example: "A1 holds 22 November 2026. =MONTH(A1) gives 11.", note: "January is 1 and December is 12." },
+    { name: "DAY", formula: "=DAY(A1)", what: "Takes the day number out of a date.", example: "A1 holds 22 November 2026. =DAY(A1) gives 22.", note: "Useful for grouping dates by day of the month." },
+    { name: "DATEDIF", formula: '=DATEDIF(A1,B1,"D")', what: "Counts the days, months or years between two dates.", example: 'A1 holds 1 January 2026, B1 holds 22 November 2026. =DATEDIF(A1,B1,"D") gives 325.', note: 'Use "M" for whole months and "Y" for whole years. Undocumented in Sheets but it works.' },
+    { name: "NETWORKDAYS", formula: "=NETWORKDAYS(A1,B1)", what: "Counts working days between two dates, skipping weekends.", example: "From a Monday to the next Friday, =NETWORKDAYS gives 5.", note: "You can add a third range listing holidays to skip those too." },
+    { name: "ROUND", formula: "=ROUND(A1,2)", what: "Rounds a number to a number of decimal places.", example: "A1 holds 12.345. =ROUND(A1,2) gives 12.35.", note: "The display may round a number, but ROUND changes the stored value." },
+    { name: "ROUNDUP", formula: "=ROUNDUP(A1,0)", what: "Rounds a number up, away from zero.", example: "A1 holds 12.1. =ROUNDUP(A1,0) gives 13.", note: "Useful when you must not round down, such as packs to buy." },
+    { name: "ROUNDDOWN", formula: "=ROUNDDOWN(A1,0)", what: "Rounds a number down, towards zero.", example: "A1 holds 12.9. =ROUNDDOWN(A1,0) gives 12.", note: "Useful for whole units, such as complete boxes filled." },
+    { name: "ABS", formula: "=ABS(A1)", what: "Removes the minus sign from a number.", example: "A1 holds -7. =ABS(A1) gives 7.", note: "Handy for measuring differences, where only the size matters." },
+    { name: "SQRT", formula: "=SQRT(16)", what: "Finds the square root of a number.", example: "=SQRT(16) gives 4.", note: "A negative number gives an error — square roots of negatives do not exist in ordinary arithmetic." },
+    { name: "POWER", formula: "=POWER(2,10)", what: "Raises a number to a power.", example: "=POWER(2,10) gives 1024.", note: "You can also use the caret: =2^10 gives the same result." },
+    { name: "MOD", formula: "=MOD(10,3)", what: "Gives the remainder after dividing.", example: "=MOD(10,3) gives 1, because 10 divided by 3 leaves 1.", note: "Useful for repeating patterns, such as every third row." },
+    { name: "RANK", formula: "=RANK(A1,A1:A10)", what: "Ranks a number against the other numbers in a range.", example: "If A1 is the second largest of ten numbers, =RANK(A1,A1:A10) gives 2.", note: "Equal numbers share a rank, and the next rank is skipped." },
+    { name: "LARGE", formula: "=LARGE(A1:A10,2)", what: "Finds the second largest number, or any position you ask for.", example: "A1:A10 hold ten scores. =LARGE(A1:A10,2) gives the second highest score.", note: "LARGE with 1 is the same as MAX." },
+    { name: "SMALL", formula: "=SMALL(A1:A10,2)", what: "Finds the second smallest number, or any position you ask for.", example: "A1:A10 hold ten scores. =SMALL(A1:A10,2) gives the second lowest score.", note: "SMALL with 1 is the same as MIN." }
+  ];
+
+  function searchFormulas(q) {
+    q = (q || "").toLowerCase().trim();
+    if (!q) return FORMULAS.slice();
+    return FORMULAS.filter(function (f) {
+      return f.name.toLowerCase().indexOf(q) !== -1 ||
+        f.what.toLowerCase().indexOf(q) !== -1 ||
+        f.formula.toLowerCase().indexOf(q) !== -1;
+    });
+  }
+  function pickFormula(task) {
+    var map = {
+      add: ["SUM", "SUMIF"],
+      lookup: ["VLOOKUP", "XLOOKUP", "INDEX+MATCH"],
+      count: ["COUNTIF", "COUNTIFS"],
+      join: ["CONCAT", "TEXTJOIN"],
+      big: ["MAX", "LARGE"]
+    };
+    var names = map[task] || [];
+    return FORMULAS.filter(function (f) { return names.indexOf(f.name) !== -1; });
+  }
+  function getFormula(name) {
+    for (var i = 0; i < FORMULAS.length; i++) {
+      if (FORMULAS[i].name === name) return FORMULAS[i];
+    }
+    return null;
+  }
+  return { FORMULAS: FORMULAS, searchFormulas: searchFormulas,
+    pickFormula: pickFormula, getFormula: getFormula };
+})();
+if (typeof document !== "undefined") {
+  var resultsEl = document.getElementById("sf-results");
+  var outEl = document.getElementById("out");
+  function card(f) {
+    var d = document.createElement("div");
+    d.className = "fcard";
+    var name = document.createElement("div");
+    name.className = "fname";
+    name.textContent = f.name;
+    var code = document.createElement("code");
+    code.textContent = f.formula;
+    var what = document.createElement("div");
+    what.className = "fex";
+    what.textContent = f.what;
+    var ex = document.createElement("div");
+    ex.className = "fex";
+    ex.textContent = "Example: " + f.example;
+    var note = document.createElement("div");
+    note.className = "small";
+    note.textContent = f.note;
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = "Copy formula";
+    btn.addEventListener("click", function () {
+      copyText(f.formula, btn);
+    });
+    d.appendChild(name);
+    d.appendChild(code);
+    d.appendChild(what);
+    d.appendChild(ex);
+    d.appendChild(note);
+    d.appendChild(btn);
+    return d;
+  }
+  function copyText(text, btn) {
+    function done() { btn.textContent = "Copied!"; }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function () { fallback(); });
+    } else { fallback(); }
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done(); }
+      catch (e) { btn.textContent = "Copy failed — select the text"; }
+      document.body.removeChild(ta);
+    }
+  }
+  function render(list, label) {
+    resultsEl.innerHTML = "";
+    for (var i = 0; i < list.length; i++) resultsEl.appendChild(card(list[i]));
+    outEl.textContent = label + " — showing " + list.length + " formula" +
+      (list.length === 1 ? "" : "s") + " of " + window.TB.FORMULAS.length + ".";
+  }
+  document.getElementById("sf-search").addEventListener("input", function () {
+    render(window.TB.searchFormulas(this.value), "Search results");
+  });
+  document.getElementById("pick-add").addEventListener("click", function () {
+    render(window.TB.pickFormula("add"), "Add up numbers");
+  });
+  document.getElementById("pick-lookup").addEventListener("click", function () {
+    render(window.TB.pickFormula("lookup"), "Look something up");
+  });
+  document.getElementById("pick-count").addEventListener("click", function () {
+    render(window.TB.pickFormula("count"), "Count things that match");
+  });
+  document.getElementById("pick-join").addEventListener("click", function () {
+    render(window.TB.pickFormula("join"), "Join text together");
+  });
+  document.getElementById("pick-big").addEventListener("click", function () {
+    render(window.TB.pickFormula("big"), "Find the biggest");
+  });
+  render(window.TB.FORMULAS, "Full library");
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home Renovation Cost Calculator — Work Out Your Renovation Budget | ToolBari</title>
+<meta name="description" content="Work out home renovation costs free — room size, materials and labour, with a contingency budget. No signup, works on phone.">
+<link rel="canonical" href="https://toolbari.github.io/tools/home-renovation-cost-calculator.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Home Renovation Cost Calculator — Work Out Your Renovation Budget">
+<meta property="og:description" content="Work out what your home renovation is likely to cost, with materials, labour and a contingency budget.">
+<meta property="og:url" content="https://toolbari.github.io/tools/home-renovation-cost-calculator.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does a bathroom renovation cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends on the size of the bathroom, the materials you choose and your city. A bathroom costs more per square foot than a bedroom because of plumbing, waterproofing and fitted units. Use the calculator with your bathroom's size and a material level to get a planning figure, then get two real quotes — the quotes are the real price, the calculator is the starting point."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a contingency budget?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A contingency budget is spare money set aside for surprises during a renovation — damp walls, uneven floors, a pipe in the wrong place, or a material that costs more than expected. Ten to fifteen percent of the total is the usual range. This calculator adds ten percent automatically. If the surprises never come, you simply have money left over."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I buy materials myself?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Buying materials yourself can save money and lets you choose exactly what you want, but it takes time and you carry the risk if you order the wrong thing. A contractor may get trade prices you cannot, and knows the quantities. Either way works — the important thing is to agree in writing who buys what, so nothing is bought twice or not at all."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I compare two quotes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Give every person the same written list of what you want, then compare the quotes line by line, not just by the total. Check that both include the same materials, the same finish quality, removal of old work and clearing up. Ask for materials and labour to be shown separately, and ask why if one quote is much cheaper than the other."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What costs the most in a kitchen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Usually the cabinets and the worktops cost the most, followed by appliances, then plumbing and electrical work. Moving a sink or a cooker adds a lot because the pipes and wiring must move too. Keeping the layout the same and spending on good cabinets and worktops is often the best use of a kitchen budget."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I renovate one room at a time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, and it is often the smarter way. One room at a time spreads the cost, keeps the rest of the house usable, and lets you learn from the first room before you start the second. Do the messy rooms first — bathroom and kitchen — and the paint-only rooms last, so finished rooms are not damaged by later building work."
+      }
+    }
+  ]
+}
+</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>.calc button{min-height:72px;padding:14px 22px;border:0;border-radius:999px;font-size:17px;font-weight:700;background:#0b7a4b;color:#fff;cursor:pointer;margin:12px 6px 0 0}
+.calc button.secondary{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+.calc input,.calc select,.calc textarea{min-height:72px;padding:14px 12px;font-size:17px}
+.calc textarea{min-height:110px;resize:vertical}
+.calc input[type=checkbox]{min-height:28px;width:28px;vertical-align:middle}
+.calc table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0}
+.calc th,.calc td{border:1px solid #cbd5e1;padding:8px 6px;text-align:left;vertical-align:top}
+.calc th{background:#e8f7ef}
+.twrap{overflow-x:auto;margin:10px 0}
+.twrap table{width:100%;border-collapse:collapse;font-size:15px}
+.twrap th,.twrap td{border:1px solid #cbd5e1;padding:8px 6px;text-align:left;vertical-align:top}
+.twrap th{background:#e8f7ef}
+canvas.plan{width:100%;height:auto;border:2px solid #0b7a4b;border-radius:12px;background:#fff;touch-action:none;display:block}
+.tag{display:inline-block;padding:2px 10px;border-radius:999px;font-size:14px;font-weight:700}
+.tag.red{background:#fee2e2;color:#991b1b}.tag.orange{background:#ffedd5;color:#9a3412}.tag.green{background:#dcfce7;color:#166534}.tag.grey{background:#e2e8f0;color:#334155}
+.small{font-size:14.5px;color:#475569}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Home Renovation Cost Calculator</h1>
+<p class="answer">Work out what your home renovation is likely to cost before you spend anything. Enter the room type, the size in square feet, the material level and the labour cost, and the calculator shows materials, labour, a ten percent contingency and the cost per square foot.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="type">Room or project type</label>
+<select id="type">
+<option value="kitchen">Kitchen</option>
+<option value="bathroom">Bathroom</option>
+<option value="bedroom" selected>Bedroom</option>
+<option value="paintFloor">Full room: paint and new floor</option>
+</select>
+<label for="area">Area in square feet</label>
+<input id="area" type="number" min="1" step="any" value="120">
+<label for="level">Material level</label>
+<select id="level">
+<option value="basic">Basic — plain, budget materials</option>
+<option value="standard" selected>Standard — good everyday materials</option>
+<option value="premium">Premium — high-end finishes</option>
+</select>
+<label for="labour">Labour cost (in your own currency)</label>
+<input id="labour" type="number" min="0" step="any" value="30000">
+<button id="calc-btn" type="button">Work out my renovation cost</button>
+<button id="copy-btn" class="secondary" type="button">Copy result</button>
+<div class="out" id="out" aria-live="polite"></div>
+<div class="steps" id="steps"></div>
+<p class="small">The calculator uses typical planning rates per square foot for the estimate only. Real prices vary by city and by shop — get two real quotes before you spend anything. All amounts are in your own currency.</p>
+</div>
+<div class="warn">The rates in this calculator are typical planning rates for an estimate only — they are not real prices. Real prices vary by city, by shop and by the exact materials you choose, so get at least two real quotes before you spend anything. This page gives you a planning figure, not a final price.</div>
+<h2>How to use this calculator</h2>
+<p>Start by choosing the room or project type. A kitchen and a bathroom cost more per square foot than a bedroom, because they need plumbing, waterproofing and fitted units. A bedroom is mostly paint, flooring and a few fittings. The "paint and new floor" option covers a full refresh of one room: walls painted and the floor replaced, with nothing structural changed. Pick the option that matches your job most closely.</p>
+<p>Next, enter the area in square feet. Measure the length and the width of the room in feet and multiply them together. A room 10 feet long and 12 feet wide is 120 square feet. If the room is an odd shape, split it into rectangles, work out each rectangle, and add them together. Then choose the material level: basic means plain budget materials, standard means good everyday materials that most homes use, and premium means high-end finishes such as imported tiles or solid wood.</p>
+<p>Finally, enter the labour cost. This is what the workers charge for the job — not the materials. If you already have a quote from a worker or a contractor, type that figure in. If you do not, leave the sample figure in place to see how the maths works, then replace it with a real quote as soon as you have one. Tap the button and the calculator shows the materials cost, the labour cost, the total with a ten percent contingency, and the cost per square foot. The copy button copies the whole result so you can paste it into a message or compare it with a quote.</p>
+<h2>Where renovation money actually goes</h2>
+<p>Most people think of renovation as one big cost, but it is really two costs added together: materials and labour. Materials are everything that stays in the room — tiles, paint, flooring, cabinets, taps, switches, lights and sanitary fittings. Labour is what you pay the people who do the work — the mason, the plumber, the electrician, the painter and the carpenter. In most home jobs the two are roughly similar in size, but the balance shifts with the job. A bathroom is heavy on materials and plumbing labour. A paint job is mostly labour, because paint itself is cheap.</p>
+<p>The material level changes the materials side a lot and the labour side very little. Fitting a basic tile and fitting a premium tile takes the worker about the same time, but the premium tile can cost three times as much per square foot. That is why the calculator changes the materials rate when you change the level, and leaves the labour figure to you. The table below shows the planning rates the calculator uses. They are typical rates for planning an estimate, not prices from any real shop.</p>
+<div class="twrap"><table><tr><th>Project type</th><th>Basic (per sq ft)</th><th>Standard (per sq ft)</th><th>Premium (per sq ft)</th></tr>
+<tr><td>Kitchen</td><td>1,200</td><td>1,800</td><td>2,800</td></tr>
+<tr><td>Bathroom</td><td>1,100</td><td>1,600</td><td>2,500</td></tr>
+<tr><td>Bedroom</td><td>600</td><td>900</td><td>1,500</td></tr>
+<tr><td>Paint and new floor</td><td>350</td><td>500</td><td>800</td></tr>
+</table></div>
+<p class="small">Planning rates only, in your own currency per square foot. Real prices vary by city and by shop. Always confirm with two real quotes before you spend.</p>
+<p>There is a third cost that beginners forget: the small items. Switches, sockets, screws, adhesive, grout, putty, masking tape, brushes, skirting boards and door handles are cheap one by one, but a whole room needs a lot of them. A good rule is to expect the small items to add roughly five to ten percent on top of the main materials. The contingency in this calculator covers part of that, but it is worth listing the small items separately when you plan, so they do not surprise you at the shop.</p>
+<h2>Worked example: a 120 sq ft bedroom</h2>
+<p>Take a bedroom 10 feet by 12 feet — 120 square feet — renovated at the standard level. The calculator's planning rate for a standard bedroom is 900 per square foot, so the materials come to 120 times 900, which is 108,000. That covers paint, flooring, and the usual fittings for a bedroom at everyday quality. It is a planning figure, not a shop price — your real materials bill depends on what you actually choose.</p>
+<p>Now add labour. Suppose the workers quote 30,000 for the whole job — painting, flooring and fitting. That figure is an example only; your real labour cost depends on your city and on who does the work. The subtotal is 108,000 plus 30,000, which is 138,000. The contingency is ten percent of the subtotal, which is 13,800. The total is 138,000 plus 13,800, which is 151,800. Divide that by 120 square feet and you get 1,265 per square foot, all in.</p>
+<p>Try the same example in the calculator: it starts with these exact figures — bedroom, 120 square feet, standard level, labour 30,000 — so one tap gives you the same answer. Then change one thing at a time and watch the total move. Switch the level to premium and the materials jump to 180,000. Switch the room to a bathroom and the rate rises to 1,600 per square foot. That is the real value of the calculator: it shows you which choices move the budget most, before you commit to any of them.</p>
+<h2>The contingency rule</h2>
+<p>Every renovation finds a surprise. The wall behind the old tiles is damp. The floor underneath the carpet is uneven. A pipe is in the wrong place. The tile you chose is out of stock and the replacement costs more. None of this is bad luck — it is normal. Old rooms hide their problems until the work starts, and even new rooms produce small changes of plan once the work is under way.</p>
+<p>That is why every sensible renovation budget keeps a contingency: spare money set aside for the surprises. This calculator adds ten percent of the subtotal as the contingency. For most jobs, ten to fifteen percent is the right range. A simple paint job in a room you know well can manage with ten percent. An old bathroom, where you cannot see the pipes until the tiles come off, deserves fifteen percent. If the contingency is not needed, you have money left over — which is a far better problem than running out of money with a half-finished room.</p>
+<p>The rule that matters is this: the contingency is part of the budget, not extra money on top of it. When you decide what you can afford, the total including the contingency is the number to compare with your savings. People get into trouble when they spend the full budget on materials and labour and then meet the first surprise with empty pockets. Keep the contingency untouched until you need it, and if a worker asks for more money mid-job, the contingency is what pays for it — not a loan, and not a cut to the finish quality.</p>
+<h2>How to get two real quotes before you spend</h2>
+<p>A calculator gives you a planning figure. A quote gives you a real price. Before you spend anything, get at least two real quotes from workers or contractors in your city. Start by writing down exactly what you want: the room, the size, the materials you have in mind, and what is included — for example, whether old tiles are removed, whether rubbish is taken away, and whether paint and flooring are included. Give the same written list to every person you ask. If two people quote on different lists, their prices cannot be compared.</p>
+<p>When the quotes come back, compare them line by line, not just by the total. One quote may be cheaper because it leaves out the skirting boards or the second coat of paint. Ask each person to break the quote into materials and labour, and to name the materials they plan to use. A quote that says "tiles included" tells you nothing; a quote that names the tile and its price per square foot tells you everything. If a quote is much cheaper than the others, ask why — the cheapest quote is sometimes cheap because something is missing.</p>
+<p>Finally, check the work before you check the price. Ask to see a finished job, or at least photos of one. Ask how long the job will take, what happens if something goes wrong, and whether the price is fixed or an estimate. Agree in writing who buys the materials, when payments are made, and what counts as finished. A clear written agreement protects both sides and costs nothing. The calculator on this page helps you judge whether a quote is in the right range — if a quote is far above or far below the calculator's figure, ask questions until you understand why.</p>
+<h2>Common mistakes</h2>
+<p>The most common mistake is having no contingency. People plan to the last unit of their savings, the first surprise arrives, and the job stops half done. A half-renovated bathroom is worse than an old bathroom, because you cannot use it at all. Always hold back ten to fifteen percent, and treat it as spent money until the job is finished and you know you do not need it.</p>
+<p>The second mistake is taking the cheapest quote without checking the work. A low price can mean a worker who cuts corners — thin paint, badly laid tiles, wiring that is not safe. The cost of fixing bad work is always higher than the saving on the quote. Check finished jobs, ask for references, and be suspicious of any quote far below the others. The third mistake is forgetting the small items: switches, sockets, adhesive, grout, handles and trims. They add up, and a budget that forgets them runs short at the very end, when the room is nearly done and the money is gone.</p>
+<p>A fourth mistake is changing the plan mid-job without checking the cost. Swapping to a nicer tile halfway through sounds small, but it can mean new adhesive, a different grout, and extra labour. Every change has a price — ask for it before you agree, not after the work is done. And a fifth mistake is starting before the materials are ready. If the tiles arrive late, the workers wait, and waiting workers still get paid. Order materials early, check them when they arrive, and only then set the start date.</p>
+<h2>What this calculator cannot do</h2>
+<p>This calculator cannot tell you the real price of your renovation. It works from typical planning rates, and real prices depend on your city, your shops, the exact materials you choose and the workers you hire. Two identical rooms in two different cities can cost very different amounts. Use the calculator to plan, to compare options and to judge whether a quote is in the right range — then get real quotes before you spend.</p>
+<p>It also cannot see your room. It does not know about damp walls, uneven floors, old wiring or pipes in the wrong place. It cannot judge whether a wall is safe to move, whether a floor can take the weight of new tiles, or whether your home needs any permission for the work. For structural changes — moving walls, changing plumbing routes, or anything that affects the building itself — ask a qualified professional before you start. The calculator is a planning tool, not a builder, and the best budget is the one you check against two real quotes.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>How much does a bathroom renovation cost?</h3><p>It depends on the size of the bathroom, the materials you choose and your city. A bathroom costs more per square foot than a bedroom because of plumbing, waterproofing and fitted units. Use the calculator with your bathroom's size and a material level to get a planning figure, then get two real quotes — the quotes are the real price, the calculator is the starting point.</p></div>
+<div class="faq"><h3>What is a contingency budget?</h3><p>A contingency budget is spare money set aside for surprises during a renovation — damp walls, uneven floors, a pipe in the wrong place, or a material that costs more than expected. Ten to fifteen percent of the total is the usual range. This calculator adds ten percent automatically. If the surprises never come, you simply have money left over.</p></div>
+<div class="faq"><h3>Should I buy materials myself?</h3><p>Buying materials yourself can save money and lets you choose exactly what you want, but it takes time and you carry the risk if you order the wrong thing. A contractor may get trade prices you cannot, and knows the quantities. Either way works — the important thing is to agree in writing who buys what, so nothing is bought twice or not at all.</p></div>
+<div class="faq"><h3>How do I compare two quotes?</h3><p>Give every person the same written list of what you want, then compare the quotes line by line, not just by the total. Check that both include the same materials, the same finish quality, removal of old work and clearing up. Ask for materials and labour to be shown separately, and ask why if one quote is much cheaper than the other.</p></div>
+<div class="faq"><h3>What costs the most in a kitchen?</h3><p>Usually the cabinets and the worktops cost the most, followed by appliances, then plumbing and electrical work. Moving a sink or a cooker adds a lot because the pipes and wiring must move too. Keeping the layout the same and spending on good cabinets and worktops is often the best use of a kitchen budget.</p></div>
+<div class="faq"><h3>Can I renovate one room at a time?</h3><p>Yes, and it is often the smarter way. One room at a time spreads the cost, keeps the rest of the house usable, and lets you learn from the first room before you start the second. Do the messy rooms first — bathroom and kitchen — and the paint-only rooms last, so finished rooms are not damaged by later building work.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/room-layout-planner.html">Room Layout Planner</a> · <a href="https://toolbari.github.io/tools/furniture-size-planner.html">Furniture Size Planner</a> · <a href="https://toolbari.github.io/tools/construction-material-calculator.html">Construction Material Calculator</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+window.TB = (function () {
+  var MATERIAL_RATES = {
+    kitchen: {basic: 1200, standard: 1800, premium: 2800},
+    bathroom: {basic: 1100, standard: 1600, premium: 2500},
+    bedroom: {basic: 600, standard: 900, premium: 1500},
+    paintFloor: {basic: 350, standard: 500, premium: 800}
+  };
+  function renovationCost(type, areaSqFt, level, labourCost) {
+    if (!(areaSqFt > 0)) return {error: "Enter an area greater than zero."};
+    var rates = MATERIAL_RATES[type];
+    if (!rates || !(rates[level] > 0)) return {error: "Choose a project type and a material level."};
+    var materials = Math.round(rates[level] * areaSqFt);
+    var labour = Math.max(0, labourCost || 0);
+    var subtotal = materials + labour;
+    var contingency = Math.round(subtotal * 0.10);
+    var total = subtotal + contingency;
+    return {materials: materials, labour: labour, subtotal: subtotal,
+            contingency: contingency, total: total,
+            perSqFt: Math.round(total / areaSqFt)};
+  }
+  return {MATERIAL_RATES: MATERIAL_RATES, renovationCost: renovationCost};
+})();
+if (typeof document !== "undefined") {
+  function fmt(n) { return n.toLocaleString("en-US"); }
+  document.getElementById("calc-btn").addEventListener("click", function () {
+    var type = document.getElementById("type").value;
+    var area = parseFloat(document.getElementById("area").value);
+    var level = document.getElementById("level").value;
+    var labour = parseFloat(document.getElementById("labour").value) || 0;
+    var out = document.getElementById("out");
+    var steps = document.getElementById("steps");
+    var r = window.TB.renovationCost(type, area, level, labour);
+    if (r.error) { out.textContent = r.error; steps.textContent = ""; return; }
+    out.textContent = "Total: " + fmt(r.total) + " — about " + fmt(r.perSqFt) +
+      " per square foot, including a 10 percent contingency.";
+    steps.textContent = "Materials: " + fmt(r.materials) + " (" + fmt(area) +
+      " sq ft at the " + level + " planning rate).\nLabour: " + fmt(r.labour) +
+      ".\nSubtotal: " + fmt(r.subtotal) + ".\nContingency (10 percent): " +
+      fmt(r.contingency) + ".\nTotal: " + fmt(r.total) +
+      ".\nThese are planning rates only — get two real quotes before you spend.";
+  });
+  document.getElementById("copy-btn").addEventListener("click", function () {
+    var btn = this;
+    var text = document.getElementById("out").textContent + "\n" +
+      document.getElementById("steps").textContent;
+    if (!text.trim()) { btn.textContent = "Run the calculator first"; return; }
+    function done() { btn.textContent = "Copied!"; setTimeout(function () { btn.textContent = "Copy result"; }, 2000); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function () { fallback(); });
+    } else { fallback(); }
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done(); }
+      catch (e) { btn.textContent = "Copy failed — select the text"; }
+      document.body.removeChild(ta);
+    }
+  });
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Musical Key Finder | ToolBari</title>
+<meta name="description" content="Free musical key finder — enter the notes or chords of a song and see the most likely keys, with the circle of fifths explained. No signup, works on your phone.">
+<link rel="canonical" href="https://toolbari.github.io/tools/musical-key-finder.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Musical Key Finder">
+<meta property="og:description" content="Find the key of a song from its notes or chords.">
+<meta property="og:url" content="https://toolbari.github.io/tools/musical-key-finder.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a musical key?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A key is a set of seven notes, built from a scale, with one note as home. A song in C major uses the notes C, D, E, F, G, A and B, and its chords come from those notes. The key is the home the music keeps returning to."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between a major and a minor key?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The scale pattern differs: major is whole, whole, half, whole, whole, whole, half, and natural minor is whole, half, whole, whole, half, whole, whole. Major keys usually sound bright and settled; minor keys usually sound darker. Every major key has a relative minor that shares its notes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do two keys tie at the top?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because relative major and minor keys share the same seven notes and the same seven chords, so they always score equally on notes and chords. C major and A minor are the classic pair. Listen for the note the song starts and ends on — that is usually the true key."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if my chords include a seventh, like G7 or Am7?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The finder reads the chord's root and its basic quality — major, minor or diminished — and ignores extensions such as 7, maj7 or add9 for scoring. A G7 counts as a G major chord, and an Am7 counts as an A minor chord."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I enter flats, like Bb or Eb?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The chord box accepts flats (Bb, Eb, Db, Gb, Ab) as well as sharps (F#, C#). The note buttons use sharps only, because each button covers one pitch — Bb and A# are the same pitch, so tap A# for Bb."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to know music theory to use this?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Tap the notes you hear or type the chords you know, and the finder does the scoring. The circle of fifths table and the explanations are there if you want to understand the answer, but the ranking works without them."
+      }
+    }
+  ]
+}
+</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>.calc button{min-height:72px;padding:14px 22px;border:0;border-radius:999px;font-size:17px;font-weight:700;background:#0b7a4b;color:#fff;cursor:pointer;margin:12px 6px 0 0}
+.calc button.secondary{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+.calc button.on{background:#ff9f2e;color:#1e293b}
+.calc input,.calc select,.calc textarea{min-height:72px;padding:14px 12px;font-size:17px}
+.calc textarea{min-height:110px;resize:vertical}
+.calc table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0}
+.calc th,.calc td{border:1px solid #cbd5e1;padding:8px 6px;text-align:left;vertical-align:top}
+.calc th{background:#e8f7ef}
+.calc canvas{width:100%;max-width:100%;height:auto;display:block;margin:10px 0;background:#fff;border:1px solid #cbd5e1;border-radius:8px}
+.twrap{overflow-x:auto;margin:10px 0}
+.twrap table{width:100%;border-collapse:collapse;font-size:15px}
+.twrap th,.twrap td{border:1px solid #cbd5e1;padding:8px 6px;text-align:left;vertical-align:top}
+.twrap th{background:#e8f7ef}
+.small{font-size:14.5px;color:#475569}
+.tapbtn{min-height:120px !important;font-size:24px;width:100%}
+.bignum{font-size:44px;font-weight:800;text-align:center;margin:8px 0}
+.itemrow{display:flex;gap:8px;align-items:center;margin:6px 0}
+.itemrow span{flex:1}
+.itemrow button{min-height:72px;min-width:76px;margin:0;padding:14px 10px}
+.cutbar{display:flex;height:44px;border:2px solid #0b7a4b;border-radius:6px;overflow:hidden;margin:8px 0 2px}
+.meter{position:relative;height:28px;background:#e2e8f0;border-radius:999px;margin:10px 0;overflow:hidden}
+.meter i{position:absolute;top:0;bottom:0;width:4px;background:#0b7a4b;left:50%}
+.notegrid{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.notegrid button{margin:0;min-width:64px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Musical Key Finder</h1>
+<p class="answer">Work out the key of a song from the notes or chords it uses. Tap the notes you hear, or type the chords, and the finder ranks the keys that fit best — and explains the circle of fifths so you can see why.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label>Tap the notes in the song (tap again to remove a note)</label>
+<div class="notegrid" id="note-grid">
+<button type="button" data-note="0">C</button>
+<button type="button" data-note="1">C#</button>
+<button type="button" data-note="2">D</button>
+<button type="button" data-note="3">D#</button>
+<button type="button" data-note="4">E</button>
+<button type="button" data-note="5">F</button>
+<button type="button" data-note="6">F#</button>
+<button type="button" data-note="7">G</button>
+<button type="button" data-note="8">G#</button>
+<button type="button" data-note="9">A</button>
+<button type="button" data-note="10">A#</button>
+<button type="button" data-note="11">B</button>
+</div>
+<label for="chords">Or type the chords, separated by commas (optional)</label>
+<input id="chords" type="text" placeholder="For example C, G, Am, F">
+<button id="calc-btn" type="button">Find the key</button>
+<button id="clear-btn" class="secondary" type="button">Clear notes</button>
+<button id="copy-btn" class="secondary" type="button">Copy result</button>
+<div class="out" id="out" aria-live="polite"></div>
+<div class="steps" id="steps"></div>
+<p class="small">Each key is scored by how many of your notes fit its scale and how many of your chords belong to it. Notes in the scale score 2 each; a chord that belongs to the key scores 3. The top five keys are shown, best first.</p>
+</div>
+<div class="warn">A key is a best fit, not a verdict — many songs borrow chords from outside their key, and relative major and minor keys share the same notes. If two keys tie, the one the song starts and ends on is usually the true key.</div>
+<h2>How to use this key finder</h2><p>Tap the notes you hear in the song — the notes of the melody, or the notes the bass plays — and the finder ranks the keys those notes fit. Or type the chords, separated by commas, like C, G, Am, F. You can use notes alone, chords alone, or both together: the more you give it, the sharper the answer.</p><p>Each key is scored openly. A note that belongs to a key's scale scores 2 points for that key; a chord that belongs to the key scores 3. The five highest-scoring keys are shown, best first, with the counts beside them, so you can see exactly why the top key won.</p><p>If two keys tie, that is real information, not an error: relative major and minor keys share the same notes, so C major and A minor always score the same on notes alone. Chords usually break the tie, because the chord qualities differ — and the key the song starts and ends on is usually the true one.</p><h2>The circle of fifths</h2><p>The circle of fifths is the map of all twelve major keys, arranged so each step adds one sharp or removes one flat. It is the single most useful picture in music theory, because it shows which keys are close to each other and which are far apart — and close keys share most of their notes.</p><div class="twrap"><table><tr><th>Major key</th><th>Sharps or flats</th><th>Relative minor</th></tr><tr><td>C major</td><td>None</td><td>A minor</td></tr><tr><td>G major</td><td>1 sharp</td><td>E minor</td></tr><tr><td>D major</td><td>2 sharps</td><td>B minor</td></tr><tr><td>A major</td><td>3 sharps</td><td>F# minor</td></tr><tr><td>E major</td><td>4 sharps</td><td>C# minor</td></tr><tr><td>B major</td><td>5 sharps</td><td>G# minor</td></tr><tr><td>F# major</td><td>6 sharps</td><td>D# minor</td></tr><tr><td>Db major</td><td>5 flats</td><td>Bb minor</td></tr><tr><td>Ab major</td><td>4 flats</td><td>F minor</td></tr><tr><td>Eb major</td><td>3 flats</td><td>C minor</td></tr><tr><td>Bb major</td><td>2 flats</td><td>G minor</td></tr><tr><td>F major</td><td>1 flat</td><td>D minor</td></tr></table></div><p>Neighbouring keys on the circle are the easiest to move between, which is why so many songs borrow a chord from the key next door. Keys opposite each other on the circle share the fewest notes, and moving between them sounds like a real change of scene. When the finder shows two keys near each other on the circle, the song may genuinely sit between them.</p><h2>How the finder scores each key</h2><p>Every major key has a scale of seven notes, built from the pattern whole, whole, half, whole, whole, whole, half. Every natural minor key has its own seven notes, built from whole, half, whole, whole, half, whole, whole. The finder holds all twenty-four scales and checks your notes against each one.</p><p>Chords are scored by their place in the key. In a major key, the chords built on the seven scale notes follow a fixed pattern: major, minor, minor, major, major, minor, diminished. In C major that gives C, Dm, Em, F, G, Am and B diminished. In a minor key the pattern is minor, diminished, major, minor, minor, major, major. A chord that matches the pattern scores; a chord that does not belong scores nothing, which is how the finder separates keys that share notes.</p><p>The scoring is deliberately simple, because a simple score can be explained. A fancier system might weight the first chord more heavily, or guess at the song's mode, but those guesses would be hidden. Here every point comes from a note or a chord you entered, and the steps show the counts.</p><h2>Worked example: C, G, Am, F</h2><p>Take the four chords C, G, Am and F — one of the most common progressions in pop music. In C major, all four belong: C is the first chord, G the fifth, Am the sixth and F the fourth, and all four match the major-key pattern. C major scores 12 points from the chords alone.</p><p>In A minor, the same four chords also belong: Am is the first chord, F the sixth, C the third and G the seventh, and all four match the minor-key pattern. A minor also scores 12. The two keys tie, because they are relative keys — the same seven notes, the same seven chords, a different home.</p><p>The tie is broken by the song itself, not by the finder. If the song starts and ends on C and feels settled there, it is in C major; if it starts and ends on Am and feels settled there, it is in A minor. The finder shows both at the top and tells you they tied, so you can listen for the home note and decide.</p><h2>Relative major and minor</h2><p>Every major key has a relative minor that shares its notes: the minor starts on the sixth note of the major scale. C major and A minor both use the white notes of the piano; G major and E minor both use one sharp. The notes are identical — what changes is which note feels like home.</p><p>That shared material is why minor songs often borrow major chords and major songs often borrow minor ones: the chords are already in the family. It is also why the finder can rarely separate relatives from notes alone. The difference between major and minor is not in the notes, it is in where the music rests.</p><p>If you are learning a song by ear, try the relative of the key you first guessed. A song that sounds minor but whose chords fit C major is probably in A minor, and a song that sounds major but fits A minor is probably in C major. The finder lists both, so check the pair.</p><h2>Example progressions</h2><p>A few progressions carry most of popular music, and recognising them makes the key easier to hear. The numbers below are scale degrees in the key: 1 is the home chord, 5 the dominant, 6 the relative minor, and so on.</p><p>The 1, 5, 6, 4 progression — C, G, Am, F in C major — is the sound of a hundred pop songs, and it works in any key: G, D, Em, C in G major, or D, A, Bm, G in D major. The 1, 6, 4, 5 progression — C, Am, F, G — is the fifties progression, the sound of early rock and roll. The 12-bar blues runs 1, 1, 1, 1, 4, 4, 1, 1, 5, 4, 1, 5, one bar each, and in the key of E that is E, A and B.</p><p>The 2, 5, 1 progression — Dm, G, C in C major — is the backbone of jazz, and the sound of a chord sequence resolving home. If you hear a minor chord, then a major chord a fourth higher, then a major chord a fourth higher again, you are hearing a 2, 5, 1, and the last chord is very likely the key.</p><p>The Andalusian cadence runs down the scale in a minor key: Am, G, F, E in A minor. It is the sound of flamenco and of a hundred rock songs, and the final major chord — E major in a minor key — is a borrowed chord from the harmonic minor scale, which raises the seventh note to pull the music home. If your chords fit a minor key except for one major chord a semitone below the home note, you are hearing the Andalusian cadence, and the minor key is the answer.</p><h2>Common mistakes</h2><p>The first mistake is entering too few notes. One or two notes fit almost every key, so the ranking means little. Enter at least four notes, or three chords, before you trust the top answer.</p><p>The second mistake is treating a tie as a failure. Ties between relative keys are normal and honest — the finder is telling you the notes fit two keys equally, and your ears have to choose. Listen for the note the song keeps coming home to.</p><p>The third mistake is forgetting borrowed chords. Many songs use one chord from outside the key — a borrowed chord, a secondary dominant, a chord from the parallel minor — and one foreign chord should not overthrow the key. If five chords fit one key and one does not, the five are the key.</p><h2>What this finder cannot do</h2><p>This finder cannot hear the song, and it cannot tell major from minor when the notes are the same. It scores what you enter against twenty-four scales, and it shows its working — but the final judgement belongs to your ears, because the key is as much about where the music rests as about which notes it uses.</p><p>It also assumes the natural minor scale and standard chord qualities. Modes, harmonic minor, and chords with extensions may score oddly, because they sit outside the twenty-four keys the finder knows. If the ranking looks wrong for a modal song, trust your ears over the score.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>What is a musical key?</h3><p>A key is a set of seven notes, built from a scale, with one note as home. A song in C major uses the notes C, D, E, F, G, A and B, and its chords come from those notes. The key is the home the music keeps returning to.</p></div><div class="faq"><h3>What is the difference between a major and a minor key?</h3><p>The scale pattern differs: major is whole, whole, half, whole, whole, whole, half, and natural minor is whole, half, whole, whole, half, whole, whole. Major keys usually sound bright and settled; minor keys usually sound darker. Every major key has a relative minor that shares its notes.</p></div><div class="faq"><h3>Why do two keys tie at the top?</h3><p>Because relative major and minor keys share the same seven notes and the same seven chords, so they always score equally on notes and chords. C major and A minor are the classic pair. Listen for the note the song starts and ends on — that is usually the true key.</p></div><div class="faq"><h3>What if my chords include a seventh, like G7 or Am7?</h3><p>The finder reads the chord's root and its basic quality — major, minor or diminished — and ignores extensions such as 7, maj7 or add9 for scoring. A G7 counts as a G major chord, and an Am7 counts as an A minor chord.</p></div><div class="faq"><h3>Can I enter flats, like Bb or Eb?</h3><p>Yes. The chord box accepts flats (Bb, Eb, Db, Gb, Ab) as well as sharps (F#, C#). The note buttons use sharps only, because each button covers one pitch — Bb and A# are the same pitch, so tap A# for Bb.</p></div><div class="faq"><h3>Do I need to know music theory to use this?</h3><p>No. Tap the notes you hear or type the chords you know, and the finder does the scoring. The circle of fifths table and the explanations are there if you want to understand the answer, but the ranking works without them.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/bpm-counter.html">BPM Counter</a> · <a href="https://toolbari.github.io/tools/guitar-tuner-online.html">Guitar Tuner Online</a> · <a href="https://toolbari.github.io/tools/exposure-triangle-calculator.html">Exposure Triangle Calculator</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+window.TB = (function () {
+
+  function num(x) {
+    if (x === null || x === undefined || x === "") return null;
+    var n = parseFloat(x);
+    return isNaN(n) ? null : n;
+  }
+  function fmt(n, d) {
+    if (n === null || n === undefined || isNaN(n)) return "—";
+    return Number(n).toLocaleString("en-US", {maximumFractionDigits: d === undefined ? 2 : d, minimumFractionDigits: d === undefined ? 0 : d});
+  }
+  function copyText(text, btn) {
+    function done() {
+      var old = btn.textContent;
+      btn.textContent = "Copied!";
+      setTimeout(function () { btn.textContent = old; }, 1600);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function () { fallbackCopy(text, btn, done); });
+    } else { fallbackCopy(text, btn, done); }
+  }
+  function fallbackCopy(text, btn, done) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta);
+    done();
+  }
+
+  var NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+  var MAJOR = [0, 2, 4, 5, 7, 9, 11];
+  var MINOR = [0, 2, 3, 5, 7, 8, 10];
+  var MAJOR_QUAL = ["maj", "min", "min", "maj", "maj", "min", "dim"];
+  var MINOR_QUAL = ["min", "dim", "maj", "min", "min", "maj", "maj"];
+  var MAJOR_NAMES = ["C", "Db", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"];
+  var MINOR_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "Bb", "B"];
+  var KEY_ORDER = [
+    {root: 0, type: "major"}, {root: 7, type: "major"}, {root: 2, type: "major"}, {root: 9, type: "major"},
+    {root: 4, type: "major"}, {root: 11, type: "major"}, {root: 6, type: "major"}, {root: 1, type: "major"},
+    {root: 8, type: "major"}, {root: 3, type: "major"}, {root: 10, type: "major"}, {root: 5, type: "major"},
+    {root: 9, type: "minor"}, {root: 4, type: "minor"}, {root: 11, type: "minor"}, {root: 6, type: "minor"},
+    {root: 1, type: "minor"}, {root: 8, type: "minor"}, {root: 3, type: "minor"}, {root: 10, type: "minor"},
+    {root: 5, type: "minor"}, {root: 0, type: "minor"}, {root: 7, type: "minor"}, {root: 2, type: "minor"}
+  ];
+  function displayName(root, type) {
+    return (type === "major" ? MAJOR_NAMES[root] : MINOR_NAMES[root]) + " " + type;
+  }
+  function scaleNotes(root, type) {
+    var iv = type === "major" ? MAJOR : MINOR;
+    return iv.map(function (d) { return (root + d) % 12; });
+  }
+  function parseChord(s) {
+    var t = String(s || "").trim();
+    if (!t) return null;
+    var m = t.match(/^([A-Ga-g])([#b]?)(.*)$/);
+    if (!m) return null;
+    var base = {C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11}[m[1].toUpperCase()];
+    var root = base + (m[2] === "#" ? 1 : m[2] === "b" ? -1 : 0);
+    root = ((root % 12) + 12) % 12;
+    var suffix = (m[3] || "").trim().toLowerCase();
+    var quality;
+    if (suffix.indexOf("dim") === 0 || suffix.indexOf("o") === 0) quality = "dim";
+    else if (suffix.indexOf("aug") === 0 || suffix.indexOf("+") === 0) quality = "aug";
+    else if (suffix.indexOf("sus") === 0) quality = "sus";
+    else if (suffix.indexOf("maj") === 0) quality = "maj";
+    else if (suffix.indexOf("m") === 0) quality = "min";
+    else quality = "maj";
+    return {root: root, quality: quality, raw: t};
+  }
+  function parseChords(text) {
+    var out = [], bad = [];
+    String(text || "").split(",").forEach(function (part) {
+      var p = part.trim();
+      if (!p) return;
+      var c = parseChord(p);
+      if (c) out.push(c); else bad.push(p);
+    });
+    return {chords: out, bad: bad};
+  }
+  function findKeys(notes, chords) {
+    notes = notes || [];
+    chords = chords || [];
+    var results = KEY_ORDER.map(function (k, idx) {
+      var scale = scaleNotes(k.root, k.type);
+      var qual = k.type === "major" ? MAJOR_QUAL : MINOR_QUAL;
+      var score = 0, notesHit = 0;
+      notes.forEach(function (n) {
+        if (scale.indexOf(n) >= 0) { score += 2; notesHit++; }
+      });
+      var chordsHit = 0;
+      chords.forEach(function (ch) {
+        var deg = scale.indexOf(ch.root);
+        if (deg < 0) return;
+        if (ch.quality === qual[deg]) { score += 3; chordsHit++; }
+        else if (ch.quality === "sus" || ch.quality === "aug") { score += 1; }
+      });
+      return {key: displayName(k.root, k.type), root: k.root, type: k.type,
+              score: score, notesHit: notesHit, chordsHit: chordsHit, order: idx};
+    });
+    results.sort(function (a, b) {
+      if (b.score !== a.score) return b.score - a.score;
+      return a.order - b.order;
+    });
+    return results.slice(0, 5);
+  }
+  var api = { parseChord: parseChord, parseChords: parseChords, findKeys: findKeys,
+              displayName: displayName, scaleNotes: scaleNotes };
+  if (typeof document !== "undefined") {
+    var selected = [];
+    var grid = document.getElementById("note-grid");
+    grid.addEventListener("click", function (ev) {
+      var btn = ev.target.closest("button");
+      if (!btn) return;
+      var n = parseInt(btn.getAttribute("data-note"), 10);
+      var i = selected.indexOf(n);
+      if (i >= 0) { selected.splice(i, 1); btn.classList.remove("on"); }
+      else { selected.push(n); btn.classList.add("on"); }
+    });
+    document.getElementById("clear-btn").addEventListener("click", function () {
+      selected = [];
+      grid.querySelectorAll("button").forEach(function (b) { b.classList.remove("on"); });
+    });
+    document.getElementById("calc-btn").addEventListener("click", function () {
+      var parsed = parseChords(document.getElementById("chords").value);
+      var out = document.getElementById("out");
+      var steps = document.getElementById("steps");
+      if (selected.length === 0 && parsed.chords.length === 0) {
+        out.textContent = "Tap some notes, or type some chords, then tap Find the key.";
+        steps.textContent = "";
+        return;
+      }
+      if (parsed.bad.length > 0) {
+        out.textContent = "Could not read this chord: " + parsed.bad[0] + ". Use names like C, G, Am, F, Bbm or F#m.";
+        steps.textContent = "";
+        return;
+      }
+      var top = findKeys(selected, parsed.chords);
+      var best = top[0];
+      out.textContent = "Most likely key: " + best.key + " (score " + best.score + ")";
+      var lines = top.map(function (r, i) {
+        return (i + 1) + ". " + r.key + " — score " + r.score
+          + " (" + r.notesHit + " of your notes fit, " + r.chordsHit + " of your chords belong)";
+      });
+      var noteNames = selected.map(function (n) { return NOTE_NAMES[n]; }).join(", ");
+      steps.textContent = "Your notes: " + (noteNames || "none") + ".\n" + lines.join("\n")
+        + "\nTied keys share the same notes — the key a song starts and ends on is usually the true one.";
+    });
+    document.getElementById("copy-btn").addEventListener("click", function () {
+      var out = document.getElementById("out").textContent;
+      var steps = document.getElementById("steps").textContent;
+      if (!out) return;
+      copyText(out + "\n" + steps, this);
+    });
+  }
+  return api;
+})();
+</script>
+</body>
+</html>

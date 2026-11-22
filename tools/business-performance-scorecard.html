@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Business Performance Scorecard | ToolBari</title>
+<meta name="description" content="Build a monthly scorecard for revenue, customers, churn and margin. Compare each KPI with its target, see red, amber and green ratings, and copy a printable summary.">
+<link rel="canonical" href="https://toolbari.github.io/tools/business-performance-scorecard.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Business Performance Scorecard">
+<meta property="og:description" content="Rate revenue, customers, churn and margin against your targets and get one overall score.">
+<meta property="og:url" content="https://toolbari.github.io/tools/business-performance-scorecard.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a business performance scorecard?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A performance scorecard is a one-page summary that rates key measures of a business against their targets. This tool scores four KPIs — revenue, customers, churn rate and profit margin — red, amber or green, and gives one overall score out of 100."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I set good targets for my KPIs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Base targets on your own recent figures and on what you plan to change, and set them at the start of the month. A good target stretches you but is reachable. If a target is never reached, it is too high; if it is always beaten easily, it is too low."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is churn rated the other way round?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because for churn, a lower number is better. Losing fewer customers than planned is good, so churn at or below target scores green. The tool handles this automatically — you just enter the numbers as they are."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the overall score mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The overall score is the average of the four KPI points: 100 for green, 70 for amber and 30 for red. A score of 85 or above is on track, 60 to 84 needs attention, and below 60 is off track. It summarises the month against your own targets."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How often should I update the scorecard?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Monthly is the right rhythm for most small businesses. Weekly is too noisy for KPIs like churn and margin, and quarterly is too slow to catch problems early. Pick a fixed day each month and build the scorecard on that day."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I print or share the scorecard?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The copy button saves the scorecard as plain text, which you can paste into a message, a meeting note or a document. The page also prints cleanly from your browser if you want a paper copy."
+      }
+    }
+  ]
+}
+</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>.calc button{min-height:72px;padding:14px 22px;border:0;border-radius:999px;font-size:17px;font-weight:700;background:#0b7a4b;color:#fff;cursor:pointer;margin:12px 6px 0 0}
+.calc button.secondary{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+.calc button.on{background:#ff9f2e;color:#1e293b}
+.calc input,.calc select,.calc textarea{min-height:72px;padding:14px 12px;font-size:17px}
+.calc textarea{min-height:110px;resize:vertical}
+.calc table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0}
+.calc th,.calc td{border:1px solid #cbd5e1;padding:8px 6px;text-align:left;vertical-align:top}
+.calc th{background:#e8f7ef}
+.twrap{overflow-x:auto;margin:10px 0}
+.twrap table{width:100%;border-collapse:collapse;font-size:15px}
+.twrap th,.twrap td{border:1px solid #cbd5e1;padding:8px 6px;text-align:left;vertical-align:top}
+.twrap th{background:#e8f7ef}
+.small{font-size:14.5px;color:#475569}
+.bignum{font-size:44px;font-weight:800;text-align:center;margin:8px 0}
+.itemrow{display:flex;gap:8px;align-items:center;margin:6px 0}
+.itemrow span{flex:1}
+.itemrow button{min-height:72px;min-width:76px;margin:0;padding:14px 10px}
+.bar{height:26px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin:6px 0}
+.bar i{display:block;height:100%;background:#0b7a4b}
+.bar i.amber{background:#f59e0b}
+.bar i.red{background:#dc2626}
+.optbtn{display:block;width:100%;text-align:left;margin:10px 0;border-radius:12px !important;background:#fff !important;color:#1e293b !important;border:2px solid #cbd5e1 !important;font-weight:600 !important}
+.optbtn.on{border-color:#0b7a4b !important;background:#e8f7ef !important}
+.optbtn.right{border-color:#0b7a4b !important;background:#e8f7ef !important}
+.optbtn.wrong{border-color:#dc2626 !important;background:#fef2f2 !important}
+.qbox{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px;margin:10px 0}
+.pill{display:inline-block;padding:4px 12px;border-radius:999px;font-weight:700;font-size:14px}
+.pill.green{background:#dcfce7;color:#166534}
+.pill.amber{background:#fef3c7;color:#92400e}
+.pill.red{background:#fee2e2;color:#991b1b}
+.evlist{list-style:none;margin:10px 0 10px 0}
+.evlist li{padding:8px 0;border-bottom:1px solid #e2e8f0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Business Performance Scorecard</h1>
+<p class="answer">Enter your monthly figures for revenue, customers, churn and profit margin, plus the target for each. The scorecard rates every KPI red, amber or green against its target and gives you one overall score.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc"><p>Enter the actual figure and the target for each KPI, for the same month. Use the same units for both numbers in a row.</p><label for="a0">Revenue — actual</label><input id="a0" type="number" min="0" step="any" placeholder="e.g. 52000"><label for="t0">Revenue — target</label><input id="t0" type="number" min="0" step="any" placeholder="e.g. 50000"><label for="a1">Customers — actual</label><input id="a1" type="number" min="0" step="any" placeholder="e.g. 150"><label for="t1">Customers — target</label><input id="t1" type="number" min="0" step="any" placeholder="e.g. 200"><label for="a2">Churn rate — actual (percent of customers lost)</label><input id="a2" type="number" min="0" step="any" placeholder="e.g. 4"><label for="t2">Churn rate — target (percent)</label><input id="t2" type="number" min="0" step="any" placeholder="e.g. 5"><label for="a3">Profit margin — actual (percent)</label><input id="a3" type="number" min="0" step="any" placeholder="e.g. 15"><label for="t3">Profit margin — target (percent)</label><input id="t3" type="number" min="0" step="any" placeholder="e.g. 20"><button type="button" id="calc-btn">Build my scorecard</button><button type="button" id="copy-btn" class="secondary" style="display:none">Copy my scorecard</button><div class="out" id="out"></div><div class="steps" id="steps"></div></div>
+<div class="warn">This scorecard uses your own figures and targets, so it shows how you did against your own plan, not against other businesses. It is a self-assessment tool, not financial advice.</div>
+<h2>How the scorecard works</h2><p>A performance scorecard turns four monthly numbers into a picture you can read in seconds. You enter the actual figure and the target for revenue, customers, churn rate and profit margin, and the scorecard rates each one red, amber or green. Green means the KPI met its target. Amber means it came close — at least 80 percent of the target for most KPIs. Red means it missed by a wide margin.</p><p>Churn rate is rated the other way round, because for churn a lower number is better. If your churn is at or below target, it scores green. If it is up to a quarter above target, it scores amber. Anything higher scores red. The tool handles this automatically — you just enter the numbers as they are.</p><p>Each rating carries points: 100 for green, 70 for amber and 30 for red. The overall score is the average of the four, out of 100, with a plain band: on track at 85 or above, needs attention from 60 to 84, and off track below 60. The overall score is a summary, not a verdict — a business can be on track overall and still have one KPI that needs urgent work.</p><h2>The four KPIs explained</h2><p>Revenue is the money the business brought in during the month, before costs. It is the simplest measure of whether the business is selling, but on its own it can mislead: revenue can rise while profit falls, if costs rise faster. That is why the scorecard pairs revenue with margin.</p><p>Customers is the number of paying customers in the month — new and returning together, unless you prefer to count them separately. A rising customer count with flat revenue can mean smaller orders; a falling count with steady revenue can mean you are depending on fewer, larger customers. Either way, the trend matters more than a single month.</p><p>Churn rate is the share of customers you lost during the month, as a percentage. If you started with 200 customers and 8 left, churn is 4 percent. Churn is the KPI most small businesses ignore, and it is often the most important: winning a new customer usually costs far more effort than keeping one you already have.</p><p>Profit margin is the share of revenue left after costs, as a percentage. If revenue is 50,000 and costs are 40,000, profit is 10,000 and margin is 20 percent. Margin shows whether the business is making money on its sales, which revenue alone cannot tell you. A business with high revenue and a thin margin is fragile; a business with modest revenue and a healthy margin has room to breathe.</p><h2>Who should use this tool</h2><p>This tool is made for owners and managers of small businesses who want a monthly check on how the business is doing, without a spreadsheet full of formulas. It works for a shop, a service business, a small online store or a freelancer with regular clients. If you can name four numbers for the month, you can build a scorecard.</p><p>It is also useful for a team. When everyone sees the same four ratings, the monthly conversation changes from opinions to numbers: which KPI is red, why, and what will we do about it this month. The copy button produces a plain-text summary you can paste into a message or a meeting note.</p><p>The scorecard is not a financial report and not a substitute for proper accounts. It uses your own figures and your own targets, so it shows how you did against your own plan. It cannot tell you whether your targets are realistic, and it cannot compare you with other businesses in your trade.</p><h2>How to use it step by step</h2><p>First, gather the four actual figures for the month you want to score: total revenue, number of paying customers, churn rate as a percentage, and profit margin as a percentage. Use the same month for all four, and use the same units for each actual and target pair — if revenue is in whole units of your currency, the target must be too.</p><p>Next, enter a target for each KPI. The target should be the number you planned at the start of the month, not a number chosen after seeing the result. If you did not set targets, use last month's figures as a starting point and set proper targets for next month.</p><p>Press the button to build the scorecard. Read the overall score first, then each KPI line: the actual figure, the target, the percentage of target reached, and the colour. Copy the summary if you want to keep it. The tool stores nothing — your figures stay in your browser and are cleared when you close the page.</p><h2>Worked example</h2><p>Imagine a small online shop. In March, revenue was 52,000 against a target of 50,000 — 104 percent of target, green, 100 points. Customers were 150 against a target of 200 — 75 percent, red, 30 points. Churn was 4 percent against a target of 5 percent — below target, green, 100 points. Profit margin was 15 percent against a target of 20 percent — 75 percent of target, red, 30 points.</p><p>The overall score is the average of 100, 30, 100 and 30, which is 65 out of 100 — needs attention. The headline number looks middling, but the detail tells a clearer story: the shop is keeping its customers and beating its revenue target, but it is not winning enough new customers and its margin is thin.</p><p>The owner decides to act on the two red KPIs. For customers, the plan is to ask existing buyers for referrals. For margin, the plan is to review the three biggest costs before the next month. In April the owner runs the scorecard again: customers are up to 175 and margin is up to 17 percent. Both are still amber, but the direction is right.</p><h2>Mistakes to avoid</h2><p>The most common mistake is setting targets after seeing the results. A target chosen to match the actual figure makes the scorecard meaningless — every KPI would score green. Set targets at the start of the month, write them down, and score against them honestly at the end.</p><p>Another mistake is mixing units. If revenue is entered in thousands one month and in whole units the next, the percentage of target will be nonsense. Pick a unit for each KPI and stick to it. The same applies to churn and margin: enter them as percentages, not as counts or fractions.</p><p>A third mistake is chasing the overall score instead of the red KPIs. The overall score is an average, and averages hide problems. A business with two green and two red KPIs scores 65 — needs attention — but the real work is on the two red lines. Fix the reds and the overall score follows.</p><p>Finally, do not score a month with missing figures. If you do not know your churn, leave the scorecard until you have the numbers, or estimate churn carefully and note that it is an estimate. A scorecard built on guesses is worse than no scorecard, because it looks precise when it is not.</p><h2>What to do with a red KPI</h2><p>Start by checking the number. A red KPI is sometimes a data mistake: revenue counted twice, a customer counted in the wrong month, or a target typed with an extra zero. Verify the figures before acting on them.</p><p>If the number is right, ask why it is red. A red revenue month might mean fewer customers, smaller orders, or a price problem — three different causes with three different fixes. A red margin month might mean costs rose, or prices stayed flat while costs climbed. The scorecard shows where the problem is; finding the cause takes a closer look at the underlying figures.</p><p>Then choose one action for the month, not five. One clear action — review the three biggest costs, contact ten past customers, raise the price of one product — is more likely to happen than a long list. Write the action down with a date, and check it when you build next month's scorecard.</p><p>If the same KPI is red three months in a row, the target may be wrong rather than the performance. A target that is never reached is not a target, it is a wish. Adjust it to something stretching but reachable, and note the change so the history stays honest.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>What is a business performance scorecard?</h3><p>A performance scorecard is a one-page summary that rates key measures of a business against their targets. This tool scores four KPIs — revenue, customers, churn rate and profit margin — red, amber or green, and gives one overall score out of 100.</p></div><div class="faq"><h3>How do I set good targets for my KPIs?</h3><p>Base targets on your own recent figures and on what you plan to change, and set them at the start of the month. A good target stretches you but is reachable. If a target is never reached, it is too high; if it is always beaten easily, it is too low.</p></div><div class="faq"><h3>Why is churn rated the other way round?</h3><p>Because for churn, a lower number is better. Losing fewer customers than planned is good, so churn at or below target scores green. The tool handles this automatically — you just enter the numbers as they are.</p></div><div class="faq"><h3>What does the overall score mean?</h3><p>The overall score is the average of the four KPI points: 100 for green, 70 for amber and 30 for red. A score of 85 or above is on track, 60 to 84 needs attention, and below 60 is off track. It summarises the month against your own targets.</p></div><div class="faq"><h3>How often should I update the scorecard?</h3><p>Monthly is the right rhythm for most small businesses. Weekly is too noisy for KPIs like churn and margin, and quarterly is too slow to catch problems early. Pick a fixed day each month and build the scorecard on that day.</p></div><div class="faq"><h3>Can I print or share the scorecard?</h3><p>Yes. The copy button saves the scorecard as plain text, which you can paste into a message, a meeting note or a document. The page also prints cleanly from your browser if you want a paper copy.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/business-valuation-estimator.html">Business Valuation Estimator</a> · <a href="https://toolbari.github.io/tools/business-risk-assessment-tool.html">Business Risk Assessment Tool</a> · <a href="https://toolbari.github.io/tools/customer-complaint-tracker.html">Customer Complaint Tracker</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+window.TB = window.TB || {};
+(function () {
+  function rateKpi(actual, target, lowerBetter) {
+    if (actual === null || actual === undefined || isNaN(actual) || actual < 0) return {error: "Actual must be a number of 0 or more."};
+    if (target === null || target === undefined || isNaN(target) || target <= 0) return {error: "Target must be a number above 0."};
+    var ratio = lowerBetter ? (actual === 0 ? 2 : target / actual) : actual / target;
+    var pct = Math.round(ratio * 100);
+    if (pct > 200) pct = 200;
+    var rating, points;
+    if (lowerBetter) {
+      if (actual <= target) { rating = "green"; points = 100; }
+      else if (actual <= target * 1.25) { rating = "amber"; points = 70; }
+      else { rating = "red"; points = 30; }
+    } else {
+      if (pct >= 100) { rating = "green"; points = 100; }
+      else if (pct >= 80) { rating = "amber"; points = 70; }
+      else { rating = "red"; points = 30; }
+    }
+    return {pct: pct, rating: rating, points: points};
+  }
+  function scorecard(kpis) {
+    if (!kpis || kpis.length === 0) return {error: "Add at least one KPI."};
+    var rows = [];
+    var sum = 0;
+    for (var i = 0; i < kpis.length; i++) {
+      var r = rateKpi(kpis[i].actual, kpis[i].target, kpis[i].lowerBetter);
+      if (r.error) return {error: r.error};
+      rows.push({key: kpis[i].key, actual: kpis[i].actual, target: kpis[i].target, pct: r.pct, rating: r.rating, points: r.points});
+      sum += r.points;
+    }
+    var overall = Math.round(sum / rows.length);
+    var band = overall >= 85 ? "On track" : overall >= 60 ? "Needs attention" : "Off track";
+    return {rows: rows, overall: overall, band: band};
+  }
+  window.TB.rateKpi = rateKpi;
+  window.TB.scorecard = scorecard;
+
+  function num(x) {
+    if (x === null || x === undefined || x === "") return null;
+    var n = parseFloat(x);
+    return isNaN(n) ? null : n;
+  }
+  function fmt(n, d) {
+    if (n === null || n === undefined || isNaN(n)) return "—";
+    return Number(n).toLocaleString("en-US", {maximumFractionDigits: d === undefined ? 2 : d, minimumFractionDigits: d === undefined ? 0 : d});
+  }
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function copyText(text, btn) {
+    function done() {
+      var old = btn.textContent;
+      btn.textContent = "Copied!";
+      setTimeout(function () { btn.textContent = old; }, 1600);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function () { fallbackCopy(text, btn, done); });
+    } else { fallbackCopy(text, btn, done); }
+  }
+  function fallbackCopy(text, btn, done) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta);
+    done();
+  }
+
+  if (typeof document === "undefined") return;
+  var KPIS = [
+    {key: "Revenue", lower: false},
+    {key: "Customers", lower: false},
+    {key: "Churn rate", lower: true},
+    {key: "Profit margin", lower: false}
+  ];
+  var out = document.getElementById("out");
+  var steps = document.getElementById("steps");
+  var copyBtn = document.getElementById("copy-btn");
+  var lastText = "";
+  document.getElementById("calc-btn").addEventListener("click", function () {
+    var kpis = KPIS.map(function (k, i) {
+      return {key: k.key, actual: num(document.getElementById("a" + i).value), target: num(document.getElementById("t" + i).value), lowerBetter: k.lower};
+    });
+    var r = scorecard(kpis);
+    if (r.error) { out.textContent = r.error; steps.textContent = ""; return; }
+    out.textContent = "Overall score: " + r.overall + " out of 100 — " + r.band;
+    var s = "";
+    r.rows.forEach(function (row) {
+      var label = row.rating === "green" ? "Green" : row.rating === "amber" ? "Amber" : "Red";
+      s += row.key + ": actual " + fmt(row.actual) + ", target " + fmt(row.target) + ", " + row.pct + "% of target — " + label + "\n";
+    });
+    s += "\nGreen means the KPI met its target. Amber means it came close. Red means it missed by a wide margin.\n";
+    s += "Scores are against your own targets, not against other businesses.";
+    steps.textContent = s;
+    lastText = out.textContent + "\n" + s;
+    copyBtn.style.display = "";
+  });
+  copyBtn.addEventListener("click", function () {
+    if (lastText) copyText(lastText, copyBtn);
+  });
+})();
+</script>
+</body>
+</html>

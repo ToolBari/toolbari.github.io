@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Customer Complaint Tracker | ToolBari</title>
+<meta name="description" content="Free customer complaint tracker — log complaints with date, customer, issue and status in a private table with filters and status counts. Nothing leaves your browser.">
+<link rel="canonical" href="https://toolbari.github.io/tools/customer-complaint-tracker.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Customer Complaint Tracker">
+<meta property="og:description" content="Log complaints with date, customer, issue and status, filter by status, and see the counts — all in your browser.">
+<meta property="og:url" content="https://toolbari.github.io/tools/customer-complaint-tracker.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does the tracker send complaints anywhere?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Everything is stored in your browser's local storage on this device. The tracker does not contact customers, notify anyone, or send data to any server."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I change a complaint's status?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Each complaint has a button that advances its status: Open to In progress when you start work on it, then In progress to Resolved when it is settled."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I find an old complaint?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the status filter to show only Open, In progress or Resolved complaints, or type a customer name or a word from the issue into the search box to narrow the list."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What should I write in the issue field?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Three things: what happened, what the customer wants, and what was promised. A record with all three can be picked up by anyone on the team; a record with only one of them cannot."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is customer data safe here?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It stays in your browser and never leaves the device, which is private by design. But anyone with access to this browser can read the log, so do not use it on a shared device and clear old entries regularly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I remove resolved complaints?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the Clear resolved button to remove all resolved complaints at once, or delete a single complaint with its Delete button. Clearing cannot be undone, so copy the log first if you need a record."
+      }
+    }
+  ]
+}
+</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>.calc button{min-height:72px;padding:14px 22px;border:0;border-radius:999px;font-size:17px;font-weight:700;background:#0b7a4b;color:#fff;cursor:pointer;margin:12px 6px 0 0}
+.calc button.sec{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+.calc button.danger{background:#b91c1c}
+.calc input,.calc select,.calc textarea{min-height:72px;padding:14px 12px;font-size:17px}
+.calc textarea{min-height:110px;resize:vertical}
+.calc .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:12px 14px;margin:10px 0}
+.calc .row .grow{flex:1 1 160px}
+.calc .row button{min-height:72px;padding:14px 18px;font-size:16px;margin:0}
+.calc .chip{display:inline-block;background:#e8f7ef;border:1px solid #bfe6cf;border-radius:999px;padding:6px 12px;font-size:14px;font-weight:600;margin:2px 4px 2px 0}
+.calc .chip.bad{background:#fef2f2;border-color:#fecaca}
+.calc .chip.warnchip{background:#fffbeb;border-color:#fde68a}
+.calc .bar{height:22px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin:6px 0}
+.calc .bar i{display:block;height:100%;background:#0b7a4b;border-radius:999px}
+.calc .bar i.over{background:#b91c1c}
+.calc .bar i.near{background:#d97706}
+.calc .colhead{font-weight:800;font-size:16px;margin:18px 0 4px}
+.calc .hint{font-size:14.5px;color:#475569;margin-top:8px}
+.calc .err{color:#b91c1c;font-weight:700}
+.calc table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0}
+.calc th,.calc td{border:1px solid #e2e8f0;padding:10px 8px;text-align:left;vertical-align:top}
+.calc th{background:#e8f7ef}
+.scrollwrap{overflow-x:auto}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Customer Complaint Tracker</h1>
+<p class="answer">Keep every customer complaint in one place, with its date, customer, issue and status, so nothing gets forgotten. Log complaints in a private table, filter by status, and see at a glance how many are open, in progress and resolved.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+
+<label for="complaint-date">Date</label>
+<input id="complaint-date" type="date">
+<label for="complaint-customer">Customer</label>
+<input id="complaint-customer" type="text" placeholder="Customer name">
+<label for="complaint-issue">Issue</label>
+<textarea id="complaint-issue" rows="3" placeholder="What happened, what the customer wants, what was promised"></textarea>
+<label for="complaint-status">Status</label>
+<select id="complaint-status">
+<option value="Open" selected>Open</option>
+<option value="In progress">In progress</option>
+<option value="Resolved">Resolved</option>
+</select>
+<button type="button" id="add-btn">Log complaint</button>
+<p class="err" id="form-err" role="status"></p>
+<label for="status-filter">Show</label>
+<select id="status-filter">
+<option value="All" selected>All statuses</option>
+<option value="Open">Open only</option>
+<option value="In progress">In progress only</option>
+<option value="Resolved">Resolved only</option>
+</select>
+<label for="search-box">Search</label>
+<input id="search-box" type="text" placeholder="Search by customer or issue">
+<div id="complaint-list"></div>
+<button type="button" class="sec" id="copy-btn">Copy complaint log</button>
+<button type="button" class="sec" id="clear-resolved-btn">Clear resolved</button>
+<button type="button" class="danger" id="clear-btn">Clear all</button>
+<div class="out" id="out" role="status"></div>
+<div class="steps" id="steps"></div>
+<p class="hint">The log is saved in this browser only. It holds customer names, so do not use it on a shared device.</p>
+
+</div>
+<div class="warn">This tracker lives only in your browser — it does not send complaints anywhere and it does not notify anyone. It also holds customer names, so do not use it on a shared device, and keep your own records safe.</div>
+<h2>How the tracker works</h2><p>Log each complaint with its date, the customer's name, a description of the issue, and a status: Open, In progress, or Resolved. The tracker keeps the complaints in a list, shows how many are in each status, and lets you filter by status or search by customer name or issue text.</p><p>Work a complaint by advancing its status: Open to In progress when you start on it, In progress to Resolved when it is settled. The summary shows the oldest open complaint, so the one that has waited longest is always visible. Copy the log to share it as text, or clear resolved complaints when they are no longer needed.</p><p>The log is saved in this browser, so it is still there when you come back. Nothing is sent anywhere: the tracker is a private notebook for complaints, not a support system, and it never contacts customers or notifies anyone.</p><h2>Why complaints deserve a log</h2><p>A complaint that is not written down is a complaint that depends on someone's memory, and memory is the first thing to fail on a busy day. A log means every complaint has a place, a date, and a status — and nothing falls through the gap between 'someone will deal with it' and nobody dealing with it.</p><p>A log also turns individual complaints into evidence. One complaint about slow delivery is an incident; ten in a month is a pattern, and a pattern points to a cause worth fixing. Without a log, patterns stay invisible, because nobody holds ten separate conversations in their head at once.</p><p>The log protects the business as well as the customer. When a customer follows up weeks later, the log shows what was said, what was promised, and what was done. That record is worth far more than anyone's recollection of a phone call.</p><p>A log also makes handover possible. When the person who took a complaint is away, a colleague can read the record and pick the work up without asking the customer to explain everything again. Few things frustrate a customer more than having to repeat their complaint to a second person because the first one never wrote it down.</p><h2>Writing a useful complaint record</h2><p>A good complaint record answers three questions: what happened, what the customer wants, and what was promised. 'Customer unhappy' answers none of them. 'Parcel arrived two days late, customer wants a refund of the delivery charge, promised a reply by Friday' answers all three, and anyone on the team can pick it up from there.</p><p>Write the issue in plain words, with the facts and without blame. The log is a working record, not a place to argue the customer's case or defend the business. If the customer is wrong about something, note the facts calmly — the record will be read later, possibly by someone who was not in the conversation.</p><p>Include the promise, not just the problem. If you told the customer you would call back on Thursday, write that down. A promise in the log is a promise the team can keep; a promise in someone's head is a promise that depends on that person remembering it.</p><p>Dates matter as much as words. The tracker sets the date to today by default, but you can change it if you are logging a complaint that arrived earlier. The date is what lets you see how long a complaint has waited, and it is what the summary uses to find the oldest open complaint.</p><h2>Working the open list</h2><p>Work the open list oldest first. The oldest open complaint is the one that has waited longest, and it is usually the one the customer is most frustrated about. The tracker shows it in the summary so you do not have to hunt for it.</p><p>Review the open list daily, even if only for a few minutes. A complaint that sits open for a week without any movement is a complaint the customer will raise again, louder. A short daily check — what is new, what is moving, what is stuck — keeps the list honest and the customers informed.</p><p>Close the loop. When a complaint is resolved, the customer should hear about it from you, not discover it by accident. The tracker does not contact anyone, so the follow-up is your job: a message or a call saying what was done turns a resolved complaint into a customer who feels heard.</p><p>Keep the customer informed while the work is in progress, not only at the end. A short message saying 'we are working on it and will update you by Friday' costs a minute and buys a great deal of patience. Silence is what turns a small complaint into a large one, because the customer fills the silence with the worst assumption.</p><h2>Spotting patterns in complaints</h2><p>Once a month, read through the log and look for repeats. The same issue from different customers is almost never a coincidence — it is a product fault, a confusing process, or a promise the business keeps breaking. Three complaints about the same thing are a signal worth acting on.</p><p>Patterns also show up in timing. Complaints that cluster on Mondays may point to a weekend problem; complaints that follow a new product launch may point to something the launch got wrong. The dates in the log make these patterns visible in a way that memory never does.</p><p>When you find a pattern, fix the cause, not just the complaint. Refunding one customer helps one customer; fixing the process that caused the complaint helps every future customer. The log's real value is not the list itself — it is the fixes the list leads to.</p><p>Patterns can also point to the people, not just the process. If most complaints arrive after one particular handover, or involve one particular step, the fix may be training or a clearer checklist rather than a new system. The log shows you where to look; the conversation with the team tells you what to change.</p><h2>Privacy: names in your browser</h2><p>Customer names are personal information, and this tracker holds them in your browser's storage. That is private by design — nothing leaves the device — but it also means anyone with access to this browser can read the log. Do not use the tracker on a shared device, and do not leave the page open where others can see it.</p><p>Keep the log no longer than you need it. Resolved complaints that are months old can be cleared with the Clear resolved button, and the whole log can be cleared at any time. A smaller log is easier to work with and holds less personal information.</p><p>If your business is subject to data protection rules, this simple tracker is not a substitute for a proper system. It is a notebook for a small business, not a compliance tool, and it does not keep the audit trail or the access controls that a regulated business may need.</p><h2>Mistakes to avoid</h2><p>The most common mistake is a vague issue. 'Customer unhappy' tells the next person nothing. Write what happened, what the customer wants, and what was promised, and the record will be useful to anyone who reads it.</p><p>The second mistake is logging a complaint and then never looking at the list. A log that is never reviewed is just a list of people you have let down. Review the open list daily, and the log will do the job it exists for.</p><p>The third mistake is letting resolved complaints pile up until the list is unusable. Clear resolved complaints regularly, and keep the list focused on the work that is still live. A short list gets worked; a long list gets ignored.</p><p>The fourth mistake is treating the log as a private diary rather than a team record. If only one person ever reads it, it cannot help the team, and it cannot protect the business when that person is away. Share the copied summary with the team, and let the log be the shared memory it is meant to be.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>Does the tracker send complaints anywhere?</h3><p>No. Everything is stored in your browser's local storage on this device. The tracker does not contact customers, notify anyone, or send data to any server.</p></div><div class="faq"><h3>Can I change a complaint's status?</h3><p>Yes. Each complaint has a button that advances its status: Open to In progress when you start work on it, then In progress to Resolved when it is settled.</p></div><div class="faq"><h3>How do I find an old complaint?</h3><p>Use the status filter to show only Open, In progress or Resolved complaints, or type a customer name or a word from the issue into the search box to narrow the list.</p></div><div class="faq"><h3>What should I write in the issue field?</h3><p>Three things: what happened, what the customer wants, and what was promised. A record with all three can be picked up by anyone on the team; a record with only one of them cannot.</p></div><div class="faq"><h3>Is customer data safe here?</h3><p>It stays in your browser and never leaves the device, which is private by design. But anyone with access to this browser can read the log, so do not use it on a shared device and clear old entries regularly.</p></div><div class="faq"><h3>How do I remove resolved complaints?</h3><p>Use the Clear resolved button to remove all resolved complaints at once, or delete a single complaint with its Delete button. Clearing cannot be undone, so copy the log first if you need a record.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/service-request-management-tool.html">Service Request Management Tool</a> · <a href="https://toolbari.github.io/tools/team-task-delegation-tool.html">Team Task Delegation Tool</a> · <a href="https://toolbari.github.io/tools/business-performance-scorecard.html">Business Performance Scorecard</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+
+window.TB = window.TB || {};
+(function () {
+  var api = window.TB;
+  var KEY = "tb-customer-complaint-tracker-complaints";
+  var STATUSES = ["Open", "In progress", "Resolved"];
+  function todayISO() {
+    var d = new Date();
+    var m = d.getMonth() + 1;
+    var day = d.getDate();
+    return d.getFullYear() + "-" + (m < 10 ? "0" + m : m) + "-" + (day < 10 ? "0" + day : day);
+  }
+  function newId() {
+    return "c" + Date.now().toString(36) + Math.floor(Math.random() * 1000).toString(36);
+  }
+  function addComplaint(list, c) {
+    if (!c.customer || !c.customer.trim()) {
+      return { list: list, error: "Enter the customer name." };
+    }
+    if (!c.issue || !c.issue.trim()) {
+      return { list: list, error: "Describe the issue." };
+    }
+    var next = list.slice();
+    next.push({
+      id: newId(),
+      date: c.date || todayISO(),
+      customer: c.customer.trim(),
+      issue: c.issue.trim(),
+      status: c.status || "Open"
+    });
+    return { list: next, error: null };
+  }
+  function filterComplaints(list, status, query) {
+    var q = (query || "").trim().toLowerCase();
+    return list.filter(function (c) {
+      if (status && status !== "All" && c.status !== status) return false;
+      if (q) {
+        var hay = (c.customer + " " + c.issue).toLowerCase();
+        if (hay.indexOf(q) < 0) return false;
+      }
+      return true;
+    });
+  }
+  function complaintCounts(list) {
+    var counts = { Open: 0, "In progress": 0, Resolved: 0 };
+    for (var i = 0; i < list.length; i++) {
+      if (counts[list[i].status] !== undefined) counts[list[i].status]++;
+    }
+    counts.total = list.length;
+    return counts;
+  }
+  function advanceStatus(list, id) {
+    return list.map(function (c) {
+      if (c.id !== id) return c;
+      var i = STATUSES.indexOf(c.status);
+      var copy = {};
+      for (var k in c) copy[k] = c[k];
+      copy.status = STATUSES[Math.min(i + 1, STATUSES.length - 1)];
+      return copy;
+    });
+  }
+  function deleteComplaint(list, id) {
+    return list.filter(function (c) { return c.id !== id; });
+  }
+  function complaintText(list) {
+    var lines = ["Complaint log (" + list.length + " complaints)"];
+    for (var s = 0; s < STATUSES.length; s++) {
+      lines.push("");
+      lines.push(STATUSES[s] + ":");
+      var any = false;
+      for (var i = 0; i < list.length; i++) {
+        if (list[i].status === STATUSES[s]) {
+          any = true;
+          lines.push("- " + list[i].date + " — " + list[i].customer + ": " + list[i].issue);
+        }
+      }
+      if (!any) lines.push("- none.");
+    }
+    return lines.join("\n");
+  }
+  api.addComplaint = addComplaint;
+  api.filterComplaints = filterComplaints;
+  api.complaintCounts = complaintCounts;
+  api.advanceStatus = advanceStatus;
+  api.deleteComplaint = deleteComplaint;
+  api.complaintText = complaintText;
+  api.complaintStatuses = STATUSES;
+  function el(id) { return document.getElementById(id); }
+  function loadComplaints() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      var parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (e) { return []; }
+  }
+  function saveComplaints() {
+    try { localStorage.setItem(KEY, JSON.stringify(complaints)); } catch (e) {}
+  }
+  var complaints = loadComplaints();
+  var statusFilter = "All";
+  var query = "";
+  function render() {
+    var listEl = el("complaint-list");
+    var out = el("out");
+    var steps = el("steps");
+    listEl.innerHTML = "";
+    var counts = complaintCounts(complaints);
+    var shown = filterComplaints(complaints, statusFilter, query);
+    if (complaints.length === 0) {
+      out.textContent = "No complaints logged yet. Add the first one above.";
+      steps.textContent = "";
+      return;
+    }
+    if (shown.length === 0) {
+      var none = document.createElement("p");
+      none.className = "hint";
+      none.textContent = "No complaints match the current filter.";
+      listEl.appendChild(none);
+    }
+    for (var i = 0; i < shown.length; i++) {
+      (function (c) {
+        var row = document.createElement("div");
+        row.className = "row";
+        var grow = document.createElement("div");
+        grow.className = "grow";
+        grow.textContent = c.date + " — " + c.customer + ": " + c.issue;
+        row.appendChild(grow);
+        var chip = document.createElement("span");
+        chip.className = "chip";
+        chip.textContent = c.status;
+        row.appendChild(chip);
+        if (c.status !== "Resolved") {
+          var adv = document.createElement("button");
+          adv.type = "button";
+          adv.textContent = c.status === "Open" ? "Start work" : "Mark resolved";
+          adv.addEventListener("click", function () {
+            complaints = advanceStatus(complaints, c.id);
+            saveComplaints();
+            render();
+          });
+          row.appendChild(adv);
+        }
+        var del = document.createElement("button");
+        del.type = "button";
+        del.className = "danger";
+        del.textContent = "Delete";
+        del.addEventListener("click", function () {
+          complaints = deleteComplaint(complaints, c.id);
+          saveComplaints();
+          render();
+        });
+        row.appendChild(del);
+        listEl.appendChild(row);
+      })(shown[i]);
+    }
+    out.textContent = "Open: " + counts.Open + ". In progress: " + counts["In progress"] +
+      ". Resolved: " + counts.Resolved + ". Total: " + counts.total + ".";
+    var lines = [];
+    lines.push("Open complaints: " + counts.Open + ".");
+    lines.push("In progress: " + counts["In progress"] + ".");
+    lines.push("Resolved: " + counts.Resolved + ".");
+    var oldest = null;
+    for (var j = 0; j < complaints.length; j++) {
+      if (complaints[j].status === "Open") {
+        if (!oldest || complaints[j].date < oldest.date) oldest = complaints[j];
+      }
+    }
+    if (oldest) {
+      lines.push("Oldest open complaint: " + oldest.date + " — " + oldest.customer + ".");
+    } else {
+      lines.push("No open complaints right now.");
+    }
+    steps.textContent = lines.join("\n");
+  }
+  function copyText(text, btn) {
+    function done() {
+      var old = btn.textContent;
+      btn.textContent = "Copied!";
+      setTimeout(function () { btn.textContent = old; }, 1500);
+    }
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { fallback(); done(); });
+    } else { fallback(); done(); }
+  }
+  var dateEl = el("complaint-date");
+  if (dateEl) dateEl.value = todayISO();
+  var addBtn = el("add-btn");
+  if (addBtn) addBtn.addEventListener("click", function () {
+    var res = addComplaint(complaints, {
+      date: el("complaint-date").value,
+      customer: el("complaint-customer").value,
+      issue: el("complaint-issue").value,
+      status: el("complaint-status").value
+    });
+    var err = el("form-err");
+    if (res.error) {
+      err.textContent = res.error;
+      return;
+    }
+    err.textContent = "";
+    complaints = res.list;
+    saveComplaints();
+    el("complaint-customer").value = "";
+    el("complaint-issue").value = "";
+    render();
+  });
+  var filterEl = el("status-filter");
+  if (filterEl) filterEl.addEventListener("change", function () {
+    statusFilter = filterEl.value;
+    render();
+  });
+  var searchEl = el("search-box");
+  if (searchEl) searchEl.addEventListener("input", function () {
+    query = searchEl.value;
+    render();
+  });
+  var copyBtn = el("copy-btn");
+  if (copyBtn) copyBtn.addEventListener("click", function () {
+    if (complaints.length === 0) return;
+    copyText(complaintText(complaints), this);
+  });
+  var clearResolvedBtn = el("clear-resolved-btn");
+  if (clearResolvedBtn) clearResolvedBtn.addEventListener("click", function () {
+    complaints = complaints.filter(function (c) { return c.status !== "Resolved"; });
+    saveComplaints();
+    render();
+  });
+  var clearBtn = el("clear-btn");
+  if (clearBtn) clearBtn.addEventListener("click", function () {
+    complaints = [];
+    saveComplaints();
+    render();
+  });
+  render();
+})();
+
+</script>
+</body>
+</html>

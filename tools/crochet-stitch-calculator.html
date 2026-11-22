@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crochet Stitch Calculator | ToolBari</title>
+<meta name="description" content="Free crochet stitch calculator — turn your gauge swatch into stitch counts, row counts and a yarn estimate for any project size. No signup, works on your phone.">
+<link rel="canonical" href="https://toolbari.github.io/tools/crochet-stitch-calculator.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Crochet Stitch Calculator">
+<meta property="og:description" content="Stitch counts, row counts and yarn estimates from your gauge swatch.">
+<meta property="og:url" content="https://toolbari.github.io/tools/crochet-stitch-calculator.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is gauge in crochet?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Gauge is the number of stitches and rows that fit in 10 centimetres of crocheted fabric, measured on a swatch. It tells you how big your stitches are with a given yarn and hook, and it is what turns a pattern's instructions into a finished piece of the size you want."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I measure my gauge swatch?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Crochet a square at least 12 centimetres on each side in the stitch you plan to use, lay it flat without stretching it, and count the stitches and rows inside the middle 10 centimetres. Measure away from the edges, where stitches pull tight, and wash the swatch first if you will wash the finished piece."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between US and UK crochet terms?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The stitches are the same but the names shift by one step: a US single crochet is a UK double crochet, and a US double crochet is a UK treble crochet. Always check which terms a pattern uses before you start, because the wrong terms give the wrong stitch and the wrong size."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How accurate is the yarn estimate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is as accurate as your swatch. The estimate scales the weight of your own 10 by 10 centimetre swatch by the area of the finished piece, so it reflects your yarn, stitch and tension. It does not include borders, joining or ends, so round up to whole balls and buy one extra if the project matters to you."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "My stitch count is not a whole number — what do I do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Round to the nearest whole stitch, and if your stitch pattern repeats every few stitches, round to the nearest multiple the pattern needs. A difference of one or two stitches across a blanket is invisible; a count that breaks the pattern repeat will show."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use this calculator for a garment?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, for the starting counts and row totals of each flat piece — the front, back or sleeve. Use your gauge and the finished size of each piece. Shaping such as increases, decreases and necklines still comes from the pattern; the calculator gives you the foundation numbers."
+      }
+    }
+  ]
+}
+</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>.calc button{min-height:72px;padding:14px 22px;border:0;border-radius:999px;font-size:17px;font-weight:700;background:#0b7a4b;color:#fff;cursor:pointer;margin:12px 6px 0 0}
+.calc button.secondary{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+.calc button.on{background:#ff9f2e;color:#1e293b}
+.calc input,.calc select,.calc textarea{min-height:72px;padding:14px 12px;font-size:17px}
+.calc textarea{min-height:110px;resize:vertical}
+.calc table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0}
+.calc th,.calc td{border:1px solid #cbd5e1;padding:8px 6px;text-align:left;vertical-align:top}
+.calc th{background:#e8f7ef}
+.calc canvas{width:100%;max-width:100%;height:auto;display:block;margin:10px 0;background:#fff;border:1px solid #cbd5e1;border-radius:8px}
+.twrap{overflow-x:auto;margin:10px 0}
+.twrap table{width:100%;border-collapse:collapse;font-size:15px}
+.twrap th,.twrap td{border:1px solid #cbd5e1;padding:8px 6px;text-align:left;vertical-align:top}
+.twrap th{background:#e8f7ef}
+.small{font-size:14.5px;color:#475569}
+.tapbtn{min-height:120px !important;font-size:24px;width:100%}
+.bignum{font-size:44px;font-weight:800;text-align:center;margin:8px 0}
+.itemrow{display:flex;gap:8px;align-items:center;margin:6px 0}
+.itemrow span{flex:1}
+.itemrow button{min-height:72px;min-width:76px;margin:0;padding:14px 10px}
+.cutbar{display:flex;height:44px;border:2px solid #0b7a4b;border-radius:6px;overflow:hidden;margin:8px 0 2px}
+.meter{position:relative;height:28px;background:#e2e8f0;border-radius:999px;margin:10px 0;overflow:hidden}
+.meter i{position:absolute;top:0;bottom:0;width:4px;background:#0b7a4b;left:50%}
+.notegrid{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.notegrid button{margin:0;min-width:64px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Crochet Stitch Calculator</h1>
+<p class="answer">Turn your gauge swatch into exact stitch and row counts for any project size. Enter the stitches and rows in your 10 centimetre swatch plus the finished size you want, and the calculator works out how many stitches to start with, how many rows to crochet, and how much yarn you will need.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="gst">Stitches in your 10 cm swatch</label>
+<input id="gst" type="number" min="1" step="any" placeholder="For example 16">
+<label for="grows">Rows in your 10 cm swatch</label>
+<input id="grows" type="number" min="1" step="any" placeholder="For example 20">
+<label for="width">Finished width in centimetres</label>
+<input id="width" type="number" min="1" step="any" placeholder="For example 40">
+<label for="length">Finished length in centimetres</label>
+<input id="length" type="number" min="1" step="any" placeholder="For example 60">
+<label for="swatchg">Yarn used by your 10 x 10 cm swatch, in grams (optional)</label>
+<input id="swatchg" type="number" min="0" step="any" placeholder="For example 5">
+<label for="ballg">Weight of one ball or skein, in grams (optional)</label>
+<input id="ballg" type="number" min="0" step="any" placeholder="For example 50">
+<button id="calc-btn" type="button">Work it out</button>
+<button id="copy-btn" class="secondary" type="button">Copy result</button>
+<div class="out" id="out" aria-live="polite"></div>
+<div class="steps" id="steps"></div>
+<p class="small">Stitches = gauge stitches x width / 10. Rows = gauge rows x length / 10. The yarn estimate scales your swatch by area, so weigh the swatch if you want a number you can trust.</p>
+</div>
+<div class="warn">Gauge is personal — the same yarn and hook give different stitch counts in different hands. Always crochet a swatch first and measure it relaxed, not stretched, and treat the yarn estimate as a starting point, not a promise.</div>
+<h2>How to use this calculator</h2><p>Start with a gauge swatch: crochet a square at least 12 centimetres on each side in the stitch you plan to use, then count how many stitches and rows fit inside 10 centimetres. Enter those two numbers, then the finished width and length you want, and the calculator gives you the starting stitch count and the number of rows. If you also weigh the swatch, it estimates how much yarn the whole project will take.</p><p>The two optional boxes make the yarn estimate work. Weigh your 10 by 10 centimetre swatch on kitchen scales — even cheap scales are accurate enough — and enter the grams. Enter the weight of one ball or skein from its label, and the calculator tells you how many balls to buy. Without the swatch weight, you still get stitch and row counts, which are the numbers most crocheters need first.</p><p>Round your answers with sense. The calculator rounds stitch and row counts to whole numbers, because you cannot crochet half a stitch. If your pattern needs a multiple — many stitch patterns repeat every 4, 6 or 8 stitches — round the starting count to the nearest multiple the pattern asks for, and adjust the width a fraction to suit.</p><h2>What gauge is and why it matters</h2><p>Gauge is the number of stitches and rows that fit in a fixed size, usually 10 centimetres. It is the bridge between a pattern and your hands: the same yarn and hook give different gauge in different hands, because everyone holds the yarn and the hook a little differently. Two crocheters following the same pattern with the same yarn can finish with pieces several centimetres apart, and gauge is the reason.</p><p>That is why patterns print a gauge line, and why skipping the swatch is the most expensive shortcut in crochet. A difference of one stitch per 10 centimetres sounds small, but across a 40 centimetre wide blanket it adds up to 4 stitches — and across a garment it can change the fit by a whole size. Ten minutes spent on a swatch saves hours of unravelling.</p><p>Measure the swatch the way the finished piece will live: lay it flat, let it relax, and measure the middle, away from the edges where stitches pull tight. Do not stretch it. If you plan to wash the finished piece, wash the swatch first and let it dry, because many yarns change size after the first wash.</p><h2>Worked example: a baby blanket</h2><p>Suppose your swatch has 16 stitches and 20 rows in 10 centimetres, and you want a blanket 40 centimetres wide and 60 centimetres long. The stitch count is 16 times 40 divided by 10, which is 64 stitches across. The row count is 20 times 60 divided by 10, which is 120 rows. That is 7,680 stitches in total — a useful number if you like to know what you are signing up for.</p><p>Now the yarn. Suppose the 10 by 10 centimetre swatch weighs 5 grams. The blanket is 40 times 60, which is 2,400 square centimetres, or 24 times the area of the swatch. The estimate is 5 times 24, which is 120 grams. If your balls weigh 50 grams each, you need 120 divided by 50, which is 2.4 balls — so buy 3, because you cannot buy 0.4 of a ball and running out mid-row is worse than having a little left over.</p><p>Notice what the estimate does and does not promise. It scales your own swatch, so it reflects your tension and your stitch. It does not account for a border, for joining squares, or for the yarn you lose to ends and knots, so the extra ball is not waste — it is insurance.</p><h2>Common crochet stitches</h2><p>Every crochet project is built from a small family of stitches. The table below lists the stitches you will meet most often, with their usual abbreviations and what they are good for. Heights are relative: a treble crochet is roughly twice as tall as a single crochet, which is why tall stitches work up faster but use more yarn per row.</p><div class="twrap"><table><tr><th>Stitch (US terms)</th><th>Abbreviation</th><th>Height</th><th>Common uses</th></tr><tr><td>Chain</td><td>ch</td><td>Foundation</td><td>Starting chains, spaces, turning chains</td></tr><tr><td>Slip stitch</td><td>sl st</td><td>Shortest</td><td>Joining rounds, seams, surface decoration</td></tr><tr><td>Single crochet</td><td>sc</td><td>Short</td><td>Amigurumi, dense fabric, sturdy bags</td></tr><tr><td>Half double crochet</td><td>hdc</td><td>Medium-short</td><td>Hats, scarves, quick blankets</td></tr><tr><td>Double crochet</td><td>dc</td><td>Medium-tall</td><td>Blankets, garments, open lace</td></tr><tr><td>Treble crochet</td><td>tr</td><td>Tall</td><td>Lacy shawls, fast blankets, drape</td></tr></table></div><p>Watch out for the US and UK naming difference, which catches out almost every crocheter at least once. What Americans call a single crochet, the British call a double crochet; what Americans call a double crochet, the British call a treble crochet. The stitches are the same — only the names shift by one step. Always check which terms a pattern uses before you start, because a blanket worked in the wrong stitch will be the wrong size and the wrong texture.</p><h2>Estimating yarn without guessing</h2><p>The honest way to estimate yarn is to weigh a swatch, because it measures your yarn, your stitch and your tension all at once. A swatch of at least 10 by 10 centimetres gives a better estimate than a tiny one, because edge stitches and turning chains distort small samples. Weigh the swatch after blocking or washing it, if that is how the finished piece will be treated.</p><p>If you have no swatch yet, the yarn label gives a rough starting point: most labels state the approximate length per ball and a suggested gauge. That is enough to buy yarn for a first swatch, but it is not enough to plan a whole project, because the label gauge is an average, not your gauge. Buy one ball, crochet the swatch, weigh it, then buy the rest.</p><p>Always round up, and then add a little more. Yarn runs out in the middle of rows, dye lots change between batches, and a pattern that calls for 2.4 balls will not be finished by 2 balls. An extra ball is cheap insurance; a half-finished blanket waiting for a dye lot that no longer exists is a real frustration.</p><h2>When your gauge does not match the pattern</h2><p>If your swatch has more stitches per 10 centimetres than the pattern asks for, your stitches are smaller than the designer's, and the finished piece will come out smaller. Go up a hook size and swatch again. If your swatch has fewer stitches, your stitches are bigger, and the piece will come out larger — go down a hook size. Half a millimetre of hook size can change the gauge by a full stitch.</p><p>Sometimes changing the hook is not enough, because the yarn itself is thicker or thinner than the pattern's yarn. In that case, use the calculator to rework the numbers: enter your gauge and the finished size you want, and the stitch and row counts it gives are the ones for your yarn, not the pattern's. You follow the pattern's shaping and stitch order, but with your own counts.</p><p>For a garment, a mismatch you ignore becomes a fit problem you cannot fix later. A sweater that is meant to be 50 centimetres around the chest and comes out at 45 will not stretch to fit, and one that comes out at 55 will hang wrong. The swatch is not a formality — it is the only cheap way to check the fit before you invest the hours.</p><h2>Common mistakes</h2><p>The first mistake is measuring a swatch that is too small. A 5 centimetre swatch magnifies every counting error, and the edges pull the stitches out of shape. Make the swatch at least 12 centimetres square, and measure the middle 10 centimetres, away from the edges.</p><p>The second mistake is counting stitches under tension. If you stretch the swatch while you measure it, you will count fewer stitches than the relaxed fabric really has, and the finished piece will come out bigger than planned. Lay the swatch flat, let it settle, and measure without pulling.</p><p>The third mistake is trusting a yarn estimate that came from nowhere. Guessing the yarn from the pattern's photo, or from a project that used a different stitch, gives a number with no basis. Weigh a swatch, scale it by area, and round up — that is the whole method, and it is the only one that reflects your actual work.</p><h2>What this calculator cannot do</h2><p>This calculator cannot tell you whether a stitch pattern will look good in your yarn, or whether a colour will suit the project. It cannot read a pattern for you, fix a shaping error, or predict how a yarn will behave after washing — only a swatch, washed and dried the way the finished piece will be, can do that.</p><p>It also cannot replace the pattern's instructions for shaping. It gives you starting counts and row totals for a rectangle of the size you want; increases, decreases, armholes and necklines still come from the pattern. Use the numbers as the foundation, then follow the pattern for everything that is not a straight rectangle.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>What is gauge in crochet?</h3><p>Gauge is the number of stitches and rows that fit in 10 centimetres of crocheted fabric, measured on a swatch. It tells you how big your stitches are with a given yarn and hook, and it is what turns a pattern's instructions into a finished piece of the size you want.</p></div><div class="faq"><h3>How do I measure my gauge swatch?</h3><p>Crochet a square at least 12 centimetres on each side in the stitch you plan to use, lay it flat without stretching it, and count the stitches and rows inside the middle 10 centimetres. Measure away from the edges, where stitches pull tight, and wash the swatch first if you will wash the finished piece.</p></div><div class="faq"><h3>What is the difference between US and UK crochet terms?</h3><p>The stitches are the same but the names shift by one step: a US single crochet is a UK double crochet, and a US double crochet is a UK treble crochet. Always check which terms a pattern uses before you start, because the wrong terms give the wrong stitch and the wrong size.</p></div><div class="faq"><h3>How accurate is the yarn estimate?</h3><p>It is as accurate as your swatch. The estimate scales the weight of your own 10 by 10 centimetre swatch by the area of the finished piece, so it reflects your yarn, stitch and tension. It does not include borders, joining or ends, so round up to whole balls and buy one extra if the project matters to you.</p></div><div class="faq"><h3>My stitch count is not a whole number — what do I do?</h3><p>Round to the nearest whole stitch, and if your stitch pattern repeats every few stitches, round to the nearest multiple the pattern needs. A difference of one or two stitches across a blanket is invisible; a count that breaks the pattern repeat will show.</p></div><div class="faq"><h3>Can I use this calculator for a garment?</h3><p>Yes, for the starting counts and row totals of each flat piece — the front, back or sleeve. Use your gauge and the finished size of each piece. Shaping such as increases, decreases and necklines still comes from the pattern; the calculator gives you the foundation numbers.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/knitting-pattern-calculator.html">Knitting Pattern Calculator</a> · <a href="https://toolbari.github.io/tools/sewing-project-cost-calculator.html">Sewing Project Cost Calculator</a> · <a href="https://toolbari.github.io/tools/woodworking-cut-list-optimizer.html">Woodworking Cut List Optimizer</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+window.TB = (function () {
+
+  function num(x) {
+    if (x === null || x === undefined || x === "") return null;
+    var n = parseFloat(x);
+    return isNaN(n) ? null : n;
+  }
+  function fmt(n, d) {
+    if (n === null || n === undefined || isNaN(n)) return "—";
+    return Number(n).toLocaleString("en-US", {maximumFractionDigits: d === undefined ? 2 : d, minimumFractionDigits: d === undefined ? 0 : d});
+  }
+  function copyText(text, btn) {
+    function done() {
+      var old = btn.textContent;
+      btn.textContent = "Copied!";
+      setTimeout(function () { btn.textContent = old; }, 1600);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function () { fallbackCopy(text, btn, done); });
+    } else { fallbackCopy(text, btn, done); }
+  }
+  function fallbackCopy(text, btn, done) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta);
+    done();
+  }
+
+  function calcCrochet(o) {
+    var gs = num(o.gaugeSt), gr = num(o.gaugeRows), w = num(o.width), l = num(o.length);
+    if (gs === null || gs <= 0) return {error: "Enter the stitches in your 10 cm swatch."};
+    if (gr === null || gr <= 0) return {error: "Enter the rows in your 10 cm swatch."};
+    if (w === null || w <= 0) return {error: "Enter a finished width above zero."};
+    if (l === null || l <= 0) return {error: "Enter a finished length above zero."};
+    var stitches = Math.round(gs * w / 10);
+    var rows = Math.round(gr * l / 10);
+    var r = {stitches: stitches, rows: rows, totalStitches: stitches * rows, yarnG: null, balls: null};
+    var sg = num(o.swatchG);
+    if (sg !== null && sg > 0) {
+      r.yarnG = sg * (w * l / 100);
+      var bg = num(o.ballG);
+      if (bg !== null && bg > 0) r.balls = Math.ceil(r.yarnG / bg);
+    }
+    return r;
+  }
+  var api = { calcCrochet: calcCrochet };
+  if (typeof document !== "undefined") {
+    document.getElementById("calc-btn").addEventListener("click", function () {
+      var r = calcCrochet({
+        gaugeSt: document.getElementById("gst").value,
+        gaugeRows: document.getElementById("grows").value,
+        width: document.getElementById("width").value,
+        length: document.getElementById("length").value,
+        swatchG: document.getElementById("swatchg").value,
+        ballG: document.getElementById("ballg").value
+      });
+      var out = document.getElementById("out");
+      var steps = document.getElementById("steps");
+      if (r.error) { out.textContent = r.error; steps.textContent = ""; return; }
+      var msg = "Start with " + r.stitches + " stitches and crochet " + r.rows + " rows (" + fmt(r.totalStitches, 0) + " stitches in total)";
+      if (r.yarnG !== null) msg += " — about " + fmt(r.yarnG, 0) + " grams of yarn";
+      if (r.balls !== null) msg += " (" + r.balls + " balls)";
+      out.textContent = msg;
+      var gs = num(document.getElementById("gst").value), gr = num(document.getElementById("grows").value);
+      var w = num(document.getElementById("width").value), l = num(document.getElementById("length").value);
+      var s = "Stitches = " + gs + " x " + w + " / 10 = " + r.stitches + ".\n"
+        + "Rows = " + gr + " x " + l + " / 10 = " + r.rows + ".";
+      if (r.yarnG !== null) {
+        s += "\nYarn = swatch grams x area / 100 = " + fmt(r.yarnG, 1) + " grams.";
+      }
+      steps.textContent = s;
+    });
+    document.getElementById("copy-btn").addEventListener("click", function () {
+      var out = document.getElementById("out").textContent;
+      var steps = document.getElementById("steps").textContent;
+      if (!out) return;
+      copyText(out + "\n" + steps, this);
+    });
+  }
+  return api;
+})();
+</script>
+</body>
+</html>

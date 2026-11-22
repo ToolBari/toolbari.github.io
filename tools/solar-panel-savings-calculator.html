@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solar Panel Savings Calculator — How Much Can Solar Save You? | ToolBari</title>
+<meta name="description" content="Work out solar panel savings free — your electricity bill, sunlight hours and system size, with payback time. No signup, works on phone.">
+<link rel="canonical" href="https://toolbari.github.io/tools/solar-panel-savings-calculator.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Solar Panel Savings Calculator — How Much Can Solar Save You?">
+<meta property="og:description" content="Work out how much solar panels could save you, and how long the system takes to pay for itself.">
+<meta property="og:url" content="https://toolbari.github.io/tools/solar-panel-savings-calculator.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much can I save with solar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends on your bill, your electricity price, your system size and your sunlight hours. A system that makes as many units as you use can cut your bill to almost nothing, but you can never save more than you use — extra output is wasted unless you can sell it back or store it. Use the calculator above with your real numbers to get an honest estimate for your own home."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the payback time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The payback time is the system cost divided by the yearly savings. If a system costs 300,000 and saves 36,000 a year, the payback is about 8.3 years. Under 5 years is fast, 5 to 10 years is reasonable, and over 10 years is slow. The panels should keep working well past the payback point, so a slow payback is not always a bad deal — but it is a longer wait for your money back."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many sunlight hours do I get?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sunlight hours mean hours of strong, direct sun, not hours of daylight. Many sunny places get about 4 to 5 sunlight hours a day on average over the year. The calculator starts at 4.5, which is a reasonable middle figure. Your installer should be able to tell you the figure for your area, and it will be higher in the dry season and lower in the rainy season."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does solar work on cloudy days?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, but it makes much less power. Panels still produce some electricity under cloud, roughly a tenth to a quarter of their sunny-day output, depending on how thick the cloud is. Rainy seasons and long cloudy spells reduce the yearly total, which is why the calculator uses an average sunlight figure rather than the sunniest month. A system sized for sunny days alone will disappoint you in the wet season."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What size system do I need?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The right size is the one that makes about as many units as you use each month. Divide your monthly units by 30 days, then by your sunlight hours, then divide by 0.8 to allow for losses — that gives a rough size in kilowatts. For example, 250 units a month with 4.5 sunlight hours needs about 2.3 kilowatts. An installer can size it properly after seeing your roof and your bills."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the saving guaranteed?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Sunlight varies with the weather and the seasons, electricity prices change, panels lose a little output as they age, and shade can grow over the years. The calculator shows what the numbers say today, with the assumptions stated plainly. Treat it as a planning estimate, get a written quote from an installer, and never spend money on the strength of a best-case figure alone."
+      }
+    }
+  ]
+}
+</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>.calc button{min-height:72px;padding:14px 22px;border:0;border-radius:999px;font-size:17px;font-weight:700;background:#0b7a4b;color:#fff;cursor:pointer;margin:12px 6px 0 0}
+.calc button.secondary{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+.calc input,.calc select,.calc textarea{min-height:72px;padding:14px 12px;font-size:17px}
+.calc textarea{min-height:110px;resize:vertical}
+.calc input[type=checkbox]{min-height:28px;width:28px;vertical-align:middle}
+.calc table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0}
+.calc th,.calc td{border:1px solid #cbd5e1;padding:8px 6px;text-align:left;vertical-align:top}
+.calc th{background:#e8f7ef}
+.twrap{overflow-x:auto;margin:10px 0}
+.twrap table{width:100%;border-collapse:collapse;font-size:15px}
+.twrap th,.twrap td{border:1px solid #cbd5e1;padding:8px 6px;text-align:left;vertical-align:top}
+.twrap th{background:#e8f7ef}
+canvas.plan{width:100%;height:auto;border:2px solid #0b7a4b;border-radius:12px;background:#fff;touch-action:none;display:block}
+.tag{display:inline-block;padding:2px 10px;border-radius:999px;font-size:14px;font-weight:700}
+.tag.red{background:#fee2e2;color:#991b1b}.tag.orange{background:#ffedd5;color:#9a3412}.tag.green{background:#dcfce7;color:#166534}.tag.grey{background:#e2e8f0;color:#334155}
+.small{font-size:14.5px;color:#475569}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Solar Panel Savings Calculator</h1>
+<p class="answer">Work out what solar panels could save you each month and each year, and how long the system takes to pay for itself. Enter your bill, your system size and your sunlight hours, and the calculator does the rest in your own currency.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="bill">Monthly electricity bill (in your own currency)</label>
+<input id="bill" type="number" min="0" step="any" placeholder="For example 3000">
+<label for="units">Monthly units used (optional — if you fill this in, it takes priority over the bill)</label>
+<input id="units" type="number" min="0" step="any" placeholder="For example 250">
+<label for="price">Electricity price per unit</label>
+<input id="price" type="number" min="0" step="any" placeholder="For example 12">
+<label for="kw">System size in kilowatts (kW)</label>
+<input id="kw" type="number" min="0" step="any" placeholder="For example 3">
+<label for="sun">Sunlight hours per day</label>
+<input id="sun" type="number" min="0" step="any" value="4.5">
+<label for="cost">System cost (in your own currency)</label>
+<input id="cost" type="number" min="0" step="any" placeholder="For example 300000">
+<button id="calc-btn" type="button">Work out my solar savings</button>
+<button id="copy-btn" class="secondary" type="button">Copy result</button>
+<div class="out" id="out" aria-live="polite"></div>
+<div class="steps" id="steps"></div>
+<p class="small">The calculator assumes your panels produce about 80 percent of their ideal output, because the inverter and the wiring lose some power. Real output varies with weather, shade and the angle of your roof.</p>
+</div>
+<div class="warn">This calculator gives an estimate, not a promise. Sunlight, electricity prices and real panel output all vary, and no online calculator can see your roof. Get a real quote from an installer before you spend any money.</div>
+<h2>How to use this calculator</h2>
+<p>Start with your electricity bill. If you know your monthly bill, type it in, along with the price you pay for each unit of electricity. The price per unit is printed on your bill, and it is the number that turns units into money. If you already know how many units you use each month, type that number in the units box instead — when both boxes are filled in, the units box wins, because units are the more exact starting point.</p>
+<p>Next, enter the size of the solar system you are thinking about, in kilowatts. A small home system might be 2 or 3 kilowatts. A larger home with air conditioning might need 5 or more. If you are not sure what size you need, try 3 kilowatts as a starting point and see what the numbers say, then try a bigger or smaller size and compare the answers. The sunlight hours box is set to 4.5 hours a day, which is a reasonable middle figure for many sunny places. You can change it if you know your area gets more or less sun. Finally, enter the price of the system, including panels, inverter, wiring and installation, and tap the button.</p>
+<p>The calculator shows four things. Monthly savings is the money you stop paying on your bill each month. Yearly savings is that figure times twelve. Payback time is how many years it takes for the savings to add up to the cost of the system. The verdict puts the payback time into plain words: fast, reasonable, or slow. If the system makes more electricity than you use, the calculator says so plainly, because extra electricity you cannot use or sell does not save you money.</p>
+<h2>How the numbers work</h2>
+<p>Your electricity bill is built from two numbers: how many units you use and what each unit costs. Multiply them together and you get the bill. The calculator works backwards from your bill in the same way. If your bill is 3,000 and each unit costs 12, then you use about 250 units a month. That is the number the solar system has to beat. Every unit the panels make is a unit you do not buy, and every unit you do not buy saves you the price of one unit.</p>
+<p>A kilowatt of solar panels does not make a kilowatt of electricity all day. It makes close to a kilowatt only when the sun is strong and the panels face it well. That is why the calculator uses sunlight hours instead of daylight hours. A sunlight hour means one hour of strong, direct sun. A place might have twelve hours of daylight but only four or five hours of strong sun, with the morning and evening sun too weak to count at full strength. Multiply the system size by the sunlight hours and you get the daily output in units. Multiply by thirty days and you get the monthly output.</p>
+<p>Then the calculator takes off twenty percent. A real system loses power in the inverter, which turns the panels' direct current into the alternating current your home uses, and in the wiring, the heat, and the dust on the panels. So the calculator multiplies by 0.8. This is the single most honest number on the page. A seller who shows you the ideal output without this loss is showing you a number your roof will never reach. The page states the assumption plainly so you can judge it: if you think your system will do better or worse, change the sunlight hours to match.</p>
+<h2>Worked example</h2>
+<p>Take a family whose monthly bill is 3,000 and who pay 12 per unit. That means they use 250 units a month. They are looking at a 3 kilowatt system that costs 300,000, and their area gets 4.5 sunlight hours a day. The maths runs like this. The system makes 3 times 4.5, which is 13.5 units a day in ideal conditions. Over thirty days that is 405 units. Take off twenty percent for inverter and system losses and the real output is about 324 units a month.</p>
+<p>But the family only uses 250 units a month, so they cannot save more than 250 units' worth of money. The extra 74 units are wasted unless the family can sell them back to the grid or store them in a battery, and neither is guaranteed. So the monthly saving is 250 units times 12, which is 3,000 — the whole bill. The yearly saving is 36,000. The payback time is 300,000 divided by 36,000, which is about 8.3 years. The verdict is reasonable payback: not quick, but the panels should keep working well past the payback point.</p>
+<p>Now change one number and watch the answer move. If the same family bought a 2 kilowatt system instead, it would make about 216 units a month after losses, saving 2,592 a month. If that smaller system cost 200,000, the payback time would be about 6.4 years — faster, because less of the output is wasted. This is why the calculator caps the saving at what you actually use. A bigger system is not always a better deal. The right size is the one that matches your usage, not the biggest one a seller can fit on your roof.</p>
+<h2>When solar pays back fast and when it does not</h2>
+<p>Solar pays back fast when three things line up. First, your electricity is expensive. The more each unit costs, the more each unit the panels make is worth. Second, you use most of your electricity during the day, when the panels are working. A home where someone is in all day, running fans, a fridge and a washing machine, uses solar power directly. Third, your roof gets strong sun with little shade. A south-facing roof with no tall trees or buildings in front of it is worth real money, because every lost hour of sun is lost savings.</p>
+<p>Solar pays back slowly when the opposite is true. If your electricity is cheap, the saving per unit is small and the payback stretches out. If everyone is out all day and the house uses most of its power in the evening, after the sun has gone, then much of the solar power goes unused unless you have a battery or a way to sell power back to the grid. If your roof is shaded for part of the day, or faces away from the sun, the panels make far less than their rating promises. And if the system is oversized for your usage, the extra output is wasted money, as the worked example shows.</p>
+<p>There is also the question of what happens to electricity prices. If prices rise over the years, your savings grow and the payback gets shorter. If prices fall, the opposite happens. Nobody can predict prices ten years ahead, so the calculator works with today's price and says so. Treat the payback time as a planning figure, not a promise. A payback of five years or less is fast enough that most people are happy. Five to ten years is reasonable. Over ten years is slow, and you should think carefully before spending, because the system will be old before it has paid for itself.</p>
+<h2>Common mistakes</h2>
+<p>The biggest mistake is trusting a seller's best-case number. Some sellers quote the ideal output of the panels with no losses, the sunniest month of the year as if it were every month, and a price per unit higher than the one on your bill. Each of those small exaggerations pushes the saving up, and together they can turn a ten-year payback into a five-year payback on paper. Always ask a seller which losses they included and which month's sunlight they used. If they cannot answer, their number is not a quote, it is a guess in their favour.</p>
+<p>The second mistake is forgetting maintenance. Panels get dirty, and dirty panels make less power. In a dusty area they may need cleaning every few weeks. The inverter, the box that turns the panels' power into home power, does not last as long as the panels and will probably need replacing once during the life of the system. Birds, leaves and the occasional storm can all damage a panel. None of this is expensive on its own, but none of it is free, and a payback figure that ignores it is too optimistic.</p>
+<p>The third mistake is ignoring shade. A panel in shade does not just lose the shaded part — on many systems, one shaded panel drags down the whole string of panels connected to it. A tree that is small today will be bigger in five years. A new building next door can shade a roof that was sunny when the panels went up. Before you buy, look at your roof at different times of day and in different seasons, and ask the installer how shade will affect your particular system. A cheaper system with no shade protection can be a false economy on a partly shaded roof.</p>
+<h2>Getting a real quote before you spend</h2>
+<p>This calculator is a starting point, not a buying decision. Before you spend anything, get at least two written quotes from installers who have actually seen your roof. A good quote tells you the size of the system, the brand and model of the panels and the inverter, the expected yearly output in units, the total price including installation, and the warranty on the panels and on the inverter. If a quote does not show the expected output, ask for it, and compare it with what this calculator says. A big gap between the two is a question, not an answer.</p>
+<p>Ask each installer three things. First, how they worked out the expected output — which sunlight hours, which losses. Second, what happens on cloudy days and in the rainy season, when output drops. Third, what the warranty really covers and who fixes the system if something goes wrong. A good installer answers all three without hesitation. A bad one rushes you, offers a discount that expires today, or refuses to put the numbers in writing. Take your time. Solar panels last twenty years or more, so a week spent choosing well is nothing.</p>
+<h2>What this calculator cannot do</h2>
+<p>This calculator cannot see your roof, measure your shade, or know your local weather. It cannot tell you whether your roof is strong enough to hold panels, whether you need permission to install them, or whether you can sell spare power back to the grid where you live. It cannot predict future electricity prices, and it cannot choose a panel brand or an installer for you. It works from the numbers you type in and the assumptions stated on this page, and the answer is only as good as those numbers.</p>
+<p>It also cannot replace a real site visit. An installer standing on your roof can see things no calculator can: the angle of the roof, the shade from a neighbour's tree, the condition of the tiles, the best place for the inverter. Use this calculator to understand the shape of the deal — how big a system you need, roughly how long the payback will be, whether solar makes sense for you at all — and then get real quotes before you spend. That is the honest way to use it, and it is the way that protects your money.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>How much can I save with solar?</h3><p>It depends on your bill, your electricity price, your system size and your sunlight hours. A system that makes as many units as you use can cut your bill to almost nothing, but you can never save more than you use — extra output is wasted unless you can sell it back or store it. Use the calculator above with your real numbers to get an honest estimate for your own home.</p></div>
+<div class="faq"><h3>What is the payback time?</h3><p>The payback time is the system cost divided by the yearly savings. If a system costs 300,000 and saves 36,000 a year, the payback is about 8.3 years. Under 5 years is fast, 5 to 10 years is reasonable, and over 10 years is slow. The panels should keep working well past the payback point, so a slow payback is not always a bad deal — but it is a longer wait for your money back.</p></div>
+<div class="faq"><h3>How many sunlight hours do I get?</h3><p>Sunlight hours mean hours of strong, direct sun, not hours of daylight. Many sunny places get about 4 to 5 sunlight hours a day on average over the year. The calculator starts at 4.5, which is a reasonable middle figure. Your installer should be able to tell you the figure for your area, and it will be higher in the dry season and lower in the rainy season.</p></div>
+<div class="faq"><h3>Does solar work on cloudy days?</h3><p>Yes, but it makes much less power. Panels still produce some electricity under cloud, roughly a tenth to a quarter of their sunny-day output, depending on how thick the cloud is. Rainy seasons and long cloudy spells reduce the yearly total, which is why the calculator uses an average sunlight figure rather than the sunniest month. A system sized for sunny days alone will disappoint you in the wet season.</p></div>
+<div class="faq"><h3>What size system do I need?</h3><p>The right size is the one that makes about as many units as you use each month. Divide your monthly units by 30 days, then by your sunlight hours, then divide by 0.8 to allow for losses — that gives a rough size in kilowatts. For example, 250 units a month with 4.5 sunlight hours needs about 2.3 kilowatts. An installer can size it properly after seeing your roof and your bills.</p></div>
+<div class="faq"><h3>Is the saving guaranteed?</h3><p>No. Sunlight varies with the weather and the seasons, electricity prices change, panels lose a little output as they age, and shade can grow over the years. The calculator shows what the numbers say today, with the assumptions stated plainly. Treat it as a planning estimate, get a written quote from an installer, and never spend money on the strength of a best-case figure alone.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/home-renovation-cost-calculator.html">Home Renovation Cost Calculator</a> · <a href="https://toolbari.github.io/tools/ohms-law-calculator.html">Ohm's Law Calculator</a> · <a href="https://toolbari.github.io/tools/construction-material-calculator.html">Construction Material Calculator</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+window.TB = (function () {
+  function solarSavings(o) {
+    o = o || {};
+    var price = parseFloat(o.pricePerUnit);
+    var kw = parseFloat(o.systemKw);
+    if (!(price > 0)) return {error: "Enter a price per unit greater than zero."};
+    if (!(kw > 0)) return {error: "Enter a system size greater than zero."};
+    var sunHours = parseFloat(o.sunHours);
+    if (!(sunHours > 0)) sunHours = 4.5;
+    var monthlyUnits = parseFloat(o.monthlyUnits);
+    if (!(monthlyUnits > 0)) {
+      var bill = parseFloat(o.monthlyBill);
+      if (bill > 0) monthlyUnits = bill / price;
+    }
+    if (!(monthlyUnits > 0)) return {error: "Enter your monthly bill or your monthly units used."};
+    var monthlyGeneration = kw * sunHours * 30 * 0.8;
+    var capped = monthlyGeneration > monthlyUnits;
+    var monthlySavings = Math.min(monthlyGeneration, monthlyUnits) * price;
+    var yearlySavings = monthlySavings * 12;
+    var systemCost = parseFloat(o.systemCost) || 0;
+    var paybackYears = yearlySavings > 0 ? systemCost / yearlySavings : null;
+    var verdict;
+    if (paybackYears === null) verdict = "no saving at these numbers";
+    else if (paybackYears <= 5) verdict = "fast payback";
+    else if (paybackYears <= 10) verdict = "reasonable payback";
+    else verdict = "slow payback";
+    return {monthlyUnits: monthlyUnits, monthlyGeneration: monthlyGeneration,
+            monthlySavings: monthlySavings, yearlySavings: yearlySavings,
+            paybackYears: paybackYears, verdict: verdict, capped: capped};
+  }
+  function fmt(n) {
+    return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+  return {solarSavings: solarSavings, fmt: fmt};
+})();
+if (typeof document !== "undefined") {
+  document.getElementById("calc-btn").addEventListener("click", function () {
+    var out = document.getElementById("out");
+    var steps = document.getElementById("steps");
+    var r = window.TB.solarSavings({
+      monthlyBill: document.getElementById("bill").value,
+      monthlyUnits: document.getElementById("units").value,
+      pricePerUnit: document.getElementById("price").value,
+      systemKw: document.getElementById("kw").value,
+      sunHours: document.getElementById("sun").value,
+      systemCost: document.getElementById("cost").value
+    });
+    if (r.error) { out.textContent = r.error; steps.textContent = ""; return; }
+    var pay = r.paybackYears === null ? "no payback — the system saves nothing at these numbers" :
+      "payback in about " + r.paybackYears.toFixed(1) + " years";
+    out.textContent = "Monthly saving: " + window.TB.fmt(r.monthlySavings) +
+      " — yearly saving: " + window.TB.fmt(r.yearlySavings) + " — " + pay +
+      " (" + r.verdict + ").";
+    var capNote = r.capped ? " Your system makes more than you use (" +
+      Math.round(r.monthlyGeneration) + " units made, " + Math.round(r.monthlyUnits) +
+      " units used), so the extra output does not save money unless you can sell it or store it." :
+      " Your system makes about " + Math.round(r.monthlyGeneration) +
+      " units a month against " + Math.round(r.monthlyUnits) + " units used.";
+    steps.textContent = "You use about " + Math.round(r.monthlyUnits) +
+      " units a month. Generation is system size x sunlight hours x 30 days x 0.8 for inverter and system losses." + capNote +
+      " Yearly saving is the monthly saving x 12, and payback is the system cost divided by the yearly saving.";
+  });
+  document.getElementById("copy-btn").addEventListener("click", function () {
+    var btn = this;
+    var text = document.getElementById("out").textContent + "\n" +
+      document.getElementById("steps").textContent;
+    if (!text.trim()) { btn.textContent = "Run the calculator first"; return; }
+    function done() { btn.textContent = "Copied!"; setTimeout(function () { btn.textContent = "Copy result"; }, 2000); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function () { fallback(); });
+    } else { fallback(); }
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done(); }
+      catch (e) { btn.textContent = "Copy failed — select the text"; }
+      document.body.removeChild(ta);
+    }
+  });
+}
+
+</script>
+</body>
+</html>

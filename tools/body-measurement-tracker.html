@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Body Measurement Tracker | ToolBari</title>
+<meta name="description" content="Free body measurement tracker — log chest, waist, hips and weight over time with a progress chart. Saved in your browser only, no account.">
+<link rel="canonical" href="https://toolbari.github.io/tools/body-measurement-tracker.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Body Measurement Tracker">
+<meta property="og:description" content="Log chest, waist, hips and weight over time, with a progress chart and change since your first entry.">
+<meta property="og:url" content="https://toolbari.github.io/tools/body-measurement-tracker.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How often should I measure?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Once a week is enough for most people, and once a month is enough for a slow, steady goal. Daily measuring is fine if you can watch the average and ignore the jumps, but most people find the daily noise stressful. Whatever you choose, measure at the same time of day each time, in the same way."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why did my waist change overnight?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Mostly water and food. A salty meal, a hot day, a hard workout or the time of the month can shift your waist by a centimetre or two and your weight by a kilogram or more, and the shift reverses within days. Measure again in a few days, at the same time of day, before drawing any conclusion."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a healthy waist size?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This tracker does not set targets, because a healthy measurement depends on your height, build, age and health. A rule of thumb often quoted in general health education is keeping your waist under half your height, but it is a rough guide, not a medical standard, and it does not apply to everyone. If you have a health question, see a professional."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the tracker work without an account?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. There is no account, no sign-up and no upload — your entries are saved in this browser only, on your own device. The trade-off is that they do not sync to another device, and clearing your browser data removes them."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I delete my data?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, completely. Each row has a delete button, and the Clear all entries button removes everything at once. Deletion is immediate and there is no copy kept anywhere, so deleted entries cannot be recovered. If you want a permanent record, write the numbers down first."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why track measurements instead of weight alone?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because weight cannot tell muscle from fat, water from tissue, or a heavy meal from a real change. Chest, waist, hips and weight together show a shape changing even when the scales do not move — a waist shrinking while the weight holds still is progress the scales would hide."
+      }
+    }
+  ]
+}
+</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>.calc button{min-height:72px;padding:14px 22px;border:0;border-radius:999px;font-size:17px;font-weight:700;background:#0b7a4b;color:#fff;cursor:pointer;margin:12px 6px 0 0}
+.calc button.secondary{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+.calc input,.calc select,.calc textarea{min-height:72px;padding:14px 12px;font-size:17px}
+.calc textarea{min-height:110px;resize:vertical}
+.calc input[type=file]{padding:14px 6px}
+.calc table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0}
+.calc th,.calc td{border:1px solid #cbd5e1;padding:8px 6px;text-align:left;vertical-align:top}
+.calc th{background:#e8f7ef}
+.twrap{overflow-x:auto;margin:10px 0}
+.twrap table{width:100%;border-collapse:collapse;font-size:15px}
+.twrap th,.twrap td{border:1px solid #cbd5e1;padding:8px 6px;text-align:left;vertical-align:top}
+.twrap th{background:#e8f7ef}
+.small{font-size:14.5px;color:#475569}
+.tag{display:inline-block;padding:2px 10px;border-radius:999px;font-size:14px;font-weight:700}
+.tag.red{background:#fee2e2;color:#991b1b}.tag.orange{background:#ffedd5;color:#9a3412}.tag.green{background:#dcfce7;color:#166534}.tag.grey{background:#e2e8f0;color:#334155}
+.preset-row{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.preset-row button{margin:0}
+canvas.chart{width:100%;max-width:100%;height:220px;background:#fff;border:1px solid #cbd5e1;border-radius:8px;margin:10px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Body Measurement Tracker</h1>
+<p class="answer">Log your chest, waist, hips and weight over time, and watch the trend on a chart. Your entries are saved in this browser only — nothing leaves your device, and there is no account.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="mdate">Date</label>
+<input id="mdate" type="date">
+<label for="chest">Chest (cm)</label>
+<input id="chest" type="number" min="0" step="any" placeholder="For example 96">
+<label for="waist">Waist (cm)</label>
+<input id="waist" type="number" min="0" step="any" placeholder="For example 82">
+<label for="hips">Hips (cm)</label>
+<input id="hips" type="number" min="0" step="any" placeholder="For example 100">
+<label for="weight">Weight (kg)</label>
+<input id="weight" type="number" min="0" step="any" placeholder="For example 74">
+<button id="save-btn" type="button">Save entry</button>
+<button id="clear-btn" class="secondary" type="button">Clear all entries</button>
+<div class="out" id="out" aria-live="polite"></div>
+<div id="entries-out"></div>
+<label for="chart-measure">Chart</label>
+<select id="chart-measure"><option value="waist">Waist</option><option value="chest">Chest</option><option value="hips">Hips</option><option value="weight">Weight</option></select>
+<canvas class="chart" id="chart" width="700" height="220"></canvas>
+<div class="steps" id="steps"></div>
+<p class="small">Your entries are saved in this browser only (localStorage). Nothing leaves your device, and there is no account. Clearing your browser data removes them.</p>
+</div>
+<div class="warn">Education only — not medical advice. This tracker records your own measurements and shows the trend; it does not judge them, set targets or diagnose anything. If you have a health question, see a professional.</div>
+<h2>How to use this tracker</h2><p>Pick a date (today is filled in for you), enter your chest, waist, hips and weight — any or all of them — and tap Save entry. The entry appears in the table below, and the chart draws the trend for the measurement you picked. Save a new entry whenever you measure, and the table and chart grow with you. Saving an entry for a date that already has one replaces it, so a mistaken entry is easy to fix: just save the date again with the right numbers.</p><p>Each row in the table has a delete button, and the Clear all entries button removes everything at once. The chart shows one measurement at a time — pick another from the list to switch. The summary under the chart shows the change since your first entry for each measurement, so you can see the direction at a glance without reading every row.</p><p>Your entries live in this browser only, saved with localStorage on your own device. There is no account, no sign-up and no upload: nothing you type leaves your device, and nobody else can see it. The trade-off is that the entries live in this browser alone — they do not follow you to another device, and clearing your browser data removes them. If you want a copy, use the table as your record and write the numbers down somewhere safe.</p><h2>How to measure yourself</h2><p>Good tracking starts with consistent measuring. Use a soft tape measure, measure over light clothing or bare skin, and measure at the same time of day each time — morning, before eating, is the most consistent. Stand straight, breathe normally, and keep the tape level and snug without pulling it tight. Measure twice and use the average if the two readings differ.</p><p>Chest: measure around the fullest part, with the tape level across your back and chest, arms relaxed at your sides. Waist: measure at the narrowest point, usually just above the navel — not where your trousers sit. Hips: measure around the fullest part, usually about 20 centimetres below the waist, with your feet together. Weight: weigh yourself on the same scales, in the same place, at the same time of day, wearing similar clothes.</p><p>The absolute numbers matter less than the consistency. A tape held a centimetre higher or lower gives a different reading, so the same spots each time are what make the trend meaningful. If you change how you measure — a new tape, a different time of day — note it in your head when you read the chart: a jump that comes with a change of method is a change of method, not a change in you.</p><h2>What the chart shows</h2><p>The chart shows the trend, and the trend is the point. A single reading tells you almost nothing — bodies change by centimetres and kilograms from day to day — but a line over weeks and months shows the direction clearly. A waist line that slopes gently down over three months is real progress; a waist line that jumps up and down week by week is mostly noise, and the average is what matters.</p><p>That is why the summary shows the change since your first entry rather than the change since last week. Week-to-week changes are small and noisy; the change over a season is the signal. If you measure weekly, look at the monthly average. If you measure monthly, look at the three-month direction. Patience is the skill here: bodies change slowly, and a tracker rewards the person who keeps going.</p><p>The chart draws each measurement on its own scale, so a small change is visible even when the numbers are large. A waist moving from 84 to 82 centimetres is a small move on a chart that starts at zero, but it is a real one — and the chart shows it. Read the numbers on the summary as well as the shape of the line: the shape shows the direction, and the numbers show the size.</p><h2>Why measurements move</h2><p>Measurements move for ordinary reasons, and most of them are not fat or muscle. Water is the biggest: a salty meal, a hot day, a hard workout or the time of the month can shift your weight by a kilogram or more and your waist by a centimetre or two, and the shift reverses within days. Food is the second: measuring after a meal gives a larger waist than measuring before one. Time of day is the third: most people are a little taller and a little lighter in the morning than in the evening.</p><p>Muscle is the slow reason. If you are training, your chest and hips may grow while your waist shrinks, and your weight may stay the same while your shape changes. That is why this tracker records four measurements instead of weight alone: weight cannot tell muscle from fat, but the four together can show a shape changing even when the scales do not move. A waist going down while the weight stays still is still progress.</p><p>Clothes and posture are the quiet reasons. A tape over a thick jumper reads larger than a tape over a thin shirt. Standing taller reads smaller at the waist than slouching. None of this is a problem if you measure the same way each time — the consistency removes the noise, and what is left is the real change.</p><h2>Setting honest goals</h2><p>This tracker does not set targets for you, and it does not judge your numbers — that is deliberate. A healthy measurement depends on your height, your build, your age and your health, and no tracker can know those things. What it can do is show your own trend, and a trend you can see is a trend you can steer.</p><p>If you want a general reference, the one most often quoted in general health education is the waist-to-height idea: keeping your waist under half your height is widely described as a reasonable general guide for adults. It is a rough rule of thumb, not a medical standard, and it does not apply to everyone — children, pregnant people and athletes are obvious exceptions. Treat it as background information, not as a target, and if you have a health question, see a professional who knows you.</p><p>The most useful goal is usually a process, not a number: measure once a week, at the same time, and watch the line. A goal such as "measure every Sunday morning for three months" is achievable, honest and entirely in your control. The numbers will do what they do; the habit is yours.</p><h2>Your data stays on your device</h2><p>Body measurements are personal, and this tracker treats them that way. Your entries are saved in your browser's local storage — a small store on your own device — and nothing is sent to any server, because the page has no server step at all. There is no account to create, no password to remember, and no copy of your data anywhere but your own device.</p><p>That privacy has a trade-off, and it is worth knowing. Your entries do not sync to another device or browser, so if you switch phones, the entries stay on the old one. Clearing your browser's data removes them, and a browser that clears data on exit will not keep them at all. If you want a permanent record, write the numbers down or copy the table by hand every month or two.</p><p>The delete buttons and the Clear all entries button remove entries immediately and completely — there is no copy kept, no trash to empty, and no way to recover them. That is the point: your data is yours, and when you delete it, it is gone.</p><h2>Common mistakes</h2><p>The most common mistake is measuring at different times and in different ways, then reading noise as change. A waist measured after lunch is larger than the same waist measured before breakfast, and a weight taken in the evening is heavier than the same weight taken in the morning. Measure the same way, at the same time, and the trend will be honest.</p><p>The second mistake is measuring too often and reacting to every move. Daily weighing is fine if you can watch the average and ignore the jumps, but most people cannot — a kilogram up feels like failure and a kilogram down feels like success, when both are mostly water. Weekly measuring is enough for most people, and monthly is enough for a slow, steady goal.</p><p>The third mistake is tracking weight alone. Weight cannot tell muscle from fat, water from tissue, or a heavy meal from a real change. The four measurements together tell a fuller story: a waist shrinking while the weight holds still is progress the scales would hide. Use all four boxes, even if you only care about one of them — the others give the context.</p><h2>What this tracker cannot do</h2><p>This tracker cannot tell you whether your measurements are healthy, and it does not try. Health depends on far more than four numbers — your height, your build, your history, your blood pressure, your habits — and a tracker that pretended to judge you from a waist measurement would be guessing. It records, it charts and it summarises; the judgement is yours, or your doctor's.</p><p>It also cannot diagnose anything, set a safe target, or tell you what to eat or how to exercise. If a measurement changes suddenly and you do not know why, or if you have a health question of any kind, see a professional. The tracker is a notebook with a chart, not a medical device — and the honest thing it does is show you your own numbers, clearly, over time.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>How often should I measure?</h3><p>Once a week is enough for most people, and once a month is enough for a slow, steady goal. Daily measuring is fine if you can watch the average and ignore the jumps, but most people find the daily noise stressful. Whatever you choose, measure at the same time of day each time, in the same way.</p></div><div class="faq"><h3>Why did my waist change overnight?</h3><p>Mostly water and food. A salty meal, a hot day, a hard workout or the time of the month can shift your waist by a centimetre or two and your weight by a kilogram or more, and the shift reverses within days. Measure again in a few days, at the same time of day, before drawing any conclusion.</p></div><div class="faq"><h3>What is a healthy waist size?</h3><p>This tracker does not set targets, because a healthy measurement depends on your height, build, age and health. A rule of thumb often quoted in general health education is keeping your waist under half your height, but it is a rough guide, not a medical standard, and it does not apply to everyone. If you have a health question, see a professional.</p></div><div class="faq"><h3>Does the tracker work without an account?</h3><p>Yes. There is no account, no sign-up and no upload — your entries are saved in this browser only, on your own device. The trade-off is that they do not sync to another device, and clearing your browser data removes them.</p></div><div class="faq"><h3>Can I delete my data?</h3><p>Yes, completely. Each row has a delete button, and the Clear all entries button removes everything at once. Deletion is immediate and there is no copy kept anywhere, so deleted entries cannot be recovered. If you want a permanent record, write the numbers down first.</p></div><div class="faq"><h3>Why track measurements instead of weight alone?</h3><p>Because weight cannot tell muscle from fat, water from tissue, or a heavy meal from a real change. Chest, waist, hips and weight together show a shape changing even when the scales do not move — a waist shrinking while the weight holds still is progress the scales would hide.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/clothing-size-converter.html">Clothing Size Converter</a> · <a href="https://toolbari.github.io/tools/body-surface-area-calculator.html">Body Surface Area Calculator</a> · <a href="https://toolbari.github.io/tools/bpm-counter.html">BPM Counter</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+window.TB = (function () {
+  var KEY = "tb-body-measurement-tracker-entries";
+  var MEASURES = ["chest", "waist", "hips", "weight"];
+  function num(x) {
+    if (x === null || x === undefined || x === "") return null;
+    var n = parseFloat(x);
+    return isNaN(n) ? null : n;
+  }
+  function validateEntry(e) {
+    if (!e || !e.date) return {error: "Pick a date."};
+    var hasAny = false;
+    var out = {date: e.date};
+    MEASURES.forEach(function (m) {
+      var v = num(e[m]);
+      if (v !== null) {
+        if (v <= 0) throw new Error("bad");
+        out[m] = v;
+        hasAny = true;
+      }
+    });
+    if (!hasAny) return {error: "Enter at least one measurement."};
+    return {entry: out};
+  }
+  function addEntry(entries, e) {
+    var v;
+    try { v = validateEntry(e); } catch (err) { return {error: "Measurements must be above zero."}; }
+    if (v.error) return {error: v.error};
+    var list = (entries || []).filter(function (x) { return x.date !== v.entry.date; });
+    list.push(v.entry);
+    list.sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
+    return {entries: list};
+  }
+  function deleteEntry(entries, date) {
+    return (entries || []).filter(function (x) { return x.date !== date; });
+  }
+  function changeSinceFirst(entries, measure) {
+    var series = (entries || []).filter(function (x) { return x[measure] !== undefined; });
+    if (series.length < 2) return null;
+    var first = series[0][measure], last = series[series.length - 1][measure];
+    return {first: first, last: last, change: last - first};
+  }
+  function chartSeries(entries, measure) {
+    return (entries || []).filter(function (x) { return x[measure] !== undefined; })
+      .map(function (x) { return {date: x.date, value: x[measure]}; });
+  }
+  var api = { addEntry: addEntry, deleteEntry: deleteEntry, changeSinceFirst: changeSinceFirst,
+    chartSeries: chartSeries, validateEntry: validateEntry, KEY: KEY };
+  if (typeof document !== "undefined") {
+    function load() {
+      try { return JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) { return []; }
+    }
+    function save(list) { localStorage.setItem(KEY, JSON.stringify(list)); }
+    var dateEl = document.getElementById("mdate");
+    var today = new Date();
+    var mm = String(today.getMonth() + 1);
+    if (mm.length < 2) mm = "0" + mm;
+    var dd = String(today.getDate());
+    if (dd.length < 2) dd = "0" + dd;
+    dateEl.value = today.getFullYear() + "-" + mm + "-" + dd;
+    function drawChart() {
+      var canvas = document.getElementById("chart");
+      var ctx = canvas.getContext("2d");
+      var measure = document.getElementById("chart-measure").value;
+      var series = chartSeries(load(), measure);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#64748b";
+      ctx.font = "14px Arial";
+      if (series.length === 0) {
+        ctx.fillText("No entries yet for this measurement.", 12, 30);
+        return;
+      }
+      var vals = series.map(function (p) { return p.value; });
+      var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals);
+      if (hi === lo) { hi = lo + 1; lo = lo - 1; }
+      var padL = 44, padR = 12, padT = 14, padB = 28;
+      var w = canvas.width - padL - padR, h = canvas.height - padT - padB;
+      function X(i) { return padL + (series.length === 1 ? w / 2 : (w * i) / (series.length - 1)); }
+      function Y(v) { return padT + h - ((v - lo) / (hi - lo)) * h; }
+      ctx.strokeStyle = "#cbd5e1";
+      ctx.beginPath();
+      ctx.moveTo(padL, padT);
+      ctx.lineTo(padL, padT + h);
+      ctx.lineTo(padL + w, padT + h);
+      ctx.stroke();
+      ctx.fillText(hi.toFixed(1), 4, padT + 10);
+      ctx.fillText(lo.toFixed(1), 4, padT + h);
+      ctx.strokeStyle = "#0b7a4b";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      series.forEach(function (p, i) {
+        if (i === 0) ctx.moveTo(X(i), Y(p.value));
+        else ctx.lineTo(X(i), Y(p.value));
+      });
+      ctx.stroke();
+      ctx.fillStyle = "#0b7a4b";
+      series.forEach(function (p, i) {
+        ctx.beginPath();
+        ctx.arc(X(i), Y(p.value), 4, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.fillStyle = "#64748b";
+      ctx.fillText(series[0].date, padL, canvas.height - 8);
+      if (series.length > 1) {
+        var last = series[series.length - 1].date;
+        ctx.fillText(last, padL + w - ctx.measureText(last).width, canvas.height - 8);
+      }
+    }
+    function render() {
+      var list = load();
+      var holder = document.getElementById("entries-out");
+      holder.textContent = "";
+      var steps = document.getElementById("steps");
+      if (list.length === 0) {
+        steps.textContent = "No entries yet. Save your first measurement above.";
+        drawChart();
+        return;
+      }
+      var table = document.createElement("table");
+      var head = document.createElement("tr");
+      ["Date", "Chest (cm)", "Waist (cm)", "Hips (cm)", "Weight (kg)", ""].forEach(function (h) {
+        var th = document.createElement("th");
+        th.textContent = h;
+        head.appendChild(th);
+      });
+      table.appendChild(head);
+      list.forEach(function (e) {
+        var tr = document.createElement("tr");
+        [e.date, e.chest !== undefined ? e.chest : "—", e.waist !== undefined ? e.waist : "—",
+         e.hips !== undefined ? e.hips : "—", e.weight !== undefined ? e.weight : "—"].forEach(function (v) {
+          var td = document.createElement("td");
+          td.textContent = v;
+          tr.appendChild(td);
+        });
+        var td = document.createElement("td");
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "secondary";
+        btn.textContent = "Delete";
+        btn.setAttribute("data-date", e.date);
+        btn.addEventListener("click", function () {
+          save(deleteEntry(load(), e.date));
+          document.getElementById("out").textContent = "Entry for " + e.date + " deleted.";
+          render();
+        });
+        td.appendChild(btn);
+        tr.appendChild(td);
+        table.appendChild(tr);
+      });
+      holder.appendChild(table);
+      var lines = ["Change since your first entry:"];
+      MEASURES.forEach(function (m) {
+        var c = changeSinceFirst(list, m);
+        var unit = m === "weight" ? " kg" : " cm";
+        if (c) lines.push(m.charAt(0).toUpperCase() + m.slice(1) + ": " + c.first + " to " + c.last + unit + " (" + (c.change >= 0 ? "+" : "") + c.change.toFixed(1) + unit + ").");
+      });
+      steps.textContent = lines.join("\n");
+      drawChart();
+    }
+    document.getElementById("save-btn").addEventListener("click", function () {
+      var r = addEntry(load(), {
+        date: dateEl.value,
+        chest: document.getElementById("chest").value,
+        waist: document.getElementById("waist").value,
+        hips: document.getElementById("hips").value,
+        weight: document.getElementById("weight").value
+      });
+      var out = document.getElementById("out");
+      if (r.error) { out.textContent = r.error; return; }
+      save(r.entries);
+      out.textContent = "Entry saved for " + dateEl.value + ".";
+      render();
+    });
+    document.getElementById("clear-btn").addEventListener("click", function () {
+      localStorage.removeItem(KEY);
+      document.getElementById("out").textContent = "All entries cleared.";
+      render();
+    });
+    document.getElementById("chart-measure").addEventListener("change", drawChart);
+    render();
+  }
+  return api;
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audio Waveform Visualizer — See Your Audio as a Waveform Free | ToolBari</title>
+<meta name="description" content="Visualize any audio file free in your browser — see its waveform, play it, find the loud and quiet parts. No upload, your file never leaves your phone.">
+<link rel="canonical" href="https://toolbari.github.io/tools/audio-waveform-visualizer.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Audio Waveform Visualizer — See Your Audio as a Waveform Free">
+<meta property="og:description" content="Visualize any audio file free in your browser — see its waveform, play it, find the loud and quiet parts. No upload, your file never leaves your phone.">
+<meta property="og:url" content="https://toolbari.github.io/tools/audio-waveform-visualizer.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is my audio uploaded anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. Your file is opened and read by your own browser, on your own phone or computer, and it is never sent to a server. You can even switch off your connection after the page has loaded and the visualizer will still work, because everything happens on your device."}},{"@type":"Question","name":"Which audio files work here?","acceptedAnswer":{"@type":"Answer","text":"Most common formats work, including MP3, WAV, M4A, OGG and FLAC, as long as your browser can play them. If your browser cannot read a file, this page says so plainly instead of drawing a fake waveform. Very unusual or damaged files may not open at all, and in that case converting the file to MP3 or WAV usually fixes it."}},{"@type":"Question","name":"What does a flat line mean?","acceptedAnswer":{"@type":"Answer","text":"A flat line means silence, or sound so quiet that the wave barely moves. Short flat gaps between words or notes are normal. A long flat stretch in the middle of a recording usually means a pause, a muted section, or a part of the recording where nothing was captured."}},{"@type":"Question","name":"How do I find the loudest part?","acceptedAnswer":{"@type":"Answer","text":"Load your file and the page marks the loudest points on the waveform and lists them in words below it, with their times. The tallest peaks are the loudest moments. You can also zoom into a section to look at one part of the recording in detail."}},{"@type":"Question","name":"Why does my waveform look tiny?","acceptedAnswer":{"@type":"Answer","text":"A tiny wave usually means a quiet recording. The sound is there, but its volume is low, so the peaks stay close to the centre line. That does not always mean the recording is bad. It may just need the volume raised in an editor, or it may be a soft-spoken voice note recorded far from the microphone."}},{"@type":"Question","name":"Can I use this on my phone?","acceptedAnswer":{"@type":"Answer","text":"Yes. The visualizer works in the browser on Android and iPhone, and the buttons are large enough to tap. Pick a file from your phone, and the waveform appears just as it does on a computer. Very long files may take a few seconds to load on an older phone."}}]}</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>.calc button{min-height:72px;width:100%;border:none;border-radius:999px;background:#0b7a4b;color:#fff;font-weight:700;font-size:17px;padding:13px 22px;cursor:pointer;margin-top:14px}
+.calc input,.calc select{min-height:72px}
+.calc textarea{min-height:120px;width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;font-family:inherit}
+.calc .out{white-space:normal}
+table{border-collapse:collapse;width:100%;font-size:15px;margin:10px 0}
+th,td{border:1px solid #cbd5e1;padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#e8f7ef}
+canvas{width:100%;height:auto;display:block;background:#fff;border:1px solid #cbd5e1;border-radius:8px;margin-top:10px}
+.mk-loud{color:#b91c1c;font-weight:700}
+.mk-quiet{color:#2563eb;font-weight:700}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Audio Waveform Visualizer</h1>
+<p class="answer">Pick any audio file and this page draws its waveform right in your browser, so you can see the loud parts, the quiet parts and the silences at a glance. Nothing is uploaded and nothing leaves your device, because the file is read and drawn on your own phone or computer.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<p><strong>Pick an audio file to see its waveform</strong></p>
+<p class="note">Your file is read on this device only. It is never uploaded anywhere.</p>
+<label for="audio-file">Choose an audio file</label>
+<input id="audio-file" type="file" accept="audio/*">
+<canvas id="wave-canvas" width="640" height="220">Your browser does not support the canvas element, so the waveform cannot be drawn.</canvas>
+<p class="note"><span class="mk-loud">Red lines</span> mark the loudest moments. The <span class="mk-quiet">shaded part</span> is the quietest second of the file.</p>
+<p class="note" id="wave-status">No file loaded yet. Choose an audio file above to see its waveform.</p>
+<button id="play-btn" type="button">Play</button>
+<button id="zoom-in-btn" type="button">Zoom in</button>
+<button id="zoom-out-btn" type="button">Zoom out</button>
+<button id="zoom-reset-btn" type="button">Show whole file</button>
+<div class="out" id="time-out">0:00 / 0:00</div>
+<div class="steps" id="wave-summary"></div>
+<button id="copy-btn" type="button">Copy summary</button>
+</div>
+<div class="warn">This page reads your file on your own device and never uploads it. If your browser cannot read a file, you will see a plain message instead of a waveform, because a made-up wave would be worse than no wave at all.</div>
+<h2>How to use the visualizer</h2>
+<p>Using this page is simple. Tap the file button at the top, pick an audio file from your phone or computer, and the page reads it and draws its waveform on the canvas below. The whole job happens in your browser, so there is nothing to install and nothing to sign up for. Once the waveform appears, you can press Play to listen while you watch the sound move across the wave, and the time display shows where you are in the file.</p>
+<p>The zoom buttons let you look closer at one part of a recording. Zoom in to inspect a short section in detail, zoom out to step back, or show the whole file again with one tap. The page also marks the loudest moments on the waveform and lists them in words underneath, along with the quietest part of the file. If you want to keep those notes, the copy button puts the summary on your clipboard. If your browser cannot read a file, you will see a plain message instead of a waveform, because this page never draws a fake wave.</p>
+<h2>What a waveform shows you</h2>
+<p>A waveform is a picture of sound. Time runs from left to right, and the height of the wave at any point shows how loud the sound is at that moment. Tall peaks mean loud sound, short bumps mean quiet sound, and a flat line means silence. Reading a waveform is a skill you pick up quickly, and once you can read one, you can judge a recording in seconds without listening to all of it.</p>
+<p>A voice recording usually looks like a series of bursts with gaps between them, because people pause between words and sentences. Music looks denser, with fewer gaps, because instruments and voices fill more of the time. A recording of a single steady tone looks like a smooth, even band. None of these shapes is good or bad on its own. What matters is whether the shape matches what you expected to record, and whether the loud and quiet parts sit where they should.</p>
+<p>The waveform also shows the overall shape of a recording at a glance. A podcast episode, for example, might start with a loud introduction, settle into a steady conversation, and end with quiet closing music. If you can see that shape, you can jump straight to the part you want instead of scrubbing through the whole file.</p>
+<h2>Reading the loud and quiet parts</h2>
+<p>The loudest parts of a recording are the tallest peaks, and this page finds them for you and marks them on the wave. They matter because they tell you where the energy of the recording sits. In a voice note, the loudest peak is often a laugh, a stressed word, or a moment when the speaker moved closer to the microphone. In a song, the loudest part is usually the chorus or the loudest instrument.</p>
+<p>The quiet parts matter just as much. A quiet stretch can be a natural pause, a whispered passage, or a section where the recording went wrong. The quietest part of your file is marked too, so you can listen to it and decide which one it is. A short silence between sentences is normal. A long silence in the middle of a song is usually a problem, such as a muted track or a gap where the recording stopped.</p>
+<p>Comparing the loud and quiet parts also tells you about the range of a recording. A recording where everything is nearly the same height is heavily compressed, which is common in modern music and in voice notes recorded on a phone. A recording with tall peaks and deep valleys has a wide range, which sounds more natural but can be harder to listen to in a noisy place, because the quiet parts disappear under the background noise.</p>
+<h2>What clipping looks like and why it matters</h2>
+<p>Clipping happens when a recording is too loud for the device that made it. The top of the wave is chopped off flat, because the recorder cannot go any louder, and the sound comes out harsh and distorted. On a waveform, clipping is easy to spot: the peaks look squared off at the top and bottom, as if someone cut them with scissors. A few clipped peaks in a loud passage are common and often harmless. Long stretches of flat-topped wave mean the recording is badly distorted.</p>
+<p>Clipping matters because it cannot be undone. Once the top of a wave is chopped off, the information it carried is gone, and no amount of editing can put it back. You can turn the volume down afterwards, but the harsh sound stays, because the damage is in the shape of the wave itself. That is why it is better to record a little too quietly than a little too loudly. A quiet recording can be turned up later. A clipped recording stays clipped forever.</p>
+<p>If your waveform shows clipping, the fix is to record again with the input volume turned down, or to move further from the microphone. If you cannot record again, the best you can do is accept the distortion in the loudest moments and make sure the rest of the recording is as clean as possible. Some editing tools offer a declipping feature, but it guesses at the missing shape, and the result is never as good as a clean recording.</p>
+<h2>Finding the best part of a recording</h2>
+<p>A waveform is the fastest way to find the part of a recording you actually want. Suppose you recorded a long meeting, a lecture, or a family gathering, and you only need one story from the middle of it. Instead of listening to the whole file, look at the wave. The loud, dense sections are where people were talking with energy. The flat sections are the pauses, the waiting, and the moments when nothing much happened.</p>
+<p>Start by looking at the overall shape, then zoom into the section that looks most interesting. The loudest markers point to the moments with the most energy, which are often the moments worth keeping. Play from just before a marker and listen for a few seconds to check whether it is the part you want. This method works for interviews, voice notes, music practice sessions, and any recording where the good part is buried inside a longer file.</p>
+<p>The same trick works in reverse. If you want to cut the boring parts out of a recording, the waveform shows you exactly where they are. Long flat stretches at the start or the end are usually safe to trim, and quiet gaps in the middle are good places to split a file into shorter pieces. Always listen to a few seconds on either side of a cut point before you commit to it, because a flat line can also be a dramatic pause that belongs in the recording.</p>
+<h2>Why some waveforms look tiny or flat</h2>
+<p>A waveform that looks tiny, with all the peaks hugging the centre line, usually means a quiet recording. The sound is there, but its volume is low, so the wave does not reach far up or down. This happens with voice notes recorded at arm's length, with interviews recorded in a large room, and with any recording where the microphone was far from the sound. A tiny wave is not necessarily a bad recording. It often just needs the volume raised in an editor, or the playback volume turned up.</p>
+<p>A waveform that is flat for its whole length means the file is silent, or so quiet that the wave barely moves. That can mean the recording failed, the microphone was muted, or the file is a silent track by design. Before you delete it, turn your volume up and play it. If you hear a faint voice or faint music, the recording is real but very quiet, and an editor can usually rescue it by raising the level. If you hear nothing at all, the recording is empty, and nothing can bring sound back from silence.</p>
+<p>There is also a middle case: a waveform that looks normal in some places and tiny in others. That usually means the speaker moved, the microphone moved, or the recording environment changed halfway through. A voice note recorded while walking, for example, often has loud parts near the microphone and quiet parts when the phone swung away. The fix is the same in every case: listen to the quiet parts, decide whether they matter, and raise their level in an editor if they do.</p>
+<h2>Common mistakes</h2>
+<p>The most common mistake is thinking that a tall wave always means good audio. A tall wave means loud audio, and loud audio can be distorted, noisy, or just plain unpleasant. A modest wave with clean peaks often sounds far better than a huge wave full of clipping. Judge a recording by listening to it, not by the height of its peaks, and use the waveform to find the parts worth listening to.</p>
+<p>Another mistake is judging a whole file by a single peak. One loud cough, one dropped phone, or one burst of laughter can make the tallest peak in a file, and it tells you nothing about the rest of the recording. Look at the overall shape first, then at the pattern of peaks, and treat single spikes as accidents until you have listened to them.</p>
+<p>A third mistake is trusting a waveform drawn by a tool that never actually read your file. Some pages draw a pretty wave from nothing, which looks convincing and means nothing at all. This page only draws a wave from a file your browser has really decoded, and if it cannot read your file, it says so. A missing waveform is honest. A fake one is a lie dressed up as information.</p>
+<p>Finally, do not expect a waveform to tell you whether a recording sounds good. It shows loudness over time, and nothing else. It cannot show tone, clarity, background noise, or whether a voice sounds natural. Use the waveform to navigate and to spot problems, and use your ears for everything else.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>Is my audio uploaded anywhere?</h3><p>No. Your file is opened and read by your own browser, on your own phone or computer, and it is never sent to a server. You can even switch off your connection after the page has loaded and the visualizer will still work, because everything happens on your device.</p></div>
+<div class="faq"><h3>Which audio files work here?</h3><p>Most common formats work, including MP3, WAV, M4A, OGG and FLAC, as long as your browser can play them. If your browser cannot read a file, this page says so plainly instead of drawing a fake waveform. Very unusual or damaged files may not open at all, and in that case converting the file to MP3 or WAV usually fixes it.</p></div>
+<div class="faq"><h3>What does a flat line mean?</h3><p>A flat line means silence, or sound so quiet that the wave barely moves. Short flat gaps between words or notes are normal. A long flat stretch in the middle of a recording usually means a pause, a muted section, or a part of the recording where nothing was captured.</p></div>
+<div class="faq"><h3>How do I find the loudest part?</h3><p>Load your file and the page marks the loudest points on the waveform and lists them in words below it, with their times. The tallest peaks are the loudest moments. You can also zoom into a section to look at one part of the recording in detail.</p></div>
+<div class="faq"><h3>Why does my waveform look tiny?</h3><p>A tiny wave usually means a quiet recording. The sound is there, but its volume is low, so the peaks stay close to the centre line. That does not always mean the recording is bad. It may just need the volume raised in an editor, or it may be a soft-spoken voice note recorded far from the microphone.</p></div>
+<div class="faq"><h3>Can I use this on my phone?</h3><p>Yes. The visualizer works in the browser on Android and iPhone, and the buttons are large enough to tap. Pick a file from your phone, and the waveform appears just as it does on a computer. Very long files may take a few seconds to load on an older phone.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/audio-noise-reducer.html">Audio Noise Reducer</a> · <a href="https://toolbari.github.io/tools/video-subtitle-generator.html">Video Subtitle Generator</a> · <a href="https://toolbari.github.io/tools/video-format-converter.html">Video Format Converter</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+function peaksForCanvas(samples, width){
+  var out = [];
+  var n = samples.length;
+  for (var i = 0; i < width; i++) {
+    var start = Math.floor(i * n / width);
+    var end = Math.floor((i + 1) * n / width);
+    var mn = 0, mx = 0;
+    if (end > start) {
+      mn = samples[start];
+      mx = samples[start];
+      for (var j = start + 1; j < end; j++) {
+        if (samples[j] < mn) mn = samples[j];
+        if (samples[j] > mx) mx = samples[j];
+      }
+    }
+    out.push({min: mn, max: mx});
+  }
+  return out;
+}
+function findPeaks(samples, count){
+  var ranked = [];
+  for (var i = 0; i < samples.length; i++) ranked.push({index: i, value: samples[i]});
+  ranked.sort(function(a, b){ return Math.abs(b.value) - Math.abs(a.value); });
+  var top = ranked.slice(0, count);
+  top.sort(function(a, b){ return a.index - b.index; });
+  return top;
+}
+function findQuiet(samples, windowSize){
+  if (!samples.length || windowSize <= 0) return {start: 0, avg: 0};
+  var w = Math.min(windowSize, samples.length);
+  var sum = 0;
+  for (var i = 0; i < w; i++) sum += Math.abs(samples[i]);
+  var bestStart = 0, bestAvg = sum / w;
+  for (var s = 1; s + w <= samples.length; s++) {
+    sum += Math.abs(samples[s + w - 1]) - Math.abs(samples[s - 1]);
+    var avg = sum / w;
+    if (avg < bestAvg) { bestAvg = avg; bestStart = s; }
+  }
+  return {start: bestStart, avg: Math.round(bestAvg * 10000) / 10000};
+}
+function formatTime(sec){
+  if (!isFinite(sec) || sec < 0) sec = 0;
+  sec = Math.floor(sec);
+  var m = Math.floor(sec / 60);
+  var s = sec % 60;
+  return m + ':' + (s < 10 ? '0' + s : s);
+}
+function copyText(text, btn){function done(){var old=btn.textContent;btn.textContent='Copied!';setTimeout(function(){btn.textContent=old;},2000);}function fallback(){var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done();}catch(e){}document.body.removeChild(ta);}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done).catch(fallback);}else{fallback();}}
+window.TB = {peaksForCanvas: peaksForCanvas, findPeaks: findPeaks, findQuiet: findQuiet, formatTime: formatTime};
+if (typeof document !== 'undefined') {
+  var fileInput = document.getElementById('audio-file');
+  var canvas = document.getElementById('wave-canvas');
+  var ctx = canvas.getContext('2d');
+  var statusEl = document.getElementById('wave-status');
+  var playBtn = document.getElementById('play-btn');
+  var timeOut = document.getElementById('time-out');
+  var summaryEl = document.getElementById('wave-summary');
+  var copyBtn = document.getElementById('copy-btn');
+  var cache = document.createElement('canvas');
+  cache.width = canvas.width;
+  cache.height = canvas.height;
+  var audioCtx = null, audioBuf = null, samples = null, source = null;
+  var playing = false, playOffset = 0, playStartedAt = 0, rafId = null;
+  var viewStart = 0, viewEnd = 0, loudest = [], quiet = null;
+  function stopPlayback(){
+    if (source) { try { source.stop(); } catch (e) {} source = null; }
+    playing = false;
+    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+    playBtn.textContent = 'Play';
+  }
+  function nowPlaying(){
+    if (!audioBuf) return 0;
+    if (playing && audioCtx) return Math.min(playOffset + (audioCtx.currentTime - playStartedAt), audioBuf.duration);
+    return playOffset;
+  }
+  function updateTime(){
+    if (!audioBuf) { timeOut.textContent = '0:00 / 0:00'; return; }
+    timeOut.textContent = formatTime(nowPlaying()) + ' / ' + formatTime(audioBuf.duration);
+  }
+  function draw(){
+    var w = canvas.width, h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+    ctx.drawImage(cache, 0, 0);
+    if (audioBuf && playing) {
+      var pos = Math.floor(nowPlaying() * audioBuf.sampleRate);
+      if (pos >= viewStart && pos < viewEnd) {
+        var px = (pos - viewStart) / (viewEnd - viewStart) * w;
+        ctx.strokeStyle = '#2563eb';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(px, 0);
+        ctx.lineTo(px, h);
+        ctx.stroke();
+      }
+    }
+  }
+  function redrawWave(){
+    var cctx = cache.getContext('2d');
+    var w = cache.width, h = cache.height;
+    cctx.clearRect(0, 0, w, h);
+    cctx.fillStyle = '#e2e8f0';
+    cctx.fillRect(0, Math.floor(h / 2), w, 1);
+    if (!samples) { draw(); return; }
+    var slice = samples.subarray(viewStart, viewEnd);
+    var peaks = peaksForCanvas(slice, w);
+    cctx.strokeStyle = '#0b7a4b';
+    cctx.lineWidth = 1;
+    cctx.beginPath();
+    for (var x = 0; x < w; x++) {
+      var p = peaks[x];
+      var yTop = (1 - p.max) / 2 * h;
+      var yBot = (1 - p.min) / 2 * h;
+      cctx.moveTo(x + 0.5, yTop);
+      cctx.lineTo(x + 0.5, Math.max(yBot, yTop + 1));
+    }
+    cctx.stroke();
+    if (quiet) {
+      var qLen = Math.min(Math.floor(audioBuf.sampleRate), samples.length);
+      var qs = Math.max(quiet.start, viewStart);
+      var qe = Math.min(quiet.start + qLen, viewEnd);
+      if (qe > qs) {
+        cctx.fillStyle = 'rgba(37, 99, 235, 0.12)';
+        var x0 = (qs - viewStart) / (viewEnd - viewStart) * w;
+        var x1 = (qe - viewStart) / (viewEnd - viewStart) * w;
+        cctx.fillRect(x0, 0, x1 - x0, h);
+      }
+    }
+    cctx.strokeStyle = '#b91c1c';
+    cctx.lineWidth = 2;
+    for (var i = 0; i < loudest.length; i++) {
+      var idx = loudest[i].index;
+      if (idx >= viewStart && idx < viewEnd) {
+        var mx = (idx - viewStart) / (viewEnd - viewStart) * w;
+        cctx.beginPath();
+        cctx.moveTo(mx, 0);
+        cctx.lineTo(mx, h);
+        cctx.stroke();
+      }
+    }
+    draw();
+  }
+  function tick(){
+    if (!playing) return;
+    updateTime();
+    draw();
+    if (nowPlaying() >= audioBuf.duration) {
+      stopPlayback();
+      playOffset = 0;
+      updateTime();
+      draw();
+      return;
+    }
+    rafId = requestAnimationFrame(tick);
+  }
+  function buildSummary(name){
+    var lines = [];
+    lines.push('File: ' + name + ' — length ' + formatTime(audioBuf.duration) + '.');
+    var maxAbs = 0;
+    for (var i = 0; i < loudest.length; i++) maxAbs = Math.max(maxAbs, Math.abs(loudest[i].value));
+    if (maxAbs < 0.001) {
+      lines.push('This file is silent or nearly silent — the waveform is a flat line.');
+    } else {
+      var times = loudest.map(function(p){ return formatTime(p.index / audioBuf.sampleRate); });
+      lines.push('Loudest moments: around ' + times.join(', ') + '.');
+      if (quiet) lines.push('Quietest part: around ' + formatTime(quiet.start / audioBuf.sampleRate) + '.');
+    }
+    summaryEl.textContent = lines.join('\n');
+  }
+  function readFile(f){
+    if (f.arrayBuffer) return f.arrayBuffer();
+    return new Promise(function(resolve, reject){
+      var r = new FileReader();
+      r.onload = function(){ resolve(r.result); };
+      r.onerror = reject;
+      r.readAsArrayBuffer(f);
+    });
+  }
+  function decode(buf){
+    return new Promise(function(resolve, reject){
+      var p = audioCtx.decodeAudioData(buf, resolve, reject);
+      if (p && p.then) p.then(resolve, reject);
+    });
+  }
+  fileInput.addEventListener('change', function(){
+    var file = fileInput.files && fileInput.files[0];
+    if (!file) return;
+    stopPlayback();
+    playOffset = 0;
+    statusEl.textContent = 'Reading ' + file.name + '...';
+    summaryEl.textContent = '';
+    if (!audioCtx) {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) {
+        statusEl.textContent = 'This browser cannot read audio files, so no waveform can be drawn.';
+        return;
+      }
+      audioCtx = new AC();
+    }
+    readFile(file).then(decode).then(function(decoded){
+      audioBuf = decoded;
+      samples = decoded.getChannelData(0);
+      viewStart = 0;
+      viewEnd = samples.length;
+      loudest = findPeaks(samples, 3);
+      quiet = findQuiet(samples, Math.floor(decoded.sampleRate));
+      statusEl.textContent = 'Loaded ' + file.name + ' — ' + formatTime(decoded.duration) + ' long.';
+      updateTime();
+      redrawWave();
+      buildSummary(file.name);
+    }).catch(function(){
+      audioBuf = null;
+      samples = null;
+      loudest = [];
+      quiet = null;
+      viewStart = 0;
+      viewEnd = 0;
+      statusEl.textContent = 'This browser could not read that file, so no waveform is shown. Try an MP3 or WAV file instead.';
+      summaryEl.textContent = '';
+      redrawWave();
+      updateTime();
+    });
+  });
+  playBtn.addEventListener('click', function(){
+    if (!audioBuf) {
+      statusEl.textContent = 'Choose an audio file first, then press Play.';
+      return;
+    }
+    if (playing) {
+      playOffset = nowPlaying();
+      stopPlayback();
+      updateTime();
+      draw();
+      return;
+    }
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    if (playOffset >= audioBuf.duration) playOffset = 0;
+    source = audioCtx.createBufferSource();
+    source.buffer = audioBuf;
+    source.connect(audioCtx.destination);
+    source.onended = function(){
+      if (playing) {
+        playing = false;
+        playOffset = 0;
+        playBtn.textContent = 'Play';
+        if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+        updateTime();
+        draw();
+      }
+    };
+    source.start(0, playOffset);
+    playStartedAt = audioCtx.currentTime;
+    playing = true;
+    playBtn.textContent = 'Pause';
+    rafId = requestAnimationFrame(tick);
+  });
+  function setView(start, end){
+    viewStart = Math.max(0, Math.floor(start));
+    viewEnd = Math.min(samples.length, Math.ceil(end));
+    if (viewEnd <= viewStart) { viewStart = 0; viewEnd = samples.length; }
+    redrawWave();
+  }
+  document.getElementById('zoom-in-btn').addEventListener('click', function(){
+    if (!samples) { statusEl.textContent = 'Choose an audio file first.'; return; }
+    var len = viewEnd - viewStart, mid = (viewStart + viewEnd) / 2;
+    var nl = Math.max(len / 2, 100);
+    setView(mid - nl / 2, mid + nl / 2);
+  });
+  document.getElementById('zoom-out-btn').addEventListener('click', function(){
+    if (!samples) { statusEl.textContent = 'Choose an audio file first.'; return; }
+    var len = viewEnd - viewStart, mid = (viewStart + viewEnd) / 2;
+    var nl = Math.min(len * 2, samples.length);
+    setView(mid - nl / 2, mid + nl / 2);
+  });
+  document.getElementById('zoom-reset-btn').addEventListener('click', function(){
+    if (!samples) { statusEl.textContent = 'Choose an audio file first.'; return; }
+    setView(0, samples.length);
+  });
+  copyBtn.addEventListener('click', function(){
+    var text = summaryEl.textContent;
+    if (!text) {
+      statusEl.textContent = 'Load an audio file first, then copy the summary.';
+      return;
+    }
+    copyText(text, copyBtn);
+  });
+  redrawWave();
+}
+
+</script>
+</body>
+</html>

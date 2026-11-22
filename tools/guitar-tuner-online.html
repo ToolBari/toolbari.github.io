@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guitar Tuner Online | ToolBari</title>
+<meta name="description" content="Free online guitar tuner — tune with your microphone, or play reference tones for each open string if the mic is not available. Audio never leaves your device.">
+<link rel="canonical" href="https://toolbari.github.io/tools/guitar-tuner-online.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Guitar Tuner Online">
+<meta property="og:description" content="Tune your guitar with the microphone, or use the reference tones.">
+<meta property="og:url" content="https://toolbari.github.io/tools/guitar-tuner-online.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does this tuner record or upload my audio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The microphone signal is analysed inside your browser and never leaves your device. Nothing is recorded, nothing is uploaded, and closing the page ends the microphone access. The tuner only listens while you have tapped Start tuner."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which string is which?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "From thickest to thinnest: string 6 is low E (E2), string 5 is A (A2), string 4 is D (D3), string 3 is G (G3), string 2 is B (B3) and string 1 is high E (E4). The tuner shows the nearest open string so you can check you are tuning the one you think you are."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How close to zero cents do I need to be?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Within 5 cents is in tune for most ears, and within 2 or 3 cents is excellent. Chasing exactly zero is a losing game, because the note moves slightly as it rings and as you touch the string. Tune to the settled reading, not the first jump."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does the note jump around?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Usually because more than one string is ringing, the room is noisy, or the pluck was very hard. Mute the other strings, pluck firmly but gently, and wait a second for the reading to settle. A string that is far out of tune can also read as its neighbour note."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I tune other instruments with this tuner?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — the tuner shows the nearest note and cents for any pitched sound, so it works for a ukulele, a bass, a violin or a voice. The open-string names and the reference tones are for a guitar in standard tuning, but the note and cents readings are universal."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is there no sound from the reference tones?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Check the volume and the silent switch on your phone — many phones mute web audio when the silent switch is on. The tones also need a tap to start, because browsers block sound until you interact with the page. Tap a tone button and listen for two seconds of pure tone."
+      }
+    }
+  ]
+}
+</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>.calc button{min-height:72px;padding:14px 22px;border:0;border-radius:999px;font-size:17px;font-weight:700;background:#0b7a4b;color:#fff;cursor:pointer;margin:12px 6px 0 0}
+.calc button.secondary{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+.calc button.on{background:#ff9f2e;color:#1e293b}
+.calc input,.calc select,.calc textarea{min-height:72px;padding:14px 12px;font-size:17px}
+.calc textarea{min-height:110px;resize:vertical}
+.calc table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0}
+.calc th,.calc td{border:1px solid #cbd5e1;padding:8px 6px;text-align:left;vertical-align:top}
+.calc th{background:#e8f7ef}
+.calc canvas{width:100%;max-width:100%;height:auto;display:block;margin:10px 0;background:#fff;border:1px solid #cbd5e1;border-radius:8px}
+.twrap{overflow-x:auto;margin:10px 0}
+.twrap table{width:100%;border-collapse:collapse;font-size:15px}
+.twrap th,.twrap td{border:1px solid #cbd5e1;padding:8px 6px;text-align:left;vertical-align:top}
+.twrap th{background:#e8f7ef}
+.small{font-size:14.5px;color:#475569}
+.tapbtn{min-height:120px !important;font-size:24px;width:100%}
+.bignum{font-size:44px;font-weight:800;text-align:center;margin:8px 0}
+.itemrow{display:flex;gap:8px;align-items:center;margin:6px 0}
+.itemrow span{flex:1}
+.itemrow button{min-height:72px;min-width:76px;margin:0;padding:14px 10px}
+.cutbar{display:flex;height:44px;border:2px solid #0b7a4b;border-radius:6px;overflow:hidden;margin:8px 0 2px}
+.meter{position:relative;height:28px;background:#e2e8f0;border-radius:999px;margin:10px 0;overflow:hidden}
+.meter i{position:absolute;top:0;bottom:0;width:4px;background:#0b7a4b;left:50%}
+.notegrid{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.notegrid button{margin:0;min-width:64px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Guitar Tuner Online</h1>
+<p class="answer">Tune your guitar with your microphone — play one string at a time and the tuner shows the nearest note and how many cents sharp or flat you are. If the microphone is not available, the page becomes a reference-tone guide: tap any string to hear its correct tone.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<p class="small">Play one string at a time in a quiet room. The tuner shows the nearest note and how many cents sharp or flat you are. Your audio is analysed in this browser only — nothing is recorded or uploaded.</p>
+<button id="start-btn" type="button">Start tuner</button>
+<button id="stop-btn" class="secondary" type="button">Stop tuner</button>
+<div class="bignum" id="note-out" aria-live="polite">—</div>
+<div class="steps" id="tuner-status">Tap Start tuner and allow the microphone, or use the reference tones below.</div>
+<div class="meter" id="meter"><i id="meter-needle"></i></div>
+<p class="small" id="cents-out">Cents: —</p>
+<p class="small" id="string-out">Nearest open string: —</p>
+<label>Reference tones — tap a string to hear its correct pitch</label>
+<div class="notegrid" id="tone-grid">
+<button type="button" data-freq="82.41" data-name="E2">E2<br>82.41 Hz</button>
+<button type="button" data-freq="110.00" data-name="A2">A2<br>110.00 Hz</button>
+<button type="button" data-freq="146.83" data-name="D3">D3<br>146.83 Hz</button>
+<button type="button" data-freq="196.00" data-name="G3">G3<br>196.00 Hz</button>
+<button type="button" data-freq="246.94" data-name="B3">B3<br>246.94 Hz</button>
+<button type="button" data-freq="329.63" data-name="E4">E4<br>329.63 Hz</button>
+</div>
+<p class="small" id="tone-status">No tone playing.</p>
+<button id="copy-btn" class="secondary" type="button">Copy result</button>
+<div class="out" id="out" aria-live="polite"></div>
+<p class="small">Standard tuning, low to high: E2, A2, D3, G3, B3, E4. If the tuner shows a note 50 cents sharp, tune the string down; 50 cents flat, tune it up.</p>
+</div>
+<div class="warn">Your audio never leaves this device — the microphone signal is analysed in your browser and nothing is recorded or uploaded. The tuner needs a clear single string: tune in a quiet room, one string at a time, and mute the other strings.</div>
+<h2>How to use this tuner</h2><p>Tap Start tuner and allow the microphone when your browser asks. Play one open string at a time — just the string, no chords — and the tuner shows the nearest note, how many cents sharp or flat you are, and which open string you are closest to. Turn the tuning peg slowly until the cents read near zero, then move to the next string.</p><p>Tune in a quiet room, and mute the other strings with your fretting hand so they do not ring along. Pluck the string near the middle, firmly but not hard: a very hard pluck starts sharp and drifts flat as the note decays, which makes the reading wander. Let the note ring for a second and read the number once it settles.</p><p>Work through the strings low to high, then go back and check the first strings again — tightening one string pulls on the neck and can nudge the others. Two passes give a steadier result than one, especially on a guitar that has not been tuned for a while.</p><h2>Standard tuning, string by string</h2><p>Standard tuning, from the thickest string to the thinnest, is E, A, D, G, B, E. The table below gives each string's note and its frequency in hertz — the number of vibrations per second. The tuner and the reference tones both use these exact frequencies.</p><div class="twrap"><table><tr><th>String</th><th>Note</th><th>Frequency</th></tr><tr><td>6 (thickest)</td><td>E2</td><td>82.41 Hz</td></tr><tr><td>5</td><td>A2</td><td>110.00 Hz</td></tr><tr><td>4</td><td>D3</td><td>146.83 Hz</td></tr><tr><td>3</td><td>G3</td><td>196.00 Hz</td></tr><tr><td>2</td><td>B3</td><td>246.94 Hz</td></tr><tr><td>1 (thinnest)</td><td>E4</td><td>329.63 Hz</td></tr></table></div><p>The two E strings are two octaves apart, which is why the low E sounds deep and the high E sounds bright even though they share a letter name. The B string breaks the pattern of fourths between the other strings — the gap from G to B is a major third — and that quirk is why chord shapes look the way they do.</p><h2>What cents mean</h2><p>A cent is one hundredth of a semitone: there are 100 cents between one note and the next. If the tuner says a string is 25 cents sharp, it is a quarter of a semitone above the note; 25 cents flat is a quarter below. Most ears cannot hear a difference smaller than about 5 cents, so within 5 cents of zero is in tune for all practical purposes.</p><p>The sign tells you which way to turn the peg. Sharp means the string is too tight, so loosen it a little; flat means it is too loose, so tighten it. Turn slowly — a quarter turn of a tuning peg can move a string by many cents, and overshooting means tuning back again.</p><p>The meter shows the same information as a needle: the centre is in tune, to the right is sharp, to the left is flat. Watch the needle settle rather than chasing its first jump, because the note is sharpest at the moment you pluck it.</p><h2>Tuning by ear with the reference tones</h2><p>If the microphone is not available, or if you want to train your ear, use the reference tones. Tap a string's button to hear its correct pitch for two seconds, then play the matching open string and listen for the difference. If the two notes beat against each other — a slow pulsing wobble — the string is out of tune; the faster the beating, the further out it is.</p><p>Adjust the peg until the beating slows and disappears. When the string matches the tone, the two notes blend into one sound with no wobble. This is the oldest way to tune, and it works because your ear is very good at hearing beats, even if you cannot name the notes.</p><p>Tune the low E first from its tone, then tune the other strings by ear from it if you like: the fifth fret of the low E is A, the fifth fret of the A string is D, the fifth fret of the D string is G, the fourth fret of the G string is B, and the fifth fret of the B string is the high E. Each fretted note should match the next open string. The reference tones are simpler, but the fret method is worth learning.</p><h2>If the microphone does not work</h2><p>The tuner needs microphone permission from your browser. If you tapped Don't allow by mistake, open your browser's site settings for this page and allow the microphone, then reload and try again. On a phone, check that the browser itself has microphone permission in the phone's settings — the browser cannot ask for the mic if the phone has blocked it.</p><p>Some browsers only allow the microphone on secure pages, and some devices route the microphone to another app that is already using it. If another app is recording or on a call, close it first. If the microphone still does not work, the reference tones are the honest fallback: the page never pretends to tune without a real microphone signal.</p><p>Headless or very old browsers may not support microphone access at all. In that case the page shows a plain message and the reference tones carry on working, because they need only sound output, not input.</p><h2>Tuning a guitar that is badly out of tune</h2><p>A guitar that has been in a case for months, or one with brand new strings, may be a long way from standard tuning — and tuning it needs a different approach from a small touch-up. Start with the thickest string and work up, bringing each string roughly to pitch before you fine-tune any of them. A guitar where one string is tight and the rest are slack pulls unevenly on the neck, so get all six close first, then go back and refine.</p><p>Always tune up to the note, not down to it. If a string is sharp, loosen it until it is below the note, then tighten it up to pitch. Tuning up keeps the string seated firmly against the tuning post and the nut, and it stays in tune longer; tuning down leaves slack that slips out while you play. The same rule applies to every stringed instrument.</p><p>If a string is very flat, tighten it slowly and check the tuner often — a string that is an octave low needs several full turns, and it is easy to overshoot into the next octave. If the string feels unusually tight but still reads flat, stop: you may be tuning the wrong string, or reading the wrong octave. Loosen it, check the string number, and start again.</p><h2>Tips for a stable tuning</h2><p>New strings stretch. After fitting new strings, tune up, gently pull each string away from the fretboard a few times, and tune again — repeat until the tuning holds. A guitar with fresh strings will drift flat for a day or two, so check the tuning before every session until it settles.</p><p>Temperature and humidity move the tuning too. A guitar that travels from a cold car to a warm room will drift as the wood and strings warm up, so let it settle for a few minutes and retune. Keep the guitar in its case when you are not playing it, and away from radiators and direct sun.</p><p>Wind the strings neatly around the tuning posts, with each turn below the last, and stretch them as you go. Sloppy winding slips under tension, and a slipping string is a string that will not stay in tune no matter how carefully you tune it.</p><h2>Common mistakes</h2><p>The first mistake is tuning with all six strings ringing. Open strings vibrate together, and the tuner hears a chord, not a note. Mute the strings you are not tuning with your fretting hand.</p><p>The second mistake is chasing the needle. The note is sharpest at the pluck and settles as it rings — if you adjust to the first reading, you will tune flat. Wait a second, then read.</p><p>The third mistake is tuning the wrong string. The low E and the high E share a name, and a string tuned an octave out sounds wrong but shows the right letter. Check the octave on the display, and if a string feels far too tight or far too loose, stop and check which string you are on.</p><h2>What this tuner cannot do</h2><p>This tuner cannot hear a string it cannot hear: in a noisy room, or with a very quiet guitar, the reading will be unreliable, and the page says so instead of guessing. It cannot tune a guitar with a broken string, a slipping tuning peg, or a neck problem — those are repairs, not tuning.</p><p>It also cannot decide the tuning for you. It assumes standard tuning; if you play in an open or drop tuning, the reference tones still work, but the string names on the display refer to standard tuning. Tune to the note you want, not the name on the screen.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>Does this tuner record or upload my audio?</h3><p>No. The microphone signal is analysed inside your browser and never leaves your device. Nothing is recorded, nothing is uploaded, and closing the page ends the microphone access. The tuner only listens while you have tapped Start tuner.</p></div><div class="faq"><h3>Which string is which?</h3><p>From thickest to thinnest: string 6 is low E (E2), string 5 is A (A2), string 4 is D (D3), string 3 is G (G3), string 2 is B (B3) and string 1 is high E (E4). The tuner shows the nearest open string so you can check you are tuning the one you think you are.</p></div><div class="faq"><h3>How close to zero cents do I need to be?</h3><p>Within 5 cents is in tune for most ears, and within 2 or 3 cents is excellent. Chasing exactly zero is a losing game, because the note moves slightly as it rings and as you touch the string. Tune to the settled reading, not the first jump.</p></div><div class="faq"><h3>Why does the note jump around?</h3><p>Usually because more than one string is ringing, the room is noisy, or the pluck was very hard. Mute the other strings, pluck firmly but gently, and wait a second for the reading to settle. A string that is far out of tune can also read as its neighbour note.</p></div><div class="faq"><h3>Can I tune other instruments with this tuner?</h3><p>Yes — the tuner shows the nearest note and cents for any pitched sound, so it works for a ukulele, a bass, a violin or a voice. The open-string names and the reference tones are for a guitar in standard tuning, but the note and cents readings are universal.</p></div><div class="faq"><h3>Why is there no sound from the reference tones?</h3><p>Check the volume and the silent switch on your phone — many phones mute web audio when the silent switch is on. The tones also need a tap to start, because browsers block sound until you interact with the page. Tap a tone button and listen for two seconds of pure tone.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/bpm-counter.html">BPM Counter</a> · <a href="https://toolbari.github.io/tools/musical-key-finder.html">Musical Key Finder</a> · <a href="https://toolbari.github.io/tools/woodworking-cut-list-optimizer.html">Woodworking Cut List Optimizer</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+window.TB = (function () {
+
+  function num(x) {
+    if (x === null || x === undefined || x === "") return null;
+    var n = parseFloat(x);
+    return isNaN(n) ? null : n;
+  }
+  function fmt(n, d) {
+    if (n === null || n === undefined || isNaN(n)) return "—";
+    return Number(n).toLocaleString("en-US", {maximumFractionDigits: d === undefined ? 2 : d, minimumFractionDigits: d === undefined ? 0 : d});
+  }
+  function copyText(text, btn) {
+    function done() {
+      var old = btn.textContent;
+      btn.textContent = "Copied!";
+      setTimeout(function () { btn.textContent = old; }, 1600);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function () { fallbackCopy(text, btn, done); });
+    } else { fallbackCopy(text, btn, done); }
+  }
+  function fallbackCopy(text, btn, done) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta);
+    done();
+  }
+
+  var NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+  var STRINGS = [{name: "E2", freq: 82.41}, {name: "A2", freq: 110.00}, {name: "D3", freq: 146.83},
+                 {name: "G3", freq: 196.00}, {name: "B3", freq: 246.94}, {name: "E4", freq: 329.63}];
+  function detectPitch(buf, sampleRate) {
+    var n = buf.length;
+    if (n < 64 || !(sampleRate > 0)) return null;
+    var sum = 0;
+    for (var i = 0; i < n; i++) sum += buf[i] * buf[i];
+    var rms = Math.sqrt(sum / n);
+    if (rms < 0.01) return null;
+    var minLag = Math.max(1, Math.floor(sampleRate / 1000));
+    var maxLag = Math.min(n - 1, Math.ceil(sampleRate / 50));
+    function corrAt(lag) {
+      var c = 0;
+      for (var i = 0; i < n - lag; i++) c += buf[i] * buf[i + lag];
+      return c / (n - lag);
+    }
+    // Autocorrelation of a periodic signal peaks at every multiple of the
+    // period, so the global maximum can be a subharmonic (period x2, x3...).
+    // Take the FIRST strong local peak instead: the smallest lag whose
+    // correlation is a local maximum and at least 90% of the global max.
+    var corrs = [];
+    var globalMax = -Infinity;
+    for (var lag = minLag; lag <= maxLag; lag++) {
+      var c = corrAt(lag);
+      corrs.push(c);
+      if (c > globalMax) globalMax = c;
+    }
+    var bestLag = -1;
+    for (var k = 1; k < corrs.length - 1; k++) {
+      if (corrs[k] >= corrs[k - 1] && corrs[k] >= corrs[k + 1] && corrs[k] >= globalMax * 0.9) {
+        bestLag = minLag + k;
+        break;
+      }
+    }
+    if (bestLag < 0) {
+      // Fall back to the global maximum lag.
+      var bi = corrs.indexOf(globalMax);
+      bestLag = minLag + bi;
+    }
+    var bestCorr = corrAt(bestLag);
+    var shift = 0;
+    if (bestLag > minLag && bestLag < maxLag) {
+      var c0 = corrAt(bestLag - 1), c1 = bestCorr, c2 = corrAt(bestLag + 1);
+      var denom = c0 - 2 * c1 + c2;
+      if (denom !== 0) {
+        shift = 0.5 * (c0 - c2) / denom;
+        if (!isFinite(shift) || Math.abs(shift) > 1) shift = 0;
+      }
+    }
+    return sampleRate / (bestLag + shift);
+  }
+  function freqToNote(freq) {
+    if (!(freq > 0)) return null;
+    var m = 69 + 12 * (Math.log(freq / 440) / Math.log(2));
+    var midi = Math.round(m);
+    var cents = Math.round((m - midi) * 100);
+    var name = NAMES[((midi % 12) + 12) % 12];
+    var octave = Math.floor(midi / 12) - 1;
+    var best = null, bestAbs = Infinity;
+    STRINGS.forEach(function (s) {
+      var c = 1200 * (Math.log(freq / s.freq) / Math.log(2));
+      if (Math.abs(c) < bestAbs) { bestAbs = Math.abs(c); best = {name: s.name, cents: Math.round(c)}; }
+    });
+    return {note: name, octave: octave, cents: cents, midi: midi, freq: freq,
+            string: best.name, stringCents: best.cents};
+  }
+  var api = { detectPitch: detectPitch, freqToNote: freqToNote, STRINGS: STRINGS };
+  if (typeof document !== "undefined") {
+    var noteOut = document.getElementById("note-out");
+    var statusEl = document.getElementById("tuner-status");
+    var centsOut = document.getElementById("cents-out");
+    var stringOut = document.getElementById("string-out");
+    var needle = document.getElementById("meter-needle");
+    var outEl = document.getElementById("out");
+    var audioCtx = null, stream = null, analyser = null, timer = null, lastNote = null;
+    function showFallback(msg) {
+      statusEl.textContent = msg + " Use the reference tones below to tune by ear — tap a string to hear its correct pitch.";
+      noteOut.textContent = "—";
+      centsOut.textContent = "Cents: —";
+      stringOut.textContent = "Nearest open string: —";
+      needle.style.left = "50%";
+    }
+    function stopTuner() {
+      if (timer) { clearInterval(timer); timer = null; }
+      if (stream) { stream.getTracks().forEach(function (t) { t.stop(); }); stream = null; }
+      if (audioCtx) { audioCtx.close().catch(function () {}); audioCtx = null; }
+      analyser = null;
+    }
+    document.getElementById("start-btn").addEventListener("click", function () {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        showFallback("This browser cannot open the microphone from this page.");
+        return;
+      }
+      statusEl.textContent = "Waiting for microphone permission…";
+      navigator.mediaDevices.getUserMedia({audio: true}).then(function (s) {
+        stream = s;
+        var AC = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AC();
+        var source = audioCtx.createMediaStreamSource(stream);
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 2048;
+        source.connect(analyser);
+        var buf = new Float32Array(analyser.fftSize);
+        statusEl.textContent = "Listening — play one string at a time.";
+        timer = setInterval(function () {
+          analyser.getFloatTimeDomainData(buf);
+          var freq = detectPitch(buf, audioCtx.sampleRate);
+          if (freq === null) {
+            noteOut.textContent = "—";
+            centsOut.textContent = "Cents: —";
+            stringOut.textContent = "Nearest open string: —";
+            needle.style.left = "50%";
+            statusEl.textContent = "No clear note — play a single string, a little louder.";
+            return;
+          }
+          var nn = freqToNote(freq);
+          lastNote = nn;
+          noteOut.textContent = nn.note + nn.octave;
+          var dir = nn.cents === 0 ? "in tune" : (nn.cents > 0 ? "sharp" : "flat");
+          centsOut.textContent = "Cents: " + (nn.cents > 0 ? "+" : "") + nn.cents + " (" + dir + ")";
+          stringOut.textContent = "Nearest open string: " + nn.string + " (" + (nn.stringCents > 0 ? "+" : "") + nn.stringCents + " cents)";
+          var pct = 50 + Math.max(-50, Math.min(50, nn.cents));
+          needle.style.left = pct + "%";
+          statusEl.textContent = "Listening — play one string at a time.";
+          outEl.textContent = "Last reading: " + nn.note + nn.octave + " at " + fmt(freq, 1) + " Hz, " + nn.cents + " cents from the note.";
+        }, 120);
+      }).catch(function () {
+        showFallback("Microphone not available — the tuner cannot listen without it.");
+      });
+    });
+    document.getElementById("stop-btn").addEventListener("click", function () {
+      stopTuner();
+      statusEl.textContent = "Tuner stopped. Tap Start tuner to listen again, or use the reference tones below.";
+      noteOut.textContent = "—";
+      centsOut.textContent = "Cents: —";
+      stringOut.textContent = "Nearest open string: —";
+      needle.style.left = "50%";
+    });
+    document.getElementById("tone-grid").addEventListener("click", function (ev) {
+      var btn = ev.target.closest("button");
+      if (!btn) return;
+      var freq = parseFloat(btn.getAttribute("data-freq"));
+      var name = btn.getAttribute("data-name");
+      var toneStatus = document.getElementById("tone-status");
+      try {
+        var AC = window.AudioContext || window.webkitAudioContext;
+        if (!audioCtx) audioCtx = new AC();
+        if (audioCtx.state === "suspended") audioCtx.resume();
+        var osc = audioCtx.createOscillator();
+        var gain = audioCtx.createGain();
+        osc.type = "sine";
+        osc.frequency.value = freq;
+        var t0 = audioCtx.currentTime;
+        gain.gain.setValueAtTime(0.0001, t0);
+        gain.gain.exponentialRampToValueAtTime(0.5, t0 + 0.05);
+        gain.gain.setValueAtTime(0.5, t0 + 1.6);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 2);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(t0);
+        osc.stop(t0 + 2);
+        toneStatus.textContent = "Playing " + name + " (" + fmt(freq, 2) + " Hz) for 2 seconds.";
+        setTimeout(function () { toneStatus.textContent = "No tone playing."; }, 2100);
+      } catch (e) {
+        toneStatus.textContent = "This browser could not play a tone. Check that sound is turned on.";
+      }
+    });
+    document.getElementById("copy-btn").addEventListener("click", function () {
+      var text = outEl.textContent;
+      if (!text) {
+        outEl.textContent = "No reading yet — start the tuner and play a string, or use the reference tones.";
+        return;
+      }
+      copyText(text, this);
+    });
+  }
+  return api;
+})();
+</script>
+</body>
+</html>

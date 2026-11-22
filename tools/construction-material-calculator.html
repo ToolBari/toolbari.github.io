@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Construction Material Calculator — Cement, Sand, Bricks and Concrete | ToolBari</title>
+<meta name="description" content="Work out construction materials free — cement bags, sand, bricks and concrete for walls, floors and slabs. No signup, works on phone.">
+<link rel="canonical" href="https://toolbari.github.io/tools/construction-material-calculator.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Construction Material Calculator — Cement, Sand, Bricks and Concrete">
+<meta property="og:description" content="Work out cement bags, sand, bricks and concrete for walls, floors and slabs, with wastage included.">
+<meta property="og:url" content="https://toolbari.github.io/tools/construction-material-calculator.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How many bricks do I need for a wall?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Work out the wall's volume in cubic feet — length times height times thickness in feet — then multiply by 13.5 bricks per cubic foot, and add 5 percent for wastage. A 10 ft by 10 ft wall, 5 inches thick, is 41.67 cubic feet, which needs 563 bricks plus wastage, or 591 bricks in total. The calculator does this for you, including the wastage allowance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many cement bags per 100 sq ft?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends on the job and the thickness, because cement is worked out from volume, not area. As a rough guide, a 100 sq ft brick wall 5 inches thick needs about 2 bags of cement for its mortar, and a 100 sq ft concrete slab 4 inches thick needs about 7 bags. Use the calculator with your real length, width and thickness — a guess from area alone can be a long way off."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the 1:2:4 mix?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is the standard concrete mix: 1 part cement, 2 parts sand and 4 parts aggregate, measured by volume. One part can be a bucket or a barrow, as long as every part uses the same container. Mortar and plaster use a simpler 1:6 mix — 1 part cement to 6 parts sand, with no aggregate. The calculator shows which mix it used for each job."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I add extra for wastage?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. A little material is always lost — spilled, broken, cut or left to dry on the board — and running short halfway through a job costs more than the extra material would have. This calculator adds 5 percent to every quantity automatically. On a job with many cuts, such as a wall with windows, consider adding 10 percent instead by adding a tenth to the answer yourself."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I work out concrete volume?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Multiply length by width by thickness, with all three in the same unit. For a slab 10 ft long, 8 ft wide and 4 inches thick, convert the thickness to feet first — 4 divided by 12 is 0.333 ft — then multiply: 10 x 8 x 0.333 = 26.67 cubic feet. The calculator then applies the dry volume factor of 1.54 to work out the dry ingredients from the wet volume."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if my wall has a door in it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Work out the wall as if it were solid, then subtract the opening. A door 3 ft wide and 7 ft high, in a 5 inch wall, is 3 x 7 x 0.417 = 8.75 cubic feet of wall you do not need to build — about 118 bricks plus wastage. Run the calculator for the full wall, run it again for the opening as a small wall, and subtract the second answer from the first."
+      }
+    }
+  ]
+}
+</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>.calc button{min-height:72px;padding:14px 22px;border:0;border-radius:999px;font-size:17px;font-weight:700;background:#0b7a4b;color:#fff;cursor:pointer;margin:12px 6px 0 0}
+.calc button.secondary{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+.calc input,.calc select,.calc textarea{min-height:72px;padding:14px 12px;font-size:17px}
+.calc textarea{min-height:110px;resize:vertical}
+.calc input[type=checkbox]{min-height:28px;width:28px;vertical-align:middle}
+.calc table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0}
+.calc th,.calc td{border:1px solid #cbd5e1;padding:8px 6px;text-align:left;vertical-align:top}
+.calc th{background:#e8f7ef}
+.twrap{overflow-x:auto;margin:10px 0}
+.twrap table{width:100%;border-collapse:collapse;font-size:15px}
+.twrap th,.twrap td{border:1px solid #cbd5e1;padding:8px 6px;text-align:left;vertical-align:top}
+.twrap th{background:#e8f7ef}
+canvas.plan{width:100%;height:auto;border:2px solid #0b7a4b;border-radius:12px;background:#fff;touch-action:none;display:block}
+.tag{display:inline-block;padding:2px 10px;border-radius:999px;font-size:14px;font-weight:700}
+.tag.red{background:#fee2e2;color:#991b1b}.tag.orange{background:#ffedd5;color:#9a3412}.tag.green{background:#dcfce7;color:#166534}.tag.grey{background:#e2e8f0;color:#334155}
+.small{font-size:14.5px;color:#475569}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Construction Material Calculator</h1>
+<p class="answer">Work out the materials for a wall, a slab, plaster or a foundation: cement bags, sand, bricks and concrete, with a five percent wastage allowance built in. Pick the job, enter the size, and the calculator shows the shopping list with the mix ratio it used.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<label for="job">Job type</label>
+<select id="job">
+<option value="wall" selected>Brick wall</option>
+<option value="slab">Concrete slab</option>
+<option value="plaster">Floor or wall plaster</option>
+<option value="foundation">Foundation (concrete)</option>
+</select>
+<label for="len">Length (feet)</label>
+<input id="len" type="number" min="0" step="any" placeholder="For example 10">
+<label for="wid" id="wid-label">Height (feet)</label>
+<input id="wid" type="number" min="0" step="any" placeholder="For example 10">
+<label for="thick">Thickness (inches)</label>
+<input id="thick" type="number" min="0" step="any" placeholder="For example 5">
+<button id="calc-btn" type="button">Work out my materials</button>
+<button id="copy-btn" class="secondary" type="button">Copy result</button>
+<div class="out" id="out" aria-live="polite"></div>
+<div class="steps" id="steps"></div>
+<p class="small">All quantities include a 5 percent wastage allowance. Cement bags and bricks are rounded up to whole numbers — you cannot buy half a bag. Mix ratios: concrete 1:2:4, mortar and plaster 1:6.</p>
+</div>
+<div class="warn">These are standard estimating figures, not a structural design. Real jobs vary with brick size, site conditions and local practice, and anything that holds up a building needs a qualified engineer. Use this calculator to plan your shopping list, then check the numbers with your mason or contractor.</div>
+<h2>How to use this calculator</h2>
+<p>Pick the job first: a brick wall, a concrete slab, floor or wall plaster, or a concrete foundation. Then enter the size in feet and the thickness in inches. For a wall, the second box is the height of the wall; for a slab, a floor or a foundation, it is the width. The label above the box changes to match the job you picked, so you always know what to measure. Tap the button and the calculator shows the materials you need, with the mix ratio it used.</p>
+<p>The answer is a small table: cement bags, sand in cubic feet, bricks where they apply, aggregate where it applies, and the volume of concrete or mortar. Every quantity already includes a 5 percent wastage allowance, because a little material is always lost — spilled, cut, broken, or left stuck to the mixing board. Cement bags and bricks are rounded up to whole numbers, because no shop sells half a bag or half a brick. Sand and aggregate are shown to one decimal place, which is close enough for ordering.</p>
+<p>The copy button copies the whole result so you can paste it into a message to your supplier or your mason. If you are planning several jobs, run each one separately and add the lists together — a wall and a slab use different mixes, so their cement and sand cannot simply be added from one run. Keep the mix ratio with the numbers when you share them, so the person mixing knows exactly what to make.</p>
+<h2>The mix ratios explained</h2>
+<p>A mix ratio tells you the parts of each material in the mix. Concrete at 1:2:4 means one part cement, two parts sand and four parts aggregate, measured by volume. Mortar and plaster at 1:6 means one part cement to six parts sand, with no aggregate at all. The numbers are parts, not bags or buckets: one part can be a bucket, a barrow or a shovel-load, as long as every part is measured with the same container.</p>
+<p>The ratios exist because each material has a job. Cement is the glue that holds everything together. Sand fills the gaps between the grains and makes the mix workable. Aggregate — crushed stone — gives concrete its bulk and strength, and it is cheaper than cement, so it keeps the cost down. More cement makes a stronger mix, but it also costs more and can crack as it dries. Less cement saves money but gives a weaker result. The 1:2:4 concrete mix and the 1:6 mortar mix are the standard choices for ordinary house building, and they are the ratios this calculator uses.</p>
+<p>Two more numbers sit behind the answers, and the page states them plainly so you can check them. The dry volume factor is 1.54 for concrete and 1.33 for mortar and plaster. It exists because dry materials shrink when water is added and the mix is compacted: a cubic foot of wet concrete needs about 1.54 cubic feet of dry ingredients. One cement bag holds 50 kilograms, which is 1.25 cubic feet. And a cubic foot of brickwork needs about 13.5 bricks, with mortar taking up about a quarter of the wall's volume. These are standard estimating factors used by builders everywhere, not exact science — real bricks vary in size, and real sites vary in waste.</p>
+<h2>Worked example: a 10 ft by 10 ft wall</h2>
+<p>Take a brick wall 10 feet long, 10 feet high, and 5 inches thick. First work out the volume. Five inches is 5 divided by 12 feet, which is about 0.417 feet. The volume is length times height times thickness: 10 x 10 x 0.417 = 41.67 cubic feet. That is the volume of the finished wall, bricks and mortar together.</p>
+<p>Now the bricks. A cubic foot of brickwork needs about 13.5 bricks, so 41.67 cubic feet needs 41.67 x 13.5 = 563 bricks. Add the 5 percent wastage allowance and the number becomes 591 bricks. Always order the extra: bricks break in transport, some are chipped, and a few will be cut to fit around corners and openings. Running short by twenty bricks at the end of a wall is a frustrating and expensive delay.</p>
+<p>Now the mortar. Mortar is about 25 percent of the brickwork volume, so the wet mortar is 41.67 x 0.25 = 10.42 cubic feet. Dry mortar takes more: multiply by the dry volume factor of 1.33 and you get 13.86 cubic feet of dry mix. At a 1:6 ratio, one part in seven is cement: 13.86 divided by 7 = 1.98 cubic feet of cement. One bag is 1.25 cubic feet, so that is 1.58 bags, plus 5 percent wastage, rounded up to 2 bags. The sand is six parts in seven: 13.86 x 6 / 7 = 11.88 cubic feet, plus 5 percent, which is 12.5 cubic feet. So the shopping list for this wall is 591 bricks, 2 bags of cement and 12.5 cubic feet of sand.</p>
+<h2>Ordering a little extra: the 5 percent rule</h2>
+<p>Every quantity on this page includes 5 percent extra for wastage, and it is worth understanding why. Building is messy. Cement spills when a bag is opened. Sand blows away in the wind and sinks into soft ground. Bricks chip when they are unloaded. Mortar dries on the board before it is used. A mason cuts a brick to fit a corner and throws away the offcut. None of these losses is large on its own, but together they add up to roughly 5 percent on a careful job — and more on a careless one.</p>
+<p>Five percent is a planning figure, not a guarantee. On a small job, round up generously: the cost of one extra bag of cement is far less than the cost of stopping work to fetch one more bag. On a job with many cuts — a wall with windows, a floor with awkward corners — consider 10 percent instead, and work it out by adding a tenth to the calculator's answer yourself. On a big, simple job with an experienced mason, 5 percent is usually enough. The calculator applies the allowance to every quantity, so the numbers you see are the numbers to order, not the numbers the wall contains.</p>
+<p>There is one exception to the rule: do not over-order cement by a large amount. Cement goes hard if it sits in damp air, and a bag left over from last month may be useless by the time you need it. Bricks and sand keep well; cement does not. Order cement close to what you need, store it off the ground under cover, and use the oldest bags first.</p>
+<h2>Common mistakes</h2>
+<p>The most common mistake is forgetting wastage altogether. People work out the exact volume of the wall, buy exactly that much material, and run short halfway through the job. Then work stops, someone has to fetch more, and the new batch of mortar never quite matches the old one. The 5 percent allowance exists for exactly this reason. It is not waste — it is the price of finishing the job without a break.</p>
+<p>The second mistake is the wrong mix ratio. A 1:2:4 concrete mix and a 1:6 mortar mix look similar on paper, but they do different jobs. Using mortar mix for a slab gives a slab with no aggregate, which is weaker and more likely to crack. Using concrete mix for plaster gives a rough, stony finish that cannot be smoothed. And mixing by guesswork — a shovel of this, a shovel of that — gives a different mix every time. Measure the parts with the same container, count them, and write the ratio on a board where the mixer can see it.</p>
+<p>The third mistake is measuring in mixed units. Feet and inches are easy to confuse: a wall 10 feet long and 5 inches thick is not 10 x 5 of anything. Convert the thickness to feet first — 5 inches is 5 divided by 12 feet — and then multiply. The same trap waits with metres and feet: a room measured in feet and a thickness measured in centimetres will give nonsense unless one of them is converted. Pick one unit system, convert everything into it before you start, and check the conversion twice.</p>
+<h2>Measuring right: one unit at a time</h2>
+<p>Good measuring starts with a tape and a pencil, not a calculator. Measure the length of the wall at the base, where it meets the floor, and again at the top — old walls are rarely straight, and the two numbers may differ. Measure the height from the floor to the ceiling in two or three places and use the largest, because the wall has to reach the highest point. For a slab, measure the length and width at the widest points, and check the diagonals: if they are equal, the corners are square.</p>
+<p>Thickness is the number people guess most often, and it is the number that changes the answer the most. A 5 inch wall and a 10 inch wall need twice the material for the same length and height, so guessing the thickness wrong doubles the error. Measure it with a tape at an opening or at the end of the wall, where you can see the full thickness. If the wall is plastered, remember that the plaster adds thickness that is not brick — measure the brick itself, or subtract the plaster on both sides.</p>
+<p>Finally, measure openings separately. A door or a window is a hole in the wall, and the bricks that would have filled it are bricks you do not need. Work out the wall as if it were solid, then work out the area of each opening and subtract it. The FAQ below explains how. For a small window the difference is small, but a wide doorway in a short wall can save a hundred bricks or more — real money, and real weight to carry.</p>
+<h2>What this calculator cannot do</h2>
+<p>This calculator cannot design a structure. It cannot tell you whether a wall is thick enough to hold up a roof, whether a foundation is deep enough for your soil, or how much steel a slab needs. Those are engineering questions, and getting them wrong can be dangerous. For anything that holds up a building — foundations, load-bearing walls, beams, slabs over a room — get a qualified engineer or an experienced contractor to check the design before you build.</p>
+<p>It also cannot know your local conditions. Brick sizes vary from place to place, sand varies in quality, and local practice varies too — what works in one district may not be the standard in another. Prices change, and this page carries no prices at all, so it cannot tell you what the job will cost. Use it to plan your materials, check the numbers with your mason, and get the structure checked by someone qualified. That is the honest way to use it.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>How many bricks do I need for a wall?</h3><p>Work out the wall's volume in cubic feet — length times height times thickness in feet — then multiply by 13.5 bricks per cubic foot, and add 5 percent for wastage. A 10 ft by 10 ft wall, 5 inches thick, is 41.67 cubic feet, which needs 563 bricks plus wastage, or 591 bricks in total. The calculator does this for you, including the wastage allowance.</p></div>
+<div class="faq"><h3>How many cement bags per 100 sq ft?</h3><p>It depends on the job and the thickness, because cement is worked out from volume, not area. As a rough guide, a 100 sq ft brick wall 5 inches thick needs about 2 bags of cement for its mortar, and a 100 sq ft concrete slab 4 inches thick needs about 7 bags. Use the calculator with your real length, width and thickness — a guess from area alone can be a long way off.</p></div>
+<div class="faq"><h3>What is the 1:2:4 mix?</h3><p>It is the standard concrete mix: 1 part cement, 2 parts sand and 4 parts aggregate, measured by volume. One part can be a bucket or a barrow, as long as every part uses the same container. Mortar and plaster use a simpler 1:6 mix — 1 part cement to 6 parts sand, with no aggregate. The calculator shows which mix it used for each job.</p></div>
+<div class="faq"><h3>Should I add extra for wastage?</h3><p>Yes. A little material is always lost — spilled, broken, cut or left to dry on the board — and running short halfway through a job costs more than the extra material would have. This calculator adds 5 percent to every quantity automatically. On a job with many cuts, such as a wall with windows, consider adding 10 percent instead by adding a tenth to the answer yourself.</p></div>
+<div class="faq"><h3>How do I work out concrete volume?</h3><p>Multiply length by width by thickness, with all three in the same unit. For a slab 10 ft long, 8 ft wide and 4 inches thick, convert the thickness to feet first — 4 divided by 12 is 0.333 ft — then multiply: 10 x 8 x 0.333 = 26.67 cubic feet. The calculator then applies the dry volume factor of 1.54 to work out the dry ingredients from the wet volume.</p></div>
+<div class="faq"><h3>What if my wall has a door in it?</h3><p>Work out the wall as if it were solid, then subtract the opening. A door 3 ft wide and 7 ft high, in a 5 inch wall, is 3 x 7 x 0.417 = 8.75 cubic feet of wall you do not need to build — about 118 bricks plus wastage. Run the calculator for the full wall, run it again for the opening as a small wall, and subtract the second answer from the first.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/home-renovation-cost-calculator.html">Home Renovation Cost Calculator</a> · <a href="https://toolbari.github.io/tools/ohms-law-calculator.html">Ohm's Law Calculator</a> · <a href="https://toolbari.github.io/tools/room-layout-planner.html">Room Layout Planner</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+window.TB = (function () {
+  var MIX = {
+    concrete: {cement: 1, sand: 2, aggregate: 4, label: "1:2:4"},
+    mortar: {cement: 1, sand: 6, label: "1:6"},
+    plaster: {cement: 1, sand: 6, label: "1:6"}
+  };
+  function withWastage(x) { return x * 1.05; }
+  function round1(x) { return Math.round(x * 10) / 10; }
+  function round2(x) { return Math.round(x * 100) / 100; }
+  function materials(job, lengthFt, widthFt, thicknessIn) {
+    var L = parseFloat(lengthFt), W = parseFloat(widthFt), T = parseFloat(thicknessIn);
+    if (!(L > 0) || !(W > 0) || !(T > 0)) return {error: "Enter length, width and thickness, all greater than zero."};
+    var volume = L * W * (T / 12);
+    var out = {volumeCft: round2(volume), cementBags: 0, sandCft: 0, aggregateCft: 0, bricks: 0, mix: ""};
+    if (job === "wall") {
+      out.bricks = Math.ceil(withWastage(volume * 13.5));
+      var dryMortar = volume * 0.25 * 1.33;
+      var cementCft = dryMortar * (1 / 7);
+      out.cementBags = Math.ceil(withWastage(cementCft / 1.25));
+      out.sandCft = round1(withWastage(dryMortar * (6 / 7)));
+      out.mix = MIX.mortar.label;
+    } else if (job === "slab" || job === "foundation") {
+      var dryConcrete = volume * 1.54;
+      var ccCft = dryConcrete * (1 / 7);
+      out.cementBags = Math.ceil(withWastage(ccCft / 1.25));
+      out.sandCft = round1(withWastage(dryConcrete * (2 / 7)));
+      out.aggregateCft = round1(withWastage(dryConcrete * (4 / 7)));
+      out.mix = MIX.concrete.label;
+    } else if (job === "plaster") {
+      var dryPlaster = volume * 1.33;
+      var pcCft = dryPlaster * (1 / 7);
+      out.cementBags = Math.ceil(withWastage(pcCft / 1.25));
+      out.sandCft = round1(withWastage(dryPlaster * (6 / 7)));
+      out.mix = MIX.plaster.label;
+    } else {
+      return {error: "Choose a job type: wall, slab, plaster or foundation."};
+    }
+    return out;
+  }
+  return {MIX: MIX, withWastage: withWastage, materials: materials};
+})();
+if (typeof document !== "undefined") {
+  var jobSel = document.getElementById("job");
+  var widLabel = document.getElementById("wid-label");
+  function syncJob() {
+    widLabel.textContent = jobSel.value === "wall" ? "Height (feet)" : "Width (feet)";
+  }
+  jobSel.addEventListener("change", syncJob);
+  syncJob();
+  document.getElementById("calc-btn").addEventListener("click", function () {
+    var out = document.getElementById("out");
+    var steps = document.getElementById("steps");
+    var r = window.TB.materials(
+      jobSel.value,
+      document.getElementById("len").value,
+      document.getElementById("wid").value,
+      document.getElementById("thick").value
+    );
+    if (r.error) { out.textContent = r.error; steps.textContent = ""; return; }
+    var rows = "";
+    rows += "<tr><th>Volume</th><td>" + r.volumeCft + " cft</td></tr>";
+    rows += "<tr><th>Cement</th><td>" + r.cementBags + " bags (50 kg each)</td></tr>";
+    rows += "<tr><th>Sand</th><td>" + r.sandCft + " cft</td></tr>";
+    if (r.bricks > 0) rows += "<tr><th>Bricks</th><td>" + r.bricks + "</td></tr>";
+    if (r.aggregateCft > 0) rows += "<tr><th>Aggregate</th><td>" + r.aggregateCft + " cft</td></tr>";
+    rows += "<tr><th>Mix ratio</th><td>" + r.mix + "</td></tr>";
+    out.innerHTML = '<div class="twrap"><table>' + rows + "</table></div>";
+    steps.textContent = "All quantities include a 5 percent wastage allowance. Cement bags and bricks are rounded up to whole numbers. Mix used: " + r.mix + ".";
+  });
+  document.getElementById("copy-btn").addEventListener("click", function () {
+    var btn = this;
+    var text = document.getElementById("out").textContent + "\n" +
+      document.getElementById("steps").textContent;
+    if (!text.trim()) { btn.textContent = "Run the calculator first"; return; }
+    function done() { btn.textContent = "Copied!"; setTimeout(function () { btn.textContent = "Copy result"; }, 2000); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function () { fallback(); });
+    } else { fallback(); }
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done(); }
+      catch (e) { btn.textContent = "Copy failed — select the text"; }
+      document.body.removeChild(ta);
+    }
+  });
+}
+
+</script>
+</body>
+</html>

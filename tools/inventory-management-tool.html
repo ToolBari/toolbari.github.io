@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inventory Management Tool — Track Your Shop Stock Free in Your Browser | ToolBari</title>
+<meta name="description" content="Manage your small shop stock free — add products, track quantities, get low-stock warnings, and see what needs reordering. Saved on your device, no signup.">
+<link rel="canonical" href="https://toolbari.github.io/tools/inventory-management-tool.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Inventory Management Tool — Track Your Shop Stock Free in Your Browser">
+<meta property="og:description" content="Manage your small shop stock free — add products, track quantities, get low-stock warnings, and see what needs reordering. Saved on your device, no signup.">
+<meta property="og:url" content="https://toolbari.github.io/tools/inventory-management-tool.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Where is my stock data saved?","acceptedAnswer":{"@type":"Answer","text":"In your browser on this device, using the browser's own storage. Nothing is sent to a server, and nobody else can see your list. The list stays on this device only, so it will not appear on another phone or computer unless you copy it there yourself."}},{"@type":"Question","name":"Can I use this for more than one shop?","acceptedAnswer":{"@type":"Answer","text":"This page holds one stock list, so for two shops you need two lists. The simplest way is to use a different browser or a different device for each shop, or to put the shop name at the start of each product name so the two lists stay separate in one table."}},{"@type":"Question","name":"What is a good low-stock level?","acceptedAnswer":{"@type":"Answer","text":"Enough stock to cover your usual sales until a new delivery arrives, plus a little extra for a busy week. If you sell 10 of an item a week and deliveries take a week, a level of 12 to 15 is a sensible start. Fast sellers need a higher level than slow sellers."}},{"@type":"Question","name":"How do I count stock value?","acceptedAnswer":{"@type":"Answer","text":"Multiply the quantity of each product by its buy price and add the results together for the buy value, then do the same with the sell price for the sell value. This page works out both totals for you, and shows them below the stock table every time the list changes."}},{"@type":"Question","name":"What if I lose my phone?","acceptedAnswer":{"@type":"Answer","text":"The list lives only on that device, so a lost phone means a lost list unless you kept a backup. Press the copy button on this page and paste the list into a note or a message you keep somewhere safe, and update the backup whenever your stock changes a lot."}},{"@type":"Question","name":"Can I export my stock list?","acceptedAnswer":{"@type":"Answer","text":"Yes. The copy button copies the whole list as plain text, with quantities, prices and both stock values. Paste it into a note, a message or a spreadsheet. There is no file download on this page, because the list is plain text and copying keeps it simple."}}]}</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>.calc button{min-height:72px;width:100%;border:none;border-radius:999px;background:#0b7a4b;color:#fff;font-weight:700;font-size:17px;padding:13px 22px;cursor:pointer;margin-top:14px}
+.calc input,.calc select{min-height:72px}
+.calc textarea{min-height:120px;width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;font-family:inherit}
+.calc .out{white-space:normal}
+table{border-collapse:collapse;width:100%;font-size:15px;margin:10px 0}
+th,td{border:1px solid #cbd5e1;padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#e8f7ef}tr.low td{background:#fef2f2;color:#991b1b;font-weight:600}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Inventory Management Tool</h1>
+<p class="answer">Keep track of your shop stock in your browser, free. Add your products, set a low-stock level for each one, and see at a glance what needs reordering and what your stock is worth.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<p><strong>Add a product to your stock list</strong></p>
+<label for="b4-name">Product name</label>
+<input id="b4-name" type="text" placeholder="Notebook">
+<label for="b4-qty">Quantity in stock</label>
+<input id="b4-qty" type="number" inputmode="numeric" min="0" step="1" placeholder="40">
+<label for="b4-low">Low-stock level (warn me when the quantity reaches this number)</label>
+<input id="b4-low" type="number" inputmode="numeric" min="0" step="1" placeholder="10">
+<label for="b4-buy">Buy price per item</label>
+<input id="b4-buy" type="number" inputmode="decimal" min="0" step="0.01" placeholder="2">
+<label for="b4-sell">Sell price per item</label>
+<input id="b4-sell" type="number" inputmode="decimal" min="0" step="0.01" placeholder="4">
+<button id="add-btn" type="button">Add product</button>
+<p class="note" id="add-msg"></p>
+<label for="b4-search">Search your stock</label>
+<input id="b4-search" type="text" placeholder="Type a product name">
+<div id="stock-wrap"></div>
+<div class="out" id="stock-totals"></div>
+<p class="steps" id="reorder-out"></p>
+<label for="b4-remove">Remove a product</label>
+<select id="b4-remove"><option value="">No products yet</option></select>
+<button id="remove-btn" type="button">Remove selected product</button>
+<button id="copy-btn" type="button">Copy my stock list</button>
+</div>
+<div class="warn">Your stock list is saved in your browser on this device only, and nothing is sent to a server. If you clear your browser data or lose the device, the list goes with it. Use the copy button to keep a backup of your list somewhere safe.</div>
+<h2>How to use the stock tracker</h2>
+<p>Add one product at a time: its name, how many you have, the low-stock level you want to be warned at, and the buy and sell price for one item. Press Add product and the item appears in your stock table straight away. The totals below the table update at the same time, so you always know what your stock is worth and what needs reordering.</p>
+<p>Use the search box to find a product quickly when your list grows long. Type the first few letters of the name and the table shows only the matching products. To remove a product you no longer stock, pick it in the remove list and press Remove selected product. Everything is saved on your device as you go, so you can close the page and come back later to find your list exactly as you left it.</p>
+<h2>What stock value means: buy value and sell value</h2>
+<p>Your stock is money sitting on your shelves, and this page shows its value two ways. The buy value is what you paid for the stock you hold: quantity multiplied by buy price, added up across every product. It tells you how much of your money is tied up in stock right now. The sell value is what you will take in when all of it sells: quantity multiplied by sell price, added up the same way.</p>
+<p>The gap between the two numbers is the profit waiting in your stock. If your buy value is 447 and your sell value is 903, then selling everything on your shelves brings in 903 and leaves 456 of profit before your other costs. Watch both numbers over time. If the buy value keeps climbing while sales stay flat, you are buying more than you sell, and money is piling up on the shelves instead of in your pocket.</p>
+<p>Both values change every time you buy or sell, so update the quantities when things move. When a delivery arrives, add the new items to the quantities. When you sell the last of a product, remove it or set its quantity to zero. A list that is updated a little at a time stays honest, while a list that is left for months slowly stops matching the shelves, and the totals stop meaning anything.</p>
+<h2>Setting low-stock levels that make sense</h2>
+<p>A low-stock level is the number that tells you to order more. Set it too low and you run out before the new delivery arrives. Set it too high and you order too early and tie up money in stock you do not need yet. The right level depends on two things: how fast the product sells, and how long a new delivery takes to reach you.</p>
+<p>A simple way to set the level is to work out how many you sell in the time a delivery takes, then add a little extra for safety. If you sell 10 notebooks a week and a delivery takes one week, a low-stock level of 10 means you reorder when a week of stock is left. Add a few extra for a busy week, and the level becomes 12 or 15. Fast sellers need higher levels than slow sellers, and a product that takes two weeks to arrive needs a higher level than one you can collect tomorrow.</p>
+<p>Check your levels every month or two, because sales change. A product that sold slowly in winter may sell fast in summer, and a level that was right last year may be wrong now. The reorder list on this page shows every product at or below its level, sorted with the lowest first, so the most urgent item is always at the top.</p>
+<h2>Counting stock without stopping sales</h2>
+<p>A full stock count sounds like a job that needs the shop closed, but it does not have to be. Count a small section at a time, one shelf or one product group, and update the numbers on this page as you go. A shelf a day gets a small shop counted in a week without ever closing the door. Count when the shop is quiet, and keep a pen and paper beside you so you can note the numbers without stopping to type.</p>
+<p>Count what is actually on the shelf, not what you think should be there. If the shelf says 8 and your list says 12, the shelf is right and the list needs fixing. Differences like that are normal: items get damaged, a sale gets written down wrong, or a box gets counted twice. Fixing the number when you find the difference keeps your stock value honest and stops small errors from growing into big ones.</p>
+<h2>A worked example: a small shop with 12 products</h2>
+<p>Rina runs a small stationery shop. She stocks 12 products, and her list looks like this. Each row shows the quantity on the shelf, the low-stock level she set, and the buy and sell price for one item.</p>
+<div style="overflow-x:auto">
+<table>
+<tr><th>Product</th><th>Qty</th><th>Low</th><th>Buy</th><th>Sell</th></tr>
+<tr><td>Notebook</td><td>40</td><td>10</td><td>2</td><td>4</td></tr>
+<tr><td>Pen</td><td>100</td><td>20</td><td>0.5</td><td>1</td></tr>
+<tr><td>Pencil</td><td>90</td><td>20</td><td>0.4</td><td>1</td></tr>
+<tr><td>Eraser</td><td>60</td><td>15</td><td>0.3</td><td>0.8</td></tr>
+<tr><td>Ruler</td><td>25</td><td>5</td><td>1</td><td>2</td></tr>
+<tr><td>Glue stick</td><td>18</td><td>5</td><td>1.5</td><td>3</td></tr>
+<tr><td>Scissors</td><td>12</td><td>3</td><td>3</td><td>6</td></tr>
+<tr><td>Tape roll</td><td>30</td><td>8</td><td>1.2</td><td>2.5</td></tr>
+<tr><td>Paper pack</td><td>22</td><td>5</td><td>4</td><td>7</td></tr>
+<tr><td>Folder</td><td>35</td><td>10</td><td>1</td><td>2</td></tr>
+<tr><td>Marker</td><td>3</td><td>4</td><td>2</td><td>4</td></tr>
+<tr><td>Stapler</td><td>2</td><td>2</td><td>5</td><td>9</td></tr>
+</table>
+</div>
+<p>Add up quantity times buy price for every row and the buy value of Rina's stock is 447. Add up quantity times sell price and the sell value is 903. The difference is 456, which is the profit waiting on her shelves if everything sells. She holds 437 items in total.</p>
+<p>Two products are at or below their low-stock level: the stapler, with 2 left against a level of 2, and the marker, with 3 left against a level of 4. Both appear in red in the stock table and at the top of the reorder list, with the stapler first because it has the fewest left. Rina orders more of both before she runs out, and she checks the list again after the delivery arrives.</p>
+<h2>Reordering without overbuying</h2>
+<p>The reorder list tells you what to buy, but not how much. Order enough to cover sales until the next delivery, plus a little safety stock, and no more. Buying a year of a slow product because the price looked good leaves money sitting on a shelf for months, and the money could have bought stock that sells every week.</p>
+<p>When the delivery arrives, update the quantities on this page before the boxes go on the shelves. It takes a minute, and it keeps the list honest. If a delivery is short or an item is damaged, note it straight away while the delivery is still fresh in your mind, and raise it with your supplier the same day.</p>
+<p>Seasons change what sells, so let your orders follow the year. School supplies sell fast before term starts and slowly after it, and a shop that orders the same amount every month ends up with too much of one thing and too little of another. Look at what sold in the same month last year before you place a big order, and keep the fast sellers topped up first.</p>
+<h2>Your data stays on your device</h2>
+<p>This page has no account, no signup and no server. Your stock list is saved in your browser's own storage on the device you are using, and it never leaves that device. Nobody else can see it, and nobody can change it from anywhere else. That also means the list does not follow you to another phone or computer on its own.</p>
+<p>Keep a backup. Press Copy my stock list and paste the text into a note on your phone, a message to yourself, or a document you keep safe. If you clear your browser data, change phones or lose the device, the list on this page goes with it, and the backup is what lets you rebuild it in a few minutes instead of starting from an empty shelf.</p>
+<h2>Common mistakes</h2>
+<p>The most common mistake is trusting memory instead of counting. Memory says there are plenty of pens left, and the shelf says otherwise. Count regularly and write the number down. The second mistake is never setting a low-stock level, which means you only notice a product is gone when a customer asks for it and you have none to sell.</p>
+<p>The third mistake is counting stock value with the sell price only and thinking that number is profit. The sell value is what comes in, not what you keep: the buy value is what you already paid. The fourth mistake is ordering the same amount of everything. Fast sellers and slow sellers need different orders, and the reorder list sorted by quantity shows you which is which at a glance.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>Where is my stock data saved?</h3><p>In your browser on this device, using the browser's own storage. Nothing is sent to a server, and nobody else can see your list. The list stays on this device only, so it will not appear on another phone or computer unless you copy it there yourself.</p></div><div class="faq"><h3>Can I use this for more than one shop?</h3><p>This page holds one stock list, so for two shops you need two lists. The simplest way is to use a different browser or a different device for each shop, or to put the shop name at the start of each product name so the two lists stay separate in one table.</p></div><div class="faq"><h3>What is a good low-stock level?</h3><p>Enough stock to cover your usual sales until a new delivery arrives, plus a little extra for a busy week. If you sell 10 of an item a week and deliveries take a week, a level of 12 to 15 is a sensible start. Fast sellers need a higher level than slow sellers.</p></div><div class="faq"><h3>How do I count stock value?</h3><p>Multiply the quantity of each product by its buy price and add the results together for the buy value, then do the same with the sell price for the sell value. This page works out both totals for you, and shows them below the stock table every time the list changes.</p></div><div class="faq"><h3>What if I lose my phone?</h3><p>The list lives only on that device, so a lost phone means a lost list unless you kept a backup. Press the copy button on this page and paste the list into a note or a message you keep somewhere safe, and update the backup whenever your stock changes a lot.</p></div><div class="faq"><h3>Can I export my stock list?</h3><p>Yes. The copy button copies the whole list as plain text, with quantities, prices and both stock values. Paste it into a note, a message or a spreadsheet. There is no file download on this page, because the list is plain text and copying keeps it simple.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/sku-generator.html">SKU Generator</a> · <a href="https://toolbari.github.io/tools/dropshipping-profit-calculator.html">Dropshipping Profit Calculator</a> · <a href="https://toolbari.github.io/tools/shipping-cost-calculator.html">Shipping Cost Calculator</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+function num(v){var n=parseFloat(v);return isFinite(n)?n:0;}
+function round2(x){return Math.round(x*100)/100;}
+function stockValue(items){var s=0;for(var i=0;i<items.length;i++){s+=num(items[i].qty)*num(items[i].buy);}return round2(s);}
+function sellValue(items){var s=0;for(var i=0;i<items.length;i++){s+=num(items[i].qty)*num(items[i].sell);}return round2(s);}
+function reorderList(items){return items.filter(function(it){return num(it.qty)<=num(it.low);}).sort(function(a,b){return num(a.qty)-num(b.qty);});}
+function searchItems(items,q){q=(q==null?'':String(q)).toLowerCase();if(!q){return items.slice();}return items.filter(function(it){return String(it.name||'').toLowerCase().indexOf(q)>=0;});}
+function addItem(items,item){var maxId=0;for(var i=0;i<items.length;i++){if(items[i].id>maxId){maxId=items[i].id;}}var next={id:maxId+1,name:item.name,qty:item.qty,low:item.low,buy:item.buy,sell:item.sell};return items.concat([next]);}
+function removeItem(items,id){return items.filter(function(it){return it.id!==id;});}
+window.TB={stockValue:stockValue,sellValue:sellValue,reorderList:reorderList,searchItems:searchItems,addItem:addItem,removeItem:removeItem};
+if(typeof document!=='undefined'){
+function copyText(text, btn){function done(){var old=btn.textContent;btn.textContent='Copied!';setTimeout(function(){btn.textContent=old;},2000);}function fallback(){var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done();}catch(e){}document.body.removeChild(ta);}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done).catch(fallback);}else{fallback();}}
+  var KEY='tb-inventory-management-tool';
+  var items=[];
+  try{var saved=localStorage.getItem(KEY);if(saved){var parsed=JSON.parse(saved);if(parsed&&parsed.length!==undefined){items=parsed;}}}catch(e){items=[];}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(items));}catch(e){}}
+  var wrapEl=document.getElementById('stock-wrap');
+  var totalsEl=document.getElementById('stock-totals');
+  var reorderEl=document.getElementById('reorder-out');
+  var searchEl=document.getElementById('b4-search');
+  var removeSel=document.getElementById('b4-remove');
+  var msgEl=document.getElementById('add-msg');
+  function render(){
+    var shown=searchItems(items,searchEl.value);
+    wrapEl.innerHTML='';
+    if(shown.length===0){
+      var empty=document.createElement('p');
+      empty.className='note';
+      empty.textContent=items.length===0?'No products yet. Add your first product above.':'No products match your search.';
+      wrapEl.appendChild(empty);
+    }else{
+      var scroller=document.createElement('div');
+      scroller.style.overflowX='auto';
+      var table=document.createElement('table');
+      var head=document.createElement('tr');
+      ['Product','Qty','Low','Buy','Sell'].forEach(function(h){var th=document.createElement('th');th.textContent=h;head.appendChild(th);});
+      table.appendChild(head);
+      shown.forEach(function(it){
+        var tr=document.createElement('tr');
+        if(num(it.qty)<=num(it.low)){tr.className='low';}
+        [it.name,it.qty,it.low,it.buy,it.sell].forEach(function(c){var td=document.createElement('td');td.textContent=String(c);tr.appendChild(td);});
+        table.appendChild(tr);
+      });
+      scroller.appendChild(table);
+      wrapEl.appendChild(scroller);
+    }
+    totalsEl.textContent='Stock value at buy price: '+stockValue(items)+' \u00b7 at sell price: '+sellValue(items)+' \u00b7 '+items.length+' products';
+    var re=reorderList(items);
+    if(re.length===0){
+      reorderEl.textContent='Nothing to reorder. Every product is above its low-stock level.';
+    }else{
+      var lines=['To reorder (lowest first):'];
+      re.forEach(function(it){lines.push(it.name+' \u2014 '+it.qty+' left, low level '+it.low);});
+      reorderEl.textContent=lines.join('\n');
+    }
+    removeSel.innerHTML='';
+    if(items.length===0){
+      var opt0=document.createElement('option');
+      opt0.value='';
+      opt0.textContent='No products yet';
+      removeSel.appendChild(opt0);
+    }else{
+      items.forEach(function(it){var opt=document.createElement('option');opt.value=String(it.id);opt.textContent=it.name;removeSel.appendChild(opt);});
+    }
+  }
+  document.getElementById('add-btn').addEventListener('click',function(){
+    var name=document.getElementById('b4-name').value.trim();
+    var qty=parseFloat(document.getElementById('b4-qty').value);
+    var low=parseFloat(document.getElementById('b4-low').value);
+    var buy=parseFloat(document.getElementById('b4-buy').value);
+    var sell=parseFloat(document.getElementById('b4-sell').value);
+    if(!name){msgEl.textContent='Type a product name first.';return;}
+    if(!isFinite(qty)||qty<0){msgEl.textContent='Type a quantity of 0 or more.';return;}
+    if(!isFinite(low)||low<0){low=0;}
+    if(!isFinite(buy)||buy<0){buy=0;}
+    if(!isFinite(sell)||sell<0){sell=0;}
+    items=addItem(items,{name:name,qty:qty,low:low,buy:buy,sell:sell});
+    save();
+    render();
+    msgEl.textContent='Added '+name+'.';
+    document.getElementById('b4-name').value='';
+    document.getElementById('b4-qty').value='';
+  });
+  searchEl.addEventListener('input',render);
+  document.getElementById('remove-btn').addEventListener('click',function(){
+    var id=parseInt(removeSel.value,10);
+    if(!isFinite(id)){msgEl.textContent='There is nothing to remove yet.';return;}
+    var removed=null;
+    items.forEach(function(it){if(it.id===id){removed=it;}});
+    items=removeItem(items,id);
+    save();
+    render();
+    msgEl.textContent=removed?'Removed '+removed.name+'.':'Removed.';
+  });
+  document.getElementById('copy-btn').addEventListener('click',function(){
+    var btn=document.getElementById('copy-btn');
+    if(items.length===0){msgEl.textContent='Your stock list is empty, so there is nothing to copy yet.';return;}
+    var lines=['My stock list (ToolBari Inventory Management Tool):'];
+    items.forEach(function(it){lines.push(it.name+' \u2014 qty '+it.qty+', low '+it.low+', buy '+it.buy+', sell '+it.sell);});
+    lines.push('Stock value at buy price: '+stockValue(items));
+    lines.push('Stock value at sell price: '+sellValue(items));
+    copyText(lines.join('\n'),btn);
+  });
+  render();
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dropshipping Profit Calculator — Work Out Your Real Profit Per Order | ToolBari</title>
+<meta name="description" content="Work out your real dropshipping profit free — product cost, shipping, platform fees and ad cost, per order and per month. No signup, works on phone.">
+<link rel="canonical" href="https://toolbari.github.io/tools/dropshipping-profit-calculator.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dropshipping Profit Calculator — Work Out Your Real Profit Per Order">
+<meta property="og:description" content="Work out your real dropshipping profit free — product cost, shipping, platform fees and ad cost, per order and per month. No signup, works on phone.">
+<meta property="og:url" content="https://toolbari.github.io/tools/dropshipping-profit-calculator.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is a good profit margin for dropshipping?","acceptedAnswer":{"@type":"Answer","text":"A margin of 20 percent or more gives you room to pay for ads, cover returns and still keep something. A margin between 10 and 20 percent can work if your ad cost is low and you sell in volume, but it leaves little room for mistakes. Below 10 percent, one return or one fee change can wipe out the profit, so most sellers either raise the price or drop the product."}},{"@type":"Question","name":"How do I work out my ad cost per order?","acceptedAnswer":{"@type":"Answer","text":"Take what you spent on ads in a week or a month and divide it by the number of orders those ads brought in. If you spent 1,000 on ads and got 20 orders, your ad cost per order is 50. Use your own real numbers, not a number from a video, because ad cost changes with the product, the audience and the season."}},{"@type":"Question","name":"Should I include shipping in the price?","acceptedAnswer":{"@type":"Answer","text":"Many sellers do, because buyers prefer to see one price with no surprise at checkout. If you include it, add the full shipping cost to your price first, then work out your profit, because free shipping is only free for the buyer. If shipping varies a lot by area, charging it separately can be safer than guessing one price for everyone."}},{"@type":"Question","name":"What if my profit is negative?","acceptedAnswer":{"@type":"Answer","text":"A negative profit means you lose money on every order, so do not run ads for that product until the numbers change. Raise the selling price, find a cheaper supplier, cut the ad cost, or drop the product. The calculator shows your break-even price, which is the lowest price that covers all your costs, so use that as your starting point."}},{"@type":"Question","name":"How many orders do I need to make ৳10,000 a month?","acceptedAnswer":{"@type":"Answer","text":"It depends on your profit per order. In the worked example on this page, each order makes ৳245, so you need about 41 orders a month to reach ৳10,000. If your profit per order is smaller, you need more orders, and if it is bigger, you need fewer. Type your own numbers into the calculator and divide your target by your profit per order."}},{"@type":"Question","name":"Are marketplace fees the same everywhere?","acceptedAnswer":{"@type":"Answer","text":"No. Every marketplace sets its own fee, and the same marketplace can charge different rates for different product types. Some charge a percentage of the sale, some add a fixed charge per order, and some do both. Always check the fee page of the marketplace you actually sell on, and type that exact percentage into the calculator."}}]}</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>.calc button{min-height:72px;width:100%;border:none;border-radius:999px;background:#0b7a4b;color:#fff;font-weight:700;font-size:17px;padding:13px 22px;cursor:pointer;margin-top:14px}
+.calc input,.calc select{min-height:72px}
+.calc textarea{min-height:120px;width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;font-family:inherit}
+.calc .out{white-space:normal}
+table{border-collapse:collapse;width:100%;font-size:15px;margin:10px 0}
+th,td{border:1px solid #cbd5e1;padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#e8f7ef}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Dropshipping Profit Calculator</h1>
+<p class="answer">Enter your selling price, your costs and your fees, and this calculator works out your real profit on every order, your margin and your monthly total. It shows the numbers plainly, so you can see whether a product is worth selling before you spend money on ads.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<p><strong>Work out your profit</strong></p>
+<p class="note">Type in your real numbers, then press the button. All amounts are plain numbers.</p>
+<label for="b1-price">Selling price per order</label>
+<input id="b1-price" type="number" inputmode="decimal" value="900">
+<label for="b1-cost">Product cost per order</label>
+<input id="b1-cost" type="number" inputmode="decimal" value="500">
+<label for="b1-shipping">Shipping cost per order</label>
+<input id="b1-shipping" type="number" inputmode="decimal" value="60">
+<label for="b1-fee">Platform fee (%)</label>
+<input id="b1-fee" type="number" inputmode="decimal" value="5">
+<label for="b1-ad">Ad cost per order</label>
+<input id="b1-ad" type="number" inputmode="decimal" value="50">
+<label for="b1-orders">Orders per month</label>
+<input id="b1-orders" type="number" inputmode="decimal" value="20">
+<button id="calc-btn" type="button">Work out my profit</button>
+<div class="out" id="calc-out"></div>
+<div class="steps" id="calc-steps"></div>
+<button id="copy-btn" type="button">Copy results</button>
+</div>
+<div class="warn">These are your numbers, worked out from what you type in. Check the real platform fees and shipping prices before you spend money, because fees change and a wrong fee makes the whole answer wrong.</div>
+<h2>How to use the calculator</h2>
+<p>Start with the numbers you already know. Type in the price you sell the product for, what you pay the supplier for it, what shipping costs you per order, the percentage fee your platform takes, and what your ads cost you for each order. Then type in how many orders you expect in a month. Press the button, and the calculator shows your profit on each order, your margin, your monthly profit, and the lowest price you can charge without losing money.</p>
+<p>The numbers you type in should be your real numbers, not guesses from a video or a forum. Your supplier price is on your invoice. Your shipping cost is what the courier charges you. Your platform fee is on the fee page of the marketplace you sell on. Your ad cost per order comes from your own ad account: what you spent divided by the orders it brought in. Real numbers give a real answer. Guessed numbers give a comforting answer that falls apart the first time a real order arrives.</p>
+<p>Run the calculator for every product before you spend money advertising it. A product that looks profitable at a glance can turn out to lose money once the fees and the ad cost are counted, and it is far cheaper to find that out here than to find it out after a week of paid ads.</p>
+<h2>The costs beginners forget</h2>
+<p>Most beginners count two costs: what they pay the supplier and what they charge the buyer. The gap between those two numbers feels like profit, but it is not. The real costs of a dropshipping order are longer than that, and the forgotten ones are the ones that eat the profit.</p>
+<p>Returns are the biggest forgotten cost. Some buyers change their mind, some receive a damaged item, and some never collect their parcel. Every return costs you shipping, and sometimes a restocking fee, and the sale that looked profitable turns into a loss. Even a return rate of one order in twenty changes your real profit, and in some product types the rate is much higher than that.</p>
+<p>Platform fees are the second forgotten cost. Marketplaces charge a percentage of the sale price, and some add a fixed charge per order on top. Payment processors take their own cut when the buyer pays. These fees come off the selling price, not off the profit, so a 5 percent fee on a 900 sale is 45 gone before you have paid for anything else. Always check the fee page of the platform you sell on, because fees change, and a fee you remembered from last year may not be the fee you pay today.</p>
+<p>Ad cost is the third. Many sellers count their ad spend as a separate budget and forget that it comes out of the same profit. If you spend 50 in ads to get one order, that 50 is a cost of that order, exactly like the product cost. Add it to the calculator and let the numbers speak.</p>
+<h2>A worked example with real numbers</h2>
+<p>Take a product that costs ৳500 from the supplier. You sell it for ৳900. Shipping costs ৳60 for each order, the marketplace takes a 5 percent fee, which is ৳45 on a ৳900 sale, and your ads cost ৳50 for each order. Now add up everything the order costs you: 500 for the product, plus 60 for shipping, plus 45 for the fee, plus 50 for ads. That comes to 655. Take that from the selling price: 900 minus 655 leaves ৳245 of profit on each order.</p>
+<p>The margin is the profit divided by the selling price. Here it is 245 divided by 900, which is 27.2 percent. That is a healthy margin: it leaves room for a return now and then, for a small rise in ad cost, and for the odd fee change, without turning the order into a loss. At 20 orders a month, the monthly profit is 20 times 245, which is ৳4,900.</p>
+<p>The break-even price is the lowest price that covers all your costs. Here it is about ৳642. Sell at 642 and you make nothing, but you lose nothing either. Sell below 642 and every order costs you money, no matter how many orders you get. Knowing that number before you set a price is the whole point of this calculator: it draws the line between a price that works and a price that quietly loses money.</p>
+<p>Now change one number and watch what happens. If the ad cost rises from 50 to 150 per order, the profit falls from 245 to 145, and the margin drops to 16.1 percent. The product is still profitable, but the room for error is much smaller. If the ad cost rises to 300, the profit falls to 5 per order, which is barely worth the effort. Small changes in cost make big changes in profit, which is why the calculator is worth running every time a cost changes.</p>
+<h2>What a good profit margin looks like</h2>
+<p>A margin of 20 percent or more is a good place to be. It gives you room to pay for ads, to absorb the occasional return, and to keep something at the end of the month. Many successful sellers aim for 25 to 30 percent, because the costs they cannot predict, such as a fee rise or a bad week of ads, come out of that margin.</p>
+<p>A margin between 10 and 20 percent can still work, but it needs care. It works best when your ad cost is low, your return rate is low, and you sell enough orders for the small profit on each one to add up. It does not work well when any of those things goes wrong, so keep a close eye on the numbers and be ready to raise the price or cut the ad cost.</p>
+<p>A margin below 10 percent is a warning sign. One return, one fee change, or one expensive week of ads can wipe out the profit on many orders at once. If your margin is that thin, the honest choices are to raise the price, find a cheaper supplier, cut the ad cost, or stop selling that product. Selling more orders at a tiny margin does not fix the problem. It just multiplies a small profit into a small total, and multiplies the risk along with it.</p>
+<h2>When dropshipping makes sense and when it does not</h2>
+<p>Dropshipping makes sense when you can sell a product for clearly more than it costs you to buy, ship, and advertise it, and when the supplier is reliable enough that orders arrive on time and in good condition. It suits products that are light to ship, hard to find in local shops, and easy to explain in a short ad. It suits sellers who are willing to test small, watch the numbers, and drop a product that does not pay.</p>
+<p>It does not make sense when the margin is thin and the ad cost is high, which is the case for many popular products that every other seller is advertising at the same time. It does not make sense for heavy products, because shipping eats the profit. It does not make sense for fragile products, because breakages and returns eat it instead. And it does not make sense when the supplier is slow or unreliable, because late deliveries turn into refunds, bad reviews, and buyers who never come back.</p>
+<p>The honest test is the calculator on this page. If the numbers work with your real costs, the product is worth testing. If they only work with optimistic guesses, the product is a gamble, and you should know that before you spend money on it.</p>
+<h2>How to fix a product that loses money</h2>
+<p>If the calculator says you are losing money, you have four levers to pull, and you should try them in order. The first is the price. A small price rise often fixes the numbers, because every unit of price goes straight to profit once the costs are covered. Test a higher price before you give up on a product, because buyers often accept a price that feels fair for the value they get.</p>
+<p>The second lever is the product cost. Ask your supplier for a better price, especially if you are ordering regularly, or look for another supplier who charges less for the same item. A small saving on every order adds up across a month of sales, and it does not ask the buyer to pay more.</p>
+<p>The third lever is the ad cost. A cheaper ad, a better audience, or a better product page can all bring the cost per order down. The fourth lever is the product itself. Some products simply do not pay at any price the market will accept, and dropping them frees your time and your money for a product that does pay.</p>
+<h2>Common mistakes</h2>
+<p>The most common mistake is counting revenue as profit. Selling 900 worth of product is not the same as earning 900. The profit is what is left after the supplier, the courier, the platform, and the ads have all been paid, and that number is always smaller than the sales number. Sellers who confuse the two feel rich while their bank balance shrinks.</p>
+<p>The second mistake is forgetting the fees. Platform fees and payment fees come off the selling price, and they are easy to overlook because they are taken automatically. Type the real fee percentage into the calculator every time, and check the fee page of your platform now and then, because fees change without warning.</p>
+<p>The third mistake is ignoring returns. Every return costs you shipping and sometimes more, and a product with a high return rate can look profitable on paper while losing money in practice. If you know your return rate, build it into your thinking: a product that returns one order in ten needs a margin that survives losing one sale in ten.</p>
+<p>The fourth mistake is scaling a product that barely makes money. More orders at a tiny margin means more work, more returns, and more risk, for a small total. Fix the margin first, then grow. A product that makes good money on ten orders a month is a better business than a product that makes almost nothing on a hundred.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>What is a good profit margin for dropshipping?</h3><p>A margin of 20 percent or more gives you room to pay for ads, cover returns and still keep something. A margin between 10 and 20 percent can work if your ad cost is low and you sell in volume, but it leaves little room for mistakes. Below 10 percent, one return or one fee change can wipe out the profit, so most sellers either raise the price or drop the product.</p></div>
+<div class="faq"><h3>How do I work out my ad cost per order?</h3><p>Take what you spent on ads in a week or a month and divide it by the number of orders those ads brought in. If you spent 1,000 on ads and got 20 orders, your ad cost per order is 50. Use your own real numbers, not a number from a video, because ad cost changes with the product, the audience and the season.</p></div>
+<div class="faq"><h3>Should I include shipping in the price?</h3><p>Many sellers do, because buyers prefer to see one price with no surprise at checkout. If you include it, add the full shipping cost to your price first, then work out your profit, because free shipping is only free for the buyer. If shipping varies a lot by area, charging it separately can be safer than guessing one price for everyone.</p></div>
+<div class="faq"><h3>What if my profit is negative?</h3><p>A negative profit means you lose money on every order, so do not run ads for that product until the numbers change. Raise the selling price, find a cheaper supplier, cut the ad cost, or drop the product. The calculator shows your break-even price, which is the lowest price that covers all your costs, so use that as your starting point.</p></div>
+<div class="faq"><h3>How many orders do I need to make ৳10,000 a month?</h3><p>It depends on your profit per order. In the worked example on this page, each order makes ৳245, so you need about 41 orders a month to reach ৳10,000. If your profit per order is smaller, you need more orders, and if it is bigger, you need fewer. Type your own numbers into the calculator and divide your target by your profit per order.</p></div>
+<div class="faq"><h3>Are marketplace fees the same everywhere?</h3><p>No. Every marketplace sets its own fee, and the same marketplace can charge different rates for different product types. Some charge a percentage of the sale, some add a fixed charge per order, and some do both. Always check the fee page of the marketplace you actually sell on, and type that exact percentage into the calculator.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/affiliate-commission-calculator.html">Affiliate Commission Calculator</a> · <a href="https://toolbari.github.io/tools/shipping-cost-calculator.html">Shipping Cost Calculator</a> · <a href="https://toolbari.github.io/tools/inventory-management-tool.html">Inventory Management Tool</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+function num(v){ var n = Number(v); return isNaN(n) ? 0 : n; }
+function round2(x){ return Math.round(x * 100) / 100; }
+function calcProfit(o){
+  var price = num(o.price), cost = num(o.cost), shipping = num(o.shipping),
+      feePct = num(o.feePct), adCost = num(o.adCost), orders = num(o.orders);
+  var fee = price * feePct / 100;
+  var perOrder = round2(price - cost - shipping - fee - adCost);
+  var marginPct = price > 0 ? Math.round(perOrder / price * 100 * 10) / 10 : 0;
+  var monthly = round2(perOrder * orders);
+  var breakEven = feePct >= 100 ? null : round2((cost + shipping + adCost) / (1 - feePct / 100));
+  var verdict = marginPct >= 20 ? 'profitable' : (marginPct >= 0 ? 'too thin' : 'losing money');
+  return {perOrder: perOrder, marginPct: marginPct, monthly: monthly, breakEven: breakEven, verdict: verdict};
+}
+function copyText(text, btn){function done(){var old=btn.textContent;btn.textContent='Copied!';setTimeout(function(){btn.textContent=old;},2000);}function fallback(){var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done();}catch(e){}document.body.removeChild(ta);}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done).catch(fallback);}else{fallback();}}
+window.TB = {calcProfit: calcProfit};
+if (typeof document !== 'undefined') {
+  document.getElementById('calc-btn').addEventListener('click', function(){
+    var r = calcProfit({
+      price: document.getElementById('b1-price').value,
+      cost: document.getElementById('b1-cost').value,
+      shipping: document.getElementById('b1-shipping').value,
+      feePct: document.getElementById('b1-fee').value,
+      adCost: document.getElementById('b1-ad').value,
+      orders: document.getElementById('b1-orders').value
+    });
+    var out = document.getElementById('calc-out');
+    var steps = document.getElementById('calc-steps');
+    var verdictText = r.verdict === 'profitable' ? 'Profitable — this product makes good money on every order.' : (r.verdict === 'too thin' ? 'Too thin — the profit is small, so one return or fee rise could wipe it out.' : 'Losing money — you lose on every order at this price.');
+    out.textContent = 'Profit per order: ' + r.perOrder.toFixed(2);
+    steps.textContent = 'Margin: ' + r.marginPct.toFixed(1) + '%\nMonthly profit: ' + r.monthly.toFixed(2) + '\nBreak-even selling price: ' + (r.breakEven === null ? 'no price covers a 100% fee' : r.breakEven.toFixed(2)) + '\n' + verdictText;
+  });
+  document.getElementById('copy-btn').addEventListener('click', function(){
+    var out = document.getElementById('calc-out');
+    var steps = document.getElementById('calc-steps');
+    if (!out.textContent) {
+      out.textContent = 'Press the calculate button first, then copy the results.';
+      return;
+    }
+    copyText(out.textContent + '\n' + steps.textContent, document.getElementById('copy-btn'));
+  });
+}
+
+</script>
+</body>
+</html>

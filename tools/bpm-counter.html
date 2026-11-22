@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BPM Counter | ToolBari</title>
+<meta name="description" content="Free BPM counter — tap along to any beat to find its tempo, or work out beats per minute from beats and time. Big tap button, works by touch on your phone.">
+<link rel="canonical" href="https://toolbari.github.io/tools/bpm-counter.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BPM Counter">
+<meta property="og:description" content="Tap the beat to find the tempo, or work BPM out from beats and time.">
+<meta property="og:url" content="https://toolbari.github.io/tools/bpm-counter.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How many taps do I need for an accurate tempo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "At least eight, and sixteen is better. The counter averages the gaps between your taps, so one early or late tap matters less in a longer run. Two taps give a number, but it is only as steady as a single gap."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does the number jump around while I tap?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because your tapping is not perfectly steady yet, or because you are tapping a different subdivision than the beat. Keep tapping for a few more beats and the average will settle. If the number is about double or half what you expected, you are tapping every note or every other beat."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which is more accurate — tapping or beats and time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Beats and time, because it uses a measured total instead of individual gaps. Count at least 30 beats with a stopwatch for a reliable figure. Tapping is faster and good enough for a quick check, especially over sixteen or more taps."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a good BPM for running?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most running coaches suggest 160 to 180 steps per minute as a target cadence. Count your steps for 30 seconds and double the number, or use the beats and time mode. Cadence is personal, so treat the range as a guide, not a rule."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use this counter for DJing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, for a quick tempo check before you mix. Tap along with the track to get its BPM, then match it to the track you are mixing into. For beatmatching by ear you still need to hear the two tracks together — the number tells you the speed, not the alignment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this counter listen to my music?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It has no microphone and no audio analysis. It measures only the taps you make and the numbers you type in. Nothing is recorded, nothing leaves your device, and the page cannot hear anything."
+      }
+    }
+  ]
+}
+</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>.calc button{min-height:72px;padding:14px 22px;border:0;border-radius:999px;font-size:17px;font-weight:700;background:#0b7a4b;color:#fff;cursor:pointer;margin:12px 6px 0 0}
+.calc button.secondary{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+.calc button.on{background:#ff9f2e;color:#1e293b}
+.calc input,.calc select,.calc textarea{min-height:72px;padding:14px 12px;font-size:17px}
+.calc textarea{min-height:110px;resize:vertical}
+.calc table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0}
+.calc th,.calc td{border:1px solid #cbd5e1;padding:8px 6px;text-align:left;vertical-align:top}
+.calc th{background:#e8f7ef}
+.calc canvas{width:100%;max-width:100%;height:auto;display:block;margin:10px 0;background:#fff;border:1px solid #cbd5e1;border-radius:8px}
+.twrap{overflow-x:auto;margin:10px 0}
+.twrap table{width:100%;border-collapse:collapse;font-size:15px}
+.twrap th,.twrap td{border:1px solid #cbd5e1;padding:8px 6px;text-align:left;vertical-align:top}
+.twrap th{background:#e8f7ef}
+.small{font-size:14.5px;color:#475569}
+.tapbtn{min-height:120px !important;font-size:24px;width:100%}
+.bignum{font-size:44px;font-weight:800;text-align:center;margin:8px 0}
+.itemrow{display:flex;gap:8px;align-items:center;margin:6px 0}
+.itemrow span{flex:1}
+.itemrow button{min-height:72px;min-width:76px;margin:0;padding:14px 10px}
+.cutbar{display:flex;height:44px;border:2px solid #0b7a4b;border-radius:6px;overflow:hidden;margin:8px 0 2px}
+.meter{position:relative;height:28px;background:#e2e8f0;border-radius:999px;margin:10px 0;overflow:hidden}
+.meter i{position:absolute;top:0;bottom:0;width:4px;background:#0b7a4b;left:50%}
+.notegrid{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.notegrid button{margin:0;min-width:64px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>BPM Counter</h1>
+<p class="answer">Find the tempo of any music by tapping along with the beat. Tap the big button in time with the music to see the beats per minute, or enter a number of beats and the time they took to work the tempo out exactly.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+<p class="small">Tap the big button in time with the beat. The counter averages your taps and shows the tempo.</p>
+<button id="tap-btn" class="tapbtn" type="button">TAP</button>
+<div class="bignum" id="bpm-out" aria-live="polite">— BPM</div>
+<div class="steps" id="tap-info">Tap at least twice to start.</div>
+<button id="reset-btn" class="secondary" type="button">Reset taps</button>
+<label for="beats">Or work it out from beats and time — number of beats</label>
+<input id="beats" type="number" min="1" step="any" placeholder="For example 120">
+<label for="seconds">Time those beats took, in seconds</label>
+<input id="seconds" type="number" min="0.1" step="any" placeholder="For example 60">
+<button id="calc-btn" type="button">Work out BPM</button>
+<button id="copy-btn" class="secondary" type="button">Copy result</button>
+<div class="out" id="out" aria-live="polite"></div>
+<div class="steps" id="steps"></div>
+<p class="small">BPM = beats / seconds x 60. Tap tempo uses the average gap between your taps; a pause of more than 3 seconds starts a fresh count.</p>
+</div>
+<div class="warn">Tap tempo measures your tapping, not the music itself — a steady hand gives a steady number. Tap for at least eight beats, and use the beats and time mode when you need an exact figure.</div>
+<h2>How to use this counter</h2><p>There are two ways to find a tempo here. The first is tapping: press the big TAP button in time with the beat, once per beat, and the counter averages the gaps between your taps to give the beats per minute. The second is arithmetic: count a number of beats, time how long they take, and enter both numbers for an exact figure.</p><p>Tapping needs at least two taps before it can show anything, and it gets steadier the longer you tap. Eight to sixteen taps give a much better reading than three, because one early or late tap matters less in a longer average. If you pause for more than three seconds, the counter starts fresh, so a break does not drag the average down.</p><p>The beats and time mode is the exact one. Count 30 beats with a stopwatch, or count the beats in a full minute and enter 60 seconds — the formula is the same either way. Use it when you need a number you can trust, such as setting a metronome or matching two tracks.</p><h2>What BPM means</h2><p>BPM stands for beats per minute: how many beats happen in sixty seconds. A song at 60 BPM has one beat per second; a song at 120 BPM has two. The beat is the pulse you would tap your foot to, not necessarily every note — a fast song can have a slow beat with many notes between the pulses.</p><p>Tempo is one of the first things a musician agrees on, because it sets the feel of everything else. The same melody at 80 BPM sounds like a ballad and at 160 BPM sounds like a race. DJs, runners, dancers and music teachers all use BPM because it is a single number everyone can share and check.</p><p>BPM is a rate, not a mood. A slow song can be energetic and a fast song can be calm — the tempo is only the speed of the pulse. What makes a song feel fast or slow is the tempo plus the rhythm, the arrangement and the way the notes are played.</p><h2>Worked example: counting a song</h2><p>Suppose you count 30 beats of a song and they take 15 seconds. The tempo is 30 divided by 15 times 60, which is 120 BPM — two beats per second. That is a very common pop tempo, and the kind of number you will see again and again.</p><p>Now suppose you tap along instead. Your taps land 500 milliseconds apart on average — half a second per beat. The tempo is 60,000 divided by 500, which is 120 BPM again. The two methods agree because they measure the same thing: the tap method averages the gaps, and the counting method divides the total.</p><p>A shorter count is less reliable. Counting 8 beats in 4 seconds also gives 120 BPM, but a half-second error in your timing changes the answer by 15 BPM. Counting 30 beats or more shrinks that error, which is why the counter rewards patience.</p><h2>Tapping accurately</h2><p>Tap with the beat, not ahead of it. The most common error is tapping slightly early, because you anticipate the next beat instead of waiting for it. Listen for the beat, then tap — your finger should land on the sound, not before it. If you are consistently early, the tempo reads fast; if you are consistently late, it reads slow.</p><p>Tap the main pulse, not every note. In a song with a busy drum pattern, the beat is usually the kick drum or the strongest pulse, not every hi-hat. If your taps give a tempo twice what you expected, you are probably tapping eighth notes instead of quarter notes — tap every other note and the number will halve.</p><p>Use a surface, not the air. Tapping on a table or on the phone screen gives a clear moment of contact; tapping in the air makes the timing vague. On a phone, tap the button with the same finger each time, and hold the phone still so a wobble does not add a false tap.</p><h2>Common tempos</h2><p>Tempos cluster in familiar ranges, and knowing them helps you check whether your count is sensible. The table below gives the typical ranges for common styles — they are broad guides, not rules, and plenty of songs sit outside them.</p><div class="twrap"><table><tr><th>Style or use</th><th>Typical BPM</th></tr><tr><td>Slow ballad</td><td>60–80</td></tr><tr><td>Relaxed pop</td><td>80–100</td></tr><tr><td>Mainstream pop</td><td>100–130</td></tr><tr><td>Dance and house</td><td>120–130</td></tr><tr><td>Rock</td><td>110–140</td></tr><tr><td>Fast rock and punk</td><td>140–180</td></tr><tr><td>Running cadence</td><td>160–180 steps per minute</td></tr></table></div><p>If your count lands far outside the range you expected, check whether you tapped twice per beat or once per two beats. Doubling and halving are the most common tempo errors, and both are easy to make: a 120 BPM song tapped on every eighth note reads as 240, and tapped on every other beat reads as 60.</p><h2>Using BPM for practice and running</h2><p>Musicians use BPM to practise at a steady speed and to speed up gradually. Set a metronome to the tempo you can play cleanly, practise until it feels easy, then raise it by a few BPM at a time. Jumping straight to full speed teaches mistakes; climbing in small steps teaches control.</p><p>Runners use steps per minute, which is the same idea as BPM for feet. A cadence of 160 to 180 steps per minute is a common target, and music at that tempo can help you hold the pace. Count your steps for 30 seconds, double the number, and you have your cadence — the beats and time mode does the same sum.</p><p>Dancers and fitness instructors build whole routines around BPM, because a shared tempo keeps a group together. If you teach a class, knowing the tempo of your music lets you plan the warm-up, the peak and the cool-down instead of guessing.</p><h2>Matching two songs by tempo</h2><p>Matching two songs by tempo starts with knowing both numbers. Tap each song, or count beats against a stopwatch, and write the two tempos down. If they are within a few BPM of each other, a small speed adjustment on one track will bring them together; if they are far apart, doubling or halving one tempo may line them up — a 70 BPM song and a 140 BPM song share a pulse, because every beat of the slow song matches two beats of the fast one.</p><p>The beat is what must match, not just the number. Two songs at 120 BPM still sound wrong together if their downbeats land at different moments, so listen for the strongest beat of each song and line those up. Count in fours if the music is in four-four time: one, two, three, four, with the first beat the strongest. When the ones land together, the songs are locked.</p><p>Small differences matter more than they look. Two songs 2 BPM apart drift by one beat every thirty seconds, which is enough to ruin a mix within a minute. Check the tempo of each song over a long count — thirty beats or more — so the numbers are exact, and adjust the faster song down rather than the slower song up if you want the mix to keep its energy.</p><h2>Common mistakes</h2><p>The first mistake is tapping too few beats. Two taps give a tempo, but one shaky gap decides it. Tap for at least eight beats, and sixteen if the tempo matters.</p><p>The second mistake is tapping the wrong subdivision — every note instead of every beat, or every other beat instead of every beat. If the number looks doubled or halved compared with what you expected, change which notes you tap.</p><p>The third mistake is trusting a single count. Count the same song twice, or tap it once and count it once, and compare. If the two numbers disagree by more than a few BPM, count a longer stretch.</p><h2>What this counter cannot do</h2><p>This counter cannot listen to music. It has no microphone and no audio analysis — it measures the taps you make and the numbers you enter, nothing more. If you want a tool that detects tempo from a recording, that is a different kind of software, and this page does not pretend to be it.</p><p>It also cannot tell you the time signature, the key, or which beat is the downbeat. It gives you one number — the speed of the pulse — and leaves the music to you.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>How many taps do I need for an accurate tempo?</h3><p>At least eight, and sixteen is better. The counter averages the gaps between your taps, so one early or late tap matters less in a longer run. Two taps give a number, but it is only as steady as a single gap.</p></div><div class="faq"><h3>Why does the number jump around while I tap?</h3><p>Because your tapping is not perfectly steady yet, or because you are tapping a different subdivision than the beat. Keep tapping for a few more beats and the average will settle. If the number is about double or half what you expected, you are tapping every note or every other beat.</p></div><div class="faq"><h3>Which is more accurate — tapping or beats and time?</h3><p>Beats and time, because it uses a measured total instead of individual gaps. Count at least 30 beats with a stopwatch for a reliable figure. Tapping is faster and good enough for a quick check, especially over sixteen or more taps.</p></div><div class="faq"><h3>What is a good BPM for running?</h3><p>Most running coaches suggest 160 to 180 steps per minute as a target cadence. Count your steps for 30 seconds and double the number, or use the beats and time mode. Cadence is personal, so treat the range as a guide, not a rule.</p></div><div class="faq"><h3>Can I use this counter for DJing?</h3><p>Yes, for a quick tempo check before you mix. Tap along with the track to get its BPM, then match it to the track you are mixing into. For beatmatching by ear you still need to hear the two tracks together — the number tells you the speed, not the alignment.</p></div><div class="faq"><h3>Does this counter listen to my music?</h3><p>No. It has no microphone and no audio analysis. It measures only the taps you make and the numbers you type in. Nothing is recorded, nothing leaves your device, and the page cannot hear anything.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/guitar-tuner-online.html">Guitar Tuner Online</a> · <a href="https://toolbari.github.io/tools/musical-key-finder.html">Musical Key Finder</a> · <a href="https://toolbari.github.io/tools/body-measurement-tracker.html">Body Measurement Tracker</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+window.TB = (function () {
+
+  function num(x) {
+    if (x === null || x === undefined || x === "") return null;
+    var n = parseFloat(x);
+    return isNaN(n) ? null : n;
+  }
+  function fmt(n, d) {
+    if (n === null || n === undefined || isNaN(n)) return "—";
+    return Number(n).toLocaleString("en-US", {maximumFractionDigits: d === undefined ? 2 : d, minimumFractionDigits: d === undefined ? 0 : d});
+  }
+  function copyText(text, btn) {
+    function done() {
+      var old = btn.textContent;
+      btn.textContent = "Copied!";
+      setTimeout(function () { btn.textContent = old; }, 1600);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function () { fallbackCopy(text, btn, done); });
+    } else { fallbackCopy(text, btn, done); }
+  }
+  function fallbackCopy(text, btn, done) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta);
+    done();
+  }
+
+  function bpmFromIntervals(intervals) {
+    if (!intervals || intervals.length === 0) return null;
+    var sum = 0;
+    for (var i = 0; i < intervals.length; i++) sum += intervals[i];
+    var avg = sum / intervals.length;
+    if (!(avg > 0)) return null;
+    return 60000 / avg;
+  }
+  function bpmFromBeats(beats, seconds) {
+    var b = num(beats), s = num(seconds);
+    if (b === null || b <= 0) return {error: "Enter a number of beats above zero."};
+    if (s === null || s <= 0) return {error: "Enter a time in seconds above zero."};
+    return {bpm: b / s * 60, beats: b, seconds: s};
+  }
+  var api = { bpmFromIntervals: bpmFromIntervals, bpmFromBeats: bpmFromBeats };
+  if (typeof document !== "undefined") {
+    var taps = [];
+    var bpmOut = document.getElementById("bpm-out");
+    var tapInfo = document.getElementById("tap-info");
+    document.getElementById("tap-btn").addEventListener("click", function () {
+      var now = Date.now();
+      if (taps.length > 0 && now - taps[taps.length - 1] > 3000) taps = [];
+      taps.push(now);
+      if (taps.length < 2) {
+        tapInfo.textContent = "1 tap — keep tapping in time with the beat.";
+        return;
+      }
+      var intervals = [];
+      for (var i = 1; i < taps.length; i++) intervals.push(taps[i] - taps[i - 1]);
+      var bpm = bpmFromIntervals(intervals);
+      bpmOut.textContent = fmt(bpm, 0) + " BPM";
+      tapInfo.textContent = taps.length + " taps, average gap " + fmt(intervals.reduce(function (a, b) { return a + b; }, 0) / intervals.length, 0) + " ms";
+    });
+    document.getElementById("reset-btn").addEventListener("click", function () {
+      taps = [];
+      bpmOut.textContent = "— BPM";
+      tapInfo.textContent = "Tap at least twice to start.";
+    });
+    document.getElementById("calc-btn").addEventListener("click", function () {
+      var r = bpmFromBeats(document.getElementById("beats").value, document.getElementById("seconds").value);
+      var out = document.getElementById("out");
+      var steps = document.getElementById("steps");
+      if (r.error) { out.textContent = r.error; steps.textContent = ""; return; }
+      out.textContent = fmt(r.bpm, 1) + " BPM";
+      steps.textContent = "BPM = " + r.beats + " beats / " + r.seconds + " seconds x 60 = " + fmt(r.bpm, 1) + ".";
+    });
+    document.getElementById("copy-btn").addEventListener("click", function () {
+      var out = document.getElementById("out").textContent;
+      var steps = document.getElementById("steps").textContent;
+      var tap = bpmOut.textContent;
+      if (!out && tap === "— BPM") return;
+      copyText((out ? out + "\n" + steps : "") + (tap !== "— BPM" ? "\nTap tempo: " + tap : ""), this);
+    });
+  }
+  return api;
+})();
+</script>
+</body>
+</html>
