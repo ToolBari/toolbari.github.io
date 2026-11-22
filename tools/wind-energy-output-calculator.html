@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wind Energy Output Calculator — How Much Power Can a Turbine Make? | ToolBari</title>
+<meta name="description" content="Estimate how much electricity a small wind turbine can make from wind speed and rotor size with a free calculator.">
+<link rel="canonical" href="https://toolbari.github.io/tools/wind-energy-output-calculator.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Wind Energy Output Calculator — How Much Power Can a Turbine Make?">
+<meta property="og:description" content="Estimate how much electricity a small wind turbine can make from wind speed and rotor size with a free calculator.">
+<meta property="og:url" content="https://toolbari.github.io/tools/wind-energy-output-calculator.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much power does a small wind turbine make?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends on the wind speed and the rotor size. A 2-metre rotor at an average wind speed of 5 metres per second and 35% efficiency averages about 84 watts, or about 736 kilowatt-hours a year."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What wind speed do I need for a turbine to work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most small turbines need about 3 metres per second just to start, and they make useful power from around 5 metres per second upward. Below the cut-in speed a turbine makes nothing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does a bigger rotor always mean more power?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, for the same wind speed: power depends on the swept area, which grows with the square of the diameter. Doubling the rotor diameter quadruples the swept area and the power."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is my estimate different from the maker's figure?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Makers often quote output at a high wind speed or as a peak figure, not an average at your site's wind speed. Compare figures at the same wind speed to judge them fairly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is wind power worth it for a home?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends on your site's wind and the cost of the turbine. Run this calculator at your measured average wind speed: a small yearly figure means the money may be better spent elsewhere."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What else affects real turbine output?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The height of the turbine, nearby trees and buildings, the cut-in speed, and how much the wind varies. The estimate assumes steady average wind, which no real site has."
+      }
+    }
+  ]
+}
+</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f6f7fb;color:#1e293b;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.4px}
+.brand a{text-decoration:none}
+.brand .t{color:#0b7a4b}.brand .b{color:#ff9f2e}
+h1{font-size:28px;line-height:1.3;margin:14px 0 10px}
+.answer{background:#e8f7ef;border:1px solid #bfe6cf;border-radius:12px;padding:14px 16px;font-size:16.5px;margin:14px 0}
+.cta{display:inline-block;background:#0b7a4b;color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none;margin:10px 0 4px}
+h2{font-size:21px;margin:26px 0 8px}
+ol,ul{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.faq{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.faq h3{font-size:16.5px;margin-bottom:4px}
+.note{font-size:14px;color:#64748b}
+.links a{color:#0b7a4b}
+footer{margin-top:36px;font-size:13.5px;color:#64748b}
+body{background:linear-gradient(160deg,#e0e7ff,#fce7f3 48%,#d1fae5) fixed}
+h1{text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.answer,.faq,.calc{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:0 12px 26px rgba(30,41,59,.12),inset 0 1px 0 #fff;border-color:rgba(255,255,255,.85)}
+.cta{box-shadow:0 10px 20px rgba(11,122,75,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .12s,box-shadow .12s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(11,122,75,.3)}
+.calc{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:14px 0}
+.calc label{display:block;font-weight:600;margin:10px 0 4px;font-size:14.5px}
+.calc input,.calc select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+.calc .out{font-size:19px;font-weight:700;margin-top:14px}
+.calc .steps{font-size:15px;color:#334155;margin-top:6px;white-space:pre-line}
+.warn{background:rgba(255,251,235,.9);border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:15px}
+code{background:#eef2ff;padding:1px 5px;border-radius:5px}
+</style>
+<style>.calc button{min-height:72px;padding:14px 22px;border:0;border-radius:999px;font-size:17px;font-weight:700;background:#0b7a4b;color:#fff;cursor:pointer;margin:12px 6px 0 0}
+.calc button.sec{background:#fff;color:#0b7a4b;border:2px solid #0b7a4b}
+.calc button.danger{background:#b91c1c}
+.calc input,.calc select,.calc textarea{min-height:72px;padding:14px 12px;font-size:17px}
+.calc textarea{width:100%;border:1px solid #cbd5e1;border-radius:8px;background:#fff;min-height:110px;resize:vertical}
+.calc .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:12px 14px;margin:10px 0}
+.calc .row .grow{flex:1 1 160px}
+.calc .row button{min-height:72px;padding:14px 18px;font-size:16px;margin:0}
+.calc .chip{display:inline-block;background:#e8f7ef;border:1px solid #bfe6cf;border-radius:999px;padding:6px 12px;font-size:14px;font-weight:600;margin:2px 4px 2px 0}
+.calc .chip.bad{background:#fef2f2;border-color:#fecaca}
+.calc .chip.warnchip{background:#fffbeb;border-color:#fde68a}
+.calc .colhead{font-weight:800;font-size:16px;margin:18px 0 4px}
+.calc .hint{font-size:14.5px;color:#475569;margin-top:8px}
+.calc .err{color:#b91c1c;font-weight:700}
+.calc table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0}
+.calc th,.calc td{border:1px solid #e2e8f0;padding:10px 8px;text-align:left;vertical-align:top}
+.calc th{background:#e8f7ef}
+.scrollwrap{overflow-x:auto}
+.calc pre{white-space:pre-wrap;word-wrap:break-word;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;font-size:15px;margin:10px 0;font-family:inherit}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><a href="https://toolbari.github.io/"><span class="t">Tool</span><span class="b">Bari</span></a></div>
+<h1>Wind Energy Output Calculator</h1>
+<p class="answer">Estimate how much electricity a small wind turbine can make from your average wind speed, the rotor size and the turbine efficiency. The result is a physics-based estimate with its assumptions shown, not a promise of what a turbine will produce.</p>
+<!-- TB-AD-BLOCK -->
+<div class="calc">
+
+<label for="wind-speed">Average wind speed (metres per second)</label>
+<input id="wind-speed" type="number" min="0" step="0.1" inputmode="decimal" placeholder="e.g. 5" value="5">
+<label for="rotor-diameter">Rotor diameter (metres)</label>
+<input id="rotor-diameter" type="number" min="0" step="0.1" inputmode="decimal" placeholder="e.g. 2" value="2">
+<label for="efficiency">Efficiency (%)</label>
+<input id="efficiency" type="number" min="1" max="60" step="1" inputmode="numeric" placeholder="e.g. 35" value="35">
+<button type="button" id="calc-btn">Estimate yearly output</button>
+<p class="err" id="form-err" role="status"></p>
+<div class="out" id="out" role="status"></div>
+<div class="steps" id="steps"></div>
+<button type="button" class="sec" id="copy-btn">Copy estimate</button>
+<p class="hint">Air density is fixed at 1.225 kg per cubic metre and the year at 8,760 hours. Efficiency defaults to 35% — change it to match the turbine you are looking at.</p>
+
+</div>
+<div class="warn">Estimate only. Real output depends on the site, the turbine and the weather — the wind at your site, the height of the turbine, and how often the wind blows. Never treat an estimate as a promise, and get a proper site assessment before spending money on a turbine.</div>
+<h2>What this calculator does and who it is for</h2><p>A small wind turbine sounds simple: wind turns the blades, the blades make electricity. The hard part is knowing how much electricity — and that depends on three things you can measure or look up: how fast the wind blows where you are, how big the rotor is, and how efficiently the turbine turns wind into power. This calculator takes those three numbers and works out an estimate of the average power and the yearly energy output.</p><p>It is built for anyone thinking about a small turbine — a homeowner with land, a farmer with an exposed field, a small business with a windy site — who wants a realistic number before talking to a supplier. Suppliers quote figures measured in ideal conditions, and ideal conditions are rare. This calculator gives you the physics first, so you can judge any claim against it.</p><p>The result is an estimate, and the page says so plainly wherever the result appears. Real output depends on the site, the turbine, and the weather in ways no calculator can capture exactly: the wind varies by the hour, the turbine has a cut-in speed below which it makes nothing, and nearby trees and buildings slow the wind down. Use the estimate to decide whether wind is worth investigating further — not as a promise of what you will get.</p><h2>The inputs, explained one by one</h2><p>Average wind speed is the most important input, and the hardest to know well. It is the average speed of the wind at the height of the turbine, in metres per second, over a long period — ideally a year. A site average of 5 metres per second is a reasonable starting point for a windy site; 3 is low, and 7 is very good. If you do not know your site's average, a wind map or a local weather record gives a rough figure, and a year of measurement with a small anemometer gives a good one. Guessing is the weakest option, because the result depends on the cube of this number.</p><p>Rotor diameter is the width of the circle the blades sweep, in metres. A small home turbine might have a rotor of 2 metres; a larger one might be 4 or 5 metres. The diameter matters because the power depends on the swept area — the area of that circle — and the area grows with the square of the diameter. Doubling the diameter quadruples the swept area, which is why bigger rotors make so much more power.</p><p>Efficiency is the share of the wind's power the turbine actually turns into electricity, as a percentage. No turbine captures all the power in the wind: the theoretical limit is about 59%, and real small turbines typically manage 25% to 40%. The calculator defaults to 35%, which is a fair middle figure for a decent small turbine. If the maker states an efficiency, use theirs — but check whether it is the peak efficiency or the average, because the two are rarely the same.</p><h2>The formula and how the result is worked out</h2><p>The power in the wind follows a simple physics formula: power equals one half times the air density times the swept area times the wind speed cubed. Air density is fixed at 1.225 kilograms per cubic metre, which is the standard value for air at sea level. The swept area is the area of the circle the blades sweep: pi times the radius squared, where the radius is half the rotor diameter.</p><p>That gives the power available in the wind itself. The turbine captures only part of it, so the calculator multiplies by the efficiency you entered. The result is the average power in watts — the steady output you would get if the wind blew at the average speed all the time. It is an average, not a peak: the turbine makes more when the wind is strong and less — or nothing — when it is calm.</p><p>Yearly energy is the average power multiplied by the hours in a year: 8,760. A turbine averaging 84 watts makes about 736 kilowatt-hours in a year. The calculator also shows the monthly figure, which is the yearly total divided by twelve. Both are estimates built on the average wind speed you entered, and both move sharply if that speed is wrong — because the speed is cubed, a small error in wind speed becomes a large error in power.</p><h2>A worked example with real numbers</h2><p>Take a small turbine with a 2-metre rotor on a site with an average wind speed of 5 metres per second, at 35% efficiency. First the swept area: the radius is 1 metre, so the area is pi times 1 squared, which is 3.14 square metres. Then the power in the wind: one half times 1.225 times 3.14 times 5 cubed — 5 cubed is 125 — which comes to about 240 watts. Multiply by the efficiency of 35% and the average power is about 84 watts.</p><p>Over a year, 84 watts for 8,760 hours gives about 736 kilowatt-hours — roughly 61 kilowatt-hours a month. That is a modest amount: enough to make a real dent in a small household's electricity use, but not enough to power a whole home on its own. It is the kind of figure that tells you wind is worth investigating, not the kind that promises independence from the grid.</p><p>Now change one input and watch the result move. Raise the average wind speed from 5 to 6 metres per second and the power nearly doubles — because 6 cubed is 216 against 5 cubed at 125, the yearly output rises to about 1,270 kilowatt-hours. Or keep the wind at 5 and double the rotor to 4 metres: the swept area quadruples, and the output rises to about 2,944 kilowatt-hours. The wind speed and the rotor size are where the power lives.</p><h2>Common mistakes that give a wrong answer</h2><p>The first mistake is using a gust or a peak wind speed instead of the average. A site that sees gusts of 12 metres per second may average only 4, and the average is what matters — the turbine spends most of its time in ordinary wind, not in gusts. Use a long-term average, not the strongest wind you remember.</p><p>The second mistake is measuring the wind at the wrong height. Wind is faster higher up: the speed at rooftop height is higher than at ground level, and a turbine on a short mast sees slower wind than the same turbine on a tall one. If your wind figure comes from ground level, the estimate will be too low; if it comes from a weather station on a hill, it may be too high for your site.</p><p>The third mistake is trusting the maker's headline figure. Makers often quote the output at a high wind speed — 12 metres per second, say — that your site rarely reaches, or the peak power rather than the average. Compare figures at the same wind speed, and run this calculator at your site's average speed to see what the turbine would really do where you are. The fourth mistake is ignoring the cut-in speed: most small turbines make nothing below about 3 metres per second, so a calm site makes nothing at all.</p><h2>How to use the result in a real decision</h2><p>Use the estimate to answer one question: is wind worth investigating further at this site? If the yearly figure is small — a few hundred kilowatt-hours — the turbine will not pay for itself quickly, and the money may be better spent on insulation, efficient appliances, or solar panels. If the figure is large — several thousand kilowatt-hours — wind deserves a closer look, starting with a proper site assessment.</p><p>Before spending money, get the wind measured at the height and place where the turbine would stand, ideally for several months. Check the planning rules where you live, check what the neighbours will think of a turbine, and get quotes from more than one supplier. Ask each supplier for the expected yearly output at your measured average wind speed, and compare their answers with this calculator's estimate — a supplier whose figure is far above the physics deserves a hard question.</p><p>Finally, remember what the estimate cannot tell you: it cannot say whether the turbine will be reliable, whether it will be noisy, or whether it will last. Those answers come from the maker's record, from other owners, and from the installer's reputation. The calculator gives you the physics; the rest of the decision is homework.</p>
+<h2>Questions people ask</h2>
+<div class="faq"><h3>How much power does a small wind turbine make?</h3><p>It depends on the wind speed and the rotor size. A 2-metre rotor at an average wind speed of 5 metres per second and 35% efficiency averages about 84 watts, or about 736 kilowatt-hours a year.</p></div><div class="faq"><h3>What wind speed do I need for a turbine to work?</h3><p>Most small turbines need about 3 metres per second just to start, and they make useful power from around 5 metres per second upward. Below the cut-in speed a turbine makes nothing.</p></div><div class="faq"><h3>Does a bigger rotor always mean more power?</h3><p>Yes, for the same wind speed: power depends on the swept area, which grows with the square of the diameter. Doubling the rotor diameter quadruples the swept area and the power.</p></div><div class="faq"><h3>Why is my estimate different from the maker's figure?</h3><p>Makers often quote output at a high wind speed or as a peak figure, not an average at your site's wind speed. Compare figures at the same wind speed to judge them fairly.</p></div><div class="faq"><h3>Is wind power worth it for a home?</h3><p>It depends on your site's wind and the cost of the turbine. Run this calculator at your measured average wind speed: a small yearly figure means the money may be better spent elsewhere.</p></div><div class="faq"><h3>What else affects real turbine output?</h3><p>The height of the turbine, nearby trees and buildings, the cut-in speed, and how much the wind varies. The estimate assumes steady average wind, which no real site has.</p></div>
+<h2>More free tools on ToolBari</h2>
+<div class="links"><a href="https://toolbari.github.io/tools/home-ev-charger-installation-guide.html">Home EV Charger Installation Planner</a> · <a href="https://toolbari.github.io/tools/greenhouse-climate-planner.html">Greenhouse Climate Planner</a> · <a href="https://toolbari.github.io/tools/used-equipment-valuation-estimator.html">Used Equipment Valuation Estimator</a></div>
+<footer>© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></footer>
+</div>
+<!-- TB-MONETAG -->
+<script>
+
+window.TB = window.TB || {};
+(function () {
+  var api = window.TB;
+  var AIR_DENSITY = 1.225;
+  var HOURS_PER_YEAR = 8760;
+  function fmt(n, dp) {
+    var s = n.toFixed(dp === undefined ? 0 : dp);
+    var parts = s.split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
+  }
+  function sweptArea(diameter) {
+    var r = diameter / 2;
+    return Math.PI * r * r;
+  }
+  function avgPowerW(speed, diameter, effPct) {
+    return 0.5 * AIR_DENSITY * sweptArea(diameter) * Math.pow(speed, 3) * (effPct / 100);
+  }
+  function yearlyKwh(speed, diameter, effPct) {
+    return avgPowerW(speed, diameter, effPct) * HOURS_PER_YEAR / 1000;
+  }
+  function monthlyKwh(speed, diameter, effPct) {
+    return yearlyKwh(speed, diameter, effPct) / 12;
+  }
+  function windSummary(speed, diameter, effPct) {
+    var area = sweptArea(diameter);
+    var power = avgPowerW(speed, diameter, effPct);
+    var year = yearlyKwh(speed, diameter, effPct);
+    var month = monthlyKwh(speed, diameter, effPct);
+    var lines = [];
+    lines.push("Wind energy estimate: average wind speed " + speed + " m/s, rotor diameter " + diameter + " m, efficiency " + effPct + "%.");
+    lines.push("Swept area: " + fmt(area, 2) + " square metres.");
+    lines.push("Average power: about " + fmt(power, 0) + " watts.");
+    lines.push("Estimated yearly output: about " + fmt(year, 0) + " kWh (" + fmt(month, 0) + " kWh per month).");
+    lines.push("Formula: power = 0.5 x air density (1.225) x swept area x wind speed cubed x efficiency. Yearly energy = average power x 8,760 hours.");
+    lines.push("Estimate only — real output depends on the site, the turbine and the weather.");
+    return lines.join("\n");
+  }
+  api.sweptArea = sweptArea;
+  api.avgPowerW = avgPowerW;
+  api.yearlyKwh = yearlyKwh;
+  api.monthlyKwh = monthlyKwh;
+  api.windSummary = windSummary;
+  function el(id) { return document.getElementById(id); }
+  var currentText = "";
+  function render() {
+    var speed = parseFloat(el("wind-speed").value);
+    var diameter = parseFloat(el("rotor-diameter").value);
+    var eff = parseFloat(el("efficiency").value);
+    var err = el("form-err");
+    if (isNaN(speed) || speed < 0) { err.textContent = "Enter the average wind speed (0 or more)."; return; }
+    if (isNaN(diameter) || diameter <= 0) { err.textContent = "Enter the rotor diameter (more than 0)."; return; }
+    if (isNaN(eff) || eff <= 0 || eff > 60) { err.textContent = "Enter the efficiency as a percentage between 1 and 60."; return; }
+    err.textContent = "";
+    var area = sweptArea(diameter);
+    var power = avgPowerW(speed, diameter, eff);
+    var year = yearlyKwh(speed, diameter, eff);
+    var month = monthlyKwh(speed, diameter, eff);
+    currentText = windSummary(speed, diameter, eff);
+    el("out").textContent = "Estimated yearly output: about " + fmt(year, 0) + " kWh (" + fmt(month, 0) + " kWh per month).";
+    el("steps").textContent = "Swept area: " + fmt(area, 2) + " square metres.\nAverage power: about " + fmt(power, 0) + " watts.\nFormula: 0.5 x 1.225 x swept area x wind speed cubed x efficiency (" + eff + "%).\nEstimate only — real output depends on the site, the turbine and the weather.";
+  }
+  function copyText(text, btn) {
+    function done() {
+      var old = btn.textContent;
+      btn.textContent = "Copied!";
+      setTimeout(function () { btn.textContent = old; }, 1500);
+    }
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { fallback(); done(); });
+    } else { fallback(); done(); }
+  }
+  var calcBtn = el("calc-btn");
+  if (calcBtn) calcBtn.addEventListener("click", render);
+  var copyBtn = el("copy-btn");
+  if (copyBtn) copyBtn.addEventListener("click", function () {
+    if (!currentText) return;
+    copyText(currentText, this);
+  });
+  render();
+})();
+
+</script>
+</body>
+</html>
