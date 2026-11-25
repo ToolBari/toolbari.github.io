@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#05080a">
+<meta name="color-scheme" content="dark" />
+<title>Alhamdulillah — All Praise Is for Allah | ToolBari</title>
+<meta name="description" content="Alhamdulillah means All praise is for Allah. Say it 33 times after every prayer and after eating and drinking — it fills the Scale. Sahih Muslim 223.">
+<link rel="canonical" href="https://toolbari.github.io/tools/alhamdulillah.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Alhamdulillah — All Praise Is for Allah">
+<meta property="og:description" content="Alhamdulillah means All praise is for Allah. Say it 33 times after every prayer and after eating and drinking — it fills the Scale. Sahih Muslim 223.">
+<meta property="og:url" content="https://toolbari.github.io/tools/alhamdulillah.html">
+<script>try{var _tbT=localStorage.getItem('tb_dark');if(_tbT==='0'){document.documentElement.setAttribute('data-tb-theme','light');}else{document.documentElement.removeAttribute('data-tb-theme');}var _m=document.querySelector('meta[name="color-scheme"]');if(_m){_m.setAttribute('content',_tbT==='0'?'light':'dark');}}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --bg:#05080a;
+    --bg2:#070d0a;
+    --panel:#0b120e;
+    --panel2:#0d1712;
+    --line:rgba(255,255,255,.08);
+    --line-soft:rgba(255,255,255,.055);
+    --text:#f2f5f1;
+    --muted:#9db0a4;
+    --muted2:#6f8377;
+    --green:#2fe38a;
+    --green2:#5cf2a6;
+    --green-deep:#0e3d26;
+    --amber:#ffb020;
+    --radius:24px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:"Outfit",system-ui,-apple-system,"Segoe UI",sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  .mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+
+  /* ---------- background art: the green line ---------- */
+  .bg-art{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .bg-art::before{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(900px 600px at 88% -10%, rgba(24,120,66,.38), transparent 60%),
+      radial-gradient(700px 500px at 55% 45%, rgba(16,84,46,.16), transparent 65%),
+      radial-gradient(600px 500px at -10% 90%, rgba(10,60,34,.20), transparent 60%);
+  }
+  .bg-line{
+    position:absolute;top:-30%;right:16%;width:14px;height:170%;
+    background:linear-gradient(180deg, rgba(47,227,138,0), #1d9e5f 18%, #2fe38a 50%, #1d9e5f 82%, rgba(47,227,138,0));
+    transform:rotate(16deg);border-radius:99px;opacity:.85;
+    box-shadow:0 0 42px rgba(47,227,138,.35);
+  }
+  .bg-line.thin{right:calc(16% + 26px);width:5px;opacity:.45}
+  .bg-dots{position:absolute;inset:0;opacity:.5;
+    background-image:radial-gradient(rgba(255,210,120,.35) 1px, transparent 1.4px),radial-gradient(rgba(120,255,190,.28) 1px, transparent 1.4px);
+    background-size:340px 340px, 520px 520px;background-position:40px 90px, 190px 260px;}
+  main,footer,header.site-nav-wrap{position:relative;z-index:1}
+
+  .wrap{max-width:1128px;margin:0 auto;padding:0 24px}
+
+  /* ---------- nav ---------- */
+  .site-nav-wrap{position:sticky;top:14px;z-index:50;margin-top:14px}
+  .nav{
+    display:flex;align-items:center;gap:34px;
+    height:60px;padding:6px 8px 6px 20px;
+    background:rgba(13,22,17,.72);
+    border:1px solid var(--line);
+    border-radius:999px;
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    box-shadow:0 18px 40px rgba(0,0,0,.35);
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px;letter-spacing:-.02em;white-space:nowrap}
+  .brand-mark{width:30px;height:30px;border-radius:9px;background:var(--green-deep);display:grid;place-items:center;flex:none}
+  .brand-mark::after{content:"";width:14px;height:3px;border-radius:2px;background:var(--green)}
+  .nav-links{display:flex;gap:30px;margin:0 auto}
+  .nav-links a{font-size:15px;color:#c9d6cd;padding:10px 2px}
+  .nav-links a:hover{color:#fff}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    border-radius:999px;font-weight:600;font-size:15.5px;cursor:pointer;border:1px solid transparent;
+    padding:0 24px;min-height:48px;white-space:nowrap;transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-green{background:linear-gradient(180deg,var(--green2),var(--green));color:#04150b;box-shadow:0 10px 28px rgba(47,227,138,.28)}
+  .btn-green:hover{transform:translateY(-1px)}
+  .btn-ghost{background:rgba(255,255,255,.04);border-color:var(--line);color:#eef4ef}
+  .btn-ghost:hover{background:rgba(255,255,255,.08)}
+  .btn-sm{min-height:44px;padding:0 20px;font-size:14.5px}
+  .nav .btn{min-height:46px}
+  .menu-btn{display:none;margin-left:auto;width:46px;height:46px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:#fff;font-size:19px;cursor:pointer}
+  .mobile-menu{display:none;margin-top:10px;background:rgba(13,22,17,.94);border:1px solid var(--line);border-radius:20px;padding:10px;backdrop-filter:blur(14px)}
+  .mobile-menu.open{display:block}
+  .mobile-menu a{display:flex;align-items:center;min-height:48px;padding:0 14px;border-radius:12px;font-size:16px;color:#dfe9e1}
+  .mobile-menu a:hover{background:rgba(255,255,255,.05)}
+
+  /* ---------- hero ---------- */
+  .hero{padding:104px 0 84px}
+  .hero-grid{display:grid;grid-template-columns:1.22fr .78fr;gap:48px;align-items:start}
+  .eyebrow{
+    display:flex;align-items:center;gap:12px;
+    font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.34em;
+    color:var(--green);text-transform:uppercase;margin:0 0 26px;
+  }
+  .eyebrow::before{content:"";width:22px;height:2px;background:var(--green);border-radius:2px;flex:none}
+  h1{
+    margin:0;font-size:clamp(56px,7.6vw,106px);line-height:.99;
+    letter-spacing:-.032em;font-weight:700;
+  }
+  h1 .under{position:relative;display:inline-block;white-space:nowrap}
+  h1 .under::after{
+    content:"";position:absolute;left:2px;right:2px;bottom:6px;height:9px;
+    background:var(--green);border-radius:99px;
+  }
+  .hero-sub{margin:30px 0 0;font-size:18.5px;line-height:1.55;color:var(--muted);max-width:560px;font-weight:400}
+  .hero-cta{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
+  .hero-cta .btn{min-height:54px;padding:0 28px;font-size:16px}
+  .hero-side{display:flex;flex-direction:column;gap:18px;padding-top:118px}
+  .glass-card{
+    border-radius:var(--radius);border:1px solid rgba(140,255,195,.16);
+    background:linear-gradient(150deg, rgba(23,64,40,.85), rgba(9,26,16,.92));
+    box-shadow:0 30px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08);
+    padding:26px 28px;
+  }
+  .glass-card .k{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.3em;color:var(--green2);text-transform:uppercase;margin:0 0 12px}
+  .glass-card .big{font-size:66px;font-weight:700;letter-spacing:-.03em;line-height:1;display:flex;align-items:baseline;gap:2px}
+  .glass-card .big .x{color:var(--amber);font-size:52px;font-weight:800}
+  .glass-card .sub{color:#b9cdc0;font-size:15px;margin:10px 0 0}
+  .spark{margin-top:20px;width:100%;height:44px;display:block}
+  .live-card{
+    border-radius:22px;border:1px solid var(--line);
+    background:rgba(13,20,16,.82);backdrop-filter:blur(10px);
+    padding:20px 22px;box-shadow:0 24px 50px rgba(0,0,0,.4);
+    margin-right:56px;
+  }
+  .live-card .k{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.26em;color:var(--green2);text-transform:uppercase;display:flex;align-items:center;gap:8px;margin:0 0 8px}
+  .live-dot{width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 4px rgba(255,176,32,.15);flex:none}
+  .live-card h3{margin:0 0 12px;font-size:19px;font-weight:600;letter-spacing:-.01em}
+  .chips{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.08em;padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:#d7e4da}
+
+  /* ---------- trust strip ---------- */
+  .trust{border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);padding:34px 0 30px;margin-top:26px}
+  .trust .k{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.32em;color:var(--muted2);text-transform:uppercase;text-align:center;margin:0 0 20px}
+  .trust-names{display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap}
+  .trust-names span{font-size:20px;font-weight:600;color:#aebfb3;letter-spacing:-.01em;white-space:nowrap}
+  .platforms{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:26px;justify-content:center}
+  .platforms .lbl{font-size:13.5px;color:var(--muted2);margin-right:6px}
+  .plat{font-size:13.5px;padding:9px 15px;border:1px solid var(--line-soft);border-radius:999px;color:#c4d3c8;background:rgba(255,255,255,.02)}
+
+  /* ---------- sections ---------- */
+  section.block{padding:104px 0 0}
+  .sec-head{max-width:720px}
+  .sec-head h2{margin:0;font-size:clamp(34px,4.4vw,46px);line-height:1.12;letter-spacing:-.025em;font-weight:700}
+  .sec-head p{margin:16px 0 0;font-size:17.5px;line-height:1.55;color:var(--muted)}
+
+  /* why list */
+  .why-list{margin-top:52px;border-top:1px solid var(--line-soft)}
+  .why-row{
+    display:grid;grid-template-columns:52px 1fr 1.2fr;gap:22px;align-items:center;
+    padding:26px 6px;border-bottom:1px solid var(--line-soft);
+  }
+  .why-ico{width:46px;height:46px;border-radius:14px;background:var(--panel2);border:1px solid var(--line-soft);display:grid;place-items:center;color:var(--green)}
+  .why-ico svg{width:22px;height:22px}
+  .why-row h3{margin:0;font-size:19px;font-weight:600;letter-spacing:-.01em}
+  .why-row p{margin:0;font-size:16px;line-height:1.55;color:var(--muted)}
+
+  /* tools grid */
+  .tool-search{margin-top:40px;display:flex;gap:12px;flex-wrap:wrap}
+  .tool-search input{
+    flex:1 1 280px;min-height:52px;border-radius:999px;border:1px solid var(--line);
+    background:rgba(255,255,255,.03);color:#fff;padding:0 22px;font-size:16px;font-family:inherit;outline:none;
+  }
+  .tool-search input:focus{border-color:rgba(47,227,138,.55);box-shadow:0 0 0 4px rgba(47,227,138,.12)}
+  .tool-search input::placeholder{color:var(--muted2)}
+  .tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:26px}
+  .tool-card{
+    background:linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,0)), var(--panel);
+    border:1px solid var(--line-soft);border-radius:20px;padding:28px;
+    display:flex;flex-direction:column;gap:0;
+  }
+  .tool-card .tag{font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.14em;color:var(--green2);margin:0 0 14px}
+  .tool-card h3{margin:0 0 10px;font-size:22px;font-weight:600;letter-spacing:-.015em}
+  .tool-card p{margin:0 0 20px;font-size:15.5px;line-height:1.55;color:var(--muted);flex:1}
+  .tool-card .explore{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:#fff;min-height:44px;width:fit-content}
+  .tool-card .explore .arr{color:var(--green);transition:transform .15s ease}
+  .tool-card .explore:hover .arr{transform:translateX(4px)}
+  .no-result{display:none;margin-top:22px;color:var(--muted);font-size:16px}
+  .full-link{
+    margin-top:22px;display:flex;align-items:center;justify-content:space-between;gap:16px;
+    border:1px solid var(--line-soft);border-radius:20px;padding:22px 26px;background:rgba(255,255,255,.02);
+    min-height:44px;
+  }
+  .full-link b{font-size:17px;font-weight:600}
+  .full-link span{color:var(--muted);font-size:14.5px;display:block;margin-top:3px}
+  .full-link .arr{font-size:22px;color:var(--green);flex:none}
+
+  /* stats */
+  .stats-panel{
+    margin-top:104px;border-radius:var(--radius);
+    background:linear-gradient(140deg, #0d3520, #081a10 70%);
+    border:1px solid rgba(140,255,195,.14);
+    padding:44px 46px;position:relative;overflow:hidden;
+  }
+  .stats-panel .k{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.32em;color:var(--green2);text-transform:uppercase;margin:0 0 30px}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+  .stat .n{font-size:44px;font-weight:700;letter-spacing:-.03em;line-height:1}
+  .stat .n em{font-style:normal;color:var(--green)}
+  .stat .l{margin-top:9px;font-size:14.5px;color:#a9c2b0;line-height:1.4}
+
+  /* work */
+  .work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px}
+  .work-card{border:1px solid var(--line-soft);border-radius:20px;overflow:hidden;background:var(--panel);display:flex;flex-direction:column}
+  .work-vis{height:188px;position:relative;overflow:hidden}
+  .work-vis .mock{
+    position:absolute;inset:20px 20px -30px;border-radius:14px 14px 0 0;
+    background:rgba(6,12,9,.88);border:1px solid rgba(255,255,255,.12);padding:16px;
+  }
+  .mock .bar{height:8px;border-radius:4px;background:rgba(255,255,255,.14);margin-bottom:9px}
+  .mock .bar.g{background:rgba(47,227,138,.65);width:46%}
+  .mock .bar.s{width:64%}
+  .mock .row{display:flex;gap:8px;margin-top:12px}
+  .mock .cell{flex:1;height:38px;border-radius:9px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.07)}
+  .mock .cell.g{background:rgba(47,227,138,.16);border-color:rgba(47,227,138,.3)}
+  .vis-a{background:linear-gradient(140deg,#123f27,#08130c)}
+  .vis-b{background:linear-gradient(140deg,#3a2c07,#100c04)}
+  .vis-c{background:linear-gradient(140deg,#0d2c3f,#050f16)}
+  .work-body{padding:24px 24px 26px;display:flex;flex-direction:column;flex:1}
+  .work-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  .work-body h3{margin:0 0 9px;font-size:21px;font-weight:600;letter-spacing:-.015em}
+  .work-body p{margin:0;font-size:15px;line-height:1.55;color:var(--muted);flex:1}
+  .work-metrics{display:flex;gap:26px;margin-top:20px;padding-top:18px;border-top:1px solid var(--line-soft)}
+  .work-metrics .m b{display:block;font-size:19px;font-weight:700;letter-spacing:-.02em}
+  .work-metrics .m span{font-size:12.5px;color:var(--muted2)}
+
+  /* process */
+  .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:52px}
+  .step{border:1px solid var(--line-soft);border-radius:20px;padding:26px;background:rgba(255,255,255,.015)}
+  .step .num{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--green);letter-spacing:.2em;display:flex;align-items:center;gap:12px;margin:0 0 44px}
+  .step .num::after{content:"";flex:1;height:1px;background:var(--line-soft)}
+  .step h3{margin:0 0 10px;font-size:20px;font-weight:600}
+  .step p{margin:0;font-size:15px;line-height:1.55;color:var(--muted)}
+
+  /* cta + footer */
+  .cta{padding:120px 0 30px;text-align:center}
+  .cta .eyebrow{justify-content:center}
+  .cta .eyebrow::after{content:"";width:22px;height:2px;background:var(--green);border-radius:2px}
+  .cta h2{margin:0 auto;font-size:clamp(38px,5.4vw,60px);line-height:1.08;letter-spacing:-.028em;font-weight:700;max-width:760px}
+  .cta p{margin:20px auto 0;font-size:17.5px;line-height:1.55;color:var(--muted);max-width:520px}
+  .cta .btn{margin-top:36px;min-height:56px;padding:0 32px;font-size:16.5px}
+  footer.site-foot{border-top:1px solid var(--line-soft);margin-top:90px;padding:30px 0 40px}
+  .foot-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:space-between}
+  .foot-row .small{font-size:13.5px;color:var(--muted2)}
+  .foot-links{display:flex;gap:24px;flex-wrap:wrap}
+  .foot-links a{font-size:14px;color:#b9cabd;padding:8px 0;min-height:36px;display:inline-flex;align-items:center}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *{transition:none !important}
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 960px){
+    .hero-grid{grid-template-columns:1fr;gap:8px}
+    .hero-side{padding-top:26px;max-width:520px}
+    .live-card{margin-right:0}
+    .tools-grid{grid-template-columns:1fr}
+    .work-grid{grid-template-columns:1fr;max-width:560px}
+    .process-grid{grid-template-columns:1fr 1fr}
+    .stats-grid{grid-template-columns:1fr 1fr}
+    .why-row{grid-template-columns:52px 1fr}
+    .why-row p{grid-column:2}
+    .nav-links{display:none}
+    .nav .btn{display:none}
+    .menu-btn{display:grid;place-items:center}
+    .trust-names{justify-content:center;text-align:center}
+  }
+  @media (max-width: 560px){
+    .wrap{padding:0 18px}
+    .hero{padding:64px 0 60px}
+    h1{font-size:54px}
+    h1 .under::after{bottom:3px;height:7px}
+    .hero-cta .btn{flex:1 1 100%}
+    .process-grid{grid-template-columns:1fr}
+    .stats-panel{padding:32px 26px}
+    .glass-card .big{font-size:54px}
+    section.block{padding-top:76px}
+    .stats-panel{margin-top:76px}
+    .cta{padding-top:84px}
+  }
+
+/* =====================================================================
+   ToolBari theme — extension (part 2 of theme.css)
+   Part 1 above is Suraiya's demo CSS, verbatim, byte for byte — the
+   dark premium theme: same tokens, same components, same sizes.
+   This part adapts those same tokens to the live site's page types:
+   - body.hub     — the homepage (hash-routed hub, keeps its own CSS,
+                    remapped to these tokens; this part only restyles
+                    the header/footer and resolves demo collisions)
+   - body.content — Type A pages (guide/tool pages with a wrap div)
+   - body.tbpage  — Type B pages (doorway pages, body is the container)
+   Nothing here changes any page's content — only its look. A page's own
+   extra style blocks come after this block and only their colours were
+   remapped to these tokens.
+   Note on stacking: the demo bg-art is fixed at z-index 0, which paints
+   above non-positioned content, so each page type lifts its own
+   children to z-index 1 (fixed/sticky elements are excluded so their
+   positioning survives).
+   ===================================================================== */
+
+/* ---------- fonts: Outfit first, Hind Siliguri for Bangla ---------- */
+body.hub,body.content,body.tbpage{font-family:"Outfit","Hind Siliguri",system-ui,-apple-system,"Segoe UI",sans-serif}
+body.hub h1,body.hub h2,body.hub h3,body.content h1,body.content h2,body.content h3,body.tbpage h1,body.tbpage h2,body.tbpage h3{font-family:"Outfit","Hind Siliguri",system-ui,-apple-system,"Segoe UI",sans-serif}
+code,kbd{font-family:"JetBrains Mono",ui-monospace,monospace}
+
+/* ---------- shared content components (Type A pages) ---------- */
+.answer{background:linear-gradient(160deg,#0c1f13,#08160d);border:1px solid var(--line-soft);border-radius:20px;padding:18px 20px;font-size:17px;line-height:1.6;margin:16px 0}
+.byline{font-size:14px;color:var(--muted);margin:6px 0 0}
+.calc{background:linear-gradient(160deg,#0c1f13,#08160d);border:1px solid var(--line-soft);border-radius:20px;padding:20px;margin:16px 0}
+.calc label{display:block;font-weight:600;margin:12px 0 6px;font-size:14.5px}
+.calc input,.calc select,.calc textarea{width:100%;min-height:56px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font-size:16px;background:#070d0a;color:var(--text)}
+.calc input:focus,.calc select:focus,.calc textarea:focus{outline:none;border-color:rgba(47,227,138,.55);box-shadow:0 0 0 3px rgba(47,227,138,.18)}
+.calc button,.copy-btn{min-height:56px;padding:14px 20px;font-size:16px;font-weight:800;border:0;border-radius:999px;background:linear-gradient(180deg,#5cf2a6,#2fe38a);color:#04150b;cursor:pointer;width:100%;margin-top:14px;box-shadow:0 8px 24px rgba(47,227,138,.3)}
+.calc button.secondary,.clear-btn{background:rgba(255,255,255,.04);color:var(--green);border:1px solid rgba(47,227,138,.4);box-shadow:none}
+.calc .out{font-size:20px;font-weight:800;margin-top:16px}
+.calc .steps{font-size:15px;color:var(--muted);margin-top:8px;white-space:pre-line}
+.calc .msg{font-size:15px;margin-top:10px;color:var(--muted)}
+.warn{background:rgba(255,176,32,.07);border:1px solid rgba(255,176,32,.35);border-radius:20px;padding:16px 20px;margin:16px 0;font-size:15.5px;line-height:1.6}
+.faq{background:linear-gradient(160deg,#0c1f13,#08160d);border:1px solid var(--line-soft);border-radius:20px;padding:18px 20px;margin:12px 0}
+.faq h3{font-size:17.5px;margin-bottom:6px;letter-spacing:-.01em}
+.faq p{color:var(--muted);font-size:15.5px;line-height:1.6}
+.links{margin-top:20px}
+.links a{color:var(--green);font-weight:600}
+.note{font-size:14px;color:#9db0a4}
+.countdown{font-size:26px;font-weight:800;text-align:center;margin:8px 0}
+code{background:rgba(47,227,138,.12);color:#b7f5d3;padding:1px 6px;border-radius:6px;font-size:.9em}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:15px}
+th,td{border:1px solid var(--line-soft);padding:10px 12px;text-align:left}
+th{background:var(--panel2);color:var(--green);font-weight:700}
+ol,ul{margin:10px 0 10px 22px}
+li{margin:6px 0}
+li::marker{color:var(--green)}
+input[type="checkbox"]{width:22px;height:22px;accent-color:var(--green)}
+p a,li a,td a,h2 a,h3 a{color:var(--green)}
+.hide{display:none!important}
+
+/* ---------- Type A content pages ---------- */
+body.content .wrap{max-width:760px;padding:24px 16px 48px;position:relative;z-index:1}
+body.content .site-nav-wrap .wrap{padding:0}
+/* The demo's stacking rule (main,footer,header.site-nav-wrap) accidentally
+   overrides its own sticky nav — header.site-nav-wrap beats .site-nav-wrap
+   on specificity — leaving the nav relative + top:14px, which shifts it
+   14px down over the next element. Restore the demo's evident intent: a
+   sticky pill nav. */
+body.content .site-nav-wrap,body.tbpage .site-nav-wrap{position:sticky;top:14px;z-index:50}
+body.content section{padding:0}
+body.content h1{font-size:clamp(34px,4.6vw,48px);line-height:1.12;letter-spacing:-.035em;margin:18px 0 12px}
+body.content h2{font-size:24px;line-height:1.3;letter-spacing:-.02em;margin:28px 0 10px}
+body.content .cta{display:inline-block;background:linear-gradient(180deg,#5cf2a6,#2fe38a);color:#04150b;padding:12px 24px;border-radius:999px;font-weight:700;font-size:16px;text-align:center}
+body.content footer.site-foot{margin-top:40px}
+
+/* ---------- Type B doorway pages (body is the container) ---------- */
+body.tbpage{max-width:720px;margin:0 auto;padding:24px 16px}
+body.tbpage .site-nav-wrap .wrap{padding:0}
+/* the 720px Type B container is narrower than the demo's 1128px nav, so
+   tighten the nav gaps or "How it works" wraps and spills out of the pill */
+body.tbpage .site-nav-wrap .nav{gap:18px}
+body.tbpage .site-nav-wrap .nav-links{gap:20px}
+body.tbpage>*:not(.bg-art):not(.site-nav-wrap):not(.tb-mobile-bar):not(.tb-skip){position:relative;z-index:1}
+body.tbpage a{color:var(--green)}
+/* the demo nav keeps its own link colours (the rule above would dye it) */
+body.tbpage .site-nav-wrap a.brand{color:inherit}
+body.tbpage .site-nav-wrap .nav-links a{color:#c9d6cd}
+body.tbpage .site-nav-wrap a.btn-green{color:#04150b}
+body.tbpage .site-nav-wrap .mobile-menu a{color:#dfe9e1}
+body.tbpage h1{background:linear-gradient(140deg,#0d3520,#081a10)!important;color:var(--text)!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;border:1px solid rgba(47,227,138,.25);border-radius:16px;padding:20px 18px 20px 86px;position:relative;box-shadow:0 4px 18px rgba(0,0,0,.08);font-size:clamp(28px,5vw,38px);line-height:1.15;letter-spacing:-.02em}
+body.tbpage h1::before{content:"⬢";position:absolute;left:18px;top:50%;transform:translateY(-50%);font-size:52px;line-height:1;color:var(--green);opacity:.85}
+body.tbpage h2{font-size:24px;line-height:1.3;letter-spacing:-.02em;margin:28px 0 10px}
+body.tbpage p,body.tbpage ul,body.tbpage ol{background:var(--panel);border:1px solid var(--line-soft);border-radius:12px;padding:14px 16px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+body.tbpage p:has(a.btn),body.tbpage p:has(button.btn){background:transparent;box-shadow:none;padding:0;border:none}
+body.tbpage nav[aria-label="Breadcrumb"]{background:var(--panel);border:1px solid var(--line-soft);border-radius:999px;padding:8px 14px;box-shadow:0 2px 10px rgba(0,0,0,.05);display:inline-block}
+body.tbpage a.btn:not(.btn-green),body.tbpage button.btn{display:inline-block;background:linear-gradient(180deg,#5cf2a6,#2fe38a);color:#04150b;padding:12px 20px;border-radius:999px;text-decoration:none;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.15);border:0;cursor:pointer}
+body.tbpage a.btn:not(.btn-green):visited{color:#04150b}
+body.tbpage .tb-loading{border:1.5px solid var(--green);border-radius:10px;padding:10px 14px;margin:0 0 14px;background:rgba(47,227,138,.08);font-weight:700}
+body.tbpage .tb-toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+body.tbpage button.tb-tbtn{background:var(--panel);border:1.5px solid var(--green);color:var(--green);padding:10px 14px;min-height:44px;border-radius:10px;font-weight:700;cursor:pointer;font-size:15px}
+body.tbpage nav.tb-crumb{font-size:14px;margin:0 0 14px}
+body.tbpage .tb-example{border-left:4px solid var(--green);padding:10px 12px;background:rgba(47,227,138,.08);border-radius:0 10px 10px 0}
+body.tbpage .tb-note{border:1.5px solid var(--amber);border-radius:10px;padding:10px 12px;background:rgba(255,176,32,.08)}
+body.tbpage .tb-skip{position:absolute;left:-9999px;top:8px;background:var(--green);color:#04150b;padding:10px 14px;border-radius:8px;z-index:999}
+body.tbpage .tb-skip:focus{left:8px}
+body.tbpage.tb-fs-small{font-size:14px}
+body.tbpage.tb-fs-large{font-size:18px}
+/* The theme is dark-only, so the page's own dark-mode toggle is a visual
+   no-op by design: the tb-dark rules mirror the default dark look. */
+body.tbpage.tb-dark{background:var(--bg);color:var(--text)}
+body.tbpage.tb-dark a{color:var(--green2)}
+body.tbpage.tb-dark a.btn,body.tbpage.tb-dark button.tb-tbtn{background:linear-gradient(180deg,#5cf2a6,#2fe38a);color:#04150b;border-color:transparent}
+body.tbpage.tb-dark .tb-loading,body.tbpage.tb-dark .tb-example{background:rgba(47,227,138,.08);border-color:var(--green)}
+body.tbpage.tb-dark .tb-note{background:rgba(255,176,32,.08);border-color:var(--amber);color:var(--text)}
+body.tbpage .tb-page-footer{border-top:1px solid var(--line-soft);margin-top:40px;padding:24px 0 0}
+body.tbpage .tb-page-footer a{color:var(--green)}
+@media(max-width:600px){
+  body.tbpage{padding:16px 12px}
+  body.tbpage h1{padding:16px 14px 16px 68px;font-size:24px}
+  body.tbpage h1::before{font-size:40px;left:14px}
+  body.tbpage a.btn,body.tbpage button.btn{padding:16px 24px;font-size:18px;min-height:48px;width:100%;box-sizing:border-box}
+}
+
+/* ---------- hub (keeps its own remapped CSS; this resolves the
+   collisions with the demo rules and restyles header/footer) ---------- */
+body.hub>*:not(.bg-art):not(header.top):not(#tbPageLoading):not(#tbBottomNav):not(.toast){position:relative;z-index:1}
+body.hub h1{font-size:clamp(27px,5.4vw,44px);font-weight:800;letter-spacing:-.5px}
+body.hub .tool-head h1{font-size:clamp(23px,4.6vw,32px)}
+body.hub .hero{padding:34px 0 8px;text-align:center}
+body.hub section.block{padding:26px 0 4px}
+body.hub .sec-head h2{font-size:21px;font-weight:700}
+/* the sticky header (pill + utility row) is ~150px tall; keep anchor
+   targets from sliding under it */
+body.hub #allBlock,body.hub #tbCatBar,body.hub #how{scroll-margin-top:180px}
+body.hub .chip{font-family:inherit;font-size:13.5px;letter-spacing:0;padding:5px 13px;font-weight:600}
+/* header: the hub keeps its own header element and menu button (the demo
+   nav is NOT added — the hub already has the same menu ids); the header
+   bar itself becomes the theme's pill. */
+body.hub header.top{background:transparent!important;border-bottom:0!important;top:14px}
+body.hub .top-in{display:flex;align-items:center;gap:14px;padding:6px 8px 6px 20px;background:rgba(13,22,17,.72);border:1px solid var(--line);border-radius:999px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 18px 40px rgba(0,0,0,.35)}
+body.hub .m-menu{background:rgba(13,22,17,.94);border:1px solid var(--line);border-radius:20px}
+/* hub buttons: demo-green gradient with dark text (warn buttons keep
+   their amber look; hover keeps the hub's amber hover). */
+body.hub .btn:not(.warn),body.hub .btn:not(.warn):link{background:linear-gradient(180deg,var(--green2),var(--green))!important;color:#04150b!important;border-color:transparent!important}
+body.hub .btn:not(.warn):hover{background:var(--amber)!important;color:#04150b!important;border-color:var(--amber)!important}
+body.hub footer{background:transparent!important;border-top:1px solid var(--line-soft)}
+
+/* =====================================================================
+   ToolBari theme — part 3: working theme toggle + light mode
+   CANONICAL, 2026-11-22 (sitewide pack, owner order). The toggle that
+   Batch 0 removed by mistake is restored here as a WORKING toggle on
+   every page: a button in the pill nav switches the whole page between
+   the dark theme (part 1 + part 2, unchanged) and light mode (below).
+   Light mode = ToolBari's previous light theme styling (pastel glass,
+   light backgrounds, dark text), taken from the pre-theme hub's tokens:
+   --bg #f4f6f4, --surface #ffffff, --surface2 #eef2ee, --ink #14231b,
+   --ink2 #4b5a51, --brand #0b7a4b, --brand-d #065c38.
+   The remap in transform_tb.py converts old light colours to these
+   tokens, so remapped page CSS reproduces the old light look in light
+   mode by construction. Every token pair below passes WCAG 4.5:1
+   (verified 2026-11-22; see BRIEF §2).
+   The toggle stores '1' (dark) | '0' (light) in localStorage key
+   'tb_dark' and sets data-tb-theme="light" on <html> BEFORE paint
+   (see the head script in transform_tb.py). Canonicalized 2026-11-23
+   per Suraiya's fix pack (BRIEF §7.10): the pre-fix toggle design
+   is dead. Never fork this part: it changes once, centrally.
+   ===================================================================== */
+
+/* ---------- theme toggle button (canonical tb_dark; rules verbatim from live push/theme.css) ---------- */
+.tb-theme-toggle{
+  display:inline-flex;align-items:center;gap:8px;flex:none;
+  min-height:46px;padding:0 18px;border-radius:999px;
+  border:1px solid var(--line);background:rgba(255,255,255,.04);color:#eef4ef;
+  font-weight:600;font-size:14.5px;font-family:inherit;cursor:pointer;white-space:nowrap;
+}
+.tb-theme-toggle:hover{background:rgba(255,255,255,.08)}
+html[data-tb-theme="light"] .tb-theme-toggle{background:rgba(20,35,27,.05);color:#14231b;border-color:#dbe3dc}
+html[data-tb-theme="light"] .tb-theme-toggle:hover{background:rgba(20,35,27,.09)}
+@media(max-width:560px){
+  .tb-theme-toggle{padding:0 12px}
+  .tb-theme-toggle .tb-lbl{display:none}
+}
+
+/* ---------- footer Contact line (both modes; pack rule 10) ---------- */
+footer .tb-contact-line{font-size:14px;color:var(--muted);margin:12px 0 0}
+footer .tb-contact-line a{font-weight:600}
+footer .tb-contact-line .tb-wa{color:#25d366}
+footer .tb-contact-line .tb-tg{color:#229ed9}
+html[data-tb-theme="light"] footer .tb-contact-line .tb-wa{color:#0d7a3f}
+html[data-tb-theme="light"] footer .tb-contact-line .tb-tg{color:#0d7ab8}
+
+/* ---------- light-mode tokens ---------- */
+:root{--accent-soft:#2c2410}
+html[data-tb-theme="light"]{
+  --bg:#f4f6f4;
+  --bg2:#eef2ee;
+  --panel:#ffffff;
+  --panel2:#eef2ee;
+  --line:rgba(20,35,27,.14);
+  --line-soft:rgba(20,35,27,.08);
+  --text:#14231b;
+  --muted:#4b5a51;
+  --muted2:#5d7065;
+  --green:#0b7a4b;
+  --green2:#065c38;
+  --amber:#8a5c00;
+  --accent-soft:#fdf3d7;
+  color-scheme:light;
+}
+
+/* ---------- light mode: keep bright-green gradients readable ----------
+   --green/--green2 go dark in light mode (they are text colours), so
+   the two places that use them as button backgrounds get the bright
+   gradient back literally. */
+html[data-tb-theme="light"] .btn-green{background:linear-gradient(180deg,#5cf2a6,#2fe38a)}
+html[data-tb-theme="light"] body.tbpage .tb-skip{background:#2fe38a}
+html[data-tb-theme="light"] .brand-mark::after{background:#2fe38a}
+
+/* ---------- light mode: nav ---------- */
+html[data-tb-theme="light"] .nav{background:rgba(255,255,255,.85);box-shadow:0 18px 40px rgba(10,40,25,.12)}
+html[data-tb-theme="light"] .nav-links a{color:#3d4f44}
+html[data-tb-theme="light"] .nav-links a:hover{color:#14231b}
+html[data-tb-theme="light"] .menu-btn{background:rgba(20,35,27,.05);color:#14231b}
+html[data-tb-theme="light"] .mobile-menu{background:rgba(255,255,255,.96)}
+html[data-tb-theme="light"] .mobile-menu a{color:#14231b}
+html[data-tb-theme="light"] .mobile-menu a:hover{background:rgba(20,35,27,.05)}
+html[data-tb-theme="light"] .btn-ghost{background:rgba(20,35,27,.05);color:#14231b}
+html[data-tb-theme="light"] .btn-ghost:hover{background:rgba(20,35,27,.09)}
+html[data-tb-theme="light"] body.tbpage .site-nav-wrap .nav-links a{color:#3d4f44}
+html[data-tb-theme="light"] body.tbpage .site-nav-wrap .mobile-menu a{color:#14231b}
+
+/* ---------- light mode: hero + cards (demo components) ---------- */
+html[data-tb-theme="light"] .glass-card{background:linear-gradient(150deg,#ffffff,#f0f7f2);border-color:rgba(11,122,75,.18);box-shadow:0 30px 60px rgba(10,40,25,.12), inset 0 1px 0 rgba(255,255,255,.9)}
+html[data-tb-theme="light"] .glass-card .sub{color:#4b5a51}
+html[data-tb-theme="light"] .live-card{background:rgba(255,255,255,.9);box-shadow:0 24px 50px rgba(10,40,25,.12)}
+html[data-tb-theme="light"] .chip{color:#3d4f44;background:rgba(20,35,27,.04)}
+html[data-tb-theme="light"] .trust-names span{color:#3d4f44}
+html[data-tb-theme="light"] .plat{color:#3d4f44;background:rgba(20,35,27,.03)}
+html[data-tb-theme="light"] .tool-search input{background:rgba(20,35,27,.03);color:#14231b}
+html[data-tb-theme="light"] .tool-card .explore{color:#14231b}
+html[data-tb-theme="light"] .full-link{background:rgba(20,35,27,.03)}
+html[data-tb-theme="light"] .stats-panel{background:linear-gradient(140deg,#e8f5ec,#dff0e4);border-color:rgba(11,122,75,.2)}
+html[data-tb-theme="light"] .stat .l{color:#4b5a51}
+html[data-tb-theme="light"] .step{background:rgba(20,35,27,.02)}
+html[data-tb-theme="light"] .foot-links a{color:#3d4f44}
+
+/* ---------- light mode: content components (extension) ---------- */
+html[data-tb-theme="light"] .answer,html[data-tb-theme="light"] .calc,html[data-tb-theme="light"] .faq{background:linear-gradient(160deg,#ffffff,#f0f7f2)}
+html[data-tb-theme="light"] .calc input,html[data-tb-theme="light"] .calc select,html[data-tb-theme="light"] .calc textarea{background:#ffffff;color:#14231b}
+html[data-tb-theme="light"] .calc button.secondary,html[data-tb-theme="light"] .clear-btn{background:rgba(11,122,75,.08);color:#0b7a4b}
+/* Batch 4 (2026-11-23): the theme's .calc button is the BRIGHT gradient
+   in both modes, so its text stays #04150b in light mode too. Without
+   this pin the transform's Defect 1 light-mode override
+   (html[data-tb-theme="light"] button{color:#fff}, 0,1,2) beats the
+   theme rule (0,1,1) and puts white text on the bright gradient
+   (1.43:1 — 58 FAILs in the Batch 4 audit). Pages with their own
+   .calc button rule carry their own light override at the same
+   specificity later in the file, so they are unaffected; .secondary
+   keeps its own rule (0,3,2) above. */
+html[data-tb-theme="light"] .calc button{color:#04150b}
+html[data-tb-theme="light"] .note{color:#4b5a51}
+html[data-tb-theme="light"] code{background:rgba(11,122,75,.1);color:#065c38}
+html[data-tb-theme="light"] body.tbpage h1{background:linear-gradient(140deg,#e8f5ec,#dff0e4)!important;border-color:rgba(11,122,75,.25)}
+
+/* ---------- v2 contrast fix (appended AFTER Part 3; Part 3 above is
+   verbatim — this appendix only overrides one value that fails WCAG) ---------- */
+/* Part 3's light-mode Telegram blue #0d7ab8 is 4.3:1 on the light footer
+   background (#f4f6f4) — below the §4b WCAG 4.5:1 floor (audit 2026-11-22).
+   Same specificity as the Part 3 rule, later in source order, so this
+   wins in light mode only. #0c74ad is 4.7:1 on #f4f6f4. Dark mode keeps
+   Part 3's #229ed9 (6.7:1 on the dark footer). */
+html[data-tb-theme="light"] footer .tb-contact-line .tb-tg{color:#0c74ad}
+
+/* ---------- Batch 2 overflow fix (appended 2026-11-22) ---------- */
+/* The b1 doorway "Open <Tool> in ToolBari" CTA link (a.btn inside a <p>,
+   href="#/tool/<slug>") has long text; the base .btn white-space:nowrap
+   (demo CSS, line 72 — verbatim, cannot edit) makes it overflow the
+   390px viewport on long tool names (up to +88px: random-picker 466px
+   of text in a 366px paragraph; password-strength +65px,
+   profit-margin-calculator +35px, percentage-calculator +17px).
+   The live originals do NOT overflow. Let content CTA buttons wrap;
+   nav/hero/share buttons are not <a class="btn"> inside a <p> and are
+   unaffected. Specificity (0,2,3) beats base .btn (0,1,0); the
+   max-width:600px width:100% rule (line 399) still applies, so the
+   button stays full-width with wrapped, centred text. */
+body.tbpage p a.btn{white-space:normal;text-align:center}
+
+/* ---------- Generic <pre> rule (appended 2026-11-23) ---------- */
+/* Batch 2's audit found json-formatter overflowing +175px at 390px: its
+   own `pre{...overflow:auto}` rule lived in its single merged <style>
+   block, which the transform replaces wholesale with theme.css (only
+   EXTRA blocks are remapped) — the rule was dropped and the long JSON
+   line had no overflow clipping. theme.css had no `pre` rule at all.
+   This generic rule (the remapped json-formatter rule, verbatim) gives
+   every <pre> overflow clipping + theme-token colours that read in both
+   modes. A page's own surviving `pre` rule (extra block, later in
+   source order) still wins on conflicting properties. 30 pages with
+   <pre> remain in Batches 4-10; 11 of them have no pre rule of their
+   own. Batch 2's json-formatter keeps its batch-local patch (identical
+   rule, page-level). */
+pre{background:var(--bg);color:var(--text);border-radius:10px;padding:13px;overflow:auto;font-size:13.5px;line-height:1.5}
+
+/* ---------- Row-button fix (appended 2026-11-23) ---------- */
+/* Batch 5's audit found 5 maker pages overflowing at 390px (hash-generator
+   +99px, receipt-maker +78px, salary-slip-maker +39px, price-list-maker
+   +78px, menu-maker +115px, both modes): the theme's `.calc button{width:100%}`
+   makes a Copy button inside a flex row (.hashrow/.item-row) 100% of the
+   row wide, and the row's own `flex:0 0 auto` means it cannot shrink —
+   measured: a 316px button in a 316px row. The live originals do NOT
+   overflow (their buttons are natural-width: 68px / 96px). Neutralise the
+   width on row buttons only; the main full-width buttons are unaffected.
+   The item-row margin restores the live `.calc button` margin (the theme's
+   14px top margin would drop the button in the row; hashrow keeps its own
+   margin:0). No other batch has the pattern (B1-B4/B6 grepped clean). */
+.calc .hashrow button,.calc .item-row button{width:auto}
+.calc .item-row button{margin:8px 6px 0 0}
+</style>
+<style>
+.arabic{direction:rtl;text-align:center;font-family:'Amiri','Noto Naskh Arabic',serif;font-size:34px;line-height:1.9;color:var(--text);margin:18px 0}
+</style>
+</head>
+<body class="content">
+
+<div class="bg-art" aria-hidden="true">
+  <div class="bg-line"></div>
+  <div class="bg-line thin"></div>
+  <div class="bg-dots"></div>
+</div>
+
+<header class="site-nav-wrap">
+  <div class="wrap">
+    <nav class="nav" aria-label="ToolBari">
+      <a class="brand" href="../"><span class="brand-mark" aria-hidden="true"></span>toolbari</a>
+      <div class="nav-links">
+        <a href="../#allBlock">Tools</a>
+        <a href="../#tbCatBar">Categories</a>
+        <a href="../#/tool/games">Games</a>
+        <a href="../#how">How it works</a>
+      </div>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+      <button type="button" class="tb-theme-toggle" id="tbDarkBtn" aria-label="Switch colour mode"><span class="tb-ico" aria-hidden="true">☀</span><span class="tb-lbl"> Light mode</span></button>
+      <a class="btn btn-green" href="../#allBlock">Browse tools</a>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="../#allBlock">Tools</a>
+      <a href="../#tbCatBar">Categories</a>
+      <a href="../#/tool/games">Games</a>
+      <a href="../#how">How it works</a>
+      <a href="../#allBlock">Browse tools →</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<h1>Alhamdulillah — All Praise Is for Allah</h1>
+<p class="answer">Alhamdulillah means "All praise is for Allah" — every good thing, every blessing, every breath, belongs to Him, and the praise for it belongs to Him too. Say it 33 times after every prayer, and after eating and drinking: "Alhamdulillah fills the Scale" (Sahih Muslim 223).</p>
+<h2>What Alhamdulillah means</h2>
+<p>Alhamdulillah is hamd: praise. The word covers every kind of praise at once — praise for who Allah is, and praise for what He has given. When a Muslim says Alhamdulillah, he is saying that all praise belongs to Allah: not some of it, not the praise for the big things, but all of it. The food on the table, the health in the body, the roof overhead, the breath just taken — all of it is from Allah, and the praise for all of it goes back to Him.</p>
+<p>That is what makes Alhamdulillah different from a simple thank-you. A thank-you is for something received. Alhamdulillah is for something received and for the Giver Himself. Allah is praised because He is worthy of praise, whether a particular blessing has just arrived or not. A Muslim says it in good times and in hard times, because the One being praised does not change when circumstances change. The praise is not a reaction to the day; it is a statement about Allah.</p>
+<p>Alhamdulillah is also one of the four most beloved words to Allah, along with SubhanAllah, La ilaha illallah and Allahu Akbar (Sahih Muslim 2137). Four short phrases, and they are the dearest speech to Allah. That ranking matters for a beginner: it means the simplest dhikr is also the most beloved. You do not need long formulas or difficult words to say what Allah loves most. You need four phrases, said often, said with the heart present.</p>
+<p>The four phrases work together. SubhanAllah declares Allah perfect; Alhamdulillah praises Him; La ilaha illallah declares Him alone worthy of worship; Allahu Akbar declares Him greater than everything. A Muslim who keeps these four on his tongue through the day has covered the heart of the faith in a handful of words. This guide is about the second of the four — but the other three have their own guides on this hub, and the after-salah routine joins three of them together.</p>
+<h2>Arabic, transliteration and meaning</h2>
+<p class="arabic" dir="rtl" lang="ar">الْحَمْدُ لِلَّهِ</p>
+<p><strong>Transliteration:</strong> Alhamdulillah. <strong>Meaning:</strong> "All praise is for Allah."</p>
+<p>Say it slowly at first: al-ham-du-lil-lah. The first part, "al-hamd", is the praise — all of it, every kind; the second part names Allah as the One the praise belongs to. The phrase is short enough to say in a single breath, which is part of its design: it is meant to be repeated, and repetition is easier when the words are light on the tongue.</p>
+<p>If you are learning the Arabic, read the phrase from the page above and listen to a trusted reciter saying it. The harakat — the small vowel marks above and below the letters — are shown on the Arabic here so the pronunciation is clear. Take a day or two to get the sound right, then build the habit. A correct phrase said slowly is better than a rushed phrase said wrong.</p>
+<h2>How many times, and when</h2>
+<p>The fixed number for Alhamdulillah is thirty-three after every prayer. After every prayer, say SubhanAllah thirty-three times, then Alhamdulillah thirty-three times, then Allahu Akbar thirty-three times, and complete the hundred with the words of tawhid (Sahih Muslim 597). That is the after-salah routine, and it takes about two minutes. Five prayers a day means one hundred and sixty-five Alhamdulillah a day from this routine alone — before you have added anything else.</p>
+<p>Beyond the after-salah count, Alhamdulillah is the Sunnah after eating and drinking. The meal ends, the cup is put down, and the tongue says Alhamdulillah — the blessing is named and its Giver is praised before the moment passes. It is a small act, and it is easy to forget, but it is the habit that turns eating from a routine into an act of worship. Three meals a day, plus drinks between them, add up to many Alhamdulillah a week from this Sunnah alone.</p>
+<p>Beyond the fixed numbers, Alhamdulillah has no limit. It is said on waking, on hearing good news, when something goes right, when something goes wrong and could have been worse, and whenever the heart turns to Allah. There is no wrong time for it and no wrong place, and it can be said sitting, standing or walking, with or without wudu. The fixed numbers give the day a backbone; the free repetitions fill the rest of the day.</p>
+<p>If you are starting from nothing, start with the after-salah thirty-three. Tie the new habit to a habit you already have — prayer — and let it grow from there. After a week or two of keeping the thirty-three after every prayer, add the after-eating Alhamdulillah: one phrase, said with meaning, at the end of every meal. Small numbers kept every day beat big numbers kept once.</p>
+<h2>The reward</h2>
+<p>The reward for Alhamdulillah is stated in a single powerful sentence: "Alhamdulillah fills the Scale" (Sahih Muslim 223). The Scale is the balance on which deeds are weighed on the Day of Judgment, and one short phrase — five syllables, one breath — fills it. It is worth stopping on that image. A word you can say in two seconds carries that much weight. The exchange is so generous that it is easy to read past it — but it is the point of the whole practice. Allah rewards a small, sincere act far beyond what the act itself seems worth.</p>
+<p>The reward is not only for the Scale. Alhamdulillah is one of the four most beloved words to Allah (Sahih Muslim 2137), and beloved speech is rewarded as beloved speech is. A Muslim who says it often is saying, many times a day, the words Allah loves most. That is a different kind of reward from the weighed deeds: it is the reward of being occupied with what Allah loves, instead of being occupied with what earns nothing.</p>
+<p>There is a third reward, quieter than the first two, and it is the one people notice first in their own lives: the heart changes. A tongue that keeps saying Alhamdulillah through the day keeps the heart grateful through the day. Gratitude is a habit before it is a feeling, and the phrase is the habit. A person who says Alhamdulillah after every meal starts to notice the meal. A person who says it after every prayer starts to notice the prayer. The phrase trains the eye to see blessings instead of passing them by — and that is the rest the Quran promises: "Verily, in the remembrance of Allah do hearts find rest" (Quran 13:28). The weighed reward is for the Hereafter; the rest is for today.</p>
+<p>None of this makes Alhamdulillah a magic formula. The reward is tied to the saying, but the saying is meant to be said with the heart present — knowing who Allah is, and meaning the words. A hundred said while thinking about the words is worth more than a hundred said while thinking about lunch. The numbers are a target, not a trick: they exist so the tongue has something to aim at while the heart learns to be present.</p>
+<h2>How to count</h2>
+<p>Count on the fingers of your right hand (Abu Dawud 1502). The simplest method is to press each fingertip in turn with your thumb: three joints on each of four fingers gives twelve, and three rounds gives thirty-six — so thirty-three is just under three full rounds. With a little practice the hands learn the count and the tongue is free to think about the words.</p>
+<p>Prayer beads are allowed, and many people find them helpful for a long count. But the fingers are better: they are always with you, they cost nothing, and they keep the counting quiet and private. The Tasbih Counter tool is a third option for people who like a visible target on a screen. Whichever you use, the rule is the same — count to stay present, not to race. A slow thirty-three said with the heart is worth more than a hurried hundred said on autopilot.</p>
+<p>Two practical tips help the count stay honest. First, say the full phrase every time — Alhamdulillah, not a shortened mumble. The tongue speeds up on its own after a few repetitions, and the phrase shrinks without you noticing. Second, keep the same counting method every day. A method that changes daily is a method that gets abandoned; a method that stays the same becomes a habit, and a habit is what carries you through the days when you do not feel like it.</p>
+<h2>Common mistakes</h2>
+<p>The most common mistake is rushing. The tongue learns the phrase quickly, and after a few days it can run through thirty-three in under a minute — but speed is not the goal. If you finish and cannot remember saying it, you went too fast. Slow down until each repetition is a real word, said on purpose. The routine takes two minutes at a calm pace; there is no prize for finishing in one.</p>
+<p>The second mistake is counting on the left hand. The Sunnah way is the fingers of the right hand (Abu Dawud 1502). It is a small detail, and it is easy to get right once you know it: the right hand counts, the left hand rests. If you use beads, hold them in the right hand too.</p>
+<p>The third mistake is saying Alhamdulillah only when things go well. The phrase is praise for Allah, not a report on the day — and Allah is worthy of praise in hard times too. The Muslim who says Alhamdulillah only in good times has made the praise depend on the weather. The habit is to say it after every prayer and every meal, whatever the day has brought, and to let the praise shape the mood instead of waiting for the mood to shape the praise.</p>
+<p>The fourth mistake is stopping after a few days because the habit feels small. A small habit is the point. Thirty-three after each prayer, kept for a year, is more than sixty thousand Alhamdulillah — and it took two minutes a day. The people who keep dhikr for life are not the people who started with the biggest numbers; they are the people who started with a small number and never stopped.</p>
+<h2>Frequently asked questions</h2>
+<div class="faq"><h3>What does Alhamdulillah mean?</h3><p>Alhamdulillah means All praise is for Allah. It says that every blessing is from Allah and all praise for it belongs to Him.</p></div>
+<div class="faq"><h3>How many times should I say Alhamdulillah after prayer?</h3><p>Thirty-three times after every prayer, between 33 SubhanAllah and 33 Allahu Akbar, completing one hundred with the words of tawhid (Sahih Muslim 597).</p></div>
+<div class="faq"><h3>What is the reward for saying Alhamdulillah?</h3><p>Alhamdulillah fills the Scale on which deeds are weighed (Sahih Muslim 223). It is also one of the four most beloved words to Allah (Sahih Muslim 2137).</p></div>
+<div class="faq"><h3>Should I say Alhamdulillah after eating?</h3><p>Yes. Saying Alhamdulillah after eating and drinking is the Sunnah — the blessing is named and its Giver is praised before the moment passes.</p></div>
+<div class="faq"><h3>How do I count Alhamdulillah?</h3><p>Count on the fingers of your right hand (Abu Dawud 1502). Prayer beads are allowed and the Tasbih Counter tool works too, but the fingers are better.</p></div>
+<div class="faq"><h3>Can I say Alhamdulillah without wudu?</h3><p>Yes. Dhikr can be said in any state, with or without wudu, sitting, standing or walking, at any time of day.</p></div>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What does Alhamdulillah mean?", "acceptedAnswer": {"@type": "Answer", "text": "Alhamdulillah means All praise is for Allah. It says that every blessing is from Allah and all praise for it belongs to Him."}},
+    {"@type": "Question", "name": "How many times should I say Alhamdulillah after prayer?", "acceptedAnswer": {"@type": "Answer", "text": "Thirty-three times after every prayer, between 33 SubhanAllah and 33 Allahu Akbar, completing one hundred with the words of tawhid (Sahih Muslim 597)."}},
+    {"@type": "Question", "name": "What is the reward for saying Alhamdulillah?", "acceptedAnswer": {"@type": "Answer", "text": "Alhamdulillah fills the Scale on which deeds are weighed (Sahih Muslim 223). It is also one of the four most beloved words to Allah (Sahih Muslim 2137)."}},
+    {"@type": "Question", "name": "Should I say Alhamdulillah after eating?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Saying Alhamdulillah after eating and drinking is the Sunnah — the blessing is named and its Giver is praised before the moment passes."}},
+    {"@type": "Question", "name": "How do I count Alhamdulillah?", "acceptedAnswer": {"@type": "Answer", "text": "Count on the fingers of your right hand (Abu Dawud 1502). Prayer beads are allowed and the Tasbih Counter tool works too, but the fingers are better."}},
+    {"@type": "Question", "name": "Can I say Alhamdulillah without wudu?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Dhikr can be said in any state, with or without wudu, sitting, standing or walking, at any time of day."}}
+  ]
+}
+</script>
+<div class="links">
+<p>More dhikr: <a href="https://toolbari.github.io/tasbih/">Tasbih Hub</a> · <a href="https://toolbari.github.io/tools/tasbih-counter.html">Tasbih Counter</a> · <a href="https://toolbari.github.io/tools/subhanallah.html">SubhanAllah</a> · <a href="https://toolbari.github.io/tools/allahu-akbar.html">Allahu Akbar</a> · <a href="https://toolbari.github.io/tools/la-ilaha-illallah.html">La ilaha illallah</a> · <a href="https://toolbari.github.io/tools/astaghfirullah.html">Astaghfirullah</a> · <a href="https://toolbari.github.io/tools/subhanallahi-wa-bihamdihi.html">SubhanAllahi wa bihamdihi</a> · <a href="https://toolbari.github.io/tools/la-hawla-wa-la-quwwata-illa-billah.html">La hawla wa la quwwata illa billah</a> · <a href="https://toolbari.github.io/tools/tasbih-after-salah.html">Tasbih after salah</a></p>
+</div>
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-row">
+      <a class="brand" href="../"><span class="brand-mark" aria-hidden="true"></span>toolbari</a>
+      <span class="small">© ToolBari — <a href="https://toolbari.github.io/">toolbari.github.io</a></span>
+    </div>
+      <div class="tb-contact-line">Contact: <a class="tb-wa" href="https://wa.me/8801677161678" target="_blank" rel="noopener">WhatsApp</a> · <a class="tb-tg" href="https://t.me/+FfnlCZPeZLAwZTI1" target="_blank" rel="noopener">Telegram</a></div>
+  </div>
+</footer>
+</div>
+<script>
+  // Mobile menu
+  var menuBtn = document.getElementById('menuBtn');
+  var mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', function () {
+    var open = mobileMenu.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  mobileMenu.addEventListener('click', function (e) {
+    if (e.target.tagName === 'A') mobileMenu.classList.remove('open');
+  });
+// Theme toggle: dark (default) / light — persists as tb_dark ('1' dark, '0' light)
+var tbDarkBtn=document.getElementById('tbDarkBtn');
+function tbSyncTheme(){if(!tbDarkBtn){return;}var _l=document.documentElement.getAttribute('data-tb-theme')==='light';tbDarkBtn.innerHTML=_l?'<span class="tb-ico" aria-hidden="true">\u263e</span><span class="tb-lbl"> Dark mode</span>':'<span class="tb-ico" aria-hidden="true">\u2600</span><span class="tb-lbl"> Light mode</span>';var _m=document.querySelector('meta[name="color-scheme"]');if(_m){_m.setAttribute('content',_l?'light':'dark');}}
+if(tbDarkBtn){tbDarkBtn.addEventListener('click',function(){var _l=document.documentElement.getAttribute('data-tb-theme')==='light';if(_l){document.documentElement.removeAttribute('data-tb-theme');}else{document.documentElement.setAttribute('data-tb-theme','light');}try{localStorage.setItem('tb_dark',_l?'1':'0');}catch(e){}tbSyncTheme();});}
+tbSyncTheme();
+</script>
+</body>
+</html>
